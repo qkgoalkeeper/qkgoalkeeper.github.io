@@ -5,8 +5,8 @@
     <link>https://qkgoalkeeper.github.io/tags/math/</link>
     <description>Recent content in math on Beautiful Hugo</description>
     <generator>Hugo -- gohugo.io</generator>
-    <managingEditor>youremail@domain.com (Some Person)</managingEditor>
-    <webMaster>youremail@domain.com (Some Person)</webMaster>
+    <managingEditor>youremail@domain.com (Kun Qian)</managingEditor>
+    <webMaster>youremail@domain.com (Kun Qian)</webMaster>
     <lastBuildDate>Sun, 05 Mar 2017 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="https://qkgoalkeeper.github.io/tags/math/index.xml" rel="self" type="application/rss+xml" />
@@ -16,7 +16,7 @@
       <title>Math Sample</title>
       <link>https://qkgoalkeeper.github.io/post/2017-03-05-math-sample/</link>
       <pubDate>Sun, 05 Mar 2017 00:00:00 +0000</pubDate>
-      <author>youremail@domain.com (Some Person)</author>
+      <author>youremail@domain.com (Kun Qian)</author>
       <guid>https://qkgoalkeeper.github.io/post/2017-03-05-math-sample/</guid>
       <description>&lt;p&gt;KaTeX can be used to generate complex math formulas server-side.&lt;/p&gt;
 &lt;p&gt;$$

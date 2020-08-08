@@ -5,8 +5,8 @@
     <link>https://qkgoalkeeper.github.io/tags/markdown/</link>
     <description>Recent content in markdown on Beautiful Hugo</description>
     <generator>Hugo -- gohugo.io</generator>
-    <managingEditor>youremail@domain.com (Some Person)</managingEditor>
-    <webMaster>youremail@domain.com (Some Person)</webMaster>
+    <managingEditor>youremail@domain.com (Kun Qian)</managingEditor>
+    <webMaster>youremail@domain.com (Kun Qian)</webMaster>
     <lastBuildDate>Fri, 20 Feb 2015 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="https://qkgoalkeeper.github.io/tags/markdown/index.xml" rel="self" type="application/rss+xml" />
@@ -16,7 +16,7 @@
       <title>Test markdown</title>
       <link>https://qkgoalkeeper.github.io/post/2015-02-20-test-markdown/</link>
       <pubDate>Fri, 20 Feb 2015 00:00:00 +0000</pubDate>
-      <author>youremail@domain.com (Some Person)</author>
+      <author>youremail@domain.com (Kun Qian)</author>
       <guid>https://qkgoalkeeper.github.io/post/2015-02-20-test-markdown/</guid>
       <description>You can write regular markdown here and Hugo will automatically convert it to a nice webpage. I strongly encourage you to take 5 minutes to learn how to write in markdown - it&amp;rsquo;ll teach you how to transform regular text into bold/italics/headings/tables/etc.
 Here is some bold text
