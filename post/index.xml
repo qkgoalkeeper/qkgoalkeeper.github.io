@@ -7,17 +7,46 @@
     <generator>Hugo -- gohugo.io</generator>
     <managingEditor>qiankunhm@163.com (Kun Qian)</managingEditor>
     <webMaster>qiankunhm@163.com (Kun Qian)</webMaster>
-    <lastBuildDate>Sat, 08 Aug 2020 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Tue, 11 Aug 2020 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="https://qkgoalkeeper.github.io/post/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
-      <title>LeetCode简单题：1.两数之和</title>
-      <link>https://qkgoalkeeper.github.io/post/2020-08-08-leetcode%E7%AE%80%E5%8D%95%E9%A2%981.%E4%B8%A4%E6%95%B0%E4%B9%8B%E5%92%8C/</link>
+      <title>LeetCode简单题：7.整数反转 （Python,C&#43;&#43;,Java）</title>
+      <link>https://qkgoalkeeper.github.io/post/leetcode%E7%AE%80%E5%8D%95%E9%A2%987.%E6%95%B4%E6%95%B0%E5%8F%8D%E8%BD%AC-pythonc&#43;&#43;java/</link>
+      <pubDate>Tue, 11 Aug 2020 00:00:00 +0000</pubDate>
+      <author>qiankunhm@163.com (Kun Qian)</author>
+      <guid>https://qkgoalkeeper.github.io/post/leetcode%E7%AE%80%E5%8D%95%E9%A2%987.%E6%95%B4%E6%95%B0%E5%8F%8D%E8%BD%AC-pythonc&#43;&#43;java/</guid>
+      <description>一.解法 https://leetcode-cn.com/problems/reverse-integer/
+要点：int溢出的规避
+int 范围在$-2^{31}$到$2^{31}-1$之间
+java和c++中用数学方法规避溢出
+Python中则要分正负讨论，可以直接判断
+二.Python实现 class Solution: def reverse(self, x: int) -&amp;gt; int: ans = 0 flag = 1 if x &amp;lt;0: x = -x; flag = -flag while x != 0: pop = x % 10 ans = ans*10 + pop x //= 10 return ans*flag if -2**31 &amp;lt;ans*flag &amp;lt;2**31-1 else 0 三.C++实现 class Solution { public: int reverse(int x) { int ans = 0; while (x !</description>
+    </item>
+    
+    <item>
+      <title>LeetCode简单题：9.回文数（Python,C&#43;&#43;,Java）</title>
+      <link>https://qkgoalkeeper.github.io/post/leetcode%E7%AE%80%E5%8D%95%E9%A2%989.-%E5%9B%9E%E6%96%87%E6%95%B0pythonc&#43;&#43;java/</link>
+      <pubDate>Tue, 11 Aug 2020 00:00:00 +0000</pubDate>
+      <author>qiankunhm@163.com (Kun Qian)</author>
+      <guid>https://qkgoalkeeper.github.io/post/leetcode%E7%AE%80%E5%8D%95%E9%A2%989.-%E5%9B%9E%E6%96%87%E6%95%B0pythonc&#43;&#43;java/</guid>
+      <description>一.解法 https://leetcode-cn.com/problems/palindrome-number/
+要点：字符串比较；数字比较
+x&amp;lt;0直接pass，末尾是0直接pass
+python可以用str(x)[::-1]直接反转字符串比较
+C++中用了vector储存每位数然后循环比较
+java用了计算一半反转数的方法，不会溢出
+二.Python实现 class Solution: def isPalindrome(self, x: int) -&amp;gt; bool: if x&amp;lt;0: return False y=str(x)[::-1] if x==(int(y)): return True else: return False 三.C++实现 class Solution { public: bool isPalindrome(int x) { if(x&amp;lt;0) return false; if(x==0) return true; vector&amp;lt;int&amp;gt; a; while(x){ a.push_back(x%10); x=x/10; } int num=a.size(); for(int i=0;i&amp;lt;=num/2;i++) { if(a[i]!=a[num-1-i]) return false; } return true; } }; 四.java实现 class Solution { public boolean isPalindrome(int x) { if (x &amp;lt; 0 || (x % 10 == 0 &amp;amp;&amp;amp; x !</description>
+    </item>
+    
+    <item>
+      <title>LeetCode简单题：1.两数之和（Python,C&#43;&#43;,Java）</title>
+      <link>https://qkgoalkeeper.github.io/post/leetcode%E7%AE%80%E5%8D%95%E9%A2%981.%E4%B8%A4%E6%95%B0%E4%B9%8B%E5%92%8Cpythonc&#43;&#43;java/</link>
       <pubDate>Sat, 08 Aug 2020 00:00:00 +0000</pubDate>
       <author>qiankunhm@163.com (Kun Qian)</author>
-      <guid>https://qkgoalkeeper.github.io/post/2020-08-08-leetcode%E7%AE%80%E5%8D%95%E9%A2%981.%E4%B8%A4%E6%95%B0%E4%B9%8B%E5%92%8C/</guid>
+      <guid>https://qkgoalkeeper.github.io/post/leetcode%E7%AE%80%E5%8D%95%E9%A2%981.%E4%B8%A4%E6%95%B0%E4%B9%8B%E5%92%8Cpythonc&#43;&#43;java/</guid>
       <description>一.解法 https://leetcode-cn.com/problems/two-sum/
 要点：hashmap
 三种语言都用了hash map

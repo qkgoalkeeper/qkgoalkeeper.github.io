@@ -200,7 +200,7 @@
                 <span class="post-meta">
   
   
-  <i class="fas fa-calendar"></i>&nbsp;Posted on August 8, 2020
+  <i class="fas fa-calendar"></i>&nbsp;Posted on August 11, 2020
   
   
     &nbsp;|&nbsp;<i class="fas fa-clock"></i>&nbsp;0&nbsp;minutes
@@ -234,8 +234,101 @@
         <div class="posts-list">
           
             <article class="post-preview">
-    <a href="https://qkgoalkeeper.github.io/post/2020-08-08-leetcode%E7%AE%80%E5%8D%95%E9%A2%981.%E4%B8%A4%E6%95%B0%E4%B9%8B%E5%92%8C/">
-        <h2 class="post-title">LeetCode简单题：1.两数之和</h2>
+    <a href="https://qkgoalkeeper.github.io/post/leetcode%E7%AE%80%E5%8D%95%E9%A2%987.%E6%95%B4%E6%95%B0%E5%8F%8D%E8%BD%AC-pythonc&#43;&#43;java/">
+        <h2 class="post-title">LeetCode简单题：7.整数反转 （Python,C&#43;&#43;,Java）</h2>
+        
+        
+        
+    </a>
+
+    <p class="post-meta">
+        <span class="post-meta">
+  
+  
+  <i class="fas fa-calendar"></i>&nbsp;Posted on August 11, 2020
+  
+  
+    &nbsp;|&nbsp;<i class="fas fa-clock"></i>&nbsp;1&nbsp;minutes
+  
+  
+    &nbsp;|&nbsp;<i class="fas fa-book"></i>&nbsp;206&nbsp;words
+  
+  
+    
+      &nbsp;|&nbsp;<i class="fas fa-user"></i>&nbsp;Kun Qian
+    
+  
+  
+</span>
+
+
+    </p>
+    <div class="post-entry">
+        
+        一.解法 https://leetcode-cn.com/problems/reverse-integer/
+要点：int溢出的规避
+int 范围在$-2^{31}$到$2^{31}-1$之间
+java和c++中用数学方法规避溢出
+Python中则要分正负讨论，可以直接判断
+二.Python实现 class Solution: def reverse(self, x: int) -&gt; int: ans = 0 flag = 1 if x &lt;0: x = -x; flag = -flag while x != 0: pop = x % 10 ans = ans*10 + pop x //= 10 return ans*flag if -2**31 &lt;ans*flag &lt;2**31-1 else 0 三.C++实现 class Solution { public: int reverse(int x) { int ans = 0; while (x !
+        <a href="https://qkgoalkeeper.github.io/post/leetcode%E7%AE%80%E5%8D%95%E9%A2%987.%E6%95%B4%E6%95%B0%E5%8F%8D%E8%BD%AC-pythonc&#43;&#43;java/" class="post-read-more">[Read More]</a>
+        
+    </div>
+
+    
+
+</article>
+          
+            <article class="post-preview">
+    <a href="https://qkgoalkeeper.github.io/post/leetcode%E7%AE%80%E5%8D%95%E9%A2%989.-%E5%9B%9E%E6%96%87%E6%95%B0pythonc&#43;&#43;java/">
+        <h2 class="post-title">LeetCode简单题：9.回文数（Python,C&#43;&#43;,Java）</h2>
+        
+        
+        
+    </a>
+
+    <p class="post-meta">
+        <span class="post-meta">
+  
+  
+  <i class="fas fa-calendar"></i>&nbsp;Posted on August 11, 2020
+  
+  
+    &nbsp;|&nbsp;<i class="fas fa-clock"></i>&nbsp;1&nbsp;minutes
+  
+  
+    &nbsp;|&nbsp;<i class="fas fa-book"></i>&nbsp;123&nbsp;words
+  
+  
+    
+      &nbsp;|&nbsp;<i class="fas fa-user"></i>&nbsp;Kun Qian
+    
+  
+  
+</span>
+
+
+    </p>
+    <div class="post-entry">
+        
+        一.解法 https://leetcode-cn.com/problems/palindrome-number/
+要点：字符串比较；数字比较
+x&lt;0直接pass，末尾是0直接pass
+python可以用str(x)[::-1]直接反转字符串比较
+C++中用了vector储存每位数然后循环比较
+java用了计算一半反转数的方法，不会溢出
+二.Python实现 class Solution: def isPalindrome(self, x: int) -&gt; bool: if x&lt;0: return False y=str(x)[::-1] if x==(int(y)): return True else: return False 三.C++实现 class Solution { public: bool isPalindrome(int x) { if(x&lt;0) return false; if(x==0) return true; vector&lt;int&gt; a; while(x){ a.push_back(x%10); x=x/10; } int num=a.size(); for(int i=0;i&lt;=num/2;i++) { if(a[i]!=a[num-1-i]) return false; } return true; } }; 四.java实现 class Solution { public boolean isPalindrome(int x) { if (x &lt; 0 || (x % 10 == 0 &amp;&amp; x !
+        <a href="https://qkgoalkeeper.github.io/post/leetcode%E7%AE%80%E5%8D%95%E9%A2%989.-%E5%9B%9E%E6%96%87%E6%95%B0pythonc&#43;&#43;java/" class="post-read-more">[Read More]</a>
+        
+    </div>
+
+    
+
+</article>
+          
+            <article class="post-preview">
+    <a href="https://qkgoalkeeper.github.io/post/leetcode%E7%AE%80%E5%8D%95%E9%A2%981.%E4%B8%A4%E6%95%B0%E4%B9%8B%E5%92%8Cpythonc&#43;&#43;java/">
+        <h2 class="post-title">LeetCode简单题：1.两数之和（Python,C&#43;&#43;,Java）</h2>
         
         
         
@@ -272,7 +365,7 @@ Python 中用hashmap={}
 C++中用unordered_map&lt;int, int&gt; hashmap;
 Java中用Map&lt;Integer, Integer&gt; hashmap = new HashMap&lt;&gt;();
 二.Python实现 def twoSum(nums, target): hashmap={} for ind,num in enumerate(nums): hashmap[num] = ind for i,num in enumerate(nums): j = hashmap.get(target - num) if j is not None and i!=j: return [i,j] 三.C++实现 class Solution { public: vector&lt;int&gt; twoSum(vector&lt;int&gt;&amp; nums, int target) { unordered_map&lt;int, int&gt; hashmap; vector&lt;int&gt; result; for (int i = 0; i &lt; nums.size(); i++) { hashmap[nums[i]] = i; } for (int i = 0; i &lt; nums.
-        <a href="https://qkgoalkeeper.github.io/post/2020-08-08-leetcode%E7%AE%80%E5%8D%95%E9%A2%981.%E4%B8%A4%E6%95%B0%E4%B9%8B%E5%92%8C/" class="post-read-more">[Read More]</a>
+        <a href="https://qkgoalkeeper.github.io/post/leetcode%E7%AE%80%E5%8D%95%E9%A2%981.%E4%B8%A4%E6%95%B0%E4%B9%8B%E5%92%8Cpythonc&#43;&#43;java/" class="post-read-more">[Read More]</a>
         
     </div>
 

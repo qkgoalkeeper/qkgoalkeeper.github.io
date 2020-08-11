@@ -7,8 +7,14 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
 
-  <title>Photoswipe Gallery Sample - Beautiful Hugo</title>
-  <meta name="description" content="Making a Gallery">
+  <title>LeetCode简单题：9.回文数（Python,C&#43;&#43;,Java） - Beautiful Hugo</title>
+  <meta name="description" content="一.解法 https://leetcode-cn.com/problems/palindrome-number/
+要点：字符串比较；数字比较
+x&lt;0直接pass，末尾是0直接pass
+python可以用str(x)[::-1]直接反转字符串比较
+C&#43;&#43;中用了vector储存每位数然后循环比较
+java用了计算一半反转数的方法，不会溢出
+二.Python实现 class Solution: def isPalindrome(self, x: int) -&gt; bool: if x&lt;0: return False y=str(x)[::-1] if x==(int(y)): return True else: return False 三.C&#43;&#43;实现 class Solution { public: bool isPalindrome(int x) { if(x&lt;0) return false; if(x==0) return true; vector&lt;int&gt; a; while(x){ a.push_back(x%10); x=x/10; } int num=a.size(); for(int i=0;i&lt;=num/2;i&#43;&#43;) { if(a[i]!=a[num-1-i]) return false; } return true; } }; 四.java实现 class Solution { public boolean isPalindrome(int x) { if (x &lt; 0 || (x % 10 == 0 &amp;&amp; x !">
   <meta name="author" content="Kun Qian"/><script type="application/ld+json">
 {
     "@context": "http://schema.org",
@@ -44,8 +50,8 @@
         "@type": "ListItem",
         "position": 3,
         "item": {
-          "@id": "https:\/\/qkgoalkeeper.github.io\/post\/2017-03-20-photoswipe-gallery-sample\/",
-          "name": "Photoswipe gallery sample"
+          "@id": "https:\/\/qkgoalkeeper.github.io\/post\/leetcode%E7%AE%80%E5%8D%95%E9%A2%989.-%E5%9B%9E%E6%96%87%E6%95%B0pythonc\u002b\u002bjava\/",
+          "name": "Leet code简单题：9.回文数（ python, c\u002b\u002b, java）"
         }
     }]
 }
@@ -56,15 +62,15 @@
   "author": {
     "name" : "Kun Qian"
   },
-  "headline": "Photoswipe Gallery Sample",
-  "description" : "Beautiful Hugo adds a few custom shortcodes created by Li-Wen Yip and Gert-Jan van den Berg for making galleries with PhotoSwipe .\n\r\r\r\r\r\r\rSphere\n\r\r\r\r\r\rTriangle\n\r\r\r",
+  "headline": "LeetCode简单题：9.回文数（Python,C\u002b\u002b,Java）",
+  "description" : "一.解法 https:\/\/leetcode-cn.com\/problems\/palindrome-number\/\n要点：字符串比较；数字比较\nx\u0026lt;0直接pass，末尾是0直接pass\npython可以用str(x)[::-1]直接反转字符串比较\nC\u002b\u002b中用了vector储存每位数然后循环比较\njava用了计算一半反转数的方法，不会溢出\n二.Python实现 class Solution: def isPalindrome(self, x: int) -\u0026gt; bool: if x\u0026lt;0: return False y=str(x)[::-1] if x==(int(y)): return True else: return False 三.C\u002b\u002b实现 class Solution { public: bool isPalindrome(int x) { if(x\u0026lt;0) return false; if(x==0) return true; vector\u0026lt;int\u0026gt; a; while(x){ a.push_back(x%10); x=x\/10; } int num=a.size(); for(int i=0;i\u0026lt;=num\/2;i\u002b\u002b) { if(a[i]!=a[num-1-i]) return false; } return true; } }; 四.java实现 class Solution { public boolean isPalindrome(int x) { if (x \u0026lt; 0 || (x % 10 == 0 \u0026amp;\u0026amp; x !",
   "inLanguage" : "en",
-  "wordCount":  215 ,
-  "datePublished" : "2017-03-20T00:00:00",
-  "dateModified" : "2017-03-20T00:00:00",
+  "wordCount":  123 ,
+  "datePublished" : "2020-08-11T00:00:00",
+  "dateModified" : "2020-08-11T00:00:00",
   "image" : "https:\/\/qkgoalkeeper.github.io\/img\/avatar-icon.png",
-  "keywords" : [ "example, photoswipe" ],
-  "mainEntityOfPage" : "https:\/\/qkgoalkeeper.github.io\/post\/2017-03-20-photoswipe-gallery-sample\/",
+  "keywords" : [ "" ],
+  "mainEntityOfPage" : "https:\/\/qkgoalkeeper.github.io\/post\/leetcode%E7%AE%80%E5%8D%95%E9%A2%989.-%E5%9B%9E%E6%96%87%E6%95%B0pythonc\u002b\u002bjava\/",
   "publisher" : {
     "@type": "Organization",
     "name" : "https:\/\/qkgoalkeeper.github.io",
@@ -78,15 +84,27 @@
 }
 </script>
 
-<meta property="og:title" content="Photoswipe Gallery Sample" />
-<meta property="og:description" content="Making a Gallery">
+<meta property="og:title" content="LeetCode简单题：9.回文数（Python,C&#43;&#43;,Java）" />
+<meta property="og:description" content="一.解法 https://leetcode-cn.com/problems/palindrome-number/
+要点：字符串比较；数字比较
+x&lt;0直接pass，末尾是0直接pass
+python可以用str(x)[::-1]直接反转字符串比较
+C&#43;&#43;中用了vector储存每位数然后循环比较
+java用了计算一半反转数的方法，不会溢出
+二.Python实现 class Solution: def isPalindrome(self, x: int) -&gt; bool: if x&lt;0: return False y=str(x)[::-1] if x==(int(y)): return True else: return False 三.C&#43;&#43;实现 class Solution { public: bool isPalindrome(int x) { if(x&lt;0) return false; if(x==0) return true; vector&lt;int&gt; a; while(x){ a.push_back(x%10); x=x/10; } int num=a.size(); for(int i=0;i&lt;=num/2;i&#43;&#43;) { if(a[i]!=a[num-1-i]) return false; } return true; } }; 四.java实现 class Solution { public boolean isPalindrome(int x) { if (x &lt; 0 || (x % 10 == 0 &amp;&amp; x !">
 <meta property="og:image" content="https://qkgoalkeeper.github.io/img/avatar-icon.png" />
-<meta property="og:url" content="https://qkgoalkeeper.github.io/post/2017-03-20-photoswipe-gallery-sample/" />
+<meta property="og:url" content="https://qkgoalkeeper.github.io/post/leetcode%E7%AE%80%E5%8D%95%E9%A2%989.-%E5%9B%9E%E6%96%87%E6%95%B0pythonc&#43;&#43;java/" />
 <meta property="og:type" content="website" />
 <meta property="og:site_name" content="Beautiful Hugo" />
 
-  <meta name="twitter:title" content="Photoswipe Gallery Sample" />
-  <meta name="twitter:description" content="Making a Gallery">
+  <meta name="twitter:title" content="LeetCode简单题：9.回文数（Python,C&#43;&#43;,Java）" />
+  <meta name="twitter:description" content="一.解法 https://leetcode-cn.com/problems/palindrome-number/
+要点：字符串比较；数字比较
+x&lt;0直接pass，末尾是0直接pass
+python可以用str(x)[::-1]直接反转字符串比较
+C&#43;&#43;中用了vector储存每位数然后循环比较
+java用了计算一半反转数的方法，不会溢出
+二.Python实现 class Solution: …">
   <meta name="twitter:image" content="https://qkgoalkeeper.github.io/img/avatar-icon.png" />
   <meta name="twitter:card" content="summary" />
   <meta name="twitter:site" content="@username" />
@@ -243,25 +261,21 @@
           <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
             <div class="post-heading">
               
-                <h1>Photoswipe Gallery Sample</h1>
+                <h1>LeetCode简单题：9.回文数（Python,C&#43;&#43;,Java）</h1>
               
               
-              
-                
-                  <h2 class="post-subheading">Making a Gallery</h2>
-                
               
               
                 <span class="post-meta">
   
   
-  <i class="fas fa-calendar"></i>&nbsp;Posted on March 20, 2017
+  <i class="fas fa-calendar"></i>&nbsp;Posted on August 11, 2020
   
   
-    &nbsp;|&nbsp;<i class="fas fa-clock"></i>&nbsp;2&nbsp;minutes
+    &nbsp;|&nbsp;<i class="fas fa-clock"></i>&nbsp;1&nbsp;minutes
   
   
-    &nbsp;|&nbsp;<i class="fas fa-book"></i>&nbsp;215&nbsp;words
+    &nbsp;|&nbsp;<i class="fas fa-book"></i>&nbsp;123&nbsp;words
   
   
     
@@ -286,82 +300,61 @@
   <div class="row">
     <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
       <article role="main" class="blog-post">
-        <p>Beautiful Hugo adds a few custom shortcodes created by <a href="https://www.liwen.id.au/heg/">Li-Wen Yip</a> and <a href="https://github.com/GjjvdBurg/HugoPhotoSwipe">Gert-Jan van den Berg</a> for making galleries with <a href="http://photoswipe.com">PhotoSwipe</a> .</p>
+        <h1 id="一解法">一.解法</h1>
+<p><a href="https://leetcode-cn.com/problems/palindrome-number/">https://leetcode-cn.com/problems/palindrome-number/</a><br>
+要点：字符串比较；数字比较<br>
+x&lt;0直接pass，末尾是0直接pass<br>
+python可以用str(x)[::-1]直接反转字符串比较<br>
+C++中用了vector储存每位数然后循环比较<br>
+java用了计算一半反转数的方法，不会溢出</p>
+<h1 id="二python实现">二.Python实现</h1>
+<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback">class Solution:
+    def isPalindrome(self, x: int) -&gt; bool:
+        if x&lt;0:
+            return False
+        y=str(x)[::-1]
+        if x==(int(y)):
+            return True
+        else:
+            return False
+</code></pre></div><h1 id="三c实现">三.C++实现</h1>
+<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback">class Solution {
+public:
+    bool isPalindrome(int x) {
+        if(x&lt;0) return false;
+        if(x==0) return true;
+        vector&lt;int&gt; a;
+        while(x){
+            a.push_back(x%10);
+            x=x/10;
+        }
+        int num=a.size();
+        for(int i=0;i&lt;=num/2;i++)
+        {
+            if(a[i]!=a[num-1-i]) return false;
+        }
 
+        return true;
+    }
+};
+</code></pre></div><h1 id="四java实现">四.java实现</h1>
+<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback">class Solution {
+    public boolean isPalindrome(int x) {
+        if (x &lt; 0 || (x % 10 == 0 &amp;&amp; x != 0)) {
+            return false;
+        }
 
+        int revertx = 0;
+        while (x &gt; revertx) {
+            revertx = revertx * 10 + x % 10;
+            x /= 10;
+        }
 
-<div class="gallery caption-position-bottom caption-effect-fade hover-effect-zoom hover-transition" itemscope itemtype="http://schema.org/ImageGallery">
-	  
-  
-<link rel="stylesheet" href="https://qkgoalkeeper.github.io/css/hugo-easy-gallery.css" />
-<div class="box" >
-  <figure  itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject">
-    <div class="img" style="background-image: url('https://qkgoalkeeper.github.io/img/hexagon-thumb.jpg');">
-      <img itemprop="thumbnail" src="/img/hexagon-thumb.jpg" alt="/img/hexagon-thumb.jpg"/>
-    </div>
-    <a href="/img/hexagon.jpg" itemprop="contentUrl"></a>
-  </figure>
-</div>
+        return x == revertx || x == revertx / 10;
+    }
+}
+</code></pre></div>
 
-  
-
-<div class="box" >
-  <figure  itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject">
-    <div class="img" style="background-image: url('https://qkgoalkeeper.github.io/img/sphere-thumb.jpg');">
-      <img itemprop="thumbnail" src="/img/sphere-thumb.jpg" alt="Sphere"/>
-    </div>
-    <a href="/img/sphere.jpg" itemprop="contentUrl"></a>
-      <figcaption>
-          <p>Sphere</p>
-      </figcaption>
-  </figure>
-</div>
-
-  
-
-<div class="box" >
-  <figure  itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject">
-    <div class="img" style="background-image: url('https://qkgoalkeeper.github.io/img/triangle-thumb.jpg');">
-      <img itemprop="thumbnail" src="/img/triangle-thumb.jpg" alt="This is a long comment about a triangle"/>
-    </div>
-    <a href="/img/triangle.jpg" itemprop="contentUrl"></a>
-      <figcaption>
-          <p>Triangle</p>
-      </figcaption>
-  </figure>
-</div>
-
-
-</div>
-
-<h2 id="example">Example</h2>
-<p>The above gallery was created using the following shortcodes:</p>
-<div class="highlight"><pre class="chroma"><code class="language-fallback" data-lang="fallback">{{&lt; gallery caption-effect=&#34;fade&#34; &gt;}}
-  {{&lt; figure thumb=&#34;-thumb&#34; link=&#34;/img/hexagon.jpg&#34; &gt;}}
-  {{&lt; figure thumb=&#34;-thumb&#34; link=&#34;/img/sphere.jpg&#34; caption=&#34;Sphere&#34; &gt;}}
-  {{&lt; figure thumb=&#34;-thumb&#34; link=&#34;/img/triangle.jpg&#34; caption=&#34;Triangle&#34; alt=&#34;This is a long comment about a triangle&#34; &gt;}}
-{{&lt; /gallery &gt;}}
-</code></pre></div><h2 id="usage">Usage</h2>
-<p>For full details please see the <a href="https://github.com/liwenyip/hugo-easy-gallery/">hugo-easy-gallery GitHub</a> page. Basic usages from above are:</p>
-<ul>
-<li>Create a gallery with open and close tags <code>{{&lt; gallery &gt;}}</code> and <code>{{&lt; /gallery &gt;}}</code></li>
-<li><code>{{&lt; figure src=&quot;image.jpg&quot; &gt;}}</code> will use <code>image.jpg</code> for thumbnail and lightbox</li>
-<li><code>{{&lt; figure src=&quot;thumb.jpg&quot; link=&quot;image.jpg&quot; &gt;}}</code> will use <code>thumb.jpg</code> for thumbnail and <code>image.jpg</code> for lightbox</li>
-<li><code>{{&lt; figure thumb=&quot;-small&quot; link=&quot;image.jpg&quot; &gt;}}</code> will use <code>image-small.jpg</code> for thumbnail and <code>image.jpg</code> for lightbox</li>
-<li>All the <a href="https://gohugo.io/extras/shortcodes">features/parameters</a> of Hugo&rsquo;s built-in <code>figure</code> shortcode work as normal, i.e. src, link, title, caption, class, attr (attribution), attrlink, alt</li>
-<li><code>{{&lt; gallery caption-effect=&quot;fade&quot; &gt;}}</code> will fade in captions for all figures in this gallery instead of the default slide-up behavior</li>
-<li>Many gallery styles for captions and hover effects exist; view the <a href="https://github.com/liwenyip/hugo-easy-gallery/">hugo-easy-gallery GitHub</a> for all options</li>
-<li>Note that this theme will load the photoswipe gallery theme and scripts by default, no need to load photoswipe on your individual pages</li>
-</ul>
-
-        
-          <div class="blog-tags">
-            
-              <a href="https://qkgoalkeeper.github.io/tags/example/">example</a>&nbsp;
-            
-              <a href="https://qkgoalkeeper.github.io/tags/photoswipe/">photoswipe</a>&nbsp;
-            
-          </div>
         
 
         
@@ -374,42 +367,42 @@
     <ul class="share">
       
       <li>
-        <a href="//twitter.com/share?url=https%3a%2f%2fqkgoalkeeper.github.io%2fpost%2f2017-03-20-photoswipe-gallery-sample%2f&amp;text=Photoswipe%20Gallery%20Sample&amp;via=username" target="_blank" title="Share on Twitter">
+        <a href="//twitter.com/share?url=https%3a%2f%2fqkgoalkeeper.github.io%2fpost%2fleetcode%25E7%25AE%2580%25E5%258D%2595%25E9%25A2%25989.-%25E5%259B%259E%25E6%2596%2587%25E6%2595%25B0pythonc%2b%2bjava%2f&amp;text=LeetCode%e7%ae%80%e5%8d%95%e9%a2%98%ef%bc%9a9.%e5%9b%9e%e6%96%87%e6%95%b0%ef%bc%88Python%2cC%2b%2b%2cJava%ef%bc%89&amp;via=username" target="_blank" title="Share on Twitter">
           <i class="fab fa-twitter"></i>
         </a>
       </li>
   
       
       <li>
-        <a href="//www.facebook.com/sharer/sharer.php?u=https%3a%2f%2fqkgoalkeeper.github.io%2fpost%2f2017-03-20-photoswipe-gallery-sample%2f" target="_blank" title="Share on Facebook">
+        <a href="//www.facebook.com/sharer/sharer.php?u=https%3a%2f%2fqkgoalkeeper.github.io%2fpost%2fleetcode%25E7%25AE%2580%25E5%258D%2595%25E9%25A2%25989.-%25E5%259B%259E%25E6%2596%2587%25E6%2595%25B0pythonc%2b%2bjava%2f" target="_blank" title="Share on Facebook">
           <i class="fab fa-facebook"></i>
         </a>
       </li>
   
       
       <li>
-        <a href="//reddit.com/submit?url=https%3a%2f%2fqkgoalkeeper.github.io%2fpost%2f2017-03-20-photoswipe-gallery-sample%2f&amp;title=Photoswipe%20Gallery%20Sample" target="_blank" title="Share on Reddit">
+        <a href="//reddit.com/submit?url=https%3a%2f%2fqkgoalkeeper.github.io%2fpost%2fleetcode%25E7%25AE%2580%25E5%258D%2595%25E9%25A2%25989.-%25E5%259B%259E%25E6%2596%2587%25E6%2595%25B0pythonc%2b%2bjava%2f&amp;title=LeetCode%e7%ae%80%e5%8d%95%e9%a2%98%ef%bc%9a9.%e5%9b%9e%e6%96%87%e6%95%b0%ef%bc%88Python%2cC%2b%2b%2cJava%ef%bc%89" target="_blank" title="Share on Reddit">
           <i class="fab fa-reddit"></i>
         </a>
       </li>
   
       
       <li>
-        <a href="//www.linkedin.com/shareArticle?url=https%3a%2f%2fqkgoalkeeper.github.io%2fpost%2f2017-03-20-photoswipe-gallery-sample%2f&amp;title=Photoswipe%20Gallery%20Sample" target="_blank" title="Share on LinkedIn">
+        <a href="//www.linkedin.com/shareArticle?url=https%3a%2f%2fqkgoalkeeper.github.io%2fpost%2fleetcode%25E7%25AE%2580%25E5%258D%2595%25E9%25A2%25989.-%25E5%259B%259E%25E6%2596%2587%25E6%2595%25B0pythonc%2b%2bjava%2f&amp;title=LeetCode%e7%ae%80%e5%8d%95%e9%a2%98%ef%bc%9a9.%e5%9b%9e%e6%96%87%e6%95%b0%ef%bc%88Python%2cC%2b%2b%2cJava%ef%bc%89" target="_blank" title="Share on LinkedIn">
           <i class="fab fa-linkedin"></i>
         </a>
       </li>
   
       
       <li>
-        <a href="//www.stumbleupon.com/submit?url=https%3a%2f%2fqkgoalkeeper.github.io%2fpost%2f2017-03-20-photoswipe-gallery-sample%2f&amp;title=Photoswipe%20Gallery%20Sample" target="_blank" title="Share on StumbleUpon">
+        <a href="//www.stumbleupon.com/submit?url=https%3a%2f%2fqkgoalkeeper.github.io%2fpost%2fleetcode%25E7%25AE%2580%25E5%258D%2595%25E9%25A2%25989.-%25E5%259B%259E%25E6%2596%2587%25E6%2595%25B0pythonc%2b%2bjava%2f&amp;title=LeetCode%e7%ae%80%e5%8d%95%e9%a2%98%ef%bc%9a9.%e5%9b%9e%e6%96%87%e6%95%b0%ef%bc%88Python%2cC%2b%2b%2cJava%ef%bc%89" target="_blank" title="Share on StumbleUpon">
           <i class="fab fa-stumbleupon"></i>
         </a>
       </li>
   
       
       <li>
-        <a href="//www.pinterest.com/pin/create/button/?url=https%3a%2f%2fqkgoalkeeper.github.io%2fpost%2f2017-03-20-photoswipe-gallery-sample%2f&amp;description=Photoswipe%20Gallery%20Sample" target="_blank" title="Share on Pinterest">
+        <a href="//www.pinterest.com/pin/create/button/?url=https%3a%2f%2fqkgoalkeeper.github.io%2fpost%2fleetcode%25E7%25AE%2580%25E5%258D%2595%25E9%25A2%25989.-%25E5%259B%259E%25E6%2596%2587%25E6%2595%25B0pythonc%2b%2bjava%2f&amp;description=LeetCode%e7%ae%80%e5%8d%95%e9%a2%98%ef%bc%9a9.%e5%9b%9e%e6%96%87%e6%95%b0%ef%bc%88Python%2cC%2b%2b%2cJava%ef%bc%89" target="_blank" title="Share on Pinterest">
           <i class="fab fa-pinterest"></i>
         </a>
       </li>
@@ -423,23 +416,6 @@
 
         
           
-            
-          
-
-          
-                  <h4 class="see-also">See also</h4>
-                  <ul>
-                
-                
-                    <li><a href="/post/2017-03-07-bigimg-sample/">Big Image Sample</a></li>
-                
-                    <li><a href="/post/2017-03-05-math-sample/">Math Sample</a></li>
-                
-                    <li><a href="/post/2016-03-08-code-sample/">Code Sample</a></li>
-                
-                    <li><a href="/post/2015-02-20-test-markdown/">Test markdown</a></li>
-                
-              </ul>
 
           
         
@@ -449,12 +425,12 @@
         <ul class="pager blog-pager">
           
             <li class="previous">
-              <a href="https://qkgoalkeeper.github.io/post/2017-03-07-bigimg-sample/" data-toggle="tooltip" data-placement="top" title="Big Image Sample">&larr; Previous Post</a>
+              <a href="https://qkgoalkeeper.github.io/post/leetcode%E7%AE%80%E5%8D%95%E9%A2%981.%E4%B8%A4%E6%95%B0%E4%B9%8B%E5%92%8Cpythonc&#43;&#43;java/" data-toggle="tooltip" data-placement="top" title="LeetCode简单题：1.两数之和（Python,C&#43;&#43;,Java）">&larr; Previous Post</a>
             </li>
           
           
             <li class="next">
-              <a href="https://qkgoalkeeper.github.io/post/leetcode%E7%AE%80%E5%8D%95%E9%A2%981.%E4%B8%A4%E6%95%B0%E4%B9%8B%E5%92%8Cpythonc&#43;&#43;java/" data-toggle="tooltip" data-placement="top" title="LeetCode简单题：1.两数之和（Python,C&#43;&#43;,Java）">Next Post &rarr;</a>
+              <a href="https://qkgoalkeeper.github.io/post/leetcode%E7%AE%80%E5%8D%95%E9%A2%987.%E6%95%B4%E6%95%B0%E5%8F%8D%E8%BD%AC-pythonc&#43;&#43;java/" data-toggle="tooltip" data-placement="top" title="LeetCode简单题：7.整数反转 （Python,C&#43;&#43;,Java）">Next Post &rarr;</a>
             </li>
           
         </ul>
