@@ -7,7 +7,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
 
-  <title>Beautiful Hugo - Beautiful Hugo</title>
+  <title>qkgoalkeeper's blog</title>
   <meta name="description" content="Front Page Content beautifulhugo supports content on your front page. Edit /content/_index.md to change what appears here. Delete /content/_index.md if you don&rsquo;t want any content here.">
   <meta name="author" content="Kun Qian"/><script type="application/ld+json">
 {
@@ -231,7 +231,7 @@
           
             <article class="post-preview">
     <a href="https://qkgoalkeeper.github.io/post/2020-08-08-leetcode%E7%AE%80%E5%8D%95%E9%A2%981.%E4%B8%A4%E6%95%B0%E4%B9%8B%E5%92%8C/">
-        <h2 class="post-title">Test</h2>
+        <h2 class="post-title">LeetCode简单题：1.两数之和</h2>
         
         
         
@@ -261,10 +261,13 @@
     </p>
     <div class="post-entry">
         
-        #一.解法 https://leetcode-cn.com/problems/two-sum/ 要点：hashmap 三种语言都用了hash map Python 中用hashmap={} C++中用unordered_map&lt;int, int&gt; hashmap; Java中用Map&lt;Integer, Integer&gt; hashmap = new HashMap&lt;&gt;();
-#二.Python实现
-def twoSum(nums, target): hashmap={} for ind,num in enumerate(nums): hashmap[num] = ind for i,num in enumerate(nums): j = hashmap.get(target - num) if j is not None and i!=j: return [i,j] #三.C++实现
-class Solution { public: vector&lt;int&gt; twoSum(vector&lt;int&gt;&amp; nums, int target) { unordered_map&lt;int, int&gt; hashmap; vector&lt;int&gt; result; for (int i = 0; i &lt; nums.size(); i++) { hashmap[nums[i]] = i; } for (int i = 0; i &lt; nums.
+        一.解法 https://leetcode-cn.com/problems/two-sum/
+要点：hashmap
+三种语言都用了hash map
+Python 中用hashmap={}
+C++中用unordered_map&lt;int, int&gt; hashmap;
+Java中用Map&lt;Integer, Integer&gt; hashmap = new HashMap&lt;&gt;();
+二.Python实现 def twoSum(nums, target): hashmap={} for ind,num in enumerate(nums): hashmap[num] = ind for i,num in enumerate(nums): j = hashmap.get(target - num) if j is not None and i!=j: return [i,j] 三.C++实现 class Solution { public: vector&lt;int&gt; twoSum(vector&lt;int&gt;&amp; nums, int target) { unordered_map&lt;int, int&gt; hashmap; vector&lt;int&gt; result; for (int i = 0; i &lt; nums.size(); i++) { hashmap[nums[i]] = i; } for (int i = 0; i &lt; nums.
         <a href="https://qkgoalkeeper.github.io/post/2020-08-08-leetcode%E7%AE%80%E5%8D%95%E9%A2%981.%E4%B8%A4%E6%95%B0%E4%B9%8B%E5%92%8C/" class="post-read-more">[Read More]</a>
         
     </div>

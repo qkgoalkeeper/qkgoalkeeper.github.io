@@ -7,21 +7,24 @@
     <generator>Hugo -- gohugo.io</generator>
     <managingEditor>qiankunhm@163.com (Kun Qian)</managingEditor>
     <webMaster>qiankunhm@163.com (Kun Qian)</webMaster>
-    <lastBuildDate>Sat, 08 Aug 2020 15:31:54 +0800</lastBuildDate>
+    <lastBuildDate>Sat, 08 Aug 2020 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="https://qkgoalkeeper.github.io/post/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
-      <title>Test</title>
+      <title>LeetCode简单题：1.两数之和</title>
       <link>https://qkgoalkeeper.github.io/post/2020-08-08-leetcode%E7%AE%80%E5%8D%95%E9%A2%981.%E4%B8%A4%E6%95%B0%E4%B9%8B%E5%92%8C/</link>
-      <pubDate>Sat, 08 Aug 2020 15:31:54 +0800</pubDate>
+      <pubDate>Sat, 08 Aug 2020 00:00:00 +0000</pubDate>
       <author>qiankunhm@163.com (Kun Qian)</author>
       <guid>https://qkgoalkeeper.github.io/post/2020-08-08-leetcode%E7%AE%80%E5%8D%95%E9%A2%981.%E4%B8%A4%E6%95%B0%E4%B9%8B%E5%92%8C/</guid>
-      <description>#一.解法 https://leetcode-cn.com/problems/two-sum/ 要点：hashmap 三种语言都用了hash map Python 中用hashmap={} C++中用unordered_map&amp;lt;int, int&amp;gt; hashmap; Java中用Map&amp;lt;Integer, Integer&amp;gt; hashmap = new HashMap&amp;lt;&amp;gt;();
-#二.Python实现
-def twoSum(nums, target): hashmap={} for ind,num in enumerate(nums): hashmap[num] = ind for i,num in enumerate(nums): j = hashmap.get(target - num) if j is not None and i!=j: return [i,j] #三.C++实现
-class Solution { public: vector&amp;lt;int&amp;gt; twoSum(vector&amp;lt;int&amp;gt;&amp;amp; nums, int target) { unordered_map&amp;lt;int, int&amp;gt; hashmap; vector&amp;lt;int&amp;gt; result; for (int i = 0; i &amp;lt; nums.size(); i++) { hashmap[nums[i]] = i; } for (int i = 0; i &amp;lt; nums.</description>
+      <description>一.解法 https://leetcode-cn.com/problems/two-sum/
+要点：hashmap
+三种语言都用了hash map
+Python 中用hashmap={}
+C++中用unordered_map&amp;lt;int, int&amp;gt; hashmap;
+Java中用Map&amp;lt;Integer, Integer&amp;gt; hashmap = new HashMap&amp;lt;&amp;gt;();
+二.Python实现 def twoSum(nums, target): hashmap={} for ind,num in enumerate(nums): hashmap[num] = ind for i,num in enumerate(nums): j = hashmap.get(target - num) if j is not None and i!=j: return [i,j] 三.C++实现 class Solution { public: vector&amp;lt;int&amp;gt; twoSum(vector&amp;lt;int&amp;gt;&amp;amp; nums, int target) { unordered_map&amp;lt;int, int&amp;gt; hashmap; vector&amp;lt;int&amp;gt; result; for (int i = 0; i &amp;lt; nums.size(); i++) { hashmap[nums[i]] = i; } for (int i = 0; i &amp;lt; nums.</description>
     </item>
     
     <item>
