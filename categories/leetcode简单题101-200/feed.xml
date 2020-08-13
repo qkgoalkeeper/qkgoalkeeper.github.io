@@ -1,0 +1,240 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>LeetCode简单题101-200 on qkgoalkeeper&#39;s blog</title>
+    <link>https://qkgoalkeeper.github.io/categories/leetcode%E7%AE%80%E5%8D%95%E9%A2%98101-200/</link>
+    <description>Recent content in LeetCode简单题101-200 on qkgoalkeeper&#39;s blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-CN</language>
+    <lastBuildDate>Thu, 13 Aug 2020 17:55:19 +0800</lastBuildDate>
+    
+	<atom:link href="https://qkgoalkeeper.github.io/categories/leetcode%E7%AE%80%E5%8D%95%E9%A2%98101-200/feed.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>LeetCode简单题：101. 对称二叉树（Python,C&#43;&#43;,Java）</title>
+      <link>https://qkgoalkeeper.github.io/post/leetcode%E7%AE%80%E5%8D%95%E9%A2%98101.-%E5%AF%B9%E7%A7%B0%E4%BA%8C%E5%8F%89%E6%A0%91pythonc&#43;&#43;java/</link>
+      <pubDate>Thu, 13 Aug 2020 17:55:19 +0800</pubDate>
+      
+      <guid>https://qkgoalkeeper.github.io/post/leetcode%E7%AE%80%E5%8D%95%E9%A2%98101.-%E5%AF%B9%E7%A7%B0%E4%BA%8C%E5%8F%89%E6%A0%91pythonc&#43;&#43;java/</guid>
+      <description>一.解法 https://leetcode-cn.com/problems/symmetric-tree/ 要点：递归，树 Python，C++，Java都用了相同的递归方法 实现这样一个递归函数，通过同步移动两个指针的方法来遍历这棵树，p 指</description>
+    </item>
+    
+    <item>
+      <title>LeetCode简单题：104. 二叉树的最大深度（Python,C&#43;&#43;,Java）</title>
+      <link>https://qkgoalkeeper.github.io/post/leetcode%E7%AE%80%E5%8D%95%E9%A2%98104.-%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E6%9C%80%E5%A4%A7%E6%B7%B1%E5%BA%A6pythonc&#43;&#43;java/</link>
+      <pubDate>Thu, 13 Aug 2020 17:55:19 +0800</pubDate>
+      
+      <guid>https://qkgoalkeeper.github.io/post/leetcode%E7%AE%80%E5%8D%95%E9%A2%98104.-%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E6%9C%80%E5%A4%A7%E6%B7%B1%E5%BA%A6pythonc&#43;&#43;java/</guid>
+      <description>一.解法 https://leetcode-cn.com/problems/maximum-depth-of-binary-tree/ 要点：递归，树 Python，C++，Java都用了相同的递归方法 如果不是null就返回max(maxDepth(root-&amp;gt;</description>
+    </item>
+    
+    <item>
+      <title>LeetCode简单题：107. 二叉树的层次遍历 II（Python,C&#43;&#43;,Java）</title>
+      <link>https://qkgoalkeeper.github.io/post/leetcode%E7%AE%80%E5%8D%95%E9%A2%98107.-%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E5%B1%82%E6%AC%A1%E9%81%8D%E5%8E%86-iipythonc&#43;&#43;java/</link>
+      <pubDate>Thu, 13 Aug 2020 17:55:19 +0800</pubDate>
+      
+      <guid>https://qkgoalkeeper.github.io/post/leetcode%E7%AE%80%E5%8D%95%E9%A2%98107.-%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E5%B1%82%E6%AC%A1%E9%81%8D%E5%8E%86-iipythonc&#43;&#43;java/</guid>
+      <description>一.解法 https://leetcode-cn.com/problems/binary-tree-level-order-traversal-ii/ 要点：BFS广度优先搜索，树 Python，C++，Java都用了相同的bfs方法，用一个ans存最后的二维数组，用一个队列存每一层</description>
+    </item>
+    
+    <item>
+      <title>LeetCode简单题：108. 将有序数组转换为二叉搜索树（Python,C&#43;&#43;,Java）</title>
+      <link>https://qkgoalkeeper.github.io/post/leetcode%E7%AE%80%E5%8D%95%E9%A2%98108.-%E5%B0%86%E6%9C%89%E5%BA%8F%E6%95%B0%E7%BB%84%E8%BD%AC%E6%8D%A2%E4%B8%BA%E4%BA%8C%E5%8F%89%E6%90%9C%E7%B4%A2%E6%A0%91pythonc&#43;&#43;java/</link>
+      <pubDate>Thu, 13 Aug 2020 17:55:19 +0800</pubDate>
+      
+      <guid>https://qkgoalkeeper.github.io/post/leetcode%E7%AE%80%E5%8D%95%E9%A2%98108.-%E5%B0%86%E6%9C%89%E5%BA%8F%E6%95%B0%E7%BB%84%E8%BD%AC%E6%8D%A2%E4%B8%BA%E4%BA%8C%E5%8F%89%E6%90%9C%E7%B4%A2%E6%A0%91pythonc&#43;&#43;java/</guid>
+      <description>一.解法 https://leetcode-cn.com/problems/convert-sorted-array-to-binary-search-tree/ 要点：dfs深度优先搜索，递归，树 所给数组是二叉搜索树的中序遍历序列 选择中间数字作为二叉搜索树的根节点，这样分给左右子树的数字个数</description>
+    </item>
+    
+    <item>
+      <title>LeetCode简单题：110. 平衡二叉树（Python,C&#43;&#43;,Java）</title>
+      <link>https://qkgoalkeeper.github.io/post/leetcode%E7%AE%80%E5%8D%95%E9%A2%98110.-%E5%B9%B3%E8%A1%A1%E4%BA%8C%E5%8F%89%E6%A0%91pythonc&#43;&#43;java/</link>
+      <pubDate>Thu, 13 Aug 2020 17:55:19 +0800</pubDate>
+      
+      <guid>https://qkgoalkeeper.github.io/post/leetcode%E7%AE%80%E5%8D%95%E9%A2%98110.-%E5%B9%B3%E8%A1%A1%E4%BA%8C%E5%8F%89%E6%A0%91pythonc&#43;&#43;java/</guid>
+      <description>一.解法 https://leetcode-cn.com/problems/balanced-binary-tree/ 要点：dfs深度优先搜索，递归，树 借助104题求二叉树最大深度的函数 Python，C++，Java都用了相同的dfs方法，对于每个</description>
+    </item>
+    
+    <item>
+      <title>LeetCode简单题：111. 二叉树的最小深度（Python,C&#43;&#43;,Java）</title>
+      <link>https://qkgoalkeeper.github.io/post/leetcode%E7%AE%80%E5%8D%95%E9%A2%98111.-%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E6%9C%80%E5%B0%8F%E6%B7%B1%E5%BA%A6pythonc&#43;&#43;java/</link>
+      <pubDate>Thu, 13 Aug 2020 17:55:19 +0800</pubDate>
+      
+      <guid>https://qkgoalkeeper.github.io/post/leetcode%E7%AE%80%E5%8D%95%E9%A2%98111.-%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E6%9C%80%E5%B0%8F%E6%B7%B1%E5%BA%A6pythonc&#43;&#43;java/</guid>
+      <description>一.解法 https://leetcode-cn.com/problems/minimum-depth-of-binary-tree/ 要点：递归，树 Python，C++，Java都用了相同的递归方法，类似104的最大深度，有个坑是[1,2]得到的结果是2，因为只有</description>
+    </item>
+    
+    <item>
+      <title>LeetCode简单题：112. 路径总和（Python,C&#43;&#43;,Java）</title>
+      <link>https://qkgoalkeeper.github.io/post/leetcode%E7%AE%80%E5%8D%95%E9%A2%98112.-%E8%B7%AF%E5%BE%84%E6%80%BB%E5%92%8Cpythonc&#43;&#43;java/</link>
+      <pubDate>Thu, 13 Aug 2020 17:55:19 +0800</pubDate>
+      
+      <guid>https://qkgoalkeeper.github.io/post/leetcode%E7%AE%80%E5%8D%95%E9%A2%98112.-%E8%B7%AF%E5%BE%84%E6%80%BB%E5%92%8Cpythonc&#43;&#43;java/</guid>
+      <description>一.解法 https://leetcode-cn.com/problems/path-sum/ 要点：递归，树，DFS深度优先搜索 Python，C++，Java都用了相同的递归方法，思路是每次递归到左右孩子时，sum相应减去父</description>
+    </item>
+    
+    <item>
+      <title>LeetCode简单题：118. 杨辉三角（Python,C&#43;&#43;,Java）</title>
+      <link>https://qkgoalkeeper.github.io/post/leetcode%E7%AE%80%E5%8D%95%E9%A2%98118.-%E6%9D%A8%E8%BE%89%E4%B8%89%E8%A7%92pythonc&#43;&#43;java/</link>
+      <pubDate>Thu, 13 Aug 2020 17:55:19 +0800</pubDate>
+      
+      <guid>https://qkgoalkeeper.github.io/post/leetcode%E7%AE%80%E5%8D%95%E9%A2%98118.-%E6%9D%A8%E8%BE%89%E4%B8%89%E8%A7%92pythonc&#43;&#43;java/</guid>
+      <description>一.解法 https://leetcode-cn.com/problems/pascals-triangle/ 要点：二维数组 先写好第一层，然后一层一层完成二维数组即可，注意Python直接append[]制造二维数组，C++用 vector&amp;</description>
+    </item>
+    
+    <item>
+      <title>LeetCode简单题：119. 杨辉三角 II（Python,C&#43;&#43;,Java）</title>
+      <link>https://qkgoalkeeper.github.io/post/leetcode%E7%AE%80%E5%8D%95%E9%A2%98119.-%E6%9D%A8%E8%BE%89%E4%B8%89%E8%A7%92-iipythonc&#43;&#43;java/</link>
+      <pubDate>Thu, 13 Aug 2020 17:55:19 +0800</pubDate>
+      
+      <guid>https://qkgoalkeeper.github.io/post/leetcode%E7%AE%80%E5%8D%95%E9%A2%98119.-%E6%9D%A8%E8%BE%89%E4%B8%89%E8%A7%92-iipythonc&#43;&#43;java/</guid>
+      <description>一.解法 https://leetcode-cn.com/problems/pascals-triangle-ii/ 要点：递归 大致同118题一样，不过118题我用循环迭代做，这题不需要保存我直接用递归做 Python，C++，Java都用了相同的递</description>
+    </item>
+    
+    <item>
+      <title>LeetCode简单题：121. 买卖股票的最佳时机（Python,C&#43;&#43;,Java）</title>
+      <link>https://qkgoalkeeper.github.io/post/leetcode%E7%AE%80%E5%8D%95%E9%A2%98121.-%E4%B9%B0%E5%8D%96%E8%82%A1%E7%A5%A8%E7%9A%84%E6%9C%80%E4%BD%B3%E6%97%B6%E6%9C%BApythonc&#43;&#43;java/</link>
+      <pubDate>Thu, 13 Aug 2020 17:55:19 +0800</pubDate>
+      
+      <guid>https://qkgoalkeeper.github.io/post/leetcode%E7%AE%80%E5%8D%95%E9%A2%98121.-%E4%B9%B0%E5%8D%96%E8%82%A1%E7%A5%A8%E7%9A%84%E6%9C%80%E4%BD%B3%E6%97%B6%E6%9C%BApythonc&#43;&#43;java/</guid>
+      <description>一.解法 https://leetcode-cn.com/problems/best-time-to-buy-and-sell-stock/ 要点：数组 C++使用暴力法穷举所有情况，Java和Python使用将遍历价格数组一遍，记录历史最低点，然后判断每一天和历史最低点的</description>
+    </item>
+    
+    <item>
+      <title>LeetCode简单题：122. 买卖股票的最佳时机 II（Python,C&#43;&#43;,Java）</title>
+      <link>https://qkgoalkeeper.github.io/post/leetcode%E7%AE%80%E5%8D%95%E9%A2%98122.-%E4%B9%B0%E5%8D%96%E8%82%A1%E7%A5%A8%E7%9A%84%E6%9C%80%E4%BD%B3%E6%97%B6%E6%9C%BA-iipythonc&#43;&#43;java/</link>
+      <pubDate>Thu, 13 Aug 2020 17:55:19 +0800</pubDate>
+      
+      <guid>https://qkgoalkeeper.github.io/post/leetcode%E7%AE%80%E5%8D%95%E9%A2%98122.-%E4%B9%B0%E5%8D%96%E8%82%A1%E7%A5%A8%E7%9A%84%E6%9C%80%E4%BD%B3%E6%97%B6%E6%9C%BA-iipythonc&#43;&#43;java/</guid>
+      <description>一.解法 https://leetcode-cn.com/problems/best-time-to-buy-and-sell-stock-ii/ 要点：数组 Python，C++，Java都用了相同方法,每次遇到差价就赚，只要后一天的值大于前一天的值就将它们的差加到结果中 二.P</description>
+    </item>
+    
+    <item>
+      <title>LeetCode简单题：125. 验证回文串（Python,C&#43;&#43;,Java）</title>
+      <link>https://qkgoalkeeper.github.io/post/leetcode%E7%AE%80%E5%8D%95%E9%A2%98125.-%E9%AA%8C%E8%AF%81%E5%9B%9E%E6%96%87%E4%B8%B2pythonc&#43;&#43;java/</link>
+      <pubDate>Thu, 13 Aug 2020 17:55:19 +0800</pubDate>
+      
+      <guid>https://qkgoalkeeper.github.io/post/leetcode%E7%AE%80%E5%8D%95%E9%A2%98125.-%E9%AA%8C%E8%AF%81%E5%9B%9E%E6%96%87%E4%B8%B2pythonc&#43;&#43;java/</guid>
+      <description>一.解法 https://leetcode-cn.com/problems/valid-palindrome/ 要点：string 本题考查各个语言string的相关api,对字符串进行预处理，包括筛选数字字母以及改大小写和翻转字符串 c++中自</description>
+    </item>
+    
+    <item>
+      <title>LeetCode简单题：136. 只出现一次的数字（Python,C&#43;&#43;,Java）</title>
+      <link>https://qkgoalkeeper.github.io/post/leetcode%E7%AE%80%E5%8D%95%E9%A2%98136.-%E5%8F%AA%E5%87%BA%E7%8E%B0%E4%B8%80%E6%AC%A1%E7%9A%84%E6%95%B0%E5%AD%97pythonc&#43;&#43;java/</link>
+      <pubDate>Thu, 13 Aug 2020 17:55:19 +0800</pubDate>
+      
+      <guid>https://qkgoalkeeper.github.io/post/leetcode%E7%AE%80%E5%8D%95%E9%A2%98136.-%E5%8F%AA%E5%87%BA%E7%8E%B0%E4%B8%80%E6%AC%A1%E7%9A%84%E6%95%B0%E5%AD%97pythonc&#43;&#43;java/</guid>
+      <description>一.解法 https://leetcode-cn.com/problems/single-number/ 要点：异或 Python，C++，Java都用了相同的异或法，从answer=nums[0]开始算,再从i=1到i=length-1</description>
+    </item>
+    
+    <item>
+      <title>LeetCode简单题：141. 环形链表（Python,C&#43;&#43;,Java）</title>
+      <link>https://qkgoalkeeper.github.io/post/leetcode%E7%AE%80%E5%8D%95%E9%A2%98141.-%E7%8E%AF%E5%BD%A2%E9%93%BE%E8%A1%A8pythonc&#43;&#43;java/</link>
+      <pubDate>Thu, 13 Aug 2020 17:55:19 +0800</pubDate>
+      
+      <guid>https://qkgoalkeeper.github.io/post/leetcode%E7%AE%80%E5%8D%95%E9%A2%98141.-%E7%8E%AF%E5%BD%A2%E9%93%BE%E8%A1%A8pythonc&#43;&#43;java/</guid>
+      <description>一.解法 https://leetcode-cn.com/problems/linked-list-cycle/ 要点：双指针，hashmap/set Python，C++，都用了相同的双指针法（快慢指针），如果是环形链表那么快指针必定追上慢指针</description>
+    </item>
+    
+    <item>
+      <title>LeetCode简单题：155. 最小栈（Python,C&#43;&#43;,Java）</title>
+      <link>https://qkgoalkeeper.github.io/post/leetcode%E7%AE%80%E5%8D%95%E9%A2%98155.-%E6%9C%80%E5%B0%8F%E6%A0%88pythonc&#43;&#43;java/</link>
+      <pubDate>Thu, 13 Aug 2020 17:55:19 +0800</pubDate>
+      
+      <guid>https://qkgoalkeeper.github.io/post/leetcode%E7%AE%80%E5%8D%95%E9%A2%98155.-%E6%9C%80%E5%B0%8F%E6%A0%88pythonc&#43;&#43;java/</guid>
+      <description>一.解法 https://leetcode-cn.com/problems/min-stack/ 要点：辅助栈 Python，C++，Java都用了相同的辅助栈法，顾名思义就是有个栈放在原来栈旁边执行相关的操作，使得每个元素 a 与其</description>
+    </item>
+    
+    <item>
+      <title>LeetCode简单题：160. 相交链表（Python,C&#43;&#43;,Java）</title>
+      <link>https://qkgoalkeeper.github.io/post/leetcode%E7%AE%80%E5%8D%95%E9%A2%98160.-%E7%9B%B8%E4%BA%A4%E9%93%BE%E8%A1%A8pythonc&#43;&#43;java/</link>
+      <pubDate>Thu, 13 Aug 2020 17:55:19 +0800</pubDate>
+      
+      <guid>https://qkgoalkeeper.github.io/post/leetcode%E7%AE%80%E5%8D%95%E9%A2%98160.-%E7%9B%B8%E4%BA%A4%E9%93%BE%E8%A1%A8pythonc&#43;&#43;java/</guid>
+      <description>一.解法 https://leetcode-cn.com/problems/intersection-of-two-linked-lists/ 要点：hash表，双指针 Python和C++用了hash表（集合），由于集合元素的唯一性第一个在两个链表中都出现的元素即为所求 ja</description>
+    </item>
+    
+    <item>
+      <title>LeetCode简单题：167. 两数之和 II - 输入有序数组（Python,C&#43;&#43;,Java）</title>
+      <link>https://qkgoalkeeper.github.io/post/leetcode%E7%AE%80%E5%8D%95%E9%A2%98167.-%E4%B8%A4%E6%95%B0%E4%B9%8B%E5%92%8C-ii-%E8%BE%93%E5%85%A5%E6%9C%89%E5%BA%8F%E6%95%B0%E7%BB%84pythonc&#43;&#43;java/</link>
+      <pubDate>Thu, 13 Aug 2020 17:55:19 +0800</pubDate>
+      
+      <guid>https://qkgoalkeeper.github.io/post/leetcode%E7%AE%80%E5%8D%95%E9%A2%98167.-%E4%B8%A4%E6%95%B0%E4%B9%8B%E5%92%8C-ii-%E8%BE%93%E5%85%A5%E6%9C%89%E5%BA%8F%E6%95%B0%E7%BB%84pythonc&#43;&#43;java/</guid>
+      <description>一.解法 https://leetcode-cn.com/problems/two-sum-ii-input-array-is-sorted/ 要点：hash表，双指针 与1.两数之和不同，这个数组是已按照升序排列的有序数组排列，C++用了1.两数之和的hash表方法，见1.</description>
+    </item>
+    
+    <item>
+      <title>LeetCode简单题：168. Excel表列名称（Python,C&#43;&#43;,Java）</title>
+      <link>https://qkgoalkeeper.github.io/post/leetcode%E7%AE%80%E5%8D%95%E9%A2%98168.-excel%E8%A1%A8%E5%88%97%E5%90%8D%E7%A7%B0pythonc&#43;&#43;java/</link>
+      <pubDate>Thu, 13 Aug 2020 17:55:19 +0800</pubDate>
+      
+      <guid>https://qkgoalkeeper.github.io/post/leetcode%E7%AE%80%E5%8D%95%E9%A2%98168.-excel%E8%A1%A8%E5%88%97%E5%90%8D%E7%A7%B0pythonc&#43;&#43;java/</guid>
+      <description>一.解法 https://leetcode-cn.com/problems/excel-sheet-column-title/ 要点：进制转换，取模取余 Python，C++，Java都用了相同的取模取余法 看成26进制转换，但要注意题目不是0-25为基而是1-</description>
+    </item>
+    
+    <item>
+      <title>LeetCode简单题：169. 多数元素（Python,C&#43;&#43;,Java）</title>
+      <link>https://qkgoalkeeper.github.io/post/leetcode%E7%AE%80%E5%8D%95%E9%A2%98169.-%E5%A4%9A%E6%95%B0%E5%85%83%E7%B4%A0pythonc&#43;&#43;java/</link>
+      <pubDate>Thu, 13 Aug 2020 17:55:19 +0800</pubDate>
+      
+      <guid>https://qkgoalkeeper.github.io/post/leetcode%E7%AE%80%E5%8D%95%E9%A2%98169.-%E5%A4%9A%E6%95%B0%E5%85%83%E7%B4%A0pythonc&#43;&#43;java/</guid>
+      <description>一.解法 https://leetcode-cn.com/problems/majority-element/ 要点：hashmap Python，C++，Java都用了相同的哈希法 用hashmap记录每个元素出现的次数，最后遍历得到大于一半总</description>
+    </item>
+    
+    <item>
+      <title>LeetCode简单题：171. Excel表列序号（Python,C&#43;&#43;,Java）</title>
+      <link>https://qkgoalkeeper.github.io/post/leetcode%E7%AE%80%E5%8D%95%E9%A2%98171.-excel%E8%A1%A8%E5%88%97%E5%BA%8F%E5%8F%B7pythonc&#43;&#43;java/</link>
+      <pubDate>Thu, 13 Aug 2020 17:55:19 +0800</pubDate>
+      
+      <guid>https://qkgoalkeeper.github.io/post/leetcode%E7%AE%80%E5%8D%95%E9%A2%98171.-excel%E8%A1%A8%E5%88%97%E5%BA%8F%E5%8F%B7pythonc&#43;&#43;java/</guid>
+      <description>一.解法 https://leetcode-cn.com/problems/excel-sheet-column-number/ 要点：进制转换 这题比168. Excel表列名称简单因为是正向的不用考虑168题的错位减一，直接利用公式循环计算即可，也可以哈希表把</description>
+    </item>
+    
+    <item>
+      <title>LeetCode简单题：172. 阶乘后的零（Python,C&#43;&#43;,Java）</title>
+      <link>https://qkgoalkeeper.github.io/post/leetcode%E7%AE%80%E5%8D%95%E9%A2%98172.-%E9%98%B6%E4%B9%98%E5%90%8E%E7%9A%84%E9%9B%B6pythonc&#43;&#43;java/</link>
+      <pubDate>Thu, 13 Aug 2020 17:55:19 +0800</pubDate>
+      
+      <guid>https://qkgoalkeeper.github.io/post/leetcode%E7%AE%80%E5%8D%95%E9%A2%98172.-%E9%98%B6%E4%B9%98%E5%90%8E%E7%9A%84%E9%9B%B6pythonc&#43;&#43;java/</guid>
+      <description>一.解法 https://leetcode-cn.com/problems/factorial-trailing-zeroes/ 要点：5的个数 由于10=2*5，而阶乘中5总是比2多（只要有5一定有2，所以只看5的个数就行） 如果遍历n,n-1,n-2&amp;hell</description>
+    </item>
+    
+    <item>
+      <title>LeetCode简单题：189. 旋转数组（Python,C&#43;&#43;,Java）</title>
+      <link>https://qkgoalkeeper.github.io/post/leetcode%E7%AE%80%E5%8D%95%E9%A2%98189.-%E6%97%8B%E8%BD%AC%E6%95%B0%E7%BB%84pythonc&#43;&#43;java/</link>
+      <pubDate>Thu, 13 Aug 2020 17:55:19 +0800</pubDate>
+      
+      <guid>https://qkgoalkeeper.github.io/post/leetcode%E7%AE%80%E5%8D%95%E9%A2%98189.-%E6%97%8B%E8%BD%AC%E6%95%B0%E7%BB%84pythonc&#43;&#43;java/</guid>
+      <description>一.解法 https://leetcode-cn.com/problems/rotate-array/ 要点：翻转法 本题看似是旋转法，但是如果一次一次旋转把前面所有数后移一位最后一个数放第一个会出现超时。 节约时间的方法是翻转三次，以n</description>
+    </item>
+    
+    <item>
+      <title>LeetCode简单题：190. 颠倒二进制位（Python,C&#43;&#43;,Java）</title>
+      <link>https://qkgoalkeeper.github.io/post/leetcode%E7%AE%80%E5%8D%95%E9%A2%98190.-%E9%A2%A0%E5%80%92%E4%BA%8C%E8%BF%9B%E5%88%B6%E4%BD%8Dpythonc&#43;&#43;java/</link>
+      <pubDate>Thu, 13 Aug 2020 17:55:19 +0800</pubDate>
+      
+      <guid>https://qkgoalkeeper.github.io/post/leetcode%E7%AE%80%E5%8D%95%E9%A2%98190.-%E9%A2%A0%E5%80%92%E4%BA%8C%E8%BF%9B%E5%88%B6%E4%BD%8Dpythonc&#43;&#43;java/</guid>
+      <description>一.解法 https://leetcode-cn.com/problems/reverse-bits/ 要点：位运算，分治法 可以像C++中所示用朴素的循环位运算解法做。 也可以像题解中巧妙分治法做，见下面链接。 举个例子： // 原数字4326</description>
+    </item>
+    
+    <item>
+      <title>LeetCode简单题：191. 位1的个数（Python,C&#43;&#43;,Java）</title>
+      <link>https://qkgoalkeeper.github.io/post/leetcode%E7%AE%80%E5%8D%95%E9%A2%98191.-%E4%BD%8D1%E7%9A%84%E4%B8%AA%E6%95%B0pythonc&#43;&#43;java/</link>
+      <pubDate>Thu, 13 Aug 2020 17:55:19 +0800</pubDate>
+      
+      <guid>https://qkgoalkeeper.github.io/post/leetcode%E7%AE%80%E5%8D%95%E9%A2%98191.-%E4%BD%8D1%E7%9A%84%E4%B8%AA%E6%95%B0pythonc&#43;&#43;java/</guid>
+      <description>一.解法 https://leetcode-cn.com/problems/number-of-1-bits/ 要点：位运算 Python，C++，Java都用了相同的位运算法，遍历32次每次取最后一位加入ans，再把n右移一位，最后得到ans</description>
+    </item>
+    
+    <item>
+      <title>LeetCode简单题：198. 打家劫舍（Python,C&#43;&#43;,Java）</title>
+      <link>https://qkgoalkeeper.github.io/post/leetcode%E7%AE%80%E5%8D%95%E9%A2%98198.-%E6%89%93%E5%AE%B6%E5%8A%AB%E8%88%8Dpythonc&#43;&#43;java/</link>
+      <pubDate>Thu, 13 Aug 2020 17:55:19 +0800</pubDate>
+      
+      <guid>https://qkgoalkeeper.github.io/post/leetcode%E7%AE%80%E5%8D%95%E9%A2%98198.-%E6%89%93%E5%AE%B6%E5%8A%AB%E8%88%8Dpythonc&#43;&#43;java/</guid>
+      <description>一.解法 https://leetcode-cn.com/problems/house-robber/ 要点：dp动态规划 Python，C++，Java都用了相同的动态规划法。 动态规划题关键在于找转移方程，对于本题来说，如果数组长度为</description>
+    </item>
+    
+  </channel>
+</rss>
