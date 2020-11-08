@@ -1,0 +1,946 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <title>数据库作业——寻宝游戏MongoDB - qkgoalkeeper&#39;s blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=3, minimum-scale=1">
+  
+  <meta name="description" content="一.实验目的 1.练习Mongodb操作，学习如何设计数据库 2.练习Python的Flask框架 3.学会用pytest测试 4.学会用定时任务执">
+  
+  <meta itemprop="name" content="数据库作业——寻宝游戏MongoDB - qkgoalkeeper&#39;s blog">
+  <meta itemprop="description" content="一.实验目的 1.练习Mongodb操作，学习如何设计数据库 2.练习Python的Flask框架 3.学会用pytest测试 4.学会用定时任务执">
+  <meta itemprop="image" content="https://qkgoalkeeper.github.io/img/author.jpg">
+  
+  
+  <meta name="twitter:description" content="">
+  
+  <link rel="shortcut icon" href="https://qkgoalkeeper.github.io/img/favicon.ico"/>
+  <link rel="apple-touch-icon" href="https://qkgoalkeeper.github.io/apple-touch-icon.png" />
+  <link rel="apple-touch-icon-precomposed" href="https://qkgoalkeeper.github.io/apple-touch-icon.png" />
+  <link rel="stylesheet" href="https://qkgoalkeeper.github.io/highlight/styles/github.css">
+  <script src="https://qkgoalkeeper.github.io/highlight/highlight.pack.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script>
+  
+  <link rel="stylesheet" href="https://qkgoalkeeper.github.io/font/hack/css/hack.min.css">
+  <link rel="stylesheet" href="https://qkgoalkeeper.github.io/css/style.css">
+  
+  
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-175507250-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-175507250-1');
+</script>
+  
+
+</head>
+
+<body>
+  <header>
+    <div>
+  <div id="imglogo">
+    <a href="https://qkgoalkeeper.github.io/"><img src='https://qkgoalkeeper.github.io/img/logo.svg' alt="qkgoalkeeper&#39;s blog" title="qkgoalkeeper&#39;s blog"/></a>
+  </div>
+  <div id="textlogo">
+    <h1 class="site-name"><a href="https://qkgoalkeeper.github.io/" title="qkgoalkeeper&#39;s blog">qkgoalkeeper&#39;s blog</a></h1>
+    <h2 class="blog-motto">ECNU数据学院本科在读</h2>
+  </div>
+  <div class="navbar"><a class="navbutton navmobile" href="#" title="menu"></a></div>
+  <nav class="animated">
+    <ul>
+      
+      
+      <li><a href="/">首页</a></li>
+      
+      <li><a href="/about">关于</a></li>
+      
+      
+      <li>
+        <form class="search" method="get" action="https://www.google.com/search">
+          <div>
+            <input type="text" id="search" name="q" placeholder='Search'>
+          </div>
+        </form>
+      </li>
+    </ul>
+  </nav>
+</div>
+
+  </header>
+  <div id="container">
+    <div id="main" class="post" itemscope itemprop="blogPost">
+	<article itemprop="articleBody">
+    <header class="article-info clearfix">
+  <h1 itemprop="name">
+      <a href="https://qkgoalkeeper.github.io/post/%E6%95%B0%E6%8D%AE%E5%BA%93%E4%BD%9C%E4%B8%9A%E5%AF%BB%E5%AE%9D%E6%B8%B8%E6%88%8Fmongodb/" title="数据库作业——寻宝游戏MongoDB" itemprop="url">数据库作业——寻宝游戏MongoDB</a>
+  </h1>
+  <p class="article-author">By
+    
+      <a href="https://qkgoalkeeper.github.io/" title="qk">qk</a>
+    
+  </p>
+  <p class="article-time">
+    <time datetime="2020-11-08 10:45:44 &#43;0800 CST" itemprop="datePublished">2020年11月08日</time>
+  </p>
+</header>
+
+	<div class="article-content">
+    
+		<div class="toc-article">
+			<strong class="toc-title">文章目录</strong>
+      <nav id="TableOfContents">
+  <ul>
+    <li><a href="#一实验目的">一.实验目的</a></li>
+    <li><a href="#二实验要求">二.实验要求</a></li>
+    <li><a href="#三代码执行顺序及使用方法">三.代码执行顺序及使用方法</a></li>
+    <li><a href="#四实验过程">四.实验过程</a>
+      <ul>
+        <li><a href="#1数据库设计">1.数据库设计</a></li>
+        <li><a href="#2基本功能函数实现登录cwur等">2.基本功能函数实现（登录，cwur等）</a></li>
+        <li><a href="#3定时任务寻宝赚钱函数实现">3.定时任务（寻宝+赚钱）函数实现</a></li>
+        <li><a href="#4附加功能函数实现">4.附加功能函数实现</a></li>
+        <li><a href="#5pytest测试">5.pytest测试</a></li>
+        <li><a href="#6前端展示">6.前端展示</a></li>
+      </ul>
+    </li>
+    <li><a href="#五注意事项">五.注意事项</a></li>
+  </ul>
+</nav>
+		</div>
+    
+    <h2 id="一实验目的">一.实验目的</h2>
+<p>1.练习Mongodb操作，学习如何设计数据库</p>
+<p>2.练习Python的Flask框架</p>
+<p>3.学会用pytest测试</p>
+<p>4.学会用定时任务执行函数</p>
+<h2 id="二实验要求">二.实验要求</h2>
+<p>考虑以下游戏场景：</p>
+<ol>
+<li>
+<p>每个游戏玩家都有一定数量的金币、宝物。有一个市场供玩家们买卖宝物。玩家可以将宝物放到市场上挂牌，自己确定价格。其他玩家支付足够的金币，可购买宝物。</p>
+</li>
+<li>
+<p>宝物分为两类：一类为工具，它决定持有玩家的工作能力；一类为配饰，它决定持有玩家的运气。</p>
+</li>
+<li>
+<p>每位玩家每天可以通过寻宝获得一件宝物，宝物的价值由玩家的运气决定。每位玩家每天可以通过劳动赚取金币，赚得多少由玩家的工作能力决定。（游戏中的一天可以是现实中的1分钟、5分钟、10分钟。自主设定。）</p>
+</li>
+<li>
+<p>每个宝物都有一个自己的名字（尽量不重复）。每位玩家能够佩戴的宝物是有限的（比如一个玩家只能佩戴一个工具和两个配饰）。多余的宝物被放在存储箱中，不起作用，但可以拿到市场出售。</p>
+</li>
+<li>
+<p>在市场上挂牌的宝物必须在存储箱中并仍然在存储箱中，直到宝物被卖出。挂牌的宝物可以被收回，并以新的价格重新挂牌。当存储箱装不下时，运气或工作能力值最低的宝物将被系统自动回收。</p>
+</li>
+<li>
+<p>假设游戏永不停止而玩家的最终目的是获得最好的宝物。</p>
+</li>
+</ol>
+<p>请根据以上场景构建一个假想的Web游戏，可供多人在线上玩耍。界面尽可能简单（简单文字和链接即可，不需要style）。后台的数据库使用mongodb。对游戏玩家提供以下几种操作：寻宝（可以自动每天一次）、赚钱（可以自动每天一次）、佩戴宝物、浏览市场、买宝物、挂牌宝物、收回宝物。</p>
+<p>提交：程序+文档</p>
+<p>要求：</p>
+<ol>
+<li>
+<p>文档主要用于解释你的数据库设计，即需要构建哪些collection，每个collection的文档结构是什么，需要构建哪些索引，应用如何访问数据库（具体的CRUD命令）；</p>
+</li>
+<li>
+<p>为玩家的操作设计JSON HTTP协议的接口，自定义接口格式（request和response的JSON）；为每个接口编写测试用例和测试代码；</p>
+</li>
+<li>
+<p>不限制编程语言及web框架。</p>
+</li>
+</ol>
+<h2 id="三代码执行顺序及使用方法">三.代码执行顺序及使用方法</h2>
+<p>整个项目代码位于flaskProject文件夹中。</p>
+<p>1.执行init_db.py，初始化treasures宝物库。</p>
+<p>2.执行app.py，后台自动运行寻宝和赚钱进程，每20s结果会显示在命令行上；登录localhost:5000/ 即可进入登录界面，登录界面对应templates/index.html</p>
+<p>3.用浏览器在localhost:5000/中执行注册/登录操作进入用户页面,用户界面对应templates/game.html</p>
+<p>4.在用户界面网页中允许用户使用post form提交表单来执行操作，也可以直接遵循app.py中的路由规则用url的get执行相关操作</p>
+<p>（如果用postman测试，还支持post json的输入）</p>
+<p>5.如果要用pytest，在命令行中输入pytest即可，pytest的配置文件为_init_.py和conftest.py，pytest会按顺序运行test_user.py中的函数。（注意运行时要先把mongodb中markets和players两个collection更改为collection markets.json和collection players两个json文件的内容，删除当前数据然后用MongoDB compass直接导入即可，否则有些测试代码如买卖商品会无法执行。）</p>
+<p>6.为了重现本项目测试的过程，我将用到的四个collection中的数据存了下来，分别为collection markets.json，collection players.json，collection treasures.json和picurl.json，后两个是在init_db.py时自动生成的不用手动去建立，前两个是用户使用过程中产生的，可以直接往名为webgame的数据库中的markets和players collection中导入。</p>
+<h2 id="四实验过程">四.实验过程</h2>
+<h3 id="1数据库设计">1.数据库设计</h3>
+<p>分为四个collection：分别是treasures，players,markets和picurl，其中前三个是必须的</p>
+<p>连接的数据库是MongoDB</p>
+<p>E-R图如下：</p>
+<p><img src="/img/database_mongodb/image/1.PNG" alt="1"></p>
+<h4 id="11-treasures">1.1 treasures</h4>
+<p>treasures是一个宝物库，是静态的，在ini_db.py中提前执行一遍即可建立，需要修改宝物库时再重新运行ini_db.py即可。</p>
+<p>treasures的结构类似以下：</p>
+<div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="p">{</span><span class="s2">&#34;name&#34;</span><span class="p">:</span> <span class="s2">&#34;10级工具&#34;</span><span class="p">,</span> <span class="s2">&#34;property&#34;</span><span class="p">:</span> <span class="s2">&#34;T&#34;</span><span class="p">,</span> <span class="s2">&#34;level&#34;</span><span class="p">:</span> <span class="mi">10</span><span class="p">}</span>
+</code></pre></div><p>name表示物品名字，property表示用途（T=tool工具，A=accessory饰品），level表示宝物等级</p>
+<p>建立关于name的索引：</p>
+<p><img src="/img/database_mongodb/image/1.1.1.PNG" alt="1.1.1"></p>
+<p>collection内容如下：</p>
+<p><img src="/img/database_mongodb/image/1.1.PNG" alt=""></p>
+<h4 id="12-players">1.2 players</h4>
+<p>players存储用户信息，在新用户注册时会添加文档，对应函数为app.py中的register(username, password)函数。</p>
+<p>players的结构类似以下：</p>
+<div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="p">{</span><span class="s2">&#34;name&#34;</span><span class="p">:</span> <span class="n">username</span><span class="p">,</span> 
+<span class="s2">&#34;money&#34;</span><span class="p">:</span> <span class="mi">1000</span><span class="p">,</span> 
+<span class="s2">&#34;password&#34;</span><span class="p">:</span> <span class="n">password</span><span class="p">,</span>
+<span class="s2">&#34;treasure&#34;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&#34;T&#34;</span><span class="p">:</span> <span class="s2">&#34;1级工具&#34;</span><span class="p">,</span> <span class="s2">&#34;A&#34;</span><span class="p">:</span> <span class="s2">&#34;1级饰品&#34;</span><span class="p">},</span>
+<span class="s2">&#34;box&#34;</span><span class="p">:</span> <span class="p">[]}</span>
+</code></pre></div><p>name表示用户名字，money表示用户金币数，password是用户登录密码，treasures是一个字典存当前装备的工具和饰品名，box中的列表装用户多余的物品（最大值为10个）</p>
+<p>建立关于name的索引：</p>
+<p><img src="/img/database_mongodb/image/1.2.1.PNG" alt="1.2.1"></p>
+<p>collection内容如下：</p>
+<p><img src="/img/database_mongodb/image/1.2.PNG" alt="1.2"></p>
+<h4 id="13-markets">1.3 markets</h4>
+<p>markets储存市场信息，当有人出售或购买物品时会往该collection添加或删除文档。</p>
+<p>markets的结构类似以下：</p>
+<div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="p">{</span><span class="s2">&#34;name&#34;</span><span class="p">:</span> <span class="n">treasure</span><span class="p">,</span> <span class="s2">&#34;price&#34;</span><span class="p">:</span> <span class="n">price</span><span class="p">,</span> <span class="s2">&#34;owner&#34;</span><span class="p">:</span> <span class="n">username</span><span class="p">}</span>
+</code></pre></div><p>name表示商品名字，price表示商品价格，owner表示商品出售者。</p>
+<p>collection内容如下：</p>
+<p><img src="/img/database_mongodb/image/1.3.PNG" alt="1.3"></p>
+<h4 id="14-picurl">1.4 picurl</h4>
+<p>这个collection不是必须的，之前三个collection已经建好了，我还想把宝物和图片联系起来就加了这个数据库，是为了实现自己附加的查看工具图片模样的功能，它存储每样工具图片的路径。</p>
+<p>markets的结构类似以下：</p>
+<pre><code>{&quot;name&quot;: &quot;10级工具.jpg&quot;}
+</code></pre><p>name表示工具的名字路径</p>
+<p>图片被放在static文件夹下：</p>
+<p><img src="/img/database_mongodb/image/1.4.1.PNG" alt="1.4.1"></p>
+<p>collection内容如下：</p>
+<p><img src="/img/database_mongodb/image/1.4.PNG" alt="1.4"></p>
+<h3 id="2基本功能函数实现登录cwur等">2.基本功能函数实现（登录，cwur等）</h3>
+<p>为了满足pytest的要求，除了登录注册，返回的都是json类型的数据。</p>
+<h4 id="21-登录注册">2.1 登录/注册</h4>
+<p>index.html的登录页的表单数据会被传到login函数中，login函数会判断用户是否注册，未注册会跳转到register完成注册，已注册直接进入用户界面game.html，密码错误会提示</p>
+<div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="c1"># 以下是不同表单的处理函数，跳转到对应的后端函数中</span>
+<span class="nd">@app.route</span><span class="p">(</span><span class="s1">&#39;/process&#39;</span><span class="p">,</span> <span class="n">methods</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;POST&#39;</span><span class="p">,</span> <span class="s1">&#39;GET&#39;</span><span class="p">])</span>
+<span class="k">def</span> <span class="nf">process</span><span class="p">():</span>
+    <span class="k">if</span> <span class="n">request</span><span class="o">.</span><span class="n">method</span> <span class="o">==</span> <span class="s1">&#39;POST&#39;</span><span class="p">:</span>
+        <span class="n">username</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">form</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&#34;Name&#34;</span><span class="p">)</span>
+        <span class="n">password</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">form</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&#34;Password&#34;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">login</span><span class="p">(</span><span class="n">username</span><span class="p">,</span> <span class="n">password</span><span class="p">)</span>
+</code></pre></div><div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="c1"># 登录，转到用户主页</span>
+<span class="k">def</span> <span class="nf">login</span><span class="p">(</span><span class="n">username</span><span class="p">,</span> <span class="n">password</span><span class="p">):</span>
+    <span class="n">players</span><span class="o">.</span><span class="n">create_index</span><span class="p">([(</span><span class="s2">&#34;name&#34;</span><span class="p">,</span> <span class="n">pymongo</span><span class="o">.</span><span class="n">ASCENDING</span><span class="p">)],</span> <span class="n">unique</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">players</span><span class="o">.</span><span class="n">find_one</span><span class="p">({</span><span class="s2">&#34;name&#34;</span><span class="p">:</span> <span class="n">username</span><span class="p">})</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">register</span><span class="p">(</span><span class="n">username</span><span class="p">,</span> <span class="n">password</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">players</span><span class="o">.</span><span class="n">find_one</span><span class="p">({</span><span class="s2">&#34;name&#34;</span><span class="p">:</span> <span class="n">username</span><span class="p">})[</span><span class="s1">&#39;password&#39;</span><span class="p">]</span> <span class="o">!=</span> <span class="n">password</span><span class="p">:</span>
+            <span class="k">return</span> <span class="s2">&#34;&lt;h1&gt;玩家 </span><span class="si">%s</span><span class="s2"> 密码错误请重新输入&lt;/h1&gt;&#34;</span> <span class="o">%</span> <span class="n">username</span>
+        <span class="n">user_dict</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">show_dict</span><span class="p">(</span><span class="n">players</span><span class="o">.</span><span class="n">find_one</span><span class="p">({</span><span class="s2">&#34;name&#34;</span><span class="p">:</span> <span class="n">username</span><span class="p">})))</span>
+        <span class="k">return</span> <span class="n">render_template</span><span class="p">(</span><span class="s1">&#39;game.html&#39;</span><span class="p">,</span> <span class="n">Name</span><span class="o">=</span><span class="n">username</span><span class="p">,</span> <span class="n">Userdict</span><span class="o">=</span><span class="n">user_dict</span><span class="p">)</span>
+
+
+<span class="c1"># 注册</span>
+<span class="k">def</span> <span class="nf">register</span><span class="p">(</span><span class="n">username</span><span class="p">,</span> <span class="n">password</span><span class="p">):</span>
+    <span class="n">var</span> <span class="o">=</span> <span class="n">players</span><span class="o">.</span><span class="n">insert_one</span><span class="p">({</span><span class="s2">&#34;name&#34;</span><span class="p">:</span> <span class="n">username</span><span class="p">,</span> <span class="s2">&#34;money&#34;</span><span class="p">:</span> <span class="mi">1000</span><span class="p">,</span> <span class="s2">&#34;password&#34;</span><span class="p">:</span> <span class="n">password</span><span class="p">,</span>
+                              <span class="s2">&#34;treasure&#34;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&#34;T&#34;</span><span class="p">:</span> <span class="s2">&#34;1级工具&#34;</span><span class="p">,</span> <span class="s2">&#34;A&#34;</span><span class="p">:</span> <span class="s2">&#34;1级饰品&#34;</span><span class="p">},</span>
+                              <span class="s2">&#34;box&#34;</span><span class="p">:</span> <span class="p">[]})</span><span class="o">.</span><span class="n">inserted_id</span>
+    <span class="k">return</span> <span class="s2">&#34;&lt;h1&gt;玩家 </span><span class="si">%s</span><span class="s2"> 注册成功，请返回登录页面&lt;/h1&gt;&#34;</span> <span class="o">%</span> <span class="n">username</span> <span class="o">+</span> <span class="s2">&#34;&lt;br&gt;&lt;br&gt;&#34;</span>
+</code></pre></div><p>密码错误会无法进入游戏页面</p>
+<p><img src="/img/database_mongodb/image/2.1.PNG" alt="2.1"></p>
+<p>登录注册的界面见后面前端展示，也可以py app.py后访问localhost:5000直接查看。</p>
+<h4 id="22-查看用户箱子">2.2 查看用户箱子</h4>
+<p>查看某用户的箱子，用法例如localhost:5000/qk/box</p>
+<div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="k">def</span> <span class="nf">look_box</span><span class="p">(</span><span class="n">username</span><span class="p">):</span>
+    <span class="n">answer</span> <span class="o">=</span> <span class="n">show_dict</span><span class="p">(</span><span class="n">players</span><span class="o">.</span><span class="n">find_one</span><span class="p">({</span><span class="s2">&#34;name&#34;</span><span class="p">:</span> <span class="n">username</span><span class="p">}))</span>
+
+    <span class="n">answer</span><span class="p">[</span><span class="s2">&#34;answer&#34;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&#34;这是</span><span class="si">%s</span><span class="s2">的box返回结果：&#34;</span> <span class="o">%</span> <span class="n">username</span>
+
+    <span class="k">return</span> <span class="n">jsonify</span><span class="p">(</span><span class="n">answer</span><span class="p">)</span>
+</code></pre></div><p><img src="/img/database_mongodb/image/2.2.PNG" alt="2.2"></p>
+<h4 id="23-浏览市场">2.3 浏览市场</h4>
+<p>查看市场，用法例如localhost:5000/qk/market</p>
+<div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="c1"># 浏览市场</span>
+<span class="k">def</span> <span class="nf">look_market</span><span class="p">(</span><span class="n">username</span><span class="p">):</span>
+    <span class="c1"># 没找到用户</span>
+    <span class="k">if</span> <span class="n">players</span><span class="o">.</span><span class="n">find_one</span><span class="p">({</span><span class="s2">&#34;name&#34;</span><span class="p">:</span> <span class="n">username</span><span class="p">})</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+        <span class="k">return</span> <span class="s2">&#34;&lt;h1&gt;请先注册用户&lt;/h1&gt;&#34;</span>
+    <span class="c1"># 显示market</span>
+    <span class="n">res</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s2">&#34;answer&#34;</span><span class="p">:</span> <span class="s2">&#34;玩家</span><span class="si">%s</span><span class="s2">查看市场&#34;</span> <span class="o">%</span> <span class="n">username</span>
+    <span class="p">}</span>
+    <span class="k">for</span> <span class="n">treasure</span> <span class="ow">in</span> <span class="n">markets</span><span class="o">.</span><span class="n">find</span><span class="p">():</span>
+        <span class="n">res</span><span class="p">[</span><span class="s2">&#34;</span><span class="si">%s</span><span class="s2">&#34;</span> <span class="o">%</span> <span class="n">treasure</span><span class="p">[</span><span class="s2">&#34;_id&#34;</span><span class="p">]]</span> <span class="o">=</span> <span class="n">show_dict</span><span class="p">(</span><span class="n">treasure</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">jsonify</span><span class="p">(</span><span class="n">res</span><span class="p">)</span>
+</code></pre></div><p><img src="/img/database_mongodb/image/2.3.PNG" alt="2.3"></p>
+<h4 id="24-佩戴宝物">2.4 佩戴宝物</h4>
+<p>配戴宝物，用法例如localhost:5000/qk/wear/10级工具，如果箱子没有或者宝物库没有则配戴失败。</p>
+<div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="c1"># 佩戴宝物</span>
+<span class="k">def</span> <span class="nf">wear</span><span class="p">(</span><span class="n">username</span><span class="p">,</span> <span class="n">treasure</span><span class="p">):</span>
+    <span class="c1"># box中没有该宝物</span>
+    <span class="k">if</span> <span class="n">treasures</span><span class="o">.</span><span class="n">find_one</span><span class="p">({</span><span class="s2">&#34;name&#34;</span><span class="p">:</span> <span class="n">treasure</span><span class="p">})</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">jsonify</span><span class="p">({</span><span class="s2">&#34;error&#34;</span><span class="p">:</span> <span class="s2">&#34;该宝物名不存在&#34;</span><span class="p">})</span>
+        <span class="s1">&#39;&#39;&#39;
+</span><span class="s1">        return &#34;&lt;h1&gt;宝物库中没有 </span><span class="si">%s</span><span class="s1"> 宝物&lt;/h1&gt;&#34; % treasure + &#34;&lt;br&gt;&lt;br&gt;&#34; + </span><span class="se">\
+</span><span class="se"></span><span class="s1">               str(show_dict(players.find_one({&#34;name&#34;: username})))
+</span><span class="s1">        &#39;&#39;&#39;</span>
+
+    <span class="c1"># 要佩戴的宝物类型</span>
+    <span class="n">t_class</span> <span class="o">=</span> <span class="n">treasures</span><span class="o">.</span><span class="n">find_one</span><span class="p">({</span><span class="s2">&#34;name&#34;</span><span class="p">:</span> <span class="n">treasure</span><span class="p">})[</span><span class="s1">&#39;property&#39;</span><span class="p">]</span>
+    <span class="c1"># 要替换的当前佩戴在身上的该类型宝物</span>
+    <span class="n">original</span> <span class="o">=</span> <span class="n">players</span><span class="o">.</span><span class="n">find_one</span><span class="p">({</span><span class="s2">&#34;name&#34;</span><span class="p">:</span> <span class="n">username</span><span class="p">})[</span><span class="s2">&#34;treasure&#34;</span><span class="p">][</span><span class="n">t_class</span><span class="p">]</span>
+
+    <span class="c1"># 用flag判断宝箱中有没有该宝物</span>
+    <span class="n">flag</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">box</span> <span class="o">=</span> <span class="n">players</span><span class="o">.</span><span class="n">find_one</span><span class="p">({</span><span class="s1">&#39;name&#39;</span><span class="p">:</span> <span class="n">username</span><span class="p">})[</span><span class="s1">&#39;box&#39;</span><span class="p">]</span>
+    <span class="n">player_treasure</span> <span class="o">=</span> <span class="n">players</span><span class="o">.</span><span class="n">find_one</span><span class="p">({</span><span class="s2">&#34;name&#34;</span><span class="p">:</span> <span class="n">username</span><span class="p">})[</span><span class="s2">&#34;treasure&#34;</span><span class="p">]</span>
+    <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">box</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">t</span> <span class="o">==</span> <span class="n">treasure</span><span class="p">:</span>
+            <span class="n">box</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">t</span><span class="p">)</span>
+            <span class="n">box</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">original</span><span class="p">)</span>
+            <span class="n">player_treasure</span><span class="p">[</span><span class="n">t_class</span><span class="p">]</span> <span class="o">=</span> <span class="n">treasure</span>
+            <span class="c1"># 更新宝箱和佩戴的宝物</span>
+            <span class="n">players</span><span class="o">.</span><span class="n">update_one</span><span class="p">({</span><span class="s2">&#34;name&#34;</span><span class="p">:</span> <span class="n">username</span><span class="p">},</span> <span class="p">{</span><span class="s2">&#34;$set&#34;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&#34;box&#34;</span><span class="p">:</span> <span class="n">box</span><span class="p">}})</span>
+            <span class="n">players</span><span class="o">.</span><span class="n">update_one</span><span class="p">({</span><span class="s2">&#34;name&#34;</span><span class="p">:</span> <span class="n">username</span><span class="p">},</span> <span class="p">{</span><span class="s2">&#34;$set&#34;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&#34;treasure&#34;</span><span class="p">:</span> <span class="n">player_treasure</span><span class="p">}})</span>
+            <span class="n">flag</span> <span class="o">=</span> <span class="mi">1</span>
+            <span class="n">answer</span> <span class="o">=</span> <span class="n">show_dict</span><span class="p">(</span><span class="n">players</span><span class="o">.</span><span class="n">find_one</span><span class="p">({</span><span class="s2">&#34;name&#34;</span><span class="p">:</span> <span class="n">username</span><span class="p">}))</span>
+            <span class="n">answer</span><span class="p">[</span><span class="s2">&#34;answer&#34;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&#34;玩家</span><span class="si">%s</span><span class="s2">穿戴成功&#34;</span> <span class="o">%</span> <span class="n">username</span>
+            <span class="k">return</span> <span class="n">jsonify</span><span class="p">(</span><span class="n">answer</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">flag</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">jsonify</span><span class="p">({</span><span class="s2">&#34;error&#34;</span><span class="p">:</span> <span class="s2">&#34;存储箱没有该宝物&#34;</span><span class="p">})</span>
+</code></pre></div><p><img src="/img/database_mongodb/image/2.4.PNG" alt="2.4"></p>
+<p><img src="/img/database_mongodb/image/2.4.1.PNG" alt="2.4.1"></p>
+<p><img src="/img/database_mongodb/image/2.4.2.PNG" alt="2.4.2"></p>
+<h4 id="25-购买宝物">2.5 购买宝物</h4>
+<p>购买宝物，用法例如localhost:5000/qk/buy/9级工具，如果市场没有或者钱不够则购买失败。</p>
+<div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="c1"># 购买宝物</span>
+<span class="k">def</span> <span class="nf">buy</span><span class="p">(</span><span class="n">username</span><span class="p">,</span> <span class="n">treasure</span><span class="p">):</span>
+    <span class="c1"># 市场没有该宝物</span>
+    <span class="k">if</span> <span class="n">markets</span><span class="o">.</span><span class="n">find_one</span><span class="p">({</span><span class="s2">&#34;name&#34;</span><span class="p">:</span> <span class="n">treasure</span><span class="p">})</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">jsonify</span><span class="p">({</span><span class="s2">&#34;error&#34;</span><span class="p">:</span> <span class="s2">&#34;市场无此宝物&#34;</span><span class="p">})</span>
+        <span class="s1">&#39;&#39;&#39;
+</span><span class="s1">        return &#34;&lt;h1&gt;市场暂无 </span><span class="si">%s</span><span class="s1"> 宝物&lt;/h1&gt;&#34; % treasure + &#34;&lt;br&gt;&lt;br&gt;&#34; </span><span class="se">\
+</span><span class="se"></span><span class="s1">               + str(show_dict(players.find_one({&#34;name&#34;: username})))
+</span><span class="s1">        &#39;&#39;&#39;</span>
+    <span class="n">player</span> <span class="o">=</span> <span class="n">players</span><span class="o">.</span><span class="n">find_one</span><span class="p">({</span><span class="s2">&#34;name&#34;</span><span class="p">:</span> <span class="n">username</span><span class="p">})</span>
+    <span class="n">box1</span> <span class="o">=</span> <span class="n">player</span><span class="p">[</span><span class="s1">&#39;box&#39;</span><span class="p">]</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">box1</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="mi">10</span><span class="p">:</span>
+        <span class="n">recovery_treasure</span><span class="p">(</span><span class="n">username</span><span class="p">)</span>
+    <span class="n">box</span> <span class="o">=</span> <span class="n">player</span><span class="p">[</span><span class="s1">&#39;box&#39;</span><span class="p">]</span>
+    <span class="n">box</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">treasure</span><span class="p">)</span>
+    <span class="n">players</span><span class="o">.</span><span class="n">update_one</span><span class="p">({</span><span class="s2">&#34;name&#34;</span><span class="p">:</span> <span class="n">username</span><span class="p">},</span> <span class="p">{</span><span class="s2">&#34;$set&#34;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&#34;box&#34;</span><span class="p">:</span> <span class="n">box</span><span class="p">}})</span>
+    <span class="n">treasure_money</span> <span class="o">=</span> <span class="n">sys</span><span class="o">.</span><span class="n">maxsize</span>
+    <span class="n">id_</span> <span class="o">=</span> <span class="n">markets</span><span class="o">.</span><span class="n">find_one</span><span class="p">({</span><span class="s2">&#34;name&#34;</span><span class="p">:</span> <span class="n">treasure</span><span class="p">})[</span><span class="s1">&#39;_id&#39;</span><span class="p">]</span>  <span class="c1"># 用id进行记录，因为市场重复</span>
+    <span class="k">for</span> <span class="n">thing</span> <span class="ow">in</span> <span class="n">markets</span><span class="o">.</span><span class="n">find</span><span class="p">({</span><span class="s2">&#34;name&#34;</span><span class="p">:</span> <span class="n">treasure</span><span class="p">}):</span>
+        <span class="k">if</span> <span class="nb">int</span><span class="p">(</span><span class="n">thing</span><span class="p">[</span><span class="s1">&#39;price&#39;</span><span class="p">])</span> <span class="o">&lt;</span> <span class="n">treasure_money</span><span class="p">:</span>
+            <span class="n">treasure_money</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">thing</span><span class="p">[</span><span class="s1">&#39;price&#39;</span><span class="p">])</span>
+            <span class="n">id_</span> <span class="o">=</span> <span class="n">thing</span><span class="p">[</span><span class="s1">&#39;_id&#39;</span><span class="p">]</span>
+    <span class="n">money1</span> <span class="o">=</span> <span class="n">player</span><span class="p">[</span><span class="s1">&#39;money&#39;</span><span class="p">]</span> <span class="o">-</span> <span class="n">treasure_money</span>
+    <span class="c1"># 买不起</span>
+    <span class="k">if</span> <span class="n">money1</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">jsonify</span><span class="p">({</span><span class="s2">&#34;error&#34;</span><span class="p">:</span> <span class="s2">&#34;余额不足&#34;</span><span class="p">})</span>
+    <span class="n">players</span><span class="o">.</span><span class="n">update_one</span><span class="p">({</span><span class="s2">&#34;name&#34;</span><span class="p">:</span> <span class="n">username</span><span class="p">},</span> <span class="p">{</span><span class="s2">&#34;$set&#34;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&#34;money&#34;</span><span class="p">:</span> <span class="n">money1</span><span class="p">}})</span>
+    <span class="n">owner</span> <span class="o">=</span> <span class="n">markets</span><span class="o">.</span><span class="n">find_one</span><span class="p">({</span><span class="s2">&#34;_id&#34;</span><span class="p">:</span> <span class="n">id_</span><span class="p">})[</span><span class="s1">&#39;owner&#39;</span><span class="p">]</span>
+    <span class="n">money2</span> <span class="o">=</span> <span class="n">players</span><span class="o">.</span><span class="n">find_one</span><span class="p">({</span><span class="s2">&#34;name&#34;</span><span class="p">:</span> <span class="n">owner</span><span class="p">})[</span><span class="s1">&#39;money&#39;</span><span class="p">]</span> <span class="o">+</span> <span class="n">treasure_money</span>
+    <span class="n">players</span><span class="o">.</span><span class="n">update_one</span><span class="p">({</span><span class="s2">&#34;name&#34;</span><span class="p">:</span> <span class="n">owner</span><span class="p">},</span> <span class="p">{</span><span class="s2">&#34;$set&#34;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&#34;money&#34;</span><span class="p">:</span> <span class="n">money2</span><span class="p">}})</span>
+    <span class="c1"># 市场删除该宝物</span>
+    <span class="n">markets</span><span class="o">.</span><span class="n">delete_one</span><span class="p">({</span><span class="s2">&#34;name&#34;</span><span class="p">:</span> <span class="n">treasure</span><span class="p">})</span>
+    <span class="k">return</span> <span class="n">jsonify</span><span class="p">({</span><span class="s2">&#34;answer&#34;</span><span class="p">:</span> <span class="s2">&#34;购买完成，请查看背包&#34;</span><span class="p">})</span>
+</code></pre></div><p><img src="/img/database_mongodb/image/2.5.PNG" alt="2.5"></p>
+<p><img src="/img/database_mongodb/image/2.5.1.PNG" alt="2.5.1"></p>
+<p><img src="/img/database_mongodb/image/2.5.2.PNG" alt="2.5.2"></p>
+<h4 id="26-撤回宝物">2.6 撤回宝物</h4>
+<p>撤回宝物，用法例如localhost:5000/qk/withdraw/10级饰品，如果市场没有则撤回失败。</p>
+<div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="c1"># 收回挂牌宝物</span>
+<span class="k">def</span> <span class="nf">withdraw</span><span class="p">(</span><span class="n">username</span><span class="p">,</span> <span class="n">treasure</span><span class="p">):</span>
+    <span class="c1"># 市场没有该宝物</span>
+    <span class="k">if</span> <span class="n">markets</span><span class="o">.</span><span class="n">find_one</span><span class="p">({</span><span class="s2">&#34;name&#34;</span><span class="p">:</span> <span class="n">treasure</span><span class="p">,</span> <span class="s2">&#34;owner&#34;</span><span class="p">:</span> <span class="n">username</span><span class="p">})</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">jsonify</span><span class="p">({</span><span class="s2">&#34;error&#34;</span><span class="p">:</span> <span class="s2">&#34;市场无此宝物&#34;</span><span class="p">})</span>
+        <span class="s1">&#39;&#39;&#39;
+</span><span class="s1">        return &#34;&lt;h1&gt;市场没有 </span><span class="si">%s</span><span class="s1"> 宝物&lt;/h1&gt;&#34; % treasure + &#34;&lt;br&gt;&lt;br&gt;&#34; </span><span class="se">\
+</span><span class="se"></span><span class="s1">               + str(show_dict(players.find_one({&#34;name&#34;: username})))
+</span><span class="s1">        &#39;&#39;&#39;</span>
+    <span class="c1"># 市场删除宝物</span>
+    <span class="n">markets</span><span class="o">.</span><span class="n">delete_one</span><span class="p">({</span><span class="s2">&#34;name&#34;</span><span class="p">:</span> <span class="n">treasure</span><span class="p">,</span> <span class="s2">&#34;owner&#34;</span><span class="p">:</span> <span class="n">username</span><span class="p">})</span>
+    <span class="c1"># 玩家收回宝物</span>
+    <span class="n">box</span> <span class="o">=</span> <span class="n">players</span><span class="o">.</span><span class="n">find_one</span><span class="p">({</span><span class="s2">&#34;name&#34;</span><span class="p">:</span> <span class="n">username</span><span class="p">})[</span><span class="s1">&#39;box&#39;</span><span class="p">]</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">box</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="mi">10</span><span class="p">:</span>
+        <span class="n">recovery_treasure</span><span class="p">(</span><span class="n">username</span><span class="p">)</span>
+    <span class="n">box</span> <span class="o">=</span> <span class="n">players</span><span class="o">.</span><span class="n">find_one</span><span class="p">({</span><span class="s2">&#34;name&#34;</span><span class="p">:</span> <span class="n">username</span><span class="p">})[</span><span class="s1">&#39;box&#39;</span><span class="p">]</span>
+    <span class="n">box</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">treasure</span><span class="p">)</span>
+    <span class="n">players</span><span class="o">.</span><span class="n">update_one</span><span class="p">({</span><span class="s2">&#34;name&#34;</span><span class="p">:</span> <span class="n">username</span><span class="p">},</span> <span class="p">{</span><span class="s2">&#34;$set&#34;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&#34;box&#34;</span><span class="p">:</span> <span class="n">box</span><span class="p">}})</span>
+    <span class="k">return</span> <span class="n">jsonify</span><span class="p">({</span><span class="s2">&#34;answer&#34;</span><span class="p">:</span> <span class="s2">&#34;收回成功，请查看背包&#34;</span><span class="p">})</span>
+</code></pre></div><p><img src="/img/database_mongodb/image/2.6.PNG" alt="2.6"></p>
+<p><img src="/img/database_mongodb/image/2.6.1.PNG" alt="2.6.1"></p>
+<h4 id="27-出售宝物">2.7 出售宝物</h4>
+<p>出售宝物，用法例如localhost:5000/qk/sell/10级饰品/1000，如果背包没有则出售失败。</p>
+<div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="c1"># 出卖宝物</span>
+<span class="k">def</span> <span class="nf">sell</span><span class="p">(</span><span class="n">username</span><span class="p">,</span> <span class="n">treasure</span><span class="p">,</span> <span class="n">price</span><span class="p">):</span>
+    <span class="n">box</span> <span class="o">=</span> <span class="n">players</span><span class="o">.</span><span class="n">find_one</span><span class="p">({</span><span class="s1">&#39;name&#39;</span><span class="p">:</span> <span class="n">username</span><span class="p">})[</span><span class="s1">&#39;box&#39;</span><span class="p">]</span>
+    <span class="k">if</span> <span class="n">treasure</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">box</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">jsonify</span><span class="p">({</span><span class="s2">&#34;error&#34;</span><span class="p">:</span> <span class="s2">&#34;存储箱没有该宝物&#34;</span><span class="p">})</span>
+    <span class="n">price</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">price</span><span class="p">)</span>
+    <span class="n">player</span> <span class="o">=</span> <span class="n">players</span><span class="o">.</span><span class="n">find_one</span><span class="p">({</span><span class="s2">&#34;name&#34;</span><span class="p">:</span> <span class="n">username</span><span class="p">})</span>
+    <span class="c1"># 卖家宝物到位</span>
+    <span class="n">box</span> <span class="o">=</span> <span class="n">player</span><span class="p">[</span><span class="s1">&#39;box&#39;</span><span class="p">]</span>
+    <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">box</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">t</span> <span class="o">==</span> <span class="n">treasure</span><span class="p">:</span>
+            <span class="n">box</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">t</span><span class="p">)</span>
+            <span class="k">break</span>
+    <span class="n">players</span><span class="o">.</span><span class="n">update_one</span><span class="p">({</span><span class="s2">&#34;name&#34;</span><span class="p">:</span> <span class="n">username</span><span class="p">},</span> <span class="p">{</span><span class="s2">&#34;$set&#34;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&#34;box&#34;</span><span class="p">:</span> <span class="n">box</span><span class="p">}})</span>
+    <span class="c1"># 市场宝物到位</span>
+    <span class="n">markets</span><span class="o">.</span><span class="n">insert_one</span><span class="p">({</span><span class="s2">&#34;name&#34;</span><span class="p">:</span> <span class="n">treasure</span><span class="p">,</span> <span class="s2">&#34;price&#34;</span><span class="p">:</span> <span class="n">price</span><span class="p">,</span> <span class="s2">&#34;owner&#34;</span><span class="p">:</span> <span class="n">username</span><span class="p">})</span>
+    <span class="k">return</span> <span class="n">jsonify</span><span class="p">({</span><span class="s2">&#34;answer&#34;</span><span class="p">:</span> <span class="s2">&#34;挂牌成功，请查看市场&#34;</span><span class="p">})</span>
+</code></pre></div><p><img src="/img/database_mongodb/image/2.7.PNG" alt="2.7"></p>
+<p><img src="/img/database_mongodb/image/2.7.1.PNG" alt="2.7.1"></p>
+<h3 id="3定时任务寻宝赚钱函数实现">3.定时任务（寻宝+赚钱）函数实现</h3>
+<p>用到了apscheduler这个库，作用是定时执行程序</p>
+<pre><code>from flask_apscheduler import APScheduler
+</code></pre><p>再实现需要自动执行的函数，这里是find_treasure和find_money函数</p>
+<div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="c1"># 自动寻宝</span>
+<span class="k">def</span> <span class="nf">find_treasure</span><span class="p">():</span>
+    <span class="c1"># 遍历每个玩家</span>
+    <span class="k">for</span> <span class="n">player</span> <span class="ow">in</span> <span class="n">players</span><span class="o">.</span><span class="n">find</span><span class="p">():</span>
+        <span class="n">name</span> <span class="o">=</span> <span class="n">player</span><span class="p">[</span><span class="s2">&#34;name&#34;</span><span class="p">]</span>
+        <span class="c1"># 宝箱已满</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">player</span><span class="p">[</span><span class="s1">&#39;box&#39;</span><span class="p">])</span> <span class="o">&gt;=</span> <span class="mi">10</span><span class="p">:</span>
+            <span class="k">print</span><span class="p">(</span><span class="s2">&#34;存储箱已满将回收一件低端宝物&#34;</span><span class="p">)</span>
+            <span class="n">recovery_treasure</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
+        <span class="c1"># 得到的宝物和饰品的级别有关</span>
+        <span class="n">box</span> <span class="o">=</span> <span class="n">players</span><span class="o">.</span><span class="n">find_one</span><span class="p">({</span><span class="s2">&#34;name&#34;</span><span class="p">:</span> <span class="n">name</span><span class="p">})[</span><span class="s1">&#39;box&#39;</span><span class="p">]</span>
+        <span class="n">wear_treasure_name</span> <span class="o">=</span> <span class="n">player</span><span class="p">[</span><span class="s1">&#39;treasure&#39;</span><span class="p">][</span><span class="s1">&#39;A&#39;</span><span class="p">]</span>
+        <span class="n">wear_treasure_level</span> <span class="o">=</span> <span class="n">treasures</span><span class="o">.</span><span class="n">find_one</span><span class="p">({</span><span class="s2">&#34;name&#34;</span><span class="p">:</span> <span class="n">wear_treasure_name</span><span class="p">})[</span><span class="s1">&#39;level&#39;</span><span class="p">]</span>
+        <span class="n">ls</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">treasures</span><span class="o">.</span><span class="n">find</span><span class="p">({</span><span class="s2">&#34;level&#34;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&#34;$lte&#34;</span><span class="p">:</span> <span class="n">wear_treasure_level</span> <span class="o">+</span> <span class="mi">2</span><span class="p">,</span> <span class="s2">&#34;$gte&#34;</span><span class="p">:</span> <span class="n">wear_treasure_level</span> <span class="o">-</span> <span class="mi">2</span><span class="p">}}):</span>
+            <span class="n">ls</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">col</span><span class="p">)</span>
+        <span class="c1"># 随机寻宝</span>
+        <span class="n">x</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">ls</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span>
+        <span class="n">box</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">ls</span><span class="p">[</span><span class="n">x</span><span class="p">][</span><span class="s1">&#39;name&#39;</span><span class="p">])</span>
+        <span class="c1"># 更新宝物</span>
+        <span class="n">players</span><span class="o">.</span><span class="n">update_one</span><span class="p">({</span><span class="s2">&#34;name&#34;</span><span class="p">:</span> <span class="n">name</span><span class="p">},</span> <span class="p">{</span><span class="s2">&#34;$set&#34;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&#34;box&#34;</span><span class="p">:</span> <span class="n">box</span><span class="p">}})</span>
+        <span class="k">print</span><span class="p">(</span><span class="s2">&#34;玩家 </span><span class="si">%-6s</span><span class="s2"> 获得宝物 </span><span class="si">%s</span><span class="s2">&#34;</span> <span class="o">%</span> <span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">ls</span><span class="p">[</span><span class="n">x</span><span class="p">][</span><span class="s1">&#39;name&#39;</span><span class="p">]))</span>
+
+
+<span class="c1"># 自动赚钱</span>
+<span class="k">def</span> <span class="nf">find_money</span><span class="p">():</span>
+    <span class="c1"># 遍历每个玩家</span>
+    <span class="k">for</span> <span class="n">player</span> <span class="ow">in</span> <span class="n">players</span><span class="o">.</span><span class="n">find</span><span class="p">():</span>
+        <span class="n">wear_treasure_name</span> <span class="o">=</span> <span class="n">player</span><span class="p">[</span><span class="s1">&#39;treasure&#39;</span><span class="p">][</span><span class="s1">&#39;T&#39;</span><span class="p">]</span>
+        <span class="n">wear_treasure_level</span> <span class="o">=</span> <span class="n">treasures</span><span class="o">.</span><span class="n">find_one</span><span class="p">({</span><span class="s2">&#34;name&#34;</span><span class="p">:</span> <span class="n">wear_treasure_name</span><span class="p">})[</span><span class="s1">&#39;level&#39;</span><span class="p">]</span>
+        <span class="c1"># 得到的金钱和工具的级别有关</span>
+        <span class="n">money_get</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">((</span><span class="n">wear_treasure_level</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="mi">100</span><span class="p">,</span> <span class="p">(</span><span class="n">wear_treasure_level</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="mi">100</span><span class="p">)</span>
+        <span class="c1"># 打入账户</span>
+        <span class="n">money</span> <span class="o">=</span> <span class="n">player</span><span class="p">[</span><span class="s1">&#39;money&#39;</span><span class="p">]</span> <span class="o">+</span> <span class="n">money_get</span>
+        <span class="n">name</span> <span class="o">=</span> <span class="n">player</span><span class="p">[</span><span class="s2">&#34;name&#34;</span><span class="p">]</span>
+        <span class="c1"># 更新账户</span>
+        <span class="n">players</span><span class="o">.</span><span class="n">update_one</span><span class="p">({</span><span class="s2">&#34;name&#34;</span><span class="p">:</span> <span class="n">name</span><span class="p">},</span> <span class="p">{</span><span class="s2">&#34;$set&#34;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&#34;money&#34;</span><span class="p">:</span> <span class="n">money</span><span class="p">}})</span>
+        <span class="k">print</span><span class="p">(</span><span class="s2">&#34;玩家 </span><span class="si">%-6s</span><span class="s2"> 金币到账 </span><span class="si">%d</span><span class="s2">&#34;</span> <span class="o">%</span> <span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">money_get</span><span class="p">))</span>
+</code></pre></div><p>写一个配置自动任务的类，将find_treasure和find_money设定为每20 seconds执行一次</p>
+<div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="c1"># 配置自动任务的类</span>
+<span class="k">class</span> <span class="nc">Config</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="n">JOBS</span> <span class="o">=</span> <span class="p">[</span>
+        <span class="p">{</span>
+            <span class="s1">&#39;id&#39;</span><span class="p">:</span> <span class="s1">&#39;job1&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;func&#39;</span><span class="p">:</span> <span class="s1">&#39;__main__:find_treasure&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;trigger&#39;</span><span class="p">:</span> <span class="s1">&#39;interval&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;seconds&#39;</span><span class="p">:</span> <span class="mi">20</span><span class="p">,</span>
+
+        <span class="p">},</span>
+        <span class="p">{</span>
+            <span class="s1">&#39;id&#39;</span><span class="p">:</span> <span class="s1">&#39;job2&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;func&#39;</span><span class="p">:</span> <span class="s1">&#39;__main__:find_money&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;trigger&#39;</span><span class="p">:</span> <span class="s1">&#39;interval&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;seconds&#39;</span><span class="p">:</span> <span class="mi">20</span><span class="p">,</span>
+
+        <span class="p">}</span>
+    <span class="p">]</span>
+</code></pre></div><p>最后在主函数中执行</p>
+<div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&#34;__main__&#34;</span><span class="p">:</span>
+    <span class="n">app</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">from_object</span><span class="p">(</span><span class="n">Config</span><span class="p">())</span>  <span class="c1"># 配置自动执行任务，后台寻宝赚钱</span>
+    <span class="n">scheduler</span> <span class="o">=</span> <span class="n">APScheduler</span><span class="p">()</span>
+    <span class="n">scheduler</span><span class="o">.</span><span class="n">init_app</span><span class="p">(</span><span class="n">app</span><span class="p">)</span>
+    <span class="n">scheduler</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
+    <span class="n">app</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>  <span class="c1"># app开始运行</span>
+</code></pre></div><p>可以在终端看到结果</p>
+<p><img src="/img/database_mongodb/image/3.4.PNG" alt="3.4"></p>
+<h3 id="4附加功能函数实现">4.附加功能函数实现</h3>
+<p>为了游戏的丰富性、完整性和个性化，我添加了pic_find，merge和finish函数，功能如下图所示</p>
+<p>注：finish的通关指的是同时获得10级工具和10级饰品，缺一不可，merge的融合需要付100金币</p>
+<table>
+<thead>
+<tr>
+<th>函数名</th>
+<th>参数</th>
+<th>功能</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>pic_find</td>
+<td>pic_url表示图片路径</td>
+<td>查看某样宝物的图片</td>
+</tr>
+<tr>
+<td>merge</td>
+<td>username表示用户名, treasure表示第一个宝物, treasure2表示第二个宝物</td>
+<td>融合两件宝物成随机一件宝物</td>
+</tr>
+<tr>
+<td>finish</td>
+<td>username表示用户名</td>
+<td>检查该用户是否通关</td>
+</tr>
+</tbody>
+</table>
+<div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="k">def</span> <span class="nf">pic_find</span><span class="p">(</span><span class="n">pic_url</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">pictures</span><span class="o">.</span><span class="n">find_one</span><span class="p">({</span><span class="s2">&#34;name&#34;</span><span class="p">:</span> <span class="n">pic_url</span><span class="p">})</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+        <span class="k">return</span> <span class="s2">&#34;&lt;h1&gt;找不到该图片信息&lt;/h1&gt;&#34;</span>
+    <span class="k">return</span> <span class="n">render_template</span><span class="p">(</span><span class="s1">&#39;picture.html&#39;</span><span class="p">,</span> <span class="n">Name</span><span class="o">=</span><span class="n">pic_url</span><span class="p">)</span>
+</code></pre></div><div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="c1"># 融合宝物</span>
+<span class="k">def</span> <span class="nf">merge</span><span class="p">(</span><span class="n">username</span><span class="p">,</span> <span class="n">treasure</span><span class="p">,</span> <span class="n">treasure2</span><span class="p">):</span>
+    <span class="n">player</span> <span class="o">=</span> <span class="n">players</span><span class="o">.</span><span class="n">find_one</span><span class="p">({</span><span class="s2">&#34;name&#34;</span><span class="p">:</span> <span class="n">username</span><span class="p">})</span>
+    <span class="n">box</span> <span class="o">=</span> <span class="n">player</span><span class="p">[</span><span class="s1">&#39;box&#39;</span><span class="p">]</span>
+    <span class="k">if</span> <span class="n">player</span><span class="p">[</span><span class="s1">&#39;money&#39;</span><span class="p">]</span> <span class="o">&lt;</span> <span class="mi">1000</span><span class="p">:</span>
+        <span class="k">return</span> <span class="s2">&#34;&lt;h1&gt;操作失败，当前金币小于1000无法寻宝&lt;/h1&gt;&#34;</span> <span class="o">+</span> <span class="s2">&#34;&lt;br&gt;&lt;br&gt;&#34;</span> \
+               <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">show_dict</span><span class="p">(</span><span class="n">players</span><span class="o">.</span><span class="n">find_one</span><span class="p">({</span><span class="s2">&#34;name&#34;</span><span class="p">:</span> <span class="n">username</span><span class="p">})))</span>
+
+    <span class="k">if</span> <span class="n">treasure</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">box</span><span class="p">:</span>
+        <span class="k">return</span> <span class="s2">&#34;&lt;h1&gt;操作失败，存储箱没有 </span><span class="si">%s</span><span class="s2"> 宝物&lt;/h1&gt;&#34;</span> <span class="o">%</span> <span class="n">treasure</span> <span class="o">+</span> <span class="s2">&#34;&lt;br&gt;&lt;br&gt;&#34;</span> \
+               <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">show_dict</span><span class="p">(</span><span class="n">players</span><span class="o">.</span><span class="n">find_one</span><span class="p">({</span><span class="s2">&#34;name&#34;</span><span class="p">:</span> <span class="n">username</span><span class="p">})))</span>
+    <span class="k">if</span> <span class="n">treasure2</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">box</span><span class="p">:</span>
+        <span class="k">return</span> <span class="s2">&#34;&lt;h1&gt;操作失败，存储箱没有 </span><span class="si">%s</span><span class="s2"> 宝物&lt;/h1&gt;&#34;</span> <span class="o">%</span> <span class="n">treasure2</span> <span class="o">+</span> <span class="s2">&#34;&lt;br&gt;&lt;br&gt;&#34;</span> \
+               <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">show_dict</span><span class="p">(</span><span class="n">players</span><span class="o">.</span><span class="n">find_one</span><span class="p">({</span><span class="s2">&#34;name&#34;</span><span class="p">:</span> <span class="n">username</span><span class="p">})))</span>
+    <span class="k">if</span> <span class="n">treasure</span> <span class="o">==</span> <span class="n">treasure2</span><span class="p">:</span>
+        <span class="n">num</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">box</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">t</span> <span class="o">==</span> <span class="n">treasure</span><span class="p">:</span>
+                <span class="n">num</span> <span class="o">+=</span> <span class="mi">1</span>
+        <span class="k">if</span> <span class="n">num</span> <span class="o">&lt;</span> <span class="mi">2</span><span class="p">:</span>
+            <span class="k">return</span> <span class="s2">&#34;&lt;h1&gt;操作失败，存储箱没有两件 </span><span class="si">%s</span><span class="s2"> 宝物&lt;/h1&gt;&#34;</span> <span class="o">%</span> <span class="n">treasure2</span> <span class="o">+</span> <span class="s2">&#34;&lt;br&gt;&lt;br&gt;&#34;</span> \
+                   <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">show_dict</span><span class="p">(</span><span class="n">players</span><span class="o">.</span><span class="n">find_one</span><span class="p">({</span><span class="s2">&#34;name&#34;</span><span class="p">:</span> <span class="n">username</span><span class="p">})))</span>
+    <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">box</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">t</span> <span class="o">==</span> <span class="n">treasure</span><span class="p">:</span>
+            <span class="n">box</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">t</span><span class="p">)</span>
+            <span class="k">break</span>
+    <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">box</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">t</span> <span class="o">==</span> <span class="n">treasure2</span><span class="p">:</span>
+            <span class="n">box</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">t</span><span class="p">)</span>
+            <span class="k">break</span>
+    <span class="n">ls</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">treasures</span><span class="o">.</span><span class="n">find</span><span class="p">():</span>
+        <span class="n">ls</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">col</span><span class="p">)</span>
+        <span class="c1"># 随机寻宝</span>
+    <span class="n">x</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">ls</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span>
+    <span class="n">new_treasure_name</span> <span class="o">=</span> <span class="n">ls</span><span class="p">[</span><span class="n">x</span><span class="p">][</span><span class="s1">&#39;name&#39;</span><span class="p">]</span>
+    <span class="n">box</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">ls</span><span class="p">[</span><span class="n">x</span><span class="p">][</span><span class="s1">&#39;name&#39;</span><span class="p">])</span>
+    <span class="n">players</span><span class="o">.</span><span class="n">update_one</span><span class="p">({</span><span class="s2">&#34;name&#34;</span><span class="p">:</span> <span class="n">username</span><span class="p">},</span> <span class="p">{</span><span class="s2">&#34;$set&#34;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&#34;box&#34;</span><span class="p">:</span> <span class="n">box</span><span class="p">}})</span>
+    <span class="n">money1</span> <span class="o">=</span> <span class="n">player</span><span class="p">[</span><span class="s1">&#39;money&#39;</span><span class="p">]</span> <span class="o">-</span> <span class="mi">100</span>
+    <span class="n">players</span><span class="o">.</span><span class="n">update_one</span><span class="p">({</span><span class="s2">&#34;name&#34;</span><span class="p">:</span> <span class="n">username</span><span class="p">},</span> <span class="p">{</span><span class="s2">&#34;$set&#34;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&#34;money&#34;</span><span class="p">:</span> <span class="n">money1</span><span class="p">}})</span>
+    <span class="k">return</span> <span class="s2">&#34;&lt;h1&gt;融合成功，得到 </span><span class="si">%s</span><span class="s2"> ，请查看背包，100元已经扣除&lt;/h1&gt;&#34;</span> <span class="o">%</span> <span class="n">new_treasure_name</span> <span class="o">+</span> <span class="s2">&#34;&lt;br&gt;&lt;br&gt;&#34;</span> <span class="o">+</span> \
+           <span class="nb">str</span><span class="p">(</span><span class="n">show_dict</span><span class="p">(</span><span class="n">players</span><span class="o">.</span><span class="n">find_one</span><span class="p">({</span><span class="s2">&#34;name&#34;</span><span class="p">:</span> <span class="n">username</span><span class="p">})))</span>
+</code></pre></div><div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="k">def</span> <span class="nf">finish</span><span class="p">(</span><span class="n">username</span><span class="p">):</span>
+    <span class="n">player</span> <span class="o">=</span> <span class="n">players</span><span class="o">.</span><span class="n">find_one</span><span class="p">({</span><span class="s2">&#34;name&#34;</span><span class="p">:</span> <span class="n">username</span><span class="p">})</span>
+    <span class="n">box</span> <span class="o">=</span> <span class="n">player</span><span class="p">[</span><span class="s1">&#39;box&#39;</span><span class="p">]</span>
+    <span class="n">player_treasure</span> <span class="o">=</span> <span class="n">player</span><span class="p">[</span><span class="s2">&#34;treasure&#34;</span><span class="p">]</span>
+    <span class="n">flag_t</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">flag_a</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">box</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">t</span> <span class="o">==</span> <span class="s2">&#34;10级工具&#34;</span><span class="p">:</span>
+            <span class="n">flag_t</span> <span class="o">=</span> <span class="mi">1</span>
+            <span class="k">break</span>
+    <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">box</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">t</span> <span class="o">==</span> <span class="s2">&#34;10级饰品&#34;</span><span class="p">:</span>
+            <span class="n">flag_a</span> <span class="o">=</span> <span class="mi">1</span>
+            <span class="k">break</span>
+    <span class="k">if</span> <span class="n">player_treasure</span><span class="p">[</span><span class="s2">&#34;T&#34;</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&#34;10级工具&#34;</span><span class="p">:</span>
+        <span class="n">flag_t</span> <span class="o">=</span> <span class="mi">1</span>
+    <span class="k">if</span> <span class="n">player_treasure</span><span class="p">[</span><span class="s2">&#34;A&#34;</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&#34;10级饰品&#34;</span><span class="p">:</span>
+        <span class="n">flag_a</span> <span class="o">=</span> <span class="mi">1</span>
+    <span class="k">if</span> <span class="n">flag_a</span> <span class="o">==</span> <span class="mi">1</span> <span class="ow">and</span> <span class="n">flag_t</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="k">return</span> <span class="s2">&#34;&lt;h1&gt;通关成功，谢谢游玩&lt;/h1&gt;&#34;</span> <span class="o">+</span> <span class="s2">&#34;&lt;br&gt;&lt;br&gt;&#34;</span> \
+               <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">show_dict</span><span class="p">(</span><span class="n">players</span><span class="o">.</span><span class="n">find_one</span><span class="p">({</span><span class="s2">&#34;name&#34;</span><span class="p">:</span> <span class="n">username</span><span class="p">})))</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">return</span> <span class="s2">&#34;&lt;h1&gt;不好意思，您还未集齐10级工具和10级饰品，请继续游玩&lt;/h1&gt;&#34;</span> <span class="o">+</span> <span class="s2">&#34;&lt;br&gt;&lt;br&gt;&#34;</span> \
+               <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">show_dict</span><span class="p">(</span><span class="n">players</span><span class="o">.</span><span class="n">find_one</span><span class="p">({</span><span class="s2">&#34;name&#34;</span><span class="p">:</span> <span class="n">username</span><span class="p">})))</span>
+</code></pre></div><p>演示如下：</p>
+<p><img src="/img/database_mongodb/image/4.1.1.PNG" alt="4.1.1"></p>
+<p><img src="/img/database_mongodb/image/4.1.2.PNG" alt="4.1.2"></p>
+<p><img src="/img/database_mongodb/image/4.2.1.PNG" alt="4.2.1"></p>
+<p><img src="/img/database_mongodb/image/4.2.2.PNG" alt="4.2.2"></p>
+<p><img src="/img/database_mongodb/image/4.3.1.PNG" alt="4.3.1"></p>
+<p><img src="/img/database_mongodb/image/4.3.2.PNG" alt="4.3.2"></p>
+<h3 id="5pytest测试">5.pytest测试</h3>
+<p>pytest主要用到get路由的方法，不用访问前端也可完成。</p>
+<p>app.py中通过route来执行get方法，写了个find_method作为函数的中转站</p>
+<p>pytest的配置在conftest.py中，pytest中的测试函数test_user.py中包含13个函数测试crud，用get路由去访问</p>
+<div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="c1"># 根据不同参数设置不同路由，用于url的访问</span>
+<span class="nd">@app.route</span><span class="p">(</span><span class="s2">&#34;/&lt;string:username&gt;/&lt;string:operation&gt;&#34;</span><span class="p">,</span> <span class="n">methods</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;GET&#39;</span><span class="p">])</span>
+<span class="nd">@app.route</span><span class="p">(</span><span class="s2">&#34;/&lt;string:username&gt;/&lt;string:operation&gt;/&lt;string:treasure&gt;&#34;</span><span class="p">,</span> <span class="n">methods</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;GET&#39;</span><span class="p">])</span>
+<span class="nd">@app.route</span><span class="p">(</span><span class="s2">&#34;/&lt;string:username&gt;/&lt;string:operation&gt;/&lt;string:treasure&gt;/&lt;int:price&gt;&#34;</span><span class="p">,</span> <span class="n">methods</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;GET&#39;</span><span class="p">])</span>
+<span class="nd">@app.route</span><span class="p">(</span><span class="s2">&#34;/&lt;string:username&gt;/&lt;string:operation&gt;/&lt;string:treasure&gt;/&lt;string:treasure2&gt;&#34;</span><span class="p">,</span> <span class="n">methods</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;GET&#39;</span><span class="p">])</span>
+<span class="c1"># 一个中转站根据路由进行重定向</span>
+<span class="k">def</span> <span class="nf">find_method</span><span class="p">(</span><span class="n">username</span><span class="p">,</span> <span class="n">operation</span><span class="p">,</span> <span class="n">treasure</span><span class="o">=</span><span class="s1">&#39;test&#39;</span><span class="p">,</span> <span class="n">treasure2</span><span class="o">=</span><span class="s1">&#39;test&#39;</span><span class="p">,</span> <span class="n">price</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">operation</span> <span class="o">==</span> <span class="s1">&#39;login&#39;</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">login</span><span class="p">(</span><span class="n">username</span><span class="p">,</span> <span class="s2">&#34;123456&#34;</span><span class="p">)</span>
+    <span class="k">elif</span> <span class="n">operation</span> <span class="o">==</span> <span class="s1">&#39;box&#39;</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">look_box</span><span class="p">(</span><span class="n">username</span><span class="p">)</span>
+    <span class="k">elif</span> <span class="n">operation</span> <span class="o">==</span> <span class="s1">&#39;market&#39;</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">look_market</span><span class="p">(</span><span class="n">username</span><span class="p">)</span>
+    <span class="k">elif</span> <span class="n">operation</span> <span class="o">==</span> <span class="s1">&#39;wear&#39;</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">wear</span><span class="p">(</span><span class="n">username</span><span class="p">,</span> <span class="n">treasure</span><span class="p">)</span>
+    <span class="k">elif</span> <span class="n">operation</span> <span class="o">==</span> <span class="s1">&#39;buy&#39;</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">buy</span><span class="p">(</span><span class="n">username</span><span class="p">,</span> <span class="n">treasure</span><span class="p">)</span>
+    <span class="k">elif</span> <span class="n">operation</span> <span class="o">==</span> <span class="s1">&#39;withdraw&#39;</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">withdraw</span><span class="p">(</span><span class="n">username</span><span class="p">,</span> <span class="n">treasure</span><span class="p">)</span>
+    <span class="k">elif</span> <span class="n">operation</span> <span class="o">==</span> <span class="s1">&#39;sell&#39;</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">sell</span><span class="p">(</span><span class="n">username</span><span class="p">,</span> <span class="n">treasure</span><span class="p">,</span> <span class="n">price</span><span class="p">)</span>
+    <span class="k">elif</span> <span class="n">operation</span> <span class="o">==</span> <span class="s1">&#39;merge&#39;</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">merge</span><span class="p">(</span><span class="n">username</span><span class="p">,</span> <span class="n">treasure</span><span class="p">,</span> <span class="n">treasure2</span><span class="p">)</span>
+    <span class="k">elif</span> <span class="n">operation</span> <span class="o">==</span> <span class="s1">&#39;finish&#39;</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">finish</span><span class="p">(</span><span class="n">username</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">return</span> <span class="s2">&#34;&lt;h1&gt;输入或操作错误&lt;/h1&gt;&#34;</span>
+</code></pre></div><p>test_user.py的函数都类似以下，一共13个，具体见test_user.py</p>
+<div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="k">def</span> <span class="nf">test_market</span><span class="p">(</span><span class="n">client</span><span class="p">:</span> <span class="n">FlaskClient</span><span class="p">):</span>
+    <span class="n">response</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&#34;/qk/market&#34;</span><span class="p">)</span>
+    <span class="n">json</span> <span class="o">=</span> <span class="n">response</span><span class="o">.</span><span class="n">get_json</span><span class="p">()</span>
+    <span class="k">print</span><span class="p">(</span><span class="n">json</span><span class="p">)</span>
+    <span class="k">assert</span> <span class="n">json</span><span class="p">[</span><span class="s2">&#34;answer&#34;</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&#34;玩家qk查看市场&#34;</span>
+</code></pre></div><p>测试结果如下：</p>
+<p>注意测试前要将MongoDB数据库中markets和players设置成collection markets.json和collection players.json(在flaskProject文件夹中，建议删除原collection然后用MongoDB compass直接导入)</p>
+<p>直接pytest</p>
+<p><img src="/img/database_mongodb/image/5.1.PNG" alt="5.1"></p>
+<p>用coverage测试</p>
+<p><img src="/img/database_mongodb/image/5.2.PNG" alt="5.2"></p>
+<p>coverage的测试结果</p>
+<p><img src="/img/database_mongodb/image/5.3.PNG" alt="5.3"></p>
+<h3 id="6前端展示">6.前端展示</h3>
+<p>前端代码位于templates文件夹中，可以满足用表单的post请求来对数据库执行操作，需要import request</p>
+<div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="kn">from</span> <span class="nn">flask</span> <span class="kn">import</span> <span class="n">Flask</span><span class="p">,</span> <span class="n">render_template</span><span class="p">,</span> <span class="n">request</span>
+</code></pre></div><p>app.py中以process开头的函数都是处理表单的函数，从form中得到参数，调用相应函数即可</p>
+<p><img src="/img/database_mongodb/image/6.4.PNG" alt="6.4"></p>
+<p>前端页面展示如下：</p>
+<p>登录注册页面</p>
+<p><img src="/img/database_mongodb/image/6.1.PNG" alt="6.1"></p>
+<p>用户开始游戏页面：</p>
+<p><img src="/img/database_mongodb/image/6.2.1.PNG" alt="6.2.1"></p>
+<p><img src="/img/database_mongodb/image/6.2.2.PNG" alt="6.2.2"></p>
+<p>点击按钮的结果（以查看背包和查看市场为例子，返回json，结果和直接用get方法是一样的但是这样用post可以保护个人信息）：</p>
+<p>查看背包</p>
+<p><img src="/img/database_mongodb/image/6.3.1.PNG" alt="6.3.1"></p>
+<p>查看市场</p>
+<p><img src="/img/database_mongodb/image%5C6.3.2.PNG" alt="6.3.2"></p>
+<h2 id="五注意事项">五.注意事项</h2>
+<ol>
+<li>
+<p>一开始所有函数返回的都是HTML文本，导致难以转变为json无法进行pytest测试，后来全部统一改成字典jsonify成json数据得以解决。</p>
+</li>
+<li>
+<p>json输出会出现十六进制乱码，解决方法如下，app.py的json配置中加以下两行</p>
+<div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="c1"># 为了防止json中文乱码请加入这两行</span>
+<span class="n">app</span><span class="o">.</span><span class="n">config</span><span class="p">[</span><span class="s1">&#39;JSON_AS_ASCII&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">False</span>
+<span class="n">app</span><span class="o">.</span><span class="n">config</span><span class="p">[</span><span class="s1">&#39;JSONIFY_MIMETYPE&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&#34;application/json;charset=utf-8&#34;</span>
+</code></pre></div></li>
+<li>
+<p>当函数中往往需要输出players.find_one({&ldquo;name&rdquo;: username}))，但是直接输出甚至会暴露用户的密码，所以要用一个函数去把字典中密码的部分去掉，用到以下函数</p>
+<div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="c1"># 处理每个操作返回的结果,</span>
+<span class="k">def</span> <span class="nf">show_dict</span><span class="p">(</span><span class="n">dictionary</span><span class="p">):</span>
+    <span class="n">dict_</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">dictionary</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
+        <span class="k">if</span> <span class="n">key</span> <span class="o">!=</span> <span class="s1">&#39;_id&#39;</span> <span class="ow">and</span> <span class="n">key</span> <span class="o">!=</span> <span class="s2">&#34;password&#34;</span><span class="p">:</span>
+            <span class="n">dict_</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">dictionary</span><span class="p">[</span><span class="n">key</span><span class="p">]</span>
+    <span class="k">return</span> <span class="n">dict_</span>
+</code></pre></div></li>
+<li>
+<p>用户的箱子只能存十个，超过十个时要回收等级最低的宝物，所以需要如下函数</p>
+<div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="c1"># 如果宝箱充满系统回收等级最低宝物</span>
+<span class="k">def</span> <span class="nf">recovery_treasure</span><span class="p">(</span><span class="n">name</span><span class="p">):</span>
+    <span class="n">box</span> <span class="o">=</span> <span class="n">players</span><span class="o">.</span><span class="n">find_one</span><span class="p">({</span><span class="s2">&#34;name&#34;</span><span class="p">:</span> <span class="n">name</span><span class="p">})[</span><span class="s1">&#39;box&#39;</span><span class="p">]</span>
+    <span class="n">treasure_name</span> <span class="o">=</span> <span class="n">box</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">level</span> <span class="o">=</span> <span class="n">treasures</span><span class="o">.</span><span class="n">find_one</span><span class="p">({</span><span class="s2">&#34;name&#34;</span><span class="p">:</span> <span class="n">box</span><span class="p">[</span><span class="mi">0</span><span class="p">]})[</span><span class="s1">&#39;level&#39;</span><span class="p">]</span>
+    <span class="c1"># 找到等级最低宝物</span>
+    <span class="k">for</span> <span class="n">treasure</span> <span class="ow">in</span> <span class="n">box</span><span class="p">[</span><span class="mi">1</span><span class="p">:]:</span>
+        <span class="n">temp</span> <span class="o">=</span> <span class="n">treasures</span><span class="o">.</span><span class="n">find_one</span><span class="p">({</span><span class="s2">&#34;name&#34;</span><span class="p">:</span> <span class="n">treasure</span><span class="p">})[</span><span class="s1">&#39;level&#39;</span><span class="p">]</span>
+        <span class="k">if</span> <span class="n">temp</span> <span class="o">&lt;</span> <span class="n">level</span><span class="p">:</span>
+            <span class="n">level</span> <span class="o">=</span> <span class="n">temp</span>
+            <span class="n">treasure_name</span> <span class="o">=</span> <span class="n">treasure</span>
+    <span class="c1"># 删除该宝物</span>
+    <span class="k">for</span> <span class="n">treasure</span> <span class="ow">in</span> <span class="n">box</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">treasure</span> <span class="o">==</span> <span class="n">treasure_name</span><span class="p">:</span>
+            <span class="n">box</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">treasure</span><span class="p">)</span>
+            <span class="k">break</span>
+    <span class="c1"># 更新宝箱</span>
+    <span class="n">players</span><span class="o">.</span><span class="n">update_one</span><span class="p">({</span><span class="s1">&#39;name&#39;</span><span class="p">:</span> <span class="n">name</span><span class="p">},</span> <span class="p">{</span><span class="s2">&#34;$set&#34;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&#34;box&#34;</span><span class="p">:</span> <span class="n">box</span><span class="p">}})</span>
+    <span class="k">print</span><span class="p">(</span><span class="s2">&#34;玩家 </span><span class="si">%-6s</span><span class="s2"> 被系统回收宝物 </span><span class="si">%-6s</span><span class="s2">&#34;</span> <span class="o">%</span> <span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">treasure_name</span><span class="p">))</span>
+</code></pre></div></li>
+</ol>
+
+    
+	</div>
+  <footer class="article-footer clearfix">
+  
+
+<div class="article-tags">
+  <span></span>
+  
+  <a href="https://qkgoalkeeper.github.io/tags/%E6%95%B0%E6%8D%AE%E5%BA%93">数据库</a>
+  
+</div>
+
+
+
+
+
+<div class="article-categories">
+  <span></span>
+  
+  <a class="article-category-link" href="https://qkgoalkeeper.github.io/categories/%E5%A4%A7%E4%B8%89%E4%B8%8A%E6%95%B0%E6%8D%AE%E5%BA%93%E8%AF%BE%E7%A8%8B">大三上数据库课程</a>
+  
+</div>
+
+
+
+  <div class="article-share" id="share">
+    <div data-url="https://qkgoalkeeper.github.io/post/%E6%95%B0%E6%8D%AE%E5%BA%93%E4%BD%9C%E4%B8%9A%E5%AF%BB%E5%AE%9D%E6%B8%B8%E6%88%8Fmongodb/" data-title="数据库作业——寻宝游戏MongoDB" data-tsina="5852167252" class="share clearfix">
+    </div>
+  </div>
+</footer>
+
+	</article>
+  
+
+
+
+</div>
+
+    <div class="openaside"><a class="navbutton" href="#" title="显示侧边栏"></a></div>
+<div id="asidepart">
+<div class="closeaside"><a class="closebutton" href="#" title="隐藏侧边栏"></a></div>
+<aside class="clearfix">
+  
+
+<div class="categorieslist">
+  <p class="asidetitle">分类</p>
+  <ul>
+    
+    <li><a href="https://qkgoalkeeper.github.io/categories/leetcode%e7%ae%80%e5%8d%95%e9%a2%981-100" title="leetcode简单题1-100">leetcode简单题1-100<sup>21</sup></a></li>
+    
+    <li><a href="https://qkgoalkeeper.github.io/categories/leetcode%e7%ae%80%e5%8d%95%e9%a2%98101-200" title="leetcode简单题101-200">leetcode简单题101-200<sup>25</sup></a></li>
+    
+    <li><a href="https://qkgoalkeeper.github.io/categories/leetcode%e7%ae%80%e5%8d%95%e9%a2%98201-300" title="leetcode简单题201-300">leetcode简单题201-300<sup>24</sup></a></li>
+    
+    <li><a href="https://qkgoalkeeper.github.io/categories/%e5%a4%a7%e4%b8%89%e4%b8%8a%e6%95%b0%e6%8d%ae%e5%ba%93%e8%af%be%e7%a8%8b" title="大三上数据库课程">大三上数据库课程<sup>1</sup></a></li>
+    
+  </ul>
+</div>
+
+
+
+  
+
+<div class="tagslist">
+	<p class="asidetitle">标签</p>
+		<ul class="clearfix">
+      
+			<li><a href="https://qkgoalkeeper.github.io/tags/leetcode" title="leetcode">leetcode<sup>70</sup></a></li>
+      
+			<li><a href="https://qkgoalkeeper.github.io/tags/%e6%95%b0%e6%8d%ae%e5%ba%93" title="数据库">数据库<sup>1</sup></a></li>
+      
+		</ul>
+</div>
+
+
+
+  
+  <div class="archiveslist">
+    <p class="asidetitle">归档</p>
+    <ul class="archive-list">
+      
+      
+      <li class="archive-list-item">
+        <a class="archive-list-link" href="https://qkgoalkeeper.github.io/post/#2020-11">2020年11月</a><span class="archive-list-count">1</span>
+      </li>
+      
+      
+      <li class="archive-list-item">
+        <a class="archive-list-link" href="https://qkgoalkeeper.github.io/post/#2020-08">2020年08月</a><span class="archive-list-count">70</span>
+      </li>
+      
+    </ul>
+
+  </div>
+
+
+  
+
+<div class="tagcloudlist">
+  <p class="asidetitle">标签云</p>
+  <div class="tagcloudlist clearfix">
+    
+    <a href="https://qkgoalkeeper.github.io/tags/leetcode" style="font-size: 12px;">leetcode</a>
+    
+    <a href="https://qkgoalkeeper.github.io/tags/%e6%95%b0%e6%8d%ae%e5%ba%93" style="font-size: 12px;">数据库</a>
+    
+  </div>
+</div>
+
+
+
+  
+
+</aside>
+</div>
+
+  </div>
+  <footer><div id="footer" >
+  <div class="line">
+    <span></span>
+    
+    <div style='background:no-repeat url("https://qkgoalkeeper.github.io/img/author.jpg") left top;-webkit-background-size:6.875em 6.875em;-moz-background-size:6.875em 6.875em;background-size:6.875em 6.875em;' class="author" ></div>
+  </div>
+  <section class="info">
+    <p>ECNU数据学院本科在读 <br/> 知乎主页 :https://www.zhihu.com/people/hao-lai-wu-shou-men-yuan <br/>QQ :1421812601</p>
+  </section>
+  <div class="social-font clearfix">
+    <a href='http://weibo.com/qkgoalkeeper' target="_blank" title="weibo"></a>
+    <a href='https://twitter.com/coderzh' target="_blank" title="twitter"></a>
+    <a href='https://github.com/qkgoalkeeper' target="_blank" title="github"></a>
+    <a href='https://www.facebook.com/coderzh' target="_blank" title="facebook"></a>
+    <a href='https://www.linkedin.com/coderzh' target="_blank" title="linkedin"></a>
+  </div>
+  <p class="copyright">Powered by <a href="http://gohugo.io" target="_blank" title="hugo">hugo</a> and Theme by <a href="https://github.com/coderzh/hugo-pacman-theme" target="_blank" title="hugo-pacman-theme">hugo-pacman-theme</a> © 2020
+    
+    <a href="https://qkgoalkeeper.github.io/" title="qkgoalkeeper&#39;s blog">qkgoalkeeper&#39;s blog</a>
+    
+  </p>
+</div>
+</footer>
+  <script src="https://qkgoalkeeper.github.io/js/jquery-2.1.0.min.js"></script>
+<script type="text/javascript">
+done = false;
+$(document).ready(function(){
+  $('.navbar').click(function(){
+    $('header nav').toggleClass('shownav');
+  });
+  var myWidth = 0;
+  function getSize(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+  };
+  var m = $('#main'),
+      a = $('#asidepart'),
+      c = $('.closeaside'),
+      o = $('.openaside');
+  $(window).resize(function(){
+    getSize();
+    if (myWidth >= 1024) {
+      $('header nav').removeClass('shownav');
+    }else
+    {
+      m.removeClass('moveMain');
+      a.css('display', 'block').removeClass('fadeOut');
+      o.css('display', 'none');
+    }
+  });
+  c.click(function(){
+    a.addClass('fadeOut').css('display', 'none');
+    o.css('display', 'block').addClass('fadeIn');
+    m.addClass('moveMain');
+  });
+  o.click(function(){
+    o.css('display', 'none').removeClass('beforeFadeIn');
+    a.css('display', 'block').removeClass('fadeOut').addClass('fadeIn');
+    m.removeClass('moveMain');
+  });
+  $(window).scroll(function(){
+    o.css("top",Math.max(80,260-$(this).scrollTop()));
+  });
+  $('form.search').on('submit', function (event) {
+    if (false === done) {
+      event.preventDefault();
+      var orgVal = $(this).find('#search').val();
+      $(this).find('#search').val('site:https:\/\/qkgoalkeeper.github.io\/ ' + orgVal);
+      done = true;
+      $(this).submit();
+    }
+  });
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){
+  var ai = $('.article-content>iframe'),
+      ae = $('.article-content>embed'),
+      t  = $('#toc'),
+      h  = $('article h2')
+      ah = $('article h2'),
+      ta = $('#toc.toc-aside'),
+      o  = $('.openaside'),
+      c  = $('.closeaside');
+  if(ai.length>0){
+    ai.wrap('<div class="video-container" />');
+  };
+  if(ae.length>0){
+   ae.wrap('<div class="video-container" />');
+  };
+  if(ah.length==0){
+    t.css('display','none');
+  }else{
+    c.click(function(){
+      ta.css('display', 'block').addClass('fadeIn');
+    });
+    o.click(function(){
+      ta.css('display', 'none');
+    });
+    $(window).scroll(function(){
+      ta.css("top",Math.max(140,320-$(this).scrollTop()));
+    });
+  };
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){
+  var $this = $('.share'),
+      url = $this.attr('data-url'),
+      encodedUrl = encodeURIComponent(url),
+      title = $this.attr('data-title'),
+      tsina = $this.attr('data-tsina');
+  var html = [
+  '<a href="#" class="overlay" id="qrcode"></a>',
+  '<div class="qrcode clearfix"><span>扫描二维码分享到微信朋友圈</span><a class="qrclose" href="#share"></a><strong>Loading...Please wait</strong><img id="qrcode-pic" data-src="http://b.bshare.cn/barCode?site=weixin&url=' + encodedUrl + '"/></div>',
+  '<a href="#textlogo" class="article-back-to-top" title="Top"></a>',
+  '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+  '<a href="#qrcode" class="article-share-qrcode" title="QRcode"></a>',
+  '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+  '<a href="http://service.weibo.com/share/share.php?title='+title+'&url='+encodedUrl +'&ralateUid='+ tsina +'&searchPic=true&style=number' +'" class="article-share-weibo" target="_blank" title="Weibo"></a>',
+  '<span title="Share to"></span>'
+  ].join('');
+  $this.append(html);
+  $('.article-share-qrcode').click(function(){
+    var imgSrc = $('#qrcode-pic').attr('data-src');
+    $('#qrcode-pic').attr('src', imgSrc);
+    $('#qrcode-pic').load(function(){
+        $('.qrcode strong').text(' ');
+    });
+  });
+});
+</script>
+
+
+<link rel="stylesheet" href="https://qkgoalkeeper.github.io/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="https://qkgoalkeeper.github.io/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){
+  $('.article-content').each(function(i){
+    $(this).find('img').each(function(){
+      if ($(this).parent().hasClass('fancybox')) return;
+      var alt = this.alt;
+      if (alt) $(this).after('<span class="caption">' + alt + '</span>');
+      $(this).wrap('<a href="' + this.src + '" title="' + alt + '" class="fancybox"></a>');
+    });
+    $(this).find('.fancybox').each(function(){
+      $(this).attr('rel', 'article' + i);
+    });
+  });
+  if($.fancybox){
+    $('.fancybox').fancybox();
+  }
+});
+</script>
+
+
+
+
+</body>
+</html>
