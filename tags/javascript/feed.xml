@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>JavaScript on qkgoalkeeper&#39;s blog</title>
+    <link>https://qkgoalkeeper.github.io/tags/javascript/</link>
+    <description>Recent content in JavaScript on qkgoalkeeper&#39;s blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-CN</language>
+    <lastBuildDate>Fri, 30 Apr 2021 10:45:44 +0800</lastBuildDate>
+    
+	<atom:link href="https://qkgoalkeeper.github.io/tags/javascript/feed.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Web编程作业：新闻爬虫网站</title>
+      <link>https://qkgoalkeeper.github.io/post/web%E7%BC%96%E7%A8%8B%E4%BD%9C%E4%B8%9A%E6%96%B0%E9%97%BB%E7%88%AC%E8%99%AB%E7%BD%91%E7%AB%99/</link>
+      <pubDate>Fri, 30 Apr 2021 10:45:44 +0800</pubDate>
+      
+      <guid>https://qkgoalkeeper.github.io/post/web%E7%BC%96%E7%A8%8B%E4%BD%9C%E4%B8%9A%E6%96%B0%E9%97%BB%E7%88%AC%E8%99%AB%E7%BD%91%E7%AB%99/</guid>
+      <description>Web编程作业：新闻爬虫网站 姓名：钱堃 学号：10185501412 年级：大三 @TOC 一.项目要求 Web编程作业要求 满分100分，作为平时成绩，占最</description>
+    </item>
+    
+  </channel>
+</rss>
