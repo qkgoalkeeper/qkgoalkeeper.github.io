@@ -6,10 +6,19 @@
     <description>Recent content on qkgoalkeeper&#39;s blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
-    <lastBuildDate>Fri, 30 Apr 2021 10:45:44 +0800</lastBuildDate>
+    <lastBuildDate>Sat, 26 Jun 2021 00:27:15 +0800</lastBuildDate>
     
 	<atom:link href="https://qkgoalkeeper.github.io/feed.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Web编程期末大作业</title>
+      <link>https://qkgoalkeeper.github.io/post/web%E7%BC%96%E7%A8%8B%E6%9C%9F%E6%9C%AB%E5%A4%A7%E4%BD%9C%E4%B8%9A/</link>
+      <pubDate>Sat, 26 Jun 2021 00:27:15 +0800</pubDate>
+      
+      <guid>https://qkgoalkeeper.github.io/post/web%E7%BC%96%E7%A8%8B%E6%9C%9F%E6%9C%AB%E5%A4%A7%E4%BD%9C%E4%B8%9A/</guid>
+      <description>Web编程期末大作业 姓名：钱堃 学号：10185501412 年级：大三 @TOC 一.项目要求 •基于第一个项目爬虫爬取的数据，完成数据展示网站。 •基本要</description>
+    </item>
     
     <item>
       <title>Web编程作业：新闻爬虫网站</title>
