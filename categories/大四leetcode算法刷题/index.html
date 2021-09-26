@@ -2,18 +2,18 @@
 <html lang="zh-CN">
 <head>
   <meta charset="UTF-8">
-  <title>LeetCode简单题：09. 回文数（Python,C&#43;&#43;,Java） - qkgoalkeeper&#39;s blog</title>
+  <title>大四LeetCode算法刷题 - qkgoalkeeper&#39;s blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=3, minimum-scale=1">
   
-  <meta name="description" content="一.解法 https://leetcode-cn.com/problems/palindrome-number/ 要点：字符串比较；数字比较 x&lt;0直接pass，末尾是0直接pass python可以用str(x)[::-1]直接反转字符串比">
+  <meta name="description" content="大四LeetCode算法刷题">
   
-  <meta itemprop="name" content="LeetCode简单题：09. 回文数（Python,C&#43;&#43;,Java） - qkgoalkeeper&#39;s blog">
-  <meta itemprop="description" content="一.解法 https://leetcode-cn.com/problems/palindrome-number/ 要点：字符串比较；数字比较 x&lt;0直接pass，末尾是0直接pass python可以用str(x)[::-1]直接反转字符串比">
+  <meta itemprop="name" content="大四LeetCode算法刷题 - qkgoalkeeper&#39;s blog">
+  <meta itemprop="description" content="大四LeetCode算法刷题">
   <meta itemprop="image" content="https://qkgoalkeeper.github.io/img/author.jpg">
   
   
   <meta name="twitter:description" content="">
-  
+  <link rel="alternate" href="https://qkgoalkeeper.github.io/feed.xml" title="qkgoalkeeper&#39;s blog" type="application/rss+xml"/>
   <link rel="shortcut icon" href="https://qkgoalkeeper.github.io/img/favicon.ico"/>
   <link rel="apple-touch-icon" href="https://qkgoalkeeper.github.io/apple-touch-icon.png" />
   <link rel="apple-touch-icon-precomposed" href="https://qkgoalkeeper.github.io/apple-touch-icon.png" />
@@ -70,128 +70,21 @@
 
   </header>
   <div id="container">
-    <div id="main" class="post" itemscope itemprop="blogPost">
-	<article itemprop="articleBody">
-    <header class="article-info clearfix">
-  <h1 itemprop="name">
-      <a href="https://qkgoalkeeper.github.io/post/leetcode%E7%AE%80%E5%8D%95%E9%A2%989.-%E5%9B%9E%E6%96%87%E6%95%B0pythonc&#43;&#43;java/" title="LeetCode简单题：09. 回文数（Python,C&#43;&#43;,Java）" itemprop="url">LeetCode简单题：09. 回文数（Python,C&#43;&#43;,Java）</a>
-  </h1>
-  <p class="article-author">By
-    
-      <a href="https://qkgoalkeeper.github.io/" title="qk">qk</a>
-    
-  </p>
-  <p class="article-time">
-    <time datetime="2020-08-13 17:55:19 &#43;0800 CST" itemprop="datePublished">2020年08月13日</time>
-  </p>
-</header>
+    <div id="main">
+      
+      <h2 id="2021-09">2021-09</h2>
+      
+      <section class="post" itemscope itemprop="blogPost">
+    <a href="https://qkgoalkeeper.github.io/post/leetcode%E7%AE%97%E6%B3%95%E5%85%A5%E9%97%A8%E7%AC%AC1%E5%A4%A9%E4%BA%8C%E5%88%86%E6%9F%A5%E6%89%BE/" title="LeetCode算法入门第1天：二分查找" itemprop="url">
+    <h1 itemprop="name">LeetCode算法入门第1天：二分查找</h1>
+    <p itemprop="description">一.704. 二分查找 1.题干及思路 给定一个 n 个元素有序的（升序）整型数组 nums 和一个目标值 target ，写一个函数搜索 nums 中的 target，如果目标值存在返</p>
+    <time datetime="2021-09-26 17:55:19 &#43;0800 CST" itemprop="datePublished">2021年09月26日</time>
+  </a>
+</section>
 
-	<div class="article-content">
-    
-		<div class="toc-article">
-			<strong class="toc-title">文章目录</strong>
-      <nav id="TableOfContents">
-  <ul>
-    <li><a href="#一解法">一.解法</a></li>
-    <li><a href="#二python实现">二.Python实现</a></li>
-    <li><a href="#三c实现">三.C++实现</a></li>
-    <li><a href="#四java实现">四.java实现</a></li>
-  </ul>
-</nav>
-		</div>
-    
-    <h2 id="一解法">一.解法</h2>
-<p><a href="https://leetcode-cn.com/problems/palindrome-number/">https://leetcode-cn.com/problems/palindrome-number/</a><br>
-要点：字符串比较；数字比较<br>
-x&lt;0直接pass，末尾是0直接pass<br>
-python可以用str(x)[::-1]直接反转字符串比较<br>
-C++中用了vector储存每位数然后循环比较<br>
-java用了计算一半反转数的方法，不会溢出</p>
-<h2 id="二python实现">二.Python实现</h2>
-<pre><code>class Solution:
-    def isPalindrome(self, x: int) -&gt; bool:
-        if x&lt;0:
-            return False
-        y=str(x)[::-1]
-        if x==(int(y)):
-            return True
-        else:
-            return False
-</code></pre><h2 id="三c实现">三.C++实现</h2>
-<pre><code>class Solution {
-public:
-    bool isPalindrome(int x) {
-        if(x&lt;0) return false;
-        if(x==0) return true;
-        vector&lt;int&gt; a;
-        while(x){
-            a.push_back(x%10);
-            x=x/10;
-        }
-        int num=a.size();
-        for(int i=0;i&lt;=num/2;i++)
-        {
-            if(a[i]!=a[num-1-i]) return false;
-        }
-
-        return true;
-    }
-};
-</code></pre><h2 id="四java实现">四.java实现</h2>
-<pre><code>class Solution {
-    public boolean isPalindrome(int x) {
-        if (x &lt; 0 || (x % 10 == 0 &amp;&amp; x != 0)) {
-            return false;
-        }
-
-        int revertx = 0;
-        while (x &gt; revertx) {
-            revertx = revertx * 10 + x % 10;
-            x /= 10;
-        }
-
-        return x == revertx || x == revertx / 10;
-    }
-}
-</code></pre>
-    
-	</div>
-  <footer class="article-footer clearfix">
-  
-
-<div class="article-tags">
-  <span></span>
-  
-  <a href="https://qkgoalkeeper.github.io/tags/leetcode">LeetCode</a>
-  
-</div>
-
-
-
-
-
-<div class="article-categories">
-  <span></span>
-  
-  <a class="article-category-link" href="https://qkgoalkeeper.github.io/categories/leetcode%E7%AE%80%E5%8D%95%E9%A2%981-100">LeetCode简单题1-100</a>
-  
-</div>
-
-
-
-  <div class="article-share" id="share">
-    <div data-url="https://qkgoalkeeper.github.io/post/leetcode%E7%AE%80%E5%8D%95%E9%A2%989.-%E5%9B%9E%E6%96%87%E6%95%B0pythonc&#43;&#43;java/" data-title="LeetCode简单题：09. 回文数（Python,C&#43;&#43;,Java）" data-tsina="5852167252" class="share clearfix">
+      
+      
     </div>
-  </div>
-</footer>
-
-	</article>
-  
-
-
-
-</div>
-
     <div class="openaside"><a class="navbutton" href="#" title="显示侧边栏"></a></div>
 <div id="asidepart">
 <div class="closeaside"><a class="closebutton" href="#" title="隐藏侧边栏"></a></div>
@@ -293,6 +186,10 @@ public:
 
 
   
+<div class="rsspart">
+  <a rel="nofollow" href="https://qkgoalkeeper.github.io/feed.xml" type="application/rss+xml" target="_blank">RSS 订阅</a>
+</div>
+
 
 </aside>
 </div>
@@ -378,38 +275,6 @@ $(document).ready(function(){
 
 <script type="text/javascript">
 $(document).ready(function(){
-  var ai = $('.article-content>iframe'),
-      ae = $('.article-content>embed'),
-      t  = $('#toc'),
-      h  = $('article h2')
-      ah = $('article h2'),
-      ta = $('#toc.toc-aside'),
-      o  = $('.openaside'),
-      c  = $('.closeaside');
-  if(ai.length>0){
-    ai.wrap('<div class="video-container" />');
-  };
-  if(ae.length>0){
-   ae.wrap('<div class="video-container" />');
-  };
-  if(ah.length==0){
-    t.css('display','none');
-  }else{
-    c.click(function(){
-      ta.css('display', 'block').addClass('fadeIn');
-    });
-    o.click(function(){
-      ta.css('display', 'none');
-    });
-    $(window).scroll(function(){
-      ta.css("top",Math.max(140,320-$(this).scrollTop()));
-    });
-  };
-});
-</script>
-
-<script type="text/javascript">
-$(document).ready(function(){
   var $this = $('.share'),
       url = $this.attr('data-url'),
       encodedUrl = encodeURIComponent(url),
@@ -436,27 +301,6 @@ $(document).ready(function(){
 });
 </script>
 
-
-<link rel="stylesheet" href="https://qkgoalkeeper.github.io/fancybox/jquery.fancybox.css" media="screen" type="text/css">
-<script src="https://qkgoalkeeper.github.io/fancybox/jquery.fancybox.pack.js"></script>
-<script type="text/javascript">
-$(document).ready(function(){
-  $('.article-content').each(function(i){
-    $(this).find('img').each(function(){
-      if ($(this).parent().hasClass('fancybox')) return;
-      var alt = this.alt;
-      if (alt) $(this).after('<span class="caption">' + alt + '</span>');
-      $(this).wrap('<a href="' + this.src + '" title="' + alt + '" class="fancybox"></a>');
-    });
-    $(this).find('.fancybox').each(function(){
-      $(this).attr('rel', 'article' + i);
-    });
-  });
-  if($.fancybox){
-    $('.fancybox').fancybox();
-  }
-});
-</script>
 
 
 
