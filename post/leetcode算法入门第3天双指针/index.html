@@ -2,13 +2,13 @@
 <html lang="zh-CN">
 <head>
   <meta charset="UTF-8">
-  <title>LeetCode简单题：119. 杨辉三角 II（Python,C&#43;&#43;,Java） - qkgoalkeeper&#39;s blog</title>
+  <title>LeetCode算法入门第3天：双指针 - qkgoalkeeper&#39;s blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=3, minimum-scale=1">
   
-  <meta name="description" content="一.解法 https://leetcode-cn.com/problems/pascals-triangle-ii/ 要点：递归 大致同118题一样，不过118题我用循环迭代做，这题不需要保存我直接用递归做 Python，C&#43;&#43;，Java都用了相同的递">
+  <meta name="description" content="一.283. 移动零 1.题干及思路 给定一个数组 nums，编写一个函数将所有 0 移动到数组的末尾，同时保持非零元素的相对顺序。 示例: 输入: [0,1,0,3,12] 输出:">
   
-  <meta itemprop="name" content="LeetCode简单题：119. 杨辉三角 II（Python,C&#43;&#43;,Java） - qkgoalkeeper&#39;s blog">
-  <meta itemprop="description" content="一.解法 https://leetcode-cn.com/problems/pascals-triangle-ii/ 要点：递归 大致同118题一样，不过118题我用循环迭代做，这题不需要保存我直接用递归做 Python，C&#43;&#43;，Java都用了相同的递">
+  <meta itemprop="name" content="LeetCode算法入门第3天：双指针 - qkgoalkeeper&#39;s blog">
+  <meta itemprop="description" content="一.283. 移动零 1.题干及思路 给定一个数组 nums，编写一个函数将所有 0 移动到数组的末尾，同时保持非零元素的相对顺序。 示例: 输入: [0,1,0,3,12] 输出:">
   <meta itemprop="image" content="https://qkgoalkeeper.github.io/img/author.jpg">
   
   
@@ -74,7 +74,7 @@
 	<article itemprop="articleBody">
     <header class="article-info clearfix">
   <h1 itemprop="name">
-      <a href="https://qkgoalkeeper.github.io/post/leetcode%E7%AE%80%E5%8D%95%E9%A2%98119.-%E6%9D%A8%E8%BE%89%E4%B8%89%E8%A7%92-iipythonc&#43;&#43;java/" title="LeetCode简单题：119. 杨辉三角 II（Python,C&#43;&#43;,Java）" itemprop="url">LeetCode简单题：119. 杨辉三角 II（Python,C&#43;&#43;,Java）</a>
+      <a href="https://qkgoalkeeper.github.io/post/leetcode%E7%AE%97%E6%B3%95%E5%85%A5%E9%97%A8%E7%AC%AC3%E5%A4%A9%E5%8F%8C%E6%8C%87%E9%92%88/" title="LeetCode算法入门第3天：双指针" itemprop="url">LeetCode算法入门第3天：双指针</a>
   </h1>
   <p class="article-author">By
     
@@ -82,7 +82,7 @@
     
   </p>
   <p class="article-time">
-    <time datetime="2020-08-13 17:55:19 &#43;0800 CST" itemprop="datePublished">2020年08月13日</time>
+    <time datetime="2021-09-28 17:55:19 &#43;0800 CST" itemprop="datePublished">2021年09月28日</time>
   </p>
 </header>
 
@@ -92,65 +92,108 @@
 			<strong class="toc-title">文章目录</strong>
       <nav id="TableOfContents">
   <ul>
-    <li><a href="#一解法">一.解法</a></li>
-    <li><a href="#二python实现">二.Python实现</a></li>
-    <li><a href="#三c实现">三.C++实现</a></li>
-    <li><a href="#四java实现">四.java实现</a></li>
+    <li><a href="#1题干及思路">1.题干及思路</a></li>
+    <li><a href="#2c实现">2.C++实现</a></li>
+  </ul>
+
+  <ul>
+    <li><a href="#1题干及思路-1">1.题干及思路</a></li>
+    <li><a href="#2c实现-1">2.C++实现</a></li>
   </ul>
 </nav>
 		</div>
     
-    <h2 id="一解法">一.解法</h2>
-<p><a href="https://leetcode-cn.com/problems/pascals-triangle-ii/">https://leetcode-cn.com/problems/pascals-triangle-ii/</a><br>
-要点：递归<br>
-大致同118题一样，不过118题我用循环迭代做，这题不需要保存我直接用递归做<br>
-Python，C++，Java都用了相同的递归方法，思路是找到杨辉三角的上一层后，这一层先添加1，再for i in range(0,rowIndex-1)添加上一层的位置i和位置i+1的和，最后再添加1</p>
-<h2 id="二python实现">二.Python实现</h2>
-<pre><code>class Solution:
-    def getRow(self, rowIndex: int) -&gt; List[int]:
-        answer=[]
-        temp=[]
-        if rowIndex==0:
-            answer.append(1)
-            return answer
-        answer.append(1)
-        temp=self.getRow(rowIndex-1)
-        for i in range(0,rowIndex-1):
-            answer.append(temp[i]+temp[i+1])
-        answer.append(1)
-        return answer
-</code></pre><h2 id="三c实现">三.C++实现</h2>
-<pre><code>class Solution {
-public:
-    vector&lt;int&gt; getRow(int rowIndex) {
-        vector&lt;int&gt; answer;
-        vector&lt;int&gt; temp;
-        if(rowIndex==0) {answer.push_back(1);return answer;}
-        answer.push_back(1);
-        temp=getRow(rowIndex-1);
-        for(int i=0;i&lt;rowIndex-1;i++){
-            answer.push_back(temp[i]+temp[i+1]);
-        }
-        answer.push_back(1);
-        return answer;
-    }
-};
-</code></pre><h2 id="四java实现">四.java实现</h2>
-<pre><code>class Solution {
-    public List&lt;Integer&gt; getRow(int rowIndex) {
-        List&lt;Integer&gt; answer=new ArrayList&lt;&gt;();
-        List&lt;Integer&gt; temp=new ArrayList&lt;&gt;();
-        if(rowIndex==0) {answer.add(1);return answer;}
-        answer.add(1);
-        temp=getRow(rowIndex-1);
-        for(int i=0;i&lt;rowIndex-1;i++){
-            answer.add(temp.get(i)+temp.get(i+1));
-        }
-        answer.add(1);
-        return answer;
-    }
-}
-</code></pre>
+    <h1 id="一283-移动零httpsleetcode-cncomproblemsmove-zeroes">一.<a href="https://leetcode-cn.com/problems/move-zeroes/">283. 移动零</a></h1>
+<h2 id="1题干及思路">1.题干及思路</h2>
+<p>给定一个数组 nums，编写一个函数将所有 0 移动到数组的末尾，同时保持非零元素的相对顺序。</p>
+<p>示例:</p>
+<p>输入: [0,1,0,3,12]
+输出: [1,3,12,0,0]
+说明:</p>
+<p>必须在原数组上操作，不能拷贝额外的数组。
+尽量减少操作次数。</p>
+<p>来源：力扣（LeetCode）
+链接：https://leetcode-cn.com/problems/move-zeroes
+著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。</p>
+<p>要点：双指针</p>
+<p>思路：两个指针i，j，i从左往右依次指向非零的数，j从左往右指向当前确定的位置，最后j之后补充0</p>
+<h2 id="2c实现">2.C++实现</h2>
+<div class="highlight"><pre class="chroma"><code class="language-c++" data-lang="c++"><span class="k">class</span> <span class="nc">Solution</span> <span class="p">{</span>
+<span class="k">public</span><span class="o">:</span>
+
+    <span class="kt">void</span> <span class="n">moveZeroes</span><span class="p">(</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;&amp;</span> <span class="n">nums</span><span class="p">)</span> <span class="p">{</span>
+        <span class="kt">int</span> <span class="n">i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span>
+        <span class="kt">int</span> <span class="n">j</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span>
+        <span class="k">while</span><span class="p">(</span><span class="n">i</span><span class="o">&lt;</span><span class="n">nums</span><span class="p">.</span><span class="n">size</span><span class="p">()){</span>
+            <span class="k">while</span><span class="p">(</span><span class="n">nums</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">==</span><span class="mi">0</span><span class="p">){</span>
+                <span class="n">i</span><span class="o">++</span><span class="p">;</span>
+                <span class="k">if</span><span class="p">(</span><span class="n">i</span><span class="o">&gt;=</span><span class="n">nums</span><span class="p">.</span><span class="n">size</span><span class="p">()){</span>
+                    <span class="k">break</span><span class="p">;</span>
+                <span class="p">}</span>
+            <span class="p">}</span>
+            <span class="k">if</span><span class="p">(</span><span class="n">i</span><span class="o">&lt;</span><span class="n">nums</span><span class="p">.</span><span class="n">size</span><span class="p">()){</span>
+                <span class="n">nums</span><span class="p">[</span><span class="n">j</span><span class="p">]</span><span class="o">=</span><span class="n">nums</span><span class="p">[</span><span class="n">i</span><span class="p">];</span>
+                <span class="n">i</span><span class="o">++</span><span class="p">;</span>
+                <span class="n">j</span><span class="o">++</span><span class="p">;</span>
+            <span class="p">}</span>
+
+        <span class="p">}</span>
+        <span class="k">while</span><span class="p">(</span><span class="n">j</span><span class="o">&lt;</span><span class="n">nums</span><span class="p">.</span><span class="n">size</span><span class="p">()){</span>
+            <span class="n">nums</span><span class="p">[</span><span class="n">j</span><span class="p">]</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span>
+            <span class="n">j</span><span class="o">++</span><span class="p">;</span>
+        <span class="p">}</span>
+        
+    <span class="p">}</span>
+
+<span class="p">};</span>
+</code></pre></div><h1 id="二167-两数之和-ii---输入有序数组httpsleetcode-cncomproblemstwo-sum-ii-input-array-is-sorted">二.<a href="https://leetcode-cn.com/problems/two-sum-ii-input-array-is-sorted/">167. 两数之和 II - 输入有序数组</a></h1>
+<h2 id="1题干及思路-1">1.题干及思路</h2>
+<p>给定一个已按照 非递减顺序排列  的整数数组 numbers ，请你从数组中找出两个数满足相加之和等于目标数 target 。</p>
+<p>函数应该以长度为 2 的整数数组的形式返回这两个数的下标值。numbers 的下标 从 1 开始计数 ，所以答案数组应当满足 1 &lt;= answer[0] &lt; answer[1] &lt;= numbers.length 。</p>
+<p>你可以假设每个输入 只对应唯一的答案 ，而且你 不可以 重复使用相同的元素。</p>
+<p>示例 1：</p>
+<p>输入：numbers = [2,7,11,15], target = 9
+输出：[1,2]
+解释：2 与 7 之和等于目标数 9 。因此 index1 = 1, index2 = 2 。
+示例 2：</p>
+<p>输入：numbers = [2,3,4], target = 6
+输出：[1,3]
+示例 3：</p>
+<p>输入：numbers = [-1,0], target = -1
+输出：[1,2]</p>
+<p>提示：</p>
+<p>2 &lt;= numbers.length &lt;= 3 * 104
+-1000 &lt;= numbers[i] &lt;= 1000
+numbers 按 非递减顺序 排列
+-1000 &lt;= target &lt;= 1000
+仅存在一个有效答案</p>
+<p>来源：力扣（LeetCode）
+链接：https://leetcode-cn.com/problems/two-sum-ii-input-array-is-sorted
+著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。</p>
+<p>要点：双指针</p>
+<p>思路：i指向最左边，j指向最右边，如果所指元素相加小了就右移i指针，大了就左移j指针，直到i&gt;j表明不满足（题目似乎确定是有解的）</p>
+<h2 id="2c实现-1">2.C++实现</h2>
+<div class="highlight"><pre class="chroma"><code class="language-c++" data-lang="c++"><span class="k">class</span> <span class="nc">Solution</span> <span class="p">{</span>
+<span class="k">public</span><span class="o">:</span>
+    <span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">twoSum</span><span class="p">(</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;&amp;</span> <span class="n">numbers</span><span class="p">,</span> <span class="kt">int</span> <span class="n">target</span><span class="p">)</span> <span class="p">{</span>
+        <span class="kt">int</span> <span class="n">i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span>
+        <span class="kt">int</span> <span class="n">j</span><span class="o">=</span><span class="n">numbers</span><span class="p">.</span><span class="n">size</span><span class="p">()</span><span class="o">-</span><span class="mi">1</span><span class="p">;</span>
+        <span class="k">while</span><span class="p">(</span><span class="n">i</span><span class="o">&lt;</span><span class="n">j</span><span class="p">){</span>
+            <span class="k">if</span><span class="p">(</span><span class="n">numbers</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">+</span><span class="n">numbers</span><span class="p">[</span><span class="n">j</span><span class="p">]</span><span class="o">==</span><span class="n">target</span><span class="p">){</span>
+                <span class="kt">int</span> <span class="n">ret</span><span class="p">[]</span><span class="o">=</span><span class="p">{</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span><span class="n">j</span><span class="o">+</span><span class="mi">1</span><span class="p">};</span>
+                <span class="k">return</span> <span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="p">(</span><span class="n">ret</span><span class="p">,</span><span class="n">ret</span><span class="o">+</span><span class="mi">2</span><span class="p">);</span>
+            <span class="p">}</span>
+            <span class="k">else</span> <span class="nf">if</span><span class="p">(</span><span class="n">numbers</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">+</span><span class="n">numbers</span><span class="p">[</span><span class="n">j</span><span class="p">]</span><span class="o">&lt;</span><span class="n">target</span><span class="p">){</span><span class="n">i</span><span class="o">++</span><span class="p">;}</span>
+            <span class="k">else</span><span class="p">{</span><span class="n">j</span><span class="o">--</span><span class="p">;}</span>
+
+        <span class="p">}</span>
+
+        <span class="kt">int</span> <span class="n">ret</span><span class="p">[]</span><span class="o">=</span><span class="p">{</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="o">-</span><span class="mi">1</span><span class="p">};</span>
+        <span class="k">return</span> <span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="p">(</span><span class="n">ret</span><span class="p">,</span><span class="n">ret</span><span class="o">+</span><span class="mi">2</span><span class="p">);</span>
+    
+    <span class="p">}</span>
+<span class="p">};</span>
+</code></pre></div>
     
 	</div>
   <footer class="article-footer clearfix">
@@ -161,6 +204,8 @@ public:
   
   <a href="https://qkgoalkeeper.github.io/tags/leetcode">LeetCode</a>
   
+  <a href="https://qkgoalkeeper.github.io/tags/c&#43;&#43;">C&#43;&#43;</a>
+  
 </div>
 
 
@@ -170,14 +215,14 @@ public:
 <div class="article-categories">
   <span></span>
   
-  <a class="article-category-link" href="https://qkgoalkeeper.github.io/categories/leetcode%E7%AE%80%E5%8D%95%E9%A2%98101-200">LeetCode简单题101-200</a>
+  <a class="article-category-link" href="https://qkgoalkeeper.github.io/categories/%E5%A4%A7%E5%9B%9Bleetcode%E7%AE%97%E6%B3%95%E5%88%B7%E9%A2%98">大四LeetCode算法刷题</a>
   
 </div>
 
 
 
   <div class="article-share" id="share">
-    <div data-url="https://qkgoalkeeper.github.io/post/leetcode%E7%AE%80%E5%8D%95%E9%A2%98119.-%E6%9D%A8%E8%BE%89%E4%B8%89%E8%A7%92-iipythonc&#43;&#43;java/" data-title="LeetCode简单题：119. 杨辉三角 II（Python,C&#43;&#43;,Java）" data-tsina="5852167252" class="share clearfix">
+    <div data-url="https://qkgoalkeeper.github.io/post/leetcode%E7%AE%97%E6%B3%95%E5%85%A5%E9%97%A8%E7%AC%AC3%E5%A4%A9%E5%8F%8C%E6%8C%87%E9%92%88/" data-title="LeetCode算法入门第3天：双指针" data-tsina="5852167252" class="share clearfix">
     </div>
   </div>
 </footer>
