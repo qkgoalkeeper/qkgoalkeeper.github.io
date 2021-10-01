@@ -2,13 +2,13 @@
 <html lang="zh-CN">
 <head>
   <meta charset="UTF-8">
-  <title>LeetCode简单题：203. 移除链表元素（Python,C&#43;&#43;,Java） - qkgoalkeeper&#39;s blog</title>
+  <title>LeetCode算法入门第4天：双指针 - qkgoalkeeper&#39;s blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=3, minimum-scale=1">
   
-  <meta name="description" content="一.解法 https://leetcode-cn.com/problems/remove-linked-list-elements/ 要点：链表 Python，C&#43;&#43;，Java都用了相同的哨兵法。 用了链表常用的哨兵法，所谓哨兵法指的是在原来链表头前加一个起始节点，保">
+  <meta name="description" content="一.344. 反转字符串 1.题干及思路 编写一个函数，其作用是将输入的字符串反转过来。输入字符串以字符数组 s 的形式给出。 不要给另外的数组分配额外">
   
-  <meta itemprop="name" content="LeetCode简单题：203. 移除链表元素（Python,C&#43;&#43;,Java） - qkgoalkeeper&#39;s blog">
-  <meta itemprop="description" content="一.解法 https://leetcode-cn.com/problems/remove-linked-list-elements/ 要点：链表 Python，C&#43;&#43;，Java都用了相同的哨兵法。 用了链表常用的哨兵法，所谓哨兵法指的是在原来链表头前加一个起始节点，保">
+  <meta itemprop="name" content="LeetCode算法入门第4天：双指针 - qkgoalkeeper&#39;s blog">
+  <meta itemprop="description" content="一.344. 反转字符串 1.题干及思路 编写一个函数，其作用是将输入的字符串反转过来。输入字符串以字符数组 s 的形式给出。 不要给另外的数组分配额外">
   <meta itemprop="image" content="https://qkgoalkeeper.github.io/img/author.jpg">
   
   
@@ -74,7 +74,7 @@
 	<article itemprop="articleBody">
     <header class="article-info clearfix">
   <h1 itemprop="name">
-      <a href="https://qkgoalkeeper.github.io/post/leetcode%E7%AE%80%E5%8D%95%E9%A2%98203.-%E7%A7%BB%E9%99%A4%E9%93%BE%E8%A1%A8%E5%85%83%E7%B4%A0pythonc&#43;&#43;java/" title="LeetCode简单题：203. 移除链表元素（Python,C&#43;&#43;,Java）" itemprop="url">LeetCode简单题：203. 移除链表元素（Python,C&#43;&#43;,Java）</a>
+      <a href="https://qkgoalkeeper.github.io/post/leetcode%E7%AE%97%E6%B3%95%E5%85%A5%E9%97%A8%E7%AC%AC4%E5%A4%A9%E5%8F%8C%E6%8C%87%E9%92%88/" title="LeetCode算法入门第4天：双指针" itemprop="url">LeetCode算法入门第4天：双指针</a>
   </h1>
   <p class="article-author">By
     
@@ -82,7 +82,7 @@
     
   </p>
   <p class="article-time">
-    <time datetime="2020-08-13 17:55:19 &#43;0800 CST" itemprop="datePublished">2020年08月13日</time>
+    <time datetime="2021-09-29 17:55:19 &#43;0800 CST" itemprop="datePublished">2021年09月29日</time>
   </p>
 </header>
 
@@ -92,111 +92,88 @@
 			<strong class="toc-title">文章目录</strong>
       <nav id="TableOfContents">
   <ul>
-    <li><a href="#一解法">一.解法</a></li>
-    <li><a href="#二python实现">二.Python实现</a></li>
-    <li><a href="#三c实现">三.C++实现</a></li>
-    <li><a href="#四java实现">四.java实现</a></li>
+    <li><a href="#1题干及思路">1.题干及思路</a></li>
+    <li><a href="#2c实现">2.C++实现</a></li>
+  </ul>
+
+  <ul>
+    <li><a href="#1题干及思路-1">1.题干及思路</a></li>
+    <li><a href="#2c实现-1">2.C++实现</a></li>
   </ul>
 </nav>
 		</div>
     
-    <h2 id="一解法">一.解法</h2>
-<p><a href="https://leetcode-cn.com/problems/remove-linked-list-elements/">https://leetcode-cn.com/problems/remove-linked-list-elements/</a><br>
-要点：链表<br>
-Python，C++，Java都用了相同的哨兵法。<br>
-用了链表常用的哨兵法，所谓哨兵法指的是在原来链表头前加一个起始节点，保持链表的完整性以免要删除链表头发生错误，再用pre和cur两个指针指向前一个节点和后一个节点，如果cur需要删除，则执行pre.next=cur.next;cur=pre.next;否则pre和cur各自向后移一位。</p>
-<h2 id="二python实现">二.Python实现</h2>
-<pre><code># Definition for singly-linked list.
-# class ListNode:
-#     def __init__(self, x):
-#         self.val = x
-#         self.next = None
+    <h1 id="一344-反转字符串httpsleetcode-cncomproblemsreverse-string">一.<a href="https://leetcode-cn.com/problems/reverse-string/">344. 反转字符串</a></h1>
+<h2 id="1题干及思路">1.题干及思路</h2>
+<p>编写一个函数，其作用是将输入的字符串反转过来。输入字符串以字符数组 s 的形式给出。</p>
+<p>不要给另外的数组分配额外的空间，你必须原地修改输入数组、使用 O(1) 的额外空间解决这一问题。</p>
+<p>示例 1：</p>
+<p>输入：s = [&ldquo;h&rdquo;,&ldquo;e&rdquo;,&ldquo;l&rdquo;,&ldquo;l&rdquo;,&ldquo;o&rdquo;]
+输出：[&ldquo;o&rdquo;,&ldquo;l&rdquo;,&ldquo;l&rdquo;,&ldquo;e&rdquo;,&ldquo;h&rdquo;]
+示例 2：</p>
+<p>输入：s = [&ldquo;H&rdquo;,&ldquo;a&rdquo;,&ldquo;n&rdquo;,&ldquo;n&rdquo;,&ldquo;a&rdquo;,&ldquo;h&rdquo;]
+输出：[&ldquo;h&rdquo;,&ldquo;a&rdquo;,&ldquo;n&rdquo;,&ldquo;n&rdquo;,&ldquo;a&rdquo;,&ldquo;H&rdquo;]</p>
+<p>提示：</p>
+<p>1 &lt;= s.length &lt;= 105
+s[i] 都是 ASCII 码表中的可打印字符</p>
+<p>来源：力扣（LeetCode）
+链接：https://leetcode-cn.com/problems/reverse-string
+著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。</p>
+<p>要点：双指针</p>
+<p>思路：两个指针i，j，两侧向中间靠拢，边靠拢边交换两个位置的值</p>
+<h2 id="2c实现">2.C++实现</h2>
+<div class="highlight"><pre class="chroma"><code class="language-c++" data-lang="c++"><span class="k">class</span> <span class="nc">Solution</span> <span class="p">{</span>
+<span class="k">public</span><span class="o">:</span>
+    <span class="kt">void</span> <span class="n">reverseString</span><span class="p">(</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">char</span><span class="o">&gt;&amp;</span> <span class="n">s</span><span class="p">)</span> <span class="p">{</span>
+        <span class="kt">int</span> <span class="n">start</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+        <span class="kt">int</span> <span class="n">end</span> <span class="o">=</span> <span class="n">s</span><span class="p">.</span><span class="n">size</span><span class="p">()</span><span class="o">-</span><span class="mi">1</span><span class="p">;</span>
+        <span class="k">while</span><span class="p">(</span><span class="n">start</span><span class="o">&lt;</span><span class="n">end</span><span class="p">){</span>
+            <span class="n">swap</span><span class="p">(</span><span class="n">s</span><span class="p">[</span><span class="n">start</span><span class="p">],</span><span class="n">s</span><span class="p">[</span><span class="n">end</span><span class="p">]);</span>
+            <span class="n">start</span><span class="o">+=</span><span class="mi">1</span><span class="p">;</span>
+            <span class="n">end</span><span class="o">-=</span><span class="mi">1</span><span class="p">;</span>
+        <span class="p">}</span>
 
-class Solution:
-    def removeElements(self, head: ListNode, val: int) -&gt; ListNode:
+    <span class="p">}</span>
+<span class="p">};</span>
+</code></pre></div><h1 id="二557-反转字符串中的单词-iiihttpsleetcode-cncomproblemsreverse-words-in-a-string-iii">二.<a href="https://leetcode-cn.com/problems/reverse-words-in-a-string-iii/">557. 反转字符串中的单词 III</a></h1>
+<h2 id="1题干及思路-1">1.题干及思路</h2>
+<p>给定一个字符串，你需要反转字符串中每个单词的字符顺序，同时仍保留空格和单词的初始顺序。</p>
+<p>示例：</p>
+<p>输入：&ldquo;Let&rsquo;s take LeetCode contest&rdquo;
+输出：&ldquo;s&rsquo;teL ekat edoCteeL tsetnoc&rdquo;</p>
+<p>提示：</p>
+<p>在字符串中，每个单词由单个空格分隔，并且字符串中不会有任何额外的空格。</p>
+<p>来源：力扣（LeetCode）
+链接：https://leetcode-cn.com/problems/reverse-words-in-a-string-iii
+著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。</p>
+<p>要点：双指针</p>
+<p>思路：双指针一个指单词头，一个指单词尾，一个一个单词进行字符串翻转</p>
+<h2 id="2c实现-1">2.C++实现</h2>
+<div class="highlight"><pre class="chroma"><code class="language-c++" data-lang="c++"><span class="k">class</span> <span class="nc">Solution</span> <span class="p">{</span>
+<span class="k">public</span><span class="o">:</span> 
+    <span class="n">string</span> <span class="n">reverseWords</span><span class="p">(</span><span class="n">string</span> <span class="n">s</span><span class="p">)</span> <span class="p">{</span>
+        <span class="kt">int</span> <span class="n">length</span> <span class="o">=</span> <span class="n">s</span><span class="p">.</span><span class="n">length</span><span class="p">();</span>
+        <span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+        <span class="k">while</span> <span class="p">(</span><span class="n">i</span> <span class="o">&lt;</span> <span class="n">length</span><span class="p">)</span> <span class="p">{</span>
+            <span class="kt">int</span> <span class="n">start</span> <span class="o">=</span> <span class="n">i</span><span class="p">;</span>
+            <span class="k">while</span> <span class="p">(</span><span class="n">i</span> <span class="o">&lt;</span> <span class="n">length</span> <span class="o">&amp;&amp;</span> <span class="n">s</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">!=</span> <span class="sc">&#39; &#39;</span><span class="p">)</span> <span class="p">{</span>
+                <span class="n">i</span><span class="o">++</span><span class="p">;</span>
+            <span class="p">}</span>
 
-        newhead=ListNode(0)
-        newhead.next=head
-        
-        prev, curr = newhead, head
-        while curr:
-            if curr.val == val:
-                prev.next = curr.next
-                curr = prev.next
-            else:
-                prev = curr
-                curr = prev.next
-        
-        return newhead.next
-</code></pre><h2 id="三c实现">三.C++实现</h2>
-<pre><code>/**
- * Definition for singly-linked list.
- * struct ListNode {
- *     int val;
- *     ListNode *next;
- *     ListNode(int x) : val(x), next(NULL) {}
- * };
- */
-class Solution {
-public:
-    ListNode* removeElements(ListNode* head, int val) {
-        
-        ListNode* last,* temp;
-        ListNode* newhead= new ListNode(0);
-        newhead-&gt;next=head;
-        last=newhead;
-        temp=head;
-        while(temp!=NULL){
-            if(temp-&gt;val==val){
-                last-&gt;next=temp-&gt;next;
-                delete temp;
-                temp=last-&gt;next;
-            }
-            else{
-                last=temp;
-                temp=last-&gt;next;
-            }
-        }
-        return newhead-&gt;next;
-    }
-};
-</code></pre><h2 id="四java实现">四.java实现</h2>
-<pre><code>/**
- * Definition for singly-linked list.
- * public class ListNode {
- *     int val;
- *     ListNode next;
- *     ListNode(int x) { val = x; }
- * }
- */
-class Solution {
-    public ListNode removeElements(ListNode head, int val) {
-        ListNode newhead=new ListNode(0);
-        newhead.next=head;
-        ListNode pre=new ListNode(0);
-        ListNode cur=new ListNode(0);
-        pre=newhead;
-        cur=head;
-
-        while(cur!=null){
-            if(cur.val==val){
-                pre.next=cur.next;
-                cur=pre.next;
-            }
-            else{
-                pre=cur;
-                cur=pre.next;
-            }
-
-
-        }
-
-        return newhead.next;
-
-
-    }
-}
-</code></pre>
+            <span class="kt">int</span> <span class="n">left</span> <span class="o">=</span> <span class="n">start</span><span class="p">,</span> <span class="n">right</span> <span class="o">=</span> <span class="n">i</span> <span class="o">-</span> <span class="mi">1</span><span class="p">;</span>
+            <span class="k">while</span> <span class="p">(</span><span class="n">left</span> <span class="o">&lt;</span> <span class="n">right</span><span class="p">)</span> <span class="p">{</span>
+                <span class="n">swap</span><span class="p">(</span><span class="n">s</span><span class="p">[</span><span class="n">left</span><span class="p">],</span> <span class="n">s</span><span class="p">[</span><span class="n">right</span><span class="p">]);</span>
+                <span class="n">left</span><span class="o">++</span><span class="p">;</span>
+                <span class="n">right</span><span class="o">--</span><span class="p">;</span>
+            <span class="p">}</span>
+            <span class="k">while</span> <span class="p">(</span><span class="n">i</span> <span class="o">&lt;</span> <span class="n">length</span> <span class="o">&amp;&amp;</span> <span class="n">s</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">==</span> <span class="sc">&#39; &#39;</span><span class="p">)</span> <span class="p">{</span>
+                <span class="n">i</span><span class="o">++</span><span class="p">;</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+        <span class="k">return</span> <span class="n">s</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">};</span>
+</code></pre></div>
     
 	</div>
   <footer class="article-footer clearfix">
@@ -207,6 +184,8 @@ class Solution {
   
   <a href="https://qkgoalkeeper.github.io/tags/leetcode">LeetCode</a>
   
+  <a href="https://qkgoalkeeper.github.io/tags/c&#43;&#43;">C&#43;&#43;</a>
+  
 </div>
 
 
@@ -216,14 +195,14 @@ class Solution {
 <div class="article-categories">
   <span></span>
   
-  <a class="article-category-link" href="https://qkgoalkeeper.github.io/categories/leetcode%E7%AE%80%E5%8D%95%E9%A2%98201-300">LeetCode简单题201-300</a>
+  <a class="article-category-link" href="https://qkgoalkeeper.github.io/categories/%E5%A4%A7%E5%9B%9Bleetcode%E7%AE%97%E6%B3%95%E5%88%B7%E9%A2%98">大四LeetCode算法刷题</a>
   
 </div>
 
 
 
   <div class="article-share" id="share">
-    <div data-url="https://qkgoalkeeper.github.io/post/leetcode%E7%AE%80%E5%8D%95%E9%A2%98203.-%E7%A7%BB%E9%99%A4%E9%93%BE%E8%A1%A8%E5%85%83%E7%B4%A0pythonc&#43;&#43;java/" data-title="LeetCode简单题：203. 移除链表元素（Python,C&#43;&#43;,Java）" data-tsina="5852167252" class="share clearfix">
+    <div data-url="https://qkgoalkeeper.github.io/post/leetcode%E7%AE%97%E6%B3%95%E5%85%A5%E9%97%A8%E7%AC%AC4%E5%A4%A9%E5%8F%8C%E6%8C%87%E9%92%88/" data-title="LeetCode算法入门第4天：双指针" data-tsina="5852167252" class="share clearfix">
     </div>
   </div>
 </footer>

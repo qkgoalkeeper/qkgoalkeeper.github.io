@@ -2,13 +2,13 @@
 <html lang="zh-CN">
 <head>
   <meta charset="UTF-8">
-  <title>LeetCode简单题：203. 移除链表元素（Python,C&#43;&#43;,Java） - qkgoalkeeper&#39;s blog</title>
+  <title>LeetCode算法入门第5天：双指针 - qkgoalkeeper&#39;s blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=3, minimum-scale=1">
   
-  <meta name="description" content="一.解法 https://leetcode-cn.com/problems/remove-linked-list-elements/ 要点：链表 Python，C&#43;&#43;，Java都用了相同的哨兵法。 用了链表常用的哨兵法，所谓哨兵法指的是在原来链表头前加一个起始节点，保">
+  <meta name="description" content="一.876. 链表的中间结点 1.题干及思路 给定一个头结点为 head 的非空单链表，返回链表的中间结点。 如果有两个中间结点，则返回第二个中间结点。 示例 1">
   
-  <meta itemprop="name" content="LeetCode简单题：203. 移除链表元素（Python,C&#43;&#43;,Java） - qkgoalkeeper&#39;s blog">
-  <meta itemprop="description" content="一.解法 https://leetcode-cn.com/problems/remove-linked-list-elements/ 要点：链表 Python，C&#43;&#43;，Java都用了相同的哨兵法。 用了链表常用的哨兵法，所谓哨兵法指的是在原来链表头前加一个起始节点，保">
+  <meta itemprop="name" content="LeetCode算法入门第5天：双指针 - qkgoalkeeper&#39;s blog">
+  <meta itemprop="description" content="一.876. 链表的中间结点 1.题干及思路 给定一个头结点为 head 的非空单链表，返回链表的中间结点。 如果有两个中间结点，则返回第二个中间结点。 示例 1">
   <meta itemprop="image" content="https://qkgoalkeeper.github.io/img/author.jpg">
   
   
@@ -74,7 +74,7 @@
 	<article itemprop="articleBody">
     <header class="article-info clearfix">
   <h1 itemprop="name">
-      <a href="https://qkgoalkeeper.github.io/post/leetcode%E7%AE%80%E5%8D%95%E9%A2%98203.-%E7%A7%BB%E9%99%A4%E9%93%BE%E8%A1%A8%E5%85%83%E7%B4%A0pythonc&#43;&#43;java/" title="LeetCode简单题：203. 移除链表元素（Python,C&#43;&#43;,Java）" itemprop="url">LeetCode简单题：203. 移除链表元素（Python,C&#43;&#43;,Java）</a>
+      <a href="https://qkgoalkeeper.github.io/post/leetcode%E7%AE%97%E6%B3%95%E5%85%A5%E9%97%A8%E7%AC%AC5%E5%A4%A9%E5%8F%8C%E6%8C%87%E9%92%88/" title="LeetCode算法入门第5天：双指针" itemprop="url">LeetCode算法入门第5天：双指针</a>
   </h1>
   <p class="article-author">By
     
@@ -82,7 +82,7 @@
     
   </p>
   <p class="article-time">
-    <time datetime="2020-08-13 17:55:19 &#43;0800 CST" itemprop="datePublished">2020年08月13日</time>
+    <time datetime="2021-09-30 17:55:19 &#43;0800 CST" itemprop="datePublished">2021年09月30日</time>
   </p>
 </header>
 
@@ -92,111 +92,130 @@
 			<strong class="toc-title">文章目录</strong>
       <nav id="TableOfContents">
   <ul>
-    <li><a href="#一解法">一.解法</a></li>
-    <li><a href="#二python实现">二.Python实现</a></li>
-    <li><a href="#三c实现">三.C++实现</a></li>
-    <li><a href="#四java实现">四.java实现</a></li>
+    <li><a href="#1题干及思路">1.题干及思路</a></li>
+  </ul>
+
+  <ul>
+    <li><a href="#1题干及思路-1">1.题干及思路</a></li>
+    <li><a href="#2c实现">2.C++实现</a></li>
   </ul>
 </nav>
 		</div>
     
-    <h2 id="一解法">一.解法</h2>
-<p><a href="https://leetcode-cn.com/problems/remove-linked-list-elements/">https://leetcode-cn.com/problems/remove-linked-list-elements/</a><br>
-要点：链表<br>
-Python，C++，Java都用了相同的哨兵法。<br>
-用了链表常用的哨兵法，所谓哨兵法指的是在原来链表头前加一个起始节点，保持链表的完整性以免要删除链表头发生错误，再用pre和cur两个指针指向前一个节点和后一个节点，如果cur需要删除，则执行pre.next=cur.next;cur=pre.next;否则pre和cur各自向后移一位。</p>
-<h2 id="二python实现">二.Python实现</h2>
-<pre><code># Definition for singly-linked list.
-# class ListNode:
-#     def __init__(self, x):
-#         self.val = x
-#         self.next = None
+    <h1 id="一876-链表的中间结点httpsleetcode-cncomproblemsmiddle-of-the-linked-list">一.<a href="https://leetcode-cn.com/problems/middle-of-the-linked-list/">876. 链表的中间结点</a></h1>
+<h2 id="1题干及思路">1.题干及思路</h2>
+<p>给定一个头结点为 head 的非空单链表，返回链表的中间结点。</p>
+<p>如果有两个中间结点，则返回第二个中间结点。</p>
+<p>示例 1：</p>
+<p>输入：[1,2,3,4,5]
+输出：此列表中的结点 3 (序列化形式：[3,4,5])
+返回的结点值为 3 。 (测评系统对该结点序列化表述是 [3,4,5])。
+注意，我们返回了一个 ListNode 类型的对象 ans，这样：
+ans.val = 3, ans.next.val = 4, ans.next.next.val = 5, 以及 ans.next.next.next = NULL.
+示例 2：</p>
+<p>输入：[1,2,3,4,5,6]
+输出：此列表中的结点 4 (序列化形式：[4,5,6])
+由于该列表有两个中间结点，值分别为 3 和 4，我们返回第二个结点。</p>
+<p>提示：</p>
+<p>给定链表的结点数介于 1 和 100 之间。</p>
+<p>来源：力扣（LeetCode）
+链接：https://leetcode-cn.com/problems/middle-of-the-linked-list
+著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。</p>
+<p>要点：双指针</p>
+<p>思路：双指针在链表中的快慢指针用法，两个指针fast、slow，fast每次走两步，slow每次走一步，最后的slow即为答案</p>
+<div class="highlight"><pre class="chroma"><code class="language-c++" data-lang="c++"><span class="cm">/**
+</span><span class="cm"> * Definition for singly-linked list.
+</span><span class="cm"> * struct ListNode {
+</span><span class="cm"> *     int val;
+</span><span class="cm"> *     ListNode *next;
+</span><span class="cm"> *     ListNode() : val(0), next(nullptr) {}
+</span><span class="cm"> *     ListNode(int x) : val(x), next(nullptr) {}
+</span><span class="cm"> *     ListNode(int x, ListNode *next) : val(x), next(next) {}
+</span><span class="cm"> * };
+</span><span class="cm"> */</span>
+<span class="k">class</span> <span class="nc">Solution</span> <span class="p">{</span>
+<span class="k">public</span><span class="o">:</span>
+    <span class="n">ListNode</span><span class="o">*</span> <span class="n">middleNode</span><span class="p">(</span><span class="n">ListNode</span><span class="o">*</span> <span class="n">head</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">ListNode</span><span class="o">*</span> <span class="n">fast</span> <span class="o">=</span> <span class="n">head</span><span class="p">;</span>
+        <span class="n">ListNode</span><span class="o">*</span> <span class="n">slow</span> <span class="o">=</span> <span class="n">head</span><span class="p">;</span>
+        <span class="k">while</span><span class="p">(</span><span class="n">fast</span><span class="o">!=</span><span class="nb">NULL</span> <span class="o">&amp;&amp;</span> <span class="n">slow</span><span class="o">!=</span><span class="nb">NULL</span><span class="p">){</span>
+            <span class="n">fast</span> <span class="o">=</span> <span class="n">fast</span><span class="o">-&gt;</span><span class="n">next</span><span class="p">;</span>
+            <span class="k">if</span><span class="p">(</span><span class="n">fast</span><span class="o">==</span><span class="nb">NULL</span><span class="p">){</span>
+                <span class="k">break</span><span class="p">;</span>
+            <span class="p">}</span>
+            <span class="n">fast</span> <span class="o">=</span> <span class="n">fast</span><span class="o">-&gt;</span><span class="n">next</span><span class="p">;</span>
+            <span class="n">slow</span> <span class="o">=</span> <span class="n">slow</span><span class="o">-&gt;</span><span class="n">next</span><span class="p">;</span>
+        <span class="p">}</span>
+        <span class="k">return</span> <span class="n">slow</span><span class="p">;</span>
 
-class Solution:
-    def removeElements(self, head: ListNode, val: int) -&gt; ListNode:
 
-        newhead=ListNode(0)
-        newhead.next=head
+    <span class="p">}</span>
+<span class="p">};</span>
+</code></pre></div><h1 id="二19-删除链表的倒数第-n-个结点httpsleetcode-cncomproblemsremove-nth-node-from-end-of-list">二.<a href="https://leetcode-cn.com/problems/remove-nth-node-from-end-of-list/">19. 删除链表的倒数第 N 个结点</a></h1>
+<h2 id="1题干及思路-1">1.题干及思路</h2>
+<p>给你一个链表，删除链表的倒数第 n 个结点，并且返回链表的头结点。</p>
+<p>进阶：你能尝试使用一趟扫描实现吗？</p>
+<p>示例 1：</p>
+<p>输入：head = [1,2,3,4,5], n = 2
+输出：[1,2,3,5]
+示例 2：</p>
+<p>输入：head = [1], n = 1
+输出：[]
+示例 3：</p>
+<p>输入：head = [1,2], n = 1
+输出：[1]</p>
+<p>提示：</p>
+<p>链表中结点的数目为 sz
+1 &lt;= sz &lt;= 30
+0 &lt;= Node.val &lt;= 100
+1 &lt;= n &lt;= sz</p>
+<p>来源：力扣（LeetCode）
+链接：https://leetcode-cn.com/problems/remove-nth-node-from-end-of-list
+著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。</p>
+<p>要点：双指针</p>
+<p>思路：当n=1时用双指针单独做，当n!=1时用到三个指针，先让fast向前进n-1个节点，这样当fast到末尾时，now的位置即为要删除的点，pre是now的前面节点用来删除now节点</p>
+<h2 id="2c实现">2.C++实现</h2>
+<div class="highlight"><pre class="chroma"><code class="language-c++" data-lang="c++"><span class="cm">/**
+</span><span class="cm"> * Definition for singly-linked list.
+</span><span class="cm"> * struct ListNode {
+</span><span class="cm"> *     int val;
+</span><span class="cm"> *     ListNode *next;
+</span><span class="cm"> *     ListNode() : val(0), next(nullptr) {}
+</span><span class="cm"> *     ListNode(int x) : val(x), next(nullptr) {}
+</span><span class="cm"> *     ListNode(int x, ListNode *next) : val(x), next(next) {}
+</span><span class="cm"> * };
+</span><span class="cm"> */</span>
+<span class="k">class</span> <span class="nc">Solution</span> <span class="p">{</span>
+<span class="k">public</span><span class="o">:</span>
+    <span class="n">ListNode</span><span class="o">*</span> <span class="n">removeNthFromEnd</span><span class="p">(</span><span class="n">ListNode</span><span class="o">*</span> <span class="n">head</span><span class="p">,</span> <span class="kt">int</span> <span class="n">n</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">ListNode</span><span class="o">*</span> <span class="n">fast</span> <span class="o">=</span> <span class="n">head</span><span class="p">;</span>
+        <span class="n">ListNode</span><span class="o">*</span> <span class="n">now</span> <span class="o">=</span> <span class="n">head</span><span class="p">;</span>
+        <span class="n">ListNode</span><span class="o">*</span> <span class="n">pre</span> <span class="o">=</span> <span class="n">head</span><span class="p">;</span>
+      
+        <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span><span class="n">i</span><span class="o">&lt;</span><span class="n">n</span><span class="o">-</span><span class="mi">1</span><span class="p">;</span><span class="n">i</span><span class="o">++</span><span class="p">){</span>
+            <span class="n">fast</span><span class="o">=</span><span class="n">fast</span><span class="o">-&gt;</span><span class="n">next</span><span class="p">;</span>
+        <span class="p">}</span>
+        <span class="k">if</span><span class="p">(</span><span class="n">fast</span><span class="o">-&gt;</span><span class="n">next</span><span class="o">==</span><span class="nb">NULL</span><span class="p">){</span>
+            <span class="k">return</span> <span class="n">head</span><span class="o">-&gt;</span><span class="n">next</span><span class="p">;</span>
+        <span class="p">}</span>
+
+        <span class="k">if</span><span class="p">(</span><span class="n">fast</span><span class="o">-&gt;</span><span class="n">next</span><span class="o">!=</span><span class="nb">NULL</span><span class="p">){</span>
+            <span class="n">fast</span><span class="o">=</span><span class="n">fast</span><span class="o">-&gt;</span><span class="n">next</span><span class="p">;</span>
+            <span class="n">now</span> <span class="o">=</span> <span class="n">now</span><span class="o">-&gt;</span><span class="n">next</span><span class="p">;</span>
+        <span class="p">}</span>
+
+        <span class="k">while</span><span class="p">(</span><span class="n">fast</span><span class="o">-&gt;</span><span class="n">next</span><span class="o">!=</span><span class="nb">NULL</span><span class="p">){</span>
+            <span class="n">fast</span> <span class="o">=</span> <span class="n">fast</span><span class="o">-&gt;</span><span class="n">next</span><span class="p">;</span>
+            <span class="n">now</span> <span class="o">=</span> <span class="n">now</span><span class="o">-&gt;</span><span class="n">next</span><span class="p">;</span>
+            <span class="n">pre</span> <span class="o">=</span> <span class="n">pre</span><span class="o">-&gt;</span><span class="n">next</span><span class="p">;</span>     
+        <span class="p">}</span>
         
-        prev, curr = newhead, head
-        while curr:
-            if curr.val == val:
-                prev.next = curr.next
-                curr = prev.next
-            else:
-                prev = curr
-                curr = prev.next
-        
-        return newhead.next
-</code></pre><h2 id="三c实现">三.C++实现</h2>
-<pre><code>/**
- * Definition for singly-linked list.
- * struct ListNode {
- *     int val;
- *     ListNode *next;
- *     ListNode(int x) : val(x), next(NULL) {}
- * };
- */
-class Solution {
-public:
-    ListNode* removeElements(ListNode* head, int val) {
-        
-        ListNode* last,* temp;
-        ListNode* newhead= new ListNode(0);
-        newhead-&gt;next=head;
-        last=newhead;
-        temp=head;
-        while(temp!=NULL){
-            if(temp-&gt;val==val){
-                last-&gt;next=temp-&gt;next;
-                delete temp;
-                temp=last-&gt;next;
-            }
-            else{
-                last=temp;
-                temp=last-&gt;next;
-            }
-        }
-        return newhead-&gt;next;
-    }
-};
-</code></pre><h2 id="四java实现">四.java实现</h2>
-<pre><code>/**
- * Definition for singly-linked list.
- * public class ListNode {
- *     int val;
- *     ListNode next;
- *     ListNode(int x) { val = x; }
- * }
- */
-class Solution {
-    public ListNode removeElements(ListNode head, int val) {
-        ListNode newhead=new ListNode(0);
-        newhead.next=head;
-        ListNode pre=new ListNode(0);
-        ListNode cur=new ListNode(0);
-        pre=newhead;
-        cur=head;
+        <span class="n">pre</span><span class="o">-&gt;</span><span class="n">next</span><span class="o">=</span><span class="n">now</span><span class="o">-&gt;</span><span class="n">next</span><span class="p">;</span>
+        <span class="k">return</span> <span class="n">head</span><span class="p">;</span>
 
-        while(cur!=null){
-            if(cur.val==val){
-                pre.next=cur.next;
-                cur=pre.next;
-            }
-            else{
-                pre=cur;
-                cur=pre.next;
-            }
-
-
-        }
-
-        return newhead.next;
-
-
-    }
-}
-</code></pre>
+    <span class="p">}</span>
+<span class="p">};</span>
+</code></pre></div>
     
 	</div>
   <footer class="article-footer clearfix">
@@ -207,6 +226,8 @@ class Solution {
   
   <a href="https://qkgoalkeeper.github.io/tags/leetcode">LeetCode</a>
   
+  <a href="https://qkgoalkeeper.github.io/tags/c&#43;&#43;">C&#43;&#43;</a>
+  
 </div>
 
 
@@ -216,14 +237,14 @@ class Solution {
 <div class="article-categories">
   <span></span>
   
-  <a class="article-category-link" href="https://qkgoalkeeper.github.io/categories/leetcode%E7%AE%80%E5%8D%95%E9%A2%98201-300">LeetCode简单题201-300</a>
+  <a class="article-category-link" href="https://qkgoalkeeper.github.io/categories/%E5%A4%A7%E5%9B%9Bleetcode%E7%AE%97%E6%B3%95%E5%88%B7%E9%A2%98">大四LeetCode算法刷题</a>
   
 </div>
 
 
 
   <div class="article-share" id="share">
-    <div data-url="https://qkgoalkeeper.github.io/post/leetcode%E7%AE%80%E5%8D%95%E9%A2%98203.-%E7%A7%BB%E9%99%A4%E9%93%BE%E8%A1%A8%E5%85%83%E7%B4%A0pythonc&#43;&#43;java/" data-title="LeetCode简单题：203. 移除链表元素（Python,C&#43;&#43;,Java）" data-tsina="5852167252" class="share clearfix">
+    <div data-url="https://qkgoalkeeper.github.io/post/leetcode%E7%AE%97%E6%B3%95%E5%85%A5%E9%97%A8%E7%AC%AC5%E5%A4%A9%E5%8F%8C%E6%8C%87%E9%92%88/" data-title="LeetCode算法入门第5天：双指针" data-tsina="5852167252" class="share clearfix">
     </div>
   </div>
 </footer>

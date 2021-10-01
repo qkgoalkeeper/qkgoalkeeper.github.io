@@ -6,10 +6,28 @@
     <description>Recent content in C&#43;&#43; on qkgoalkeeper&#39;s blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
-    <lastBuildDate>Tue, 28 Sep 2021 17:55:19 +0800</lastBuildDate>
+    <lastBuildDate>Thu, 30 Sep 2021 17:55:19 +0800</lastBuildDate>
     
 	<atom:link href="https://qkgoalkeeper.github.io/tags/c++/feed.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>LeetCode算法入门第5天：双指针</title>
+      <link>https://qkgoalkeeper.github.io/post/leetcode%E7%AE%97%E6%B3%95%E5%85%A5%E9%97%A8%E7%AC%AC5%E5%A4%A9%E5%8F%8C%E6%8C%87%E9%92%88/</link>
+      <pubDate>Thu, 30 Sep 2021 17:55:19 +0800</pubDate>
+      
+      <guid>https://qkgoalkeeper.github.io/post/leetcode%E7%AE%97%E6%B3%95%E5%85%A5%E9%97%A8%E7%AC%AC5%E5%A4%A9%E5%8F%8C%E6%8C%87%E9%92%88/</guid>
+      <description>一.876. 链表的中间结点 1.题干及思路 给定一个头结点为 head 的非空单链表，返回链表的中间结点。 如果有两个中间结点，则返回第二个中间结点。 示例 1</description>
+    </item>
+    
+    <item>
+      <title>LeetCode算法入门第4天：双指针</title>
+      <link>https://qkgoalkeeper.github.io/post/leetcode%E7%AE%97%E6%B3%95%E5%85%A5%E9%97%A8%E7%AC%AC4%E5%A4%A9%E5%8F%8C%E6%8C%87%E9%92%88/</link>
+      <pubDate>Wed, 29 Sep 2021 17:55:19 +0800</pubDate>
+      
+      <guid>https://qkgoalkeeper.github.io/post/leetcode%E7%AE%97%E6%B3%95%E5%85%A5%E9%97%A8%E7%AC%AC4%E5%A4%A9%E5%8F%8C%E6%8C%87%E9%92%88/</guid>
+      <description>一.344. 反转字符串 1.题干及思路 编写一个函数，其作用是将输入的字符串反转过来。输入字符串以字符数组 s 的形式给出。 不要给另外的数组分配额外</description>
+    </item>
     
     <item>
       <title>LeetCode算法入门第3天：双指针</title>
