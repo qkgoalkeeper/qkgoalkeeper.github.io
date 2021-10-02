@@ -6,10 +6,19 @@
     <description>Recent content on qkgoalkeeper&#39;s blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
-    <lastBuildDate>Thu, 30 Sep 2021 17:55:19 +0800</lastBuildDate>
+    <lastBuildDate>Fri, 01 Oct 2021 17:55:19 +0800</lastBuildDate>
     
 	<atom:link href="https://qkgoalkeeper.github.io/feed.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>LeetCode算法入门第6天：滑动窗口</title>
+      <link>https://qkgoalkeeper.github.io/post/leetcode%E7%AE%97%E6%B3%95%E5%85%A5%E9%97%A8%E7%AC%AC6%E5%A4%A9%E6%BB%91%E5%8A%A8%E7%AA%97%E5%8F%A3/</link>
+      <pubDate>Fri, 01 Oct 2021 17:55:19 +0800</pubDate>
+      
+      <guid>https://qkgoalkeeper.github.io/post/leetcode%E7%AE%97%E6%B3%95%E5%85%A5%E9%97%A8%E7%AC%AC6%E5%A4%A9%E6%BB%91%E5%8A%A8%E7%AA%97%E5%8F%A3/</guid>
+      <description>一.3. 无重复字符的最长子串 1.题干及思路 给定一个字符串 s ，请你找出其中不含有重复字符的 最长子串 的长度。 示例 1: 输入: s = &amp;ldquo;abcabcbb&amp;rdquo; 输出: 3 解释: 因为</description>
+    </item>
     
     <item>
       <title>LeetCode算法入门第5天：双指针</title>
