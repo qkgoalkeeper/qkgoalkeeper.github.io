@@ -2,13 +2,13 @@
 <html lang="zh-CN">
 <head>
   <meta charset="UTF-8">
-  <title>LeetCode算法入门第7天：深度优先搜索 - qkgoalkeeper&#39;s blog</title>
+  <title>LeetCode算法入门第8天：深度优先搜索&amp;广度优先搜索 - qkgoalkeeper&#39;s blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=3, minimum-scale=1">
   
-  <meta name="description" content="一.733. 图像渲染 1.题干及思路 有一幅以二维整数数组表示的图画，每一个整数表示该图画的像素值大小，数值在 0 到 65535 之间。 给你一个坐标 (sr, sc) 表示图">
+  <meta name="description" content="一.617. 合并二叉树 1.题干及思路 给定两个二叉树，想象当你将它们中的一个覆盖到另一个上时，两个二叉树的一些节点便会重叠。 你需要将他们合并为">
   
-  <meta itemprop="name" content="LeetCode算法入门第7天：深度优先搜索 - qkgoalkeeper&#39;s blog">
-  <meta itemprop="description" content="一.733. 图像渲染 1.题干及思路 有一幅以二维整数数组表示的图画，每一个整数表示该图画的像素值大小，数值在 0 到 65535 之间。 给你一个坐标 (sr, sc) 表示图">
+  <meta itemprop="name" content="LeetCode算法入门第8天：深度优先搜索&amp;广度优先搜索 - qkgoalkeeper&#39;s blog">
+  <meta itemprop="description" content="一.617. 合并二叉树 1.题干及思路 给定两个二叉树，想象当你将它们中的一个覆盖到另一个上时，两个二叉树的一些节点便会重叠。 你需要将他们合并为">
   <meta itemprop="image" content="https://qkgoalkeeper.github.io/img/author.jpg">
   
   
@@ -74,7 +74,7 @@
 	<article itemprop="articleBody">
     <header class="article-info clearfix">
   <h1 itemprop="name">
-      <a href="https://qkgoalkeeper.github.io/post/leetcode%E7%AE%97%E6%B3%95%E5%85%A5%E9%97%A8%E7%AC%AC7%E5%A4%A9%E6%B7%B1%E5%BA%A6%E4%BC%98%E5%85%88%E6%90%9C%E7%B4%A2/" title="LeetCode算法入门第7天：深度优先搜索" itemprop="url">LeetCode算法入门第7天：深度优先搜索</a>
+      <a href="https://qkgoalkeeper.github.io/post/leetcode%E7%AE%97%E6%B3%95%E5%85%A5%E9%97%A8%E7%AC%AC8%E5%A4%A9%E6%B7%B1%E5%BA%A6%E4%BC%98%E5%85%88%E6%90%9C%E7%B4%A2%E5%B9%BF%E5%BA%A6%E4%BC%98%E5%85%88%E6%90%9C%E7%B4%A2/" title="LeetCode算法入门第8天：深度优先搜索&amp;广度优先搜索" itemprop="url">LeetCode算法入门第8天：深度优先搜索&amp;广度优先搜索</a>
   </h1>
   <p class="article-author">By
     
@@ -82,7 +82,7 @@
     
   </p>
   <p class="article-time">
-    <time datetime="2021-10-02 17:55:19 &#43;0800 CST" itemprop="datePublished">2021年10月02日</time>
+    <time datetime="2021-10-03 18:55:19 &#43;0800 CST" itemprop="datePublished">2021年10月03日</time>
   </p>
 </header>
 
@@ -103,31 +103,31 @@
 </nav>
 		</div>
     
-    <h1 id="一733-图像渲染httpsleetcode-cncomproblemsflood-fill">一.<a href="https://leetcode-cn.com/problems/flood-fill/">733. 图像渲染</a></h1>
+    <h1 id="一617-合并二叉树httpsleetcode-cncomproblemsmerge-two-binary-trees">一.<a href="https://leetcode-cn.com/problems/merge-two-binary-trees/">617. 合并二叉树</a></h1>
 <h2 id="1题干及思路">1.题干及思路</h2>
-<p>有一幅以二维整数数组表示的图画，每一个整数表示该图画的像素值大小，数值在 0 到 65535 之间。</p>
-<p>给你一个坐标 (sr, sc) 表示图像渲染开始的像素值（行 ，列）和一个新的颜色值 newColor，让你重新上色这幅图像。</p>
-<p>为了完成上色工作，从初始坐标开始，记录初始坐标的上下左右四个方向上像素值与初始坐标相同的相连像素点，接着再记录这四个方向上符合条件的像素点与他们对应四个方向上像素值与初始坐标相同的相连像素点，……，重复该过程。将所有有记录的像素点的颜色值改为新的颜色值。</p>
-<p>最后返回经过上色渲染后的图像。</p>
+<p>给定两个二叉树，想象当你将它们中的一个覆盖到另一个上时，两个二叉树的一些节点便会重叠。</p>
+<p>你需要将他们合并为一个新的二叉树。合并的规则是如果两个节点重叠，那么将他们的值相加作为节点合并后的新值，否则不为 NULL 的节点将直接作为新二叉树的节点。</p>
 <p>示例 1:</p>
 <p>输入: 
-image = [[1,1,1],[1,1,0],[1,0,1]]
-sr = 1, sc = 1, newColor = 2
-输出: [[2,2,2],[2,2,0],[2,0,1]]
-解析: 
-在图像的正中间，(坐标(sr,sc)=(1,1)),
-在路径上所有符合条件的像素点的颜色都被更改成2。
-注意，右下角的像素没有更改为2，
-因为它不是在上下左右四个方向上与初始点相连的像素点。
-注意:</p>
-<p>image 和 image[0] 的长度在范围 [1, 50] 内。
-给出的初始点将满足 0 &lt;= sr &lt; image.length 和 0 &lt;= sc &lt; image[0].length。
-image[i][j] 和 newColor 表示的颜色值在范围 [0, 65535]内。</p>
+Tree 1                     Tree 2               <br>
+1                         2                          <br>
+/ \                       / \                         <br>
+3   2                     1   3                     <br>
+/                           \   \                   <br>
+5                             4   7               <br>
+输出: 
+合并后的树:
+3
+/<br>
+4   5
+/ \   \ 
+5   4   7
+注意: 合并必须从两个树的根节点开始。</p>
 <p>来源：力扣（LeetCode）
-链接：https://leetcode-cn.com/problems/flood-fill
+链接：https://leetcode-cn.com/problems/merge-two-binary-trees
 著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。</p>
 <p>要点：dfs</p>
-<p>思路：从image[sr][sc]开始，向上下左右四个方向dfs，如果原颜色和image[sr][sc]一样则变成新颜色继续向四周dfs，如果不一样就停止dfs，注意判断边界条件</p>
+<p>思路：dfs前序遍历进行两个树的合并，合并当前节点再合并左树再合并右树，如果都不为null则结果值相加，如果有一个null则直接取非null的那颗子树</p>
 <h2 id="2c实现">2.C++实现</h2>
 <div class="highlight"><pre class="chroma"><code class="language-c++" data-lang="c++"><span class="k">class</span> <span class="nc">Solution</span> <span class="p">{</span>
 <span class="k">private</span><span class="o">:</span>
@@ -155,65 +155,87 @@ image[i][j] 和 newColor 表示的颜色值在范围 [0, 65535]内。</p>
 
     <span class="p">}</span>
 <span class="p">};</span>
-</code></pre></div><h1 id="二695-岛屿的最大面积httpsleetcode-cncomproblemsmax-area-of-island">二.<a href="https://leetcode-cn.com/problems/max-area-of-island/">695. 岛屿的最大面积</a></h1>
+</code></pre></div><h1 id="二116-填充每个节点的下一个右侧节点指针httpsleetcode-cncomproblemspopulating-next-right-pointers-in-each-node">二.<a href="https://leetcode-cn.com/problems/populating-next-right-pointers-in-each-node/">116. 填充每个节点的下一个右侧节点指针</a></h1>
 <h2 id="1题干及思路-1">1.题干及思路</h2>
-<p>给你一个大小为 m x n 的二进制矩阵 grid 。</p>
-<p>岛屿 是由一些相邻的 1 (代表土地) 构成的组合，这里的「相邻」要求两个 1 必须在 水平或者竖直的四个方向上 相邻。你可以假设 grid 的四个边缘都被 0（代表水）包围着。</p>
-<p>岛屿的面积是岛上值为 1 的单元格的数目。</p>
-<p>计算并返回 grid 中最大的岛屿面积。如果没有岛屿，则返回面积为 0 。</p>
-<p>示例 1：</p>
-<p>输入：grid = [[0,0,1,0,0,0,0,1,0,0,0,0,0],[0,0,0,0,0,0,0,1,1,1,0,0,0],[0,1,1,0,1,0,0,0,0,0,0,0,0],[0,1,0,0,1,1,0,0,1,0,1,0,0],[0,1,0,0,1,1,0,0,1,1,1,0,0],[0,0,0,0,0,0,0,0,0,0,1,0,0],[0,0,0,0,0,0,0,1,1,1,0,0,0],[0,0,0,0,0,0,0,1,1,0,0,0,0]]
-输出：6
-解释：答案不应该是 11 ，因为岛屿只能包含水平或垂直这四个方向上的 1 。
-示例 2：</p>
-<p>输入：grid = [[0,0,0,0,0,0,0,0]]
-输出：0</p>
+<p>给定一个 完美二叉树 ，其所有叶子节点都在同一层，每个父节点都有两个子节点。二叉树定义如下：</p>
+<p>struct Node {
+int val;
+Node *left;
+Node *right;
+Node *next;
+}
+填充它的每个 next 指针，让这个指针指向其下一个右侧节点。如果找不到下一个右侧节点，则将 next 指针设置为 NULL。</p>
+<p>初始状态下，所有 next 指针都被设置为 NULL。</p>
+<p>进阶：</p>
+<p>你只能使用常量级额外空间。
+使用递归解题也符合要求，本题中递归程序占用的栈空间不算做额外的空间复杂度。</p>
+<p>示例：</p>
+<p>输入：root = [1,2,3,4,5,6,7]
+输出：[1,#,2,3,#,4,5,6,7,#]
+解释：给定二叉树如图 A 所示，你的函数应该填充它的每个 next 指针，以指向其下一个右侧节点，如图 B 所示。序列化的输出按层序遍历排列，同一层节点由 next 指针连接，'#&rsquo; 标志着每一层的结束。</p>
 <p>提示：</p>
-<p>m == grid.length
-n == grid[i].length
-1 &lt;= m, n &lt;= 50
-grid[i][j] 为 0 或 1</p>
+<p>树中节点的数量少于 4096
+-1000 &lt;= node.val &lt;= 1000</p>
 <p>来源：力扣（LeetCode）
-链接：https://leetcode-cn.com/problems/max-area-of-island
+链接：https://leetcode-cn.com/problems/populating-next-right-pointers-in-each-node
 著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。</p>
-<p>要点：dfs</p>
-<p>思路：遍历二维数组，遇到1说明有岛屿，用dfs将改岛屿面积求出（并把岛屿填平避免做重复的无用功），这样可以求出每块岛屿面积并且与最大的比较留下最大的岛屿面积。</p>
+<p>要点：bfs</p>
+<p>思路：类似层次遍历，用bfs，每次读取一层，将每一层的next指针指好</p>
 <h2 id="2c实现-1">2.C++实现</h2>
-<div class="highlight"><pre class="chroma"><code class="language-c++" data-lang="c++"><span class="k">class</span> <span class="nc">Solution</span> <span class="p">{</span>
-<span class="k">private</span><span class="o">:</span>
-    <span class="kt">int</span> <span class="n">dx</span><span class="p">[</span><span class="mi">4</span><span class="p">]</span><span class="o">=</span><span class="p">{</span><span class="mi">0</span><span class="p">,</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">};</span>
-    <span class="kt">int</span> <span class="n">dy</span><span class="p">[</span><span class="mi">4</span><span class="p">]</span><span class="o">=</span><span class="p">{</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">};</span>
-    <span class="kt">int</span> <span class="nf">dfs</span><span class="p">(</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;&gt;&amp;</span> <span class="n">grid</span><span class="p">,</span> <span class="kt">int</span> <span class="n">x</span><span class="p">,</span> <span class="kt">int</span> <span class="n">y</span><span class="p">)</span> <span class="p">{</span>
-        <span class="kt">int</span> <span class="n">xLength</span><span class="o">=</span><span class="n">grid</span><span class="p">.</span><span class="n">size</span><span class="p">();</span>
-        <span class="kt">int</span> <span class="n">yLength</span><span class="o">=</span><span class="n">grid</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="n">size</span><span class="p">();</span>
-        <span class="k">if</span><span class="p">(</span><span class="n">grid</span><span class="p">[</span><span class="n">x</span><span class="p">][</span><span class="n">y</span><span class="p">]</span><span class="o">==</span><span class="mi">1</span><span class="p">){</span>
-            <span class="kt">int</span> <span class="n">answer</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
-            <span class="n">grid</span><span class="p">[</span><span class="n">x</span><span class="p">][</span><span class="n">y</span><span class="p">]</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span>
-            <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span><span class="n">i</span><span class="o">&lt;</span><span class="mi">4</span><span class="p">;</span><span class="n">i</span><span class="o">++</span><span class="p">){</span>
-                <span class="k">if</span><span class="p">(</span><span class="n">x</span><span class="o">+</span><span class="n">dx</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">&gt;=</span><span class="mi">0</span><span class="o">&amp;&amp;</span><span class="n">x</span><span class="o">+</span><span class="n">dx</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">&lt;</span><span class="n">xLength</span><span class="o">&amp;&amp;</span><span class="n">y</span><span class="o">+</span><span class="n">dy</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">&gt;=</span><span class="mi">0</span><span class="o">&amp;&amp;</span><span class="n">y</span><span class="o">+</span><span class="n">dy</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">&lt;</span><span class="n">yLength</span><span class="p">)</span>
-                <span class="p">{</span>
-                    <span class="n">answer</span><span class="o">+=</span><span class="n">dfs</span><span class="p">(</span><span class="n">grid</span><span class="p">,</span><span class="n">x</span><span class="o">+</span><span class="n">dx</span><span class="p">[</span><span class="n">i</span><span class="p">],</span><span class="n">y</span><span class="o">+</span><span class="n">dy</span><span class="p">[</span><span class="n">i</span><span class="p">]);</span>
-                <span class="p">}</span>
-            <span class="p">}</span>
-            <span class="k">return</span> <span class="n">answer</span><span class="p">;</span>
-        <span class="p">}</span>
-        <span class="k">return</span> <span class="mi">0</span><span class="p">;</span> 
-    <span class="p">}</span>    
+<div class="highlight"><pre class="chroma"><code class="language-c++" data-lang="c++"><span class="cm">/*
+</span><span class="cm">// Definition for a Node.
+</span><span class="cm">class Node {
+</span><span class="cm">public:
+</span><span class="cm">    int val;
+</span><span class="cm">    Node* left;
+</span><span class="cm">    Node* right;
+</span><span class="cm">    Node* next;
+</span><span class="cm">
+</span><span class="cm">    Node() : val(0), left(NULL), right(NULL), next(NULL) {}
+</span><span class="cm">
+</span><span class="cm">    Node(int _val) : val(_val), left(NULL), right(NULL), next(NULL) {}
+</span><span class="cm">
+</span><span class="cm">    Node(int _val, Node* _left, Node* _right, Node* _next)
+</span><span class="cm">        : val(_val), left(_left), right(_right), next(_next) {}
+</span><span class="cm">};
+</span><span class="cm">*/</span>
+
+<span class="k">class</span> <span class="nc">Solution</span> <span class="p">{</span>
 <span class="k">public</span><span class="o">:</span>
-    <span class="kt">int</span> <span class="n">maxAreaOfIsland</span><span class="p">(</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;&gt;&amp;</span> <span class="n">grid</span><span class="p">)</span> <span class="p">{</span>
-        <span class="kt">int</span> <span class="n">finalAnswer</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
-        <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span><span class="n">i</span><span class="o">&lt;</span><span class="n">grid</span><span class="p">.</span><span class="n">size</span><span class="p">();</span><span class="n">i</span><span class="o">++</span><span class="p">){</span>
-            <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">j</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span><span class="n">j</span><span class="o">&lt;</span><span class="n">grid</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="n">size</span><span class="p">();</span><span class="n">j</span><span class="o">++</span><span class="p">){</span>
-                <span class="kt">int</span> <span class="n">temp</span><span class="o">=</span><span class="n">dfs</span><span class="p">(</span><span class="n">grid</span><span class="p">,</span><span class="n">i</span><span class="p">,</span><span class="n">j</span><span class="p">);</span>
-                <span class="n">finalAnswer</span><span class="o">=</span><span class="n">max</span><span class="p">(</span><span class="n">finalAnswer</span><span class="p">,</span><span class="n">temp</span><span class="p">);</span>
+    <span class="n">Node</span><span class="o">*</span> <span class="n">connect</span><span class="p">(</span><span class="n">Node</span><span class="o">*</span> <span class="n">root</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">queue</span><span class="o">&lt;</span><span class="n">Node</span><span class="o">*&gt;</span> <span class="n">queue1</span><span class="o">=</span><span class="n">queue</span><span class="o">&lt;</span><span class="n">Node</span><span class="o">*&gt;</span><span class="p">();</span>
+        <span class="k">if</span><span class="p">(</span><span class="n">root</span><span class="o">==</span><span class="k">nullptr</span><span class="p">)</span> <span class="k">return</span> <span class="n">root</span><span class="p">;</span>
+        <span class="n">queue1</span><span class="p">.</span><span class="n">push</span><span class="p">(</span><span class="n">root</span><span class="p">);</span>
+        <span class="k">while</span><span class="p">(</span><span class="n">queue1</span><span class="p">.</span><span class="n">size</span><span class="p">()</span><span class="o">&gt;</span><span class="mi">0</span><span class="p">){</span>
+            <span class="kt">int</span> <span class="n">levelNum</span> <span class="o">=</span> <span class="n">queue1</span><span class="p">.</span><span class="n">size</span><span class="p">();</span>
+            <span class="n">Node</span><span class="o">*</span> <span class="n">first</span> <span class="o">=</span> <span class="n">queue1</span><span class="p">.</span><span class="n">front</span><span class="p">();</span>
+            <span class="n">queue1</span><span class="p">.</span><span class="n">pop</span><span class="p">();</span>
+            <span class="n">levelNum</span><span class="o">--</span><span class="p">;</span>
+            <span class="k">if</span><span class="p">(</span><span class="n">first</span><span class="o">-&gt;</span><span class="n">left</span><span class="o">!=</span><span class="k">nullptr</span><span class="p">){</span>
+                <span class="n">queue1</span><span class="p">.</span><span class="n">push</span><span class="p">(</span><span class="n">first</span><span class="o">-&gt;</span><span class="n">left</span><span class="p">);</span>
+            <span class="p">}</span>
+            <span class="k">if</span><span class="p">(</span><span class="n">first</span><span class="o">-&gt;</span><span class="n">right</span><span class="o">!=</span><span class="k">nullptr</span><span class="p">){</span>
+                <span class="n">queue1</span><span class="p">.</span><span class="n">push</span><span class="p">(</span><span class="n">first</span><span class="o">-&gt;</span><span class="n">right</span><span class="p">);</span>
+            <span class="p">}</span>
+
+            <span class="k">while</span><span class="p">(</span><span class="n">levelNum</span><span class="o">&gt;</span><span class="mi">0</span><span class="p">){</span>
+                <span class="n">Node</span><span class="o">*</span> <span class="n">second</span> <span class="o">=</span> <span class="n">queue1</span><span class="p">.</span><span class="n">front</span><span class="p">();</span>
+                <span class="n">queue1</span><span class="p">.</span><span class="n">pop</span><span class="p">();</span>
+                <span class="n">levelNum</span><span class="o">--</span><span class="p">;</span>
+                <span class="k">if</span><span class="p">(</span><span class="n">second</span><span class="o">-&gt;</span><span class="n">left</span><span class="o">!=</span><span class="k">nullptr</span><span class="p">){</span>
+                    <span class="n">queue1</span><span class="p">.</span><span class="n">push</span><span class="p">(</span><span class="n">second</span><span class="o">-&gt;</span><span class="n">left</span><span class="p">);</span>
+                <span class="p">}</span>
+                <span class="k">if</span><span class="p">(</span><span class="n">second</span><span class="o">-&gt;</span><span class="n">right</span><span class="o">!=</span><span class="k">nullptr</span><span class="p">){</span>
+                    <span class="n">queue1</span><span class="p">.</span><span class="n">push</span><span class="p">(</span><span class="n">second</span><span class="o">-&gt;</span><span class="n">right</span><span class="p">);</span>
+                <span class="p">}</span>
+                <span class="n">first</span><span class="o">-&gt;</span><span class="n">next</span><span class="o">=</span><span class="n">second</span><span class="p">;</span>
+                <span class="n">first</span> <span class="o">=</span> <span class="n">second</span><span class="p">;</span>
             <span class="p">}</span>
         <span class="p">}</span>
-        <span class="k">return</span> <span class="n">finalAnswer</span><span class="p">;</span>
+        <span class="k">return</span> <span class="n">root</span><span class="p">;</span>
 
     <span class="p">}</span>
 <span class="p">};</span>
-
-
 </code></pre></div>
     
 	</div>
@@ -243,7 +265,7 @@ grid[i][j] 为 0 或 1</p>
 
 
   <div class="article-share" id="share">
-    <div data-url="https://qkgoalkeeper.github.io/post/leetcode%E7%AE%97%E6%B3%95%E5%85%A5%E9%97%A8%E7%AC%AC7%E5%A4%A9%E6%B7%B1%E5%BA%A6%E4%BC%98%E5%85%88%E6%90%9C%E7%B4%A2/" data-title="LeetCode算法入门第7天：深度优先搜索" data-tsina="5852167252" class="share clearfix">
+    <div data-url="https://qkgoalkeeper.github.io/post/leetcode%E7%AE%97%E6%B3%95%E5%85%A5%E9%97%A8%E7%AC%AC8%E5%A4%A9%E6%B7%B1%E5%BA%A6%E4%BC%98%E5%85%88%E6%90%9C%E7%B4%A2%E5%B9%BF%E5%BA%A6%E4%BC%98%E5%85%88%E6%90%9C%E7%B4%A2/" data-title="LeetCode算法入门第8天：深度优先搜索&amp;广度优先搜索" data-tsina="5852167252" class="share clearfix">
     </div>
   </div>
 </footer>
