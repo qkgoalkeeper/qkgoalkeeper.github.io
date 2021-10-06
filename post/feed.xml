@@ -6,10 +6,19 @@
     <description>Recent content in Posts on qkgoalkeeper&#39;s blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
-    <lastBuildDate>Mon, 04 Oct 2021 17:55:19 +0800</lastBuildDate>
+    <lastBuildDate>Tue, 05 Oct 2021 17:55:19 +0800</lastBuildDate>
     
 	<atom:link href="https://qkgoalkeeper.github.io/post/feed.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>LeetCode算法入门第10天：递归 回溯</title>
+      <link>https://qkgoalkeeper.github.io/post/leetcode%E7%AE%97%E6%B3%95%E5%85%A5%E9%97%A8%E7%AC%AC10%E5%A4%A9%E9%80%92%E5%BD%92-%E5%9B%9E%E6%BA%AF/</link>
+      <pubDate>Tue, 05 Oct 2021 17:55:19 +0800</pubDate>
+      
+      <guid>https://qkgoalkeeper.github.io/post/leetcode%E7%AE%97%E6%B3%95%E5%85%A5%E9%97%A8%E7%AC%AC10%E5%A4%A9%E9%80%92%E5%BD%92-%E5%9B%9E%E6%BA%AF/</guid>
+      <description>一.21. 合并两个有序链表 1.题干及思路 将两个升序链表合并为一个新的 升序 链表并返回。新链表是通过拼接给定的两个链表的所有节点组成的。 示例 1：</description>
+    </item>
     
     <item>
       <title>LeetCode算法入门第9天：广度优先搜索</title>
