@@ -6,10 +6,19 @@
     <description>Recent content on qkgoalkeeper&#39;s blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
-    <lastBuildDate>Tue, 05 Oct 2021 17:55:19 +0800</lastBuildDate>
+    <lastBuildDate>Wed, 06 Oct 2021 17:55:19 +0800</lastBuildDate>
     
 	<atom:link href="https://qkgoalkeeper.github.io/feed.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>LeetCode算法入门第11天：递归 回溯</title>
+      <link>https://qkgoalkeeper.github.io/post/leetcode%E7%AE%97%E6%B3%95%E5%85%A5%E9%97%A8%E7%AC%AC11%E5%A4%A9%E9%80%92%E5%BD%92-%E5%9B%9E%E6%BA%AF/</link>
+      <pubDate>Wed, 06 Oct 2021 17:55:19 +0800</pubDate>
+      
+      <guid>https://qkgoalkeeper.github.io/post/leetcode%E7%AE%97%E6%B3%95%E5%85%A5%E9%97%A8%E7%AC%AC11%E5%A4%A9%E9%80%92%E5%BD%92-%E5%9B%9E%E6%BA%AF/</guid>
+      <description>一.77. 组合 1.题干及思路 给定两个整数 n 和 k，返回范围 [1, n] 中所有可能的 k 个数的组合。 你可以按 任何顺序 返回答案。 示例 1： 输入：n = 4, k = 2 输</description>
+    </item>
     
     <item>
       <title>LeetCode算法入门第10天：递归 回溯</title>
