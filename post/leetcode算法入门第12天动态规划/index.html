@@ -2,13 +2,13 @@
 <html lang="zh-CN">
 <head>
   <meta charset="UTF-8">
-  <title>LeetCode算法入门第1天：二分查找 - qkgoalkeeper&#39;s blog</title>
+  <title>LeetCode算法入门第12天：动态规划 - qkgoalkeeper&#39;s blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=3, minimum-scale=1">
   
-  <meta name="description" content="一.704. 二分查找 1.题干及思路 给定一个 n 个元素有序的（升序）整型数组 nums 和一个目标值 target ，写一个函数搜索 nums 中的 target，如果目标值存在返">
+  <meta name="description" content="一.70. 爬楼梯 1.题干及思路 假设你正在爬楼梯。需要 n 阶你才能到达楼顶。 每次你可以爬 1 或 2 个台阶。你有多少种不同的方法可以爬到楼顶呢？ 注意：">
   
-  <meta itemprop="name" content="LeetCode算法入门第1天：二分查找 - qkgoalkeeper&#39;s blog">
-  <meta itemprop="description" content="一.704. 二分查找 1.题干及思路 给定一个 n 个元素有序的（升序）整型数组 nums 和一个目标值 target ，写一个函数搜索 nums 中的 target，如果目标值存在返">
+  <meta itemprop="name" content="LeetCode算法入门第12天：动态规划 - qkgoalkeeper&#39;s blog">
+  <meta itemprop="description" content="一.70. 爬楼梯 1.题干及思路 假设你正在爬楼梯。需要 n 阶你才能到达楼顶。 每次你可以爬 1 或 2 个台阶。你有多少种不同的方法可以爬到楼顶呢？ 注意：">
   <meta itemprop="image" content="https://qkgoalkeeper.github.io/img/author.jpg">
   
   
@@ -74,7 +74,7 @@
 	<article itemprop="articleBody">
     <header class="article-info clearfix">
   <h1 itemprop="name">
-      <a href="https://qkgoalkeeper.github.io/post/leetcode%E7%AE%97%E6%B3%95%E5%85%A5%E9%97%A8%E7%AC%AC1%E5%A4%A9%E4%BA%8C%E5%88%86%E6%9F%A5%E6%89%BE/" title="LeetCode算法入门第1天：二分查找" itemprop="url">LeetCode算法入门第1天：二分查找</a>
+      <a href="https://qkgoalkeeper.github.io/post/leetcode%E7%AE%97%E6%B3%95%E5%85%A5%E9%97%A8%E7%AC%AC12%E5%A4%A9%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/" title="LeetCode算法入门第12天：动态规划" itemprop="url">LeetCode算法入门第12天：动态规划</a>
   </h1>
   <p class="article-author">By
     
@@ -82,7 +82,7 @@
     
   </p>
   <p class="article-time">
-    <time datetime="2021-09-26 17:55:19 &#43;0800 CST" itemprop="datePublished">2021年09月26日</time>
+    <time datetime="2021-10-07 17:55:19 &#43;0800 CST" itemprop="datePublished">2021年10月07日</time>
   </p>
 </header>
 
@@ -108,130 +108,134 @@
 </nav>
 		</div>
     
-    <h1 id="一704-二分查找httpsleetcode-cncomproblemsbinary-search">一.<a href="https://leetcode-cn.com/problems/binary-search/">704. 二分查找</a></h1>
+    <h1 id="一70-爬楼梯httpsleetcode-cncomproblemsclimbing-stairs">一.<a href="https://leetcode-cn.com/problems/climbing-stairs/">70. 爬楼梯</a></h1>
 <h2 id="1题干及思路">1.题干及思路</h2>
-<p>给定一个 n 个元素有序的（升序）整型数组 nums 和一个目标值 target  ，写一个函数搜索 nums 中的 target，如果目标值存在返回下标，否则返回 -1。</p>
-<p>示例 1:</p>
-<p>输入: nums = [-1,0,3,5,9,12], target = 9
-输出: 4
-解释: 9 出现在 nums 中并且下标为 4
-示例 2:</p>
-<p>输入: nums = [-1,0,3,5,9,12], target = 2
-输出: -1
-解释: 2 不存在 nums 中因此返回 -1</p>
-<p>提示：</p>
-<p>你可以假设 nums 中的所有元素是不重复的。
-n 将在 [1, 10000]之间。
-nums 的每个元素都将在 [-9999, 9999]之间。</p>
+<p>假设你正在爬楼梯。需要 n 阶你才能到达楼顶。</p>
+<p>每次你可以爬 1 或 2 个台阶。你有多少种不同的方法可以爬到楼顶呢？</p>
+<p>注意：给定 n 是一个正整数。</p>
+<p>示例 1：</p>
+<p>输入： 2
+输出： 2
+解释： 有两种方法可以爬到楼顶。</p>
+<ol>
+<li>1 阶 + 1 阶</li>
+<li>2 阶
+示例 2：</li>
+</ol>
+<p>输入： 3
+输出： 3
+解释： 有三种方法可以爬到楼顶。</p>
+<ol>
+<li>1 阶 + 1 阶 + 1 阶</li>
+<li>1 阶 + 2 阶</li>
+<li>2 阶 + 1 阶</li>
+</ol>
 <p>来源：力扣（LeetCode）
-链接：https://leetcode-cn.com/problems/binary-search
+链接：https://leetcode-cn.com/problems/climbing-stairs
 著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。</p>
-<p>要点：二分法</p>
-<p>思路： 二分查找</p>
+<p>要点：动态规划</p>
+<p>思路：动态规划，dp[0]表示地面方法数为1，dp[1]表示第一格楼梯方法数为1，当n&gt;=2时动态规划公式是dp[n]=dp[n-2]+dp[n-1]</p>
 <h2 id="2c实现">2.C++实现</h2>
 <div class="highlight"><pre class="chroma"><code class="language-c++" data-lang="c++"><span class="k">class</span> <span class="nc">Solution</span> <span class="p">{</span>
 <span class="k">public</span><span class="o">:</span>
-    <span class="kt">int</span> <span class="n">search</span><span class="p">(</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;&amp;</span> <span class="n">nums</span><span class="p">,</span> <span class="kt">int</span> <span class="n">target</span><span class="p">)</span> <span class="p">{</span>
-        <span class="kt">int</span> <span class="n">left</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
-        <span class="kt">int</span> <span class="n">right</span> <span class="o">=</span> <span class="n">nums</span><span class="p">.</span><span class="n">size</span><span class="p">()</span><span class="o">-</span><span class="mi">1</span><span class="p">;</span>
-        <span class="k">while</span><span class="p">(</span><span class="n">right</span><span class="o">&gt;=</span><span class="n">left</span><span class="p">){</span>
-            <span class="kt">int</span> <span class="n">middle</span> <span class="o">=</span> <span class="n">left</span> <span class="o">+</span> <span class="p">(</span><span class="n">right</span><span class="o">-</span><span class="n">left</span><span class="p">)</span><span class="o">/</span><span class="mi">2</span><span class="p">;</span>
-            <span class="k">if</span><span class="p">(</span><span class="n">nums</span><span class="p">[</span><span class="n">middle</span><span class="p">]</span><span class="o">==</span><span class="n">target</span><span class="p">)</span> <span class="k">return</span> <span class="n">middle</span><span class="p">;</span>
-            <span class="k">else</span> <span class="nf">if</span><span class="p">(</span><span class="n">nums</span><span class="p">[</span><span class="n">middle</span><span class="p">]</span><span class="o">&gt;</span><span class="n">target</span><span class="p">){</span><span class="n">right</span><span class="o">=</span><span class="n">middle</span><span class="o">-</span><span class="mi">1</span><span class="p">;}</span>
-            <span class="k">else</span> <span class="nf">if</span><span class="p">(</span><span class="n">nums</span><span class="p">[</span><span class="n">middle</span><span class="p">]</span><span class="o">&lt;</span><span class="n">target</span><span class="p">){</span><span class="n">left</span><span class="o">=</span><span class="n">middle</span><span class="o">+</span><span class="mi">1</span><span class="p">;}</span>
+    <span class="kt">int</span> <span class="n">climbStairs</span><span class="p">(</span><span class="kt">int</span> <span class="n">n</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">dp</span><span class="p">(</span><span class="n">n</span><span class="o">+</span><span class="mi">1</span><span class="p">);</span>
+        <span class="n">dp</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">=</span><span class="mi">1</span><span class="p">;</span>
+        <span class="n">dp</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">=</span><span class="mi">1</span><span class="p">;</span>
+        <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span><span class="o">=</span><span class="mi">2</span><span class="p">;</span><span class="n">i</span><span class="o">&lt;</span><span class="n">n</span><span class="o">+</span><span class="mi">1</span><span class="p">;</span><span class="n">i</span><span class="o">++</span><span class="p">){</span>
+            <span class="n">dp</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">=</span><span class="n">dp</span><span class="p">[</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">+</span><span class="n">dp</span><span class="p">[</span><span class="n">i</span><span class="o">-</span><span class="mi">2</span><span class="p">];</span>
         <span class="p">}</span>
-        <span class="k">return</span> <span class="o">-</span><span class="mi">1</span><span class="p">;</span>
+        <span class="k">return</span> <span class="n">dp</span><span class="p">[</span><span class="n">n</span><span class="p">];</span>
 
     <span class="p">}</span>
 <span class="p">};</span>
-</code></pre></div><h1 id="二278-第一个错误的版本httpsleetcode-cncomproblemsfirst-bad-version">二.<a href="https://leetcode-cn.com/problems/first-bad-version/">278. 第一个错误的版本</a></h1>
+</code></pre></div><h1 id="二198-打家劫舍httpsleetcode-cncomproblemshouse-robber">二.<a href="https://leetcode-cn.com/problems/house-robber/">198. 打家劫舍</a></h1>
 <h2 id="1题干及思路-1">1.题干及思路</h2>
-<p>你是产品经理，目前正在带领一个团队开发新的产品。不幸的是，你的产品的最新版本没有通过质量检测。由于每个版本都是基于之前的版本开发的，所以错误的版本之后的所有版本都是错的。</p>
-<p>假设你有 n 个版本 [1, 2, &hellip;, n]，你想找出导致之后所有版本出错的第一个错误的版本。</p>
-<p>你可以通过调用 bool isBadVersion(version) 接口来判断版本号 version 是否在单元测试中出错。实现一个函数来查找第一个错误的版本。你应该尽量减少对调用 API 的次数。</p>
+<p>你是一个专业的小偷，计划偷窃沿街的房屋。每间房内都藏有一定的现金，影响你偷窃的唯一制约因素就是相邻的房屋装有相互连通的防盗系统，如果两间相邻的房屋在同一晚上被小偷闯入，系统会自动报警。</p>
+<p>给定一个代表每个房屋存放金额的非负整数数组，计算你 不触动警报装置的情况下 ，一夜之内能够偷窃到的最高金额。</p>
 <p>示例 1：</p>
-<p>输入：n = 5, bad = 4
+<p>输入：[1,2,3,1]
 输出：4
-解释：
-调用 isBadVersion(3) -&gt; false 
-调用 isBadVersion(5) -&gt; true 
-调用 isBadVersion(4) -&gt; true
-所以，4 是第一个错误的版本。
+解释：偷窃 1 号房屋 (金额 = 1) ，然后偷窃 3 号房屋 (金额 = 3)。
+偷窃到的最高金额 = 1 + 3 = 4 。
 示例 2：</p>
-<p>输入：n = 1, bad = 1
-输出：1</p>
-<p>提示：</p>
-<p>1 &lt;= bad &lt;= n &lt;= 231 - 1</p>
+<p>输入：[2,7,9,3,1]
+输出：12
+解释：偷窃 1 号房屋 (金额 = 2), 偷窃 3 号房屋 (金额 = 9)，接着偷窃 5 号房屋 (金额 = 1)。
+偷窃到的最高金额 = 2 + 9 + 1 = 12 。</p>
 <p>来源：力扣（LeetCode）
-链接：https://leetcode-cn.com/problems/first-bad-version
+链接：https://leetcode-cn.com/problems/house-robber
 著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。</p>
-<p>要点：二分法</p>
-<p>思路： 二分查找</p>
+<p>要点：动态规划</p>
+<p>思路：只有0号房时只能偷0号dp[0] = nums[0]，有0,1房时由于不能相邻应该偷0,1房中大的那个dp[1] = max(nums[0], nums[1])，当n&gt;=2时 动态规划公式是dp[i] = max(dp[i - 2] + nums[i], dp[i - 1])</p>
 <h2 id="2c实现-1">2.C++实现</h2>
 <div class="highlight"><pre class="chroma"><code class="language-c++" data-lang="c++"><span class="k">class</span> <span class="nc">Solution</span> <span class="p">{</span>
 <span class="k">public</span><span class="o">:</span>
-    <span class="kt">int</span> <span class="n">firstBadVersion</span><span class="p">(</span><span class="kt">int</span> <span class="n">n</span><span class="p">)</span> <span class="p">{</span>
-        <span class="kt">int</span> <span class="n">left</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="n">right</span> <span class="o">=</span> <span class="n">n</span><span class="p">;</span>
-        <span class="k">while</span> <span class="p">(</span><span class="n">left</span> <span class="o">&lt;</span> <span class="n">right</span><span class="p">)</span> <span class="p">{</span> 
-            <span class="kt">int</span> <span class="n">mid</span> <span class="o">=</span> <span class="n">left</span> <span class="o">+</span> <span class="p">(</span><span class="n">right</span> <span class="o">-</span> <span class="n">left</span><span class="p">)</span> <span class="o">/</span> <span class="mi">2</span><span class="p">;</span> 
-            <span class="k">if</span> <span class="p">(</span><span class="n">isBadVersion</span><span class="p">(</span><span class="n">mid</span><span class="p">))</span> <span class="p">{</span>
-                <span class="n">right</span> <span class="o">=</span> <span class="n">mid</span><span class="p">;</span> 
-            <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
-                <span class="n">left</span> <span class="o">=</span> <span class="n">mid</span> <span class="o">+</span> <span class="mi">1</span><span class="p">;</span> 
-            <span class="p">}</span>
+    <span class="kt">int</span> <span class="n">rob</span><span class="p">(</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;&amp;</span> <span class="n">nums</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">nums</span><span class="p">.</span><span class="n">size</span><span class="p">()</span><span class="o">==</span><span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+            <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
         <span class="p">}</span>
-        <span class="k">return</span> <span class="n">left</span><span class="p">;</span>
+        <span class="kt">int</span> <span class="n">size</span> <span class="o">=</span> <span class="n">nums</span><span class="p">.</span><span class="n">size</span><span class="p">();</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">size</span> <span class="o">==</span> <span class="mi">1</span><span class="p">)</span> <span class="p">{</span>
+            <span class="k">return</span> <span class="n">nums</span><span class="p">[</span><span class="mi">0</span><span class="p">];</span>
+        <span class="p">}</span>
+        <span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">dp</span> <span class="o">=</span> <span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="p">(</span><span class="n">size</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
+        <span class="n">dp</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">nums</span><span class="p">[</span><span class="mi">0</span><span class="p">];</span>
+        <span class="n">dp</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">max</span><span class="p">(</span><span class="n">nums</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">nums</span><span class="p">[</span><span class="mi">1</span><span class="p">]);</span>
+        <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">2</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">size</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+            <span class="n">dp</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">max</span><span class="p">(</span><span class="n">dp</span><span class="p">[</span><span class="n">i</span> <span class="o">-</span> <span class="mi">2</span><span class="p">]</span> <span class="o">+</span> <span class="n">nums</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">dp</span><span class="p">[</span><span class="n">i</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]);</span>
+        <span class="p">}</span>
+        <span class="k">return</span> <span class="n">dp</span><span class="p">[</span><span class="n">size</span> <span class="o">-</span> <span class="mi">1</span><span class="p">];</span>
     <span class="p">}</span>
 <span class="p">};</span>
-</code></pre></div><h1 id="三35-搜索插入位置httpsleetcode-cncomproblemssearch-insert-position">三.<a href="https://leetcode-cn.com/problems/search-insert-position/">35. 搜索插入位置</a></h1>
+</code></pre></div><h1 id="三120-三角形最小路径和httpsleetcode-cncomproblemstriangle">三.<a href="https://leetcode-cn.com/problems/triangle/">120. 三角形最小路径和</a></h1>
 <h2 id="1题干及思路-2">1.题干及思路</h2>
-<p>给定一个排序数组和一个目标值，在数组中找到目标值，并返回其索引。如果目标值不存在于数组中，返回它将会被按顺序插入的位置。</p>
-<p>请必须使用时间复杂度为 O(log n) 的算法。</p>
-<p>示例 1:</p>
-<p>输入: nums = [1,3,5,6], target = 5
-输出: 2
-示例 2:</p>
-<p>输入: nums = [1,3,5,6], target = 2
-输出: 1
-示例 3:</p>
-<p>输入: nums = [1,3,5,6], target = 7
-输出: 4
-示例 4:</p>
-<p>输入: nums = [1,3,5,6], target = 0
-输出: 0
-示例 5:</p>
-<p>输入: nums = [1], target = 0
-输出: 0</p>
-<p>提示:</p>
-<p>1 &lt;= nums.length &lt;= 104
--104 &lt;= nums[i] &lt;= 104
-nums 为无重复元素的升序排列数组
--104 &lt;= target &lt;= 104</p>
+<p>给定一个三角形 triangle ，找出自顶向下的最小路径和。</p>
+<p>每一步只能移动到下一行中相邻的结点上。相邻的结点 在这里指的是 下标 与 上一层结点下标 相同或者等于 上一层结点下标 + 1 的两个结点。也就是说，如果正位于当前行的下标 i ，那么下一步可以移动到下一行的下标 i 或 i + 1 。</p>
+<p>示例 1：</p>
+<p>输入：triangle = [[2],[3,4],[6,5,7],[4,1,8,3]]
+输出：11
+解释：如下面简图所示：
+2
+3 4
+6 5 7
+4 1 8 3
+自顶向下的最小路径和为 11（即，2 + 3 + 5 + 1 = 11）。
+示例 2：</p>
+<p>输入：triangle = [[-10]]
+输出：-10</p>
+<p>提示：</p>
+<p>1 &lt;= triangle.length &lt;= 200
+triangle[0].length == 1
+triangle[i].length == triangle[i - 1].length + 1
+-104 &lt;= triangle[i][j] &lt;= 104</p>
 <p>来源：力扣（LeetCode）
-链接：https://leetcode-cn.com/problems/search-insert-position
+链接：https://leetcode-cn.com/problems/triangle
 著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。</p>
-<p>要点：二分法</p>
-<p>思路： 二分查找</p>
+<p>要点：动态规划</p>
+<p>思路：自底向上填dp数组，最后一层即为triangle[j][k]动态规划公式是dp[ j ][ k ]=triangle[j][k]+min(dp[j+1][k],dp[j+1][k+1]);</p>
 <h2 id="2c实现-2">2.C++实现</h2>
 <div class="highlight"><pre class="chroma"><code class="language-c++" data-lang="c++"><span class="k">class</span> <span class="nc">Solution</span> <span class="p">{</span>
 <span class="k">public</span><span class="o">:</span>
-    <span class="kt">int</span> <span class="n">searchInsert</span><span class="p">(</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;&amp;</span> <span class="n">nums</span><span class="p">,</span> <span class="kt">int</span> <span class="n">target</span><span class="p">)</span> <span class="p">{</span>
-
-        <span class="kt">int</span> <span class="n">left</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
-        <span class="kt">int</span> <span class="n">right</span> <span class="o">=</span> <span class="n">nums</span><span class="p">.</span><span class="n">size</span><span class="p">()</span><span class="o">-</span><span class="mi">1</span><span class="p">;</span>
-        <span class="kt">int</span> <span class="n">answer</span><span class="p">;</span>
-        <span class="k">if</span><span class="p">(</span><span class="n">target</span><span class="o">&lt;</span><span class="n">nums</span><span class="p">[</span><span class="n">left</span><span class="p">])</span> <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
-        <span class="k">if</span><span class="p">(</span><span class="n">target</span><span class="o">&gt;</span><span class="n">nums</span><span class="p">[</span><span class="n">right</span><span class="p">])</span> <span class="k">return</span> <span class="n">nums</span><span class="p">.</span><span class="n">size</span><span class="p">();</span>
-
-        <span class="k">while</span><span class="p">(</span><span class="n">left</span><span class="o">&lt;=</span><span class="n">right</span><span class="p">){</span>
-            <span class="kt">int</span> <span class="n">middle</span> <span class="o">=</span> <span class="n">left</span><span class="o">+</span><span class="p">(</span><span class="n">right</span><span class="o">-</span><span class="n">left</span><span class="p">)</span><span class="o">/</span><span class="mi">2</span><span class="p">;</span>
-            <span class="n">answer</span> <span class="o">=</span> <span class="n">middle</span><span class="p">;</span>
-            <span class="k">if</span><span class="p">(</span><span class="n">nums</span><span class="p">[</span><span class="n">middle</span><span class="p">]</span><span class="o">==</span><span class="n">target</span><span class="p">)</span> <span class="k">return</span> <span class="n">middle</span><span class="p">;</span>
-            <span class="k">if</span><span class="p">(</span><span class="n">nums</span><span class="p">[</span><span class="n">middle</span><span class="p">]</span><span class="o">&lt;</span><span class="n">target</span><span class="p">)</span> <span class="n">left</span> <span class="o">=</span> <span class="n">middle</span><span class="o">+</span><span class="mi">1</span><span class="p">;</span>
-            <span class="k">if</span><span class="p">(</span><span class="n">nums</span><span class="p">[</span><span class="n">middle</span><span class="p">]</span><span class="o">&gt;</span><span class="n">target</span><span class="p">)</span> <span class="n">right</span> <span class="o">=</span> <span class="n">middle</span><span class="o">-</span><span class="mi">1</span><span class="p">;</span>
+    <span class="kt">int</span> <span class="n">minimumTotal</span><span class="p">(</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;&gt;&amp;</span> <span class="n">triangle</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">vector</span><span class="o">&lt;</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;&gt;</span> <span class="n">dp</span><span class="p">;</span>
+        <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span><span class="n">i</span><span class="o">&lt;</span><span class="n">triangle</span><span class="p">.</span><span class="n">size</span><span class="p">();</span><span class="n">i</span><span class="o">++</span><span class="p">){</span>
+            <span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">temp</span><span class="p">(</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">);</span>
+            <span class="n">dp</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">temp</span><span class="p">);</span>
         <span class="p">}</span>
-
-    <span class="k">return</span> <span class="n">left</span><span class="p">;</span>
+        <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">j</span><span class="o">=</span><span class="n">triangle</span><span class="p">.</span><span class="n">size</span><span class="p">()</span><span class="o">-</span><span class="mi">1</span><span class="p">;</span><span class="n">j</span><span class="o">&gt;=</span><span class="mi">0</span><span class="p">;</span><span class="n">j</span><span class="o">--</span><span class="p">){</span>
+            <span class="k">if</span><span class="p">(</span><span class="n">j</span><span class="o">==</span><span class="n">triangle</span><span class="p">.</span><span class="n">size</span><span class="p">()</span><span class="o">-</span><span class="mi">1</span><span class="p">){</span>
+                <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">k</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span><span class="n">k</span><span class="o">&lt;=</span><span class="n">j</span><span class="p">;</span><span class="n">k</span><span class="o">++</span><span class="p">){</span>
+                    <span class="n">dp</span><span class="p">[</span><span class="n">j</span><span class="p">][</span><span class="n">k</span><span class="p">]</span><span class="o">=</span><span class="n">triangle</span><span class="p">[</span><span class="n">j</span><span class="p">][</span><span class="n">k</span><span class="p">];</span>
+                <span class="p">}</span>
+            <span class="p">}</span>
+            <span class="k">else</span><span class="p">{</span>
+                <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">k</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span><span class="n">k</span><span class="o">&lt;=</span><span class="n">j</span><span class="p">;</span><span class="n">k</span><span class="o">++</span><span class="p">){</span>
+                    <span class="n">dp</span><span class="p">[</span><span class="n">j</span><span class="p">][</span><span class="n">k</span><span class="p">]</span><span class="o">=</span><span class="n">triangle</span><span class="p">[</span><span class="n">j</span><span class="p">][</span><span class="n">k</span><span class="p">]</span><span class="o">+</span><span class="n">min</span><span class="p">(</span><span class="n">dp</span><span class="p">[</span><span class="n">j</span><span class="o">+</span><span class="mi">1</span><span class="p">][</span><span class="n">k</span><span class="p">],</span><span class="n">dp</span><span class="p">[</span><span class="n">j</span><span class="o">+</span><span class="mi">1</span><span class="p">][</span><span class="n">k</span><span class="o">+</span><span class="mi">1</span><span class="p">]);</span>
+                <span class="p">}</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+        <span class="k">return</span> <span class="n">dp</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">];</span>
 
     <span class="p">}</span>
 <span class="p">};</span>
@@ -264,7 +268,7 @@ nums 为无重复元素的升序排列数组
 
 
   <div class="article-share" id="share">
-    <div data-url="https://qkgoalkeeper.github.io/post/leetcode%E7%AE%97%E6%B3%95%E5%85%A5%E9%97%A8%E7%AC%AC1%E5%A4%A9%E4%BA%8C%E5%88%86%E6%9F%A5%E6%89%BE/" data-title="LeetCode算法入门第1天：二分查找" data-tsina="5852167252" class="share clearfix">
+    <div data-url="https://qkgoalkeeper.github.io/post/leetcode%E7%AE%97%E6%B3%95%E5%85%A5%E9%97%A8%E7%AC%AC12%E5%A4%A9%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/" data-title="LeetCode算法入门第12天：动态规划" data-tsina="5852167252" class="share clearfix">
     </div>
   </div>
 </footer>

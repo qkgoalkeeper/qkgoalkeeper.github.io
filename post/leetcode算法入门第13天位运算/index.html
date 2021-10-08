@@ -2,18 +2,18 @@
 <html lang="zh-CN">
 <head>
   <meta charset="UTF-8">
-  <title>大三下web编程课程 - qkgoalkeeper&#39;s blog</title>
+  <title>LeetCode算法入门第13天：位运算 - qkgoalkeeper&#39;s blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=3, minimum-scale=1">
   
-  <meta name="description" content="大三下web编程课程">
+  <meta name="description" content="一.231. 2 的幂 1.题干及思路 给你一个整数 n，请你判断该整数是否是 2 的幂次方。如果是，返回 true ；否则，返回 false 。 如果存在一个整数 x 使得 n == 2x ，">
   
-  <meta itemprop="name" content="大三下web编程课程 - qkgoalkeeper&#39;s blog">
-  <meta itemprop="description" content="大三下web编程课程">
+  <meta itemprop="name" content="LeetCode算法入门第13天：位运算 - qkgoalkeeper&#39;s blog">
+  <meta itemprop="description" content="一.231. 2 的幂 1.题干及思路 给你一个整数 n，请你判断该整数是否是 2 的幂次方。如果是，返回 true ；否则，返回 false 。 如果存在一个整数 x 使得 n == 2x ，">
   <meta itemprop="image" content="https://qkgoalkeeper.github.io/img/author.jpg">
   
   
   <meta name="twitter:description" content="">
-  <link rel="alternate" href="https://qkgoalkeeper.github.io/feed.xml" title="qkgoalkeeper&#39;s blog" type="application/rss+xml"/>
+  
   <link rel="shortcut icon" href="https://qkgoalkeeper.github.io/img/favicon.ico"/>
   <link rel="apple-touch-icon" href="https://qkgoalkeeper.github.io/apple-touch-icon.png" />
   <link rel="apple-touch-icon-precomposed" href="https://qkgoalkeeper.github.io/apple-touch-icon.png" />
@@ -70,33 +70,155 @@
 
   </header>
   <div id="container">
-    <div id="main">
-      
-      <h2 id="2021-06">2021-06</h2>
-      
-      <section class="post" itemscope itemprop="blogPost">
-    <a href="https://qkgoalkeeper.github.io/post/web%E7%BC%96%E7%A8%8B%E6%9C%9F%E6%9C%AB%E5%A4%A7%E4%BD%9C%E4%B8%9A/" title="Web编程期末大作业" itemprop="url">
-    <h1 itemprop="name">Web编程期末大作业</h1>
-    <p itemprop="description">Web编程期末大作业 姓名：钱堃 学号：10185501412 年级：大三 @TOC 一.项目要求 •基于第一个项目爬虫爬取的数据，完成数据展示网站。 •基本要</p>
-    <time datetime="2021-06-26 00:27:15 &#43;0800 CST" itemprop="datePublished">2021年06月26日</time>
-  </a>
-</section>
+    <div id="main" class="post" itemscope itemprop="blogPost">
+	<article itemprop="articleBody">
+    <header class="article-info clearfix">
+  <h1 itemprop="name">
+      <a href="https://qkgoalkeeper.github.io/post/leetcode%E7%AE%97%E6%B3%95%E5%85%A5%E9%97%A8%E7%AC%AC13%E5%A4%A9%E4%BD%8D%E8%BF%90%E7%AE%97/" title="LeetCode算法入门第13天：位运算" itemprop="url">LeetCode算法入门第13天：位运算</a>
+  </h1>
+  <p class="article-author">By
+    
+      <a href="https://qkgoalkeeper.github.io/" title="qk">qk</a>
+    
+  </p>
+  <p class="article-time">
+    <time datetime="2021-10-08 17:55:19 &#43;0800 CST" itemprop="datePublished">2021年10月08日</time>
+  </p>
+</header>
 
-      
-      
-      <h2 id="2021-04">2021-04</h2>
-      
-      <section class="post" itemscope itemprop="blogPost">
-    <a href="https://qkgoalkeeper.github.io/post/web%E7%BC%96%E7%A8%8B%E4%BD%9C%E4%B8%9A%E6%96%B0%E9%97%BB%E7%88%AC%E8%99%AB%E7%BD%91%E7%AB%99/" title="Web编程作业：新闻爬虫网站" itemprop="url">
-    <h1 itemprop="name">Web编程作业：新闻爬虫网站</h1>
-    <p itemprop="description">Web编程作业：新闻爬虫网站 姓名：钱堃 学号：10185501412 年级：大三 @TOC 一.项目要求 Web编程作业要求 满分100分，作为平时成绩，占最</p>
-    <time datetime="2021-04-30 10:45:44 &#43;0800 CST" itemprop="datePublished">2021年04月30日</time>
-  </a>
-</section>
+	<div class="article-content">
+    
+		<div class="toc-article">
+			<strong class="toc-title">文章目录</strong>
+      <nav id="TableOfContents">
+  <ul>
+    <li><a href="#1题干及思路">1.题干及思路</a></li>
+    <li><a href="#2c实现">2.C++实现</a></li>
+  </ul>
 
-      
-      
+  <ul>
+    <li><a href="#1题干及思路-1">1.题干及思路</a></li>
+    <li><a href="#2c实现-1">2.C++实现</a></li>
+  </ul>
+</nav>
+		</div>
+    
+    <h1 id="一231-2-的幂httpsleetcode-cncomproblemspower-of-two">一.<a href="https://leetcode-cn.com/problems/power-of-two/">231. 2 的幂</a></h1>
+<h2 id="1题干及思路">1.题干及思路</h2>
+<p>给你一个整数 n，请你判断该整数是否是 2 的幂次方。如果是，返回 true ；否则，返回 false 。</p>
+<p>如果存在一个整数 x 使得 n == 2x ，则认为 n 是 2 的幂次方。</p>
+<p>示例 1：</p>
+<p>输入：n = 1
+输出：true
+解释：20 = 1
+示例 2：</p>
+<p>输入：n = 16
+输出：true
+解释：24 = 16
+示例 3：</p>
+<p>输入：n = 3
+输出：false
+示例 4：</p>
+<p>输入：n = 4
+输出：true
+示例 5：</p>
+<p>输入：n = 5
+输出：false</p>
+<p>提示：</p>
+<p>-231 &lt;= n &lt;= 231 - 1</p>
+<p>进阶：你能够不使用循环/递归解决此问题吗？</p>
+<p>来源：力扣（LeetCode）
+链接：https://leetcode-cn.com/problems/power-of-two
+著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。</p>
+<p>要点：位运算</p>
+<p>思路：n &amp; (n - 1)==0即为偶数</p>
+<h2 id="2c实现">2.C++实现</h2>
+<div class="highlight"><pre class="chroma"><code class="language-c++" data-lang="c++"><span class="k">class</span> <span class="nc">Solution</span> <span class="p">{</span>
+<span class="k">public</span><span class="o">:</span>
+    <span class="kt">bool</span> <span class="n">isPowerOfTwo</span><span class="p">(</span><span class="kt">int</span> <span class="n">n</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="n">n</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="o">&amp;&amp;</span> <span class="p">(</span><span class="n">n</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">n</span> <span class="o">-</span> <span class="mi">1</span><span class="p">))</span> <span class="o">==</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">};</span>
+</code></pre></div><h1 id="二191-位1的个数httpsleetcode-cncomproblemsnumber-of-1-bits">二.<a href="https://leetcode-cn.com/problems/number-of-1-bits/">191. 位1的个数</a></h1>
+<h2 id="1题干及思路-1">1.题干及思路</h2>
+<p>编写一个函数，输入是一个无符号整数（以二进制串的形式），返回其二进制表达式中数字位数为 &lsquo;1&rsquo; 的个数（也被称为汉明重量）。</p>
+<p>提示：</p>
+<p>请注意，在某些语言（如 Java）中，没有无符号整数类型。在这种情况下，输入和输出都将被指定为有符号整数类型，并且不应影响您的实现，因为无论整数是有符号的还是无符号的，其内部的二进制表示形式都是相同的。
+在 Java 中，编译器使用二进制补码记法来表示有符号整数。因此，在上面的 示例 3 中，输入表示有符号整数 -3。</p>
+<p>示例 1：</p>
+<p>输入：00000000000000000000000000001011
+输出：3
+解释：输入的二进制串 00000000000000000000000000001011 中，共有三位为 &lsquo;1&rsquo;。
+示例 2：</p>
+<p>输入：00000000000000000000000010000000
+输出：1
+解释：输入的二进制串 00000000000000000000000010000000 中，共有一位为 &lsquo;1&rsquo;。
+示例 3：</p>
+<p>输入：11111111111111111111111111111101
+输出：31
+解释：输入的二进制串 11111111111111111111111111111101 中，共有 31 位为 &lsquo;1&rsquo;。</p>
+<p>提示：</p>
+<p>输入必须是长度为 32 的 二进制串 。</p>
+<p>进阶：</p>
+<p>如果多次调用这个函数，你将如何优化你的算法？</p>
+<p>来源：力扣（LeetCode）
+链接：https://leetcode-cn.com/problems/number-of-1-bits
+著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。</p>
+<p>要点：位运算</p>
+<p>思路：n &amp; (n - 1)的本质是将2进制最后出现的1变成0，所以每执行一次n &amp; (n - 1)说明有一个1</p>
+<h2 id="2c实现-1">2.C++实现</h2>
+<div class="highlight"><pre class="chroma"><code class="language-c++" data-lang="c++"><span class="k">class</span> <span class="nc">Solution</span> <span class="p">{</span>
+<span class="k">public</span><span class="o">:</span>
+    <span class="kt">int</span> <span class="n">hammingWeight</span><span class="p">(</span><span class="kt">uint32_t</span> <span class="n">n</span><span class="p">)</span> <span class="p">{</span>
+        <span class="kt">int</span> <span class="n">ret</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+        <span class="k">while</span> <span class="p">(</span><span class="n">n</span><span class="p">)</span> <span class="p">{</span>
+            <span class="n">n</span> <span class="o">&amp;=</span> <span class="n">n</span> <span class="o">-</span> <span class="mi">1</span><span class="p">;</span>
+            <span class="n">ret</span><span class="o">++</span><span class="p">;</span>
+        <span class="p">}</span>
+        <span class="k">return</span> <span class="n">ret</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">};</span>
+</code></pre></div>
+    
+	</div>
+  <footer class="article-footer clearfix">
+  
+
+<div class="article-tags">
+  <span></span>
+  
+  <a href="https://qkgoalkeeper.github.io/tags/leetcode">LeetCode</a>
+  
+  <a href="https://qkgoalkeeper.github.io/tags/c&#43;&#43;">C&#43;&#43;</a>
+  
+</div>
+
+
+
+
+
+<div class="article-categories">
+  <span></span>
+  
+  <a class="article-category-link" href="https://qkgoalkeeper.github.io/categories/%E5%A4%A7%E5%9B%9Bleetcode%E7%AE%97%E6%B3%95%E5%88%B7%E9%A2%98">大四LeetCode算法刷题</a>
+  
+</div>
+
+
+
+  <div class="article-share" id="share">
+    <div data-url="https://qkgoalkeeper.github.io/post/leetcode%E7%AE%97%E6%B3%95%E5%85%A5%E9%97%A8%E7%AC%AC13%E5%A4%A9%E4%BD%8D%E8%BF%90%E7%AE%97/" data-title="LeetCode算法入门第13天：位运算" data-tsina="5852167252" class="share clearfix">
     </div>
+  </div>
+</footer>
+
+	</article>
+  
+
+
+
+</div>
+
     <div class="openaside"><a class="navbutton" href="#" title="显示侧边栏"></a></div>
 <div id="asidepart">
 <div class="closeaside"><a class="closebutton" href="#" title="隐藏侧边栏"></a></div>
@@ -203,10 +325,6 @@
 
 
   
-<div class="rsspart">
-  <a rel="nofollow" href="https://qkgoalkeeper.github.io/feed.xml" type="application/rss+xml" target="_blank">RSS 订阅</a>
-</div>
-
 
 </aside>
 </div>
@@ -292,6 +410,38 @@ $(document).ready(function(){
 
 <script type="text/javascript">
 $(document).ready(function(){
+  var ai = $('.article-content>iframe'),
+      ae = $('.article-content>embed'),
+      t  = $('#toc'),
+      h  = $('article h2')
+      ah = $('article h2'),
+      ta = $('#toc.toc-aside'),
+      o  = $('.openaside'),
+      c  = $('.closeaside');
+  if(ai.length>0){
+    ai.wrap('<div class="video-container" />');
+  };
+  if(ae.length>0){
+   ae.wrap('<div class="video-container" />');
+  };
+  if(ah.length==0){
+    t.css('display','none');
+  }else{
+    c.click(function(){
+      ta.css('display', 'block').addClass('fadeIn');
+    });
+    o.click(function(){
+      ta.css('display', 'none');
+    });
+    $(window).scroll(function(){
+      ta.css("top",Math.max(140,320-$(this).scrollTop()));
+    });
+  };
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){
   var $this = $('.share'),
       url = $this.attr('data-url'),
       encodedUrl = encodeURIComponent(url),
@@ -318,6 +468,27 @@ $(document).ready(function(){
 });
 </script>
 
+
+<link rel="stylesheet" href="https://qkgoalkeeper.github.io/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="https://qkgoalkeeper.github.io/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){
+  $('.article-content').each(function(i){
+    $(this).find('img').each(function(){
+      if ($(this).parent().hasClass('fancybox')) return;
+      var alt = this.alt;
+      if (alt) $(this).after('<span class="caption">' + alt + '</span>');
+      $(this).wrap('<a href="' + this.src + '" title="' + alt + '" class="fancybox"></a>');
+    });
+    $(this).find('.fancybox').each(function(){
+      $(this).attr('rel', 'article' + i);
+    });
+  });
+  if($.fancybox){
+    $('.fancybox').fancybox();
+  }
+});
+</script>
 
 
 

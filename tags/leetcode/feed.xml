@@ -6,10 +6,28 @@
     <description>Recent content in LeetCode on qkgoalkeeper&#39;s blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
-    <lastBuildDate>Wed, 06 Oct 2021 17:55:19 +0800</lastBuildDate>
+    <lastBuildDate>Fri, 08 Oct 2021 17:55:19 +0800</lastBuildDate>
     
 	<atom:link href="https://qkgoalkeeper.github.io/tags/leetcode/feed.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>LeetCode算法入门第13天：位运算</title>
+      <link>https://qkgoalkeeper.github.io/post/leetcode%E7%AE%97%E6%B3%95%E5%85%A5%E9%97%A8%E7%AC%AC13%E5%A4%A9%E4%BD%8D%E8%BF%90%E7%AE%97/</link>
+      <pubDate>Fri, 08 Oct 2021 17:55:19 +0800</pubDate>
+      
+      <guid>https://qkgoalkeeper.github.io/post/leetcode%E7%AE%97%E6%B3%95%E5%85%A5%E9%97%A8%E7%AC%AC13%E5%A4%A9%E4%BD%8D%E8%BF%90%E7%AE%97/</guid>
+      <description>一.231. 2 的幂 1.题干及思路 给你一个整数 n，请你判断该整数是否是 2 的幂次方。如果是，返回 true ；否则，返回 false 。 如果存在一个整数 x 使得 n == 2x ，</description>
+    </item>
+    
+    <item>
+      <title>LeetCode算法入门第12天：动态规划</title>
+      <link>https://qkgoalkeeper.github.io/post/leetcode%E7%AE%97%E6%B3%95%E5%85%A5%E9%97%A8%E7%AC%AC12%E5%A4%A9%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/</link>
+      <pubDate>Thu, 07 Oct 2021 17:55:19 +0800</pubDate>
+      
+      <guid>https://qkgoalkeeper.github.io/post/leetcode%E7%AE%97%E6%B3%95%E5%85%A5%E9%97%A8%E7%AC%AC12%E5%A4%A9%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/</guid>
+      <description>一.70. 爬楼梯 1.题干及思路 假设你正在爬楼梯。需要 n 阶你才能到达楼顶。 每次你可以爬 1 或 2 个台阶。你有多少种不同的方法可以爬到楼顶呢？ 注意：</description>
+    </item>
     
     <item>
       <title>LeetCode算法入门第11天：递归 回溯</title>
