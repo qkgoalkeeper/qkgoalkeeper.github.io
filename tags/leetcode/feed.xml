@@ -6,10 +6,19 @@
     <description>Recent content in LeetCode on qkgoalkeeper&#39;s blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
-    <lastBuildDate>Fri, 08 Oct 2021 17:55:19 +0800</lastBuildDate>
+    <lastBuildDate>Sat, 09 Oct 2021 10:55:19 +0800</lastBuildDate>
     
 	<atom:link href="https://qkgoalkeeper.github.io/tags/leetcode/feed.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>LeetCode算法入门第14天：位运算</title>
+      <link>https://qkgoalkeeper.github.io/post/leetcode%E7%AE%97%E6%B3%95%E5%85%A5%E9%97%A8%E7%AC%AC14%E5%A4%A9%E4%BD%8D%E8%BF%90%E7%AE%97/</link>
+      <pubDate>Sat, 09 Oct 2021 10:55:19 +0800</pubDate>
+      
+      <guid>https://qkgoalkeeper.github.io/post/leetcode%E7%AE%97%E6%B3%95%E5%85%A5%E9%97%A8%E7%AC%AC14%E5%A4%A9%E4%BD%8D%E8%BF%90%E7%AE%97/</guid>
+      <description>一.190. 颠倒二进制位 1.题干及思路 颠倒给定的 32 位无符号整数的二进制位。 提示： 请注意，在某些语言（如 Java）中，没有无符号整数类型。在这</description>
+    </item>
     
     <item>
       <title>LeetCode算法入门第13天：位运算</title>
