@@ -2,13 +2,13 @@
 <html lang="zh-CN">
 <head>
   <meta charset="UTF-8">
-  <title>LeetCode算法入门第1天：二分查找 - qkgoalkeeper&#39;s blog</title>
+  <title>LeetCode算法基础第2天：二分查找 - qkgoalkeeper&#39;s blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=3, minimum-scale=1">
   
-  <meta name="description" content="一.704. 二分查找 1.题干及思路 给定一个 n 个元素有序的（升序）整型数组 nums 和一个目标值 target ，写一个函数搜索 nums 中的 target，如果目标值存在返">
+  <meta name="description" content="一.153. 寻找旋转排序数组中的最小值 1.题干及思路 已知一个长度为 n 的数组，预先按照升序排列，经由 1 到 n 次 旋转 后，得到输入数组。例如，原数组">
   
-  <meta itemprop="name" content="LeetCode算法入门第1天：二分查找 - qkgoalkeeper&#39;s blog">
-  <meta itemprop="description" content="一.704. 二分查找 1.题干及思路 给定一个 n 个元素有序的（升序）整型数组 nums 和一个目标值 target ，写一个函数搜索 nums 中的 target，如果目标值存在返">
+  <meta itemprop="name" content="LeetCode算法基础第2天：二分查找 - qkgoalkeeper&#39;s blog">
+  <meta itemprop="description" content="一.153. 寻找旋转排序数组中的最小值 1.题干及思路 已知一个长度为 n 的数组，预先按照升序排列，经由 1 到 n 次 旋转 后，得到输入数组。例如，原数组">
   <meta itemprop="image" content="https://qkgoalkeeper.github.io/img/author.jpg">
   
   
@@ -74,7 +74,7 @@
 	<article itemprop="articleBody">
     <header class="article-info clearfix">
   <h1 itemprop="name">
-      <a href="https://qkgoalkeeper.github.io/post/leetcode%E7%AE%97%E6%B3%95%E5%85%A5%E9%97%A8%E7%AC%AC1%E5%A4%A9%E4%BA%8C%E5%88%86%E6%9F%A5%E6%89%BE/" title="LeetCode算法入门第1天：二分查找" itemprop="url">LeetCode算法入门第1天：二分查找</a>
+      <a href="https://qkgoalkeeper.github.io/post/leetcode%E7%AE%97%E6%B3%95%E5%9F%BA%E7%A1%80%E7%AC%AC2%E5%A4%A9%E4%BA%8C%E5%88%86%E6%9F%A5%E6%89%BE/" title="LeetCode算法基础第2天：二分查找" itemprop="url">LeetCode算法基础第2天：二分查找</a>
   </h1>
   <p class="article-author">By
     
@@ -82,7 +82,7 @@
     
   </p>
   <p class="article-time">
-    <time datetime="2021-09-26 17:55:19 &#43;0800 CST" itemprop="datePublished">2021年09月26日</time>
+    <time datetime="2021-10-11 10:55:19 &#43;0800 CST" itemprop="datePublished">2021年10月11日</time>
   </p>
 </header>
 
@@ -100,138 +100,129 @@
     <li><a href="#1题干及思路-1">1.题干及思路</a></li>
     <li><a href="#2c实现-1">2.C++实现</a></li>
   </ul>
-
-  <ul>
-    <li><a href="#1题干及思路-2">1.题干及思路</a></li>
-    <li><a href="#2c实现-2">2.C++实现</a></li>
-  </ul>
 </nav>
 		</div>
     
-    <h1 id="一704-二分查找httpsleetcode-cncomproblemsbinary-search">一.<a href="https://leetcode-cn.com/problems/binary-search/">704. 二分查找</a></h1>
+    <h1 id="一153-寻找旋转排序数组中的最小值httpsleetcode-cncomproblemsfind-minimum-in-rotated-sorted-array">一.<a href="https://leetcode-cn.com/problems/find-minimum-in-rotated-sorted-array/">153. 寻找旋转排序数组中的最小值</a></h1>
 <h2 id="1题干及思路">1.题干及思路</h2>
-<p>给定一个 n 个元素有序的（升序）整型数组 nums 和一个目标值 target  ，写一个函数搜索 nums 中的 target，如果目标值存在返回下标，否则返回 -1。</p>
-<p>示例 1:</p>
-<p>输入: nums = [-1,0,3,5,9,12], target = 9
-输出: 4
-解释: 9 出现在 nums 中并且下标为 4
-示例 2:</p>
-<p>输入: nums = [-1,0,3,5,9,12], target = 2
-输出: -1
-解释: 2 不存在 nums 中因此返回 -1</p>
+<p>已知一个长度为 n 的数组，预先按照升序排列，经由 1 到 n 次 旋转 后，得到输入数组。例如，原数组 nums = [0,1,2,4,5,6,7] 在变化后可能得到：
+若旋转 4 次，则可以得到 [4,5,6,7,0,1,2]
+若旋转 7 次，则可以得到 [0,1,2,4,5,6,7]
+注意，数组 [a[0], a[1], a[2], &hellip;, a[n-1]] 旋转一次 的结果为数组 [a[n-1], a[0], a[1], a[2], &hellip;, a[n-2]] 。</p>
+<p>给你一个元素值 互不相同 的数组 nums ，它原来是一个升序排列的数组，并按上述情形进行了多次旋转。请你找出并返回数组中的 最小元素 。</p>
+<p>示例 1：</p>
+<p>输入：nums = [3,4,5,1,2]
+输出：1
+解释：原数组为 [1,2,3,4,5] ，旋转 3 次得到输入数组。
+示例 2：</p>
+<p>输入：nums = [4,5,6,7,0,1,2]
+输出：0
+解释：原数组为 [0,1,2,4,5,6,7] ，旋转 4 次得到输入数组。
+示例 3：</p>
+<p>输入：nums = [11,13,15,17]
+输出：11
+解释：原数组为 [11,13,15,17] ，旋转 4 次得到输入数组。</p>
 <p>提示：</p>
-<p>你可以假设 nums 中的所有元素是不重复的。
-n 将在 [1, 10000]之间。
-nums 的每个元素都将在 [-9999, 9999]之间。</p>
+<p>n == nums.length
+1 &lt;= n &lt;= 5000
+-5000 &lt;= nums[i] &lt;= 5000
+nums 中的所有整数 互不相同
+nums 原来是一个升序排序的数组，并进行了 1 至 n 次旋转</p>
 <p>来源：力扣（LeetCode）
-链接：https://leetcode-cn.com/problems/binary-search
+链接：https://leetcode-cn.com/problems/find-minimum-in-rotated-sorted-array
 著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。</p>
 <p>要点：二分法</p>
-<p>思路： 二分查找</p>
+<p>思路： 二分查找，mid的值与right比较，如果mid的值小于right说明最小值的位置&lt;=mid，mid值大于right说明最小值位置在mid+1和right之间</p>
 <h2 id="2c实现">2.C++实现</h2>
 <div class="highlight"><pre class="chroma"><code class="language-c++" data-lang="c++"><span class="k">class</span> <span class="nc">Solution</span> <span class="p">{</span>
 <span class="k">public</span><span class="o">:</span>
-    <span class="kt">int</span> <span class="n">search</span><span class="p">(</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;&amp;</span> <span class="n">nums</span><span class="p">,</span> <span class="kt">int</span> <span class="n">target</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kt">int</span> <span class="n">findMin</span><span class="p">(</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;&amp;</span> <span class="n">nums</span><span class="p">)</span> <span class="p">{</span>
         <span class="kt">int</span> <span class="n">left</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
         <span class="kt">int</span> <span class="n">right</span> <span class="o">=</span> <span class="n">nums</span><span class="p">.</span><span class="n">size</span><span class="p">()</span><span class="o">-</span><span class="mi">1</span><span class="p">;</span>
-        <span class="k">while</span><span class="p">(</span><span class="n">right</span><span class="o">&gt;=</span><span class="n">left</span><span class="p">){</span>
-            <span class="kt">int</span> <span class="n">middle</span> <span class="o">=</span> <span class="n">left</span> <span class="o">+</span> <span class="p">(</span><span class="n">right</span><span class="o">-</span><span class="n">left</span><span class="p">)</span><span class="o">/</span><span class="mi">2</span><span class="p">;</span>
-            <span class="k">if</span><span class="p">(</span><span class="n">nums</span><span class="p">[</span><span class="n">middle</span><span class="p">]</span><span class="o">==</span><span class="n">target</span><span class="p">)</span> <span class="k">return</span> <span class="n">middle</span><span class="p">;</span>
-            <span class="k">else</span> <span class="nf">if</span><span class="p">(</span><span class="n">nums</span><span class="p">[</span><span class="n">middle</span><span class="p">]</span><span class="o">&gt;</span><span class="n">target</span><span class="p">){</span><span class="n">right</span><span class="o">=</span><span class="n">middle</span><span class="o">-</span><span class="mi">1</span><span class="p">;}</span>
-            <span class="k">else</span> <span class="nf">if</span><span class="p">(</span><span class="n">nums</span><span class="p">[</span><span class="n">middle</span><span class="p">]</span><span class="o">&lt;</span><span class="n">target</span><span class="p">){</span><span class="n">left</span><span class="o">=</span><span class="n">middle</span><span class="o">+</span><span class="mi">1</span><span class="p">;}</span>
+        <span class="k">while</span><span class="p">(</span><span class="n">left</span><span class="o">&lt;</span><span class="n">right</span><span class="p">){</span>
+            <span class="kt">int</span> <span class="n">mid</span> <span class="o">=</span> <span class="n">left</span><span class="o">+</span><span class="p">(</span><span class="n">right</span><span class="o">-</span><span class="n">left</span><span class="p">)</span><span class="o">/</span><span class="mi">2</span><span class="p">;</span>
+            <span class="k">if</span><span class="p">(</span><span class="n">nums</span><span class="p">[</span><span class="n">mid</span><span class="p">]</span><span class="o">&gt;</span><span class="n">nums</span><span class="p">[</span><span class="n">right</span><span class="p">]){</span>
+                <span class="n">left</span> <span class="o">=</span> <span class="n">mid</span><span class="o">+</span><span class="mi">1</span><span class="p">;</span>
+            <span class="p">}</span>
+            <span class="k">else</span><span class="p">{</span>
+                <span class="n">right</span> <span class="o">=</span> <span class="n">mid</span><span class="p">;</span>
+            <span class="p">}</span>
         <span class="p">}</span>
-        <span class="k">return</span> <span class="o">-</span><span class="mi">1</span><span class="p">;</span>
+        <span class="k">return</span> <span class="n">nums</span><span class="p">[</span><span class="n">left</span><span class="p">];</span>
 
     <span class="p">}</span>
 <span class="p">};</span>
-</code></pre></div><h1 id="二278-第一个错误的版本httpsleetcode-cncomproblemsfirst-bad-version">二.<a href="https://leetcode-cn.com/problems/first-bad-version/">278. 第一个错误的版本</a></h1>
+</code></pre></div><h1 id="二162-寻找峰值httpsleetcode-cncomproblemsfind-peak-element">二.<a href="https://leetcode-cn.com/problems/find-peak-element/">162. 寻找峰值</a></h1>
 <h2 id="1题干及思路-1">1.题干及思路</h2>
-<p>你是产品经理，目前正在带领一个团队开发新的产品。不幸的是，你的产品的最新版本没有通过质量检测。由于每个版本都是基于之前的版本开发的，所以错误的版本之后的所有版本都是错的。</p>
-<p>假设你有 n 个版本 [1, 2, &hellip;, n]，你想找出导致之后所有版本出错的第一个错误的版本。</p>
-<p>你可以通过调用 bool isBadVersion(version) 接口来判断版本号 version 是否在单元测试中出错。实现一个函数来查找第一个错误的版本。你应该尽量减少对调用 API 的次数。</p>
+<p>峰值元素是指其值严格大于左右相邻值的元素。</p>
+<p>给你一个整数数组 nums，找到峰值元素并返回其索引。数组可能包含多个峰值，在这种情况下，返回 任何一个峰值 所在位置即可。</p>
+<p>你可以假设 nums[-1] = nums[n] = -∞ 。</p>
+<p>你必须实现时间复杂度为 O(log n) 的算法来解决此问题。</p>
 <p>示例 1：</p>
-<p>输入：n = 5, bad = 4
-输出：4
-解释：
-调用 isBadVersion(3) -&gt; false 
-调用 isBadVersion(5) -&gt; true 
-调用 isBadVersion(4) -&gt; true
-所以，4 是第一个错误的版本。
+<p>输入：nums = [1,2,3,1]
+输出：2
+解释：3 是峰值元素，你的函数应该返回其索引 2。
 示例 2：</p>
-<p>输入：n = 1, bad = 1
-输出：1</p>
+<p>输入：nums = [1,2,1,3,5,6,4]
+输出：1 或 5 
+解释：你的函数可以返回索引 1，其峰值元素为 2；
+或者返回索引 5， 其峰值元素为 6。</p>
 <p>提示：</p>
-<p>1 &lt;= bad &lt;= n &lt;= 231 - 1</p>
+<p>1 &lt;= nums.length &lt;= 1000
+-231 &lt;= nums[i] &lt;= 231 - 1
+对于所有有效的 i 都有 nums[i] != nums[i + 1]</p>
 <p>来源：力扣（LeetCode）
-链接：https://leetcode-cn.com/problems/first-bad-version
+链接：https://leetcode-cn.com/problems/find-peak-element
 著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。</p>
 <p>要点：二分法</p>
-<p>思路： 二分查找</p>
+<p>思路： 二分查找，因为-1和最右边的值都为负无穷所以数学上告诉我们只要不断向高处爬升就一定有峰值（题目说了相邻的不一样），二分查找时比较mid和mid+1和mid-1的值，如果mid直接满足题意就返回mid不然就取比mid大的另一半</p>
 <h2 id="2c实现-1">2.C++实现</h2>
 <div class="highlight"><pre class="chroma"><code class="language-c++" data-lang="c++"><span class="k">class</span> <span class="nc">Solution</span> <span class="p">{</span>
 <span class="k">public</span><span class="o">:</span>
-    <span class="kt">int</span> <span class="n">firstBadVersion</span><span class="p">(</span><span class="kt">int</span> <span class="n">n</span><span class="p">)</span> <span class="p">{</span>
-        <span class="kt">int</span> <span class="n">left</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="n">right</span> <span class="o">=</span> <span class="n">n</span><span class="p">;</span>
-        <span class="k">while</span> <span class="p">(</span><span class="n">left</span> <span class="o">&lt;</span> <span class="n">right</span><span class="p">)</span> <span class="p">{</span> 
-            <span class="kt">int</span> <span class="n">mid</span> <span class="o">=</span> <span class="n">left</span> <span class="o">+</span> <span class="p">(</span><span class="n">right</span> <span class="o">-</span> <span class="n">left</span><span class="p">)</span> <span class="o">/</span> <span class="mi">2</span><span class="p">;</span> 
-            <span class="k">if</span> <span class="p">(</span><span class="n">isBadVersion</span><span class="p">(</span><span class="n">mid</span><span class="p">))</span> <span class="p">{</span>
-                <span class="n">right</span> <span class="o">=</span> <span class="n">mid</span><span class="p">;</span> 
-            <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
-                <span class="n">left</span> <span class="o">=</span> <span class="n">mid</span> <span class="o">+</span> <span class="mi">1</span><span class="p">;</span> 
-            <span class="p">}</span>
+    <span class="kt">int</span> <span class="n">findPeakElement</span><span class="p">(</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;&amp;</span> <span class="n">nums</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">if</span><span class="p">(</span><span class="n">nums</span><span class="p">.</span><span class="n">size</span><span class="p">()</span><span class="o">==</span><span class="mi">1</span><span class="p">){</span>
+            <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
         <span class="p">}</span>
-        <span class="k">return</span> <span class="n">left</span><span class="p">;</span>
-    <span class="p">}</span>
-<span class="p">};</span>
-</code></pre></div><h1 id="三35-搜索插入位置httpsleetcode-cncomproblemssearch-insert-position">三.<a href="https://leetcode-cn.com/problems/search-insert-position/">35. 搜索插入位置</a></h1>
-<h2 id="1题干及思路-2">1.题干及思路</h2>
-<p>给定一个排序数组和一个目标值，在数组中找到目标值，并返回其索引。如果目标值不存在于数组中，返回它将会被按顺序插入的位置。</p>
-<p>请必须使用时间复杂度为 O(log n) 的算法。</p>
-<p>示例 1:</p>
-<p>输入: nums = [1,3,5,6], target = 5
-输出: 2
-示例 2:</p>
-<p>输入: nums = [1,3,5,6], target = 2
-输出: 1
-示例 3:</p>
-<p>输入: nums = [1,3,5,6], target = 7
-输出: 4
-示例 4:</p>
-<p>输入: nums = [1,3,5,6], target = 0
-输出: 0
-示例 5:</p>
-<p>输入: nums = [1], target = 0
-输出: 0</p>
-<p>提示:</p>
-<p>1 &lt;= nums.length &lt;= 104
--104 &lt;= nums[i] &lt;= 104
-nums 为无重复元素的升序排列数组
--104 &lt;= target &lt;= 104</p>
-<p>来源：力扣（LeetCode）
-链接：https://leetcode-cn.com/problems/search-insert-position
-著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。</p>
-<p>要点：二分法</p>
-<p>思路： 二分查找</p>
-<h2 id="2c实现-2">2.C++实现</h2>
-<div class="highlight"><pre class="chroma"><code class="language-c++" data-lang="c++"><span class="k">class</span> <span class="nc">Solution</span> <span class="p">{</span>
-<span class="k">public</span><span class="o">:</span>
-    <span class="kt">int</span> <span class="n">searchInsert</span><span class="p">(</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;&amp;</span> <span class="n">nums</span><span class="p">,</span> <span class="kt">int</span> <span class="n">target</span><span class="p">)</span> <span class="p">{</span>
 
         <span class="kt">int</span> <span class="n">left</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
         <span class="kt">int</span> <span class="n">right</span> <span class="o">=</span> <span class="n">nums</span><span class="p">.</span><span class="n">size</span><span class="p">()</span><span class="o">-</span><span class="mi">1</span><span class="p">;</span>
         <span class="kt">int</span> <span class="n">answer</span><span class="p">;</span>
-        <span class="k">if</span><span class="p">(</span><span class="n">target</span><span class="o">&lt;</span><span class="n">nums</span><span class="p">[</span><span class="n">left</span><span class="p">])</span> <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
-        <span class="k">if</span><span class="p">(</span><span class="n">target</span><span class="o">&gt;</span><span class="n">nums</span><span class="p">[</span><span class="n">right</span><span class="p">])</span> <span class="k">return</span> <span class="n">nums</span><span class="p">.</span><span class="n">size</span><span class="p">();</span>
+        <span class="k">while</span><span class="p">(</span><span class="n">left</span><span class="o">&lt;</span><span class="n">right</span><span class="p">){</span>
+            <span class="kt">int</span> <span class="n">mid</span> <span class="o">=</span> <span class="n">left</span><span class="o">+</span><span class="p">(</span><span class="n">right</span><span class="o">-</span><span class="n">left</span><span class="p">)</span><span class="o">/</span><span class="mi">2</span><span class="p">;</span>
+            <span class="k">if</span><span class="p">(</span><span class="n">mid</span><span class="o">==</span><span class="mi">0</span><span class="p">){</span>
+                <span class="k">if</span><span class="p">(</span><span class="n">nums</span><span class="p">[</span><span class="n">mid</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span><span class="o">&lt;</span><span class="n">nums</span><span class="p">[</span><span class="n">mid</span><span class="p">]){</span>
+                    <span class="n">left</span> <span class="o">=</span> <span class="n">mid</span><span class="p">;</span>
+                    <span class="k">break</span><span class="p">;</span>
+                <span class="p">}</span>
+                <span class="k">else</span><span class="p">{</span>
+                    <span class="n">left</span> <span class="o">=</span> <span class="n">mid</span><span class="o">+</span><span class="mi">1</span><span class="p">;</span>
+                <span class="p">}</span>
+            <span class="p">}</span>
+            <span class="c1">// else if(mid==nums.size()-1){
+</span><span class="c1"></span>            <span class="c1">//         if(nums[mid-1]&lt;nums[mid]){
+</span><span class="c1"></span>            <span class="c1">//         left = mid;
+</span><span class="c1"></span>            <span class="c1">//         break;
+</span><span class="c1"></span>            <span class="c1">//     }
+</span><span class="c1"></span>            <span class="c1">//     else{
+</span><span class="c1"></span>            <span class="c1">//         right = mid-1;
+</span><span class="c1"></span>            <span class="c1">//     }
+</span><span class="c1"></span>            <span class="c1">// }
+</span><span class="c1"></span>            <span class="k">else</span><span class="p">{</span>
+                <span class="k">if</span><span class="p">(</span><span class="n">nums</span><span class="p">[</span><span class="n">mid</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">&lt;</span><span class="n">nums</span><span class="p">[</span><span class="n">mid</span><span class="p">]</span><span class="o">&amp;&amp;</span><span class="n">nums</span><span class="p">[</span><span class="n">mid</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span><span class="o">&lt;</span><span class="n">nums</span><span class="p">[</span><span class="n">mid</span><span class="p">]){</span>
+                    <span class="n">left</span> <span class="o">=</span> <span class="n">mid</span><span class="p">;</span>
+                    <span class="k">break</span><span class="p">;</span>
+                <span class="p">}</span>
+                <span class="k">else</span> <span class="nf">if</span><span class="p">(</span><span class="n">nums</span><span class="p">[</span><span class="n">mid</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">&gt;</span><span class="n">nums</span><span class="p">[</span><span class="n">mid</span><span class="p">]){</span>
+                    <span class="n">right</span> <span class="o">=</span> <span class="n">mid</span><span class="o">-</span><span class="mi">1</span><span class="p">;</span>
+                <span class="p">}</span>
+                <span class="k">else</span><span class="p">{</span>
+                    <span class="n">left</span> <span class="o">=</span> <span class="n">mid</span><span class="o">+</span><span class="mi">1</span><span class="p">;</span>
+                <span class="p">}</span>
+            <span class="p">}</span>
 
-        <span class="k">while</span><span class="p">(</span><span class="n">left</span><span class="o">&lt;=</span><span class="n">right</span><span class="p">){</span>
-            <span class="kt">int</span> <span class="n">middle</span> <span class="o">=</span> <span class="n">left</span><span class="o">+</span><span class="p">(</span><span class="n">right</span><span class="o">-</span><span class="n">left</span><span class="p">)</span><span class="o">/</span><span class="mi">2</span><span class="p">;</span>
-            <span class="n">answer</span> <span class="o">=</span> <span class="n">middle</span><span class="p">;</span>
-            <span class="k">if</span><span class="p">(</span><span class="n">nums</span><span class="p">[</span><span class="n">middle</span><span class="p">]</span><span class="o">==</span><span class="n">target</span><span class="p">)</span> <span class="k">return</span> <span class="n">middle</span><span class="p">;</span>
-            <span class="k">if</span><span class="p">(</span><span class="n">nums</span><span class="p">[</span><span class="n">middle</span><span class="p">]</span><span class="o">&lt;</span><span class="n">target</span><span class="p">)</span> <span class="n">left</span> <span class="o">=</span> <span class="n">middle</span><span class="o">+</span><span class="mi">1</span><span class="p">;</span>
-            <span class="k">if</span><span class="p">(</span><span class="n">nums</span><span class="p">[</span><span class="n">middle</span><span class="p">]</span><span class="o">&gt;</span><span class="n">target</span><span class="p">)</span> <span class="n">right</span> <span class="o">=</span> <span class="n">middle</span><span class="o">-</span><span class="mi">1</span><span class="p">;</span>
         <span class="p">}</span>
-
-    <span class="k">return</span> <span class="n">left</span><span class="p">;</span>
+        <span class="n">answer</span> <span class="o">=</span> <span class="n">left</span><span class="p">;</span>
+        <span class="k">return</span> <span class="n">answer</span><span class="p">;</span>
 
     <span class="p">}</span>
 <span class="p">};</span>
@@ -264,7 +255,7 @@ nums 为无重复元素的升序排列数组
 
 
   <div class="article-share" id="share">
-    <div data-url="https://qkgoalkeeper.github.io/post/leetcode%E7%AE%97%E6%B3%95%E5%85%A5%E9%97%A8%E7%AC%AC1%E5%A4%A9%E4%BA%8C%E5%88%86%E6%9F%A5%E6%89%BE/" data-title="LeetCode算法入门第1天：二分查找" data-tsina="5852167252" class="share clearfix">
+    <div data-url="https://qkgoalkeeper.github.io/post/leetcode%E7%AE%97%E6%B3%95%E5%9F%BA%E7%A1%80%E7%AC%AC2%E5%A4%A9%E4%BA%8C%E5%88%86%E6%9F%A5%E6%89%BE/" data-title="LeetCode算法基础第2天：二分查找" data-tsina="5852167252" class="share clearfix">
     </div>
   </div>
 </footer>
