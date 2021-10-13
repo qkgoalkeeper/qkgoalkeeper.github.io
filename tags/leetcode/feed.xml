@@ -6,10 +6,19 @@
     <description>Recent content in LeetCode on qkgoalkeeper&#39;s blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
-    <lastBuildDate>Tue, 12 Oct 2021 10:55:19 +0800</lastBuildDate>
+    <lastBuildDate>Wed, 13 Oct 2021 10:55:19 +0800</lastBuildDate>
     
 	<atom:link href="https://qkgoalkeeper.github.io/tags/leetcode/feed.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>LeetCode算法基础第4天：双指针</title>
+      <link>https://qkgoalkeeper.github.io/post/leetcode%E7%AE%97%E6%B3%95%E5%9F%BA%E7%A1%80%E7%AC%AC4%E5%A4%A9%E5%8F%8C%E6%8C%87%E9%92%88/</link>
+      <pubDate>Wed, 13 Oct 2021 10:55:19 +0800</pubDate>
+      
+      <guid>https://qkgoalkeeper.github.io/post/leetcode%E7%AE%97%E6%B3%95%E5%9F%BA%E7%A1%80%E7%AC%AC4%E5%A4%A9%E5%8F%8C%E6%8C%87%E9%92%88/</guid>
+      <description>一.844. 比较含退格的字符串 1.题干及思路 给定 s 和 t 两个字符串，当它们分别被输入到空白的文本编辑器后，请你判断二者是否相等。# 代表退格字符</description>
+    </item>
     
     <item>
       <title>LeetCode算法基础第3天：双指针</title>
