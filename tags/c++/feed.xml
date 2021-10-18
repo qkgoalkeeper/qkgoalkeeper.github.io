@@ -6,10 +6,19 @@
     <description>Recent content in C&#43;&#43; on qkgoalkeeper&#39;s blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
-    <lastBuildDate>Sun, 17 Oct 2021 10:55:19 +0800</lastBuildDate>
+    <lastBuildDate>Mon, 18 Oct 2021 09:55:19 +0800</lastBuildDate>
     
 	<atom:link href="https://qkgoalkeeper.github.io/tags/c++/feed.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>LeetCode算法基础第9天：递归 回溯</title>
+      <link>https://qkgoalkeeper.github.io/post/leetcode%E7%AE%97%E6%B3%95%E5%9F%BA%E7%A1%80%E7%AC%AC9%E5%A4%A9%E9%80%92%E5%BD%92-%E5%9B%9E%E6%BA%AF/</link>
+      <pubDate>Mon, 18 Oct 2021 09:55:19 +0800</pubDate>
+      
+      <guid>https://qkgoalkeeper.github.io/post/leetcode%E7%AE%97%E6%B3%95%E5%9F%BA%E7%A1%80%E7%AC%AC9%E5%A4%A9%E9%80%92%E5%BD%92-%E5%9B%9E%E6%BA%AF/</guid>
+      <description>一.78. 子集 1.题干及思路 给你一个整数数组 nums ，数组中的元素 互不相同 。返回该数组所有可能的子集（幂集）。 解集 不能 包含重复的子集。你可以按 任意</description>
+    </item>
     
     <item>
       <title>LeetCode算法基础第8天：深度优先搜索&amp;广度优先搜索</title>
