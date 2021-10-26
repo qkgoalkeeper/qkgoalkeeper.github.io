@@ -2,13 +2,13 @@
 <html lang="zh-CN">
 <head>
   <meta charset="UTF-8">
-  <title>LeetCode算法入门第5天：双指针 - qkgoalkeeper&#39;s blog</title>
+  <title>LeetCode算法基础第17天：动态规划 - qkgoalkeeper&#39;s blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=3, minimum-scale=1">
   
-  <meta name="description" content="一.876. 链表的中间结点 1.题干及思路 给定一个头结点为 head 的非空单链表，返回链表的中间结点。 如果有两个中间结点，则返回第二个中间结点。 示例 1">
+  <meta name="description" content="一.1143. 最长公共子序列 1.题干及思路 给定两个字符串 text1 和 text2，返回这两个字符串的最长 公共子序列 的长度。如果不存在 公共子序列 ，返回 0">
   
-  <meta itemprop="name" content="LeetCode算法入门第5天：双指针 - qkgoalkeeper&#39;s blog">
-  <meta itemprop="description" content="一.876. 链表的中间结点 1.题干及思路 给定一个头结点为 head 的非空单链表，返回链表的中间结点。 如果有两个中间结点，则返回第二个中间结点。 示例 1">
+  <meta itemprop="name" content="LeetCode算法基础第17天：动态规划 - qkgoalkeeper&#39;s blog">
+  <meta itemprop="description" content="一.1143. 最长公共子序列 1.题干及思路 给定两个字符串 text1 和 text2，返回这两个字符串的最长 公共子序列 的长度。如果不存在 公共子序列 ，返回 0">
   <meta itemprop="image" content="https://qkgoalkeeper.github.io/img/author.jpg">
   
   
@@ -74,7 +74,7 @@
 	<article itemprop="articleBody">
     <header class="article-info clearfix">
   <h1 itemprop="name">
-      <a href="https://qkgoalkeeper.github.io/post/leetcode%E7%AE%97%E6%B3%95%E5%85%A5%E9%97%A8%E7%AC%AC5%E5%A4%A9%E5%8F%8C%E6%8C%87%E9%92%88/" title="LeetCode算法入门第5天：双指针" itemprop="url">LeetCode算法入门第5天：双指针</a>
+      <a href="https://qkgoalkeeper.github.io/post/leetcode%E7%AE%97%E6%B3%95%E5%9F%BA%E7%A1%80%E7%AC%AC17%E5%A4%A9%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/" title="LeetCode算法基础第17天：动态规划" itemprop="url">LeetCode算法基础第17天：动态规划</a>
   </h1>
   <p class="article-author">By
     
@@ -82,7 +82,7 @@
     
   </p>
   <p class="article-time">
-    <time datetime="2021-09-30 17:55:19 &#43;0800 CST" itemprop="datePublished">2021年09月30日</time>
+    <time datetime="2021-10-26 09:55:19 &#43;0800 CST" itemprop="datePublished">2021年10月26日</time>
   </p>
 </header>
 
@@ -103,117 +103,93 @@
 </nav>
 		</div>
     
-    <h1 id="一876-链表的中间结点httpsleetcode-cncomproblemsmiddle-of-the-linked-list">一.<a href="https://leetcode-cn.com/problems/middle-of-the-linked-list/">876. 链表的中间结点</a></h1>
+    <h1 id="一1143-最长公共子序列httpsleetcode-cncomproblemslongest-common-subsequence">一.<a href="https://leetcode-cn.com/problems/longest-common-subsequence/">1143. 最长公共子序列</a></h1>
 <h2 id="1题干及思路">1.题干及思路</h2>
-<p>给定一个头结点为 head 的非空单链表，返回链表的中间结点。</p>
-<p>如果有两个中间结点，则返回第二个中间结点。</p>
+<p>给定两个字符串 text1 和 text2，返回这两个字符串的最长 公共子序列 的长度。如果不存在 公共子序列 ，返回 0 。</p>
+<p>一个字符串的 子序列 是指这样一个新的字符串：它是由原字符串在不改变字符的相对顺序的情况下删除某些字符（也可以不删除任何字符）后组成的新字符串。</p>
+<p>例如，&ldquo;ace&rdquo; 是 &ldquo;abcde&rdquo; 的子序列，但 &ldquo;aec&rdquo; 不是 &ldquo;abcde&rdquo; 的子序列。
+两个字符串的 公共子序列 是这两个字符串所共同拥有的子序列。</p>
 <p>示例 1：</p>
-<p>输入：[1,2,3,4,5]
-输出：此列表中的结点 3 (序列化形式：[3,4,5])
-返回的结点值为 3 。 (测评系统对该结点序列化表述是 [3,4,5])。
-注意，我们返回了一个 ListNode 类型的对象 ans，这样：
-ans.val = 3, ans.next.val = 4, ans.next.next.val = 5, 以及 ans.next.next.next = NULL.
+<p>输入：text1 = &ldquo;abcde&rdquo;, text2 = &ldquo;ace&rdquo; 
+输出：3<br>
+解释：最长公共子序列是 &ldquo;ace&rdquo; ，它的长度为 3 。
 示例 2：</p>
-<p>输入：[1,2,3,4,5,6]
-输出：此列表中的结点 4 (序列化形式：[4,5,6])
-由于该列表有两个中间结点，值分别为 3 和 4，我们返回第二个结点。</p>
+<p>输入：text1 = &ldquo;abc&rdquo;, text2 = &ldquo;abc&rdquo;
+输出：3
+解释：最长公共子序列是 &ldquo;abc&rdquo; ，它的长度为 3 。
+示例 3：</p>
+<p>输入：text1 = &ldquo;abc&rdquo;, text2 = &ldquo;def&rdquo;
+输出：0
+解释：两个字符串没有公共子序列，返回 0 。</p>
 <p>提示：</p>
-<p>给定链表的结点数介于 1 和 100 之间。</p>
+<p>1 &lt;= text1.length, text2.length &lt;= 1000
+text1 和 text2 仅由小写英文字符组成。</p>
 <p>来源：力扣（LeetCode）
-链接：https://leetcode-cn.com/problems/middle-of-the-linked-list
+链接：https://leetcode-cn.com/problems/longest-common-subsequence
 著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。</p>
-<p>要点：双指针</p>
-<p>思路：双指针在链表中的快慢指针用法，两个指针fast、slow，fast每次走两步，slow每次走一步，最后的slow即为答案</p>
+<p>要点：动态规划</p>
+<p>思路：二维动态规划，dp[i][j]表示<em>text</em>1[0:<em>i</em>] 和text*2[0:*j] 的最长公共子序列的长度，初始都为0，边界为0，对于中间部分如果text1[i-1]==text2[j-1]则dp[i][j]=dp[i-1][j-1]+1;反之dp[i][j]=max(dp[i-1][j],dp[i][j-1]);</p>
 <h2 id="2c实现">2.C++实现</h2>
-<div class="highlight"><pre class="chroma"><code class="language-c++" data-lang="c++"><span class="cm">/**
-</span><span class="cm"> * Definition for singly-linked list.
-</span><span class="cm"> * struct ListNode {
-</span><span class="cm"> *     int val;
-</span><span class="cm"> *     ListNode *next;
-</span><span class="cm"> *     ListNode() : val(0), next(nullptr) {}
-</span><span class="cm"> *     ListNode(int x) : val(x), next(nullptr) {}
-</span><span class="cm"> *     ListNode(int x, ListNode *next) : val(x), next(next) {}
-</span><span class="cm"> * };
-</span><span class="cm"> */</span>
-<span class="k">class</span> <span class="nc">Solution</span> <span class="p">{</span>
+<div class="highlight"><pre class="chroma"><code class="language-c++" data-lang="c++"><span class="k">class</span> <span class="nc">Solution</span> <span class="p">{</span>
 <span class="k">public</span><span class="o">:</span>
-    <span class="n">ListNode</span><span class="o">*</span> <span class="n">middleNode</span><span class="p">(</span><span class="n">ListNode</span><span class="o">*</span> <span class="n">head</span><span class="p">)</span> <span class="p">{</span>
-        <span class="n">ListNode</span><span class="o">*</span> <span class="n">fast</span> <span class="o">=</span> <span class="n">head</span><span class="p">;</span>
-        <span class="n">ListNode</span><span class="o">*</span> <span class="n">slow</span> <span class="o">=</span> <span class="n">head</span><span class="p">;</span>
-        <span class="k">while</span><span class="p">(</span><span class="n">fast</span><span class="o">!=</span><span class="nb">NULL</span> <span class="o">&amp;&amp;</span> <span class="n">slow</span><span class="o">!=</span><span class="nb">NULL</span><span class="p">){</span>
-            <span class="n">fast</span> <span class="o">=</span> <span class="n">fast</span><span class="o">-&gt;</span><span class="n">next</span><span class="p">;</span>
-            <span class="k">if</span><span class="p">(</span><span class="n">fast</span><span class="o">==</span><span class="nb">NULL</span><span class="p">){</span>
-                <span class="k">break</span><span class="p">;</span>
+    <span class="kt">int</span> <span class="n">longestCommonSubsequence</span><span class="p">(</span><span class="n">string</span> <span class="n">text1</span><span class="p">,</span> <span class="n">string</span> <span class="n">text2</span><span class="p">)</span> <span class="p">{</span>
+        <span class="kt">int</span> <span class="n">m</span> <span class="o">=</span> <span class="n">text1</span><span class="p">.</span><span class="n">size</span><span class="p">();</span>
+        <span class="kt">int</span> <span class="n">n</span> <span class="o">=</span> <span class="n">text2</span><span class="p">.</span><span class="n">size</span><span class="p">();</span>
+        <span class="n">vector</span><span class="o">&lt;</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;&gt;</span> <span class="n">dp</span><span class="p">(</span><span class="n">m</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="p">(</span><span class="n">n</span><span class="o">+</span><span class="mi">1</span><span class="p">));</span>
+        <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span><span class="o">=</span><span class="mi">1</span><span class="p">;</span><span class="n">i</span><span class="o">&lt;=</span><span class="n">m</span><span class="p">;</span><span class="n">i</span><span class="o">++</span><span class="p">){</span>
+            <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">j</span><span class="o">=</span><span class="mi">1</span><span class="p">;</span><span class="n">j</span><span class="o">&lt;=</span><span class="n">n</span><span class="p">;</span><span class="n">j</span><span class="o">++</span><span class="p">){</span>
+                <span class="k">if</span><span class="p">(</span><span class="n">text1</span><span class="p">[</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">==</span><span class="n">text2</span><span class="p">[</span><span class="n">j</span><span class="o">-</span><span class="mi">1</span><span class="p">]){</span>
+                    <span class="n">dp</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">]</span><span class="o">=</span><span class="n">dp</span><span class="p">[</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">][</span><span class="n">j</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">+</span><span class="mi">1</span><span class="p">;</span>
+                <span class="p">}</span>
+                <span class="k">else</span><span class="p">{</span>
+                    <span class="n">dp</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">]</span><span class="o">=</span><span class="n">max</span><span class="p">(</span><span class="n">dp</span><span class="p">[</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">][</span><span class="n">j</span><span class="p">],</span><span class="n">dp</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="o">-</span><span class="mi">1</span><span class="p">]);</span>
+                <span class="p">}</span>
             <span class="p">}</span>
-            <span class="n">fast</span> <span class="o">=</span> <span class="n">fast</span><span class="o">-&gt;</span><span class="n">next</span><span class="p">;</span>
-            <span class="n">slow</span> <span class="o">=</span> <span class="n">slow</span><span class="o">-&gt;</span><span class="n">next</span><span class="p">;</span>
         <span class="p">}</span>
-        <span class="k">return</span> <span class="n">slow</span><span class="p">;</span>
-
-
+        <span class="k">return</span> <span class="n">dp</span><span class="p">[</span><span class="n">m</span><span class="p">][</span><span class="n">n</span><span class="p">];</span>
     <span class="p">}</span>
 <span class="p">};</span>
-</code></pre></div><h1 id="二19-删除链表的倒数第-n-个结点httpsleetcode-cncomproblemsremove-nth-node-from-end-of-list">二.<a href="https://leetcode-cn.com/problems/remove-nth-node-from-end-of-list/">19. 删除链表的倒数第 N 个结点</a></h1>
+</code></pre></div><h1 id="二583-两个字符串的删除操作httpsleetcode-cncomproblemsdelete-operation-for-two-strings">二.<a href="https://leetcode-cn.com/problems/delete-operation-for-two-strings/">583. 两个字符串的删除操作</a></h1>
 <h2 id="1题干及思路-1">1.题干及思路</h2>
-<p>给你一个链表，删除链表的倒数第 n 个结点，并且返回链表的头结点。</p>
-<p>进阶：你能尝试使用一趟扫描实现吗？</p>
-<p>示例 1：</p>
-<p>输入：head = [1,2,3,4,5], n = 2
-输出：[1,2,3,5]
-示例 2：</p>
-<p>输入：head = [1], n = 1
-输出：[]
-示例 3：</p>
-<p>输入：head = [1,2], n = 1
-输出：[1]</p>
+<p>给定两个单词 word1 和 word2，找到使得 word1 和 word2 相同所需的最小步数，每步可以删除任意一个字符串中的一个字符。</p>
+<p>示例：</p>
+<p>输入: &ldquo;sea&rdquo;, &ldquo;eat&rdquo;
+输出: 2
+解释: 第一步将&quot;sea&quot;变为&quot;ea&rdquo;，第二步将&quot;eat&quot;变为&quot;ea&rdquo;</p>
 <p>提示：</p>
-<p>链表中结点的数目为 sz
-1 &lt;= sz &lt;= 30
-0 &lt;= Node.val &lt;= 100
-1 &lt;= n &lt;= sz</p>
+<p>给定单词的长度不超过500。
+给定单词中的字符只含有小写字母。</p>
 <p>来源：力扣（LeetCode）
-链接：https://leetcode-cn.com/problems/remove-nth-node-from-end-of-list
+链接：https://leetcode-cn.com/problems/delete-operation-for-two-strings
 著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。</p>
-<p>要点：双指针</p>
-<p>思路：当n=1时用双指针单独做，当n!=1时用到三个指针，先让fast向前进n-1个节点，这样当fast到末尾时，now的位置即为要删除的点，pre是now的前面节点用来删除now节点</p>
+<p>要点：动态规划</p>
+<p>思路：二维动态规划，dp[i][j]表示word1[0:i] 和word2[0:j] 的最长公共子序列的长度，边界为0-m和0-n(m和n为两个数组的长度)，对于中间部分如果word1[i-1]==word2[j-1]则dp[i][j]=dp[i-1][j-1];反之dp[i][j]=min(dp[i-1][j],dp[i][j-1])+1;</p>
 <h2 id="2c实现-1">2.C++实现</h2>
-<div class="highlight"><pre class="chroma"><code class="language-c++" data-lang="c++"><span class="cm">/**
-</span><span class="cm"> * Definition for singly-linked list.
-</span><span class="cm"> * struct ListNode {
-</span><span class="cm"> *     int val;
-</span><span class="cm"> *     ListNode *next;
-</span><span class="cm"> *     ListNode() : val(0), next(nullptr) {}
-</span><span class="cm"> *     ListNode(int x) : val(x), next(nullptr) {}
-</span><span class="cm"> *     ListNode(int x, ListNode *next) : val(x), next(next) {}
-</span><span class="cm"> * };
-</span><span class="cm"> */</span>
-<span class="k">class</span> <span class="nc">Solution</span> <span class="p">{</span>
+<div class="highlight"><pre class="chroma"><code class="language-c++" data-lang="c++"><span class="k">class</span> <span class="nc">Solution</span> <span class="p">{</span>
 <span class="k">public</span><span class="o">:</span>
-    <span class="n">ListNode</span><span class="o">*</span> <span class="n">removeNthFromEnd</span><span class="p">(</span><span class="n">ListNode</span><span class="o">*</span> <span class="n">head</span><span class="p">,</span> <span class="kt">int</span> <span class="n">n</span><span class="p">)</span> <span class="p">{</span>
-        <span class="n">ListNode</span><span class="o">*</span> <span class="n">fast</span> <span class="o">=</span> <span class="n">head</span><span class="p">;</span>
-        <span class="n">ListNode</span><span class="o">*</span> <span class="n">now</span> <span class="o">=</span> <span class="n">head</span><span class="p">;</span>
-        <span class="n">ListNode</span><span class="o">*</span> <span class="n">pre</span> <span class="o">=</span> <span class="n">head</span><span class="p">;</span>
-      
-        <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span><span class="n">i</span><span class="o">&lt;</span><span class="n">n</span><span class="o">-</span><span class="mi">1</span><span class="p">;</span><span class="n">i</span><span class="o">++</span><span class="p">){</span>
-            <span class="n">fast</span><span class="o">=</span><span class="n">fast</span><span class="o">-&gt;</span><span class="n">next</span><span class="p">;</span>
+    <span class="kt">int</span> <span class="n">minDistance</span><span class="p">(</span><span class="n">string</span> <span class="n">word1</span><span class="p">,</span> <span class="n">string</span> <span class="n">word2</span><span class="p">)</span> <span class="p">{</span>
+        <span class="kt">int</span> <span class="n">m</span> <span class="o">=</span> <span class="n">word1</span><span class="p">.</span><span class="n">size</span><span class="p">();</span>
+        <span class="kt">int</span> <span class="n">n</span> <span class="o">=</span> <span class="n">word2</span><span class="p">.</span><span class="n">size</span><span class="p">();</span>
+        <span class="n">vector</span><span class="o">&lt;</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;&gt;</span> <span class="n">dp</span><span class="p">(</span><span class="n">m</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="p">(</span><span class="n">n</span><span class="o">+</span><span class="mi">1</span><span class="p">));</span>
+        <span class="n">dp</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span>
+        <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">j</span><span class="o">=</span><span class="mi">1</span><span class="p">;</span><span class="n">j</span><span class="o">&lt;=</span><span class="n">n</span><span class="p">;</span><span class="n">j</span><span class="o">++</span><span class="p">){</span>
+            <span class="n">dp</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="n">j</span><span class="p">]</span><span class="o">=</span><span class="n">j</span><span class="p">;</span>
         <span class="p">}</span>
-        <span class="k">if</span><span class="p">(</span><span class="n">fast</span><span class="o">-&gt;</span><span class="n">next</span><span class="o">==</span><span class="nb">NULL</span><span class="p">){</span>
-            <span class="k">return</span> <span class="n">head</span><span class="o">-&gt;</span><span class="n">next</span><span class="p">;</span>
-        <span class="p">}</span>
-
-        <span class="k">if</span><span class="p">(</span><span class="n">fast</span><span class="o">-&gt;</span><span class="n">next</span><span class="o">!=</span><span class="nb">NULL</span><span class="p">){</span>
-            <span class="n">fast</span><span class="o">=</span><span class="n">fast</span><span class="o">-&gt;</span><span class="n">next</span><span class="p">;</span>
-            <span class="n">now</span> <span class="o">=</span> <span class="n">now</span><span class="o">-&gt;</span><span class="n">next</span><span class="p">;</span>
+        <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span><span class="o">=</span><span class="mi">1</span><span class="p">;</span><span class="n">i</span><span class="o">&lt;=</span><span class="n">m</span><span class="p">;</span><span class="n">i</span><span class="o">++</span><span class="p">){</span>
+            <span class="n">dp</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span><span class="o">=</span><span class="n">i</span><span class="p">;</span>
         <span class="p">}</span>
 
-        <span class="k">while</span><span class="p">(</span><span class="n">fast</span><span class="o">-&gt;</span><span class="n">next</span><span class="o">!=</span><span class="nb">NULL</span><span class="p">){</span>
-            <span class="n">fast</span> <span class="o">=</span> <span class="n">fast</span><span class="o">-&gt;</span><span class="n">next</span><span class="p">;</span>
-            <span class="n">now</span> <span class="o">=</span> <span class="n">now</span><span class="o">-&gt;</span><span class="n">next</span><span class="p">;</span>
-            <span class="n">pre</span> <span class="o">=</span> <span class="n">pre</span><span class="o">-&gt;</span><span class="n">next</span><span class="p">;</span>     
+        <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span><span class="o">=</span><span class="mi">1</span><span class="p">;</span><span class="n">i</span><span class="o">&lt;=</span><span class="n">m</span><span class="p">;</span><span class="n">i</span><span class="o">++</span><span class="p">){</span>
+            <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">j</span><span class="o">=</span><span class="mi">1</span><span class="p">;</span><span class="n">j</span><span class="o">&lt;=</span><span class="n">n</span><span class="p">;</span><span class="n">j</span><span class="o">++</span><span class="p">){</span>
+                <span class="k">if</span><span class="p">(</span><span class="n">word1</span><span class="p">[</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">==</span><span class="n">word2</span><span class="p">[</span><span class="n">j</span><span class="o">-</span><span class="mi">1</span><span class="p">]){</span>
+                    <span class="n">dp</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">]</span><span class="o">=</span><span class="n">dp</span><span class="p">[</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">][</span><span class="n">j</span><span class="o">-</span><span class="mi">1</span><span class="p">];</span>
+                <span class="p">}</span>
+                <span class="k">else</span><span class="p">{</span>
+                    <span class="n">dp</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">]</span><span class="o">=</span><span class="n">min</span><span class="p">(</span><span class="n">dp</span><span class="p">[</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">][</span><span class="n">j</span><span class="p">],</span><span class="n">dp</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span><span class="o">+</span><span class="mi">1</span><span class="p">;</span>
+                <span class="p">}</span>
+            <span class="p">}</span>
         <span class="p">}</span>
-        
-        <span class="n">pre</span><span class="o">-&gt;</span><span class="n">next</span><span class="o">=</span><span class="n">now</span><span class="o">-&gt;</span><span class="n">next</span><span class="p">;</span>
-        <span class="k">return</span> <span class="n">head</span><span class="p">;</span>
+        <span class="k">return</span> <span class="n">dp</span><span class="p">[</span><span class="n">m</span><span class="p">][</span><span class="n">n</span><span class="p">];</span>
 
     <span class="p">}</span>
 <span class="p">};</span>
@@ -246,7 +222,7 @@ ans.val = 3, ans.next.val = 4, ans.next.next.val = 5, 以及 ans.next.next.next 
 
 
   <div class="article-share" id="share">
-    <div data-url="https://qkgoalkeeper.github.io/post/leetcode%E7%AE%97%E6%B3%95%E5%85%A5%E9%97%A8%E7%AC%AC5%E5%A4%A9%E5%8F%8C%E6%8C%87%E9%92%88/" data-title="LeetCode算法入门第5天：双指针" data-tsina="5852167252" class="share clearfix">
+    <div data-url="https://qkgoalkeeper.github.io/post/leetcode%E7%AE%97%E6%B3%95%E5%9F%BA%E7%A1%80%E7%AC%AC17%E5%A4%A9%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/" data-title="LeetCode算法基础第17天：动态规划" data-tsina="5852167252" class="share clearfix">
     </div>
   </div>
 </footer>
