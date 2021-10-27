@@ -6,10 +6,19 @@
     <description>Recent content on qkgoalkeeper&#39;s blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
-    <lastBuildDate>Tue, 26 Oct 2021 09:55:19 +0800</lastBuildDate>
+    <lastBuildDate>Wed, 27 Oct 2021 09:55:19 +0800</lastBuildDate>
     
 	<atom:link href="https://qkgoalkeeper.github.io/feed.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>LeetCode算法基础第18天：动态规划</title>
+      <link>https://qkgoalkeeper.github.io/post/leetcode%E7%AE%97%E6%B3%95%E5%9F%BA%E7%A1%80%E7%AC%AC18%E5%A4%A9%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/</link>
+      <pubDate>Wed, 27 Oct 2021 09:55:19 +0800</pubDate>
+      
+      <guid>https://qkgoalkeeper.github.io/post/leetcode%E7%AE%97%E6%B3%95%E5%9F%BA%E7%A1%80%E7%AC%AC18%E5%A4%A9%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/</guid>
+      <description>一.72. 编辑距离 1.题干及思路 给你两个单词 word1 和 word2，请你计算出将 word1 转换成 word2 所使用的最少操作数 。 你可以对一个单词进行如下三种操作： 插入</description>
+    </item>
     
     <item>
       <title>LeetCode算法基础第17天：动态规划</title>
