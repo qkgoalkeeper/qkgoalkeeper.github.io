@@ -6,10 +6,19 @@
     <description>Recent content in Posts on qkgoalkeeper&#39;s blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
-    <lastBuildDate>Wed, 27 Oct 2021 09:55:19 +0800</lastBuildDate>
+    <lastBuildDate>Thu, 28 Oct 2021 09:55:19 +0800</lastBuildDate>
     
 	<atom:link href="https://qkgoalkeeper.github.io/post/feed.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>LeetCode算法基础第19天：位运算</title>
+      <link>https://qkgoalkeeper.github.io/post/leetcode%E7%AE%97%E6%B3%95%E5%9F%BA%E7%A1%80%E7%AC%AC19%E5%A4%A9%E4%BD%8D%E8%BF%90%E7%AE%97/</link>
+      <pubDate>Thu, 28 Oct 2021 09:55:19 +0800</pubDate>
+      
+      <guid>https://qkgoalkeeper.github.io/post/leetcode%E7%AE%97%E6%B3%95%E5%9F%BA%E7%A1%80%E7%AC%AC19%E5%A4%A9%E4%BD%8D%E8%BF%90%E7%AE%97/</guid>
+      <description>一.201. 数字范围按位与 1.题干及思路 给你两个整数 left 和 right ，表示区间 [left, right] ，返回此区间内所有数字 按位与 的结果（包含 left 、right 端点）。 示例 1</description>
+    </item>
     
     <item>
       <title>LeetCode算法基础第18天：动态规划</title>
