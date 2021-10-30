@@ -2,13 +2,13 @@
 <html lang="zh-CN">
 <head>
   <meta charset="UTF-8">
-  <title>LeetCode简单题：58. 最后一个单词的长度（Python,C&#43;&#43;,Java） - qkgoalkeeper&#39;s blog</title>
+  <title>LeetCode数据结构入门第1天：数组 - qkgoalkeeper&#39;s blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=3, minimum-scale=1">
   
-  <meta name="description" content="一.解法 https://leetcode-cn.com/problems/length-of-last-word/ 要点：分词 可以不用分词做，从后往前指向第一个不是空格的字符，再往前指到第一个空格的字符算下标差可以做，但分词可以更快解决 Pytho">
+  <meta name="description" content="一.217. 存在重复元素 1.题干及思路 给定一个整数数组，判断是否存在重复元素。 如果存在一值在数组中出现至少两次，函数返回 true 。如果数组中每个元">
   
-  <meta itemprop="name" content="LeetCode简单题：58. 最后一个单词的长度（Python,C&#43;&#43;,Java） - qkgoalkeeper&#39;s blog">
-  <meta itemprop="description" content="一.解法 https://leetcode-cn.com/problems/length-of-last-word/ 要点：分词 可以不用分词做，从后往前指向第一个不是空格的字符，再往前指到第一个空格的字符算下标差可以做，但分词可以更快解决 Pytho">
+  <meta itemprop="name" content="LeetCode数据结构入门第1天：数组 - qkgoalkeeper&#39;s blog">
+  <meta itemprop="description" content="一.217. 存在重复元素 1.题干及思路 给定一个整数数组，判断是否存在重复元素。 如果存在一值在数组中出现至少两次，函数返回 true 。如果数组中每个元">
   <meta itemprop="image" content="https://qkgoalkeeper.github.io/img/author.jpg">
   
   
@@ -74,7 +74,7 @@
 	<article itemprop="articleBody">
     <header class="article-info clearfix">
   <h1 itemprop="name">
-      <a href="https://qkgoalkeeper.github.io/post/leetcode%E7%AE%80%E5%8D%95%E9%A2%9858.-%E6%9C%80%E5%90%8E%E4%B8%80%E4%B8%AA%E5%8D%95%E8%AF%8D%E7%9A%84%E9%95%BF%E5%BA%A6pythonc&#43;&#43;java/" title="LeetCode简单题：58. 最后一个单词的长度（Python,C&#43;&#43;,Java）" itemprop="url">LeetCode简单题：58. 最后一个单词的长度（Python,C&#43;&#43;,Java）</a>
+      <a href="https://qkgoalkeeper.github.io/post/leetcode%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E5%85%A5%E9%97%A8%E7%AC%AC1%E5%A4%A9%E6%95%B0%E7%BB%84/" title="LeetCode数据结构入门第1天：数组" itemprop="url">LeetCode数据结构入门第1天：数组</a>
   </h1>
   <p class="article-author">By
     
@@ -82,7 +82,7 @@
     
   </p>
   <p class="article-time">
-    <time datetime="2020-08-13 17:55:19 &#43;0800 CST" itemprop="datePublished">2020年08月13日</time>
+    <time datetime="2021-10-30 09:55:19 &#43;0800 CST" itemprop="datePublished">2021年10月30日</time>
   </p>
 </header>
 
@@ -92,65 +92,91 @@
 			<strong class="toc-title">文章目录</strong>
       <nav id="TableOfContents">
   <ul>
-    <li><a href="#一解法">一.解法</a></li>
-    <li><a href="#二python实现">二.Python实现</a></li>
-    <li><a href="#三c实现">三.C++实现</a></li>
-    <li><a href="#四java实现">四.java实现</a></li>
+    <li><a href="#1题干及思路">1.题干及思路</a></li>
+    <li><a href="#2c实现">2.C++实现</a></li>
+  </ul>
+
+  <ul>
+    <li><a href="#1题干及思路-1">1.题干及思路</a></li>
+    <li><a href="#2c实现-1">2.C++实现</a></li>
   </ul>
 </nav>
 		</div>
     
-    <h2 id="一解法">一.解法</h2>
-<p><a href="https://leetcode-cn.com/problems/length-of-last-word/">https://leetcode-cn.com/problems/length-of-last-word/</a><br>
-要点：分词<br>
-可以不用分词做，从后往前指向第一个不是空格的字符，再往前指到第一个空格的字符算下标差可以做，但分词可以更快解决<br>
-Python和Java自带分词，C++需要自己写split函数<br>
-Java需要用try{} catch（Exception e）{}避免全空格的字符串</p>
-<h2 id="二python实现">二.Python实现</h2>
-<pre><code>class Solution:
-    def lengthOfLastWord(self, s: str) -&gt; int:
-        s=s.split()
-        return len(s[-1]) if s else 0
-</code></pre><h2 id="三c实现">三.C++实现</h2>
-<pre><code>class Solution {
-public:
-    vector&lt;string&gt; answer;
+    <h1 id="一217-存在重复元素httpsleetcode-cncomproblemscontains-duplicate">一.<a href="https://leetcode-cn.com/problems/contains-duplicate/">217. 存在重复元素</a></h1>
+<h2 id="1题干及思路">1.题干及思路</h2>
+<p>给定一个整数数组，判断是否存在重复元素。</p>
+<p>如果存在一值在数组中出现至少两次，函数返回 true 。如果数组中每个元素都不相同，则返回 false 。</p>
+<p>示例 1:</p>
+<p>输入: [1,2,3,1]
+输出: true
+示例 2:</p>
+<p>输入: [1,2,3,4]
+输出: false
+示例 3:</p>
+<p>输入: [1,1,1,3,3,4,3,2,4,2]
+输出: true</p>
+<p>来源：力扣（LeetCode）
+链接：https://leetcode-cn.com/problems/contains-duplicate
+著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。</p>
+<p>要点：数组</p>
+<p>思路：排序后判断是否相邻有重复即可</p>
+<h2 id="2c实现">2.C++实现</h2>
+<div class="highlight"><pre class="chroma"><code class="language-c++" data-lang="c++"><span class="k">class</span> <span class="nc">Solution</span> <span class="p">{</span>
+<span class="k">public</span><span class="o">:</span>
+    <span class="kt">bool</span> <span class="n">containsDuplicate</span><span class="p">(</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;&amp;</span> <span class="n">nums</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">sort</span><span class="p">(</span><span class="n">nums</span><span class="p">.</span><span class="n">begin</span><span class="p">(),</span><span class="n">nums</span><span class="p">.</span><span class="n">end</span><span class="p">());</span>
+        <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span><span class="n">i</span><span class="o">&lt;</span><span class="n">nums</span><span class="p">.</span><span class="n">size</span><span class="p">()</span><span class="o">-</span><span class="mi">1</span><span class="p">;</span><span class="n">i</span><span class="o">++</span><span class="p">){</span>
+            <span class="k">if</span><span class="p">(</span><span class="n">nums</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">==</span><span class="n">nums</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">])</span> <span class="k">return</span> <span class="nb">true</span><span class="p">;</span>
+        <span class="p">}</span>
+        <span class="k">return</span> <span class="nb">false</span><span class="p">;</span>
 
-    int lengthOfLastWord(string s) {
-        int flag=0;
-        for(int i=0;i&lt;s.length();i++){
-            if(s[i]!=' ') {flag=1;break;} 
-        }
-        if(flag==0) return 0;
-      
-        answer=split(s);
-        string laststring=answer[answer.size()-1];
-        return laststring.length();
-    }
-
-    vector&lt;string&gt; split(string s){
-        vector&lt;string&gt; temp;
-        istringstream in(s);
-        string t;
-        while (in &gt;&gt; t) {
-        temp.push_back(t);
-    }
-        return temp;
-    }
-</code></pre><h2 id="四java实现">四.java实现</h2>
-<pre><code>class Solution {
-    public int lengthOfLastWord(String s) {
-        try{
-        String[] splitWord=s.split(&quot; &quot;);
-        int length=splitWord.length;
-        return splitWord[length-1].length();}
-        catch(Exception e){
-            return 0;
-        }
-
-    }
-}
-</code></pre>
+    <span class="p">}</span>
+<span class="p">};</span>
+</code></pre></div><h1 id="二53-最大子序和httpsleetcode-cncomproblemsmaximum-subarray">二.<a href="https://leetcode-cn.com/problems/maximum-subarray/">53. 最大子序和</a></h1>
+<h2 id="1题干及思路-1">1.题干及思路</h2>
+<p>给定一个整数数组 nums ，找到一个具有最大和的连续子数组（子数组最少包含一个元素），返回其最大和。</p>
+<p>示例 1：</p>
+<p>输入：nums = [-2,1,-3,4,-1,2,1,-5,4]
+输出：6
+解释：连续子数组 [4,-1,2,1] 的和最大，为 6 。
+示例 2：</p>
+<p>输入：nums = [1]
+输出：1
+示例 3：</p>
+<p>输入：nums = [0]
+输出：0
+示例 4：</p>
+<p>输入：nums = [-1]
+输出：-1
+示例 5：</p>
+<p>输入：nums = [-100000]
+输出：-100000</p>
+<p>提示：</p>
+<p>1 &lt;= nums.length &lt;= 105
+-104 &lt;= nums[i] &lt;= 104</p>
+<p>来源：力扣（LeetCode）
+链接：https://leetcode-cn.com/problems/maximum-subarray
+著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。</p>
+<p>要点：数组</p>
+<p>思路：动态规划dp[i]表示已nums[i]结尾的最大子序和，dp[i] = max(dp[i-1]+nums[i],nums[i])，最后遍历一遍dp数组取最大即可</p>
+<h2 id="2c实现-1">2.C++实现</h2>
+<div class="highlight"><pre class="chroma"><code class="language-c++" data-lang="c++"><span class="k">class</span> <span class="nc">Solution</span> <span class="p">{</span>
+<span class="k">public</span><span class="o">:</span>
+    <span class="kt">int</span> <span class="n">maxSubArray</span><span class="p">(</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;&amp;</span> <span class="n">nums</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">if</span><span class="p">(</span><span class="n">nums</span><span class="p">.</span><span class="n">empty</span><span class="p">())</span> <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+        <span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">dp</span><span class="p">(</span><span class="n">nums</span><span class="p">);</span>
+        <span class="n">dp</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">=</span><span class="n">nums</span><span class="p">[</span><span class="mi">0</span><span class="p">];</span>
+        <span class="kt">int</span> <span class="n">answer</span> <span class="o">=</span> <span class="n">nums</span><span class="p">[</span><span class="mi">0</span><span class="p">];</span>
+        <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span><span class="n">i</span> <span class="o">&lt;</span> <span class="n">nums</span><span class="p">.</span><span class="n">size</span><span class="p">();</span><span class="o">++</span><span class="n">i</span><span class="p">){</span>
+            <span class="n">dp</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">max</span><span class="p">(</span><span class="n">dp</span><span class="p">[</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">+</span><span class="n">nums</span><span class="p">[</span><span class="n">i</span><span class="p">],</span><span class="n">nums</span><span class="p">[</span><span class="n">i</span><span class="p">]);</span>
+            <span class="k">if</span><span class="p">(</span><span class="n">answer</span> <span class="o">&lt;</span> <span class="n">dp</span><span class="p">[</span><span class="n">i</span><span class="p">]){</span><span class="n">answer</span> <span class="o">=</span> <span class="n">dp</span><span class="p">[</span><span class="n">i</span><span class="p">];}</span>
+        <span class="p">}</span>
+        
+        <span class="k">return</span> <span class="n">answer</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">};</span>
+</code></pre></div>
     
 	</div>
   <footer class="article-footer clearfix">
@@ -161,6 +187,8 @@ public:
   
   <a href="https://qkgoalkeeper.github.io/tags/leetcode">LeetCode</a>
   
+  <a href="https://qkgoalkeeper.github.io/tags/c&#43;&#43;">C&#43;&#43;</a>
+  
 </div>
 
 
@@ -170,14 +198,14 @@ public:
 <div class="article-categories">
   <span></span>
   
-  <a class="article-category-link" href="https://qkgoalkeeper.github.io/categories/leetcode%E7%AE%80%E5%8D%95%E9%A2%981-100">LeetCode简单题1-100</a>
+  <a class="article-category-link" href="https://qkgoalkeeper.github.io/categories/%E5%A4%A7%E5%9B%9Bleetcode%E7%AE%97%E6%B3%95%E5%88%B7%E9%A2%98">大四LeetCode算法刷题</a>
   
 </div>
 
 
 
   <div class="article-share" id="share">
-    <div data-url="https://qkgoalkeeper.github.io/post/leetcode%E7%AE%80%E5%8D%95%E9%A2%9858.-%E6%9C%80%E5%90%8E%E4%B8%80%E4%B8%AA%E5%8D%95%E8%AF%8D%E7%9A%84%E9%95%BF%E5%BA%A6pythonc&#43;&#43;java/" data-title="LeetCode简单题：58. 最后一个单词的长度（Python,C&#43;&#43;,Java）" data-tsina="5852167252" class="share clearfix">
+    <div data-url="https://qkgoalkeeper.github.io/post/leetcode%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E5%85%A5%E9%97%A8%E7%AC%AC1%E5%A4%A9%E6%95%B0%E7%BB%84/" data-title="LeetCode数据结构入门第1天：数组" data-tsina="5852167252" class="share clearfix">
     </div>
   </div>
 </footer>
