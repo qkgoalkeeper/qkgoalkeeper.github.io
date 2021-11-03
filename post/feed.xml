@@ -6,10 +6,19 @@
     <description>Recent content in Posts on qkgoalkeeper&#39;s blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
-    <lastBuildDate>Tue, 02 Nov 2021 09:55:19 +0800</lastBuildDate>
+    <lastBuildDate>Wed, 03 Nov 2021 09:55:19 +0800</lastBuildDate>
     
 	<atom:link href="https://qkgoalkeeper.github.io/post/feed.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>LeetCode数据结构入门第5天：数组</title>
+      <link>https://qkgoalkeeper.github.io/post/leetcode%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E5%85%A5%E9%97%A8%E7%AC%AC5%E5%A4%A9%E6%95%B0%E7%BB%84/</link>
+      <pubDate>Wed, 03 Nov 2021 09:55:19 +0800</pubDate>
+      
+      <guid>https://qkgoalkeeper.github.io/post/leetcode%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E5%85%A5%E9%97%A8%E7%AC%AC5%E5%A4%A9%E6%95%B0%E7%BB%84/</guid>
+      <description>一.36. 有效的数独 1.题干及思路 请你判断一个 9x9 的数独是否有效。只需要 根据以下规则 ，验证已经填入的数字是否有效即可。 数字 1-9 在每一行只能出现一</description>
+    </item>
     
     <item>
       <title>LeetCode数据结构入门第4天：数组</title>
