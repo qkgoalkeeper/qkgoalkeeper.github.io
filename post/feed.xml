@@ -6,10 +6,19 @@
     <description>Recent content in Posts on qkgoalkeeper&#39;s blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
-    <lastBuildDate>Fri, 05 Nov 2021 09:55:19 +0800</lastBuildDate>
+    <lastBuildDate>Sat, 06 Nov 2021 09:55:19 +0800</lastBuildDate>
     
 	<atom:link href="https://qkgoalkeeper.github.io/post/feed.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>LeetCode数据结构入门第8天：链表</title>
+      <link>https://qkgoalkeeper.github.io/post/leetcode%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E5%85%A5%E9%97%A8%E7%AC%AC8%E5%A4%A9%E9%93%BE%E8%A1%A8/</link>
+      <pubDate>Sat, 06 Nov 2021 09:55:19 +0800</pubDate>
+      
+      <guid>https://qkgoalkeeper.github.io/post/leetcode%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E5%85%A5%E9%97%A8%E7%AC%AC8%E5%A4%A9%E9%93%BE%E8%A1%A8/</guid>
+      <description>一.206. 反转链表 1.题干及思路 给你单链表的头节点 head ，请你反转链表，并返回反转后的链表。 示例 1： 输入：head = [1,2,3,4,5] 输出：[5,4,3,2,</description>
+    </item>
     
     <item>
       <title>LeetCode数据结构入门第7天：链表</title>

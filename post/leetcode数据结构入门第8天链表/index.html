@@ -2,13 +2,13 @@
 <html lang="zh-CN">
 <head>
   <meta charset="UTF-8">
-  <title>LeetCode简单题：21. 合并两个有序链表（Python,C&#43;&#43;,Java） - qkgoalkeeper&#39;s blog</title>
+  <title>LeetCode数据结构入门第8天：链表 - qkgoalkeeper&#39;s blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=3, minimum-scale=1">
   
-  <meta name="description" content="一.解法 https://leetcode-cn.com/problems/merge-two-sorted-lists/ 要点：链表 C&#43;&#43;创建链表用的是指针 java和Python创建链表不用指针 C&#43;&#43;将链表2插入到链表1中 java和Python中创建新">
+  <meta name="description" content="一.206. 反转链表 1.题干及思路 给你单链表的头节点 head ，请你反转链表，并返回反转后的链表。 示例 1： 输入：head = [1,2,3,4,5] 输出：[5,4,3,2,">
   
-  <meta itemprop="name" content="LeetCode简单题：21. 合并两个有序链表（Python,C&#43;&#43;,Java） - qkgoalkeeper&#39;s blog">
-  <meta itemprop="description" content="一.解法 https://leetcode-cn.com/problems/merge-two-sorted-lists/ 要点：链表 C&#43;&#43;创建链表用的是指针 java和Python创建链表不用指针 C&#43;&#43;将链表2插入到链表1中 java和Python中创建新">
+  <meta itemprop="name" content="LeetCode数据结构入门第8天：链表 - qkgoalkeeper&#39;s blog">
+  <meta itemprop="description" content="一.206. 反转链表 1.题干及思路 给你单链表的头节点 head ，请你反转链表，并返回反转后的链表。 示例 1： 输入：head = [1,2,3,4,5] 输出：[5,4,3,2,">
   <meta itemprop="image" content="https://qkgoalkeeper.github.io/img/author.jpg">
   
   
@@ -74,7 +74,7 @@
 	<article itemprop="articleBody">
     <header class="article-info clearfix">
   <h1 itemprop="name">
-      <a href="https://qkgoalkeeper.github.io/post/leetcode%E7%AE%80%E5%8D%95%E9%A2%9821.-%E5%90%88%E5%B9%B6%E4%B8%A4%E4%B8%AA%E6%9C%89%E5%BA%8F%E9%93%BE%E8%A1%A8pythonc&#43;&#43;java/" title="LeetCode简单题：21. 合并两个有序链表（Python,C&#43;&#43;,Java）" itemprop="url">LeetCode简单题：21. 合并两个有序链表（Python,C&#43;&#43;,Java）</a>
+      <a href="https://qkgoalkeeper.github.io/post/leetcode%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E5%85%A5%E9%97%A8%E7%AC%AC8%E5%A4%A9%E9%93%BE%E8%A1%A8/" title="LeetCode数据结构入门第8天：链表" itemprop="url">LeetCode数据结构入门第8天：链表</a>
   </h1>
   <p class="article-author">By
     
@@ -82,7 +82,7 @@
     
   </p>
   <p class="article-time">
-    <time datetime="2020-08-13 17:55:19 &#43;0800 CST" itemprop="datePublished">2020年08月13日</time>
+    <time datetime="2021-11-06 09:55:19 &#43;0800 CST" itemprop="datePublished">2021年11月06日</time>
   </p>
 </header>
 
@@ -92,115 +92,113 @@
 			<strong class="toc-title">文章目录</strong>
       <nav id="TableOfContents">
   <ul>
-    <li><a href="#一解法">一.解法</a></li>
-    <li><a href="#二python实现">二.Python实现</a></li>
-    <li><a href="#三c实现">三.C++实现</a></li>
-    <li><a href="#四java实现">四.java实现</a></li>
+    <li><a href="#1题干及思路">1.题干及思路</a></li>
+    <li><a href="#2c实现">2.C++实现</a></li>
+  </ul>
+
+  <ul>
+    <li><a href="#1题干及思路-1">1.题干及思路</a></li>
+    <li><a href="#2c实现-1">2.C++实现</a></li>
   </ul>
 </nav>
 		</div>
     
-    <h2 id="一解法">一.解法</h2>
-<p><a href="https://leetcode-cn.com/problems/merge-two-sorted-lists/">https://leetcode-cn.com/problems/merge-two-sorted-lists/</a><br>
-要点：链表<br>
-C++创建链表用的是指针<br>
-java和Python创建链表不用指针<br>
-C++将链表2插入到链表1中<br>
-java和Python中创建新链表头，用迭代法每次取两个有序链表头中小的那个加入链表，最后将长链表剩下的部分接在后面</p>
-<h2 id="二python实现">二.Python实现</h2>
-<pre><code># Definition for singly-linked list.
-# class ListNode:
-#     def __init__(self, val=0, next=None):
-#         self.val = val
-#         self.next = next
-class Solution:
-    def mergeTwoLists(self, l1: ListNode, l2: ListNode) -&gt; ListNode:
-    
-        prehead = ListNode(-1)
-        prev = prehead
-        while l1 and l2:
-            if l1.val &lt;= l2.val:
-                prev.next = l1
-                l1 = l1.next
-            else:
-                prev.next = l2
-                l2 = l2.next            
-            prev = prev.next
+    <h1 id="一206-反转链表httpsleetcode-cncomproblemsreverse-linked-list">一.<a href="https://leetcode-cn.com/problems/reverse-linked-list/">206. 反转链表</a></h1>
+<h2 id="1题干及思路">1.题干及思路</h2>
+<p>给你单链表的头节点 head ，请你反转链表，并返回反转后的链表。</p>
+<p>示例 1：</p>
+<p>输入：head = [1,2,3,4,5]
+输出：[5,4,3,2,1]
+示例 2：</p>
+<p>输入：head = [1,2]
+输出：[2,1]
+示例 3：</p>
+<p>输入：head = []
+输出：[]</p>
+<p>提示：</p>
+<p>链表中节点的数目范围是 [0, 5000]
+-5000 &lt;= Node.val &lt;= 5000</p>
+<p>进阶：链表可以选用迭代或递归方式完成反转。你能否用两种方法解决这道题？</p>
+<p>来源：力扣（LeetCode）
+链接：https://leetcode-cn.com/problems/reverse-linked-list
+著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。</p>
+<p>要点：链表</p>
+<p>思路：可以双指针做，也可以像下面用递归返回最后那个节点。</p>
+<h2 id="2c实现">2.C++实现</h2>
+<div class="highlight"><pre class="chroma"><code class="language-c++" data-lang="c++"><span class="cm">/**
+</span><span class="cm"> * Definition for singly-linked list.
+</span><span class="cm"> * struct ListNode {
+</span><span class="cm"> *     int val;
+</span><span class="cm"> *     ListNode *next;
+</span><span class="cm"> *     ListNode() : val(0), next(nullptr) {}
+</span><span class="cm"> *     ListNode(int x) : val(x), next(nullptr) {}
+</span><span class="cm"> *     ListNode(int x, ListNode *next) : val(x), next(next) {}
+</span><span class="cm"> * };
+</span><span class="cm"> */</span>
+<span class="k">class</span> <span class="nc">Solution</span> <span class="p">{</span>
+<span class="k">public</span><span class="o">:</span>
+    <span class="n">ListNode</span><span class="o">*</span> <span class="n">reverseList</span><span class="p">(</span><span class="n">ListNode</span><span class="o">*</span> <span class="n">head</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">if</span><span class="p">(</span><span class="n">head</span><span class="o">==</span><span class="k">nullptr</span><span class="o">||</span><span class="n">head</span><span class="o">-&gt;</span><span class="n">next</span><span class="o">==</span><span class="k">nullptr</span><span class="p">)</span> <span class="p">{</span><span class="k">return</span> <span class="n">head</span><span class="p">;}</span>
+        <span class="n">ListNode</span><span class="o">*</span> <span class="n">newNext</span> <span class="o">=</span> <span class="n">reverseList</span><span class="p">(</span><span class="n">head</span><span class="o">-&gt;</span><span class="n">next</span><span class="p">);</span>
+        <span class="n">head</span><span class="o">-&gt;</span><span class="n">next</span><span class="o">-&gt;</span><span class="n">next</span> <span class="o">=</span> <span class="n">head</span><span class="p">;</span>
+        <span class="n">head</span><span class="o">-&gt;</span><span class="n">next</span> <span class="o">=</span> <span class="k">nullptr</span><span class="p">;</span>
+        <span class="k">return</span> <span class="n">newNext</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">};</span>
 
-        # 合并后 l1 和 l2 最多只有一个还未被合并完，我们直接将链表末尾指向未合并完的链表即可
-        prev.next = l1 if l1 is not None else l2
+</code></pre></div><h1 id="二83-删除排序链表中的重复元素httpsleetcode-cncomproblemsremove-duplicates-from-sorted-list">二.<a href="https://leetcode-cn.com/problems/remove-duplicates-from-sorted-list/">83. 删除排序链表中的重复元素</a></h1>
+<h2 id="1题干及思路-1">1.题干及思路</h2>
+<p>存在一个按升序排列的链表，给你这个链表的头节点 head ，请你删除所有重复的元素，使每个元素 只出现一次 。</p>
+<p>返回同样按升序排列的结果链表。</p>
+<p>示例 1：</p>
+<p>输入：head = [1,1,2]
+输出：[1,2]
+示例 2：</p>
+<p>输入：head = [1,1,2,3,3]
+输出：[1,2,3]</p>
+<p>提示：</p>
+<p>链表中节点数目在范围 [0, 300] 内
+-100 &lt;= Node.val &lt;= 100
+题目数据保证链表已经按升序排列</p>
+<p>来源：力扣（LeetCode）
+链接：https://leetcode-cn.com/problems/remove-duplicates-from-sorted-list
+著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。</p>
+<p>要点：链表</p>
+<p>思路：用dummy节点指向head，遇到重复的留一个把其他的删掉</p>
+<h2 id="2c实现-1">2.C++实现</h2>
+<div class="highlight"><pre class="chroma"><code class="language-c++" data-lang="c++"><span class="cm">/**
+</span><span class="cm"> * Definition for singly-linked list.
+</span><span class="cm"> * struct ListNode {
+</span><span class="cm"> *     int val;
+</span><span class="cm"> *     ListNode *next;
+</span><span class="cm"> *     ListNode() : val(0), next(nullptr) {}
+</span><span class="cm"> *     ListNode(int x) : val(x), next(nullptr) {}
+</span><span class="cm"> *     ListNode(int x, ListNode *next) : val(x), next(next) {}
+</span><span class="cm"> * };
+</span><span class="cm"> */</span>
+<span class="k">class</span> <span class="nc">Solution</span> <span class="p">{</span>
+<span class="k">public</span><span class="o">:</span>
+    <span class="n">ListNode</span><span class="o">*</span> <span class="n">deleteDuplicates</span><span class="p">(</span><span class="n">ListNode</span><span class="o">*</span> <span class="n">head</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">ListNode</span><span class="o">*</span> <span class="n">dummy</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ListNode</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
+        <span class="n">dummy</span><span class="o">-&gt;</span><span class="n">next</span> <span class="o">=</span> <span class="n">head</span><span class="p">;</span>
+        <span class="n">ListNode</span><span class="o">*</span> <span class="n">temp</span> <span class="o">=</span> <span class="n">dummy</span><span class="p">;</span>
+        <span class="k">while</span><span class="p">(</span><span class="n">temp</span><span class="o">&amp;&amp;</span><span class="n">temp</span><span class="o">-&gt;</span><span class="n">next</span><span class="o">&amp;&amp;</span><span class="n">temp</span><span class="o">-&gt;</span><span class="n">next</span><span class="o">-&gt;</span><span class="n">next</span><span class="p">){</span>
+            <span class="k">if</span><span class="p">(</span><span class="n">temp</span><span class="o">-&gt;</span><span class="n">next</span><span class="o">-&gt;</span><span class="n">val</span><span class="o">==</span><span class="n">temp</span><span class="o">-&gt;</span><span class="n">next</span><span class="o">-&gt;</span><span class="n">next</span><span class="o">-&gt;</span><span class="n">val</span><span class="p">){</span>
+                <span class="kt">int</span> <span class="n">val</span> <span class="o">=</span> <span class="n">temp</span><span class="o">-&gt;</span><span class="n">next</span><span class="o">-&gt;</span><span class="n">val</span><span class="p">;</span>
+                <span class="n">temp</span> <span class="o">=</span> <span class="n">temp</span><span class="o">-&gt;</span><span class="n">next</span><span class="p">;</span>
+                <span class="k">while</span><span class="p">(</span><span class="n">temp</span><span class="o">&amp;&amp;</span><span class="n">temp</span><span class="o">-&gt;</span><span class="n">next</span><span class="o">&amp;&amp;</span><span class="n">temp</span><span class="o">-&gt;</span><span class="n">next</span><span class="o">-&gt;</span><span class="n">val</span><span class="o">==</span><span class="n">val</span><span class="p">){</span>
+                    <span class="n">temp</span><span class="o">-&gt;</span><span class="n">next</span> <span class="o">=</span> <span class="n">temp</span><span class="o">-&gt;</span><span class="n">next</span><span class="o">-&gt;</span><span class="n">next</span><span class="p">;</span>
+                <span class="p">}</span>
+            <span class="p">}</span>
+            <span class="k">else</span><span class="p">{</span>
+                <span class="n">temp</span> <span class="o">=</span> <span class="n">temp</span><span class="o">-&gt;</span><span class="n">next</span><span class="p">;</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+        <span class="k">return</span> <span class="n">dummy</span><span class="o">-&gt;</span><span class="n">next</span><span class="p">;</span>
 
-        return prehead.next
-</code></pre><h2 id="三c实现">三.C++实现</h2>
-<pre><code>/**
- * Definition for singly-linked list.
- * struct ListNode {
- *     int val;
- *     ListNode *next;
- *     ListNode(int x) : val(x), next(NULL) {}
- * };
- */
-class Solution {
-public:
-    ListNode* mergeTwoLists(ListNode* l1, ListNode* l2) {
-    
-        ListNode*p1,*p2;
-        struct ListNode newhead(0);
-        newhead.next=l1;
-        l1=&amp;newhead;
-        
-        while(l2){
-            
-            p1=l1-&gt;next;
-            p2=l2-&gt;next;
-            if(p1==NULL){ l1-&gt;next=l2;break;}
-            
-            if(l2-&gt;val&lt;=p1-&gt;val){
-                l2-&gt;next=p1;l1-&gt;next=l2;l2=p2;
-            }
-            
-            l1=l1-&gt;next;
-            
-        }
-        
-        return newhead.next;
-        
-    }
-};
-</code></pre><h2 id="四java实现">四.java实现</h2>
-<pre><code>/**
- * Definition for singly-linked list.
- * public class ListNode {
- *     int val;
- *     ListNode next;
- *     ListNode() {}
- *     ListNode(int val) { this.val = val; }
- *     ListNode(int val, ListNode next) { this.val = val; this.next = next; }
- * }
- */
-class Solution {
-    public ListNode mergeTwoLists(ListNode l1, ListNode l2) {
-        ListNode prehead = new ListNode(-1);
-
-        ListNode prev = prehead;
-        while (l1 != null &amp;&amp; l2 != null) {
-            if (l1.val &lt;= l2.val) {
-                prev.next = l1;
-                l1 = l1.next;
-            } else {
-                prev.next = l2;
-                l2 = l2.next;
-            }
-            prev = prev.next;
-        }
-
-        // 合并后 l1 和 l2 最多只有一个还未被合并完，我们直接将链表末尾指向未合并完的链表即可
-        prev.next = l1 == null ? l2 : l1;
-
-        return prehead.next;
-    }
-}
-</code></pre>
+    <span class="p">}</span>
+<span class="p">};</span>
+</code></pre></div>
     
 	</div>
   <footer class="article-footer clearfix">
@@ -211,6 +209,8 @@ class Solution {
   
   <a href="https://qkgoalkeeper.github.io/tags/leetcode">LeetCode</a>
   
+  <a href="https://qkgoalkeeper.github.io/tags/c&#43;&#43;">C&#43;&#43;</a>
+  
 </div>
 
 
@@ -220,14 +220,14 @@ class Solution {
 <div class="article-categories">
   <span></span>
   
-  <a class="article-category-link" href="https://qkgoalkeeper.github.io/categories/leetcode%E7%AE%80%E5%8D%95%E9%A2%981-100">LeetCode简单题1-100</a>
+  <a class="article-category-link" href="https://qkgoalkeeper.github.io/categories/%E5%A4%A7%E5%9B%9Bleetcode%E7%AE%97%E6%B3%95%E5%88%B7%E9%A2%98">大四LeetCode算法刷题</a>
   
 </div>
 
 
 
   <div class="article-share" id="share">
-    <div data-url="https://qkgoalkeeper.github.io/post/leetcode%E7%AE%80%E5%8D%95%E9%A2%9821.-%E5%90%88%E5%B9%B6%E4%B8%A4%E4%B8%AA%E6%9C%89%E5%BA%8F%E9%93%BE%E8%A1%A8pythonc&#43;&#43;java/" data-title="LeetCode简单题：21. 合并两个有序链表（Python,C&#43;&#43;,Java）" data-tsina="5852167252" class="share clearfix">
+    <div data-url="https://qkgoalkeeper.github.io/post/leetcode%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E5%85%A5%E9%97%A8%E7%AC%AC8%E5%A4%A9%E9%93%BE%E8%A1%A8/" data-title="LeetCode数据结构入门第8天：链表" data-tsina="5852167252" class="share clearfix">
     </div>
   </div>
 </footer>
