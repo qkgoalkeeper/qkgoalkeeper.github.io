@@ -6,10 +6,19 @@
     <description>Recent content in Posts on qkgoalkeeper&#39;s blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
-    <lastBuildDate>Sun, 07 Nov 2021 09:55:19 +0800</lastBuildDate>
+    <lastBuildDate>Mon, 08 Nov 2021 09:55:19 +0800</lastBuildDate>
     
 	<atom:link href="https://qkgoalkeeper.github.io/post/feed.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>LeetCode数据结构入门第10天：链表</title>
+      <link>https://qkgoalkeeper.github.io/post/leetcode%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E5%85%A5%E9%97%A8%E7%AC%AC10%E5%A4%A9%E6%A0%91/</link>
+      <pubDate>Mon, 08 Nov 2021 09:55:19 +0800</pubDate>
+      
+      <guid>https://qkgoalkeeper.github.io/post/leetcode%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E5%85%A5%E9%97%A8%E7%AC%AC10%E5%A4%A9%E6%A0%91/</guid>
+      <description>一.144. 二叉树的前序遍历 1.题干及思路 给你二叉树的根节点 root ，返回它节点值的 前序 遍历。 示例 1： 输入：root = [1,null,2,3] 输出：[1,2,3] 示例 2</description>
+    </item>
     
     <item>
       <title>LeetCode数据结构入门第9天：栈&amp;队列</title>

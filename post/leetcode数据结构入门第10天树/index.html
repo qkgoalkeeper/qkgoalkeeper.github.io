@@ -2,13 +2,13 @@
 <html lang="zh-CN">
 <head>
   <meta charset="UTF-8">
-  <title>LeetCode简单题：69. x 的平方根（Python,C&#43;&#43;,Java） - qkgoalkeeper&#39;s blog</title>
+  <title>LeetCode数据结构入门第10天：链表 - qkgoalkeeper&#39;s blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=3, minimum-scale=1">
   
-  <meta name="description" content="一.解法 https://leetcode-cn.com/problems/sqrtx/ 要点：牛顿迭代法 本题可以暴力计算或者二分计算，C&#43;&#43;版本就是暴力计算注意不要溢出 Python和Java版本都用的是牛顿迭代法 所谓牛">
+  <meta name="description" content="一.144. 二叉树的前序遍历 1.题干及思路 给你二叉树的根节点 root ，返回它节点值的 前序 遍历。 示例 1： 输入：root = [1,null,2,3] 输出：[1,2,3] 示例 2">
   
-  <meta itemprop="name" content="LeetCode简单题：69. x 的平方根（Python,C&#43;&#43;,Java） - qkgoalkeeper&#39;s blog">
-  <meta itemprop="description" content="一.解法 https://leetcode-cn.com/problems/sqrtx/ 要点：牛顿迭代法 本题可以暴力计算或者二分计算，C&#43;&#43;版本就是暴力计算注意不要溢出 Python和Java版本都用的是牛顿迭代法 所谓牛">
+  <meta itemprop="name" content="LeetCode数据结构入门第10天：链表 - qkgoalkeeper&#39;s blog">
+  <meta itemprop="description" content="一.144. 二叉树的前序遍历 1.题干及思路 给你二叉树的根节点 root ，返回它节点值的 前序 遍历。 示例 1： 输入：root = [1,null,2,3] 输出：[1,2,3] 示例 2">
   <meta itemprop="image" content="https://qkgoalkeeper.github.io/img/author.jpg">
   
   
@@ -74,7 +74,7 @@
 	<article itemprop="articleBody">
     <header class="article-info clearfix">
   <h1 itemprop="name">
-      <a href="https://qkgoalkeeper.github.io/post/leetcode%E7%AE%80%E5%8D%95%E9%A2%9869.-x-%E7%9A%84%E5%B9%B3%E6%96%B9%E6%A0%B9pythonc&#43;&#43;java/" title="LeetCode简单题：69. x 的平方根（Python,C&#43;&#43;,Java）" itemprop="url">LeetCode简单题：69. x 的平方根（Python,C&#43;&#43;,Java）</a>
+      <a href="https://qkgoalkeeper.github.io/post/leetcode%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E5%85%A5%E9%97%A8%E7%AC%AC10%E5%A4%A9%E6%A0%91/" title="LeetCode数据结构入门第10天：链表" itemprop="url">LeetCode数据结构入门第10天：链表</a>
   </h1>
   <p class="article-author">By
     
@@ -82,7 +82,7 @@
     
   </p>
   <p class="article-time">
-    <time datetime="2020-08-13 17:55:19 &#43;0800 CST" itemprop="datePublished">2020年08月13日</time>
+    <time datetime="2021-11-08 09:55:19 &#43;0800 CST" itemprop="datePublished">2021年11月08日</time>
   </p>
 </header>
 
@@ -92,61 +92,181 @@
 			<strong class="toc-title">文章目录</strong>
       <nav id="TableOfContents">
   <ul>
-    <li><a href="#一解法">一.解法</a></li>
-    <li><a href="#二python实现">二.Python实现</a></li>
-    <li><a href="#三c实现">三.C++实现</a></li>
-    <li><a href="#四java实现">四.java实现</a></li>
+    <li><a href="#1题干及思路">1.题干及思路</a></li>
+    <li><a href="#2c实现">2.C++实现</a></li>
+  </ul>
+
+  <ul>
+    <li><a href="#1题干及思路-1">1.题干及思路</a></li>
+    <li><a href="#2c实现-1">2.C++实现</a></li>
+  </ul>
+
+  <ul>
+    <li><a href="#1题干及思路-2">1.题干及思路</a></li>
+    <li><a href="#2c实现-2">2.C++实现</a></li>
   </ul>
 </nav>
 		</div>
     
-    <h2 id="一解法">一.解法</h2>
-<p><a href="https://leetcode-cn.com/problems/sqrtx/">https://leetcode-cn.com/problems/sqrtx/</a><br>
-要点：牛顿迭代法<br>
-本题可以暴力计算或者二分计算，C++版本就是暴力计算注意不要溢出<br>
-Python和Java版本都用的是牛顿迭代法<br>
-所谓牛顿迭代法就是不断用 $(x, f(x))(x,f(x))$ 的切线来逼近方程 $x^2-a=0$的根。根号 a 实际上就是 $x^2-a=0$ 的一个正实根，这个函数的导数是 2x。也就是说，函数上任一点$ (x,f(x))(x,f(x))$ 处的切线斜率是 $2x$。那么，$x-f(x)/(2x)$就是一个比 x 更接近的近似值。代入 $f(x)=x^2-a $得到$ x-(x^2-a)/(2x)$，也就是$(x+a/x)/2$。<br>
-其它的近似值计算中也可以通过找到一个函数零点为所求值去做</p>
-<h2 id="二python实现">二.Python实现</h2>
-<pre><code>class Solution:
+    <h1 id="一144-二叉树的前序遍历httpsleetcode-cncomproblemsbinary-tree-preorder-traversal">一.<a href="https://leetcode-cn.com/problems/binary-tree-preorder-traversal/">144. 二叉树的前序遍历</a></h1>
+<h2 id="1题干及思路">1.题干及思路</h2>
+<p>给你二叉树的根节点 root ，返回它节点值的 前序 遍历。</p>
+<p>示例 1：</p>
+<p>输入：root = [1,null,2,3]
+输出：[1,2,3]
+示例 2：</p>
+<p>输入：root = []
+输出：[]
+示例 3：</p>
+<p>输入：root = [1]
+输出：[1]
+示例 4：</p>
+<p>输入：root = [1,2]
+输出：[1,2]
+示例 5：</p>
+<p>输入：root = [1,null,2]
+输出：[1,2]</p>
+<p>提示：</p>
+<p>树中节点数目在范围 [0, 100] 内
+-100 &lt;= Node.val &lt;= 100</p>
+<p>进阶：递归算法很简单，你可以通过迭代算法完成吗？</p>
+<p>来源：力扣（LeetCode）
+链接：https://leetcode-cn.com/problems/binary-tree-preorder-traversal
+著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。</p>
+<p>要点：树</p>
+<p>思路：树的前序遍历，先当前节点再左节点再右节点</p>
+<h2 id="2c实现">2.C++实现</h2>
+<div class="highlight"><pre class="chroma"><code class="language-c++" data-lang="c++"><span class="cm">/**
+</span><span class="cm"> * Definition for a binary tree node.
+</span><span class="cm"> * struct TreeNode {
+</span><span class="cm"> *     int val;
+</span><span class="cm"> *     TreeNode *left;
+</span><span class="cm"> *     TreeNode *right;
+</span><span class="cm"> *     TreeNode() : val(0), left(nullptr), right(nullptr) {}
+</span><span class="cm"> *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+</span><span class="cm"> *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
+</span><span class="cm"> * };
+</span><span class="cm"> */</span>
+<span class="k">class</span> <span class="nc">Solution</span> <span class="p">{</span>
+<span class="k">public</span><span class="o">:</span>
+    <span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">answer</span><span class="p">;</span>
 
-    def mySqrt(self, x):
-        if x &lt; 0:
-            raise Exception('the int should be larger than 0')
-        if x == 0:
-            return 0
-        cur = 1
-        while True:
-            pre = cur
-            cur = (cur + x / cur) / 2
-            if abs(cur - pre) &lt; 1e-6:
-                return int(cur)
-</code></pre><h2 id="三c实现">三.C++实现</h2>
-<pre><code>class Solution {
-public:
-    int mySqrt(int x) {
-        int i;
-        for(i=0;i&lt;=x;i++){
-            if(i&gt;46340) return 46340;
-            if(i*i&gt;x) break;
-        }
+    <span class="kt">void</span> <span class="nf">dfs</span><span class="p">(</span><span class="n">TreeNode</span><span class="o">*</span> <span class="n">root</span><span class="p">){</span>
+        <span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="n">root</span><span class="p">)</span> <span class="k">return</span><span class="p">;</span>
+        <span class="n">answer</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">root</span><span class="o">-&gt;</span><span class="n">val</span><span class="p">);</span>
+        <span class="n">dfs</span><span class="p">(</span><span class="n">root</span><span class="o">-&gt;</span><span class="n">left</span><span class="p">);</span>
+        <span class="n">dfs</span><span class="p">(</span><span class="n">root</span><span class="o">-&gt;</span><span class="n">right</span><span class="p">);</span>
+    <span class="p">}</span>
 
-        return i-1;
-        
-    }
-};
-</code></pre><h2 id="四java实现">四.java实现</h2>
-<pre><code>class Solution {
-   
-    public int mySqrt(int a) {
-        long x = a;
-        while (x * x &gt; a) {
-            x = (x + a / x) / 2;
-        }
-        return (int) x;
-    }
-}
-</code></pre>
+    <span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">preorderTraversal</span><span class="p">(</span><span class="n">TreeNode</span><span class="o">*</span> <span class="n">root</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">dfs</span><span class="p">(</span><span class="n">root</span><span class="p">);</span>
+        <span class="k">return</span> <span class="n">answer</span><span class="p">;</span>
+    <span class="p">}</span>
+
+<span class="p">};</span>
+
+</code></pre></div><h1 id="二94-二叉树的中序遍历httpsleetcode-cncomproblemsbinary-tree-inorder-traversal">二.<a href="https://leetcode-cn.com/problems/binary-tree-inorder-traversal/">94. 二叉树的中序遍历</a></h1>
+<h2 id="1题干及思路-1">1.题干及思路</h2>
+<p>给定一个二叉树的根节点 root ，返回它的 中序 遍历。</p>
+<p>示例 1：</p>
+<p>输入：root = [1,null,2,3]
+输出：[1,3,2]
+示例 2：</p>
+<p>输入：root = []
+输出：[]
+示例 3：</p>
+<p>输入：root = [1]
+输出：[1]
+示例 4：</p>
+<p>输入：root = [1,2]
+输出：[2,1]
+示例 5：</p>
+<p>输入：root = [1,null,2]
+输出：[1,2]</p>
+<p>提示：</p>
+<p>树中节点数目在范围 [0, 100] 内
+-100 &lt;= Node.val &lt;= 100</p>
+<p>进阶: 递归算法很简单，你可以通过迭代算法完成吗？</p>
+<p>来源：力扣（LeetCode）
+链接：https://leetcode-cn.com/problems/binary-tree-inorder-traversal
+著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。</p>
+<p>要点：树</p>
+<p>思路：树的中序遍历，先左节点再当前节点再右节点</p>
+<h2 id="2c实现-1">2.C++实现</h2>
+<div class="highlight"><pre class="chroma"><code class="language-c++" data-lang="c++"><span class="cm">/**
+</span><span class="cm"> * Definition for a binary tree node.
+</span><span class="cm"> * struct TreeNode {
+</span><span class="cm"> *     int val;
+</span><span class="cm"> *     TreeNode *left;
+</span><span class="cm"> *     TreeNode *right;
+</span><span class="cm"> *     TreeNode() : val(0), left(nullptr), right(nullptr) {}
+</span><span class="cm"> *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+</span><span class="cm"> *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
+</span><span class="cm"> * };
+</span><span class="cm"> */</span>
+<span class="k">class</span> <span class="nc">Solution</span> <span class="p">{</span>
+<span class="k">public</span><span class="o">:</span>
+    <span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">answer</span><span class="p">;</span>
+
+    <span class="kt">void</span> <span class="nf">dfs</span><span class="p">(</span><span class="n">TreeNode</span><span class="o">*</span> <span class="n">root</span><span class="p">){</span>
+        <span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="n">root</span><span class="p">)</span> <span class="k">return</span><span class="p">;</span>
+        <span class="n">dfs</span><span class="p">(</span><span class="n">root</span><span class="o">-&gt;</span><span class="n">left</span><span class="p">);</span>
+        <span class="n">answer</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">root</span><span class="o">-&gt;</span><span class="n">val</span><span class="p">);</span>
+        <span class="n">dfs</span><span class="p">(</span><span class="n">root</span><span class="o">-&gt;</span><span class="n">right</span><span class="p">);</span>
+    <span class="p">}</span>
+
+    <span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">inorderTraversal</span><span class="p">(</span><span class="n">TreeNode</span><span class="o">*</span> <span class="n">root</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">dfs</span><span class="p">(</span><span class="n">root</span><span class="p">);</span>
+        <span class="k">return</span> <span class="n">answer</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">};</span>
+</code></pre></div><h1 id="三145-二叉树的后序遍历httpsleetcode-cncomproblemsbinary-tree-postorder-traversal">三.<a href="https://leetcode-cn.com/problems/binary-tree-postorder-traversal/">145. 二叉树的后序遍历</a></h1>
+<h2 id="1题干及思路-2">1.题干及思路</h2>
+<p>给定一个二叉树，返回它的 后序 遍历。</p>
+<p>示例:</p>
+<p>输入: [1,null,2,3]<br>
+1
+<br>
+2
+/
+3</p>
+<p>输出: [3,2,1]
+进阶: 递归算法很简单，你可以通过迭代算法完成吗？</p>
+<p>来源：力扣（LeetCode）
+链接：https://leetcode-cn.com/problems/binary-tree-postorder-traversal
+著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。</p>
+<p>要点：树</p>
+<p>思路：树的后序遍历，先左节点再右节点再当前节点</p>
+<h2 id="2c实现-2">2.C++实现</h2>
+<div class="highlight"><pre class="chroma"><code class="language-c++" data-lang="c++"><span class="cm">/**
+</span><span class="cm"> * Definition for a binary tree node.
+</span><span class="cm"> * struct TreeNode {
+</span><span class="cm"> *     int val;
+</span><span class="cm"> *     TreeNode *left;
+</span><span class="cm"> *     TreeNode *right;
+</span><span class="cm"> *     TreeNode() : val(0), left(nullptr), right(nullptr) {}
+</span><span class="cm"> *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+</span><span class="cm"> *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
+</span><span class="cm"> * };
+</span><span class="cm"> */</span>
+<span class="k">class</span> <span class="nc">Solution</span> <span class="p">{</span>
+<span class="k">public</span><span class="o">:</span>
+    <span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">answer</span><span class="p">;</span>
+
+    <span class="kt">void</span> <span class="nf">dfs</span><span class="p">(</span><span class="n">TreeNode</span><span class="o">*</span> <span class="n">root</span><span class="p">){</span>
+        <span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="n">root</span><span class="p">)</span> <span class="k">return</span><span class="p">;</span>
+        <span class="n">dfs</span><span class="p">(</span><span class="n">root</span><span class="o">-&gt;</span><span class="n">left</span><span class="p">);</span>
+        <span class="n">dfs</span><span class="p">(</span><span class="n">root</span><span class="o">-&gt;</span><span class="n">right</span><span class="p">);</span>
+        <span class="n">answer</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">root</span><span class="o">-&gt;</span><span class="n">val</span><span class="p">);</span>
+
+    <span class="p">}</span>
+    <span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">postorderTraversal</span><span class="p">(</span><span class="n">TreeNode</span><span class="o">*</span> <span class="n">root</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">dfs</span><span class="p">(</span><span class="n">root</span><span class="p">);</span>
+        <span class="k">return</span> <span class="n">answer</span><span class="p">;</span>
+
+    <span class="p">}</span>
+<span class="p">};</span>
+</code></pre></div>
     
 	</div>
   <footer class="article-footer clearfix">
@@ -157,6 +277,8 @@ public:
   
   <a href="https://qkgoalkeeper.github.io/tags/leetcode">LeetCode</a>
   
+  <a href="https://qkgoalkeeper.github.io/tags/c&#43;&#43;">C&#43;&#43;</a>
+  
 </div>
 
 
@@ -166,14 +288,14 @@ public:
 <div class="article-categories">
   <span></span>
   
-  <a class="article-category-link" href="https://qkgoalkeeper.github.io/categories/leetcode%E7%AE%80%E5%8D%95%E9%A2%981-100">LeetCode简单题1-100</a>
+  <a class="article-category-link" href="https://qkgoalkeeper.github.io/categories/%E5%A4%A7%E5%9B%9Bleetcode%E7%AE%97%E6%B3%95%E5%88%B7%E9%A2%98">大四LeetCode算法刷题</a>
   
 </div>
 
 
 
   <div class="article-share" id="share">
-    <div data-url="https://qkgoalkeeper.github.io/post/leetcode%E7%AE%80%E5%8D%95%E9%A2%9869.-x-%E7%9A%84%E5%B9%B3%E6%96%B9%E6%A0%B9pythonc&#43;&#43;java/" data-title="LeetCode简单题：69. x 的平方根（Python,C&#43;&#43;,Java）" data-tsina="5852167252" class="share clearfix">
+    <div data-url="https://qkgoalkeeper.github.io/post/leetcode%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E5%85%A5%E9%97%A8%E7%AC%AC10%E5%A4%A9%E6%A0%91/" data-title="LeetCode数据结构入门第10天：链表" data-tsina="5852167252" class="share clearfix">
     </div>
   </div>
 </footer>
