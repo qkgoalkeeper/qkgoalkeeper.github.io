@@ -134,7 +134,7 @@ s 和 p 仅包含小写字母</p>
 <p>要点：滑动窗口</p>
 <p>思路：哈希表存入字符串s1的每个字符（26个字母的哈希表可以用vector（26,0）代替），哈希表的第一个元素表示字母，第二个元素表示该字母在整个字符串中出现的次数；遍历字符串s2，用滑动窗口的思想，窗口大小即字符串s1的长度，在哈希表中减去窗口内出现相应字母的次数。如果遍历到某一窗口时，哈希表中的值全为0，则在字符串s2中该窗口内的子串为s1的变位词。</p>
 <h2 id="2c实现">2.C++实现</h2>
-<div class="highlight"><pre class="chroma"><code class="language-c++" data-lang="c++"><span class="k">class</span> <span class="nc">Solution</span> <span class="p">{</span>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="k">class</span> <span class="nc">Solution</span> <span class="p">{</span>
 <span class="k">public</span><span class="o">:</span>
     <span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">findAnagrams</span><span class="p">(</span><span class="n">string</span> <span class="n">s</span><span class="p">,</span> <span class="n">string</span> <span class="n">p</span><span class="p">)</span> <span class="p">{</span>
         <span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">answer</span><span class="p">,</span><span class="n">letter</span><span class="p">(</span><span class="mi">26</span><span class="p">,</span><span class="mi">0</span><span class="p">),</span><span class="n">letterZero</span><span class="p">(</span><span class="mi">26</span><span class="p">,</span><span class="mi">0</span><span class="p">);</span>
@@ -188,7 +188,7 @@ s 和 p 仅包含小写字母</p>
 <p>要点：滑动窗口</p>
 <p>思路：滑动窗口，先让right指针向右移动，添加一波answer，不满足题意时再让left指针移动直至满足题意，继续right指针移动</p>
 <h2 id="2c实现-1">2.C++实现</h2>
-<div class="highlight"><pre class="chroma"><code class="language-c++" data-lang="c++"><span class="k">class</span> <span class="nc">Solution</span> <span class="p">{</span>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="k">class</span> <span class="nc">Solution</span> <span class="p">{</span>
 <span class="k">public</span><span class="o">:</span>
     <span class="kt">int</span> <span class="n">numSubarrayProductLessThanK</span><span class="p">(</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;&amp;</span> <span class="n">nums</span><span class="p">,</span> <span class="kt">int</span> <span class="n">k</span><span class="p">)</span> <span class="p">{</span>
         <span class="kt">int</span> <span class="n">answer</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
@@ -231,7 +231,7 @@ s 和 p 仅包含小写字母</p>
 <p>要点：滑动窗口</p>
 <p>思路：滑动窗口定义两个指针left，right 分别表示子数组（滑动窗口窗口）的开始位置和结束位置，维护变量 temp 存储子数组中的元素和，先移动right直至满足题意，再移动left使其不满足题意后再移动right</p>
 <h2 id="2c实现-2">2.C++实现</h2>
-<div class="highlight"><pre class="chroma"><code class="language-c++" data-lang="c++"><span class="k">class</span> <span class="nc">Solution</span> <span class="p">{</span>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="k">class</span> <span class="nc">Solution</span> <span class="p">{</span>
 <span class="k">public</span><span class="o">:</span>
     <span class="kt">int</span> <span class="n">minSubArrayLen</span><span class="p">(</span><span class="kt">int</span> <span class="n">target</span><span class="p">,</span> <span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;&amp;</span> <span class="n">nums</span><span class="p">)</span> <span class="p">{</span>
         <span class="kt">int</span> <span class="n">answer</span> <span class="o">=</span> <span class="n">nums</span><span class="p">.</span><span class="n">size</span><span class="p">()</span><span class="o">+</span><span class="mi">1</span><span class="p">;</span>
@@ -325,7 +325,7 @@ s 和 p 仅包含小写字母</p>
     
     <li><a href="https://qkgoalkeeper.github.io/categories/%e5%a4%a7%e4%b8%89%e4%b8%8bweb%e7%bc%96%e7%a8%8b%e8%af%be%e7%a8%8b" title="大三下web编程课程">大三下web编程课程<sup>2</sup></a></li>
     
-    <li><a href="https://qkgoalkeeper.github.io/categories/%e5%a4%a7%e5%9b%9bleetcode%e7%ae%97%e6%b3%95%e5%88%b7%e9%a2%98" title="大四leetcode算法刷题">大四leetcode算法刷题<sup>45</sup></a></li>
+    <li><a href="https://qkgoalkeeper.github.io/categories/%e5%a4%a7%e5%9b%9bleetcode%e7%ae%97%e6%b3%95%e5%88%b7%e9%a2%98" title="大四leetcode算法刷题">大四leetcode算法刷题<sup>46</sup></a></li>
     
   </ul>
 </div>
@@ -338,11 +338,11 @@ s 和 p 仅包含小写字母</p>
 	<p class="asidetitle">标签</p>
 		<ul class="clearfix">
       
-			<li><a href="https://qkgoalkeeper.github.io/tags/c&#43;&#43;" title="c&#43;&#43;">c&#43;&#43;<sup>45</sup></a></li>
+			<li><a href="https://qkgoalkeeper.github.io/tags/c&#43;&#43;" title="c&#43;&#43;">c&#43;&#43;<sup>46</sup></a></li>
       
 			<li><a href="https://qkgoalkeeper.github.io/tags/javascript" title="javascript">javascript<sup>2</sup></a></li>
       
-			<li><a href="https://qkgoalkeeper.github.io/tags/leetcode" title="leetcode">leetcode<sup>115</sup></a></li>
+			<li><a href="https://qkgoalkeeper.github.io/tags/leetcode" title="leetcode">leetcode<sup>116</sup></a></li>
       
 			<li><a href="https://qkgoalkeeper.github.io/tags/%e6%95%b0%e6%8d%ae%e5%ba%93" title="数据库">数据库<sup>1</sup></a></li>
       
@@ -358,7 +358,7 @@ s 和 p 仅包含小写字母</p>
       
       
       <li class="archive-list-item">
-        <a class="archive-list-link" href="https://qkgoalkeeper.github.io/post/#2021-11">2021年11月</a><span class="archive-list-count">9</span>
+        <a class="archive-list-link" href="https://qkgoalkeeper.github.io/post/#2021-11">2021年11月</a><span class="archive-list-count">10</span>
       </li>
       
       

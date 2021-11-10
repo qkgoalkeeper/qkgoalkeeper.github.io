@@ -169,7 +169,7 @@
 <h4 id="11-treasures">1.1 treasures</h4>
 <p>treasures是一个宝物库，是静态的，在ini_db.py中提前执行一遍即可建立，需要修改宝物库时再重新运行ini_db.py即可。</p>
 <p>treasures的结构类似以下：</p>
-<div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="p">{</span><span class="s2">&#34;name&#34;</span><span class="p">:</span> <span class="s2">&#34;10级工具&#34;</span><span class="p">,</span> <span class="s2">&#34;property&#34;</span><span class="p">:</span> <span class="s2">&#34;T&#34;</span><span class="p">,</span> <span class="s2">&#34;level&#34;</span><span class="p">:</span> <span class="mi">10</span><span class="p">}</span>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="p">{</span><span class="s2">&#34;name&#34;</span><span class="p">:</span> <span class="s2">&#34;10级工具&#34;</span><span class="p">,</span> <span class="s2">&#34;property&#34;</span><span class="p">:</span> <span class="s2">&#34;T&#34;</span><span class="p">,</span> <span class="s2">&#34;level&#34;</span><span class="p">:</span> <span class="mi">10</span><span class="p">}</span>
 </code></pre></div><p>name表示物品名字，property表示用途（T=tool工具，A=accessory饰品），level表示宝物等级</p>
 <p>建立关于name的索引：</p>
 <p><img src="/img/database_mongodb/image/1.1.1.PNG" alt="1.1.1"></p>
@@ -178,7 +178,7 @@
 <h4 id="12-players">1.2 players</h4>
 <p>players存储用户信息，在新用户注册时会添加文档，对应函数为app.py中的register(username, password)函数。</p>
 <p>players的结构类似以下：</p>
-<div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="p">{</span><span class="s2">&#34;name&#34;</span><span class="p">:</span> <span class="n">username</span><span class="p">,</span> 
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="p">{</span><span class="s2">&#34;name&#34;</span><span class="p">:</span> <span class="n">username</span><span class="p">,</span> 
 <span class="s2">&#34;money&#34;</span><span class="p">:</span> <span class="mi">1000</span><span class="p">,</span> 
 <span class="s2">&#34;password&#34;</span><span class="p">:</span> <span class="n">password</span><span class="p">,</span>
 <span class="s2">&#34;treasure&#34;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&#34;T&#34;</span><span class="p">:</span> <span class="s2">&#34;1级工具&#34;</span><span class="p">,</span> <span class="s2">&#34;A&#34;</span><span class="p">:</span> <span class="s2">&#34;1级饰品&#34;</span><span class="p">},</span>
@@ -191,14 +191,14 @@
 <h4 id="13-markets">1.3 markets</h4>
 <p>markets储存市场信息，当有人出售或购买物品时会往该collection添加或删除文档。</p>
 <p>markets的结构类似以下：</p>
-<div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="p">{</span><span class="s2">&#34;name&#34;</span><span class="p">:</span> <span class="n">treasure</span><span class="p">,</span> <span class="s2">&#34;price&#34;</span><span class="p">:</span> <span class="n">price</span><span class="p">,</span> <span class="s2">&#34;owner&#34;</span><span class="p">:</span> <span class="n">username</span><span class="p">}</span>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="p">{</span><span class="s2">&#34;name&#34;</span><span class="p">:</span> <span class="n">treasure</span><span class="p">,</span> <span class="s2">&#34;price&#34;</span><span class="p">:</span> <span class="n">price</span><span class="p">,</span> <span class="s2">&#34;owner&#34;</span><span class="p">:</span> <span class="n">username</span><span class="p">}</span>
 </code></pre></div><p>name表示商品名字，price表示商品价格，owner表示商品出售者。</p>
 <p>collection内容如下：</p>
 <p><img src="/img/database_mongodb/image/1.3.PNG" alt="1.3"></p>
 <h4 id="14-picurl">1.4 picurl</h4>
 <p>这个collection不是必须的，之前三个collection已经建好了，我还想把宝物和图片联系起来就加了这个数据库，是为了实现自己附加的查看工具图片模样的功能，它存储每样工具图片的路径。</p>
 <p>markets的结构类似以下：</p>
-<pre><code>{&quot;name&quot;: &quot;10级工具.jpg&quot;}
+<pre tabindex="0"><code>{&quot;name&quot;: &quot;10级工具.jpg&quot;}
 </code></pre><p>name表示工具的名字路径</p>
 <p>图片被放在static文件夹下：</p>
 <p><img src="/img/database_mongodb/image/1.4.1.PNG" alt="1.4.1"></p>
@@ -208,17 +208,17 @@
 <p>为了满足pytest的要求，除了登录注册，返回的都是json类型的数据。</p>
 <h4 id="21-登录注册">2.1 登录/注册</h4>
 <p>index.html的登录页的表单数据会被传到login函数中，login函数会判断用户是否注册，未注册会跳转到register完成注册，已注册直接进入用户界面game.html，密码错误会提示</p>
-<div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="c1"># 以下是不同表单的处理函数，跳转到对应的后端函数中</span>
-<span class="nd">@app.route</span><span class="p">(</span><span class="s1">&#39;/process&#39;</span><span class="p">,</span> <span class="n">methods</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;POST&#39;</span><span class="p">,</span> <span class="s1">&#39;GET&#39;</span><span class="p">])</span>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="c1"># 以下是不同表单的处理函数，跳转到对应的后端函数中</span>
+<span class="nd">@app</span><span class="o">.</span><span class="n">route</span><span class="p">(</span><span class="s1">&#39;/process&#39;</span><span class="p">,</span> <span class="n">methods</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;POST&#39;</span><span class="p">,</span> <span class="s1">&#39;GET&#39;</span><span class="p">])</span>
 <span class="k">def</span> <span class="nf">process</span><span class="p">():</span>
     <span class="k">if</span> <span class="n">request</span><span class="o">.</span><span class="n">method</span> <span class="o">==</span> <span class="s1">&#39;POST&#39;</span><span class="p">:</span>
         <span class="n">username</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">form</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&#34;Name&#34;</span><span class="p">)</span>
         <span class="n">password</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">form</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&#34;Password&#34;</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">login</span><span class="p">(</span><span class="n">username</span><span class="p">,</span> <span class="n">password</span><span class="p">)</span>
-</code></pre></div><div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="c1"># 登录，转到用户主页</span>
+</code></pre></div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="c1"># 登录，转到用户主页</span>
 <span class="k">def</span> <span class="nf">login</span><span class="p">(</span><span class="n">username</span><span class="p">,</span> <span class="n">password</span><span class="p">):</span>
-    <span class="n">players</span><span class="o">.</span><span class="n">create_index</span><span class="p">([(</span><span class="s2">&#34;name&#34;</span><span class="p">,</span> <span class="n">pymongo</span><span class="o">.</span><span class="n">ASCENDING</span><span class="p">)],</span> <span class="n">unique</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
-    <span class="k">if</span> <span class="n">players</span><span class="o">.</span><span class="n">find_one</span><span class="p">({</span><span class="s2">&#34;name&#34;</span><span class="p">:</span> <span class="n">username</span><span class="p">})</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+    <span class="n">players</span><span class="o">.</span><span class="n">create_index</span><span class="p">([(</span><span class="s2">&#34;name&#34;</span><span class="p">,</span> <span class="n">pymongo</span><span class="o">.</span><span class="n">ASCENDING</span><span class="p">)],</span> <span class="n">unique</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">players</span><span class="o">.</span><span class="n">find_one</span><span class="p">({</span><span class="s2">&#34;name&#34;</span><span class="p">:</span> <span class="n">username</span><span class="p">})</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
         <span class="k">return</span> <span class="n">register</span><span class="p">(</span><span class="n">username</span><span class="p">,</span> <span class="n">password</span><span class="p">)</span>
     <span class="k">else</span><span class="p">:</span>
         <span class="k">if</span> <span class="n">players</span><span class="o">.</span><span class="n">find_one</span><span class="p">({</span><span class="s2">&#34;name&#34;</span><span class="p">:</span> <span class="n">username</span><span class="p">})[</span><span class="s1">&#39;password&#39;</span><span class="p">]</span> <span class="o">!=</span> <span class="n">password</span><span class="p">:</span>
@@ -238,7 +238,7 @@
 <p>登录注册的界面见后面前端展示，也可以py app.py后访问localhost:5000直接查看。</p>
 <h4 id="22-查看用户箱子">2.2 查看用户箱子</h4>
 <p>查看某用户的箱子，用法例如localhost:5000/qk/box</p>
-<div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="k">def</span> <span class="nf">look_box</span><span class="p">(</span><span class="n">username</span><span class="p">):</span>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="k">def</span> <span class="nf">look_box</span><span class="p">(</span><span class="n">username</span><span class="p">):</span>
     <span class="n">answer</span> <span class="o">=</span> <span class="n">show_dict</span><span class="p">(</span><span class="n">players</span><span class="o">.</span><span class="n">find_one</span><span class="p">({</span><span class="s2">&#34;name&#34;</span><span class="p">:</span> <span class="n">username</span><span class="p">}))</span>
 
     <span class="n">answer</span><span class="p">[</span><span class="s2">&#34;answer&#34;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&#34;这是</span><span class="si">%s</span><span class="s2">的box返回结果：&#34;</span> <span class="o">%</span> <span class="n">username</span>
@@ -247,10 +247,10 @@
 </code></pre></div><p><img src="/img/database_mongodb/image/2.2.PNG" alt="2.2"></p>
 <h4 id="23-浏览市场">2.3 浏览市场</h4>
 <p>查看市场，用法例如localhost:5000/qk/market</p>
-<div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="c1"># 浏览市场</span>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="c1"># 浏览市场</span>
 <span class="k">def</span> <span class="nf">look_market</span><span class="p">(</span><span class="n">username</span><span class="p">):</span>
     <span class="c1"># 没找到用户</span>
-    <span class="k">if</span> <span class="n">players</span><span class="o">.</span><span class="n">find_one</span><span class="p">({</span><span class="s2">&#34;name&#34;</span><span class="p">:</span> <span class="n">username</span><span class="p">})</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+    <span class="k">if</span> <span class="n">players</span><span class="o">.</span><span class="n">find_one</span><span class="p">({</span><span class="s2">&#34;name&#34;</span><span class="p">:</span> <span class="n">username</span><span class="p">})</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
         <span class="k">return</span> <span class="s2">&#34;&lt;h1&gt;请先注册用户&lt;/h1&gt;&#34;</span>
     <span class="c1"># 显示market</span>
     <span class="n">res</span> <span class="o">=</span> <span class="p">{</span>
@@ -262,10 +262,10 @@
 </code></pre></div><p><img src="/img/database_mongodb/image/2.3.PNG" alt="2.3"></p>
 <h4 id="24-佩戴宝物">2.4 佩戴宝物</h4>
 <p>配戴宝物，用法例如localhost:5000/qk/wear/10级工具，如果箱子没有或者宝物库没有则配戴失败。</p>
-<div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="c1"># 佩戴宝物</span>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="c1"># 佩戴宝物</span>
 <span class="k">def</span> <span class="nf">wear</span><span class="p">(</span><span class="n">username</span><span class="p">,</span> <span class="n">treasure</span><span class="p">):</span>
     <span class="c1"># box中没有该宝物</span>
-    <span class="k">if</span> <span class="n">treasures</span><span class="o">.</span><span class="n">find_one</span><span class="p">({</span><span class="s2">&#34;name&#34;</span><span class="p">:</span> <span class="n">treasure</span><span class="p">})</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+    <span class="k">if</span> <span class="n">treasures</span><span class="o">.</span><span class="n">find_one</span><span class="p">({</span><span class="s2">&#34;name&#34;</span><span class="p">:</span> <span class="n">treasure</span><span class="p">})</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
         <span class="k">return</span> <span class="n">jsonify</span><span class="p">({</span><span class="s2">&#34;error&#34;</span><span class="p">:</span> <span class="s2">&#34;该宝物名不存在&#34;</span><span class="p">})</span>
         <span class="s1">&#39;&#39;&#39;
 </span><span class="s1">        return &#34;&lt;h1&gt;宝物库中没有 </span><span class="si">%s</span><span class="s1"> 宝物&lt;/h1&gt;&#34; % treasure + &#34;&lt;br&gt;&lt;br&gt;&#34; + </span><span class="se">\
@@ -300,10 +300,10 @@
 <p><img src="/img/database_mongodb/image/2.4.2.PNG" alt="2.4.2"></p>
 <h4 id="25-购买宝物">2.5 购买宝物</h4>
 <p>购买宝物，用法例如localhost:5000/qk/buy/9级工具，如果市场没有或者钱不够则购买失败。</p>
-<div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="c1"># 购买宝物</span>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="c1"># 购买宝物</span>
 <span class="k">def</span> <span class="nf">buy</span><span class="p">(</span><span class="n">username</span><span class="p">,</span> <span class="n">treasure</span><span class="p">):</span>
     <span class="c1"># 市场没有该宝物</span>
-    <span class="k">if</span> <span class="n">markets</span><span class="o">.</span><span class="n">find_one</span><span class="p">({</span><span class="s2">&#34;name&#34;</span><span class="p">:</span> <span class="n">treasure</span><span class="p">})</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+    <span class="k">if</span> <span class="n">markets</span><span class="o">.</span><span class="n">find_one</span><span class="p">({</span><span class="s2">&#34;name&#34;</span><span class="p">:</span> <span class="n">treasure</span><span class="p">})</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
         <span class="k">return</span> <span class="n">jsonify</span><span class="p">({</span><span class="s2">&#34;error&#34;</span><span class="p">:</span> <span class="s2">&#34;市场无此宝物&#34;</span><span class="p">})</span>
         <span class="s1">&#39;&#39;&#39;
 </span><span class="s1">        return &#34;&lt;h1&gt;市场暂无 </span><span class="si">%s</span><span class="s1"> 宝物&lt;/h1&gt;&#34; % treasure + &#34;&lt;br&gt;&lt;br&gt;&#34; </span><span class="se">\
@@ -338,10 +338,10 @@
 <p><img src="/img/database_mongodb/image/2.5.2.PNG" alt="2.5.2"></p>
 <h4 id="26-撤回宝物">2.6 撤回宝物</h4>
 <p>撤回宝物，用法例如localhost:5000/qk/withdraw/10级饰品，如果市场没有则撤回失败。</p>
-<div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="c1"># 收回挂牌宝物</span>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="c1"># 收回挂牌宝物</span>
 <span class="k">def</span> <span class="nf">withdraw</span><span class="p">(</span><span class="n">username</span><span class="p">,</span> <span class="n">treasure</span><span class="p">):</span>
     <span class="c1"># 市场没有该宝物</span>
-    <span class="k">if</span> <span class="n">markets</span><span class="o">.</span><span class="n">find_one</span><span class="p">({</span><span class="s2">&#34;name&#34;</span><span class="p">:</span> <span class="n">treasure</span><span class="p">,</span> <span class="s2">&#34;owner&#34;</span><span class="p">:</span> <span class="n">username</span><span class="p">})</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+    <span class="k">if</span> <span class="n">markets</span><span class="o">.</span><span class="n">find_one</span><span class="p">({</span><span class="s2">&#34;name&#34;</span><span class="p">:</span> <span class="n">treasure</span><span class="p">,</span> <span class="s2">&#34;owner&#34;</span><span class="p">:</span> <span class="n">username</span><span class="p">})</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
         <span class="k">return</span> <span class="n">jsonify</span><span class="p">({</span><span class="s2">&#34;error&#34;</span><span class="p">:</span> <span class="s2">&#34;市场无此宝物&#34;</span><span class="p">})</span>
         <span class="s1">&#39;&#39;&#39;
 </span><span class="s1">        return &#34;&lt;h1&gt;市场没有 </span><span class="si">%s</span><span class="s1"> 宝物&lt;/h1&gt;&#34; % treasure + &#34;&lt;br&gt;&lt;br&gt;&#34; </span><span class="se">\
@@ -361,7 +361,7 @@
 <p><img src="/img/database_mongodb/image/2.6.1.PNG" alt="2.6.1"></p>
 <h4 id="27-出售宝物">2.7 出售宝物</h4>
 <p>出售宝物，用法例如localhost:5000/qk/sell/10级饰品/1000，如果背包没有则出售失败。</p>
-<div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="c1"># 出卖宝物</span>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="c1"># 出卖宝物</span>
 <span class="k">def</span> <span class="nf">sell</span><span class="p">(</span><span class="n">username</span><span class="p">,</span> <span class="n">treasure</span><span class="p">,</span> <span class="n">price</span><span class="p">):</span>
     <span class="n">box</span> <span class="o">=</span> <span class="n">players</span><span class="o">.</span><span class="n">find_one</span><span class="p">({</span><span class="s1">&#39;name&#39;</span><span class="p">:</span> <span class="n">username</span><span class="p">})[</span><span class="s1">&#39;box&#39;</span><span class="p">]</span>
     <span class="k">if</span> <span class="n">treasure</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">box</span><span class="p">:</span>
@@ -382,16 +382,16 @@
 <p><img src="/img/database_mongodb/image/2.7.1.PNG" alt="2.7.1"></p>
 <h3 id="3定时任务寻宝赚钱函数实现">3.定时任务（寻宝+赚钱）函数实现</h3>
 <p>用到了apscheduler这个库，作用是定时执行程序</p>
-<pre><code>from flask_apscheduler import APScheduler
+<pre tabindex="0"><code>from flask_apscheduler import APScheduler
 </code></pre><p>再实现需要自动执行的函数，这里是find_treasure和find_money函数</p>
-<div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="c1"># 自动寻宝</span>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="c1"># 自动寻宝</span>
 <span class="k">def</span> <span class="nf">find_treasure</span><span class="p">():</span>
     <span class="c1"># 遍历每个玩家</span>
     <span class="k">for</span> <span class="n">player</span> <span class="ow">in</span> <span class="n">players</span><span class="o">.</span><span class="n">find</span><span class="p">():</span>
         <span class="n">name</span> <span class="o">=</span> <span class="n">player</span><span class="p">[</span><span class="s2">&#34;name&#34;</span><span class="p">]</span>
         <span class="c1"># 宝箱已满</span>
         <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">player</span><span class="p">[</span><span class="s1">&#39;box&#39;</span><span class="p">])</span> <span class="o">&gt;=</span> <span class="mi">10</span><span class="p">:</span>
-            <span class="k">print</span><span class="p">(</span><span class="s2">&#34;存储箱已满将回收一件低端宝物&#34;</span><span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&#34;存储箱已满将回收一件低端宝物&#34;</span><span class="p">)</span>
             <span class="n">recovery_treasure</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
         <span class="c1"># 得到的宝物和饰品的级别有关</span>
         <span class="n">box</span> <span class="o">=</span> <span class="n">players</span><span class="o">.</span><span class="n">find_one</span><span class="p">({</span><span class="s2">&#34;name&#34;</span><span class="p">:</span> <span class="n">name</span><span class="p">})[</span><span class="s1">&#39;box&#39;</span><span class="p">]</span>
@@ -405,7 +405,7 @@
         <span class="n">box</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">ls</span><span class="p">[</span><span class="n">x</span><span class="p">][</span><span class="s1">&#39;name&#39;</span><span class="p">])</span>
         <span class="c1"># 更新宝物</span>
         <span class="n">players</span><span class="o">.</span><span class="n">update_one</span><span class="p">({</span><span class="s2">&#34;name&#34;</span><span class="p">:</span> <span class="n">name</span><span class="p">},</span> <span class="p">{</span><span class="s2">&#34;$set&#34;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&#34;box&#34;</span><span class="p">:</span> <span class="n">box</span><span class="p">}})</span>
-        <span class="k">print</span><span class="p">(</span><span class="s2">&#34;玩家 </span><span class="si">%-6s</span><span class="s2"> 获得宝物 </span><span class="si">%s</span><span class="s2">&#34;</span> <span class="o">%</span> <span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">ls</span><span class="p">[</span><span class="n">x</span><span class="p">][</span><span class="s1">&#39;name&#39;</span><span class="p">]))</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&#34;玩家 </span><span class="si">%-6s</span><span class="s2"> 获得宝物 </span><span class="si">%s</span><span class="s2">&#34;</span> <span class="o">%</span> <span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">ls</span><span class="p">[</span><span class="n">x</span><span class="p">][</span><span class="s1">&#39;name&#39;</span><span class="p">]))</span>
 
 
 <span class="c1"># 自动赚钱</span>
@@ -421,9 +421,9 @@
         <span class="n">name</span> <span class="o">=</span> <span class="n">player</span><span class="p">[</span><span class="s2">&#34;name&#34;</span><span class="p">]</span>
         <span class="c1"># 更新账户</span>
         <span class="n">players</span><span class="o">.</span><span class="n">update_one</span><span class="p">({</span><span class="s2">&#34;name&#34;</span><span class="p">:</span> <span class="n">name</span><span class="p">},</span> <span class="p">{</span><span class="s2">&#34;$set&#34;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&#34;money&#34;</span><span class="p">:</span> <span class="n">money</span><span class="p">}})</span>
-        <span class="k">print</span><span class="p">(</span><span class="s2">&#34;玩家 </span><span class="si">%-6s</span><span class="s2"> 金币到账 </span><span class="si">%d</span><span class="s2">&#34;</span> <span class="o">%</span> <span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">money_get</span><span class="p">))</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&#34;玩家 </span><span class="si">%-6s</span><span class="s2"> 金币到账 </span><span class="si">%d</span><span class="s2">&#34;</span> <span class="o">%</span> <span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">money_get</span><span class="p">))</span>
 </code></pre></div><p>写一个配置自动任务的类，将find_treasure和find_money设定为每20 seconds执行一次</p>
-<div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="c1"># 配置自动任务的类</span>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="c1"># 配置自动任务的类</span>
 <span class="k">class</span> <span class="nc">Config</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
     <span class="n">JOBS</span> <span class="o">=</span> <span class="p">[</span>
         <span class="p">{</span>
@@ -442,7 +442,7 @@
         <span class="p">}</span>
     <span class="p">]</span>
 </code></pre></div><p>最后在主函数中执行</p>
-<div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&#34;__main__&#34;</span><span class="p">:</span>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&#34;__main__&#34;</span><span class="p">:</span>
     <span class="n">app</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">from_object</span><span class="p">(</span><span class="n">Config</span><span class="p">())</span>  <span class="c1"># 配置自动执行任务，后台寻宝赚钱</span>
     <span class="n">scheduler</span> <span class="o">=</span> <span class="n">APScheduler</span><span class="p">()</span>
     <span class="n">scheduler</span><span class="o">.</span><span class="n">init_app</span><span class="p">(</span><span class="n">app</span><span class="p">)</span>
@@ -479,11 +479,11 @@
 </tr>
 </tbody>
 </table>
-<div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="k">def</span> <span class="nf">pic_find</span><span class="p">(</span><span class="n">pic_url</span><span class="p">):</span>
-    <span class="k">if</span> <span class="n">pictures</span><span class="o">.</span><span class="n">find_one</span><span class="p">({</span><span class="s2">&#34;name&#34;</span><span class="p">:</span> <span class="n">pic_url</span><span class="p">})</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="k">def</span> <span class="nf">pic_find</span><span class="p">(</span><span class="n">pic_url</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">pictures</span><span class="o">.</span><span class="n">find_one</span><span class="p">({</span><span class="s2">&#34;name&#34;</span><span class="p">:</span> <span class="n">pic_url</span><span class="p">})</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
         <span class="k">return</span> <span class="s2">&#34;&lt;h1&gt;找不到该图片信息&lt;/h1&gt;&#34;</span>
     <span class="k">return</span> <span class="n">render_template</span><span class="p">(</span><span class="s1">&#39;picture.html&#39;</span><span class="p">,</span> <span class="n">Name</span><span class="o">=</span><span class="n">pic_url</span><span class="p">)</span>
-</code></pre></div><div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="c1"># 融合宝物</span>
+</code></pre></div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="c1"># 融合宝物</span>
 <span class="k">def</span> <span class="nf">merge</span><span class="p">(</span><span class="n">username</span><span class="p">,</span> <span class="n">treasure</span><span class="p">,</span> <span class="n">treasure2</span><span class="p">):</span>
     <span class="n">player</span> <span class="o">=</span> <span class="n">players</span><span class="o">.</span><span class="n">find_one</span><span class="p">({</span><span class="s2">&#34;name&#34;</span><span class="p">:</span> <span class="n">username</span><span class="p">})</span>
     <span class="n">box</span> <span class="o">=</span> <span class="n">player</span><span class="p">[</span><span class="s1">&#39;box&#39;</span><span class="p">]</span>
@@ -525,7 +525,7 @@
     <span class="n">players</span><span class="o">.</span><span class="n">update_one</span><span class="p">({</span><span class="s2">&#34;name&#34;</span><span class="p">:</span> <span class="n">username</span><span class="p">},</span> <span class="p">{</span><span class="s2">&#34;$set&#34;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&#34;money&#34;</span><span class="p">:</span> <span class="n">money1</span><span class="p">}})</span>
     <span class="k">return</span> <span class="s2">&#34;&lt;h1&gt;融合成功，得到 </span><span class="si">%s</span><span class="s2"> ，请查看背包，100元已经扣除&lt;/h1&gt;&#34;</span> <span class="o">%</span> <span class="n">new_treasure_name</span> <span class="o">+</span> <span class="s2">&#34;&lt;br&gt;&lt;br&gt;&#34;</span> <span class="o">+</span> \
            <span class="nb">str</span><span class="p">(</span><span class="n">show_dict</span><span class="p">(</span><span class="n">players</span><span class="o">.</span><span class="n">find_one</span><span class="p">({</span><span class="s2">&#34;name&#34;</span><span class="p">:</span> <span class="n">username</span><span class="p">})))</span>
-</code></pre></div><div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="k">def</span> <span class="nf">finish</span><span class="p">(</span><span class="n">username</span><span class="p">):</span>
+</code></pre></div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="k">def</span> <span class="nf">finish</span><span class="p">(</span><span class="n">username</span><span class="p">):</span>
     <span class="n">player</span> <span class="o">=</span> <span class="n">players</span><span class="o">.</span><span class="n">find_one</span><span class="p">({</span><span class="s2">&#34;name&#34;</span><span class="p">:</span> <span class="n">username</span><span class="p">})</span>
     <span class="n">box</span> <span class="o">=</span> <span class="n">player</span><span class="p">[</span><span class="s1">&#39;box&#39;</span><span class="p">]</span>
     <span class="n">player_treasure</span> <span class="o">=</span> <span class="n">player</span><span class="p">[</span><span class="s2">&#34;treasure&#34;</span><span class="p">]</span>
@@ -560,11 +560,11 @@
 <p>pytest主要用到get路由的方法，不用访问前端也可完成。</p>
 <p>app.py中通过route来执行get方法，写了个find_method作为函数的中转站</p>
 <p>pytest的配置在conftest.py中，pytest中的测试函数test_user.py中包含13个函数测试crud，用get路由去访问</p>
-<div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="c1"># 根据不同参数设置不同路由，用于url的访问</span>
-<span class="nd">@app.route</span><span class="p">(</span><span class="s2">&#34;/&lt;string:username&gt;/&lt;string:operation&gt;&#34;</span><span class="p">,</span> <span class="n">methods</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;GET&#39;</span><span class="p">])</span>
-<span class="nd">@app.route</span><span class="p">(</span><span class="s2">&#34;/&lt;string:username&gt;/&lt;string:operation&gt;/&lt;string:treasure&gt;&#34;</span><span class="p">,</span> <span class="n">methods</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;GET&#39;</span><span class="p">])</span>
-<span class="nd">@app.route</span><span class="p">(</span><span class="s2">&#34;/&lt;string:username&gt;/&lt;string:operation&gt;/&lt;string:treasure&gt;/&lt;int:price&gt;&#34;</span><span class="p">,</span> <span class="n">methods</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;GET&#39;</span><span class="p">])</span>
-<span class="nd">@app.route</span><span class="p">(</span><span class="s2">&#34;/&lt;string:username&gt;/&lt;string:operation&gt;/&lt;string:treasure&gt;/&lt;string:treasure2&gt;&#34;</span><span class="p">,</span> <span class="n">methods</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;GET&#39;</span><span class="p">])</span>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="c1"># 根据不同参数设置不同路由，用于url的访问</span>
+<span class="nd">@app</span><span class="o">.</span><span class="n">route</span><span class="p">(</span><span class="s2">&#34;/&lt;string:username&gt;/&lt;string:operation&gt;&#34;</span><span class="p">,</span> <span class="n">methods</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;GET&#39;</span><span class="p">])</span>
+<span class="nd">@app</span><span class="o">.</span><span class="n">route</span><span class="p">(</span><span class="s2">&#34;/&lt;string:username&gt;/&lt;string:operation&gt;/&lt;string:treasure&gt;&#34;</span><span class="p">,</span> <span class="n">methods</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;GET&#39;</span><span class="p">])</span>
+<span class="nd">@app</span><span class="o">.</span><span class="n">route</span><span class="p">(</span><span class="s2">&#34;/&lt;string:username&gt;/&lt;string:operation&gt;/&lt;string:treasure&gt;/&lt;int:price&gt;&#34;</span><span class="p">,</span> <span class="n">methods</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;GET&#39;</span><span class="p">])</span>
+<span class="nd">@app</span><span class="o">.</span><span class="n">route</span><span class="p">(</span><span class="s2">&#34;/&lt;string:username&gt;/&lt;string:operation&gt;/&lt;string:treasure&gt;/&lt;string:treasure2&gt;&#34;</span><span class="p">,</span> <span class="n">methods</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;GET&#39;</span><span class="p">])</span>
 <span class="c1"># 一个中转站根据路由进行重定向</span>
 <span class="k">def</span> <span class="nf">find_method</span><span class="p">(</span><span class="n">username</span><span class="p">,</span> <span class="n">operation</span><span class="p">,</span> <span class="n">treasure</span><span class="o">=</span><span class="s1">&#39;test&#39;</span><span class="p">,</span> <span class="n">treasure2</span><span class="o">=</span><span class="s1">&#39;test&#39;</span><span class="p">,</span> <span class="n">price</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>
     <span class="k">if</span> <span class="n">operation</span> <span class="o">==</span> <span class="s1">&#39;login&#39;</span><span class="p">:</span>
@@ -588,10 +588,10 @@
     <span class="k">else</span><span class="p">:</span>
         <span class="k">return</span> <span class="s2">&#34;&lt;h1&gt;输入或操作错误&lt;/h1&gt;&#34;</span>
 </code></pre></div><p>test_user.py的函数都类似以下，一共13个，具体见test_user.py</p>
-<div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="k">def</span> <span class="nf">test_market</span><span class="p">(</span><span class="n">client</span><span class="p">:</span> <span class="n">FlaskClient</span><span class="p">):</span>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="k">def</span> <span class="nf">test_market</span><span class="p">(</span><span class="n">client</span><span class="p">:</span> <span class="n">FlaskClient</span><span class="p">):</span>
     <span class="n">response</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&#34;/qk/market&#34;</span><span class="p">)</span>
     <span class="n">json</span> <span class="o">=</span> <span class="n">response</span><span class="o">.</span><span class="n">get_json</span><span class="p">()</span>
-    <span class="k">print</span><span class="p">(</span><span class="n">json</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">json</span><span class="p">)</span>
     <span class="k">assert</span> <span class="n">json</span><span class="p">[</span><span class="s2">&#34;answer&#34;</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&#34;玩家qk查看市场&#34;</span>
 </code></pre></div><p>测试结果如下：</p>
 <p>注意测试前要将MongoDB数据库中markets和players设置成collection markets.json和collection players.json(在flaskProject文件夹中，建议删除原collection然后用MongoDB compass直接导入)</p>
@@ -603,7 +603,7 @@
 <p><img src="/img/database_mongodb/image/5.3.PNG" alt="5.3"></p>
 <h3 id="6前端展示">6.前端展示</h3>
 <p>前端代码位于templates文件夹中，可以满足用表单的post请求来对数据库执行操作，需要import request</p>
-<div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="kn">from</span> <span class="nn">flask</span> <span class="kn">import</span> <span class="n">Flask</span><span class="p">,</span> <span class="n">render_template</span><span class="p">,</span> <span class="n">request</span>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="kn">from</span> <span class="nn">flask</span> <span class="kn">import</span> <span class="n">Flask</span><span class="p">,</span> <span class="n">render_template</span><span class="p">,</span> <span class="n">request</span>
 </code></pre></div><p>app.py中以process开头的函数都是处理表单的函数，从form中得到参数，调用相应函数即可</p>
 <p><img src="/img/database_mongodb/image/6.4.PNG" alt="6.4"></p>
 <p>前端页面展示如下：</p>
@@ -623,13 +623,13 @@
 </li>
 <li>
 <p>json输出会出现十六进制乱码，解决方法如下，app.py的json配置中加以下两行</p>
-<div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="c1"># 为了防止json中文乱码请加入这两行</span>
-<span class="n">app</span><span class="o">.</span><span class="n">config</span><span class="p">[</span><span class="s1">&#39;JSON_AS_ASCII&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">False</span>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="c1"># 为了防止json中文乱码请加入这两行</span>
+<span class="n">app</span><span class="o">.</span><span class="n">config</span><span class="p">[</span><span class="s1">&#39;JSON_AS_ASCII&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">False</span>
 <span class="n">app</span><span class="o">.</span><span class="n">config</span><span class="p">[</span><span class="s1">&#39;JSONIFY_MIMETYPE&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&#34;application/json;charset=utf-8&#34;</span>
 </code></pre></div></li>
 <li>
 <p>当函数中往往需要输出players.find_one({&ldquo;name&rdquo;: username}))，但是直接输出甚至会暴露用户的密码，所以要用一个函数去把字典中密码的部分去掉，用到以下函数</p>
-<div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="c1"># 处理每个操作返回的结果,</span>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="c1"># 处理每个操作返回的结果,</span>
 <span class="k">def</span> <span class="nf">show_dict</span><span class="p">(</span><span class="n">dictionary</span><span class="p">):</span>
     <span class="n">dict_</span> <span class="o">=</span> <span class="p">{}</span>
     <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">dictionary</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
@@ -639,7 +639,7 @@
 </code></pre></div></li>
 <li>
 <p>用户的箱子只能存十个，超过十个时要回收等级最低的宝物，所以需要如下函数</p>
-<div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="c1"># 如果宝箱充满系统回收等级最低宝物</span>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="c1"># 如果宝箱充满系统回收等级最低宝物</span>
 <span class="k">def</span> <span class="nf">recovery_treasure</span><span class="p">(</span><span class="n">name</span><span class="p">):</span>
     <span class="n">box</span> <span class="o">=</span> <span class="n">players</span><span class="o">.</span><span class="n">find_one</span><span class="p">({</span><span class="s2">&#34;name&#34;</span><span class="p">:</span> <span class="n">name</span><span class="p">})[</span><span class="s1">&#39;box&#39;</span><span class="p">]</span>
     <span class="n">treasure_name</span> <span class="o">=</span> <span class="n">box</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
@@ -657,7 +657,7 @@
             <span class="k">break</span>
     <span class="c1"># 更新宝箱</span>
     <span class="n">players</span><span class="o">.</span><span class="n">update_one</span><span class="p">({</span><span class="s1">&#39;name&#39;</span><span class="p">:</span> <span class="n">name</span><span class="p">},</span> <span class="p">{</span><span class="s2">&#34;$set&#34;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&#34;box&#34;</span><span class="p">:</span> <span class="n">box</span><span class="p">}})</span>
-    <span class="k">print</span><span class="p">(</span><span class="s2">&#34;玩家 </span><span class="si">%-6s</span><span class="s2"> 被系统回收宝物 </span><span class="si">%-6s</span><span class="s2">&#34;</span> <span class="o">%</span> <span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">treasure_name</span><span class="p">))</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&#34;玩家 </span><span class="si">%-6s</span><span class="s2"> 被系统回收宝物 </span><span class="si">%-6s</span><span class="s2">&#34;</span> <span class="o">%</span> <span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">treasure_name</span><span class="p">))</span>
 </code></pre></div></li>
 </ol>
 
@@ -719,7 +719,7 @@
     
     <li><a href="https://qkgoalkeeper.github.io/categories/%e5%a4%a7%e4%b8%89%e4%b8%8bweb%e7%bc%96%e7%a8%8b%e8%af%be%e7%a8%8b" title="大三下web编程课程">大三下web编程课程<sup>2</sup></a></li>
     
-    <li><a href="https://qkgoalkeeper.github.io/categories/%e5%a4%a7%e5%9b%9bleetcode%e7%ae%97%e6%b3%95%e5%88%b7%e9%a2%98" title="大四leetcode算法刷题">大四leetcode算法刷题<sup>45</sup></a></li>
+    <li><a href="https://qkgoalkeeper.github.io/categories/%e5%a4%a7%e5%9b%9bleetcode%e7%ae%97%e6%b3%95%e5%88%b7%e9%a2%98" title="大四leetcode算法刷题">大四leetcode算法刷题<sup>46</sup></a></li>
     
   </ul>
 </div>
@@ -732,11 +732,11 @@
 	<p class="asidetitle">标签</p>
 		<ul class="clearfix">
       
-			<li><a href="https://qkgoalkeeper.github.io/tags/c&#43;&#43;" title="c&#43;&#43;">c&#43;&#43;<sup>45</sup></a></li>
+			<li><a href="https://qkgoalkeeper.github.io/tags/c&#43;&#43;" title="c&#43;&#43;">c&#43;&#43;<sup>46</sup></a></li>
       
 			<li><a href="https://qkgoalkeeper.github.io/tags/javascript" title="javascript">javascript<sup>2</sup></a></li>
       
-			<li><a href="https://qkgoalkeeper.github.io/tags/leetcode" title="leetcode">leetcode<sup>115</sup></a></li>
+			<li><a href="https://qkgoalkeeper.github.io/tags/leetcode" title="leetcode">leetcode<sup>116</sup></a></li>
       
 			<li><a href="https://qkgoalkeeper.github.io/tags/%e6%95%b0%e6%8d%ae%e5%ba%93" title="数据库">数据库<sup>1</sup></a></li>
       
@@ -752,7 +752,7 @@
       
       
       <li class="archive-list-item">
-        <a class="archive-list-link" href="https://qkgoalkeeper.github.io/post/#2021-11">2021年11月</a><span class="archive-list-count">9</span>
+        <a class="archive-list-link" href="https://qkgoalkeeper.github.io/post/#2021-11">2021年11月</a><span class="archive-list-count">10</span>
       </li>
       
       

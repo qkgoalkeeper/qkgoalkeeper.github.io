@@ -135,7 +135,7 @@
 <p>要点：递归</p>
 <p>思路：递归终止条件为数组temp的大小为所需要的k，过程是取当前位置start对start+1后的数组dfs再回溯到start不取当前的start对start+1后进行dfs</p>
 <h2 id="2c实现">2.C++实现</h2>
-<div class="highlight"><pre class="chroma"><code class="language-c++" data-lang="c++"><span class="k">class</span> <span class="nc">Solution</span> <span class="p">{</span>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="k">class</span> <span class="nc">Solution</span> <span class="p">{</span>
 <span class="k">public</span><span class="o">:</span>
     <span class="n">vector</span><span class="o">&lt;</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;&gt;</span> <span class="n">answer</span><span class="p">;</span>
     <span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">temp</span><span class="p">;</span>
@@ -185,7 +185,7 @@ nums 中的所有整数 互不相同</p>
 <p>思路：递归终止条件为first等于len，过程是取当前位置和first到len位置交换后对first+1后的数组dfs再回溯（first到len位置交换回来）</p>
 <p>如果要按顺序输出可以用自定义sort函数，写一个cmp1函数（类内必须static）</p>
 <h2 id="2c实现-1">2.C++实现</h2>
-<div class="highlight"><pre class="chroma"><code class="language-c++" data-lang="c++"><span class="k">class</span> <span class="nc">Solution</span> <span class="p">{</span>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="k">class</span> <span class="nc">Solution</span> <span class="p">{</span>
 <span class="k">public</span><span class="o">:</span>
     <span class="n">vector</span><span class="o">&lt;</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="o">&gt;</span> <span class="n">res</span><span class="p">;</span>
     
@@ -235,9 +235,9 @@ S 仅由数字和字母组成。</p>
 著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。</p>
 <p>要点：递归</p>
 <p>思路：递归终止条件为start==end，过程是判断当前位置：如果数字则dfs(start+1,end,s)；如果大写字母则dfs(start+1,end,s);
-将start换大小写s[start] = &lsquo;a'+s[start]-&lsquo;A&rsquo;;再dfs(start+1,end,s); 如果小写字母则dfs(start+1,end,s);将start换大小写s[start] = &lsquo;A'+s[start]-&lsquo;a&rsquo;;再dfs(start+1,end,s);</p>
+将start换大小写s[start] = &lsquo;a&rsquo;+s[start]-&lsquo;A&rsquo;;再dfs(start+1,end,s); 如果小写字母则dfs(start+1,end,s);将start换大小写s[start] = &lsquo;A&rsquo;+s[start]-&lsquo;a&rsquo;;再dfs(start+1,end,s);</p>
 <h2 id="2c实现-2">2.C++实现</h2>
-<div class="highlight"><pre class="chroma"><code class="language-c++" data-lang="c++"><span class="k">class</span> <span class="nc">Solution</span> <span class="p">{</span>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="k">class</span> <span class="nc">Solution</span> <span class="p">{</span>
 <span class="k">public</span><span class="o">:</span>
     <span class="n">vector</span><span class="o">&lt;</span><span class="n">string</span><span class="o">&gt;</span> <span class="n">res</span><span class="p">;</span>
     <span class="kt">void</span> <span class="nf">dfs</span><span class="p">(</span><span class="kt">int</span> <span class="n">start</span><span class="p">,</span><span class="kt">int</span> <span class="n">end</span><span class="p">,</span><span class="n">string</span> <span class="n">s</span><span class="p">){</span>
@@ -341,7 +341,7 @@ S 仅由数字和字母组成。</p>
     
     <li><a href="https://qkgoalkeeper.github.io/categories/%e5%a4%a7%e4%b8%89%e4%b8%8bweb%e7%bc%96%e7%a8%8b%e8%af%be%e7%a8%8b" title="大三下web编程课程">大三下web编程课程<sup>2</sup></a></li>
     
-    <li><a href="https://qkgoalkeeper.github.io/categories/%e5%a4%a7%e5%9b%9bleetcode%e7%ae%97%e6%b3%95%e5%88%b7%e9%a2%98" title="大四leetcode算法刷题">大四leetcode算法刷题<sup>45</sup></a></li>
+    <li><a href="https://qkgoalkeeper.github.io/categories/%e5%a4%a7%e5%9b%9bleetcode%e7%ae%97%e6%b3%95%e5%88%b7%e9%a2%98" title="大四leetcode算法刷题">大四leetcode算法刷题<sup>46</sup></a></li>
     
   </ul>
 </div>
@@ -354,11 +354,11 @@ S 仅由数字和字母组成。</p>
 	<p class="asidetitle">标签</p>
 		<ul class="clearfix">
       
-			<li><a href="https://qkgoalkeeper.github.io/tags/c&#43;&#43;" title="c&#43;&#43;">c&#43;&#43;<sup>45</sup></a></li>
+			<li><a href="https://qkgoalkeeper.github.io/tags/c&#43;&#43;" title="c&#43;&#43;">c&#43;&#43;<sup>46</sup></a></li>
       
 			<li><a href="https://qkgoalkeeper.github.io/tags/javascript" title="javascript">javascript<sup>2</sup></a></li>
       
-			<li><a href="https://qkgoalkeeper.github.io/tags/leetcode" title="leetcode">leetcode<sup>115</sup></a></li>
+			<li><a href="https://qkgoalkeeper.github.io/tags/leetcode" title="leetcode">leetcode<sup>116</sup></a></li>
       
 			<li><a href="https://qkgoalkeeper.github.io/tags/%e6%95%b0%e6%8d%ae%e5%ba%93" title="数据库">数据库<sup>1</sup></a></li>
       
@@ -374,7 +374,7 @@ S 仅由数字和字母组成。</p>
       
       
       <li class="archive-list-item">
-        <a class="archive-list-link" href="https://qkgoalkeeper.github.io/post/#2021-11">2021年11月</a><span class="archive-list-count">9</span>
+        <a class="archive-list-link" href="https://qkgoalkeeper.github.io/post/#2021-11">2021年11月</a><span class="archive-list-count">10</span>
       </li>
       
       

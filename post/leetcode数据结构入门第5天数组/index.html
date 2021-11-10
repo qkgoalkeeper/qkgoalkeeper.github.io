@@ -115,27 +115,27 @@
 只需要根据以上规则，验证已经填入的数字是否有效即可。</p>
 <p>示例 1：</p>
 <p>输入：board = 
-[[&ldquo;5&rdquo;,&ldquo;3&rdquo;,&rdquo;.&rdquo;,&rdquo;.&rdquo;,&ldquo;7&rdquo;,&rdquo;.&rdquo;,&rdquo;.&rdquo;,&rdquo;.&rdquo;,&rdquo;.&quot;]
-,[&ldquo;6&rdquo;,&rdquo;.&rdquo;,&rdquo;.&rdquo;,&ldquo;1&rdquo;,&ldquo;9&rdquo;,&ldquo;5&rdquo;,&rdquo;.&rdquo;,&rdquo;.&rdquo;,&rdquo;.&quot;]
-,[&rdquo;.&rdquo;,&ldquo;9&rdquo;,&ldquo;8&rdquo;,&rdquo;.&rdquo;,&rdquo;.&rdquo;,&rdquo;.&rdquo;,&rdquo;.&rdquo;,&ldquo;6&rdquo;,&rdquo;.&quot;]
-,[&ldquo;8&rdquo;,&rdquo;.&rdquo;,&rdquo;.&rdquo;,&rdquo;.&rdquo;,&ldquo;6&rdquo;,&rdquo;.&rdquo;,&rdquo;.&rdquo;,&rdquo;.&rdquo;,&ldquo;3&rdquo;]
-,[&ldquo;4&rdquo;,&rdquo;.&rdquo;,&rdquo;.&rdquo;,&ldquo;8&rdquo;,&rdquo;.&rdquo;,&ldquo;3&rdquo;,&rdquo;.&rdquo;,&rdquo;.&rdquo;,&ldquo;1&rdquo;]
-,[&ldquo;7&rdquo;,&rdquo;.&rdquo;,&rdquo;.&rdquo;,&rdquo;.&rdquo;,&ldquo;2&rdquo;,&rdquo;.&rdquo;,&rdquo;.&rdquo;,&rdquo;.&rdquo;,&ldquo;6&rdquo;]
-,[&rdquo;.&rdquo;,&ldquo;6&rdquo;,&rdquo;.&rdquo;,&rdquo;.&rdquo;,&rdquo;.&rdquo;,&rdquo;.&rdquo;,&ldquo;2&rdquo;,&ldquo;8&rdquo;,&rdquo;.&quot;]
-,[&rdquo;.&rdquo;,&rdquo;.&rdquo;,&rdquo;.&rdquo;,&ldquo;4&rdquo;,&ldquo;1&rdquo;,&ldquo;9&rdquo;,&rdquo;.&rdquo;,&rdquo;.&rdquo;,&ldquo;5&rdquo;]
-,[&rdquo;.&rdquo;,&rdquo;.&rdquo;,&rdquo;.&rdquo;,&rdquo;.&rdquo;,&ldquo;8&rdquo;,&rdquo;.&rdquo;,&rdquo;.&rdquo;,&ldquo;7&rdquo;,&ldquo;9&rdquo;]]
+[[&ldquo;5&rdquo;,&ldquo;3&rdquo;,&quot;.&quot;,&quot;.&quot;,&ldquo;7&rdquo;,&quot;.&quot;,&quot;.&quot;,&quot;.&quot;,&quot;.&quot;]
+,[&ldquo;6&rdquo;,&quot;.&quot;,&quot;.&quot;,&ldquo;1&rdquo;,&ldquo;9&rdquo;,&ldquo;5&rdquo;,&quot;.&quot;,&quot;.&quot;,&quot;.&quot;]
+,[&quot;.&quot;,&ldquo;9&rdquo;,&ldquo;8&rdquo;,&quot;.&quot;,&quot;.&quot;,&quot;.&quot;,&quot;.&quot;,&ldquo;6&rdquo;,&quot;.&quot;]
+,[&ldquo;8&rdquo;,&quot;.&quot;,&quot;.&quot;,&quot;.&quot;,&ldquo;6&rdquo;,&quot;.&quot;,&quot;.&quot;,&quot;.&quot;,&ldquo;3&rdquo;]
+,[&ldquo;4&rdquo;,&quot;.&quot;,&quot;.&quot;,&ldquo;8&rdquo;,&quot;.&quot;,&ldquo;3&rdquo;,&quot;.&quot;,&quot;.&quot;,&ldquo;1&rdquo;]
+,[&ldquo;7&rdquo;,&quot;.&quot;,&quot;.&quot;,&quot;.&quot;,&ldquo;2&rdquo;,&quot;.&quot;,&quot;.&quot;,&quot;.&quot;,&ldquo;6&rdquo;]
+,[&quot;.&quot;,&ldquo;6&rdquo;,&quot;.&quot;,&quot;.&quot;,&quot;.&quot;,&quot;.&quot;,&ldquo;2&rdquo;,&ldquo;8&rdquo;,&quot;.&quot;]
+,[&quot;.&quot;,&quot;.&quot;,&quot;.&quot;,&ldquo;4&rdquo;,&ldquo;1&rdquo;,&ldquo;9&rdquo;,&quot;.&quot;,&quot;.&quot;,&ldquo;5&rdquo;]
+,[&quot;.&quot;,&quot;.&quot;,&quot;.&quot;,&quot;.&quot;,&ldquo;8&rdquo;,&quot;.&quot;,&quot;.&quot;,&ldquo;7&rdquo;,&ldquo;9&rdquo;]]
 输出：true
 示例 2：</p>
 <p>输入：board = 
-[[&ldquo;8&rdquo;,&ldquo;3&rdquo;,&rdquo;.&rdquo;,&rdquo;.&rdquo;,&ldquo;7&rdquo;,&rdquo;.&rdquo;,&rdquo;.&rdquo;,&rdquo;.&rdquo;,&rdquo;.&quot;]
-,[&ldquo;6&rdquo;,&rdquo;.&rdquo;,&rdquo;.&rdquo;,&ldquo;1&rdquo;,&ldquo;9&rdquo;,&ldquo;5&rdquo;,&rdquo;.&rdquo;,&rdquo;.&rdquo;,&rdquo;.&quot;]
-,[&rdquo;.&rdquo;,&ldquo;9&rdquo;,&ldquo;8&rdquo;,&rdquo;.&rdquo;,&rdquo;.&rdquo;,&rdquo;.&rdquo;,&rdquo;.&rdquo;,&ldquo;6&rdquo;,&rdquo;.&quot;]
-,[&ldquo;8&rdquo;,&rdquo;.&rdquo;,&rdquo;.&rdquo;,&rdquo;.&rdquo;,&ldquo;6&rdquo;,&rdquo;.&rdquo;,&rdquo;.&rdquo;,&rdquo;.&rdquo;,&ldquo;3&rdquo;]
-,[&ldquo;4&rdquo;,&rdquo;.&rdquo;,&rdquo;.&rdquo;,&ldquo;8&rdquo;,&rdquo;.&rdquo;,&ldquo;3&rdquo;,&rdquo;.&rdquo;,&rdquo;.&rdquo;,&ldquo;1&rdquo;]
-,[&ldquo;7&rdquo;,&rdquo;.&rdquo;,&rdquo;.&rdquo;,&rdquo;.&rdquo;,&ldquo;2&rdquo;,&rdquo;.&rdquo;,&rdquo;.&rdquo;,&rdquo;.&rdquo;,&ldquo;6&rdquo;]
-,[&rdquo;.&rdquo;,&ldquo;6&rdquo;,&rdquo;.&rdquo;,&rdquo;.&rdquo;,&rdquo;.&rdquo;,&rdquo;.&rdquo;,&ldquo;2&rdquo;,&ldquo;8&rdquo;,&rdquo;.&quot;]
-,[&rdquo;.&rdquo;,&rdquo;.&rdquo;,&rdquo;.&rdquo;,&ldquo;4&rdquo;,&ldquo;1&rdquo;,&ldquo;9&rdquo;,&rdquo;.&rdquo;,&rdquo;.&rdquo;,&ldquo;5&rdquo;]
-,[&rdquo;.&rdquo;,&rdquo;.&rdquo;,&rdquo;.&rdquo;,&rdquo;.&rdquo;,&ldquo;8&rdquo;,&rdquo;.&rdquo;,&rdquo;.&rdquo;,&ldquo;7&rdquo;,&ldquo;9&rdquo;]]
+[[&ldquo;8&rdquo;,&ldquo;3&rdquo;,&quot;.&quot;,&quot;.&quot;,&ldquo;7&rdquo;,&quot;.&quot;,&quot;.&quot;,&quot;.&quot;,&quot;.&quot;]
+,[&ldquo;6&rdquo;,&quot;.&quot;,&quot;.&quot;,&ldquo;1&rdquo;,&ldquo;9&rdquo;,&ldquo;5&rdquo;,&quot;.&quot;,&quot;.&quot;,&quot;.&quot;]
+,[&quot;.&quot;,&ldquo;9&rdquo;,&ldquo;8&rdquo;,&quot;.&quot;,&quot;.&quot;,&quot;.&quot;,&quot;.&quot;,&ldquo;6&rdquo;,&quot;.&quot;]
+,[&ldquo;8&rdquo;,&quot;.&quot;,&quot;.&quot;,&quot;.&quot;,&ldquo;6&rdquo;,&quot;.&quot;,&quot;.&quot;,&quot;.&quot;,&ldquo;3&rdquo;]
+,[&ldquo;4&rdquo;,&quot;.&quot;,&quot;.&quot;,&ldquo;8&rdquo;,&quot;.&quot;,&ldquo;3&rdquo;,&quot;.&quot;,&quot;.&quot;,&ldquo;1&rdquo;]
+,[&ldquo;7&rdquo;,&quot;.&quot;,&quot;.&quot;,&quot;.&quot;,&ldquo;2&rdquo;,&quot;.&quot;,&quot;.&quot;,&quot;.&quot;,&ldquo;6&rdquo;]
+,[&quot;.&quot;,&ldquo;6&rdquo;,&quot;.&quot;,&quot;.&quot;,&quot;.&quot;,&quot;.&quot;,&ldquo;2&rdquo;,&ldquo;8&rdquo;,&quot;.&quot;]
+,[&quot;.&quot;,&quot;.&quot;,&quot;.&quot;,&ldquo;4&rdquo;,&ldquo;1&rdquo;,&ldquo;9&rdquo;,&quot;.&quot;,&quot;.&quot;,&ldquo;5&rdquo;]
+,[&quot;.&quot;,&quot;.&quot;,&quot;.&quot;,&quot;.&quot;,&ldquo;8&rdquo;,&quot;.&quot;,&quot;.&quot;,&ldquo;7&rdquo;,&ldquo;9&rdquo;]]
 输出：false
 解释：除了第一行的第一个数字从 5 改为 8 以外，空格内其他数字均与 示例1 相同。 但由于位于左上角的 3x3 宫内有两个 8 存在, 因此这个数独是无效的。</p>
 <p>提示：</p>
@@ -148,7 +148,7 @@ board[i][j] 是一位数字或者 &lsquo;.&rsquo;</p>
 <p>要点：数组</p>
 <p>思路：数组题，用9*3个哈希表分别存每列每行每个box的数字，遍历一遍即可</p>
 <h2 id="2c实现">2.C++实现</h2>
-<div class="highlight"><pre class="chroma"><code class="language-c++" data-lang="c++"><span class="k">class</span> <span class="nc">Solution</span> <span class="p">{</span>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="k">class</span> <span class="nc">Solution</span> <span class="p">{</span>
 <span class="k">public</span><span class="o">:</span>
     <span class="kt">bool</span> <span class="n">isValidSudoku</span><span class="p">(</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">char</span><span class="o">&gt;&gt;&amp;</span> <span class="n">board</span><span class="p">)</span> <span class="p">{</span>
         <span class="n">vector</span><span class="o">&lt;</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;&gt;</span> <span class="n">row</span><span class="p">(</span><span class="mi">9</span><span class="p">,</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="p">(</span><span class="mi">10</span><span class="p">));</span>
@@ -195,7 +195,7 @@ n == matrix[0].length
 <p>要点：数组</p>
 <p>思路：数组题，只需判断每行以及每列的标记位是否置为0，置为0则将这一行（列）都置为零，节省空间可以将这m+n的额外空间用原数组第一列和第一行代替，但是要提前判断第一行和第一列本身是否要变成0</p>
 <h2 id="2c实现-1">2.C++实现</h2>
-<div class="highlight"><pre class="chroma"><code class="language-c++" data-lang="c++"><span class="k">class</span> <span class="nc">Solution</span> <span class="p">{</span>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="k">class</span> <span class="nc">Solution</span> <span class="p">{</span>
 <span class="k">public</span><span class="o">:</span>
     <span class="kt">void</span> <span class="n">setZeroes</span><span class="p">(</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;&gt;&amp;</span> <span class="n">matrix</span><span class="p">)</span> <span class="p">{</span>
         <span class="kt">int</span> <span class="n">m</span> <span class="o">=</span> <span class="n">matrix</span><span class="p">.</span><span class="n">size</span><span class="p">();</span>
@@ -299,7 +299,7 @@ n == matrix[0].length
     
     <li><a href="https://qkgoalkeeper.github.io/categories/%e5%a4%a7%e4%b8%89%e4%b8%8bweb%e7%bc%96%e7%a8%8b%e8%af%be%e7%a8%8b" title="大三下web编程课程">大三下web编程课程<sup>2</sup></a></li>
     
-    <li><a href="https://qkgoalkeeper.github.io/categories/%e5%a4%a7%e5%9b%9bleetcode%e7%ae%97%e6%b3%95%e5%88%b7%e9%a2%98" title="大四leetcode算法刷题">大四leetcode算法刷题<sup>45</sup></a></li>
+    <li><a href="https://qkgoalkeeper.github.io/categories/%e5%a4%a7%e5%9b%9bleetcode%e7%ae%97%e6%b3%95%e5%88%b7%e9%a2%98" title="大四leetcode算法刷题">大四leetcode算法刷题<sup>46</sup></a></li>
     
   </ul>
 </div>
@@ -312,11 +312,11 @@ n == matrix[0].length
 	<p class="asidetitle">标签</p>
 		<ul class="clearfix">
       
-			<li><a href="https://qkgoalkeeper.github.io/tags/c&#43;&#43;" title="c&#43;&#43;">c&#43;&#43;<sup>45</sup></a></li>
+			<li><a href="https://qkgoalkeeper.github.io/tags/c&#43;&#43;" title="c&#43;&#43;">c&#43;&#43;<sup>46</sup></a></li>
       
 			<li><a href="https://qkgoalkeeper.github.io/tags/javascript" title="javascript">javascript<sup>2</sup></a></li>
       
-			<li><a href="https://qkgoalkeeper.github.io/tags/leetcode" title="leetcode">leetcode<sup>115</sup></a></li>
+			<li><a href="https://qkgoalkeeper.github.io/tags/leetcode" title="leetcode">leetcode<sup>116</sup></a></li>
       
 			<li><a href="https://qkgoalkeeper.github.io/tags/%e6%95%b0%e6%8d%ae%e5%ba%93" title="数据库">数据库<sup>1</sup></a></li>
       
@@ -332,7 +332,7 @@ n == matrix[0].length
       
       
       <li class="archive-list-item">
-        <a class="archive-list-link" href="https://qkgoalkeeper.github.io/post/#2021-11">2021年11月</a><span class="archive-list-count">9</span>
+        <a class="archive-list-link" href="https://qkgoalkeeper.github.io/post/#2021-11">2021年11月</a><span class="archive-list-count">10</span>
       </li>
       
       

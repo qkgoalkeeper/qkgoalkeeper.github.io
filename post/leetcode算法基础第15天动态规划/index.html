@@ -141,9 +141,9 @@ s 只包含数字，并且可能包含前导零。</p>
 链接：https://leetcode-cn.com/problems/decode-ways
 著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。</p>
 <p>要点：动态规划</p>
-<p>思路：动态规划，dp[i]表示第i个位置作为末尾时的解码方法，dp[0]和dp[1]通过分类讨论得出，当i&gt;=2时分别判断是否要加dp[i-1]和dp[i-2]，如果s[i]!='0&rsquo;则加dp[i-1],如果temp&gt;=10&amp;&amp;temp&lt;=26（temp是上一个字符和当前字符组合的两位数）则加dp[i-2]</p>
+<p>思路：动态规划，dp[i]表示第i个位置作为末尾时的解码方法，dp[0]和dp[1]通过分类讨论得出，当i&gt;=2时分别判断是否要加dp[i-1]和dp[i-2]，如果s[i]!=&lsquo;0&rsquo;则加dp[i-1],如果temp&gt;=10&amp;&amp;temp&lt;=26（temp是上一个字符和当前字符组合的两位数）则加dp[i-2]</p>
 <h2 id="2c实现">2.C++实现</h2>
-<div class="highlight"><pre class="chroma"><code class="language-c++" data-lang="c++"><span class="k">class</span> <span class="nc">Solution</span> <span class="p">{</span>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="k">class</span> <span class="nc">Solution</span> <span class="p">{</span>
 <span class="k">public</span><span class="o">:</span>
     <span class="kt">int</span> <span class="n">numDecodings</span><span class="p">(</span><span class="n">string</span> <span class="n">s</span><span class="p">)</span> <span class="p">{</span>
         <span class="kt">int</span> <span class="n">n</span> <span class="o">=</span> <span class="n">s</span><span class="p">.</span><span class="n">size</span><span class="p">();</span>
@@ -216,7 +216,7 @@ s 只包含数字，并且可能包含前导零。</p>
 <p>要点：动态规划</p>
 <p>思路：dp数组记录该长度是否满足单词拆分，首先dp[0]表示空串所以是true，对于dp[i]来说，遍历i之前的j,如果存在dp[j]为true且j到i的字符串在哈希表内则dp[i]为true否则一个都没就是false</p>
 <h2 id="2c实现-1">2.C++实现</h2>
-<div class="highlight"><pre class="chroma"><code class="language-c++" data-lang="c++"><span class="k">class</span> <span class="nc">Solution</span> <span class="p">{</span>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="k">class</span> <span class="nc">Solution</span> <span class="p">{</span>
 <span class="k">public</span><span class="o">:</span>
     <span class="kt">bool</span> <span class="n">wordBreak</span><span class="p">(</span><span class="n">string</span><span class="o">&amp;</span> <span class="n">s</span><span class="p">,</span> <span class="n">vector</span><span class="o">&lt;</span><span class="n">string</span><span class="o">&gt;&amp;</span> <span class="n">wordDict</span><span class="p">)</span> <span class="p">{</span>
         <span class="n">vector</span><span class="o">&lt;</span><span class="kt">bool</span><span class="o">&gt;</span> <span class="n">dp</span><span class="p">(</span><span class="n">s</span><span class="p">.</span><span class="n">size</span><span class="p">()</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span> <span class="nb">false</span><span class="p">);</span>
@@ -294,7 +294,7 @@ s 只包含数字，并且可能包含前导零。</p>
     
     <li><a href="https://qkgoalkeeper.github.io/categories/%e5%a4%a7%e4%b8%89%e4%b8%8bweb%e7%bc%96%e7%a8%8b%e8%af%be%e7%a8%8b" title="大三下web编程课程">大三下web编程课程<sup>2</sup></a></li>
     
-    <li><a href="https://qkgoalkeeper.github.io/categories/%e5%a4%a7%e5%9b%9bleetcode%e7%ae%97%e6%b3%95%e5%88%b7%e9%a2%98" title="大四leetcode算法刷题">大四leetcode算法刷题<sup>45</sup></a></li>
+    <li><a href="https://qkgoalkeeper.github.io/categories/%e5%a4%a7%e5%9b%9bleetcode%e7%ae%97%e6%b3%95%e5%88%b7%e9%a2%98" title="大四leetcode算法刷题">大四leetcode算法刷题<sup>46</sup></a></li>
     
   </ul>
 </div>
@@ -307,11 +307,11 @@ s 只包含数字，并且可能包含前导零。</p>
 	<p class="asidetitle">标签</p>
 		<ul class="clearfix">
       
-			<li><a href="https://qkgoalkeeper.github.io/tags/c&#43;&#43;" title="c&#43;&#43;">c&#43;&#43;<sup>45</sup></a></li>
+			<li><a href="https://qkgoalkeeper.github.io/tags/c&#43;&#43;" title="c&#43;&#43;">c&#43;&#43;<sup>46</sup></a></li>
       
 			<li><a href="https://qkgoalkeeper.github.io/tags/javascript" title="javascript">javascript<sup>2</sup></a></li>
       
-			<li><a href="https://qkgoalkeeper.github.io/tags/leetcode" title="leetcode">leetcode<sup>115</sup></a></li>
+			<li><a href="https://qkgoalkeeper.github.io/tags/leetcode" title="leetcode">leetcode<sup>116</sup></a></li>
       
 			<li><a href="https://qkgoalkeeper.github.io/tags/%e6%95%b0%e6%8d%ae%e5%ba%93" title="数据库">数据库<sup>1</sup></a></li>
       
@@ -327,7 +327,7 @@ s 只包含数字，并且可能包含前导零。</p>
       
       
       <li class="archive-list-item">
-        <a class="archive-list-link" href="https://qkgoalkeeper.github.io/post/#2021-11">2021年11月</a><span class="archive-list-count">9</span>
+        <a class="archive-list-link" href="https://qkgoalkeeper.github.io/post/#2021-11">2021年11月</a><span class="archive-list-count">10</span>
       </li>
       
       
