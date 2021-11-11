@@ -106,18 +106,18 @@
 一开始想到用动态规划做，见java代码，思路是判断自己拿了1-3个后再之前的三个状态，但是数字大了会超时，LeetCode过不了。 <br>
 规律以及数学告诉我们，每次摸1-3个只要保证对手摸的时候是4的倍数就能赢，所以n一开始不为4的倍数先手必赢。</p>
 <h2 id="二python实现">二.Python实现</h2>
-<pre tabindex="0"><code>class Solution:
+<pre><code>class Solution:
     def canWinNim(self, n: int) -&gt; bool:
         return n%4!=0;
 </code></pre><h2 id="三c实现">三.C++实现</h2>
-<pre tabindex="0"><code>class Solution {
+<pre><code>class Solution {
 public:
     bool canWinNim(int n) {
         return n%4!=0;
     }
 };
 </code></pre><h2 id="四java实现">四.java实现</h2>
-<pre tabindex="0"><code>class Solution {
+<pre><code>class Solution {
     public boolean canWinNim(int n) {
         if(n &lt;= 3) return true;
         if(!canWinNim(n - 1) || !canWinNim(n - 2) || !canWinNim(n - 3)) return true;
@@ -191,7 +191,7 @@ class Solution {
     
     <li><a href="https://qkgoalkeeper.github.io/categories/%e5%a4%a7%e4%b8%89%e4%b8%8bweb%e7%bc%96%e7%a8%8b%e8%af%be%e7%a8%8b" title="大三下web编程课程">大三下web编程课程<sup>2</sup></a></li>
     
-    <li><a href="https://qkgoalkeeper.github.io/categories/%e5%a4%a7%e5%9b%9bleetcode%e7%ae%97%e6%b3%95%e5%88%b7%e9%a2%98" title="大四leetcode算法刷题">大四leetcode算法刷题<sup>46</sup></a></li>
+    <li><a href="https://qkgoalkeeper.github.io/categories/%e5%a4%a7%e5%9b%9bleetcode%e7%ae%97%e6%b3%95%e5%88%b7%e9%a2%98" title="大四leetcode算法刷题">大四leetcode算法刷题<sup>47</sup></a></li>
     
   </ul>
 </div>
@@ -204,11 +204,11 @@ class Solution {
 	<p class="asidetitle">标签</p>
 		<ul class="clearfix">
       
-			<li><a href="https://qkgoalkeeper.github.io/tags/c&#43;&#43;" title="c&#43;&#43;">c&#43;&#43;<sup>46</sup></a></li>
+			<li><a href="https://qkgoalkeeper.github.io/tags/c&#43;&#43;" title="c&#43;&#43;">c&#43;&#43;<sup>47</sup></a></li>
       
 			<li><a href="https://qkgoalkeeper.github.io/tags/javascript" title="javascript">javascript<sup>2</sup></a></li>
       
-			<li><a href="https://qkgoalkeeper.github.io/tags/leetcode" title="leetcode">leetcode<sup>116</sup></a></li>
+			<li><a href="https://qkgoalkeeper.github.io/tags/leetcode" title="leetcode">leetcode<sup>117</sup></a></li>
       
 			<li><a href="https://qkgoalkeeper.github.io/tags/%e6%95%b0%e6%8d%ae%e5%ba%93" title="数据库">数据库<sup>1</sup></a></li>
       
@@ -224,7 +224,7 @@ class Solution {
       
       
       <li class="archive-list-item">
-        <a class="archive-list-link" href="https://qkgoalkeeper.github.io/post/#2021-11">2021年11月</a><span class="archive-list-count">10</span>
+        <a class="archive-list-link" href="https://qkgoalkeeper.github.io/post/#2021-11">2021年11月</a><span class="archive-list-count">11</span>
       </li>
       
       

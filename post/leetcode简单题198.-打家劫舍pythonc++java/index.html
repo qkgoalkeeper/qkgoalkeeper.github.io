@@ -106,7 +106,7 @@
 Python，C++，Java都用了相同的动态规划法。<br>
 动态规划题关键在于找转移方程，对于本题来说，如果数组长度为0，则返回0，如果数组长度为1，则返回nums[1]，数组长度为2，则返回max(nums[1],nums[2]),当长度大于等于3时，i位置时当前最大值为max(dp[i-2]+nums[i],dp[i-1])，最后返回dp[length-1]即为本题答案。</p>
 <h2 id="二python实现">二.Python实现</h2>
-<pre tabindex="0"><code>class Solution:
+<pre><code>class Solution:
     def rob(self, nums: List[int]) -&gt; int:
         dp=[]
         length=len(nums)
@@ -123,7 +123,7 @@ Python，C++，Java都用了相同的动态规划法。<br>
             dp.append(max(dp[i-1],dp[i-2]+nums[i]))
         return dp[length-1]
 </code></pre><h2 id="三c实现">三.C++实现</h2>
-<pre tabindex="0"><code>class Solution {
+<pre><code>class Solution {
 public:
     int rob(vector&lt;int&gt;&amp; nums) {
         vector&lt;int&gt; dp;
@@ -143,7 +143,7 @@ public:
     }
 };
 </code></pre><h2 id="四java实现">四.java实现</h2>
-<pre tabindex="0"><code>class Solution {
+<pre><code>class Solution {
     public int rob(int[] nums) {
         ArrayList&lt;Integer&gt; dp = new ArrayList&lt;&gt;(); 
         int length=nums.length;
@@ -220,7 +220,7 @@ public:
     
     <li><a href="https://qkgoalkeeper.github.io/categories/%e5%a4%a7%e4%b8%89%e4%b8%8bweb%e7%bc%96%e7%a8%8b%e8%af%be%e7%a8%8b" title="大三下web编程课程">大三下web编程课程<sup>2</sup></a></li>
     
-    <li><a href="https://qkgoalkeeper.github.io/categories/%e5%a4%a7%e5%9b%9bleetcode%e7%ae%97%e6%b3%95%e5%88%b7%e9%a2%98" title="大四leetcode算法刷题">大四leetcode算法刷题<sup>46</sup></a></li>
+    <li><a href="https://qkgoalkeeper.github.io/categories/%e5%a4%a7%e5%9b%9bleetcode%e7%ae%97%e6%b3%95%e5%88%b7%e9%a2%98" title="大四leetcode算法刷题">大四leetcode算法刷题<sup>47</sup></a></li>
     
   </ul>
 </div>
@@ -233,11 +233,11 @@ public:
 	<p class="asidetitle">标签</p>
 		<ul class="clearfix">
       
-			<li><a href="https://qkgoalkeeper.github.io/tags/c&#43;&#43;" title="c&#43;&#43;">c&#43;&#43;<sup>46</sup></a></li>
+			<li><a href="https://qkgoalkeeper.github.io/tags/c&#43;&#43;" title="c&#43;&#43;">c&#43;&#43;<sup>47</sup></a></li>
       
 			<li><a href="https://qkgoalkeeper.github.io/tags/javascript" title="javascript">javascript<sup>2</sup></a></li>
       
-			<li><a href="https://qkgoalkeeper.github.io/tags/leetcode" title="leetcode">leetcode<sup>116</sup></a></li>
+			<li><a href="https://qkgoalkeeper.github.io/tags/leetcode" title="leetcode">leetcode<sup>117</sup></a></li>
       
 			<li><a href="https://qkgoalkeeper.github.io/tags/%e6%95%b0%e6%8d%ae%e5%ba%93" title="数据库">数据库<sup>1</sup></a></li>
       
@@ -253,7 +253,7 @@ public:
       
       
       <li class="archive-list-item">
-        <a class="archive-list-link" href="https://qkgoalkeeper.github.io/post/#2021-11">2021年11月</a><span class="archive-list-count">10</span>
+        <a class="archive-list-link" href="https://qkgoalkeeper.github.io/post/#2021-11">2021年11月</a><span class="archive-list-count">11</span>
       </li>
       
       
