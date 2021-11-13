@@ -118,19 +118,19 @@
 <li>左括号必须以正确的顺序闭合。</li>
 </ol>
 <p><strong>示例 1：</strong></p>
-<pre><code>输入：s = &quot;()&quot;
+<pre tabindex="0"><code>输入：s = &quot;()&quot;
 输出：true
 </code></pre><p><strong>示例 2：</strong></p>
-<pre><code>输入：s = &quot;()[]{}&quot;
+<pre tabindex="0"><code>输入：s = &quot;()[]{}&quot;
 输出：true
 </code></pre><p><strong>示例 3：</strong></p>
-<pre><code>输入：s = &quot;(]&quot;
+<pre tabindex="0"><code>输入：s = &quot;(]&quot;
 输出：false
 </code></pre><p><strong>示例 4：</strong></p>
-<pre><code>输入：s = &quot;([)]&quot;
+<pre tabindex="0"><code>输入：s = &quot;([)]&quot;
 输出：false
 </code></pre><p><strong>示例 5：</strong></p>
-<pre><code>输入：s = &quot;{[]}&quot;
+<pre tabindex="0"><code>输入：s = &quot;{[]}&quot;
 输出：true
 </code></pre><p><strong>提示：</strong></p>
 <ul>
@@ -140,7 +140,7 @@
 <p>要点：栈</p>
 <p>思路：遇到一对就出栈，遇到错的直接返回false，其余正常入栈，最后如果栈为空说明有效</p>
 <h2 id="2c实现">2.C++实现</h2>
-<div class="highlight"><pre class="chroma"><code class="language-c++" data-lang="c++"><span class="k">class</span> <span class="nc">Solution</span> <span class="p">{</span>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="k">class</span> <span class="nc">Solution</span> <span class="p">{</span>
 <span class="k">public</span><span class="o">:</span>
     <span class="kt">bool</span> <span class="n">isValid</span><span class="p">(</span><span class="n">string</span> <span class="n">s</span><span class="p">)</span> <span class="p">{</span>
         <span class="kt">int</span> <span class="n">n</span> <span class="o">=</span> <span class="n">s</span><span class="p">.</span><span class="n">size</span><span class="p">();</span>
@@ -210,7 +210,7 @@ myQueue.empty(); // return false</p>
 <p>要点：队列</p>
 <p>思路：用两个栈模拟一个队列，一个负责进一个负责出，如果出的那个栈没元素则从进的那边拿</p>
 <h2 id="2c实现-1">2.C++实现</h2>
-<div class="highlight"><pre class="chroma"><code class="language-c++" data-lang="c++"><span class="k">class</span> <span class="nc">MyQueue</span> <span class="p">{</span>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="k">class</span> <span class="nc">MyQueue</span> <span class="p">{</span>
 <span class="k">public</span><span class="o">:</span>
     <span class="n">stack</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">s1</span><span class="p">;</span>
     <span class="n">stack</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">s2</span><span class="p">;</span>
@@ -321,7 +321,7 @@ myQueue.empty(); // return false</p>
     
     <li><a href="https://qkgoalkeeper.github.io/categories/%e5%a4%a7%e4%b8%89%e4%b8%8bweb%e7%bc%96%e7%a8%8b%e8%af%be%e7%a8%8b" title="大三下web编程课程">大三下web编程课程<sup>2</sup></a></li>
     
-    <li><a href="https://qkgoalkeeper.github.io/categories/%e5%a4%a7%e5%9b%9bleetcode%e7%ae%97%e6%b3%95%e5%88%b7%e9%a2%98" title="大四leetcode算法刷题">大四leetcode算法刷题<sup>48</sup></a></li>
+    <li><a href="https://qkgoalkeeper.github.io/categories/%e5%a4%a7%e5%9b%9bleetcode%e7%ae%97%e6%b3%95%e5%88%b7%e9%a2%98" title="大四leetcode算法刷题">大四leetcode算法刷题<sup>49</sup></a></li>
     
   </ul>
 </div>
@@ -334,11 +334,11 @@ myQueue.empty(); // return false</p>
 	<p class="asidetitle">标签</p>
 		<ul class="clearfix">
       
-			<li><a href="https://qkgoalkeeper.github.io/tags/c&#43;&#43;" title="c&#43;&#43;">c&#43;&#43;<sup>48</sup></a></li>
+			<li><a href="https://qkgoalkeeper.github.io/tags/c&#43;&#43;" title="c&#43;&#43;">c&#43;&#43;<sup>49</sup></a></li>
       
 			<li><a href="https://qkgoalkeeper.github.io/tags/javascript" title="javascript">javascript<sup>2</sup></a></li>
       
-			<li><a href="https://qkgoalkeeper.github.io/tags/leetcode" title="leetcode">leetcode<sup>118</sup></a></li>
+			<li><a href="https://qkgoalkeeper.github.io/tags/leetcode" title="leetcode">leetcode<sup>119</sup></a></li>
       
 			<li><a href="https://qkgoalkeeper.github.io/tags/%e6%95%b0%e6%8d%ae%e5%ba%93" title="数据库">数据库<sup>1</sup></a></li>
       
@@ -354,7 +354,7 @@ myQueue.empty(); // return false</p>
       
       
       <li class="archive-list-item">
-        <a class="archive-list-link" href="https://qkgoalkeeper.github.io/post/#2021-11">2021年11月</a><span class="archive-list-count">12</span>
+        <a class="archive-list-link" href="https://qkgoalkeeper.github.io/post/#2021-11">2021年11月</a><span class="archive-list-count">13</span>
       </li>
       
       
