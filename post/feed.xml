@@ -8,12 +8,21 @@
     <language>zh-CN</language>
     <lastBuildDate>Sat, 13 Nov 2021 10:55:19 +0800</lastBuildDate><atom:link href="https://qkgoalkeeper.github.io/post/feed.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>LeetCode数据结构基础第1天：树</title>
+      <title>LeetCode数据结构基础第1天：数组</title>
       <link>https://qkgoalkeeper.github.io/post/leetcode%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E5%9F%BA%E7%A1%80%E7%AC%AC1%E5%A4%A9%E6%95%B0%E7%BB%84/</link>
       <pubDate>Sat, 13 Nov 2021 10:55:19 +0800</pubDate>
       
       <guid>https://qkgoalkeeper.github.io/post/leetcode%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E5%9F%BA%E7%A1%80%E7%AC%AC1%E5%A4%A9%E6%95%B0%E7%BB%84/</guid>
       <description>一.136. 只出现一次的数字 1.题干及思路 给定一个非空整数数组，除了某个元素只出现一次以外，其余每个元素均出现两次。找出那个只出现了一次的元</description>
+    </item>
+    
+    <item>
+      <title>LeetCode数据结构基础第2天：数组</title>
+      <link>https://qkgoalkeeper.github.io/post/leetcode%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E5%9F%BA%E7%A1%80%E7%AC%AC2%E5%A4%A9%E6%95%B0%E7%BB%84/</link>
+      <pubDate>Sat, 13 Nov 2021 10:55:19 +0800</pubDate>
+      
+      <guid>https://qkgoalkeeper.github.io/post/leetcode%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E5%9F%BA%E7%A1%80%E7%AC%AC2%E5%A4%A9%E6%95%B0%E7%BB%84/</guid>
+      <description>一.75. 颜色分类 1.题干及思路 给定一个包含红色、白色和蓝色，一共 n 个元素的数组，**原地**对它们进行排序，使得相同颜色的元素相邻，并按照</description>
     </item>
     
     <item>
