@@ -2,13 +2,13 @@
 <html lang="zh-CN">
 <head>
   <meta charset="UTF-8">
-  <title>LeetCode算法入门第12天：动态规划 - qkgoalkeeper&#39;s blog</title>
+  <title>LeetCode数据结构基础第3天：数组 - qkgoalkeeper&#39;s blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=3, minimum-scale=1">
   
-  <meta name="description" content="一.70. 爬楼梯 1.题干及思路 假设你正在爬楼梯。需要 n 阶你才能到达楼顶。 每次你可以爬 1 或 2 个台阶。你有多少种不同的方法可以爬到楼顶呢？ 注意：">
+  <meta name="description" content="一.119. 杨辉三角 II 1.题干及思路 给定一个非负索引 rowIndex，返回「杨辉三角」的第 rowIndex 行。 在「杨辉三角」中，每个数是它左上方和右上方的">
   
-  <meta itemprop="name" content="LeetCode算法入门第12天：动态规划 - qkgoalkeeper&#39;s blog">
-  <meta itemprop="description" content="一.70. 爬楼梯 1.题干及思路 假设你正在爬楼梯。需要 n 阶你才能到达楼顶。 每次你可以爬 1 或 2 个台阶。你有多少种不同的方法可以爬到楼顶呢？ 注意：">
+  <meta itemprop="name" content="LeetCode数据结构基础第3天：数组 - qkgoalkeeper&#39;s blog">
+  <meta itemprop="description" content="一.119. 杨辉三角 II 1.题干及思路 给定一个非负索引 rowIndex，返回「杨辉三角」的第 rowIndex 行。 在「杨辉三角」中，每个数是它左上方和右上方的">
   <meta itemprop="image" content="https://qkgoalkeeper.github.io/img/author.jpg">
   
   
@@ -74,7 +74,7 @@
 	<article itemprop="articleBody">
     <header class="article-info clearfix">
   <h1 itemprop="name">
-      <a href="https://qkgoalkeeper.github.io/post/leetcode%E7%AE%97%E6%B3%95%E5%85%A5%E9%97%A8%E7%AC%AC12%E5%A4%A9%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/" title="LeetCode算法入门第12天：动态规划" itemprop="url">LeetCode算法入门第12天：动态规划</a>
+      <a href="https://qkgoalkeeper.github.io/post/leetcode%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E5%9F%BA%E7%A1%80%E7%AC%AC3%E5%A4%A9%E6%95%B0%E7%BB%84/" title="LeetCode数据结构基础第3天：数组" itemprop="url">LeetCode数据结构基础第3天：数组</a>
   </h1>
   <p class="article-author">By
     
@@ -82,7 +82,7 @@
     
   </p>
   <p class="article-time">
-    <time datetime="2021-10-07 17:55:19 &#43;0800 CST" itemprop="datePublished">2021年10月07日</time>
+    <time datetime="2021-11-15 10:55:19 &#43;0800 CST" itemprop="datePublished">2021年11月15日</time>
   </p>
 </header>
 
@@ -108,135 +108,126 @@
 </nav>
 		</div>
     
-    <h1 id="一70-爬楼梯httpsleetcode-cncomproblemsclimbing-stairs">一.<a href="https://leetcode-cn.com/problems/climbing-stairs/">70. 爬楼梯</a></h1>
+    <h1 id="一119-杨辉三角-iihttpsleetcode-cncomproblemspascals-triangle-ii">一.<a href="https://leetcode-cn.com/problems/pascals-triangle-ii/">119. 杨辉三角 II</a></h1>
 <h2 id="1题干及思路">1.题干及思路</h2>
-<p>假设你正在爬楼梯。需要 n 阶你才能到达楼顶。</p>
-<p>每次你可以爬 1 或 2 个台阶。你有多少种不同的方法可以爬到楼顶呢？</p>
-<p>注意：给定 n 是一个正整数。</p>
-<p>示例 1：</p>
-<p>输入： 2
-输出： 2
-解释： 有两种方法可以爬到楼顶。</p>
-<ol>
-<li>1 阶 + 1 阶</li>
-<li>2 阶
-示例 2：</li>
-</ol>
-<p>输入： 3
-输出： 3
-解释： 有三种方法可以爬到楼顶。</p>
-<ol>
-<li>1 阶 + 1 阶 + 1 阶</li>
-<li>1 阶 + 2 阶</li>
-<li>2 阶 + 1 阶</li>
-</ol>
-<p>来源：力扣（LeetCode）
-链接：https://leetcode-cn.com/problems/climbing-stairs
-著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。</p>
-<p>要点：动态规划</p>
-<p>思路：动态规划，dp[0]表示地面方法数为1，dp[1]表示第一格楼梯方法数为1，当n&gt;=2时动态规划公式是dp[n]=dp[n-2]+dp[n-1]</p>
+<p>给定一个非负索引 <code>rowIndex</code>，返回「杨辉三角」的第 <code>rowIndex</code> 行。</p>
+<p>在「杨辉三角」中，每个数是它左上方和右上方的数的和。</p>
+<p><img src="https://pic.leetcode-cn.com/1626927345-DZmfxB-PascalTriangleAnimated2.gif" alt="img"></p>
+<p><strong>示例 1:</strong></p>
+<pre tabindex="0"><code>输入: rowIndex = 3
+输出: [1,3,3,1]
+</code></pre><p><strong>示例 2:</strong></p>
+<pre tabindex="0"><code>输入: rowIndex = 0
+输出: [1]
+</code></pre><p><strong>示例 3:</strong></p>
+<pre tabindex="0"><code>输入: rowIndex = 1
+输出: [1,1]
+</code></pre><p><strong>提示:</strong></p>
+<ul>
+<li><code>0 &lt;= rowIndex &lt;= 33</code></li>
+</ul>
+<p><strong>进阶：</strong></p>
+<p>你可以优化你的算法到 <code>*O*(*rowIndex*)</code> 空间复杂度吗？</p>
+<p>要点：数组</p>
+<p>思路：用vector数组一层层模拟取目标层</p>
 <h2 id="2c实现">2.C++实现</h2>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="k">class</span> <span class="nc">Solution</span> <span class="p">{</span>
 <span class="k">public</span><span class="o">:</span>
-    <span class="kt">int</span> <span class="n">climbStairs</span><span class="p">(</span><span class="kt">int</span> <span class="n">n</span><span class="p">)</span> <span class="p">{</span>
-        <span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">dp</span><span class="p">(</span><span class="n">n</span><span class="o">+</span><span class="mi">1</span><span class="p">);</span>
-        <span class="n">dp</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">=</span><span class="mi">1</span><span class="p">;</span>
-        <span class="n">dp</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">=</span><span class="mi">1</span><span class="p">;</span>
-        <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span><span class="o">=</span><span class="mi">2</span><span class="p">;</span><span class="n">i</span><span class="o">&lt;</span><span class="n">n</span><span class="o">+</span><span class="mi">1</span><span class="p">;</span><span class="n">i</span><span class="o">++</span><span class="p">){</span>
-            <span class="n">dp</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">=</span><span class="n">dp</span><span class="p">[</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">+</span><span class="n">dp</span><span class="p">[</span><span class="n">i</span><span class="o">-</span><span class="mi">2</span><span class="p">];</span>
+    <span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">getRow</span><span class="p">(</span><span class="kt">int</span> <span class="n">rowIndex</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">answer</span><span class="p">;</span>
+        <span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">temp</span><span class="p">;</span>
+        <span class="k">if</span><span class="p">(</span><span class="n">rowIndex</span><span class="o">==</span><span class="mi">0</span><span class="p">)</span> <span class="p">{</span><span class="n">answer</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span><span class="k">return</span> <span class="n">answer</span><span class="p">;}</span>
+        <span class="n">answer</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+        <span class="n">temp</span><span class="o">=</span><span class="n">getRow</span><span class="p">(</span><span class="n">rowIndex</span><span class="o">-</span><span class="mi">1</span><span class="p">);</span>
+        <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span><span class="n">i</span><span class="o">&lt;</span><span class="n">rowIndex</span><span class="o">-</span><span class="mi">1</span><span class="p">;</span><span class="n">i</span><span class="o">++</span><span class="p">){</span>
+            <span class="n">answer</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">temp</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">+</span><span class="n">temp</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">]);</span>
         <span class="p">}</span>
-        <span class="k">return</span> <span class="n">dp</span><span class="p">[</span><span class="n">n</span><span class="p">];</span>
-
+        <span class="n">answer</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+        <span class="k">return</span> <span class="n">answer</span><span class="p">;</span>
     <span class="p">}</span>
 <span class="p">};</span>
-</code></pre></div><h1 id="二198-打家劫舍httpsleetcode-cncomproblemshouse-robber">二.<a href="https://leetcode-cn.com/problems/house-robber/">198. 打家劫舍</a></h1>
+
+</code></pre></div><h1 id="二48-旋转图像httpsleetcode-cncomproblemsrotate-image">二.<a href="https://leetcode-cn.com/problems/rotate-image/">48. 旋转图像</a></h1>
 <h2 id="1题干及思路-1">1.题干及思路</h2>
-<p>你是一个专业的小偷，计划偷窃沿街的房屋。每间房内都藏有一定的现金，影响你偷窃的唯一制约因素就是相邻的房屋装有相互连通的防盗系统，如果两间相邻的房屋在同一晚上被小偷闯入，系统会自动报警。</p>
-<p>给定一个代表每个房屋存放金额的非负整数数组，计算你 不触动警报装置的情况下 ，一夜之内能够偷窃到的最高金额。</p>
-<p>示例 1：</p>
-<p>输入：[1,2,3,1]
-输出：4
-解释：偷窃 1 号房屋 (金额 = 1) ，然后偷窃 3 号房屋 (金额 = 3)。
-偷窃到的最高金额 = 1 + 3 = 4 。
-示例 2：</p>
-<p>输入：[2,7,9,3,1]
-输出：12
-解释：偷窃 1 号房屋 (金额 = 2), 偷窃 3 号房屋 (金额 = 9)，接着偷窃 5 号房屋 (金额 = 1)。
-偷窃到的最高金额 = 2 + 9 + 1 = 12 。</p>
-<p>来源：力扣（LeetCode）
-链接：https://leetcode-cn.com/problems/house-robber
-著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。</p>
-<p>要点：动态规划</p>
-<p>思路：只有0号房时只能偷0号dp[0] = nums[0]，有0,1房时由于不能相邻应该偷0,1房中大的那个dp[1] = max(nums[0], nums[1])，当n&gt;=2时 动态规划公式是dp[i] = max(dp[i - 2] + nums[i], dp[i - 1])</p>
+<p>给定一个 <em>n</em> × <em>n</em> 的二维矩阵 <code>matrix</code> 表示一个图像。请你将图像顺时针旋转 90 度。</p>
+<p>你必须在**<a href="https://baike.baidu.com/item/%E5%8E%9F%E5%9C%B0%E7%AE%97%E6%B3%95"> 原地</a>** 旋转图像，这意味着你需要直接修改输入的二维矩阵。<strong>请不要</strong> 使用另一个矩阵来旋转图像。</p>
+<p><strong>示例 1：</strong></p>
+<p><img src="https://assets.leetcode.com/uploads/2020/08/28/mat1.jpg" alt="img"></p>
+<pre tabindex="0"><code>输入：matrix = [[1,2,3],[4,5,6],[7,8,9]]
+输出：[[7,4,1],[8,5,2],[9,6,3]]
+</code></pre><p><strong>示例 2：</strong></p>
+<p><img src="https://assets.leetcode.com/uploads/2020/08/28/mat2.jpg" alt="img"></p>
+<pre tabindex="0"><code>输入：matrix = [[5,1,9,11],[2,4,8,10],[13,3,6,7],[15,14,12,16]]
+输出：[[15,13,2,5],[14,3,4,1],[12,6,8,9],[16,7,10,11]]
+</code></pre><p><strong>示例 3：</strong></p>
+<pre tabindex="0"><code>输入：matrix = [[1]]
+输出：[[1]]
+</code></pre><p><strong>示例 4：</strong></p>
+<pre tabindex="0"><code>输入：matrix = [[1,2],[3,4]]
+输出：[[3,1],[4,2]]
+</code></pre><p><strong>提示：</strong></p>
+<ul>
+<li><code>matrix.length == n</code></li>
+<li><code>matrix[i].length == n</code></li>
+<li><code>1 &lt;= n &lt;= 20</code></li>
+<li><code>-1000 &lt;= matrix[i][j] &lt;= 1000</code></li>
+</ul>
+<p>要点：数组</p>
+<p>思路：顺时针90度等于水平翻转加主对角线翻转</p>
 <h2 id="2c实现-1">2.C++实现</h2>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="k">class</span> <span class="nc">Solution</span> <span class="p">{</span>
 <span class="k">public</span><span class="o">:</span>
-    <span class="kt">int</span> <span class="n">rob</span><span class="p">(</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;&amp;</span> <span class="n">nums</span><span class="p">)</span> <span class="p">{</span>
-        <span class="k">if</span> <span class="p">(</span><span class="n">nums</span><span class="p">.</span><span class="n">size</span><span class="p">()</span><span class="o">==</span><span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
-            <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="kt">void</span> <span class="n">rotate</span><span class="p">(</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;&gt;&amp;</span> <span class="n">matrix</span><span class="p">)</span> <span class="p">{</span>
+        <span class="kt">int</span> <span class="n">n</span> <span class="o">=</span> <span class="n">matrix</span><span class="p">.</span><span class="n">size</span><span class="p">();</span>
+        <span class="c1">// 水平翻转
+</span><span class="c1"></span>        <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">n</span> <span class="o">/</span> <span class="mi">2</span><span class="p">;</span> <span class="o">++</span><span class="n">i</span><span class="p">)</span> <span class="p">{</span>
+            <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">j</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">j</span> <span class="o">&lt;</span> <span class="n">n</span><span class="p">;</span> <span class="o">++</span><span class="n">j</span><span class="p">)</span> <span class="p">{</span>
+                <span class="n">swap</span><span class="p">(</span><span class="n">matrix</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">],</span> <span class="n">matrix</span><span class="p">[</span><span class="n">n</span> <span class="o">-</span> <span class="n">i</span> <span class="o">-</span> <span class="mi">1</span><span class="p">][</span><span class="n">j</span><span class="p">]);</span>
+            <span class="p">}</span>
         <span class="p">}</span>
-        <span class="kt">int</span> <span class="n">size</span> <span class="o">=</span> <span class="n">nums</span><span class="p">.</span><span class="n">size</span><span class="p">();</span>
-        <span class="k">if</span> <span class="p">(</span><span class="n">size</span> <span class="o">==</span> <span class="mi">1</span><span class="p">)</span> <span class="p">{</span>
-            <span class="k">return</span> <span class="n">nums</span><span class="p">[</span><span class="mi">0</span><span class="p">];</span>
+        <span class="c1">// 主对角线翻转
+</span><span class="c1"></span>        <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">n</span><span class="p">;</span> <span class="o">++</span><span class="n">i</span><span class="p">)</span> <span class="p">{</span>
+            <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">j</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">j</span> <span class="o">&lt;</span> <span class="n">i</span><span class="p">;</span> <span class="o">++</span><span class="n">j</span><span class="p">)</span> <span class="p">{</span>
+                <span class="n">swap</span><span class="p">(</span><span class="n">matrix</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">],</span> <span class="n">matrix</span><span class="p">[</span><span class="n">j</span><span class="p">][</span><span class="n">i</span><span class="p">]);</span>
+            <span class="p">}</span>
         <span class="p">}</span>
-        <span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">dp</span> <span class="o">=</span> <span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="p">(</span><span class="n">size</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
-        <span class="n">dp</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">nums</span><span class="p">[</span><span class="mi">0</span><span class="p">];</span>
-        <span class="n">dp</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">max</span><span class="p">(</span><span class="n">nums</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">nums</span><span class="p">[</span><span class="mi">1</span><span class="p">]);</span>
-        <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">2</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">size</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
-            <span class="n">dp</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">max</span><span class="p">(</span><span class="n">dp</span><span class="p">[</span><span class="n">i</span> <span class="o">-</span> <span class="mi">2</span><span class="p">]</span> <span class="o">+</span> <span class="n">nums</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">dp</span><span class="p">[</span><span class="n">i</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]);</span>
-        <span class="p">}</span>
-        <span class="k">return</span> <span class="n">dp</span><span class="p">[</span><span class="n">size</span> <span class="o">-</span> <span class="mi">1</span><span class="p">];</span>
     <span class="p">}</span>
 <span class="p">};</span>
-</code></pre></div><h1 id="三120-三角形最小路径和httpsleetcode-cncomproblemstriangle">三.<a href="https://leetcode-cn.com/problems/triangle/">120. 三角形最小路径和</a></h1>
+
+
+
+
+</code></pre></div><h1 id="三59-螺旋矩阵-iihttpsleetcode-cncomproblemsspiral-matrix-ii">三.<a href="https://leetcode-cn.com/problems/spiral-matrix-ii/">59. 螺旋矩阵 II</a></h1>
 <h2 id="1题干及思路-2">1.题干及思路</h2>
-<p>给定一个三角形 triangle ，找出自顶向下的最小路径和。</p>
-<p>每一步只能移动到下一行中相邻的结点上。相邻的结点 在这里指的是 下标 与 上一层结点下标 相同或者等于 上一层结点下标 + 1 的两个结点。也就是说，如果正位于当前行的下标 i ，那么下一步可以移动到下一行的下标 i 或 i + 1 。</p>
-<p>示例 1：</p>
-<p>输入：triangle = [[2],[3,4],[6,5,7],[4,1,8,3]]
-输出：11
-解释：如下面简图所示：
-2
-3 4
-6 5 7
-4 1 8 3
-自顶向下的最小路径和为 11（即，2 + 3 + 5 + 1 = 11）。
-示例 2：</p>
-<p>输入：triangle = [[-10]]
-输出：-10</p>
-<p>提示：</p>
-<p>1 &lt;= triangle.length &lt;= 200
-triangle[0].length == 1
-triangle[i].length == triangle[i - 1].length + 1
--104 &lt;= triangle[i][j] &lt;= 104</p>
-<p>来源：力扣（LeetCode）
-链接：https://leetcode-cn.com/problems/triangle
-著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。</p>
-<p>要点：动态规划</p>
-<p>思路：自底向上填dp数组，最后一层即为triangle[j][k]动态规划公式是dp[ j ][ k ]=triangle[j][k]+min(dp[j+1][k],dp[j+1][k+1]);</p>
+<p>给你一个正整数 <code>n</code> ，生成一个包含 <code>1</code> 到 <code>n2</code> 所有元素，且元素按顺时针顺序螺旋排列的 <code>n x n</code> 正方形矩阵 <code>matrix</code> 。</p>
+<p><strong>示例 1：</strong></p>
+<p><img src="https://assets.leetcode.com/uploads/2020/11/13/spiraln.jpg" alt="img"></p>
+<pre tabindex="0"><code>输入：n = 3
+输出：[[1,2,3],[8,9,4],[7,6,5]]
+</code></pre><p><strong>示例 2：</strong></p>
+<pre tabindex="0"><code>输入：n = 1
+输出：[[1]]
+</code></pre><p><strong>提示：</strong></p>
+<ul>
+<li><code>1 &lt;= n &lt;= 20</code></li>
+</ul>
+<p>要点：数组</p>
+<p>思路：模拟法，碰到墙转方向</p>
 <h2 id="2c实现-2">2.C++实现</h2>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="k">class</span> <span class="nc">Solution</span> <span class="p">{</span>
 <span class="k">public</span><span class="o">:</span>
-    <span class="kt">int</span> <span class="n">minimumTotal</span><span class="p">(</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;&gt;&amp;</span> <span class="n">triangle</span><span class="p">)</span> <span class="p">{</span>
-        <span class="n">vector</span><span class="o">&lt;</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;&gt;</span> <span class="n">dp</span><span class="p">;</span>
-        <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span><span class="n">i</span><span class="o">&lt;</span><span class="n">triangle</span><span class="p">.</span><span class="n">size</span><span class="p">();</span><span class="n">i</span><span class="o">++</span><span class="p">){</span>
-            <span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">temp</span><span class="p">(</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">);</span>
-            <span class="n">dp</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">temp</span><span class="p">);</span>
+    <span class="n">vector</span><span class="o">&lt;</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;&gt;</span> <span class="n">generateMatrix</span><span class="p">(</span><span class="kt">int</span> <span class="n">n</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">vector</span><span class="o">&lt;</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;&gt;</span> <span class="n">matrix</span><span class="p">(</span><span class="n">n</span><span class="p">,</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="p">(</span><span class="n">n</span><span class="p">));</span>
+        <span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">j</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="n">len</span> <span class="o">=</span> <span class="n">n</span><span class="p">,</span> <span class="n">cnt</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">x1</span><span class="p">,</span> <span class="n">y1</span><span class="p">,</span> <span class="n">x2</span><span class="p">,</span> <span class="n">y2</span><span class="p">;</span>
+        <span class="k">while</span><span class="p">(</span><span class="n">len</span><span class="o">&gt;</span><span class="mi">0</span><span class="p">){</span>
+            <span class="n">x1</span> <span class="o">=</span> <span class="n">i</span><span class="p">;</span> <span class="n">y1</span> <span class="o">=</span> <span class="n">j</span><span class="o">+</span><span class="mi">1</span><span class="p">;</span> <span class="n">x2</span> <span class="o">=</span> <span class="n">i</span> <span class="o">+</span> <span class="n">len</span> <span class="o">-</span><span class="mi">1</span><span class="p">;</span> <span class="n">y2</span> <span class="o">=</span> <span class="n">j</span> <span class="o">+</span> <span class="n">len</span><span class="p">;</span>
+            <span class="k">while</span><span class="p">(</span><span class="n">j</span><span class="o">+</span><span class="mi">1</span><span class="o">&lt;=</span><span class="n">y2</span><span class="p">)</span> <span class="n">matrix</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="o">++</span><span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="o">++</span><span class="n">cnt</span><span class="p">;</span> <span class="c1">//右
+</span><span class="c1"></span>            <span class="k">while</span><span class="p">(</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="o">&lt;=</span><span class="n">x2</span><span class="p">)</span>  <span class="n">matrix</span><span class="p">[</span><span class="o">++</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="o">++</span><span class="n">cnt</span><span class="p">;</span> <span class="c1">//下
+</span><span class="c1"></span>            <span class="k">while</span><span class="p">(</span><span class="n">j</span><span class="o">-</span><span class="mi">1</span><span class="o">&gt;=</span><span class="n">y1</span><span class="p">)</span> <span class="n">matrix</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="o">--</span><span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="o">++</span><span class="n">cnt</span><span class="p">;</span> <span class="c1">//左
+</span><span class="c1"></span>            <span class="k">while</span><span class="p">(</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="o">&gt;=</span><span class="n">x1</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span> <span class="n">matrix</span><span class="p">[</span><span class="o">--</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="o">++</span><span class="n">cnt</span><span class="p">;</span> <span class="c1">//上
+</span><span class="c1"></span>            <span class="n">len</span> <span class="o">-=</span> <span class="mi">2</span><span class="p">;</span>
         <span class="p">}</span>
-        <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">j</span><span class="o">=</span><span class="n">triangle</span><span class="p">.</span><span class="n">size</span><span class="p">()</span><span class="o">-</span><span class="mi">1</span><span class="p">;</span><span class="n">j</span><span class="o">&gt;=</span><span class="mi">0</span><span class="p">;</span><span class="n">j</span><span class="o">--</span><span class="p">){</span>
-            <span class="k">if</span><span class="p">(</span><span class="n">j</span><span class="o">==</span><span class="n">triangle</span><span class="p">.</span><span class="n">size</span><span class="p">()</span><span class="o">-</span><span class="mi">1</span><span class="p">){</span>
-                <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">k</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span><span class="n">k</span><span class="o">&lt;=</span><span class="n">j</span><span class="p">;</span><span class="n">k</span><span class="o">++</span><span class="p">){</span>
-                    <span class="n">dp</span><span class="p">[</span><span class="n">j</span><span class="p">][</span><span class="n">k</span><span class="p">]</span><span class="o">=</span><span class="n">triangle</span><span class="p">[</span><span class="n">j</span><span class="p">][</span><span class="n">k</span><span class="p">];</span>
-                <span class="p">}</span>
-            <span class="p">}</span>
-            <span class="k">else</span><span class="p">{</span>
-                <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">k</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span><span class="n">k</span><span class="o">&lt;=</span><span class="n">j</span><span class="p">;</span><span class="n">k</span><span class="o">++</span><span class="p">){</span>
-                    <span class="n">dp</span><span class="p">[</span><span class="n">j</span><span class="p">][</span><span class="n">k</span><span class="p">]</span><span class="o">=</span><span class="n">triangle</span><span class="p">[</span><span class="n">j</span><span class="p">][</span><span class="n">k</span><span class="p">]</span><span class="o">+</span><span class="n">min</span><span class="p">(</span><span class="n">dp</span><span class="p">[</span><span class="n">j</span><span class="o">+</span><span class="mi">1</span><span class="p">][</span><span class="n">k</span><span class="p">],</span><span class="n">dp</span><span class="p">[</span><span class="n">j</span><span class="o">+</span><span class="mi">1</span><span class="p">][</span><span class="n">k</span><span class="o">+</span><span class="mi">1</span><span class="p">]);</span>
-                <span class="p">}</span>
-            <span class="p">}</span>
-        <span class="p">}</span>
-        <span class="k">return</span> <span class="n">dp</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">];</span>
-
+        <span class="k">return</span> <span class="n">matrix</span><span class="p">;</span> 
     <span class="p">}</span>
 <span class="p">};</span>
 </code></pre></div>
@@ -268,7 +259,7 @@ triangle[i].length == triangle[i - 1].length + 1
 
 
   <div class="article-share" id="share">
-    <div data-url="https://qkgoalkeeper.github.io/post/leetcode%E7%AE%97%E6%B3%95%E5%85%A5%E9%97%A8%E7%AC%AC12%E5%A4%A9%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/" data-title="LeetCode算法入门第12天：动态规划" data-tsina="5852167252" class="share clearfix">
+    <div data-url="https://qkgoalkeeper.github.io/post/leetcode%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E5%9F%BA%E7%A1%80%E7%AC%AC3%E5%A4%A9%E6%95%B0%E7%BB%84/" data-title="LeetCode数据结构基础第3天：数组" data-tsina="5852167252" class="share clearfix">
     </div>
   </div>
 </footer>
