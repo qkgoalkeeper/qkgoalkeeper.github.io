@@ -6,7 +6,16 @@
     <description>Recent content in LeetCode on qkgoalkeeper&#39;s blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
-    <lastBuildDate>Tue, 16 Nov 2021 10:55:19 +0800</lastBuildDate><atom:link href="https://qkgoalkeeper.github.io/tags/leetcode/feed.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 17 Nov 2021 10:55:19 +0800</lastBuildDate><atom:link href="https://qkgoalkeeper.github.io/tags/leetcode/feed.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>LeetCode数据结构基础第5天：数组</title>
+      <link>https://qkgoalkeeper.github.io/post/leetcode%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E5%9F%BA%E7%A1%80%E7%AC%AC5%E5%A4%A9%E6%95%B0%E7%BB%84/</link>
+      <pubDate>Wed, 17 Nov 2021 10:55:19 +0800</pubDate>
+      
+      <guid>https://qkgoalkeeper.github.io/post/leetcode%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E5%9F%BA%E7%A1%80%E7%AC%AC5%E5%A4%A9%E6%95%B0%E7%BB%84/</guid>
+      <description>一.334. 递增的三元子序列 1.题干及思路 给你一个整数数组 nums ，判断这个数组中是否存在长度为 3 的递增子序列。 如果存在这样的三元组下标 (i, j, k) 且满</description>
+    </item>
+    
     <item>
       <title>LeetCode数据结构基础第4天：数组</title>
       <link>https://qkgoalkeeper.github.io/post/leetcode%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E5%9F%BA%E7%A1%80%E7%AC%AC4%E5%A4%A9%E6%95%B0%E7%BB%84/</link>
