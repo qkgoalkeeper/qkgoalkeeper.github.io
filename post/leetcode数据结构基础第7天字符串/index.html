@@ -2,13 +2,13 @@
 <html lang="zh-CN">
 <head>
   <meta charset="UTF-8">
-  <title>LeetCode数据结构入门第3天：数组 - qkgoalkeeper&#39;s blog</title>
+  <title>LeetCode数据结构基础第7天：字符串 - qkgoalkeeper&#39;s blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=3, minimum-scale=1">
   
-  <meta name="description" content="一.350. 两个数组的交集 II 1.题干及思路 给定两个数组，编写一个函数来计算它们的交集。 示例 1： 输入：nums1 = [1,2,2,1], nums2 = [2,2] 输出：[2,2] 示例">
+  <meta name="description" content="一.290. 单词规律 1.题干及思路 给定一种规律 pattern 和一个字符串 str ，判断 str 是否遵循相同的规律。 这里的 遵循 指完全匹配，例如， pattern 里的每个字母和字符串">
   
-  <meta itemprop="name" content="LeetCode数据结构入门第3天：数组 - qkgoalkeeper&#39;s blog">
-  <meta itemprop="description" content="一.350. 两个数组的交集 II 1.题干及思路 给定两个数组，编写一个函数来计算它们的交集。 示例 1： 输入：nums1 = [1,2,2,1], nums2 = [2,2] 输出：[2,2] 示例">
+  <meta itemprop="name" content="LeetCode数据结构基础第7天：字符串 - qkgoalkeeper&#39;s blog">
+  <meta itemprop="description" content="一.290. 单词规律 1.题干及思路 给定一种规律 pattern 和一个字符串 str ，判断 str 是否遵循相同的规律。 这里的 遵循 指完全匹配，例如， pattern 里的每个字母和字符串">
   <meta itemprop="image" content="https://qkgoalkeeper.github.io/img/author.jpg">
   
   
@@ -74,7 +74,7 @@
 	<article itemprop="articleBody">
     <header class="article-info clearfix">
   <h1 itemprop="name">
-      <a href="https://qkgoalkeeper.github.io/post/leetcode%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E5%85%A5%E9%97%A8%E7%AC%AC3%E5%A4%A9%E6%95%B0%E7%BB%84/" title="LeetCode数据结构入门第3天：数组" itemprop="url">LeetCode数据结构入门第3天：数组</a>
+      <a href="https://qkgoalkeeper.github.io/post/leetcode%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E5%9F%BA%E7%A1%80%E7%AC%AC7%E5%A4%A9%E5%AD%97%E7%AC%A6%E4%B8%B2/" title="LeetCode数据结构基础第7天：字符串" itemprop="url">LeetCode数据结构基础第7天：字符串</a>
   </h1>
   <p class="article-author">By
     
@@ -82,7 +82,7 @@
     
   </p>
   <p class="article-time">
-    <time datetime="2021-11-01 09:55:19 &#43;0800 CST" itemprop="datePublished">2021年11月01日</time>
+    <time datetime="2021-11-19 10:55:19 &#43;0800 CST" itemprop="datePublished">2021年11月19日</time>
   </p>
 </header>
 
@@ -103,89 +103,123 @@
 </nav>
 		</div>
     
-    <h1 id="一350-两个数组的交集-iihttpsleetcode-cncomproblemsintersection-of-two-arrays-ii">一.<a href="https://leetcode-cn.com/problems/intersection-of-two-arrays-ii/">350. 两个数组的交集 II</a></h1>
+    <h1 id="一290-单词规律httpsleetcode-cncomproblemsword-pattern">一.<a href="https://leetcode-cn.com/problems/word-pattern/">290. 单词规律</a></h1>
 <h2 id="1题干及思路">1.题干及思路</h2>
-<p>给定两个数组，编写一个函数来计算它们的交集。</p>
-<p>示例 1：</p>
-<p>输入：nums1 = [1,2,2,1], nums2 = [2,2]
-输出：[2,2]
-示例 2:</p>
-<p>输入：nums1 = [4,9,5], nums2 = [9,4,9,8,4]
-输出：[4,9]</p>
-<p>说明：</p>
-<p>输出结果中每个元素出现的次数，应与元素在两个数组中出现次数的最小值一致。
-我们可以不考虑输出结果的顺序。
-进阶：</p>
-<p>如果给定的数组已经排好序呢？你将如何优化你的算法？
-如果 nums1 的大小比 nums2 小很多，哪种方法更优？
-如果 nums2 的元素存储在磁盘上，内存是有限的，并且你不能一次加载所有的元素到内存中，你该怎么办？</p>
-<p>来源：力扣（LeetCode）
-链接：https://leetcode-cn.com/problems/intersection-of-two-arrays-ii
-著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。</p>
-<p>要点：数组</p>
-<p>思路：排序然后双指针查找</p>
+<p>给定一种规律 <code>pattern</code> 和一个字符串 <code>str</code> ，判断 <code>str</code> 是否遵循相同的规律。</p>
+<p>这里的 <strong>遵循</strong> 指完全匹配，例如， <code>pattern</code> 里的每个字母和字符串 <code>str</code> 中的每个非空单词之间存在着双向连接的对应规律。</p>
+<p><strong>示例1:</strong></p>
+<pre tabindex="0"><code>输入: pattern = &quot;abba&quot;, str = &quot;dog cat cat dog&quot;
+输出: true
+</code></pre><p><strong>示例 2:</strong></p>
+<pre tabindex="0"><code>输入:pattern = &quot;abba&quot;, str = &quot;dog cat cat fish&quot;
+输出: false
+</code></pre><p><strong>示例 3:</strong></p>
+<pre tabindex="0"><code>输入: pattern = &quot;aaaa&quot;, str = &quot;dog cat cat dog&quot;
+输出: false
+</code></pre><p><strong>示例 4:</strong></p>
+<pre tabindex="0"><code>输入: pattern = &quot;abba&quot;, str = &quot;dog dog dog dog&quot;
+输出: false
+</code></pre><p><strong>说明:</strong>
+你可以假设 <code>pattern</code> 只包含小写字母， <code>str</code> 包含了由单个空格分隔的小写字母。</p>
+<p>要点：字符串</p>
+<p>思路：自己写一个split函数，两个哈希表分别查找key有没有重复以及value有没有重复</p>
 <h2 id="2c实现">2.C++实现</h2>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="k">class</span> <span class="nc">Solution</span> <span class="p">{</span>
 <span class="k">public</span><span class="o">:</span>
-    <span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">intersect</span><span class="p">(</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;&amp;</span> <span class="n">nums1</span><span class="p">,</span> <span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;&amp;</span> <span class="n">nums2</span><span class="p">)</span> <span class="p">{</span>
-        <span class="n">sort</span><span class="p">(</span><span class="n">nums1</span><span class="p">.</span><span class="n">begin</span><span class="p">(),</span><span class="n">nums1</span><span class="p">.</span><span class="n">end</span><span class="p">());</span>
-        <span class="n">sort</span><span class="p">(</span><span class="n">nums2</span><span class="p">.</span><span class="n">begin</span><span class="p">(),</span><span class="n">nums2</span><span class="p">.</span><span class="n">end</span><span class="p">());</span>
+    <span class="n">vector</span><span class="o">&lt;</span><span class="n">string</span><span class="o">&gt;</span> <span class="n">split</span><span class="p">(</span><span class="n">string</span> <span class="n">s</span><span class="p">){</span>
+        <span class="n">vector</span><span class="o">&lt;</span><span class="n">string</span><span class="o">&gt;</span> <span class="n">answer</span><span class="p">;</span>
+        <span class="kt">int</span> <span class="n">size</span> <span class="o">=</span> <span class="n">s</span><span class="p">.</span><span class="n">size</span><span class="p">();</span>
         <span class="kt">int</span> <span class="n">i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span>
-        <span class="kt">int</span> <span class="n">j</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span>
-        <span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">answer</span><span class="p">;</span>
-        <span class="k">while</span><span class="p">(</span><span class="n">i</span><span class="o">&lt;</span><span class="n">nums1</span><span class="p">.</span><span class="n">size</span><span class="p">()</span><span class="o">&amp;&amp;</span><span class="n">j</span><span class="o">&lt;</span><span class="n">nums2</span><span class="p">.</span><span class="n">size</span><span class="p">()){</span>
-            <span class="k">if</span><span class="p">(</span><span class="n">nums1</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">==</span><span class="n">nums2</span><span class="p">[</span><span class="n">j</span><span class="p">]){</span>
-                <span class="n">answer</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">nums1</span><span class="p">[</span><span class="n">i</span><span class="p">]);</span>
-                <span class="n">i</span><span class="o">++</span><span class="p">;</span>
+        <span class="k">while</span><span class="p">(</span><span class="n">s</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">==</span><span class="sc">&#39; &#39;</span><span class="p">){</span>
+            <span class="n">i</span><span class="o">++</span><span class="p">;</span>
+        <span class="p">}</span>
+        <span class="k">while</span><span class="p">(</span><span class="n">i</span><span class="o">&lt;</span><span class="n">size</span><span class="p">){</span>
+            <span class="kt">int</span> <span class="n">j</span> <span class="o">=</span> <span class="n">i</span><span class="p">;</span>
+            <span class="k">while</span><span class="p">(</span><span class="n">s</span><span class="p">[</span><span class="n">j</span><span class="p">]</span><span class="o">!=</span><span class="sc">&#39; &#39;</span><span class="o">&amp;&amp;</span><span class="n">j</span><span class="o">&lt;</span><span class="n">size</span><span class="p">){</span>
                 <span class="n">j</span><span class="o">++</span><span class="p">;</span>
             <span class="p">}</span>
-            <span class="k">else</span> <span class="nf">if</span><span class="p">(</span><span class="n">nums1</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">&lt;</span><span class="n">nums2</span><span class="p">[</span><span class="n">j</span><span class="p">]){</span>
-                <span class="n">i</span><span class="o">++</span><span class="p">;</span>
-            <span class="p">}</span>
-            <span class="k">else</span><span class="p">{</span>
+            <span class="n">answer</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">s</span><span class="p">.</span><span class="n">substr</span><span class="p">(</span><span class="n">i</span><span class="p">,</span><span class="n">j</span><span class="o">-</span><span class="n">i</span><span class="p">));</span>
+            <span class="k">while</span><span class="p">(</span><span class="n">s</span><span class="p">[</span><span class="n">j</span><span class="p">]</span><span class="o">==</span><span class="sc">&#39; &#39;</span><span class="o">&amp;&amp;</span><span class="n">j</span><span class="o">&lt;</span><span class="n">size</span><span class="p">){</span>
                 <span class="n">j</span><span class="o">++</span><span class="p">;</span>
             <span class="p">}</span>
+            <span class="n">i</span> <span class="o">=</span> <span class="n">j</span><span class="p">;</span>
         <span class="p">}</span>
         <span class="k">return</span> <span class="n">answer</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="kt">bool</span> <span class="nf">wordPattern</span><span class="p">(</span><span class="n">string</span> <span class="n">pattern</span><span class="p">,</span> <span class="n">string</span> <span class="n">s</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">vector</span><span class="o">&lt;</span><span class="n">string</span><span class="o">&gt;</span> <span class="n">str</span> <span class="o">=</span> <span class="n">split</span><span class="p">(</span><span class="n">s</span><span class="p">);</span>
+        <span class="c1">//char 到 string 有没有重复
+</span><span class="c1"></span>        <span class="n">unordered_map</span><span class="o">&lt;</span><span class="kt">char</span><span class="p">,</span><span class="n">string</span><span class="o">&gt;</span> <span class="n">hmap1</span><span class="p">;</span>
+        <span class="c1">//string 到 char 有没有重复
+</span><span class="c1"></span>        <span class="n">unordered_map</span><span class="o">&lt;</span><span class="n">string</span><span class="p">,</span><span class="kt">char</span><span class="o">&gt;</span> <span class="n">hmap2</span><span class="p">;</span>
+
+        <span class="k">if</span><span class="p">(</span><span class="n">pattern</span><span class="p">.</span><span class="n">size</span><span class="p">()</span><span class="o">!=</span><span class="n">str</span><span class="p">.</span><span class="n">size</span><span class="p">()){</span>
+            <span class="k">return</span> <span class="nb">false</span><span class="p">;</span>
+        <span class="p">}</span>
+
+        <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span><span class="n">i</span><span class="o">&lt;</span><span class="n">pattern</span><span class="p">.</span><span class="n">size</span><span class="p">();</span><span class="n">i</span><span class="o">++</span><span class="p">){</span>
+            <span class="k">if</span><span class="p">(</span><span class="n">hmap1</span><span class="p">.</span><span class="n">find</span><span class="p">(</span><span class="n">pattern</span><span class="p">[</span><span class="n">i</span><span class="p">])</span><span class="o">==</span><span class="n">hmap1</span><span class="p">.</span><span class="n">end</span><span class="p">()){</span>
+                <span class="n">hmap1</span><span class="p">[</span><span class="n">pattern</span><span class="p">[</span><span class="n">i</span><span class="p">]]</span> <span class="o">=</span> <span class="n">str</span><span class="p">[</span><span class="n">i</span><span class="p">];</span>
+            <span class="p">}</span>
+            <span class="k">else</span><span class="p">{</span>
+                <span class="k">if</span><span class="p">(</span><span class="n">hmap1</span><span class="p">[</span><span class="n">pattern</span><span class="p">[</span><span class="n">i</span><span class="p">]]</span><span class="o">!=</span><span class="n">str</span><span class="p">[</span><span class="n">i</span><span class="p">]){</span>
+                    <span class="k">return</span> <span class="nb">false</span><span class="p">;</span>
+                <span class="p">}</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+
+        <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span><span class="n">i</span><span class="o">&lt;</span><span class="n">str</span><span class="p">.</span><span class="n">size</span><span class="p">();</span><span class="n">i</span><span class="o">++</span><span class="p">){</span>
+            <span class="k">if</span><span class="p">(</span><span class="n">hmap2</span><span class="p">.</span><span class="n">find</span><span class="p">(</span><span class="n">str</span><span class="p">[</span><span class="n">i</span><span class="p">])</span><span class="o">==</span><span class="n">hmap2</span><span class="p">.</span><span class="n">end</span><span class="p">()){</span>
+                <span class="n">hmap2</span><span class="p">[</span><span class="n">str</span><span class="p">[</span><span class="n">i</span><span class="p">]]</span> <span class="o">=</span> <span class="n">pattern</span><span class="p">[</span><span class="n">i</span><span class="p">];</span>
+            <span class="p">}</span>
+            <span class="k">else</span><span class="p">{</span>
+                <span class="k">if</span><span class="p">(</span><span class="n">hmap2</span><span class="p">[</span><span class="n">str</span><span class="p">[</span><span class="n">i</span><span class="p">]]</span><span class="o">!=</span><span class="n">pattern</span><span class="p">[</span><span class="n">i</span><span class="p">]){</span>
+                    <span class="k">return</span> <span class="nb">false</span><span class="p">;</span>
+                <span class="p">}</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+
+        <span class="k">return</span> <span class="nb">true</span><span class="p">;</span>
 
     <span class="p">}</span>
 <span class="p">};</span>
-</code></pre></div><h1 id="二121-买卖股票的最佳时机httpsleetcode-cncomproblemsbest-time-to-buy-and-sell-stock">二.<a href="https://leetcode-cn.com/problems/best-time-to-buy-and-sell-stock/">121. 买卖股票的最佳时机</a></h1>
+</code></pre></div><h1 id="二763-划分字母区间httpsleetcode-cncomproblemspartition-labels">二.<a href="https://leetcode-cn.com/problems/partition-labels/">763. 划分字母区间</a></h1>
 <h2 id="1题干及思路-1">1.题干及思路</h2>
-<p>给定一个数组 prices ，它的第 i 个元素 prices[i] 表示一支给定股票第 i 天的价格。</p>
-<p>你只能选择 某一天 买入这只股票，并选择在 未来的某一个不同的日子 卖出该股票。设计一个算法来计算你所能获取的最大利润。</p>
-<p>返回你可以从这笔交易中获取的最大利润。如果你不能获取任何利润，返回 0 。</p>
-<p>示例 1：</p>
-<p>输入：[7,1,5,3,6,4]
-输出：5
-解释：在第 2 天（股票价格 = 1）的时候买入，在第 5 天（股票价格 = 6）的时候卖出，最大利润 = 6-1 = 5 。
-注意利润不能是 7-1 = 6, 因为卖出价格需要大于买入价格；同时，你不能在买入前卖出股票。
-示例 2：</p>
-<p>输入：prices = [7,6,4,3,1]
-输出：0
-解释：在这种情况下, 没有交易完成, 所以最大利润为 0。</p>
-<p>提示：</p>
-<p>1 &lt;= prices.length &lt;= 105
-0 &lt;= prices[i] &lt;= 104</p>
-<p>来源：力扣（LeetCode）
-链接：https://leetcode-cn.com/problems/best-time-to-buy-and-sell-stock
-著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。</p>
-<p>要点：数组</p>
-<p>思路：动态规划，遍历时记录最小值minprice = min(minprice, prices[i]);，更新dp数组转移方程为dp[i] = max(dp[i - 1], prices[i] - minprice);</p>
+<p>字符串 <code>S</code> 由小写字母组成。我们要把这个字符串划分为尽可能多的片段，同一字母最多出现在一个片段中。返回一个表示每个字符串片段的长度的列表。</p>
+<p><strong>示例：</strong></p>
+<pre tabindex="0"><code>输入：S = &quot;ababcbacadefegdehijhklij&quot;
+输出：[9,7,8]
+解释：
+划分结果为 &quot;ababcbaca&quot;, &quot;defegde&quot;, &quot;hijhklij&quot;。
+每个字母最多出现在一个片段中。
+像 &quot;ababcbacadefegde&quot;, &quot;hijhklij&quot; 的划分是错误的，因为划分的片段数较少。
+</code></pre><p><strong>提示：</strong></p>
+<ul>
+<li><code>S</code>的长度在<code>[1, 500]</code>之间。</li>
+<li><code>S</code>只包含小写字母 <code>'a'</code> 到 <code>'z'</code> 。</li>
+</ul>
+<p>要点：字符串</p>
+<p>思路：贪心算法，哈希表存每个元素最后出现的位置，max(end, last[s[i] - &lsquo;a&rsquo;])这句话是贪心算法的关键，当前值等于串中出现的最last的值就push_back</p>
 <h2 id="2c实现-1">2.C++实现</h2>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="k">class</span> <span class="nc">Solution</span> <span class="p">{</span>
 <span class="k">public</span><span class="o">:</span>
-    <span class="kt">int</span> <span class="n">maxProfit</span><span class="p">(</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;&amp;</span> <span class="n">prices</span><span class="p">)</span> <span class="p">{</span>
-        <span class="kt">int</span> <span class="n">n</span> <span class="o">=</span> <span class="n">prices</span><span class="p">.</span><span class="n">size</span><span class="p">();</span>
-        <span class="k">if</span> <span class="p">(</span><span class="n">n</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="k">return</span> <span class="mi">0</span><span class="p">;</span> 
-        <span class="kt">int</span> <span class="n">minprice</span> <span class="o">=</span> <span class="n">prices</span><span class="p">[</span><span class="mi">0</span><span class="p">];</span>
-        <span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">dp</span> <span class="p">(</span><span class="n">n</span><span class="p">);</span>
-
-        <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">n</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">){</span>
-            <span class="n">minprice</span> <span class="o">=</span> <span class="n">min</span><span class="p">(</span><span class="n">minprice</span><span class="p">,</span> <span class="n">prices</span><span class="p">[</span><span class="n">i</span><span class="p">]);</span>
-            <span class="n">dp</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">max</span><span class="p">(</span><span class="n">dp</span><span class="p">[</span><span class="n">i</span> <span class="o">-</span> <span class="mi">1</span><span class="p">],</span> <span class="n">prices</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">-</span> <span class="n">minprice</span><span class="p">);</span>
+    <span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">partitionLabels</span><span class="p">(</span><span class="n">string</span> <span class="n">s</span><span class="p">)</span> <span class="p">{</span>
+        <span class="kt">int</span> <span class="n">last</span><span class="p">[</span><span class="mi">26</span><span class="p">];</span>
+        <span class="kt">int</span> <span class="n">length</span> <span class="o">=</span> <span class="n">s</span><span class="p">.</span><span class="n">size</span><span class="p">();</span>
+        <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">length</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+            <span class="n">last</span><span class="p">[</span><span class="n">s</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">-</span> <span class="sc">&#39;a&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">i</span><span class="p">;</span>
         <span class="p">}</span>
-        <span class="k">return</span> <span class="n">dp</span><span class="p">[</span><span class="n">n</span> <span class="o">-</span> <span class="mi">1</span><span class="p">];</span>
+        <span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">partition</span><span class="p">;</span>
+        <span class="kt">int</span> <span class="n">start</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">end</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+        <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">length</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+            <span class="n">end</span> <span class="o">=</span> <span class="n">max</span><span class="p">(</span><span class="n">end</span><span class="p">,</span> <span class="n">last</span><span class="p">[</span><span class="n">s</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">-</span> <span class="sc">&#39;a&#39;</span><span class="p">]);</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">i</span> <span class="o">==</span> <span class="n">end</span><span class="p">)</span> <span class="p">{</span>
+                <span class="n">partition</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">end</span> <span class="o">-</span> <span class="n">start</span> <span class="o">+</span> <span class="mi">1</span><span class="p">);</span>
+                <span class="n">start</span> <span class="o">=</span> <span class="n">end</span> <span class="o">+</span> <span class="mi">1</span><span class="p">;</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+        <span class="k">return</span> <span class="n">partition</span><span class="p">;</span>
     <span class="p">}</span>
 <span class="p">};</span>
 
@@ -218,7 +252,7 @@
 
 
   <div class="article-share" id="share">
-    <div data-url="https://qkgoalkeeper.github.io/post/leetcode%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E5%85%A5%E9%97%A8%E7%AC%AC3%E5%A4%A9%E6%95%B0%E7%BB%84/" data-title="LeetCode数据结构入门第3天：数组" data-tsina="5852167252" class="share clearfix">
+    <div data-url="https://qkgoalkeeper.github.io/post/leetcode%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E5%9F%BA%E7%A1%80%E7%AC%AC7%E5%A4%A9%E5%AD%97%E7%AC%A6%E4%B8%B2/" data-title="LeetCode数据结构基础第7天：字符串" data-tsina="5852167252" class="share clearfix">
     </div>
   </div>
 </footer>
