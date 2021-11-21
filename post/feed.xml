@@ -6,7 +6,16 @@
     <description>Recent content in Posts on qkgoalkeeper&#39;s blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
-    <lastBuildDate>Sat, 20 Nov 2021 10:55:19 +0800</lastBuildDate><atom:link href="https://qkgoalkeeper.github.io/post/feed.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 21 Nov 2021 10:55:19 +0800</lastBuildDate><atom:link href="https://qkgoalkeeper.github.io/post/feed.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>LeetCode数据结构基础第9天：字符串</title>
+      <link>https://qkgoalkeeper.github.io/post/leetcode%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E5%9F%BA%E7%A1%80%E7%AC%AC9%E5%A4%A9%E5%AD%97%E7%AC%A6%E4%B8%B2/</link>
+      <pubDate>Sun, 21 Nov 2021 10:55:19 +0800</pubDate>
+      
+      <guid>https://qkgoalkeeper.github.io/post/leetcode%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E5%9F%BA%E7%A1%80%E7%AC%AC9%E5%A4%A9%E5%AD%97%E7%AC%A6%E4%B8%B2/</guid>
+      <description>一.187. 重复的DNA序列 1.题干及思路 所有 DNA 都由一系列缩写为 &#39;A&#39;，&#39;C&#39;，&#39;G&#39; 和 &#39;T&#39; 的核苷酸组成，例如：&amp;quot;ACGAATTCC</description>
+    </item>
+    
     <item>
       <title>LeetCode数据结构基础第8天：字符串</title>
       <link>https://qkgoalkeeper.github.io/post/leetcode%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E5%9F%BA%E7%A1%80%E7%AC%AC8%E5%A4%A9%E5%AD%97%E7%AC%A6%E4%B8%B2/</link>
