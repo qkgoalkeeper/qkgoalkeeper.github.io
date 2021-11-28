@@ -6,7 +6,16 @@
     <description>Recent content in LeetCode on qkgoalkeeper&#39;s blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
-    <lastBuildDate>Sat, 27 Nov 2021 10:55:19 +0800</lastBuildDate><atom:link href="https://qkgoalkeeper.github.io/tags/leetcode/feed.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 28 Nov 2021 10:55:19 +0800</lastBuildDate><atom:link href="https://qkgoalkeeper.github.io/tags/leetcode/feed.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>LeetCode数据结构基础第16天：树</title>
+      <link>https://qkgoalkeeper.github.io/post/leetcode%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E5%9F%BA%E7%A1%80%E7%AC%AC16%E5%A4%A9%E6%A0%91/</link>
+      <pubDate>Sun, 28 Nov 2021 10:55:19 +0800</pubDate>
+      
+      <guid>https://qkgoalkeeper.github.io/post/leetcode%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E5%9F%BA%E7%A1%80%E7%AC%AC16%E5%A4%A9%E6%A0%91/</guid>
+      <description>一.199. 二叉树的右视图 1.题干及思路 给定一个二叉树的 根节点 root，想象自己站在它的右侧，按照从顶部到底部的顺序，返回从右侧所能看到的节</description>
+    </item>
+    
     <item>
       <title>LeetCode数据结构基础第15天：树</title>
       <link>https://qkgoalkeeper.github.io/post/leetcode%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E5%9F%BA%E7%A1%80%E7%AC%AC15%E5%A4%A9%E6%A0%91/</link>
