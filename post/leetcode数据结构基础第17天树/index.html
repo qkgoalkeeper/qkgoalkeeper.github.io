@@ -2,13 +2,13 @@
 <html lang="zh-CN">
 <head>
   <meta charset="UTF-8">
-  <title>LeetCode数据结构入门第7天：链表 - qkgoalkeeper&#39;s blog</title>
+  <title>LeetCode数据结构基础第17天：树 - qkgoalkeeper&#39;s blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=3, minimum-scale=1">
   
-  <meta name="description" content="一.141. 环形链表 1.题干及思路 给定一个链表，判断链表中是否有环。 如果链表中有某个节点，可以通过连续跟踪 next 指针再次到达，则链表中存在环。 为">
+  <meta name="description" content="一.230. 二叉搜索树中第K小的元素 1.题干及思路 给定一个二叉搜索树的根节点 root ，和一个整数 k ，请你设计一个算法查找其中第 k 个最小元素（从 1 开">
   
-  <meta itemprop="name" content="LeetCode数据结构入门第7天：链表 - qkgoalkeeper&#39;s blog">
-  <meta itemprop="description" content="一.141. 环形链表 1.题干及思路 给定一个链表，判断链表中是否有环。 如果链表中有某个节点，可以通过连续跟踪 next 指针再次到达，则链表中存在环。 为">
+  <meta itemprop="name" content="LeetCode数据结构基础第17天：树 - qkgoalkeeper&#39;s blog">
+  <meta itemprop="description" content="一.230. 二叉搜索树中第K小的元素 1.题干及思路 给定一个二叉搜索树的根节点 root ，和一个整数 k ，请你设计一个算法查找其中第 k 个最小元素（从 1 开">
   <meta itemprop="image" content="https://qkgoalkeeper.github.io/img/author.jpg">
   
   
@@ -74,7 +74,7 @@
 	<article itemprop="articleBody">
     <header class="article-info clearfix">
   <h1 itemprop="name">
-      <a href="https://qkgoalkeeper.github.io/post/leetcode%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E5%85%A5%E9%97%A8%E7%AC%AC7%E5%A4%A9%E9%93%BE%E8%A1%A8/" title="LeetCode数据结构入门第7天：链表" itemprop="url">LeetCode数据结构入门第7天：链表</a>
+      <a href="https://qkgoalkeeper.github.io/post/leetcode%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E5%9F%BA%E7%A1%80%E7%AC%AC17%E5%A4%A9%E6%A0%91/" title="LeetCode数据结构基础第17天：树" itemprop="url">LeetCode数据结构基础第17天：树</a>
   </h1>
   <p class="article-author">By
     
@@ -82,7 +82,7 @@
     
   </p>
   <p class="article-time">
-    <time datetime="2021-11-05 09:55:19 &#43;0800 CST" itemprop="datePublished">2021年11月05日</time>
+    <time datetime="2021-11-29 10:55:19 &#43;0800 CST" itemprop="datePublished">2021年11月29日</time>
   </p>
 </header>
 
@@ -100,172 +100,156 @@
     <li><a href="#1题干及思路-1">1.题干及思路</a></li>
     <li><a href="#2c实现-1">2.C++实现</a></li>
   </ul>
-
-  <ul>
-    <li><a href="#1题干及思路-2">1.题干及思路</a></li>
-    <li><a href="#2c实现-2">2.C++实现</a></li>
-  </ul>
 </nav>
 		</div>
     
-    <h1 id="一141-环形链表httpsleetcode-cncomproblemslinked-list-cycle">一.<a href="https://leetcode-cn.com/problems/linked-list-cycle/">141. 环形链表</a></h1>
+    <h1 id="一230-二叉搜索树中第k小的元素httpsleetcode-cncomproblemskth-smallest-element-in-a-bst">一.<a href="https://leetcode-cn.com/problems/kth-smallest-element-in-a-bst/">230. 二叉搜索树中第K小的元素</a></h1>
 <h2 id="1题干及思路">1.题干及思路</h2>
-<p>给定一个链表，判断链表中是否有环。</p>
-<p>如果链表中有某个节点，可以通过连续跟踪 next 指针再次到达，则链表中存在环。 为了表示给定链表中的环，我们使用整数 pos 来表示链表尾连接到链表中的位置（索引从 0 开始）。 如果 pos 是 -1，则在该链表中没有环。注意：pos 不作为参数进行传递，仅仅是为了标识链表的实际情况。</p>
-<p>如果链表中存在环，则返回 true 。 否则，返回 false 。</p>
-<p>进阶：</p>
-<p>你能用 O(1)（即，常量）内存解决此问题吗？</p>
-<p>示例 1：</p>
-<p>输入：head = [3,2,0,-4], pos = 1
-输出：true
-解释：链表中有一个环，其尾部连接到第二个节点。
-示例 2：</p>
-<p>输入：head = [1,2], pos = 0
-输出：true
-解释：链表中有一个环，其尾部连接到第一个节点。
-示例 3：</p>
-<p>输入：head = [1], pos = -1
-输出：false
-解释：链表中没有环。</p>
-<p>提示：</p>
-<p>链表中节点的数目范围是 [0, 104]
--105 &lt;= Node.val &lt;= 105
-pos 为 -1 或者链表中的一个 有效索引 。</p>
-<p>来源：力扣（LeetCode）
-链接：https://leetcode-cn.com/problems/linked-list-cycle
-著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。</p>
-<p>要点：链表</p>
-<p>思路：快慢指针指向链表头，一个走两步一个走一步，如果相撞就有环</p>
+<p>给定一个二叉搜索树的根节点 <code>root</code> ，和一个整数 <code>k</code> ，请你设计一个算法查找其中第 <code>k</code> 个最小元素（从 1 开始计数）。</p>
+<p><strong>示例 1：</strong></p>
+<p><img src="https://assets.leetcode.com/uploads/2021/01/28/kthtree1.jpg" alt="img"></p>
+<pre tabindex="0"><code>输入：root = [3,1,4,null,2], k = 1
+输出：1
+</code></pre><p><strong>示例 2：</strong></p>
+<p><img src="https://assets.leetcode.com/uploads/2021/01/28/kthtree2.jpg" alt="img"></p>
+<pre tabindex="0"><code>输入：root = [5,3,6,2,4,null,null,1], k = 3
+输出：3
+</code></pre><p><strong>提示：</strong></p>
+<ul>
+<li>树中的节点数为 <code>n</code> 。</li>
+<li><code>1 &lt;= k &lt;= n &lt;= 104</code></li>
+<li><code>0 &lt;= Node.val &lt;= 104</code></li>
+</ul>
+<p>**进阶：**如果二叉搜索树经常被修改（插入/删除操作）并且你需要频繁地查找第 <code>k</code> 小的值，你将如何优化算法？</p>
+<p>要点：树</p>
+<p>思路：中序遍历的第k个数即为答案，找到就返回不用遍历完所有</p>
 <h2 id="2c实现">2.C++实现</h2>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="cm">/**
-</span><span class="cm"> * Definition for singly-linked list.
-</span><span class="cm"> * struct ListNode {
+</span><span class="cm"> * Definition for a binary tree node.
+</span><span class="cm"> * struct TreeNode {
 </span><span class="cm"> *     int val;
-</span><span class="cm"> *     ListNode *next;
-</span><span class="cm"> *     ListNode(int x) : val(x), next(NULL) {}
+</span><span class="cm"> *     TreeNode *left;
+</span><span class="cm"> *     TreeNode *right;
+</span><span class="cm"> *     TreeNode() : val(0), left(nullptr), right(nullptr) {}
+</span><span class="cm"> *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+</span><span class="cm"> *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
 </span><span class="cm"> * };
 </span><span class="cm"> */</span>
 <span class="k">class</span> <span class="nc">Solution</span> <span class="p">{</span>
-<span class="k">public</span><span class="o">:</span>
-    <span class="kt">bool</span> <span class="n">hasCycle</span><span class="p">(</span><span class="n">ListNode</span> <span class="o">*</span><span class="n">head</span><span class="p">)</span> <span class="p">{</span>
-        <span class="n">ListNode</span><span class="o">*</span> <span class="n">slow</span> <span class="o">=</span> <span class="n">head</span><span class="p">;</span>
-        <span class="n">ListNode</span><span class="o">*</span> <span class="n">fast</span> <span class="o">=</span> <span class="n">head</span><span class="p">;</span>
-        <span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="n">fast</span><span class="o">||!</span><span class="n">fast</span><span class="o">-&gt;</span><span class="n">next</span><span class="p">)</span> <span class="k">return</span> <span class="nb">false</span><span class="p">;</span>
-        <span class="k">while</span><span class="p">(</span><span class="n">fast</span><span class="p">){</span>
-            <span class="n">fast</span> <span class="o">=</span> <span class="n">fast</span><span class="o">-&gt;</span><span class="n">next</span><span class="p">;</span>
-            <span class="n">slow</span> <span class="o">=</span> <span class="n">slow</span><span class="o">-&gt;</span><span class="n">next</span><span class="p">;</span>
-            <span class="k">if</span><span class="p">(</span><span class="n">fast</span><span class="p">){</span>
-                <span class="n">fast</span> <span class="o">=</span> <span class="n">fast</span><span class="o">-&gt;</span><span class="n">next</span><span class="p">;</span>
-            <span class="p">}</span>
-            <span class="k">if</span><span class="p">(</span><span class="n">fast</span><span class="o">==</span><span class="n">slow</span><span class="p">)</span> <span class="k">return</span> <span class="nb">true</span><span class="p">;</span>
-        <span class="p">}</span>
-        <span class="k">return</span> <span class="nb">false</span><span class="p">;</span>
-        
-    <span class="p">}</span>
-<span class="p">};</span>
 
-</code></pre></div><h1 id="二21-合并两个有序链表httpsleetcode-cncomproblemsmerge-two-sorted-lists">二.<a href="https://leetcode-cn.com/problems/merge-two-sorted-lists/">21. 合并两个有序链表</a></h1>
+<span class="k">public</span><span class="o">:</span>
+    <span class="kt">int</span> <span class="n">answer</span><span class="p">;</span>
+    <span class="kt">int</span> <span class="n">temp</span><span class="p">;</span>
+    <span class="kt">void</span> <span class="nf">inorder</span><span class="p">(</span><span class="n">TreeNode</span><span class="o">*</span> <span class="n">root</span><span class="p">,</span><span class="kt">int</span> <span class="n">k</span><span class="p">){</span>
+        <span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="n">root</span><span class="p">)</span> <span class="k">return</span><span class="p">;</span>
+        <span class="n">inorder</span><span class="p">(</span><span class="n">root</span><span class="o">-&gt;</span><span class="n">left</span><span class="p">,</span><span class="n">k</span><span class="p">);</span>
+        <span class="n">temp</span><span class="o">++</span><span class="p">;</span>
+        <span class="k">if</span><span class="p">(</span><span class="n">temp</span><span class="o">==</span><span class="n">k</span><span class="p">){</span>
+            <span class="n">answer</span> <span class="o">=</span> <span class="n">root</span><span class="o">-&gt;</span><span class="n">val</span><span class="p">;</span>
+            <span class="k">return</span><span class="p">;</span>
+        <span class="p">}</span>
+        <span class="n">inorder</span><span class="p">(</span><span class="n">root</span><span class="o">-&gt;</span><span class="n">right</span><span class="p">,</span><span class="n">k</span><span class="p">);</span>
+    <span class="p">}</span>
+
+    <span class="kt">int</span> <span class="nf">kthSmallest</span><span class="p">(</span><span class="n">TreeNode</span><span class="o">*</span> <span class="n">root</span><span class="p">,</span> <span class="kt">int</span> <span class="n">k</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">temp</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+        <span class="n">inorder</span><span class="p">(</span><span class="n">root</span><span class="p">,</span><span class="n">k</span><span class="p">);</span>
+        <span class="k">return</span> <span class="n">answer</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">};</span>                                                                  
+</code></pre></div><h1 id="二173-二叉搜索树迭代器httpsleetcode-cncomproblemsbinary-search-tree-iterator">二.<a href="https://leetcode-cn.com/problems/binary-search-tree-iterator/">173. 二叉搜索树迭代器</a></h1>
 <h2 id="1题干及思路-1">1.题干及思路</h2>
-<p>将两个升序链表合并为一个新的 升序 链表并返回。新链表是通过拼接给定的两个链表的所有节点组成的。</p>
-<p>示例 1：</p>
-<p>输入：l1 = [1,2,4], l2 = [1,3,4]
-输出：[1,1,2,3,4,4]
-示例 2：</p>
-<p>输入：l1 = [], l2 = []
-输出：[]
-示例 3：</p>
-<p>输入：l1 = [], l2 = [0]
-输出：[0]</p>
-<p>提示：</p>
-<p>两个链表的节点数目范围是 [0, 50]
--100 &lt;= Node.val &lt;= 100
-l1 和 l2 均按 非递减顺序 排列</p>
-<p>来源：力扣（LeetCode）
-链接：https://leetcode-cn.com/problems/merge-two-sorted-lists
-著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。</p>
-<p>要点：链表</p>
-<p>思路：可以用双指针，也可以用递归实现，这里用递归实现</p>
+<p>实现一个二叉搜索树迭代器类<code>BSTIterator</code> ，表示一个按中序遍历二叉搜索树（BST）的迭代器：</p>
+<ul>
+<li><code>BSTIterator(TreeNode root)</code> 初始化 <code>BSTIterator</code> 类的一个对象。BST 的根节点 <code>root</code> 会作为构造函数的一部分给出。指针应初始化为一个不存在于 BST 中的数字，且该数字小于 BST 中的任何元素。</li>
+<li><code>boolean hasNext()</code> 如果向指针右侧遍历存在数字，则返回 <code>true</code> ；否则返回 <code>false</code> 。</li>
+<li><code>int next()</code>将指针向右移动，然后返回指针处的数字。</li>
+</ul>
+<p>注意，指针初始化为一个不存在于 BST 中的数字，所以对 <code>next()</code> 的首次调用将返回 BST 中的最小元素。</p>
+<p>你可以假设 <code>next()</code> 调用总是有效的，也就是说，当调用 <code>next()</code> 时，BST 的中序遍历中至少存在一个下一个数字。</p>
+<p><strong>示例：</strong></p>
+<p><img src="https://assets.leetcode.com/uploads/2018/12/25/bst-tree.png" alt="img"></p>
+<pre tabindex="0"><code>输入
+[&quot;BSTIterator&quot;, &quot;next&quot;, &quot;next&quot;, &quot;hasNext&quot;, &quot;next&quot;, &quot;hasNext&quot;, &quot;next&quot;, &quot;hasNext&quot;, &quot;next&quot;, &quot;hasNext&quot;]
+[[[7, 3, 15, null, null, 9, 20]], [], [], [], [], [], [], [], [], []]
+输出
+[null, 3, 7, true, 9, true, 15, true, 20, false]
+
+解释
+BSTIterator bSTIterator = new BSTIterator([7, 3, 15, null, null, 9, 20]);
+bSTIterator.next();    // 返回 3
+bSTIterator.next();    // 返回 7
+bSTIterator.hasNext(); // 返回 True
+bSTIterator.next();    // 返回 9
+bSTIterator.hasNext(); // 返回 True
+bSTIterator.next();    // 返回 15
+bSTIterator.hasNext(); // 返回 True
+bSTIterator.next();    // 返回 20
+bSTIterator.hasNext(); // 返回 False
+</code></pre><p><strong>提示：</strong></p>
+<ul>
+<li>树中节点的数目在范围 <code>[1, 105]</code> 内</li>
+<li><code>0 &lt;= Node.val &lt;= 106</code></li>
+<li>最多调用 <code>105</code> 次 <code>hasNext</code> 和 <code>next</code> 操作</li>
+</ul>
+<p><strong>进阶：</strong></p>
+<ul>
+<li>你可以设计一个满足下述条件的解决方案吗？<code>next()</code> 和 <code>hasNext()</code> 操作均摊时间复杂度为 <code>O(1)</code> ，并使用 <code>O(h)</code> 内存。其中 <code>h</code> 是树的高度。</li>
+</ul>
+<p>要点：树</p>
+<p>思路：中序遍历存数组，然后迭代器作用在数组上</p>
 <h2 id="2c实现-1">2.C++实现</h2>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="cm">/**
-</span><span class="cm"> * Definition for singly-linked list.
-</span><span class="cm"> * struct ListNode {
+</span><span class="cm"> * Definition for a binary tree node.
+</span><span class="cm"> * struct TreeNode {
 </span><span class="cm"> *     int val;
-</span><span class="cm"> *     ListNode *next;
-</span><span class="cm"> *     ListNode() : val(0), next(nullptr) {}
-</span><span class="cm"> *     ListNode(int x) : val(x), next(nullptr) {}
-</span><span class="cm"> *     ListNode(int x, ListNode *next) : val(x), next(next) {}
+</span><span class="cm"> *     TreeNode *left;
+</span><span class="cm"> *     TreeNode *right;
+</span><span class="cm"> *     TreeNode() : val(0), left(nullptr), right(nullptr) {}
+</span><span class="cm"> *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+</span><span class="cm"> *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
 </span><span class="cm"> * };
 </span><span class="cm"> */</span>
-<span class="k">class</span> <span class="nc">Solution</span> <span class="p">{</span>
-<span class="k">public</span><span class="o">:</span>
-    <span class="n">ListNode</span><span class="o">*</span> <span class="n">mergeTwoLists</span><span class="p">(</span><span class="n">ListNode</span><span class="o">*</span> <span class="n">l1</span><span class="p">,</span> <span class="n">ListNode</span><span class="o">*</span> <span class="n">l2</span><span class="p">)</span> <span class="p">{</span>
-        <span class="k">if</span><span class="p">(</span><span class="n">l1</span><span class="o">==</span><span class="k">nullptr</span><span class="p">){</span>
-            <span class="k">return</span> <span class="n">l2</span><span class="p">;</span>
+<span class="k">class</span> <span class="nc">BSTIterator</span> <span class="p">{</span>
+<span class="k">private</span><span class="o">:</span>
+    <span class="kt">void</span> <span class="n">inorder</span><span class="p">(</span><span class="n">TreeNode</span><span class="o">*</span> <span class="n">root</span><span class="p">,</span> <span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;&amp;</span> <span class="n">res</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">root</span><span class="p">)</span> <span class="p">{</span>
+            <span class="k">return</span><span class="p">;</span>
         <span class="p">}</span>
-        <span class="k">else</span> <span class="nf">if</span><span class="p">(</span><span class="n">l2</span><span class="o">==</span><span class="k">nullptr</span><span class="p">){</span>
-            <span class="k">return</span> <span class="n">l1</span><span class="p">;</span>
-        <span class="p">}</span>
-        <span class="k">else</span><span class="p">{</span>
-            <span class="k">if</span><span class="p">(</span><span class="n">l1</span><span class="o">-&gt;</span><span class="n">val</span><span class="o">&lt;=</span><span class="n">l2</span><span class="o">-&gt;</span><span class="n">val</span><span class="p">){</span>
-                <span class="n">l1</span><span class="o">-&gt;</span><span class="n">next</span> <span class="o">=</span> <span class="n">mergeTwoLists</span><span class="p">(</span><span class="n">l1</span><span class="o">-&gt;</span><span class="n">next</span><span class="p">,</span><span class="n">l2</span><span class="p">);</span>
-                <span class="k">return</span> <span class="n">l1</span><span class="p">;</span>
-            <span class="p">}</span>
-            <span class="k">else</span><span class="p">{</span>
-                <span class="n">l2</span><span class="o">-&gt;</span><span class="n">next</span> <span class="o">=</span> <span class="n">mergeTwoLists</span><span class="p">(</span><span class="n">l1</span><span class="p">,</span><span class="n">l2</span><span class="o">-&gt;</span><span class="n">next</span><span class="p">);</span>
-                <span class="k">return</span> <span class="n">l2</span><span class="p">;</span>
-            <span class="p">}</span>
-        <span class="p">}</span>
+        <span class="n">inorder</span><span class="p">(</span><span class="n">root</span><span class="o">-&gt;</span><span class="n">left</span><span class="p">,</span> <span class="n">res</span><span class="p">);</span>
+        <span class="n">res</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">root</span><span class="o">-&gt;</span><span class="n">val</span><span class="p">);</span>
+        <span class="n">inorder</span><span class="p">(</span><span class="n">root</span><span class="o">-&gt;</span><span class="n">right</span><span class="p">,</span> <span class="n">res</span><span class="p">);</span>
     <span class="p">}</span>
-<span class="p">};</span>
-</code></pre></div><h1 id="三203-移除链表元素httpsleetcode-cncomproblemsremove-linked-list-elements">三.<a href="https://leetcode-cn.com/problems/remove-linked-list-elements/">203. 移除链表元素</a></h1>
-<h2 id="1题干及思路-2">1.题干及思路</h2>
-<p>给你一个链表的头节点 head 和一个整数 val ，请你删除链表中所有满足 Node.val == val 的节点，并返回 新的头节点 。</p>
-<p>示例 1：</p>
-<p>输入：head = [1,2,6,3,4,5,6], val = 6
-输出：[1,2,3,4,5]
-示例 2：</p>
-<p>输入：head = [], val = 1
-输出：[]
-示例 3：</p>
-<p>输入：head = [7,7,7,7], val = 7
-输出：[]</p>
-<p>提示：</p>
-<p>列表中的节点数目在范围 [0, 104] 内
-1 &lt;= Node.val &lt;= 50
-0 &lt;= val &lt;= 50</p>
-<p>来源：力扣（LeetCode）
-链接：https://leetcode-cn.com/problems/remove-linked-list-elements
-著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。</p>
-<p>要点：链表</p>
-<p>思路：注意哑结点dummy的使用，遇到下一个值是val则跳过</p>
-<h2 id="2c实现-2">2.C++实现</h2>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="cm">/**
-</span><span class="cm"> * Definition for singly-linked list.
-</span><span class="cm"> * struct ListNode {
-</span><span class="cm"> *     int val;
-</span><span class="cm"> *     ListNode *next;
-</span><span class="cm"> *     ListNode() : val(0), next(nullptr) {}
-</span><span class="cm"> *     ListNode(int x) : val(x), next(nullptr) {}
-</span><span class="cm"> *     ListNode(int x, ListNode *next) : val(x), next(next) {}
-</span><span class="cm"> * };
-</span><span class="cm"> */</span>
-<span class="k">class</span> <span class="nc">Solution</span> <span class="p">{</span>
+    <span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">inorderTraversal</span><span class="p">(</span><span class="n">TreeNode</span><span class="o">*</span> <span class="n">root</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">res</span><span class="p">;</span>
+        <span class="n">inorder</span><span class="p">(</span><span class="n">root</span><span class="p">,</span> <span class="n">res</span><span class="p">);</span>
+        <span class="k">return</span> <span class="n">res</span><span class="p">;</span>
+    <span class="p">}</span>
+    
+    <span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">arr</span><span class="p">;</span>
+    <span class="kt">int</span> <span class="n">idx</span><span class="p">;</span>
 <span class="k">public</span><span class="o">:</span>
-    <span class="n">ListNode</span><span class="o">*</span> <span class="n">removeElements</span><span class="p">(</span><span class="n">ListNode</span><span class="o">*</span> <span class="n">head</span><span class="p">,</span> <span class="kt">int</span> <span class="n">val</span><span class="p">)</span> <span class="p">{</span>
-        <span class="n">ListNode</span><span class="o">*</span> <span class="n">dummy</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ListNode</span><span class="p">();</span>
-        <span class="n">dummy</span><span class="o">-&gt;</span><span class="n">next</span> <span class="o">=</span> <span class="n">head</span><span class="p">;</span>
-        <span class="n">ListNode</span><span class="o">*</span> <span class="n">temp</span> <span class="o">=</span> <span class="n">dummy</span><span class="p">;</span>
-        <span class="k">while</span><span class="p">(</span><span class="n">temp</span><span class="o">&amp;&amp;</span><span class="n">temp</span><span class="o">-&gt;</span><span class="n">next</span><span class="p">){</span>
-            <span class="k">while</span><span class="p">(</span><span class="n">temp</span><span class="o">&amp;&amp;</span><span class="n">temp</span><span class="o">-&gt;</span><span class="n">next</span><span class="o">&amp;&amp;</span><span class="n">temp</span><span class="o">-&gt;</span><span class="n">next</span><span class="o">-&gt;</span><span class="n">val</span><span class="o">==</span><span class="n">val</span><span class="p">){</span>
-                <span class="n">temp</span><span class="o">-&gt;</span><span class="n">next</span> <span class="o">=</span> <span class="n">temp</span><span class="o">-&gt;</span><span class="n">next</span><span class="o">-&gt;</span><span class="n">next</span><span class="p">;</span>
-            <span class="p">}</span>
-            <span class="n">temp</span> <span class="o">=</span> <span class="n">temp</span><span class="o">-&gt;</span><span class="n">next</span><span class="p">;</span>
-        <span class="p">}</span>
-        <span class="k">return</span> <span class="n">dummy</span><span class="o">-&gt;</span><span class="n">next</span><span class="p">;</span>
-
+    <span class="n">BSTIterator</span><span class="p">(</span><span class="n">TreeNode</span><span class="o">*</span> <span class="n">root</span><span class="p">){</span>
+        <span class="n">idx</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+        <span class="n">arr</span> <span class="o">=</span> <span class="n">inorderTraversal</span><span class="p">(</span><span class="n">root</span><span class="p">);</span>
+    <span class="p">}</span>
+    
+    <span class="kt">int</span> <span class="nf">next</span><span class="p">()</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="n">arr</span><span class="p">[</span><span class="n">idx</span><span class="o">++</span><span class="p">];</span>
+    <span class="p">}</span>
+    
+    <span class="kt">bool</span> <span class="nf">hasNext</span><span class="p">()</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="p">(</span><span class="n">idx</span> <span class="o">&lt;</span> <span class="n">arr</span><span class="p">.</span><span class="n">size</span><span class="p">());</span>
     <span class="p">}</span>
 <span class="p">};</span>
 
+
+<span class="cm">/**
+</span><span class="cm"> * Your BSTIterator object will be instantiated and called as such:
+</span><span class="cm"> * BSTIterator* obj = new BSTIterator(root);
+</span><span class="cm"> * int param_1 = obj-&gt;next();
+</span><span class="cm"> * bool param_2 = obj-&gt;hasNext();
+</span><span class="cm"> */</span>
 </code></pre></div>
     
 	</div>
@@ -295,7 +279,7 @@ l1 和 l2 均按 非递减顺序 排列</p>
 
 
   <div class="article-share" id="share">
-    <div data-url="https://qkgoalkeeper.github.io/post/leetcode%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E5%85%A5%E9%97%A8%E7%AC%AC7%E5%A4%A9%E9%93%BE%E8%A1%A8/" data-title="LeetCode数据结构入门第7天：链表" data-tsina="5852167252" class="share clearfix">
+    <div data-url="https://qkgoalkeeper.github.io/post/leetcode%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E5%9F%BA%E7%A1%80%E7%AC%AC17%E5%A4%A9%E6%A0%91/" data-title="LeetCode数据结构基础第17天：树" data-tsina="5852167252" class="share clearfix">
     </div>
   </div>
 </footer>
