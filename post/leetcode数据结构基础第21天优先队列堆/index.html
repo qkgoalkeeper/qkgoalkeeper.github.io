@@ -2,13 +2,13 @@
 <html lang="zh-CN">
 <head>
   <meta charset="UTF-8">
-  <title>LeetCode简单题：66. 加一（Python,C&#43;&#43;,Java） - qkgoalkeeper&#39;s blog</title>
+  <title>LeetCode数据结构基础第21天：优先队列（堆） - qkgoalkeeper&#39;s blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=3, minimum-scale=1">
   
-  <meta name="description" content="一.解法 https://leetcode-cn.com/problems/plus-one/ 要点：数字，str，str[]的转换；数组扩容问题 Python中用数字转str再转列表的方法直接实现 C&#43;&#43;和Java中模拟进位，如">
+  <meta name="description" content="一.451. 根据字符出现频率排序 1.题干及思路 给定一个字符串，请将字符串里的字符按照出现的频率降序排列。 示例 1: 输入: &quot;tree&quot; 输出: &quot;eert&quot; 解释: &#39;e&#39;出">
   
-  <meta itemprop="name" content="LeetCode简单题：66. 加一（Python,C&#43;&#43;,Java） - qkgoalkeeper&#39;s blog">
-  <meta itemprop="description" content="一.解法 https://leetcode-cn.com/problems/plus-one/ 要点：数字，str，str[]的转换；数组扩容问题 Python中用数字转str再转列表的方法直接实现 C&#43;&#43;和Java中模拟进位，如">
+  <meta itemprop="name" content="LeetCode数据结构基础第21天：优先队列（堆） - qkgoalkeeper&#39;s blog">
+  <meta itemprop="description" content="一.451. 根据字符出现频率排序 1.题干及思路 给定一个字符串，请将字符串里的字符按照出现的频率降序排列。 示例 1: 输入: &quot;tree&quot; 输出: &quot;eert&quot; 解释: &#39;e&#39;出">
   <meta itemprop="image" content="https://qkgoalkeeper.github.io/img/author.jpg">
   
   
@@ -74,7 +74,7 @@
 	<article itemprop="articleBody">
     <header class="article-info clearfix">
   <h1 itemprop="name">
-      <a href="https://qkgoalkeeper.github.io/post/leetcode%E7%AE%80%E5%8D%95%E9%A2%9866.-%E5%8A%A0%E4%B8%80pythonc&#43;&#43;java/" title="LeetCode简单题：66. 加一（Python,C&#43;&#43;,Java）" itemprop="url">LeetCode简单题：66. 加一（Python,C&#43;&#43;,Java）</a>
+      <a href="https://qkgoalkeeper.github.io/post/leetcode%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E5%9F%BA%E7%A1%80%E7%AC%AC21%E5%A4%A9%E4%BC%98%E5%85%88%E9%98%9F%E5%88%97%E5%A0%86/" title="LeetCode数据结构基础第21天：优先队列（堆）" itemprop="url">LeetCode数据结构基础第21天：优先队列（堆）</a>
   </h1>
   <p class="article-author">By
     
@@ -82,7 +82,7 @@
     
   </p>
   <p class="article-time">
-    <time datetime="2020-08-13 17:55:19 &#43;0800 CST" itemprop="datePublished">2020年08月13日</time>
+    <time datetime="2021-12-03 10:55:19 &#43;0800 CST" itemprop="datePublished">2021年12月03日</time>
   </p>
 </header>
 
@@ -92,68 +92,125 @@
 			<strong class="toc-title">文章目录</strong>
       <nav id="TableOfContents">
   <ul>
-    <li><a href="#一解法">一.解法</a></li>
-    <li><a href="#二python实现">二.Python实现</a></li>
-    <li><a href="#三c实现">三.C++实现</a></li>
-    <li><a href="#四java实现">四.java实现</a></li>
+    <li><a href="#1题干及思路">1.题干及思路</a></li>
+    <li><a href="#2c实现">2.C++实现</a></li>
+  </ul>
+
+  <ul>
+    <li><a href="#1题干及思路-1">1.题干及思路</a></li>
+    <li><a href="#2c实现-1">2.C++实现</a></li>
   </ul>
 </nav>
 		</div>
     
-    <h2 id="一解法">一.解法</h2>
-<p><a href="https://leetcode-cn.com/problems/plus-one/">https://leetcode-cn.com/problems/plus-one/</a><br>
-要点：数字，str，str[]的转换；数组扩容问题<br>
-Python中用数字转str再转列表的方法直接实现<br>
-C++和Java中模拟进位，如果第一位都需要进位，就创造更大的数组，把第一位设为1，其他设为0</p>
-<h2 id="二python实现">二.Python实现</h2>
-<pre tabindex="0"><code>class Solution:
-    def plusOne(self, digits: List[int]) -&gt; List[int]:
-        sum1=0
-        for i in range(len(digits)):
-            sum1+=digits[i]*10**(len(digits)-i-1)
-        sum1+=1
-        #加1运算
-        digits=[]
-        for i in str(sum1):
-            digits.append(int(i))
-            #整数转化为列表，这里要注意的是i必须要先化为整形。区别是['1','2','3']和[1，2，3]
-        return digits
-</code></pre><h2 id="三c实现">三.C++实现</h2>
-<pre tabindex="0"><code>class Solution {
-public:
-    vector&lt;int&gt; plusOne(vector&lt;int&gt;&amp; digits) {
-        int num=1;
-        for(int i=digits.size()-1;i&gt;=0;i--){
-            num+=digits[i];
-            digits[i]=num%10;
-            num/=10;
-            if(!num)
-            	break;
-        }
-        if(num==1){
-            digits.resize(digits.size()+1,0);
-            digits[0]=1;
-        }
-        return digits;
-    }
-};
-</code></pre><h2 id="四java实现">四.java实现</h2>
-<pre tabindex="0"><code>class Solution {
-    public int[] plusOne(int[] digits) {
-        for (int i = digits.length - 1; i &gt;= 0; i--) {
-            digits[i]++;
-            digits[i] = digits[i] % 10;
-            if (digits[i] != 0) return digits;
-        }
-        digits = new int[digits.length + 1];
-        digits[0] = 1;
-        for(int i=1;i&lt;digits.length;i++){
-            digits[i]=0;
-        }
-        return digits;
-    }
-}
-</code></pre>
+    <h1 id="一451-根据字符出现频率排序httpsleetcode-cncomproblemssort-characters-by-frequency">一.<a href="https://leetcode-cn.com/problems/sort-characters-by-frequency/">451. 根据字符出现频率排序</a></h1>
+<h2 id="1题干及思路">1.题干及思路</h2>
+<p>给定一个字符串，请将字符串里的字符按照出现的频率降序排列。</p>
+<p><strong>示例 1:</strong></p>
+<pre tabindex="0"><code>输入:
+&quot;tree&quot;
+
+输出:
+&quot;eert&quot;
+
+解释:
+'e'出现两次，'r'和't'都只出现一次。
+因此'e'必须出现在'r'和't'之前。此外，&quot;eetr&quot;也是一个有效的答案。
+</code></pre><p><strong>示例 2:</strong></p>
+<pre tabindex="0"><code>输入:
+&quot;cccaaa&quot;
+
+输出:
+&quot;cccaaa&quot;
+
+解释:
+'c'和'a'都出现三次。此外，&quot;aaaccc&quot;也是有效的答案。
+注意&quot;cacaca&quot;是不正确的，因为相同的字母必须放在一起。
+</code></pre><p><strong>示例 3:</strong></p>
+<pre tabindex="0"><code>输入:
+&quot;Aabb&quot;
+
+输出:
+&quot;bbAa&quot;
+
+解释:
+此外，&quot;bbaA&quot;也是一个有效的答案，但&quot;Aabb&quot;是不正确的。
+注意'A'和'a'被认为是两种不同的字符。
+</code></pre><p>要点：堆</p>
+<p>思路：堆排序，c++的优先队列为priority_queue</p>
+<h2 id="2c实现">2.C++实现</h2>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="k">class</span> <span class="nc">Solution</span> <span class="p">{</span>
+<span class="k">public</span><span class="o">:</span>
+    <span class="n">string</span> <span class="n">frequencySort</span><span class="p">(</span><span class="n">string</span> <span class="n">s</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">unordered_map</span><span class="o">&lt;</span><span class="kt">char</span><span class="p">,</span> <span class="kt">int</span><span class="o">&gt;</span> <span class="n">ump</span><span class="p">;</span>
+        <span class="k">for</span> <span class="p">(</span><span class="k">const</span> <span class="k">auto</span> <span class="o">&amp;</span><span class="nl">c</span> <span class="p">:</span> <span class="n">s</span><span class="p">)</span> <span class="p">{</span>
+            <span class="o">++</span><span class="n">ump</span><span class="p">[</span><span class="n">c</span><span class="p">];</span>
+        <span class="p">}</span>
+        <span class="n">priority_queue</span><span class="o">&lt;</span><span class="n">pair</span><span class="o">&lt;</span><span class="kt">int</span><span class="p">,</span> <span class="kt">char</span><span class="o">&gt;&gt;</span> <span class="n">pq</span><span class="p">;</span>
+        <span class="k">for</span> <span class="p">(</span><span class="k">const</span> <span class="k">auto</span> <span class="o">&amp;</span><span class="nl">m</span> <span class="p">:</span> <span class="n">ump</span><span class="p">)</span> <span class="p">{</span>
+            <span class="n">pq</span><span class="p">.</span><span class="n">push</span><span class="p">({</span><span class="n">m</span><span class="p">.</span><span class="n">second</span><span class="p">,</span> <span class="n">m</span><span class="p">.</span><span class="n">first</span><span class="p">});</span>
+        <span class="p">}</span>        
+        <span class="n">string</span> <span class="n">ret</span><span class="p">;</span>
+        <span class="k">while</span> <span class="p">(</span><span class="o">!</span><span class="n">pq</span><span class="p">.</span><span class="n">empty</span><span class="p">())</span> <span class="p">{</span>
+            <span class="k">auto</span> <span class="n">t</span> <span class="o">=</span> <span class="n">pq</span><span class="p">.</span><span class="n">top</span><span class="p">();</span> 
+            <span class="n">pq</span><span class="p">.</span><span class="n">pop</span><span class="p">();</span>
+            <span class="n">ret</span><span class="p">.</span><span class="n">append</span><span class="p">(</span><span class="n">t</span><span class="p">.</span><span class="n">first</span><span class="p">,</span> <span class="n">t</span><span class="p">.</span><span class="n">second</span><span class="p">);</span>
+        <span class="p">}</span>
+        <span class="k">return</span> <span class="n">ret</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">};</span>
+                                  
+</code></pre></div><h1 id="二973-最接近原点的-k-个点httpsleetcode-cncomproblemsk-closest-points-to-origin">二.<a href="https://leetcode-cn.com/problems/k-closest-points-to-origin/">973. 最接近原点的 K 个点</a></h1>
+<h2 id="1题干及思路-1">1.题干及思路</h2>
+<p>我们有一个由平面上的点组成的列表 <code>points</code>。需要从中找出 <code>K</code> 个距离原点 <code>(0, 0)</code> 最近的点。</p>
+<p>（这里，平面上两点之间的距离是欧几里德距离。）</p>
+<p>你可以按任何顺序返回答案。除了点坐标的顺序之外，答案确保是唯一的。</p>
+<p><strong>示例 1：</strong></p>
+<pre tabindex="0"><code>输入：points = [[1,3],[-2,2]], K = 1
+输出：[[-2,2]]
+解释： 
+(1, 3) 和原点之间的距离为 sqrt(10)，
+(-2, 2) 和原点之间的距离为 sqrt(8)，
+由于 sqrt(8) &lt; sqrt(10)，(-2, 2) 离原点更近。
+我们只需要距离原点最近的 K = 1 个点，所以答案就是 [[-2,2]]。
+</code></pre><p><strong>示例 2：</strong></p>
+<pre tabindex="0"><code>输入：points = [[3,3],[5,-1],[-2,4]], K = 2
+输出：[[3,3],[-2,4]]
+（答案 [[-2,4],[3,3]] 也会被接受。）
+</code></pre><p><strong>提示：</strong></p>
+<ol>
+<li><code>1 &lt;= K &lt;= points.length &lt;= 10000</code></li>
+<li><code>-10000 &lt; points[i][0] &lt; 10000</code></li>
+<li><code>-10000 &lt; points[i][1] &lt; 10000</code></li>
+</ol>
+<p>要点：堆</p>
+<p>思路：堆排序，c++的优先队列为priority_queue</p>
+<h2 id="2c实现-1">2.C++实现</h2>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="k">class</span> <span class="nc">Solution</span> <span class="p">{</span>
+<span class="k">public</span><span class="o">:</span>
+    <span class="n">vector</span><span class="o">&lt;</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;&gt;</span> <span class="n">kClosest</span><span class="p">(</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;&gt;&amp;</span> <span class="n">points</span><span class="p">,</span> <span class="kt">int</span> <span class="n">k</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">priority_queue</span><span class="o">&lt;</span><span class="n">pair</span><span class="o">&lt;</span><span class="kt">int</span><span class="p">,</span> <span class="kt">int</span><span class="o">&gt;&gt;</span> <span class="n">q</span><span class="p">;</span>
+        <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">k</span><span class="p">;</span> <span class="o">++</span><span class="n">i</span><span class="p">)</span> <span class="p">{</span>
+            <span class="n">q</span><span class="p">.</span><span class="n">emplace</span><span class="p">(</span><span class="n">points</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="n">points</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="n">points</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="n">points</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">1</span><span class="p">],</span> <span class="n">i</span><span class="p">);</span>
+        <span class="p">}</span>
+        <span class="kt">int</span> <span class="n">n</span> <span class="o">=</span> <span class="n">points</span><span class="p">.</span><span class="n">size</span><span class="p">();</span>
+        <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="n">k</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">n</span><span class="p">;</span> <span class="o">++</span><span class="n">i</span><span class="p">)</span> <span class="p">{</span>
+            <span class="kt">int</span> <span class="n">dist</span> <span class="o">=</span> <span class="n">points</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="n">points</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="n">points</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="n">points</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">1</span><span class="p">];</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">dist</span> <span class="o">&lt;</span> <span class="n">q</span><span class="p">.</span><span class="n">top</span><span class="p">().</span><span class="n">first</span><span class="p">)</span> <span class="p">{</span>
+                <span class="n">q</span><span class="p">.</span><span class="n">pop</span><span class="p">();</span>
+                <span class="n">q</span><span class="p">.</span><span class="n">emplace</span><span class="p">(</span><span class="n">dist</span><span class="p">,</span> <span class="n">i</span><span class="p">);</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+        <span class="n">vector</span><span class="o">&lt;</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;&gt;</span> <span class="n">ans</span><span class="p">;</span>
+        <span class="k">while</span> <span class="p">(</span><span class="o">!</span><span class="n">q</span><span class="p">.</span><span class="n">empty</span><span class="p">())</span> <span class="p">{</span>
+            <span class="n">ans</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">points</span><span class="p">[</span><span class="n">q</span><span class="p">.</span><span class="n">top</span><span class="p">().</span><span class="n">second</span><span class="p">]);</span>
+            <span class="n">q</span><span class="p">.</span><span class="n">pop</span><span class="p">();</span>
+        <span class="p">}</span>
+        <span class="k">return</span> <span class="n">ans</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">};</span>
+
+</code></pre></div>
     
 	</div>
   <footer class="article-footer clearfix">
@@ -164,6 +221,8 @@ public:
   
   <a href="https://qkgoalkeeper.github.io/tags/leetcode">LeetCode</a>
   
+  <a href="https://qkgoalkeeper.github.io/tags/c&#43;&#43;">C&#43;&#43;</a>
+  
 </div>
 
 
@@ -173,14 +232,14 @@ public:
 <div class="article-categories">
   <span></span>
   
-  <a class="article-category-link" href="https://qkgoalkeeper.github.io/categories/leetcode%E7%AE%80%E5%8D%95%E9%A2%981-100">LeetCode简单题1-100</a>
+  <a class="article-category-link" href="https://qkgoalkeeper.github.io/categories/%E5%A4%A7%E5%9B%9Bleetcode%E7%AE%97%E6%B3%95%E5%88%B7%E9%A2%98">大四LeetCode算法刷题</a>
   
 </div>
 
 
 
   <div class="article-share" id="share">
-    <div data-url="https://qkgoalkeeper.github.io/post/leetcode%E7%AE%80%E5%8D%95%E9%A2%9866.-%E5%8A%A0%E4%B8%80pythonc&#43;&#43;java/" data-title="LeetCode简单题：66. 加一（Python,C&#43;&#43;,Java）" data-tsina="5852167252" class="share clearfix">
+    <div data-url="https://qkgoalkeeper.github.io/post/leetcode%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E5%9F%BA%E7%A1%80%E7%AC%AC21%E5%A4%A9%E4%BC%98%E5%85%88%E9%98%9F%E5%88%97%E5%A0%86/" data-title="LeetCode数据结构基础第21天：优先队列（堆）" data-tsina="5852167252" class="share clearfix">
     </div>
   </div>
 </footer>
