@@ -2,13 +2,13 @@
 <html lang="zh-CN">
 <head>
   <meta charset="UTF-8">
-  <title>LeetCode算法入门第2天：双指针 - qkgoalkeeper&#39;s blog</title>
+  <title>LeetCode每日一题：10. 正则表达式匹配 - qkgoalkeeper&#39;s blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=3, minimum-scale=1">
   
-  <meta name="description" content="一.977. 有序数组的平方 1.题干及思路 给你一个按 非递减顺序 排序的整数数组 nums，返回 每个数字的平方 组成的新数组，要求也按 非递减顺序 排序。">
+  <meta name="description" content="一.10. 正则表达式匹配 1.题干及思路 给你一个字符串 s 和一个字符规律 p，请你来实现一个支持 &#39;.&#39; 和 &#39;*&#39; 的正则表达式匹配。 &#39;.&#39; 匹配任意单个字符 &#39;*&#39; 匹配零">
   
-  <meta itemprop="name" content="LeetCode算法入门第2天：双指针 - qkgoalkeeper&#39;s blog">
-  <meta itemprop="description" content="一.977. 有序数组的平方 1.题干及思路 给你一个按 非递减顺序 排序的整数数组 nums，返回 每个数字的平方 组成的新数组，要求也按 非递减顺序 排序。">
+  <meta itemprop="name" content="LeetCode每日一题：10. 正则表达式匹配 - qkgoalkeeper&#39;s blog">
+  <meta itemprop="description" content="一.10. 正则表达式匹配 1.题干及思路 给你一个字符串 s 和一个字符规律 p，请你来实现一个支持 &#39;.&#39; 和 &#39;*&#39; 的正则表达式匹配。 &#39;.&#39; 匹配任意单个字符 &#39;*&#39; 匹配零">
   <meta itemprop="image" content="https://qkgoalkeeper.github.io/img/author.jpg">
   
   
@@ -74,7 +74,7 @@
 	<article itemprop="articleBody">
     <header class="article-info clearfix">
   <h1 itemprop="name">
-      <a href="https://qkgoalkeeper.github.io/post/leetcode%E7%AE%97%E6%B3%95%E5%85%A5%E9%97%A8%E7%AC%AC2%E5%A4%A9%E5%8F%8C%E6%8C%87%E9%92%88/" title="LeetCode算法入门第2天：双指针" itemprop="url">LeetCode算法入门第2天：双指针</a>
+      <a href="https://qkgoalkeeper.github.io/post/leetcode%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%9810.-%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F%E5%8C%B9%E9%85%8D/" title="LeetCode每日一题：10. 正则表达式匹配" itemprop="url">LeetCode每日一题：10. 正则表达式匹配</a>
   </h1>
   <p class="article-author">By
     
@@ -82,7 +82,7 @@
     
   </p>
   <p class="article-time">
-    <time datetime="2021-09-27 17:55:19 &#43;0800 CST" itemprop="datePublished">2021年09月27日</time>
+    <time datetime="2021-12-05 10:55:19 &#43;0800 CST" itemprop="datePublished">2021年12月05日</time>
   </p>
 </header>
 
@@ -95,104 +95,79 @@
     <li><a href="#1题干及思路">1.题干及思路</a></li>
     <li><a href="#2c实现">2.C++实现</a></li>
   </ul>
-
-  <ul>
-    <li><a href="#1题干及思路-1">1.题干及思路</a></li>
-    <li><a href="#2c实现-1">2.C++实现</a></li>
-  </ul>
 </nav>
 		</div>
     
-    <h1 id="一977-有序数组的平方httpsleetcode-cncomproblemssquares-of-a-sorted-array">一.<a href="https://leetcode-cn.com/problems/squares-of-a-sorted-array/">977. 有序数组的平方</a></h1>
+    <h1 id="一10-正则表达式匹配httpsleetcode-cncomproblemsregular-expression-matching">一.<a href="https://leetcode-cn.com/problems/regular-expression-matching/">10. 正则表达式匹配</a></h1>
 <h2 id="1题干及思路">1.题干及思路</h2>
-<p>给你一个按 非递减顺序 排序的整数数组 nums，返回 每个数字的平方 组成的新数组，要求也按 非递减顺序 排序。</p>
-<p>示例 1：</p>
-<p>输入：nums = [-4,-1,0,3,10]
-输出：[0,1,9,16,100]
-解释：平方后，数组变为 [16,1,0,9,100]
-排序后，数组变为 [0,1,9,16,100]
-示例 2：</p>
-<p>输入：nums = [-7,-3,2,3,11]
-输出：[4,9,9,49,121]</p>
-<p>提示：</p>
-<p>1 &lt;= nums.length &lt;= 104
--104 &lt;= nums[i] &lt;= 104
-nums 已按 非递减顺序 排序</p>
-<p>进阶：</p>
-<p>请你设计时间复杂度为 O(n) 的算法解决本问题</p>
-<p>来源：力扣（LeetCode）
-链接：https://leetcode-cn.com/problems/squares-of-a-sorted-array
-著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。</p>
-<p>要点：双指针</p>
-<p>思路：由于是顺序的数组，从两头双指针向中间靠获得有序的平方，最后reverse</p>
+<p>给你一个字符串 <code>s</code> 和一个字符规律 <code>p</code>，请你来实现一个支持 <code>'.'</code> 和 <code>'*'</code> 的正则表达式匹配。</p>
+<ul>
+<li><code>'.'</code> 匹配任意单个字符</li>
+<li><code>'*'</code> 匹配零个或多个前面的那一个元素</li>
+</ul>
+<p>所谓匹配，是要涵盖 <strong>整个</strong> 字符串 <code>s</code>的，而不是部分字符串。</p>
+<p><strong>示例 1：</strong></p>
+<pre tabindex="0"><code>输入：s = &quot;aa&quot; p = &quot;a&quot;
+输出：false
+解释：&quot;a&quot; 无法匹配 &quot;aa&quot; 整个字符串。
+</code></pre><p><strong>示例 2:</strong></p>
+<pre tabindex="0"><code>输入：s = &quot;aa&quot; p = &quot;a*&quot;
+输出：true
+解释：因为 '*' 代表可以匹配零个或多个前面的那一个元素, 在这里前面的元素就是 'a'。因此，字符串 &quot;aa&quot; 可被视为 'a' 重复了一次。
+</code></pre><p><strong>示例 3：</strong></p>
+<pre tabindex="0"><code>输入：s = &quot;ab&quot; p = &quot;.*&quot;
+输出：true
+解释：&quot;.*&quot; 表示可匹配零个或多个（'*'）任意字符（'.'）。
+</code></pre><p><strong>示例 4：</strong></p>
+<pre tabindex="0"><code>输入：s = &quot;aab&quot; p = &quot;c*a*b&quot;
+输出：true
+解释：因为 '*' 表示零个或多个，这里 'c' 为 0 个, 'a' 被重复一次。因此可以匹配字符串 &quot;aab&quot;。
+</code></pre><p><strong>示例 5：</strong></p>
+<pre tabindex="0"><code>输入：s = &quot;mississippi&quot; p = &quot;mis*is*p*.&quot;
+输出：false
+</code></pre><p><strong>提示：</strong></p>
+<ul>
+<li><code>1 &lt;= s.length &lt;= 20</code></li>
+<li><code>1 &lt;= p.length &lt;= 30</code></li>
+<li><code>s</code> 可能为空，且只包含从 <code>a-z</code> 的小写字母。</li>
+<li><code>p</code> 可能为空，且只包含从 <code>a-z</code> 的小写字母，以及字符 <code>.</code> 和 <code>*</code>。</li>
+<li>保证每次出现字符 <code>*</code> 时，前面都匹配到有效的字符</li>
+</ul>
+<p>要点：动态规划</p>
+<p>思路：</p>
+<p>f[i][j] 表示 s 的前 i 个字符与 p 中的前 j 个字符是否能够匹配，f[0][0]表示两个空字符串是否匹配为TRUE。</p>
+<p>转移方程需要分类讨论：</p>
+<p>如果p[j]!=*，如果s[i] match p[j] 则dp[i][j]==dp[i-1][j-1],反之FALSE</p>
+<p>如果p[j]是*,如果s[i] match p[j-1], 则dp[i][j]==dp[i][j-2] || dp[i-1][j]，反之dp[i][j]==dp[i][j-2]</p>
 <h2 id="2c实现">2.C++实现</h2>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="k">class</span> <span class="nc">Solution</span> <span class="p">{</span>
 <span class="k">public</span><span class="o">:</span>
-    <span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">sortedSquares</span><span class="p">(</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;&amp;</span> <span class="n">nums</span><span class="p">)</span> <span class="p">{</span>
-        <span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">answer</span><span class="p">;</span>
-        <span class="kt">int</span> <span class="n">start</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
-        <span class="kt">int</span> <span class="n">end</span> <span class="o">=</span> <span class="n">nums</span><span class="p">.</span><span class="n">size</span><span class="p">()</span><span class="o">-</span><span class="mi">1</span><span class="p">;</span>
-        <span class="k">while</span><span class="p">(</span><span class="n">start</span><span class="o">&lt;=</span><span class="n">end</span><span class="p">){</span>
-            <span class="k">if</span><span class="p">(</span><span class="n">nums</span><span class="p">[</span><span class="n">start</span><span class="p">]</span><span class="o">*</span><span class="n">nums</span><span class="p">[</span><span class="n">start</span><span class="p">]</span><span class="o">&gt;=</span><span class="n">nums</span><span class="p">[</span><span class="n">end</span><span class="p">]</span><span class="o">*</span><span class="n">nums</span><span class="p">[</span><span class="n">end</span><span class="p">]){</span>
-                <span class="n">answer</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">nums</span><span class="p">[</span><span class="n">start</span><span class="p">]</span><span class="o">*</span><span class="n">nums</span><span class="p">[</span><span class="n">start</span><span class="p">]);</span>
-                <span class="n">start</span> <span class="o">=</span> <span class="n">start</span> <span class="o">+</span> <span class="mi">1</span><span class="p">;</span> 
-            <span class="p">}</span>
-            <span class="k">else</span> <span class="p">{</span>
-                <span class="n">answer</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">nums</span><span class="p">[</span><span class="n">end</span><span class="p">]</span><span class="o">*</span><span class="n">nums</span><span class="p">[</span><span class="n">end</span><span class="p">]);</span>
-                <span class="n">end</span> <span class="o">=</span> <span class="n">end</span> <span class="o">-</span> <span class="mi">1</span><span class="p">;</span>
+    <span class="kt">bool</span> <span class="n">match</span><span class="p">(</span><span class="n">string</span><span class="o">&amp;</span> <span class="n">s</span><span class="p">,</span> <span class="n">string</span><span class="o">&amp;</span> <span class="n">p</span><span class="p">,</span> <span class="kt">int</span> <span class="n">i</span><span class="p">,</span> <span class="kt">int</span> <span class="n">j</span><span class="p">){</span>
+        <span class="k">if</span><span class="p">(</span><span class="n">i</span><span class="o">==</span><span class="mi">0</span><span class="p">){</span>
+            <span class="k">return</span> <span class="nb">false</span><span class="p">;</span>
+        <span class="p">}</span>
+        <span class="k">return</span> <span class="n">p</span><span class="p">[</span><span class="n">j</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">==</span><span class="sc">&#39;.&#39;</span> <span class="n">or</span> <span class="n">s</span><span class="p">[</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">==</span><span class="n">p</span><span class="p">[</span><span class="n">j</span><span class="o">-</span><span class="mi">1</span><span class="p">];</span>
+    <span class="p">}</span>
+    <span class="kt">bool</span> <span class="nf">isMatch</span><span class="p">(</span><span class="n">string</span> <span class="n">s</span><span class="p">,</span> <span class="n">string</span> <span class="n">p</span><span class="p">)</span> <span class="p">{</span>
+        <span class="kt">int</span> <span class="n">m</span> <span class="o">=</span> <span class="n">s</span><span class="p">.</span><span class="n">size</span><span class="p">();</span>
+        <span class="kt">int</span> <span class="n">n</span> <span class="o">=</span> <span class="n">p</span><span class="p">.</span><span class="n">size</span><span class="p">();</span>
+        <span class="kt">bool</span> <span class="n">dp</span><span class="p">[</span><span class="n">m</span> <span class="o">+</span> <span class="mi">1</span><span class="p">][</span><span class="n">n</span> <span class="o">+</span> <span class="mi">1</span><span class="p">];</span>
+        <span class="n">memset</span><span class="p">(</span><span class="n">dp</span><span class="p">,</span> <span class="nb">false</span><span class="p">,</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">dp</span><span class="p">));</span>
+        <span class="n">dp</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="nb">true</span><span class="p">;</span>
+        <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span><span class="n">i</span><span class="o">&lt;=</span><span class="n">m</span><span class="p">;</span><span class="n">i</span><span class="o">++</span><span class="p">){</span>
+            <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">j</span><span class="o">=</span><span class="mi">1</span><span class="p">;</span><span class="n">j</span><span class="o">&lt;=</span><span class="n">n</span><span class="p">;</span><span class="n">j</span><span class="o">++</span><span class="p">){</span>
+                <span class="k">if</span><span class="p">(</span><span class="n">p</span><span class="p">[</span><span class="n">j</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">!=</span><span class="sc">&#39;*&#39;</span><span class="p">){</span>
+                    <span class="n">dp</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="n">match</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="n">p</span><span class="p">,</span> <span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">)</span> <span class="o">?</span> <span class="n">dp</span><span class="p">[</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">][</span><span class="n">j</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">:</span> <span class="nb">false</span><span class="p">;</span>
+                <span class="p">}</span>
+                <span class="k">else</span><span class="p">{</span>
+                    <span class="n">dp</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="n">match</span><span class="p">(</span><span class="n">s</span><span class="p">,</span><span class="n">p</span><span class="p">,</span><span class="n">i</span><span class="p">,</span><span class="n">j</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="o">?</span> <span class="n">dp</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="o">-</span><span class="mi">2</span><span class="p">]</span> <span class="o">||</span> <span class="n">dp</span><span class="p">[</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">][</span><span class="n">j</span><span class="p">]</span> <span class="o">:</span> <span class="n">dp</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="o">-</span><span class="mi">2</span><span class="p">];</span> 
+                <span class="p">}</span>
             <span class="p">}</span>
         <span class="p">}</span>
-        <span class="n">reverse</span><span class="p">(</span><span class="n">answer</span><span class="p">.</span><span class="n">begin</span><span class="p">(),</span><span class="n">answer</span><span class="p">.</span><span class="n">end</span><span class="p">());</span>
-        <span class="k">return</span> <span class="n">answer</span><span class="p">;</span>
-    <span class="p">}</span>
-<span class="p">};</span>
-</code></pre></div><h1 id="二189-旋转数组httpsleetcode-cncomproblemsrotate-array">二.<a href="https://leetcode-cn.com/problems/rotate-array/">189. 旋转数组</a></h1>
-<h2 id="1题干及思路-1">1.题干及思路</h2>
-<p>给定一个数组，将数组中的元素向右移动 k 个位置，其中 k 是非负数。</p>
-<p>进阶：</p>
-<p>尽可能想出更多的解决方案，至少有三种不同的方法可以解决这个问题。
-你可以使用空间复杂度为 O(1) 的 原地 算法解决这个问题吗？</p>
-<p>示例 1:</p>
-<p>输入: nums = [1,2,3,4,5,6,7], k = 3
-输出: [5,6,7,1,2,3,4]
-解释:
-向右旋转 1 步: [7,1,2,3,4,5,6]
-向右旋转 2 步: [6,7,1,2,3,4,5]
-向右旋转 3 步: [5,6,7,1,2,3,4]
-示例 2:</p>
-<p>输入：nums = [-1,-100,3,99], k = 2
-输出：[3,99,-1,-100]
-解释: 
-向右旋转 1 步: [99,-1,-100,3]
-向右旋转 2 步: [3,99,-1,-100]</p>
-<p>提示：</p>
-<p>1 &lt;= nums.length &lt;= 2 * 104
--231 &lt;= nums[i] &lt;= 231 - 1
-0 &lt;= k &lt;= 105</p>
-<p>来源：力扣（LeetCode）
-链接：https://leetcode-cn.com/problems/rotate-array
-著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。</p>
-<p>要点：双指针</p>
-<p>思路：写一个reverse2函数，功能是将数组转置（e.g. 1234&ndash;&gt;4321）那么此题转置三次即可实现（e.g. 1234567右移动3位， 全reverse 1234567&ndash;&gt;7654321，前一半reverse 4567321 &ndash;&gt;后一半reverse 4567123）</p>
-<h2 id="2c实现-1">2.C++实现</h2>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="k">class</span> <span class="nc">Solution</span> <span class="p">{</span>
-<span class="k">public</span><span class="o">:</span>
-    <span class="kt">void</span> <span class="n">reverse2</span><span class="p">(</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;&amp;</span> <span class="n">nums</span><span class="p">,</span><span class="kt">int</span> <span class="n">start</span><span class="p">,</span><span class="kt">int</span> <span class="n">end</span><span class="p">){</span>
-        <span class="k">while</span> <span class="p">(</span><span class="n">start</span> <span class="o">&lt;</span> <span class="n">end</span><span class="p">)</span> <span class="p">{</span>
-            <span class="n">swap</span><span class="p">(</span><span class="n">nums</span><span class="p">[</span><span class="n">start</span><span class="p">],</span> <span class="n">nums</span><span class="p">[</span><span class="n">end</span><span class="p">]);</span>
-            <span class="n">start</span> <span class="o">+=</span> <span class="mi">1</span><span class="p">;</span>
-            <span class="n">end</span> <span class="o">-=</span> <span class="mi">1</span><span class="p">;</span>
-        <span class="p">}</span>
-    <span class="p">}</span>
+        <span class="k">return</span> <span class="n">dp</span><span class="p">[</span><span class="n">m</span><span class="p">][</span><span class="n">n</span><span class="p">];</span>
 
-
-    <span class="kt">void</span> <span class="nf">rotate</span><span class="p">(</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;&amp;</span> <span class="n">nums</span><span class="p">,</span> <span class="kt">int</span> <span class="n">k</span><span class="p">)</span> <span class="p">{</span>
-        <span class="n">k</span> <span class="o">%=</span> <span class="n">nums</span><span class="p">.</span><span class="n">size</span><span class="p">();</span>
-        <span class="n">reverse2</span><span class="p">(</span><span class="n">nums</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">nums</span><span class="p">.</span><span class="n">size</span><span class="p">()</span> <span class="o">-</span> <span class="mi">1</span><span class="p">);</span>
-        <span class="n">reverse2</span><span class="p">(</span><span class="n">nums</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">k</span> <span class="o">-</span> <span class="mi">1</span><span class="p">);</span>
-        <span class="n">reverse2</span><span class="p">(</span><span class="n">nums</span><span class="p">,</span> <span class="n">k</span><span class="p">,</span> <span class="n">nums</span><span class="p">.</span><span class="n">size</span><span class="p">()</span> <span class="o">-</span> <span class="mi">1</span><span class="p">);</span>
     <span class="p">}</span>
-<span class="p">};</span>
+<span class="p">};</span>                       
 </code></pre></div>
     
 	</div>
@@ -222,7 +197,7 @@ nums 已按 非递减顺序 排序</p>
 
 
   <div class="article-share" id="share">
-    <div data-url="https://qkgoalkeeper.github.io/post/leetcode%E7%AE%97%E6%B3%95%E5%85%A5%E9%97%A8%E7%AC%AC2%E5%A4%A9%E5%8F%8C%E6%8C%87%E9%92%88/" data-title="LeetCode算法入门第2天：双指针" data-tsina="5852167252" class="share clearfix">
+    <div data-url="https://qkgoalkeeper.github.io/post/leetcode%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%9810.-%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F%E5%8C%B9%E9%85%8D/" data-title="LeetCode每日一题：10. 正则表达式匹配" data-tsina="5852167252" class="share clearfix">
     </div>
   </div>
 </footer>
