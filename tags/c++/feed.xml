@@ -6,7 +6,16 @@
     <description>Recent content in C&#43;&#43; on qkgoalkeeper&#39;s blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
-    <lastBuildDate>Wed, 08 Dec 2021 10:55:19 +0800</lastBuildDate><atom:link href="https://qkgoalkeeper.github.io/tags/c++/feed.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Thu, 09 Dec 2021 10:55:19 +0800</lastBuildDate><atom:link href="https://qkgoalkeeper.github.io/tags/c++/feed.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>LeetCode每日一题：42. 接雨水</title>
+      <link>https://qkgoalkeeper.github.io/post/leetcode%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%9842.-%E6%8E%A5%E9%9B%A8%E6%B0%B4/</link>
+      <pubDate>Thu, 09 Dec 2021 10:55:19 +0800</pubDate>
+      
+      <guid>https://qkgoalkeeper.github.io/post/leetcode%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%9842.-%E6%8E%A5%E9%9B%A8%E6%B0%B4/</guid>
+      <description>一.42. 接雨水 1.题干及思路 给定 n 个非负整数表示每个宽度为 1 的柱子的高度图，计算按此排列的柱子，下雨之后能接多少雨水。 示例 1： 输入：hei</description>
+    </item>
+    
     <item>
       <title>LeetCode每日一题：32. 最长有效括号</title>
       <link>https://qkgoalkeeper.github.io/post/leetcode%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%9832.-%E6%9C%80%E9%95%BF%E6%9C%89%E6%95%88%E6%8B%AC%E5%8F%B7/</link>
