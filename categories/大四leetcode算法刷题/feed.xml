@@ -6,14 +6,23 @@
     <description>Recent content in 大四LeetCode算法刷题 on qkgoalkeeper&#39;s blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
-    <lastBuildDate>Fri, 10 Dec 2021 10:55:19 +0800</lastBuildDate><atom:link href="https://qkgoalkeeper.github.io/categories/%E5%A4%A7%E5%9B%9Bleetcode%E7%AE%97%E6%B3%95%E5%88%B7%E9%A2%98/feed.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sat, 11 Dec 2021 10:55:19 +0800</lastBuildDate><atom:link href="https://qkgoalkeeper.github.io/categories/%E5%A4%A7%E5%9B%9Bleetcode%E7%AE%97%E6%B3%95%E5%88%B7%E9%A2%98/feed.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>LeetCode每日一题：76. 最小覆盖子串</title>
+      <link>https://qkgoalkeeper.github.io/post/leetcode%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%9876.-%E6%9C%80%E5%B0%8F%E8%A6%86%E7%9B%96%E5%AD%90%E4%B8%B2/</link>
+      <pubDate>Sat, 11 Dec 2021 10:55:19 +0800</pubDate>
+      
+      <guid>https://qkgoalkeeper.github.io/post/leetcode%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%9876.-%E6%9C%80%E5%B0%8F%E8%A6%86%E7%9B%96%E5%AD%90%E4%B8%B2/</guid>
+      <description>一.76. 最小覆盖子串 1.题干及思路 给你一个字符串 s 、一个字符串 t 。返回 s 中涵盖 t 所有字符的最小子串。如果 s 中不存在涵盖 t 所有字符的子串，则</description>
+    </item>
+    
     <item>
       <title>LeetCode每日一题：64. 最小路径和</title>
       <link>https://qkgoalkeeper.github.io/post/leetcode%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%9864.-%E6%9C%80%E5%B0%8F%E8%B7%AF%E5%BE%84%E5%92%8C/</link>
       <pubDate>Fri, 10 Dec 2021 10:55:19 +0800</pubDate>
       
       <guid>https://qkgoalkeeper.github.io/post/leetcode%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%9864.-%E6%9C%80%E5%B0%8F%E8%B7%AF%E5%BE%84%E5%92%8C/</guid>
-      <description>一.64. 最小路径和 1.题干及思路 64. 最小路径和 难度中等1087收藏分享切换为英文接收动态反馈 给定一个包含非负整数的 *m* x *n* 网格 grid ，请找出一条从</description>
+      <description>一.64. 最小路径和 1.题干及思路 给定一个包含非负整数的 *m* x *n* 网格 grid ，请找出一条从左上角到右下角的路径，使得路径上的数字总和为最小。 **说明</description>
     </item>
     
     <item>
