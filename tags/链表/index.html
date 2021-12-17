@@ -2,18 +2,18 @@
 <html lang="zh-CN">
 <head>
   <meta charset="UTF-8">
-  <title>LeetCode算法入门第14天：位运算 - qkgoalkeeper&#39;s blog</title>
+  <title>链表 - qkgoalkeeper&#39;s blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=3, minimum-scale=1">
   
-  <meta name="description" content="一.190. 颠倒二进制位 1.题干及思路 颠倒给定的 32 位无符号整数的二进制位。 提示： 请注意，在某些语言（如 Java）中，没有无符号整数类型。在这">
+  <meta name="description" content="链表">
   
-  <meta itemprop="name" content="LeetCode算法入门第14天：位运算 - qkgoalkeeper&#39;s blog">
-  <meta itemprop="description" content="一.190. 颠倒二进制位 1.题干及思路 颠倒给定的 32 位无符号整数的二进制位。 提示： 请注意，在某些语言（如 Java）中，没有无符号整数类型。在这">
+  <meta itemprop="name" content="链表 - qkgoalkeeper&#39;s blog">
+  <meta itemprop="description" content="链表">
   <meta itemprop="image" content="https://qkgoalkeeper.github.io/img/author.jpg">
   
   
   <meta name="twitter:description" content="">
-  
+  <link rel="alternate" href="https://qkgoalkeeper.github.io/feed.xml" title="qkgoalkeeper&#39;s blog" type="application/rss+xml"/>
   <link rel="shortcut icon" href="https://qkgoalkeeper.github.io/img/favicon.ico"/>
   <link rel="apple-touch-icon" href="https://qkgoalkeeper.github.io/apple-touch-icon.png" />
   <link rel="apple-touch-icon-precomposed" href="https://qkgoalkeeper.github.io/apple-touch-icon.png" />
@@ -70,145 +70,21 @@
 
   </header>
   <div id="container">
-    <div id="main" class="post" itemscope itemprop="blogPost">
-	<article itemprop="articleBody">
-    <header class="article-info clearfix">
-  <h1 itemprop="name">
-      <a href="https://qkgoalkeeper.github.io/post/leetcode%E7%AE%97%E6%B3%95%E5%85%A5%E9%97%A8%E7%AC%AC14%E5%A4%A9%E4%BD%8D%E8%BF%90%E7%AE%97/" title="LeetCode算法入门第14天：位运算" itemprop="url">LeetCode算法入门第14天：位运算</a>
-  </h1>
-  <p class="article-author">By
-    
-      <a href="https://qkgoalkeeper.github.io/" title="qk">qk</a>
-    
-  </p>
-  <p class="article-time">
-    <time datetime="2021-10-09 10:55:19 &#43;0800 CST" itemprop="datePublished">2021年10月09日</time>
-  </p>
-</header>
+    <div id="main">
+      
+      <h2 id="2021-12">2021-12</h2>
+      
+      <section class="post" itemscope itemprop="blogPost">
+    <a href="https://qkgoalkeeper.github.io/post/leetcode%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98146.-lru-%E7%BC%93%E5%AD%98%E6%9C%BA%E5%88%B6/" title="LeetCode每日一题：146. LRU 缓存机制" itemprop="url">
+    <h1 itemprop="name">LeetCode每日一题：146. LRU 缓存机制</h1>
+    <p itemprop="description">一.146. LRU 缓存机制 1.题干及思路 运用你所掌握的数据结构，设计和实现一个 LRU (最近最少使用) 缓存机制 。 实现 LRUCache 类： LRUCache(int capacity) 以正整数作为容量 capacity 初始化</p>
+    <time datetime="2021-12-17 10:55:19 &#43;0800 CST" itemprop="datePublished">2021年12月17日</time>
+  </a>
+</section>
 
-	<div class="article-content">
-    
-		<div class="toc-article">
-			<strong class="toc-title">文章目录</strong>
-      <nav id="TableOfContents">
-  <ul>
-    <li><a href="#1题干及思路">1.题干及思路</a></li>
-    <li><a href="#2c实现">2.C++实现</a></li>
-  </ul>
-
-  <ul>
-    <li><a href="#1题干及思路-1">1.题干及思路</a></li>
-    <li><a href="#2c实现-1">2.C++实现</a></li>
-  </ul>
-</nav>
-		</div>
-    
-    <h1 id="一190-颠倒二进制位httpsleetcode-cncomproblemsreverse-bits">一.<a href="https://leetcode-cn.com/problems/reverse-bits/">190. 颠倒二进制位</a></h1>
-<h2 id="1题干及思路">1.题干及思路</h2>
-<p>颠倒给定的 32 位无符号整数的二进制位。</p>
-<p>提示：</p>
-<p>请注意，在某些语言（如 Java）中，没有无符号整数类型。在这种情况下，输入和输出都将被指定为有符号整数类型，并且不应影响您的实现，因为无论整数是有符号的还是无符号的，其内部的二进制表示形式都是相同的。
-在 Java 中，编译器使用二进制补码记法来表示有符号整数。因此，在 示例 2 中，输入表示有符号整数 -3，输出表示有符号整数 -1073741825。</p>
-<p>示例 1：</p>
-<p>输入：n = 00000010100101000001111010011100
-输出：964176192 (00111001011110000010100101000000)
-解释：输入的二进制串 00000010100101000001111010011100 表示无符号整数 43261596，
-因此返回 964176192，其二进制表示形式为 00111001011110000010100101000000。
-示例 2：</p>
-<p>输入：n = 11111111111111111111111111111101
-输出：3221225471 (10111111111111111111111111111111)
-解释：输入的二进制串 11111111111111111111111111111101 表示无符号整数 4294967293，
-因此返回 3221225471 其二进制表示形式为 10111111111111111111111111111111 。</p>
-<p>提示：</p>
-<p>输入是一个长度为 32 的二进制字符串</p>
-<p>进阶: 如果多次调用这个函数，你将如何优化你的算法？</p>
-<p>来源：力扣（LeetCode）
-链接：https://leetcode-cn.com/problems/reverse-bits
-著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。</p>
-<p>要点：位运算</p>
-<p>思路：直接法，一位位取出来放到正确位置，执行32次uint32_t temp = n&amp;1;answer=answer|(temp&laquo;(31-i));</p>
-<h2 id="2c实现">2.C++实现</h2>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="k">class</span> <span class="nc">Solution</span> <span class="p">{</span>
-<span class="k">public</span><span class="o">:</span>
-    <span class="kt">uint32_t</span> <span class="n">reverseBits</span><span class="p">(</span><span class="kt">uint32_t</span> <span class="n">n</span><span class="p">)</span> <span class="p">{</span>
-        <span class="kt">uint32_t</span> <span class="n">answer</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
-        <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span><span class="n">i</span><span class="o">&lt;</span><span class="mi">32</span><span class="p">;</span><span class="n">i</span><span class="o">++</span><span class="p">){</span>
-            <span class="kt">uint32_t</span> <span class="n">temp</span> <span class="o">=</span> <span class="n">n</span><span class="o">&amp;</span><span class="mi">1</span><span class="p">;</span>
-            <span class="n">answer</span><span class="o">=</span><span class="n">answer</span><span class="o">|</span><span class="p">(</span><span class="n">temp</span><span class="o">&lt;&lt;</span><span class="p">(</span><span class="mi">31</span><span class="o">-</span><span class="n">i</span><span class="p">));</span>
-            <span class="n">n</span><span class="o">&gt;&gt;=</span><span class="mi">1</span><span class="p">;</span>
-        <span class="p">}</span>
-        <span class="k">return</span> <span class="n">answer</span><span class="p">;</span>
-        
-    <span class="p">}</span>
-<span class="p">};</span>
-</code></pre></div><h1 id="二136-只出现一次的数字httpsleetcode-cncomproblemssingle-number">二.<a href="https://leetcode-cn.com/problems/single-number/">136. 只出现一次的数字</a></h1>
-<h2 id="1题干及思路-1">1.题干及思路</h2>
-<p>给定一个非空整数数组，除了某个元素只出现一次以外，其余每个元素均出现两次。找出那个只出现了一次的元素。</p>
-<p>说明：</p>
-<p>你的算法应该具有线性时间复杂度。 你可以不使用额外空间来实现吗？</p>
-<p>示例 1:</p>
-<p>输入: [2,2,1]
-输出: 1
-示例 2:</p>
-<p>输入: [4,1,2,1,2]
-输出: 4</p>
-<p>来源：力扣（LeetCode）
-链接：https://leetcode-cn.com/problems/single-number
-著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。</p>
-<p>要点：位运算</p>
-<p>思路：任何数和 0 做异或运算，结果仍然是原来的数，任何数和其自身做异或运算，结果是 0，异或运算具有交换律所以初始0然后与数组中所有的数做异或运算最后留下来的就是答案</p>
-<h2 id="2c实现-1">2.C++实现</h2>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="k">class</span> <span class="nc">Solution</span> <span class="p">{</span>
-<span class="k">public</span><span class="o">:</span>
-    <span class="kt">int</span> <span class="n">singleNumber</span><span class="p">(</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;&amp;</span> <span class="n">nums</span><span class="p">)</span> <span class="p">{</span>
-        <span class="kt">uint32_t</span> <span class="n">judge</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
-        <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span><span class="n">i</span><span class="o">&lt;</span><span class="n">nums</span><span class="p">.</span><span class="n">size</span><span class="p">();</span><span class="n">i</span><span class="o">++</span><span class="p">){</span>
-            <span class="n">judge</span> <span class="o">=</span> <span class="n">judge</span><span class="o">^</span><span class="n">nums</span><span class="p">[</span><span class="n">i</span><span class="p">];</span>
-        <span class="p">}</span>
-        <span class="k">return</span> <span class="n">judge</span><span class="p">;</span>
-    <span class="p">}</span>
-<span class="p">};</span>
-</code></pre></div>
-    
-	</div>
-  <footer class="article-footer clearfix">
-  
-
-<div class="article-tags">
-  <span></span>
-  
-  <a href="https://qkgoalkeeper.github.io/tags/leetcode">LeetCode</a>
-  
-  <a href="https://qkgoalkeeper.github.io/tags/c&#43;&#43;">C&#43;&#43;</a>
-  
-</div>
-
-
-
-
-
-<div class="article-categories">
-  <span></span>
-  
-  <a class="article-category-link" href="https://qkgoalkeeper.github.io/categories/%E5%A4%A7%E5%9B%9Bleetcode%E7%AE%97%E6%B3%95%E5%88%B7%E9%A2%98">大四LeetCode算法刷题</a>
-  
-</div>
-
-
-
-  <div class="article-share" id="share">
-    <div data-url="https://qkgoalkeeper.github.io/post/leetcode%E7%AE%97%E6%B3%95%E5%85%A5%E9%97%A8%E7%AC%AC14%E5%A4%A9%E4%BD%8D%E8%BF%90%E7%AE%97/" data-title="LeetCode算法入门第14天：位运算" data-tsina="5852167252" class="share clearfix">
+      
+      
     </div>
-  </div>
-</footer>
-
-	</article>
-  
-
-
-
-</div>
-
     <div class="openaside"><a class="navbutton" href="#" title="显示侧边栏"></a></div>
 <div id="asidepart">
 <div class="closeaside"><a class="closebutton" href="#" title="隐藏侧边栏"></a></div>
@@ -333,6 +209,10 @@
 
 
   
+<div class="rsspart">
+  <a rel="nofollow" href="https://qkgoalkeeper.github.io/feed.xml" type="application/rss+xml" target="_blank">RSS 订阅</a>
+</div>
+
 
 </aside>
 </div>
@@ -418,38 +298,6 @@ $(document).ready(function(){
 
 <script type="text/javascript">
 $(document).ready(function(){
-  var ai = $('.article-content>iframe'),
-      ae = $('.article-content>embed'),
-      t  = $('#toc'),
-      h  = $('article h2')
-      ah = $('article h2'),
-      ta = $('#toc.toc-aside'),
-      o  = $('.openaside'),
-      c  = $('.closeaside');
-  if(ai.length>0){
-    ai.wrap('<div class="video-container" />');
-  };
-  if(ae.length>0){
-   ae.wrap('<div class="video-container" />');
-  };
-  if(ah.length==0){
-    t.css('display','none');
-  }else{
-    c.click(function(){
-      ta.css('display', 'block').addClass('fadeIn');
-    });
-    o.click(function(){
-      ta.css('display', 'none');
-    });
-    $(window).scroll(function(){
-      ta.css("top",Math.max(140,320-$(this).scrollTop()));
-    });
-  };
-});
-</script>
-
-<script type="text/javascript">
-$(document).ready(function(){
   var $this = $('.share'),
       url = $this.attr('data-url'),
       encodedUrl = encodeURIComponent(url),
@@ -476,27 +324,6 @@ $(document).ready(function(){
 });
 </script>
 
-
-<link rel="stylesheet" href="https://qkgoalkeeper.github.io/fancybox/jquery.fancybox.css" media="screen" type="text/css">
-<script src="https://qkgoalkeeper.github.io/fancybox/jquery.fancybox.pack.js"></script>
-<script type="text/javascript">
-$(document).ready(function(){
-  $('.article-content').each(function(i){
-    $(this).find('img').each(function(){
-      if ($(this).parent().hasClass('fancybox')) return;
-      var alt = this.alt;
-      if (alt) $(this).after('<span class="caption">' + alt + '</span>');
-      $(this).wrap('<a href="' + this.src + '" title="' + alt + '" class="fancybox"></a>');
-    });
-    $(this).find('.fancybox').each(function(){
-      $(this).attr('rel', 'article' + i);
-    });
-  });
-  if($.fancybox){
-    $('.fancybox').fancybox();
-  }
-});
-</script>
 
 
 
