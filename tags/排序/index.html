@@ -2,18 +2,18 @@
 <html lang="zh-CN">
 <head>
   <meta charset="UTF-8">
-  <title>LeetCode简单题：205. 同构字符串（Python,C&#43;&#43;,Java） - qkgoalkeeper&#39;s blog</title>
+  <title>排序 - qkgoalkeeper&#39;s blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=3, minimum-scale=1">
   
-  <meta name="description" content="一.解法 https://leetcode-cn.com/problems/isomorphic-strings/ 要点：hashmap Python，C&#43;&#43;，Java都用了相同的哈希表法。 用hashmap对string a和string b进行来回两">
+  <meta name="description" content="排序">
   
-  <meta itemprop="name" content="LeetCode简单题：205. 同构字符串（Python,C&#43;&#43;,Java） - qkgoalkeeper&#39;s blog">
-  <meta itemprop="description" content="一.解法 https://leetcode-cn.com/problems/isomorphic-strings/ 要点：hashmap Python，C&#43;&#43;，Java都用了相同的哈希表法。 用hashmap对string a和string b进行来回两">
+  <meta itemprop="name" content="排序 - qkgoalkeeper&#39;s blog">
+  <meta itemprop="description" content="排序">
   <meta itemprop="image" content="https://qkgoalkeeper.github.io/img/author.jpg">
   
   
   <meta name="twitter:description" content="">
-  
+  <link rel="alternate" href="https://qkgoalkeeper.github.io/feed.xml" title="qkgoalkeeper&#39;s blog" type="application/rss+xml"/>
   <link rel="shortcut icon" href="https://qkgoalkeeper.github.io/img/favicon.ico"/>
   <link rel="apple-touch-icon" href="https://qkgoalkeeper.github.io/apple-touch-icon.png" />
   <link rel="apple-touch-icon-precomposed" href="https://qkgoalkeeper.github.io/apple-touch-icon.png" />
@@ -70,150 +70,21 @@
 
   </header>
   <div id="container">
-    <div id="main" class="post" itemscope itemprop="blogPost">
-	<article itemprop="articleBody">
-    <header class="article-info clearfix">
-  <h1 itemprop="name">
-      <a href="https://qkgoalkeeper.github.io/post/leetcode%E7%AE%80%E5%8D%95%E9%A2%98205.-%E5%90%8C%E6%9E%84%E5%AD%97%E7%AC%A6%E4%B8%B2pythonc&#43;&#43;java/" title="LeetCode简单题：205. 同构字符串（Python,C&#43;&#43;,Java）" itemprop="url">LeetCode简单题：205. 同构字符串（Python,C&#43;&#43;,Java）</a>
-  </h1>
-  <p class="article-author">By
-    
-      <a href="https://qkgoalkeeper.github.io/" title="qk">qk</a>
-    
-  </p>
-  <p class="article-time">
-    <time datetime="2020-08-13 17:55:19 &#43;0800 CST" itemprop="datePublished">2020年08月13日</time>
-  </p>
-</header>
+    <div id="main">
+      
+      <h2 id="2021-12">2021-12</h2>
+      
+      <section class="post" itemscope itemprop="blogPost">
+    <a href="https://qkgoalkeeper.github.io/post/leetcode%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98148.-%E6%8E%92%E5%BA%8F%E9%93%BE%E8%A1%A8/" title="LeetCode每日一题：148. 排序链表" itemprop="url">
+    <h1 itemprop="name">LeetCode每日一题：148. 排序链表</h1>
+    <p itemprop="description">一.148. 排序链表 1.题干及思路 给你链表的头结点 head ，请将其按 升序 排列并返回 排序后的链表 。 进阶： 你可以在 O(n log n) 时间复杂度和常数级空间复杂度下</p>
+    <time datetime="2021-12-18 10:55:19 &#43;0800 CST" itemprop="datePublished">2021年12月18日</time>
+  </a>
+</section>
 
-	<div class="article-content">
-    
-		<div class="toc-article">
-			<strong class="toc-title">文章目录</strong>
-      <nav id="TableOfContents">
-  <ul>
-    <li><a href="#一解法">一.解法</a></li>
-    <li><a href="#二python实现">二.Python实现</a></li>
-    <li><a href="#三c实现">三.C++实现</a></li>
-    <li><a href="#四java实现">四.java实现</a></li>
-  </ul>
-</nav>
-		</div>
-    
-    <h2 id="一解法">一.解法</h2>
-<p><a href="https://leetcode-cn.com/problems/isomorphic-strings/">https://leetcode-cn.com/problems/isomorphic-strings/</a><br>
-要点：hashmap<br>
-Python，C++，Java都用了相同的哈希表法。<br>
-用hashmap对string a和string b进行来回两次哈希映射，如果都没问题说明是同构字符串。<br>
-Python中利用dic.values()函数可以只用一次映射并判断映射值是否已经用过来代替两次映射，得到相同的结果。</p>
-<h2 id="二python实现">二.Python实现</h2>
-<pre tabindex="0"><code>class Solution:
-    def isIsomorphic(self, s: str, t: str) -&gt; bool:
-        if not s:
-            return True
-        dic={}
-        for i in range(len(s)):
-            if s[i] not in dic:
-                if t[i] in dic.values():
-                    return False
-                else:
-                    dic[s[i]]=t[i]
-            else:
-                if dic[s[i]]!=t[i]:
-                    return False
-        return True
-</code></pre><h2 id="三c实现">三.C++实现</h2>
-<pre tabindex="0"><code>class Solution {
-public:
-    bool isIsomorphic(string s, string t) {
-        if(s.size()!=t.size()) return false;
-        int length=s.size();
-        unordered_map &lt;char,char&gt; map;
-        unordered_map &lt;char,char&gt; map2;
-        for(int i=0;i&lt;length;i++){
-            if(map[s[i]]){
-                if(map[s[i]]!=t[i]) return false;
-            }
-            if(!map[s[i]]) map[s[i]]=t[i];
-        }
-        
-        for(int i=0;i&lt;length;i++){
-            if(map2[t[i]]){
-                if(map2[t[i]]!=s[i]) return false;
-            }
-            if(!map2[t[i]]) map2[t[i]]=s[i];
-        }
-
-
-        return true;
-  
-    }
-};
-</code></pre><h2 id="四java实现">四.java实现</h2>
-<pre tabindex="0"><code>class Solution {
-    public boolean isIsomorphic(String s, String t) {
-    return isIsomorphicHelper(s, t) &amp;&amp; isIsomorphicHelper(t, s);
-
-}
-
-    private boolean isIsomorphicHelper(String s, String t) {
-        int n = s.length();
-        HashMap&lt;Character, Character&gt; map = new HashMap&lt;&gt;();
-        for (int i = 0; i &lt; n; i++) {
-            char c1 = s.charAt(i);
-            char c2 = t.charAt(i);
-            if (map.containsKey(c1)) {
-                if (map.get(c1) != c2) {
-                    return false;
-                }
-            } else {
-                map.put(c1, c2);
-            }
-        }
-        return true;
-    }
-
-
-}
-</code></pre>
-    
-	</div>
-  <footer class="article-footer clearfix">
-  
-
-<div class="article-tags">
-  <span></span>
-  
-  <a href="https://qkgoalkeeper.github.io/tags/leetcode">LeetCode</a>
-  
-</div>
-
-
-
-
-
-<div class="article-categories">
-  <span></span>
-  
-  <a class="article-category-link" href="https://qkgoalkeeper.github.io/categories/leetcode%E7%AE%80%E5%8D%95%E9%A2%98201-300">LeetCode简单题201-300</a>
-  
-</div>
-
-
-
-  <div class="article-share" id="share">
-    <div data-url="https://qkgoalkeeper.github.io/post/leetcode%E7%AE%80%E5%8D%95%E9%A2%98205.-%E5%90%8C%E6%9E%84%E5%AD%97%E7%AC%A6%E4%B8%B2pythonc&#43;&#43;java/" data-title="LeetCode简单题：205. 同构字符串（Python,C&#43;&#43;,Java）" data-tsina="5852167252" class="share clearfix">
+      
+      
     </div>
-  </div>
-</footer>
-
-	</article>
-  
-
-
-
-</div>
-
     <div class="openaside"><a class="navbutton" href="#" title="显示侧边栏"></a></div>
 <div id="asidepart">
 <div class="closeaside"><a class="closebutton" href="#" title="隐藏侧边栏"></a></div>
@@ -342,6 +213,10 @@ public:
 
 
   
+<div class="rsspart">
+  <a rel="nofollow" href="https://qkgoalkeeper.github.io/feed.xml" type="application/rss+xml" target="_blank">RSS 订阅</a>
+</div>
+
 
 </aside>
 </div>
@@ -427,38 +302,6 @@ $(document).ready(function(){
 
 <script type="text/javascript">
 $(document).ready(function(){
-  var ai = $('.article-content>iframe'),
-      ae = $('.article-content>embed'),
-      t  = $('#toc'),
-      h  = $('article h2')
-      ah = $('article h2'),
-      ta = $('#toc.toc-aside'),
-      o  = $('.openaside'),
-      c  = $('.closeaside');
-  if(ai.length>0){
-    ai.wrap('<div class="video-container" />');
-  };
-  if(ae.length>0){
-   ae.wrap('<div class="video-container" />');
-  };
-  if(ah.length==0){
-    t.css('display','none');
-  }else{
-    c.click(function(){
-      ta.css('display', 'block').addClass('fadeIn');
-    });
-    o.click(function(){
-      ta.css('display', 'none');
-    });
-    $(window).scroll(function(){
-      ta.css("top",Math.max(140,320-$(this).scrollTop()));
-    });
-  };
-});
-</script>
-
-<script type="text/javascript">
-$(document).ready(function(){
   var $this = $('.share'),
       url = $this.attr('data-url'),
       encodedUrl = encodeURIComponent(url),
@@ -485,27 +328,6 @@ $(document).ready(function(){
 });
 </script>
 
-
-<link rel="stylesheet" href="https://qkgoalkeeper.github.io/fancybox/jquery.fancybox.css" media="screen" type="text/css">
-<script src="https://qkgoalkeeper.github.io/fancybox/jquery.fancybox.pack.js"></script>
-<script type="text/javascript">
-$(document).ready(function(){
-  $('.article-content').each(function(i){
-    $(this).find('img').each(function(){
-      if ($(this).parent().hasClass('fancybox')) return;
-      var alt = this.alt;
-      if (alt) $(this).after('<span class="caption">' + alt + '</span>');
-      $(this).wrap('<a href="' + this.src + '" title="' + alt + '" class="fancybox"></a>');
-    });
-    $(this).find('.fancybox').each(function(){
-      $(this).attr('rel', 'article' + i);
-    });
-  });
-  if($.fancybox){
-    $('.fancybox').fancybox();
-  }
-});
-</script>
 
 
 
