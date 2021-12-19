@@ -2,18 +2,18 @@
 <html lang="zh-CN">
 <head>
   <meta charset="UTF-8">
-  <title>LeetCode简单题：83. 删除排序链表中的重复元素（Python,C&#43;&#43;,Java） - qkgoalkeeper&#39;s blog</title>
+  <title>动态规划 - qkgoalkeeper&#39;s blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=3, minimum-scale=1">
   
-  <meta name="description" content="一.解法 https://leetcode-cn.com/problems/remove-duplicates-from-sorted-list/ 要点：链表 熟悉Python，C&#43;&#43;，Java的链表表示 如果当前的指针和当前的next指针值相同，当前的next改为当前的next的">
+  <meta name="description" content="动态规划">
   
-  <meta itemprop="name" content="LeetCode简单题：83. 删除排序链表中的重复元素（Python,C&#43;&#43;,Java） - qkgoalkeeper&#39;s blog">
-  <meta itemprop="description" content="一.解法 https://leetcode-cn.com/problems/remove-duplicates-from-sorted-list/ 要点：链表 熟悉Python，C&#43;&#43;，Java的链表表示 如果当前的指针和当前的next指针值相同，当前的next改为当前的next的">
+  <meta itemprop="name" content="动态规划 - qkgoalkeeper&#39;s blog">
+  <meta itemprop="description" content="动态规划">
   <meta itemprop="image" content="https://qkgoalkeeper.github.io/img/author.jpg">
   
   
   <meta name="twitter:description" content="">
-  
+  <link rel="alternate" href="https://qkgoalkeeper.github.io/feed.xml" title="qkgoalkeeper&#39;s blog" type="application/rss+xml"/>
   <link rel="shortcut icon" href="https://qkgoalkeeper.github.io/img/favicon.ico"/>
   <link rel="apple-touch-icon" href="https://qkgoalkeeper.github.io/apple-touch-icon.png" />
   <link rel="apple-touch-icon-precomposed" href="https://qkgoalkeeper.github.io/apple-touch-icon.png" />
@@ -70,156 +70,21 @@
 
   </header>
   <div id="container">
-    <div id="main" class="post" itemscope itemprop="blogPost">
-	<article itemprop="articleBody">
-    <header class="article-info clearfix">
-  <h1 itemprop="name">
-      <a href="https://qkgoalkeeper.github.io/post/leetcode%E7%AE%80%E5%8D%95%E9%A2%9883.-%E5%88%A0%E9%99%A4%E6%8E%92%E5%BA%8F%E9%93%BE%E8%A1%A8%E4%B8%AD%E7%9A%84%E9%87%8D%E5%A4%8D%E5%85%83%E7%B4%A0pythonc&#43;&#43;java/" title="LeetCode简单题：83. 删除排序链表中的重复元素（Python,C&#43;&#43;,Java）" itemprop="url">LeetCode简单题：83. 删除排序链表中的重复元素（Python,C&#43;&#43;,Java）</a>
-  </h1>
-  <p class="article-author">By
-    
-      <a href="https://qkgoalkeeper.github.io/" title="qk">qk</a>
-    
-  </p>
-  <p class="article-time">
-    <time datetime="2020-08-13 17:55:19 &#43;0800 CST" itemprop="datePublished">2020年08月13日</time>
-  </p>
-</header>
-
-	<div class="article-content">
-    
-		<div class="toc-article">
-			<strong class="toc-title">文章目录</strong>
-      <nav id="TableOfContents">
-  <ul>
-    <li><a href="#一解法">一.解法</a></li>
-    <li><a href="#二python实现">二.Python实现</a></li>
-    <li><a href="#三c实现">三.C++实现</a></li>
-    <li><a href="#四java实现">四.java实现</a></li>
-  </ul>
-</nav>
-		</div>
-    
-    <h2 id="一解法">一.解法</h2>
-<p><a href="https://leetcode-cn.com/problems/remove-duplicates-from-sorted-list/">https://leetcode-cn.com/problems/remove-duplicates-from-sorted-list/</a><br>
-要点：链表<br>
-熟悉Python，C++，Java的链表表示<br>
-如果当前的指针和当前的next指针值相同，当前的next改为当前的next的next，不然就往后移一个节点</p>
-<h2 id="二python实现">二.Python实现</h2>
-<pre tabindex="0"><code># Definition for singly-linked list.
-# class ListNode:
-#     def __init__(self, x):
-#         self.val = x
-#         self.next = None
-
-class Solution:
-    def deleteDuplicates(self, head: ListNode) -&gt; ListNode:
-        node=head
-        while node and node.next:
-            if node.val==node.next.val:
-                node.next=node.next.next
-            else:
-                node=node.next
-        return head
-</code></pre><h2 id="三c实现">三.C++实现</h2>
-<pre tabindex="0"><code>/**
- * Definition for singly-linked list.
- * struct ListNode {
- *     int val;
- *     ListNode *next;
- *     ListNode(int x) : val(x), next(NULL) {}
- * };
- */
-class Solution {
-public:
-    ListNode* deleteDuplicates(ListNode* head) {
-      ListNode*last,*temp;
-        int flag;
-        
-     if(!head) return nullptr;
-        
-      last=head;temp=head-&gt;next; 
-        
-        while(temp){flag=0;
-             if(temp-&gt;val==last-&gt;val){
-                 flag=1;
-                 last-&gt;next=temp-&gt;next;
-                 delete temp;
-                 temp=last-&gt;next;
-             }
-                    
+    <div id="main">
       
-            if(flag==0) {
-                last=last-&gt;next;
-                temp=temp-&gt;next;
-            }
-            
-        }
-        return head;
-        
-    }
-};
-</code></pre><h2 id="四java实现">四.java实现</h2>
-<pre tabindex="0"><code>/**
- * Definition for singly-linked list.
- * public class ListNode {
- *     int val;
- *     ListNode next;
- *     ListNode(int x) { val = x; }
- * }
- */
-class Solution {
-    public ListNode deleteDuplicates(ListNode head) {
-        ListNode cur = head;
-        while(cur != null &amp;&amp; cur.next != null) {
-            if(cur.val == cur.next.val) {
-                cur.next = cur.next.next;
-            } else {
-                cur = cur.next;
-            }
-        }
-        return head;
-    }
-}
-</code></pre>
-    
-	</div>
-  <footer class="article-footer clearfix">
-  
+      <h2 id="2021-12">2021-12</h2>
+      
+      <section class="post" itemscope itemprop="blogPost">
+    <a href="https://qkgoalkeeper.github.io/post/leetcode%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98152.-%E4%B9%98%E7%A7%AF%E6%9C%80%E5%A4%A7%E5%AD%90%E6%95%B0%E7%BB%84/" title="LeetCode每日一题：152. 乘积最大子数组" itemprop="url">
+    <h1 itemprop="name">LeetCode每日一题：152. 乘积最大子数组</h1>
+    <p itemprop="description">一.152. 乘积最大子数组 1.题干及思路 给你一个整数数组 nums ，请你找出数组中乘积最大的连续子数组（该子数组中至少包含一个数字），并返回该子数组</p>
+    <time datetime="2021-12-19 10:55:19 &#43;0800 CST" itemprop="datePublished">2021年12月19日</time>
+  </a>
+</section>
 
-<div class="article-tags">
-  <span></span>
-  
-  <a href="https://qkgoalkeeper.github.io/tags/leetcode">LeetCode</a>
-  
-</div>
-
-
-
-
-
-<div class="article-categories">
-  <span></span>
-  
-  <a class="article-category-link" href="https://qkgoalkeeper.github.io/categories/leetcode%E7%AE%80%E5%8D%95%E9%A2%981-100">LeetCode简单题1-100</a>
-  
-</div>
-
-
-
-  <div class="article-share" id="share">
-    <div data-url="https://qkgoalkeeper.github.io/post/leetcode%E7%AE%80%E5%8D%95%E9%A2%9883.-%E5%88%A0%E9%99%A4%E6%8E%92%E5%BA%8F%E9%93%BE%E8%A1%A8%E4%B8%AD%E7%9A%84%E9%87%8D%E5%A4%8D%E5%85%83%E7%B4%A0pythonc&#43;&#43;java/" data-title="LeetCode简单题：83. 删除排序链表中的重复元素（Python,C&#43;&#43;,Java）" data-tsina="5852167252" class="share clearfix">
+      
+      
     </div>
-  </div>
-</footer>
-
-	</article>
-  
-
-
-
-</div>
-
     <div class="openaside"><a class="navbutton" href="#" title="显示侧边栏"></a></div>
 <div id="asidepart">
 <div class="closeaside"><a class="closebutton" href="#" title="隐藏侧边栏"></a></div>
@@ -352,6 +217,10 @@ class Solution {
 
 
   
+<div class="rsspart">
+  <a rel="nofollow" href="https://qkgoalkeeper.github.io/feed.xml" type="application/rss+xml" target="_blank">RSS 订阅</a>
+</div>
+
 
 </aside>
 </div>
@@ -437,38 +306,6 @@ $(document).ready(function(){
 
 <script type="text/javascript">
 $(document).ready(function(){
-  var ai = $('.article-content>iframe'),
-      ae = $('.article-content>embed'),
-      t  = $('#toc'),
-      h  = $('article h2')
-      ah = $('article h2'),
-      ta = $('#toc.toc-aside'),
-      o  = $('.openaside'),
-      c  = $('.closeaside');
-  if(ai.length>0){
-    ai.wrap('<div class="video-container" />');
-  };
-  if(ae.length>0){
-   ae.wrap('<div class="video-container" />');
-  };
-  if(ah.length==0){
-    t.css('display','none');
-  }else{
-    c.click(function(){
-      ta.css('display', 'block').addClass('fadeIn');
-    });
-    o.click(function(){
-      ta.css('display', 'none');
-    });
-    $(window).scroll(function(){
-      ta.css("top",Math.max(140,320-$(this).scrollTop()));
-    });
-  };
-});
-</script>
-
-<script type="text/javascript">
-$(document).ready(function(){
   var $this = $('.share'),
       url = $this.attr('data-url'),
       encodedUrl = encodeURIComponent(url),
@@ -495,27 +332,6 @@ $(document).ready(function(){
 });
 </script>
 
-
-<link rel="stylesheet" href="https://qkgoalkeeper.github.io/fancybox/jquery.fancybox.css" media="screen" type="text/css">
-<script src="https://qkgoalkeeper.github.io/fancybox/jquery.fancybox.pack.js"></script>
-<script type="text/javascript">
-$(document).ready(function(){
-  $('.article-content').each(function(i){
-    $(this).find('img').each(function(){
-      if ($(this).parent().hasClass('fancybox')) return;
-      var alt = this.alt;
-      if (alt) $(this).after('<span class="caption">' + alt + '</span>');
-      $(this).wrap('<a href="' + this.src + '" title="' + alt + '" class="fancybox"></a>');
-    });
-    $(this).find('.fancybox').each(function(){
-      $(this).attr('rel', 'article' + i);
-    });
-  });
-  if($.fancybox){
-    $('.fancybox').fancybox();
-  }
-});
-</script>
 
 
 

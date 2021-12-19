@@ -2,13 +2,13 @@
 <html lang="zh-CN">
 <head>
   <meta charset="UTF-8">
-  <title>LeetCode简单题：83. 删除排序链表中的重复元素（Python,C&#43;&#43;,Java） - qkgoalkeeper&#39;s blog</title>
+  <title>LeetCode每日一题：152. 乘积最大子数组 - qkgoalkeeper&#39;s blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=3, minimum-scale=1">
   
-  <meta name="description" content="一.解法 https://leetcode-cn.com/problems/remove-duplicates-from-sorted-list/ 要点：链表 熟悉Python，C&#43;&#43;，Java的链表表示 如果当前的指针和当前的next指针值相同，当前的next改为当前的next的">
+  <meta name="description" content="一.152. 乘积最大子数组 1.题干及思路 给你一个整数数组 nums ，请你找出数组中乘积最大的连续子数组（该子数组中至少包含一个数字），并返回该子数组">
   
-  <meta itemprop="name" content="LeetCode简单题：83. 删除排序链表中的重复元素（Python,C&#43;&#43;,Java） - qkgoalkeeper&#39;s blog">
-  <meta itemprop="description" content="一.解法 https://leetcode-cn.com/problems/remove-duplicates-from-sorted-list/ 要点：链表 熟悉Python，C&#43;&#43;，Java的链表表示 如果当前的指针和当前的next指针值相同，当前的next改为当前的next的">
+  <meta itemprop="name" content="LeetCode每日一题：152. 乘积最大子数组 - qkgoalkeeper&#39;s blog">
+  <meta itemprop="description" content="一.152. 乘积最大子数组 1.题干及思路 给你一个整数数组 nums ，请你找出数组中乘积最大的连续子数组（该子数组中至少包含一个数字），并返回该子数组">
   <meta itemprop="image" content="https://qkgoalkeeper.github.io/img/author.jpg">
   
   
@@ -74,7 +74,7 @@
 	<article itemprop="articleBody">
     <header class="article-info clearfix">
   <h1 itemprop="name">
-      <a href="https://qkgoalkeeper.github.io/post/leetcode%E7%AE%80%E5%8D%95%E9%A2%9883.-%E5%88%A0%E9%99%A4%E6%8E%92%E5%BA%8F%E9%93%BE%E8%A1%A8%E4%B8%AD%E7%9A%84%E9%87%8D%E5%A4%8D%E5%85%83%E7%B4%A0pythonc&#43;&#43;java/" title="LeetCode简单题：83. 删除排序链表中的重复元素（Python,C&#43;&#43;,Java）" itemprop="url">LeetCode简单题：83. 删除排序链表中的重复元素（Python,C&#43;&#43;,Java）</a>
+      <a href="https://qkgoalkeeper.github.io/post/leetcode%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98152.-%E4%B9%98%E7%A7%AF%E6%9C%80%E5%A4%A7%E5%AD%90%E6%95%B0%E7%BB%84/" title="LeetCode每日一题：152. 乘积最大子数组" itemprop="url">LeetCode每日一题：152. 乘积最大子数组</a>
   </h1>
   <p class="article-author">By
     
@@ -82,7 +82,7 @@
     
   </p>
   <p class="article-time">
-    <time datetime="2020-08-13 17:55:19 &#43;0800 CST" itemprop="datePublished">2020年08月13日</time>
+    <time datetime="2021-12-19 10:55:19 &#43;0800 CST" itemprop="datePublished">2021年12月19日</time>
   </p>
 </header>
 
@@ -92,96 +92,50 @@
 			<strong class="toc-title">文章目录</strong>
       <nav id="TableOfContents">
   <ul>
-    <li><a href="#一解法">一.解法</a></li>
-    <li><a href="#二python实现">二.Python实现</a></li>
-    <li><a href="#三c实现">三.C++实现</a></li>
-    <li><a href="#四java实现">四.java实现</a></li>
+    <li><a href="#1题干及思路">1.题干及思路</a></li>
+    <li><a href="#2c实现">2.C++实现</a></li>
   </ul>
 </nav>
 		</div>
     
-    <h2 id="一解法">一.解法</h2>
-<p><a href="https://leetcode-cn.com/problems/remove-duplicates-from-sorted-list/">https://leetcode-cn.com/problems/remove-duplicates-from-sorted-list/</a><br>
-要点：链表<br>
-熟悉Python，C++，Java的链表表示<br>
-如果当前的指针和当前的next指针值相同，当前的next改为当前的next的next，不然就往后移一个节点</p>
-<h2 id="二python实现">二.Python实现</h2>
-<pre tabindex="0"><code># Definition for singly-linked list.
-# class ListNode:
-#     def __init__(self, x):
-#         self.val = x
-#         self.next = None
+    <h1 id="一152-乘积最大子数组httpsleetcode-cncomproblemsmaximum-product-subarray">一.<a href="https://leetcode-cn.com/problems/maximum-product-subarray/">152. 乘积最大子数组</a></h1>
+<h2 id="1题干及思路">1.题干及思路</h2>
+<p>给你一个整数数组 <code>nums</code> ，请你找出数组中乘积最大的连续子数组（该子数组中至少包含一个数字），并返回该子数组所对应的乘积。</p>
+<p><strong>示例 1:</strong></p>
+<pre tabindex="0"><code>输入: [2,3,-2,4]
+输出: 6
+解释: 子数组 [2,3] 有最大乘积 6。
+</code></pre><p><strong>示例 2:</strong></p>
+<pre tabindex="0"><code>输入: [-2,0,-1]
+输出: 0
+解释: 结果不能为 2, 因为 [-2,-1] 不是子数组。
+</code></pre><p>要点：动态规划</p>
+<p>思路： maxdp[i]表示以第i个位置结尾的子数组的最大乘积， mindp[i]表示以第i个位置结尾的子数组的最小乘积，因为需要以当前是负数还是正数分类讨论所以需要记录每次的max和min，</p>
+<p>转移方程为：</p>
+<p>maxdp[i] = max(nums[i],max(nums[i]*maxdp[i-1],nums[i]*mindp[i-1]));
+mindp[i] = min(nums[i],min(nums[i]*maxdp[i-1],nums[i]*mindp[i-1]));</p>
+<p>每次更新answer = max(answer,maxdp[i]);</p>
+<h2 id="2c实现">2.C++实现</h2>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="k">class</span> <span class="nc">Solution</span> <span class="p">{</span>
+<span class="k">public</span><span class="o">:</span>
+    <span class="kt">int</span> <span class="n">maxProduct</span><span class="p">(</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;&amp;</span> <span class="n">nums</span><span class="p">)</span> <span class="p">{</span>
+        <span class="kt">int</span> <span class="n">n</span> <span class="o">=</span> <span class="n">nums</span><span class="p">.</span><span class="n">size</span><span class="p">();</span>
+        <span class="kt">int</span> <span class="n">answer</span> <span class="o">=</span> <span class="n">nums</span><span class="p">[</span><span class="mi">0</span><span class="p">];</span>
+        <span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">maxdp</span><span class="p">(</span><span class="n">n</span><span class="p">);</span>
+        <span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">mindp</span><span class="p">(</span><span class="n">n</span><span class="p">);</span>
+        <span class="n">maxdp</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">nums</span><span class="p">[</span><span class="mi">0</span><span class="p">];</span>
+        <span class="n">mindp</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">nums</span><span class="p">[</span><span class="mi">0</span><span class="p">];</span>
+        <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span><span class="o">=</span><span class="mi">1</span><span class="p">;</span><span class="n">i</span><span class="o">&lt;</span><span class="n">n</span><span class="p">;</span><span class="n">i</span><span class="o">++</span><span class="p">){</span>
+            <span class="n">maxdp</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">max</span><span class="p">(</span><span class="n">nums</span><span class="p">[</span><span class="n">i</span><span class="p">],</span><span class="n">max</span><span class="p">(</span><span class="n">nums</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">*</span><span class="n">maxdp</span><span class="p">[</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span><span class="n">nums</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">*</span><span class="n">mindp</span><span class="p">[</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">]));</span>
+            <span class="n">mindp</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">min</span><span class="p">(</span><span class="n">nums</span><span class="p">[</span><span class="n">i</span><span class="p">],</span><span class="n">min</span><span class="p">(</span><span class="n">nums</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">*</span><span class="n">maxdp</span><span class="p">[</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span><span class="n">nums</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">*</span><span class="n">mindp</span><span class="p">[</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">]));</span>
+            <span class="n">answer</span> <span class="o">=</span> <span class="n">max</span><span class="p">(</span><span class="n">answer</span><span class="p">,</span><span class="n">maxdp</span><span class="p">[</span><span class="n">i</span><span class="p">]);</span>
+        <span class="p">}</span>
+        <span class="k">return</span> <span class="n">answer</span><span class="p">;</span>
 
-class Solution:
-    def deleteDuplicates(self, head: ListNode) -&gt; ListNode:
-        node=head
-        while node and node.next:
-            if node.val==node.next.val:
-                node.next=node.next.next
-            else:
-                node=node.next
-        return head
-</code></pre><h2 id="三c实现">三.C++实现</h2>
-<pre tabindex="0"><code>/**
- * Definition for singly-linked list.
- * struct ListNode {
- *     int val;
- *     ListNode *next;
- *     ListNode(int x) : val(x), next(NULL) {}
- * };
- */
-class Solution {
-public:
-    ListNode* deleteDuplicates(ListNode* head) {
-      ListNode*last,*temp;
-        int flag;
-        
-     if(!head) return nullptr;
-        
-      last=head;temp=head-&gt;next; 
-        
-        while(temp){flag=0;
-             if(temp-&gt;val==last-&gt;val){
-                 flag=1;
-                 last-&gt;next=temp-&gt;next;
-                 delete temp;
-                 temp=last-&gt;next;
-             }
-                    
-      
-            if(flag==0) {
-                last=last-&gt;next;
-                temp=temp-&gt;next;
-            }
-            
-        }
-        return head;
-        
-    }
-};
-</code></pre><h2 id="四java实现">四.java实现</h2>
-<pre tabindex="0"><code>/**
- * Definition for singly-linked list.
- * public class ListNode {
- *     int val;
- *     ListNode next;
- *     ListNode(int x) { val = x; }
- * }
- */
-class Solution {
-    public ListNode deleteDuplicates(ListNode head) {
-        ListNode cur = head;
-        while(cur != null &amp;&amp; cur.next != null) {
-            if(cur.val == cur.next.val) {
-                cur.next = cur.next.next;
-            } else {
-                cur = cur.next;
-            }
-        }
-        return head;
-    }
-}
-</code></pre>
+    <span class="p">}</span>
+<span class="p">};</span>
+
+</code></pre></div>
     
 	</div>
   <footer class="article-footer clearfix">
@@ -192,6 +146,10 @@ class Solution {
   
   <a href="https://qkgoalkeeper.github.io/tags/leetcode">LeetCode</a>
   
+  <a href="https://qkgoalkeeper.github.io/tags/c&#43;&#43;">C&#43;&#43;</a>
+  
+  <a href="https://qkgoalkeeper.github.io/tags/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92">动态规划</a>
+  
 </div>
 
 
@@ -201,14 +159,14 @@ class Solution {
 <div class="article-categories">
   <span></span>
   
-  <a class="article-category-link" href="https://qkgoalkeeper.github.io/categories/leetcode%E7%AE%80%E5%8D%95%E9%A2%981-100">LeetCode简单题1-100</a>
+  <a class="article-category-link" href="https://qkgoalkeeper.github.io/categories/%E5%A4%A7%E5%9B%9Bleetcode%E7%AE%97%E6%B3%95%E5%88%B7%E9%A2%98">大四LeetCode算法刷题</a>
   
 </div>
 
 
 
   <div class="article-share" id="share">
-    <div data-url="https://qkgoalkeeper.github.io/post/leetcode%E7%AE%80%E5%8D%95%E9%A2%9883.-%E5%88%A0%E9%99%A4%E6%8E%92%E5%BA%8F%E9%93%BE%E8%A1%A8%E4%B8%AD%E7%9A%84%E9%87%8D%E5%A4%8D%E5%85%83%E7%B4%A0pythonc&#43;&#43;java/" data-title="LeetCode简单题：83. 删除排序链表中的重复元素（Python,C&#43;&#43;,Java）" data-tsina="5852167252" class="share clearfix">
+    <div data-url="https://qkgoalkeeper.github.io/post/leetcode%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98152.-%E4%B9%98%E7%A7%AF%E6%9C%80%E5%A4%A7%E5%AD%90%E6%95%B0%E7%BB%84/" data-title="LeetCode每日一题：152. 乘积最大子数组" data-tsina="5852167252" class="share clearfix">
     </div>
   </div>
 </footer>
