@@ -2,18 +2,18 @@
 <html lang="zh-CN">
 <head>
   <meta charset="UTF-8">
-  <title>LeetCode简单题：88. 合并两个有序数组（Python,C&#43;&#43;,Java） - qkgoalkeeper&#39;s blog</title>
+  <title>树 - qkgoalkeeper&#39;s blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=3, minimum-scale=1">
   
-  <meta name="description" content="一.解法 https://leetcode-cn.com/problems/merge-sorted-array/ 要点：双指针 Python，C&#43;&#43;，Java用了相同的双指针法，nums1从后往前插入 先找到nums1的i=m&#43;n-1的位置，不断将">
+  <meta name="description" content="树">
   
-  <meta itemprop="name" content="LeetCode简单题：88. 合并两个有序数组（Python,C&#43;&#43;,Java） - qkgoalkeeper&#39;s blog">
-  <meta itemprop="description" content="一.解法 https://leetcode-cn.com/problems/merge-sorted-array/ 要点：双指针 Python，C&#43;&#43;，Java用了相同的双指针法，nums1从后往前插入 先找到nums1的i=m&#43;n-1的位置，不断将">
+  <meta itemprop="name" content="树 - qkgoalkeeper&#39;s blog">
+  <meta itemprop="description" content="树">
   <meta itemprop="image" content="https://qkgoalkeeper.github.io/img/author.jpg">
   
   
   <meta name="twitter:description" content="">
-  
+  <link rel="alternate" href="https://qkgoalkeeper.github.io/feed.xml" title="qkgoalkeeper&#39;s blog" type="application/rss+xml"/>
   <link rel="shortcut icon" href="https://qkgoalkeeper.github.io/img/favicon.ico"/>
   <link rel="apple-touch-icon" href="https://qkgoalkeeper.github.io/apple-touch-icon.png" />
   <link rel="apple-touch-icon-precomposed" href="https://qkgoalkeeper.github.io/apple-touch-icon.png" />
@@ -70,140 +70,21 @@
 
   </header>
   <div id="container">
-    <div id="main" class="post" itemscope itemprop="blogPost">
-	<article itemprop="articleBody">
-    <header class="article-info clearfix">
-  <h1 itemprop="name">
-      <a href="https://qkgoalkeeper.github.io/post/leetcode%E7%AE%80%E5%8D%95%E9%A2%9888.-%E5%90%88%E5%B9%B6%E4%B8%A4%E4%B8%AA%E6%9C%89%E5%BA%8F%E6%95%B0%E7%BB%84pythonc&#43;&#43;java/" title="LeetCode简单题：88. 合并两个有序数组（Python,C&#43;&#43;,Java）" itemprop="url">LeetCode简单题：88. 合并两个有序数组（Python,C&#43;&#43;,Java）</a>
-  </h1>
-  <p class="article-author">By
-    
-      <a href="https://qkgoalkeeper.github.io/" title="qk">qk</a>
-    
-  </p>
-  <p class="article-time">
-    <time datetime="2020-08-13 17:55:19 &#43;0800 CST" itemprop="datePublished">2020年08月13日</time>
-  </p>
-</header>
+    <div id="main">
+      
+      <h2 id="2021-12">2021-12</h2>
+      
+      <section class="post" itemscope itemprop="blogPost">
+    <a href="https://qkgoalkeeper.github.io/post/leetcode%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98208.-%E5%AE%9E%E7%8E%B0-trie-%E5%89%8D%E7%BC%80%E6%A0%91/" title="LeetCode每日一题：208. 实现 Trie (前缀树)" itemprop="url">
+    <h1 itemprop="name">LeetCode每日一题：208. 实现 Trie (前缀树)</h1>
+    <p itemprop="description">一.208. 实现 Trie (前缀树) 1.题干及思路 Trie（发音类似 &ldquo;try&rdquo;）或者说 前缀树 是一种树形数据结构，用于高效地存</p>
+    <time datetime="2021-12-20 10:55:19 &#43;0800 CST" itemprop="datePublished">2021年12月20日</time>
+  </a>
+</section>
 
-	<div class="article-content">
-    
-		<div class="toc-article">
-			<strong class="toc-title">文章目录</strong>
-      <nav id="TableOfContents">
-  <ul>
-    <li><a href="#一解法">一.解法</a></li>
-    <li><a href="#二python实现">二.Python实现</a></li>
-    <li><a href="#三c实现">三.C++实现</a></li>
-    <li><a href="#四java实现">四.java实现</a></li>
-  </ul>
-</nav>
-		</div>
-    
-    <h2 id="一解法">一.解法</h2>
-<p><a href="https://leetcode-cn.com/problems/merge-sorted-array/">https://leetcode-cn.com/problems/merge-sorted-array/</a><br>
-要点：双指针<br>
-Python，C++，Java用了相同的双指针法，nums1从后往前插入<br>
-先找到nums1的i=m+n-1的位置，不断将nums1[m-1]和nums2[n-1]比较取大的放在i位置然后i&ndash;,同时m或n也&ndash;</p>
-<h2 id="二python实现">二.Python实现</h2>
-<pre tabindex="0"><code>class Solution:
-    def merge(self, nums1: List[int], m: int, nums2: List[int], n: int) -&gt; None:
-        &quot;&quot;&quot;
-        Do not return anything, modify nums1 in-place instead.
-        &quot;&quot;&quot;
-        i=m+n-1
-        m-=1
-        n-=1
-        while n&gt;=0:
-            while m&gt;=0 and nums1[m]&gt;nums2[n]:
-                temp=nums1[m]
-                nums1[m]=nums1[i]
-                nums1[i]=temp
-                i-=1
-                m-=1
-            temp=nums2[n]
-            nums2[n]=nums1[i]
-            nums1[i]=temp
-            i-=1
-            n-=1
-</code></pre><h2 id="三c实现">三.C++实现</h2>
-<pre tabindex="0"><code>class Solution {
-public:
-    void merge(vector&lt;int&gt;&amp; nums1, int m, vector&lt;int&gt;&amp; nums2, int n) {
-    int i = m+n-1;
-    m--;
-    n--;
-    while (n &gt;= 0) {
-        while (m &gt;= 0 &amp;&amp; nums1[m] &gt; nums2[n]) {
-            swap(nums1[i], nums1[m]);
-            i--;m--;
-        }
-        swap(nums1[i], nums2[n]);
-        i--;n--;
-    }
-}
-};
-</code></pre><h2 id="四java实现">四.java实现</h2>
-<pre tabindex="0"><code>class Solution {
-    public void merge(int[] nums1, int m, int[] nums2, int n) {
-        int i = m+n-1;
-        int temp;
-        m--;
-        n--;
-    while (n &gt;= 0) {
-        while (m &gt;= 0 &amp;&amp; nums1[m] &gt; nums2[n]) {
-            temp=nums1[i];
-            nums1[i]=nums1[m];
-            nums1[m]=temp;
-            i--;m--;
-        }
-        temp=nums1[i];
-        nums1[i]=nums2[n];
-        nums2[n]=temp;
-        i--;n--;
-    }
-        
-    }
-}
-</code></pre>
-    
-	</div>
-  <footer class="article-footer clearfix">
-  
-
-<div class="article-tags">
-  <span></span>
-  
-  <a href="https://qkgoalkeeper.github.io/tags/leetcode">LeetCode</a>
-  
-</div>
-
-
-
-
-
-<div class="article-categories">
-  <span></span>
-  
-  <a class="article-category-link" href="https://qkgoalkeeper.github.io/categories/leetcode%E7%AE%80%E5%8D%95%E9%A2%981-100">LeetCode简单题1-100</a>
-  
-</div>
-
-
-
-  <div class="article-share" id="share">
-    <div data-url="https://qkgoalkeeper.github.io/post/leetcode%E7%AE%80%E5%8D%95%E9%A2%9888.-%E5%90%88%E5%B9%B6%E4%B8%A4%E4%B8%AA%E6%9C%89%E5%BA%8F%E6%95%B0%E7%BB%84pythonc&#43;&#43;java/" data-title="LeetCode简单题：88. 合并两个有序数组（Python,C&#43;&#43;,Java）" data-tsina="5852167252" class="share clearfix">
+      
+      
     </div>
-  </div>
-</footer>
-
-	</article>
-  
-
-
-
-</div>
-
     <div class="openaside"><a class="navbutton" href="#" title="显示侧边栏"></a></div>
 <div id="asidepart">
 <div class="closeaside"><a class="closebutton" href="#" title="隐藏侧边栏"></a></div>
@@ -340,6 +221,10 @@ public:
 
 
   
+<div class="rsspart">
+  <a rel="nofollow" href="https://qkgoalkeeper.github.io/feed.xml" type="application/rss+xml" target="_blank">RSS 订阅</a>
+</div>
+
 
 </aside>
 </div>
@@ -425,38 +310,6 @@ $(document).ready(function(){
 
 <script type="text/javascript">
 $(document).ready(function(){
-  var ai = $('.article-content>iframe'),
-      ae = $('.article-content>embed'),
-      t  = $('#toc'),
-      h  = $('article h2')
-      ah = $('article h2'),
-      ta = $('#toc.toc-aside'),
-      o  = $('.openaside'),
-      c  = $('.closeaside');
-  if(ai.length>0){
-    ai.wrap('<div class="video-container" />');
-  };
-  if(ae.length>0){
-   ae.wrap('<div class="video-container" />');
-  };
-  if(ah.length==0){
-    t.css('display','none');
-  }else{
-    c.click(function(){
-      ta.css('display', 'block').addClass('fadeIn');
-    });
-    o.click(function(){
-      ta.css('display', 'none');
-    });
-    $(window).scroll(function(){
-      ta.css("top",Math.max(140,320-$(this).scrollTop()));
-    });
-  };
-});
-</script>
-
-<script type="text/javascript">
-$(document).ready(function(){
   var $this = $('.share'),
       url = $this.attr('data-url'),
       encodedUrl = encodeURIComponent(url),
@@ -483,27 +336,6 @@ $(document).ready(function(){
 });
 </script>
 
-
-<link rel="stylesheet" href="https://qkgoalkeeper.github.io/fancybox/jquery.fancybox.css" media="screen" type="text/css">
-<script src="https://qkgoalkeeper.github.io/fancybox/jquery.fancybox.pack.js"></script>
-<script type="text/javascript">
-$(document).ready(function(){
-  $('.article-content').each(function(i){
-    $(this).find('img').each(function(){
-      if ($(this).parent().hasClass('fancybox')) return;
-      var alt = this.alt;
-      if (alt) $(this).after('<span class="caption">' + alt + '</span>');
-      $(this).wrap('<a href="' + this.src + '" title="' + alt + '" class="fancybox"></a>');
-    });
-    $(this).find('.fancybox').each(function(){
-      $(this).attr('rel', 'article' + i);
-    });
-  });
-  if($.fancybox){
-    $('.fancybox').fancybox();
-  }
-});
-</script>
 
 
 
