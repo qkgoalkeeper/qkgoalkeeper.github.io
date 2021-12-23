@@ -2,13 +2,13 @@
 <html lang="zh-CN">
 <head>
   <meta charset="UTF-8">
-  <title>LeetCode简单题：168. Excel表列名称（Python,C&#43;&#43;,Java） - qkgoalkeeper&#39;s blog</title>
+  <title>LeetCode每日一题：279. 完全平方数 - qkgoalkeeper&#39;s blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=3, minimum-scale=1">
   
-  <meta name="description" content="一.解法 https://leetcode-cn.com/problems/excel-sheet-column-title/ 要点：进制转换，取模取余 Python，C&#43;&#43;，Java都用了相同的取模取余法 看成26进制转换，但要注意题目不是0-25为基而是1-">
+  <meta name="description" content="一.279. 完全平方数 1.题干及思路 给定正整数 n，找到若干个完全平方数（比如 1, 4, 9, 16, ...）使得它们的和等于 n。你需要让组成和的完全平方数的">
   
-  <meta itemprop="name" content="LeetCode简单题：168. Excel表列名称（Python,C&#43;&#43;,Java） - qkgoalkeeper&#39;s blog">
-  <meta itemprop="description" content="一.解法 https://leetcode-cn.com/problems/excel-sheet-column-title/ 要点：进制转换，取模取余 Python，C&#43;&#43;，Java都用了相同的取模取余法 看成26进制转换，但要注意题目不是0-25为基而是1-">
+  <meta itemprop="name" content="LeetCode每日一题：279. 完全平方数 - qkgoalkeeper&#39;s blog">
+  <meta itemprop="description" content="一.279. 完全平方数 1.题干及思路 给定正整数 n，找到若干个完全平方数（比如 1, 4, 9, 16, ...）使得它们的和等于 n。你需要让组成和的完全平方数的">
   <meta itemprop="image" content="https://qkgoalkeeper.github.io/img/author.jpg">
   
   
@@ -74,7 +74,7 @@
 	<article itemprop="articleBody">
     <header class="article-info clearfix">
   <h1 itemprop="name">
-      <a href="https://qkgoalkeeper.github.io/post/leetcode%E7%AE%80%E5%8D%95%E9%A2%98168.-excel%E8%A1%A8%E5%88%97%E5%90%8D%E7%A7%B0pythonc&#43;&#43;java/" title="LeetCode简单题：168. Excel表列名称（Python,C&#43;&#43;,Java）" itemprop="url">LeetCode简单题：168. Excel表列名称（Python,C&#43;&#43;,Java）</a>
+      <a href="https://qkgoalkeeper.github.io/post/leetcode%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98279.-%E5%AE%8C%E5%85%A8%E5%B9%B3%E6%96%B9%E6%95%B0/" title="LeetCode每日一题：279. 完全平方数" itemprop="url">LeetCode每日一题：279. 完全平方数</a>
   </h1>
   <p class="article-author">By
     
@@ -82,7 +82,7 @@
     
   </p>
   <p class="article-time">
-    <time datetime="2020-08-13 17:55:19 &#43;0800 CST" itemprop="datePublished">2020年08月13日</time>
+    <time datetime="2021-12-23 10:55:19 &#43;0800 CST" itemprop="datePublished">2021年12月23日</time>
   </p>
 </header>
 
@@ -92,75 +92,55 @@
 			<strong class="toc-title">文章目录</strong>
       <nav id="TableOfContents">
   <ul>
-    <li><a href="#一解法">一.解法</a></li>
-    <li><a href="#二python实现">二.Python实现</a></li>
-    <li><a href="#三c实现">三.C++实现</a></li>
-    <li><a href="#四java实现">四.java实现</a></li>
+    <li><a href="#1题干及思路">1.题干及思路</a></li>
+    <li><a href="#2c实现">2.C++实现</a></li>
   </ul>
 </nav>
 		</div>
     
-    <h2 id="一解法">一.解法</h2>
-<p><a href="https://leetcode-cn.com/problems/excel-sheet-column-title/">https://leetcode-cn.com/problems/excel-sheet-column-title/</a><br>
-要点：进制转换，取模取余<br>
-Python，C++，Java都用了相同的取模取余法<br>
-看成26进制转换，但要注意题目不是0-25为基而是1-26为基，所以每次取余前都要减1<br>
-节约时间可以用hash表或字典把0-25映射成A-Z</p>
-<h2 id="二python实现">二.Python实现</h2>
-<pre tabindex="0"><code>class Solution:
-    def convertToTitle(self, n: int) -&gt; str:
-        answer=&quot;&quot;
-        while n&gt;0:
-            n-=1
-            temp=n%26
-            answer+=chr(65+temp)
-            n=int(n/26)
-        return answer[::-1]
-</code></pre><h2 id="三c实现">三.C++实现</h2>
-<pre tabindex="0"><code>class Solution {
-public:
-    string convertToTitle(int n) {
-        unordered_map&lt;int,char&gt; hashmap;
-        string answer;
-        string answerreverse;
-        int temp;
-        for(int i=0;i&lt;26;i++){
-            hashmap[i]='A'+i;
+    <h1 id="一279-完全平方数httpsleetcode-cncomproblemsperfect-squares">一.<a href="https://leetcode-cn.com/problems/perfect-squares/">279. 完全平方数</a></h1>
+<h2 id="1题干及思路">1.题干及思路</h2>
+<p>给定正整数 <em>n</em>，找到若干个完全平方数（比如 <code>1, 4, 9, 16, ...</code>）使得它们的和等于 <em>n</em>。你需要让组成和的完全平方数的个数最少。</p>
+<p>给你一个整数 <code>n</code> ，返回和为 <code>n</code> 的完全平方数的 <strong>最少数量</strong> 。</p>
+<p><strong>完全平方数</strong> 是一个整数，其值等于另一个整数的平方；换句话说，其值等于一个整数自乘的积。例如，<code>1</code>、<code>4</code>、<code>9</code> 和 <code>16</code> 都是完全平方数，而 <code>3</code> 和 <code>11</code> 不是。</p>
+<p><strong>示例 1：</strong></p>
+<pre tabindex="0"><code>输入：n = 12
+输出：3 
+解释：12 = 4 + 4 + 4
+</code></pre><p><strong>示例 2：</strong></p>
+<pre tabindex="0"><code>输入：n = 13
+输出：2
+解释：13 = 4 + 9
+</code></pre><p><strong>提示：</strong></p>
+<ul>
+<li><code>1 &lt;= n &lt;= 104</code></li>
+</ul>
+<p>要点：动态规划</p>
+<p>思路：对1-n每次按照以下代码更新状态方程</p>
+<pre><code>        int minn = INT_MAX;
+        for (int j = 1; j * j &lt;= i; j++) {
+            minn = min(minn, f[i - j * j]);
         }
-
-        while(n!=0){     
-            n-=1;    
-            temp=n%26;       
-            answer+=hashmap[temp];
-            n=n/26;                      
-        }
-
-
-        for(int i=answer.size()-1;i&gt;=0;i--){
-            answerreverse+=answer[i];
-        }
-        return answerreverse;
-
-
-    }
-};
-</code></pre><h2 id="四java实现">四.java实现</h2>
-<pre tabindex="0"><code>class Solution {
-    public String convertToTitle(int n) {
-
-    StringBuilder sb = new StringBuilder();
-    int temp;
-    while (n &gt; 0) {
-        n-=1;
-        temp = n % 26;  
-        sb.insert(0, (char) ('A' + temp ));
-        n /= 26;
-    }
-    return sb.toString();
-
-    }
-}
+        f[i] = minn + 1;
 </code></pre>
+<h2 id="2c实现">2.C++实现</h2>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="k">class</span> <span class="nc">Solution</span> <span class="p">{</span>
+<span class="k">public</span><span class="o">:</span>
+    <span class="kt">int</span> <span class="n">numSquares</span><span class="p">(</span><span class="kt">int</span> <span class="n">n</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">f</span><span class="p">(</span><span class="n">n</span> <span class="o">+</span> <span class="mi">1</span><span class="p">);</span>
+        <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;=</span> <span class="n">n</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+            <span class="kt">int</span> <span class="n">minn</span> <span class="o">=</span> <span class="n">INT_MAX</span><span class="p">;</span>
+            <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">j</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span> <span class="n">j</span> <span class="o">*</span> <span class="n">j</span> <span class="o">&lt;=</span> <span class="n">i</span><span class="p">;</span> <span class="n">j</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+                <span class="n">minn</span> <span class="o">=</span> <span class="n">min</span><span class="p">(</span><span class="n">minn</span><span class="p">,</span> <span class="n">f</span><span class="p">[</span><span class="n">i</span> <span class="o">-</span> <span class="n">j</span> <span class="o">*</span> <span class="n">j</span><span class="p">]);</span>
+            <span class="p">}</span>
+            <span class="n">f</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">minn</span> <span class="o">+</span> <span class="mi">1</span><span class="p">;</span>
+        <span class="p">}</span>
+        <span class="k">return</span> <span class="n">f</span><span class="p">[</span><span class="n">n</span><span class="p">];</span>
+    <span class="p">}</span>
+<span class="p">};</span>
+
+
+</code></pre></div>
     
 	</div>
   <footer class="article-footer clearfix">
@@ -171,6 +151,10 @@ public:
   
   <a href="https://qkgoalkeeper.github.io/tags/leetcode">LeetCode</a>
   
+  <a href="https://qkgoalkeeper.github.io/tags/c&#43;&#43;">C&#43;&#43;</a>
+  
+  <a href="https://qkgoalkeeper.github.io/tags/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92">动态规划</a>
+  
 </div>
 
 
@@ -180,14 +164,14 @@ public:
 <div class="article-categories">
   <span></span>
   
-  <a class="article-category-link" href="https://qkgoalkeeper.github.io/categories/leetcode%E7%AE%80%E5%8D%95%E9%A2%98101-200">LeetCode简单题101-200</a>
+  <a class="article-category-link" href="https://qkgoalkeeper.github.io/categories/%E5%A4%A7%E5%9B%9Bleetcode%E7%AE%97%E6%B3%95%E5%88%B7%E9%A2%98">大四LeetCode算法刷题</a>
   
 </div>
 
 
 
   <div class="article-share" id="share">
-    <div data-url="https://qkgoalkeeper.github.io/post/leetcode%E7%AE%80%E5%8D%95%E9%A2%98168.-excel%E8%A1%A8%E5%88%97%E5%90%8D%E7%A7%B0pythonc&#43;&#43;java/" data-title="LeetCode简单题：168. Excel表列名称（Python,C&#43;&#43;,Java）" data-tsina="5852167252" class="share clearfix">
+    <div data-url="https://qkgoalkeeper.github.io/post/leetcode%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98279.-%E5%AE%8C%E5%85%A8%E5%B9%B3%E6%96%B9%E6%95%B0/" data-title="LeetCode每日一题：279. 完全平方数" data-tsina="5852167252" class="share clearfix">
     </div>
   </div>
 </footer>
