@@ -2,13 +2,13 @@
 <html lang="zh-CN">
 <head>
   <meta charset="UTF-8">
-  <title>LeetCode简单题：299. 猜数字游戏（Python,C&#43;&#43;,Java） - qkgoalkeeper&#39;s blog</title>
+  <title>LeetCode每日一题：287. 寻找重复数 - qkgoalkeeper&#39;s blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=3, minimum-scale=1">
   
-  <meta name="description" content="一.解法 https://leetcode-cn.com/problems/bulls-and-cows/ 要点：hashmap Python，C&#43;&#43;，Java都用了相同的哈希表法。 bulls可以直接遍历一遍求出，并且在这第一次遍历时把se">
+  <meta name="description" content="一.287. 寻找重复数 1.题干及思路 287. 寻找重复数 难度中等1506 给定一个包含 n &#43; 1 个整数的数组 nums ，其数字都在 1 到 n 之间（包括 1 和 n），可知至">
   
-  <meta itemprop="name" content="LeetCode简单题：299. 猜数字游戏（Python,C&#43;&#43;,Java） - qkgoalkeeper&#39;s blog">
-  <meta itemprop="description" content="一.解法 https://leetcode-cn.com/problems/bulls-and-cows/ 要点：hashmap Python，C&#43;&#43;，Java都用了相同的哈希表法。 bulls可以直接遍历一遍求出，并且在这第一次遍历时把se">
+  <meta itemprop="name" content="LeetCode每日一题：287. 寻找重复数 - qkgoalkeeper&#39;s blog">
+  <meta itemprop="description" content="一.287. 寻找重复数 1.题干及思路 287. 寻找重复数 难度中等1506 给定一个包含 n &#43; 1 个整数的数组 nums ，其数字都在 1 到 n 之间（包括 1 和 n），可知至">
   <meta itemprop="image" content="https://qkgoalkeeper.github.io/img/author.jpg">
   
   
@@ -74,7 +74,7 @@
 	<article itemprop="articleBody">
     <header class="article-info clearfix">
   <h1 itemprop="name">
-      <a href="https://qkgoalkeeper.github.io/post/leetcode%E7%AE%80%E5%8D%95%E9%A2%98299.-%E7%8C%9C%E6%95%B0%E5%AD%97%E6%B8%B8%E6%88%8Fpythonc&#43;&#43;java/" title="LeetCode简单题：299. 猜数字游戏（Python,C&#43;&#43;,Java）" itemprop="url">LeetCode简单题：299. 猜数字游戏（Python,C&#43;&#43;,Java）</a>
+      <a href="https://qkgoalkeeper.github.io/post/leetcode%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98287.-%E5%AF%BB%E6%89%BE%E9%87%8D%E5%A4%8D%E6%95%B0/" title="LeetCode每日一题：287. 寻找重复数" itemprop="url">LeetCode每日一题：287. 寻找重复数</a>
   </h1>
   <p class="article-author">By
     
@@ -82,7 +82,7 @@
     
   </p>
   <p class="article-time">
-    <time datetime="2020-08-13 17:55:19 &#43;0800 CST" itemprop="datePublished">2020年08月13日</time>
+    <time datetime="2021-12-24 10:55:19 &#43;0800 CST" itemprop="datePublished">2021年12月24日</time>
   </p>
 </header>
 
@@ -92,106 +92,77 @@
 			<strong class="toc-title">文章目录</strong>
       <nav id="TableOfContents">
   <ul>
-    <li><a href="#一解法">一.解法</a></li>
-    <li><a href="#二python实现">二.Python实现</a></li>
-    <li><a href="#三c实现">三.C++实现</a></li>
-    <li><a href="#四java实现">四.java实现</a></li>
+    <li><a href="#1题干及思路">1.题干及思路</a></li>
+    <li><a href="#2c实现">2.C++实现</a></li>
   </ul>
 </nav>
 		</div>
     
-    <h2 id="一解法">一.解法</h2>
-<p><a href="https://leetcode-cn.com/problems/bulls-and-cows/">https://leetcode-cn.com/problems/bulls-and-cows/</a>     <br>
-要点：hashmap<br>
-Python，C++，Java都用了相同的哈希表法。<br>
-bulls可以直接遍历一遍求出，并且在这第一次遍历时把secret的每个字母录入到hashmap中，在进行第二次遍历guess字符串，将guess的每个字母发到hashmap中去寻找，找到且hashmap对应的value大于0就将value减1，cows随之加一，最后将cows减去bulls即可（因为重复计算）。</p>
-<h2 id="二python实现">二.Python实现</h2>
-<pre tabindex="0"><code>class Solution:
-    def getHint(self, secret: str, guess: str) -&gt; str:
-        if not guess:
-            return None
-        dic = {}
-        bulls = 0
-        cows = 0
-        for i in range(len(secret)):
-            if secret[i]==guess[i]:
-                bulls +=1
-            if secret[i] in dic:
-                dic[secret[i]]+=1
-            else:
-                dic[secret[i]]=1
-
-        for i in range(len(guess)):   
-            if guess[i] in dic:
-                if dic[guess[i]]&gt;0:
-                    dic[guess[i]]-=1
-                    cows+=1
-        cows-=bulls
-
-        return str(bulls)+'A'+str(cows)+'B'
-</code></pre><h2 id="三c实现">三.C++实现</h2>
-<pre tabindex="0"><code>class Solution {
-public:
-    string getHint(string secret, string guess) {
-        int bulls=0;
-        int cows=0;
-        unordered_map&lt;char,int&gt; hashmap;
-        int length=secret.size();
-        for(int i=0;i&lt;length;i++){
-            if(secret[i]==guess[i]) bulls++;
-            if(hashmap[secret[i]])
-            hashmap[secret[i]]++;
-            else hashmap[secret[i]]=1;
-        }
-
-        for(int j=0;j&lt;length;j++){
-            if(hashmap[guess[j]]&gt;0){
-                hashmap[guess[j]]--;
-                cows++;
-            }
-        }
-
-        cows=cows-bulls;
-
-        string answer=&quot;&quot;;
-        answer=to_string(bulls) + &quot;A&quot; + to_string(cows) + &quot;B&quot;;
-        return answer;
-
-    }
-};
-</code></pre><h2 id="四java实现">四.java实现</h2>
-<pre tabindex="0"><code>class Solution {
-    public String getHint(String secret, String guess) {
-
-        int bulls=0;
-        int cows=0;
-        Map&lt;Character,Integer&gt; hashmap=new HashMap&lt;Character,Integer&gt;();
-        int length=secret.length();
-        for(int i=0;i&lt;length;i++){
-            if(secret.charAt(i)==guess.charAt(i)) bulls++;
-            if(hashmap.containsKey(secret.charAt(i)))
-            hashmap.put(secret.charAt(i),hashmap.get(secret.charAt(i))+1);
-            else hashmap.put(secret.charAt(i),1);
-        }
-
-        for(int j=0;j&lt;length;j++){
-             if(hashmap.containsKey(guess.charAt(j))){
-             if(hashmap.get(guess.charAt(j))&gt;0){
-                hashmap.put(guess.charAt(j),hashmap.get(guess.charAt(j))-1);
-                cows++;
-            }
-            }
-        }
-
-        cows=cows-bulls;
-
-        String answer=&quot;&quot;;
-        answer=bulls+ &quot;A&quot; + cows+ &quot;B&quot;;
-        return answer;
-
-    }
-};
-</code></pre>
+    <h1 id="一287-寻找重复数httpsleetcode-cncomproblemsfind-the-duplicate-number">一.<a href="https://leetcode-cn.com/problems/find-the-duplicate-number/">287. 寻找重复数</a></h1>
+<h2 id="1题干及思路">1.题干及思路</h2>
+<ul>
+<li>
+<p><a href="https://leetcode-cn.com/problems/find-the-duplicate-number/">287. 寻找重复数</a></p>
+<p>难度中等1506</p>
+<p>给定一个包含 <code>n + 1</code> 个整数的数组 <code>nums</code> ，其数字都在 <code>1</code> 到 <code>n</code> 之间（包括 <code>1</code> 和 <code>n</code>），可知至少存在一个重复的整数。</p>
+<p>假设 <code>nums</code> 只有 <strong>一个重复的整数</strong> ，找出 <strong>这个重复的数</strong> 。</p>
+<p>你设计的解决方案必须不修改数组 <code>nums</code> 且只用常量级 <code>O(1)</code> 的额外空间。</p>
+<p><strong>示例 1：</strong></p>
+<pre tabindex="0"><code>输入：nums = [1,3,4,2,2]
+输出：2
+</code></pre><p><strong>示例 2：</strong></p>
+<pre tabindex="0"><code>输入：nums = [3,1,3,4,2]
+输出：3
+</code></pre><p><strong>示例 3：</strong></p>
+<pre tabindex="0"><code>输入：nums = [1,1]
+输出：1
+</code></pre><p><strong>示例 4：</strong></p>
+<pre tabindex="0"><code>输入：nums = [1,1,2]
+输出：1
+</code></pre><p><strong>提示：</strong></p>
+<ul>
+<li><code>1 &lt;= n &lt;= 105</code></li>
+<li><code>nums.length == n + 1</code></li>
+<li><code>1 &lt;= nums[i] &lt;= n</code></li>
+<li><code>nums</code> 中 <strong>只有一个整数</strong> 出现 <strong>两次或多次</strong> ，其余整数均只出现 <strong>一次</strong></li>
+</ul>
+<p><strong>进阶：</strong></p>
+<ul>
+<li>如何证明 <code>nums</code> 中至少存在一个重复的数字?</li>
+<li>你可以设计一个线性级时间复杂度 <code>O(n)</code> 的解决方案吗？</li>
+</ul>
+</li>
+</ul>
+<p>要点：位运算</p>
+<p>思路：对1-n记录二进制每一个位置出现1的次数y，再计算nums[0]到nums[n-1]二进制每一个位置出现1次数x，对二进制每一位的两个算出的次数x和y作差，如果x&gt;y就将该位置加入answer对应位置</p>
+<h2 id="2c实现">2.C++实现</h2>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="k">class</span> <span class="nc">Solution</span> <span class="p">{</span>
+<span class="k">public</span><span class="o">:</span>
+    <span class="kt">int</span> <span class="n">findDuplicate</span><span class="p">(</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;&amp;</span> <span class="n">nums</span><span class="p">)</span> <span class="p">{</span>
+        <span class="kt">int</span> <span class="n">n</span> <span class="o">=</span> <span class="n">nums</span><span class="p">.</span><span class="n">size</span><span class="p">(),</span> <span class="n">ans</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+        <span class="c1">// 确定二进制下最高位是多少
+</span><span class="c1"></span>        <span class="kt">int</span> <span class="n">bit_max</span> <span class="o">=</span> <span class="mi">31</span><span class="p">;</span>
+        <span class="k">while</span> <span class="p">(</span><span class="o">!</span><span class="p">((</span><span class="n">n</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">&gt;&gt;</span> <span class="n">bit_max</span><span class="p">))</span> <span class="p">{</span>
+            <span class="n">bit_max</span> <span class="o">-=</span> <span class="mi">1</span><span class="p">;</span>
+        <span class="p">}</span>
+        <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">bit</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">bit</span> <span class="o">&lt;=</span> <span class="n">bit_max</span><span class="p">;</span> <span class="o">++</span><span class="n">bit</span><span class="p">)</span> <span class="p">{</span>
+            <span class="kt">int</span> <span class="n">x</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+            <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">n</span><span class="p">;</span> <span class="o">++</span><span class="n">i</span><span class="p">)</span> <span class="p">{</span>
+                <span class="k">if</span> <span class="p">(</span><span class="n">nums</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">&amp;</span> <span class="p">(</span><span class="mi">1</span> <span class="o">&lt;&lt;</span> <span class="n">bit</span><span class="p">))</span> <span class="p">{</span>
+                    <span class="n">x</span> <span class="o">+=</span> <span class="mi">1</span><span class="p">;</span>
+                <span class="p">}</span>
+                <span class="k">if</span> <span class="p">(</span><span class="n">i</span> <span class="o">&gt;=</span> <span class="mi">1</span> <span class="o">&amp;&amp;</span> <span class="p">(</span><span class="n">i</span> <span class="o">&amp;</span> <span class="p">(</span><span class="mi">1</span> <span class="o">&lt;&lt;</span> <span class="n">bit</span><span class="p">)))</span> <span class="p">{</span>
+                    <span class="n">y</span> <span class="o">+=</span> <span class="mi">1</span><span class="p">;</span>
+                <span class="p">}</span>
+            <span class="p">}</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">x</span> <span class="o">&gt;</span> <span class="n">y</span><span class="p">)</span> <span class="p">{</span>
+                <span class="n">ans</span> <span class="o">|=</span> <span class="mi">1</span> <span class="o">&lt;&lt;</span> <span class="n">bit</span><span class="p">;</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+        <span class="k">return</span> <span class="n">ans</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">};</span>
+</code></pre></div>
     
 	</div>
   <footer class="article-footer clearfix">
@@ -202,6 +173,10 @@ public:
   
   <a href="https://qkgoalkeeper.github.io/tags/leetcode">LeetCode</a>
   
+  <a href="https://qkgoalkeeper.github.io/tags/c&#43;&#43;">C&#43;&#43;</a>
+  
+  <a href="https://qkgoalkeeper.github.io/tags/%E4%BD%8D%E8%BF%90%E7%AE%97">位运算</a>
+  
 </div>
 
 
@@ -211,14 +186,14 @@ public:
 <div class="article-categories">
   <span></span>
   
-  <a class="article-category-link" href="https://qkgoalkeeper.github.io/categories/leetcode%E7%AE%80%E5%8D%95%E9%A2%98201-300">LeetCode简单题201-300</a>
+  <a class="article-category-link" href="https://qkgoalkeeper.github.io/categories/%E5%A4%A7%E5%9B%9Bleetcode%E7%AE%97%E6%B3%95%E5%88%B7%E9%A2%98">大四LeetCode算法刷题</a>
   
 </div>
 
 
 
   <div class="article-share" id="share">
-    <div data-url="https://qkgoalkeeper.github.io/post/leetcode%E7%AE%80%E5%8D%95%E9%A2%98299.-%E7%8C%9C%E6%95%B0%E5%AD%97%E6%B8%B8%E6%88%8Fpythonc&#43;&#43;java/" data-title="LeetCode简单题：299. 猜数字游戏（Python,C&#43;&#43;,Java）" data-tsina="5852167252" class="share clearfix">
+    <div data-url="https://qkgoalkeeper.github.io/post/leetcode%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98287.-%E5%AF%BB%E6%89%BE%E9%87%8D%E5%A4%8D%E6%95%B0/" data-title="LeetCode每日一题：287. 寻找重复数" data-tsina="5852167252" class="share clearfix">
     </div>
   </div>
 </footer>
