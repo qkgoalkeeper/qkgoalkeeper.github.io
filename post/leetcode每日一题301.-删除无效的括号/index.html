@@ -2,13 +2,13 @@
 <html lang="zh-CN">
 <head>
   <meta charset="UTF-8">
-  <title>LeetCode简单题：217. 存在重复元素（Python,C&#43;&#43;,Java） - qkgoalkeeper&#39;s blog</title>
+  <title>LeetCode每日一题：301. 删除无效的括号 - qkgoalkeeper&#39;s blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=3, minimum-scale=1">
   
-  <meta name="description" content="一.解法 https://leetcode-cn.com/problems/contains-duplicate/ 要点：hashmap 用暴力双循环法会超时，因为复杂度为$O（n^2）$。 Python，C&#43;&#43;，Java都用了相同的哈希表法。 遇到没">
+  <meta name="description" content="一.301. 删除无效的括号 1.题干及思路 给你一个由若干括号和字母组成的字符串 s ，删除最小数量的无效括号，使得输入的字符串有效。 返回所有可能的">
   
-  <meta itemprop="name" content="LeetCode简单题：217. 存在重复元素（Python,C&#43;&#43;,Java） - qkgoalkeeper&#39;s blog">
-  <meta itemprop="description" content="一.解法 https://leetcode-cn.com/problems/contains-duplicate/ 要点：hashmap 用暴力双循环法会超时，因为复杂度为$O（n^2）$。 Python，C&#43;&#43;，Java都用了相同的哈希表法。 遇到没">
+  <meta itemprop="name" content="LeetCode每日一题：301. 删除无效的括号 - qkgoalkeeper&#39;s blog">
+  <meta itemprop="description" content="一.301. 删除无效的括号 1.题干及思路 给你一个由若干括号和字母组成的字符串 s ，删除最小数量的无效括号，使得输入的字符串有效。 返回所有可能的">
   <meta itemprop="image" content="https://qkgoalkeeper.github.io/img/author.jpg">
   
   
@@ -74,7 +74,7 @@
 	<article itemprop="articleBody">
     <header class="article-info clearfix">
   <h1 itemprop="name">
-      <a href="https://qkgoalkeeper.github.io/post/leetcode%E7%AE%80%E5%8D%95%E9%A2%98217.-%E5%AD%98%E5%9C%A8%E9%87%8D%E5%A4%8D%E5%85%83%E7%B4%A0pythonc&#43;&#43;java/" title="LeetCode简单题：217. 存在重复元素（Python,C&#43;&#43;,Java）" itemprop="url">LeetCode简单题：217. 存在重复元素（Python,C&#43;&#43;,Java）</a>
+      <a href="https://qkgoalkeeper.github.io/post/leetcode%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98301.-%E5%88%A0%E9%99%A4%E6%97%A0%E6%95%88%E7%9A%84%E6%8B%AC%E5%8F%B7/" title="LeetCode每日一题：301. 删除无效的括号" itemprop="url">LeetCode每日一题：301. 删除无效的括号</a>
   </h1>
   <p class="article-author">By
     
@@ -82,7 +82,7 @@
     
   </p>
   <p class="article-time">
-    <time datetime="2020-08-13 17:55:19 &#43;0800 CST" itemprop="datePublished">2020年08月13日</time>
+    <time datetime="2021-12-25 10:55:19 &#43;0800 CST" itemprop="datePublished">2021年12月25日</time>
   </p>
 </header>
 
@@ -92,64 +92,86 @@
 			<strong class="toc-title">文章目录</strong>
       <nav id="TableOfContents">
   <ul>
-    <li><a href="#一解法">一.解法</a></li>
-    <li><a href="#二python实现">二.Python实现</a></li>
-    <li><a href="#三c实现">三.C++实现</a></li>
-    <li><a href="#四java实现">四.java实现</a></li>
+    <li><a href="#1题干及思路">1.题干及思路</a></li>
+    <li><a href="#2c实现">2.C++实现</a></li>
   </ul>
 </nav>
 		</div>
     
-    <h2 id="一解法">一.解法</h2>
-<p><a href="https://leetcode-cn.com/problems/contains-duplicate/">https://leetcode-cn.com/problems/contains-duplicate/</a><br>
-要点：hashmap<br>
-用暴力双循环法会超时，因为复杂度为$O（n^2）$。<br>
-Python，C++，Java都用了相同的哈希表法。<br>
-遇到没遇过的值就加入哈希表，如果发现已经加入过，说明重复。<br>
-java中还能用hashset代替hashmap。</p>
-<h2 id="二python实现">二.Python实现</h2>
-<pre tabindex="0"><code>class Solution:
-    def containsDuplicate(self, nums: List[int]) -&gt; bool:
-        hashmap = {}
-        length=len(nums)
-        for i in range(0,length):
-            if hashmap.get(nums[i])!=None:
-                return True;
-            hashmap[nums[i]] = 1 
-       
-        return False
-</code></pre><h2 id="三c实现">三.C++实现</h2>
-<pre tabindex="0"><code>class Solution {
-public:
-    bool containsDuplicate(vector&lt;int&gt;&amp; nums) {
-        unordered_map&lt;int,int&gt; hashmap;
-        int length=nums.size();
-    
-        for(int i=0;i&lt;length;i++){
-            if(hashmap[nums[i]]) return true;
-            else{
-                hashmap[nums[i]]=1;
-            }
-        }
+    <h1 id="一301-删除无效的括号httpsleetcode-cncomproblemsremove-invalid-parentheses">一.<a href="https://leetcode-cn.com/problems/remove-invalid-parentheses/">301. 删除无效的括号</a></h1>
+<h2 id="1题干及思路">1.题干及思路</h2>
+<p>给你一个由若干括号和字母组成的字符串 <code>s</code> ，删除最小数量的无效括号，使得输入的字符串有效。</p>
+<p>返回所有可能的结果。答案可以按 <strong>任意顺序</strong> 返回。</p>
+<p><strong>示例 1：</strong></p>
+<pre tabindex="0"><code>输入：s = &quot;()())()&quot;
+输出：[&quot;(())()&quot;,&quot;()()()&quot;]
+</code></pre><p><strong>示例 2：</strong></p>
+<pre tabindex="0"><code>输入：s = &quot;(a)())()&quot;
+输出：[&quot;(a())()&quot;,&quot;(a)()()&quot;]
+</code></pre><p><strong>示例 3：</strong></p>
+<pre tabindex="0"><code>输入：s = &quot;)(&quot;
+输出：[&quot;&quot;]
+</code></pre><p><strong>提示：</strong></p>
+<ul>
+<li><code>1 &lt;= s.length &lt;= 25</code></li>
+<li><code>s</code> 由小写英文字母以及括号 <code>'('</code> 和 <code>')'</code> 组成</li>
+<li><code>s</code> 中至多含 <code>20</code> 个括号</li>
+</ul>
+<p>要点：广度优先搜索</p>
+<p>思路：isValid是一个判断是否valid的函数（以前的题做过），然后通过两个unordered_set  currSet nextSet实现广度优先搜索的队列(用set而不是queue是为了去重)，每次选currset中元素，如果valid就加入答案，如果没有答案分别将其删除可能的无效括号，加入下一层的set（可以剪枝也可以选所有的左括号和右括号），如果有答案就在这轮停止</p>
+<h2 id="2c实现">2.C++实现</h2>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="k">class</span> <span class="nc">Solution</span> <span class="p">{</span>
+<span class="k">public</span><span class="o">:</span>
+    <span class="c1">//判断是否有效
+</span><span class="c1"></span>    <span class="kt">bool</span> <span class="n">isValid</span><span class="p">(</span><span class="n">string</span> <span class="n">str</span><span class="p">)</span> <span class="p">{</span>
+        <span class="kt">int</span> <span class="n">count</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
 
-        return false;
+        <span class="k">for</span> <span class="p">(</span><span class="kt">char</span> <span class="nl">c</span> <span class="p">:</span> <span class="n">str</span><span class="p">)</span> <span class="p">{</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">c</span> <span class="o">==</span> <span class="sc">&#39;(&#39;</span><span class="p">)</span> <span class="p">{</span>
+                <span class="n">count</span><span class="o">++</span><span class="p">;</span>
+            <span class="p">}</span> <span class="k">else</span> <span class="nf">if</span> <span class="p">(</span><span class="n">c</span> <span class="o">==</span> <span class="err">&#39;</span><span class="p">)</span><span class="err">&#39;</span><span class="p">)</span> <span class="p">{</span>
+                <span class="n">count</span><span class="o">--</span><span class="p">;</span>
+                <span class="k">if</span> <span class="p">(</span><span class="n">count</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+                    <span class="k">return</span> <span class="nb">false</span><span class="p">;</span>
+                <span class="p">}</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
 
-    }
-};
-</code></pre><h2 id="四java实现">四.java实现</h2>
-<pre tabindex="0"><code>class Solution {
-    public boolean containsDuplicate(int[] nums) {
+        <span class="k">return</span> <span class="n">count</span> <span class="o">==</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="p">}</span>
 
-    Set&lt;Integer&gt; set = new HashSet&lt;&gt;(nums.length);
-    for (int x: nums) {
-        if (set.contains(x)) return true;
-        set.add(x);
-    }
-    return false;
-}
 
-}
-</code></pre>
+    <span class="n">vector</span><span class="o">&lt;</span><span class="n">string</span><span class="o">&gt;</span> <span class="n">removeInvalidParentheses</span><span class="p">(</span><span class="n">string</span> <span class="n">s</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">vector</span><span class="o">&lt;</span><span class="n">string</span><span class="o">&gt;</span> <span class="n">ans</span><span class="p">;</span>
+        <span class="n">unordered_set</span><span class="o">&lt;</span><span class="n">string</span><span class="o">&gt;</span> <span class="n">currSet</span><span class="p">;</span>
+
+        <span class="n">currSet</span><span class="p">.</span><span class="n">insert</span><span class="p">(</span><span class="n">s</span><span class="p">);</span>
+        <span class="k">while</span> <span class="p">(</span><span class="nb">true</span><span class="p">)</span> <span class="p">{</span>
+            <span class="k">for</span> <span class="p">(</span><span class="k">auto</span> <span class="o">&amp;</span> <span class="nl">str</span> <span class="p">:</span> <span class="n">currSet</span><span class="p">)</span> <span class="p">{</span>
+                <span class="k">if</span> <span class="p">(</span><span class="n">isValid</span><span class="p">(</span><span class="n">str</span><span class="p">))</span>
+                    <span class="n">ans</span><span class="p">.</span><span class="n">emplace_back</span><span class="p">(</span><span class="n">str</span><span class="p">);</span>
+            <span class="p">}</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">ans</span><span class="p">.</span><span class="n">size</span><span class="p">()</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+                <span class="k">return</span> <span class="n">ans</span><span class="p">;</span>
+            <span class="p">}</span>
+            <span class="n">unordered_set</span><span class="o">&lt;</span><span class="n">string</span><span class="o">&gt;</span> <span class="n">nextSet</span><span class="p">;</span>
+            <span class="k">for</span> <span class="p">(</span><span class="k">auto</span> <span class="o">&amp;</span> <span class="nl">str</span> <span class="p">:</span> <span class="n">currSet</span><span class="p">)</span> <span class="p">{</span>
+                <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">str</span><span class="p">.</span><span class="n">size</span><span class="p">();</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+                    <span class="c1">//以下三行是为了剪枝
+</span><span class="c1"></span>                    <span class="k">if</span> <span class="p">(</span><span class="n">i</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="o">&amp;&amp;</span> <span class="n">str</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">==</span> <span class="n">str</span><span class="p">[</span><span class="n">i</span> <span class="o">-</span> <span class="mi">1</span><span class="p">])</span> <span class="p">{</span>
+                        <span class="k">continue</span><span class="p">;</span>
+                    <span class="p">}</span>
+                    <span class="k">if</span> <span class="p">(</span><span class="n">str</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">==</span> <span class="sc">&#39;(&#39;</span> <span class="o">||</span> <span class="n">str</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">==</span> <span class="sc">&#39;)&#39;</span><span class="p">)</span> <span class="p">{</span>
+                        <span class="n">nextSet</span><span class="p">.</span><span class="n">insert</span><span class="p">(</span><span class="n">str</span><span class="p">.</span><span class="n">substr</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">i</span><span class="p">)</span> <span class="o">+</span> <span class="n">str</span><span class="p">.</span><span class="n">substr</span><span class="p">(</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">str</span><span class="p">.</span><span class="n">size</span><span class="p">()));</span>
+                    <span class="p">}</span>
+                <span class="p">}</span>
+            <span class="p">}</span>
+            <span class="n">currSet</span> <span class="o">=</span> <span class="n">nextSet</span><span class="p">;</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">};</span>
+
+</code></pre></div>
     
 	</div>
   <footer class="article-footer clearfix">
@@ -160,6 +182,10 @@ public:
   
   <a href="https://qkgoalkeeper.github.io/tags/leetcode">LeetCode</a>
   
+  <a href="https://qkgoalkeeper.github.io/tags/c&#43;&#43;">C&#43;&#43;</a>
+  
+  <a href="https://qkgoalkeeper.github.io/tags/%E5%B9%BF%E5%BA%A6%E4%BC%98%E5%85%88%E6%90%9C%E7%B4%A2">广度优先搜索</a>
+  
 </div>
 
 
@@ -169,14 +195,14 @@ public:
 <div class="article-categories">
   <span></span>
   
-  <a class="article-category-link" href="https://qkgoalkeeper.github.io/categories/leetcode%E7%AE%80%E5%8D%95%E9%A2%98201-300">LeetCode简单题201-300</a>
+  <a class="article-category-link" href="https://qkgoalkeeper.github.io/categories/%E5%A4%A7%E5%9B%9Bleetcode%E7%AE%97%E6%B3%95%E5%88%B7%E9%A2%98">大四LeetCode算法刷题</a>
   
 </div>
 
 
 
   <div class="article-share" id="share">
-    <div data-url="https://qkgoalkeeper.github.io/post/leetcode%E7%AE%80%E5%8D%95%E9%A2%98217.-%E5%AD%98%E5%9C%A8%E9%87%8D%E5%A4%8D%E5%85%83%E7%B4%A0pythonc&#43;&#43;java/" data-title="LeetCode简单题：217. 存在重复元素（Python,C&#43;&#43;,Java）" data-tsina="5852167252" class="share clearfix">
+    <div data-url="https://qkgoalkeeper.github.io/post/leetcode%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98301.-%E5%88%A0%E9%99%A4%E6%97%A0%E6%95%88%E7%9A%84%E6%8B%AC%E5%8F%B7/" data-title="LeetCode每日一题：301. 删除无效的括号" data-tsina="5852167252" class="share clearfix">
     </div>
   </div>
 </footer>
