@@ -2,13 +2,13 @@
 <html lang="zh-CN">
 <head>
   <meta charset="UTF-8">
-  <title>LeetCode简单题：219. 存在重复元素 II（Python,C&#43;&#43;,Java） - qkgoalkeeper&#39;s blog</title>
+  <title>LeetCode每日一题：312. 戳气球 - qkgoalkeeper&#39;s blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=3, minimum-scale=1">
   
-  <meta name="description" content="一.解法 https://leetcode-cn.com/problems/contains-duplicate-ii/ 要点：hashset，滑动窗口 和218题类似，但要注意相邻相同数的位置差大小是否大于k。 有两种方法，java和c&#43;&#43;用了滑动窗口，">
+  <meta name="description" content="一.312. 戳气球 1.题干及思路 有 n 个气球，编号为0 到 n - 1，每个气球上都标有一个数字，这些数字存在数组 nums 中。 现在要求你戳破所有的气球。戳破">
   
-  <meta itemprop="name" content="LeetCode简单题：219. 存在重复元素 II（Python,C&#43;&#43;,Java） - qkgoalkeeper&#39;s blog">
-  <meta itemprop="description" content="一.解法 https://leetcode-cn.com/problems/contains-duplicate-ii/ 要点：hashset，滑动窗口 和218题类似，但要注意相邻相同数的位置差大小是否大于k。 有两种方法，java和c&#43;&#43;用了滑动窗口，">
+  <meta itemprop="name" content="LeetCode每日一题：312. 戳气球 - qkgoalkeeper&#39;s blog">
+  <meta itemprop="description" content="一.312. 戳气球 1.题干及思路 有 n 个气球，编号为0 到 n - 1，每个气球上都标有一个数字，这些数字存在数组 nums 中。 现在要求你戳破所有的气球。戳破">
   <meta itemprop="image" content="https://qkgoalkeeper.github.io/img/author.jpg">
   
   
@@ -74,7 +74,7 @@
 	<article itemprop="articleBody">
     <header class="article-info clearfix">
   <h1 itemprop="name">
-      <a href="https://qkgoalkeeper.github.io/post/leetcode%E7%AE%80%E5%8D%95%E9%A2%98219.-%E5%AD%98%E5%9C%A8%E9%87%8D%E5%A4%8D%E5%85%83%E7%B4%A0-iipythonc&#43;&#43;java/" title="LeetCode简单题：219. 存在重复元素 II（Python,C&#43;&#43;,Java）" itemprop="url">LeetCode简单题：219. 存在重复元素 II（Python,C&#43;&#43;,Java）</a>
+      <a href="https://qkgoalkeeper.github.io/post/leetcode%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98312.-%E6%88%B3%E6%B0%94%E7%90%83/" title="LeetCode每日一题：312. 戳气球" itemprop="url">LeetCode每日一题：312. 戳气球</a>
   </h1>
   <p class="article-author">By
     
@@ -82,7 +82,7 @@
     
   </p>
   <p class="article-time">
-    <time datetime="2020-08-13 17:55:19 &#43;0800 CST" itemprop="datePublished">2020年08月13日</time>
+    <time datetime="2021-12-27 10:55:19 &#43;0800 CST" itemprop="datePublished">2021年12月27日</time>
   </p>
 </header>
 
@@ -92,68 +92,67 @@
 			<strong class="toc-title">文章目录</strong>
       <nav id="TableOfContents">
   <ul>
-    <li><a href="#一解法">一.解法</a></li>
-    <li><a href="#二python实现">二.Python实现</a></li>
-    <li><a href="#三c实现">三.C++实现</a></li>
-    <li><a href="#四java实现">四.java实现</a></li>
+    <li><a href="#1题干及思路">1.题干及思路</a></li>
+    <li><a href="#2c实现">2.C++实现</a></li>
   </ul>
 </nav>
 		</div>
     
-    <h2 id="一解法">一.解法</h2>
-<p><a href="https://leetcode-cn.com/problems/contains-duplicate-ii/">https://leetcode-cn.com/problems/contains-duplicate-ii/</a><br>
-要点：hashset，滑动窗口<br>
-和218题类似，但要注意相邻相同数的位置差大小是否大于k。<br>
-有两种方法，java和c++用了滑动窗口，保证hashset的大小小于等于k。<br>
-Python用了另一种方法，用字典哈希表，hashmap[nums[i]]=i来存放最新一次nums[i]这个元素出现的位置，如果新的i减去hashmap[nums[i]]大于k，就更新hashmap[nums[i]]=i，否则返回true。</p>
-<h2 id="二python实现">二.Python实现</h2>
-<pre tabindex="0"><code>class Solution:
-    def containsNearbyDuplicate(self, nums: List[int], k: int) -&gt; bool:
-        hashset={}
-        length=len(nums)
-        for i in range(0,length):
-            if hashset.get(nums[i])==None:
-                hashset[nums[i]]=i
-            else:
-                if i-hashset[nums[i]]&lt;=k:
-                    return True
-                hashset[nums[i]]=i
-                    
-        return False
-</code></pre><h2 id="三c实现">三.C++实现</h2>
-<pre tabindex="0"><code>class Solution {
-public:
-    bool containsNearbyDuplicate(vector&lt;int&gt;&amp; nums, int k) {
-         unordered_set&lt;int&gt; set; //搜索、插入和移除平均常数时间复杂度，不会超时
-    for(int i = 0; i &lt; nums.size(); i++)
-    {
-        if(set.find(nums[i])!= set.end())
-            return true;
-        set.insert(nums[i]);
-        if(set.size() &gt; k )
-            set.erase(nums[i-k]); //滑动窗口长度最大为k 
-    }
-    return false;
-
-
-    }
-};
-</code></pre><h2 id="四java实现">四.java实现</h2>
-<pre tabindex="0"><code>class Solution {
-    public boolean containsNearbyDuplicate(int[] nums, int k) {
-        Set&lt;Integer&gt; set = new HashSet&lt;&gt;();
-        for (int i = 0; i &lt; nums.length; ++i) {
-            if (set.contains(nums[i])) return true;
-            set.add(nums[i]);
-            if (set.size() &gt; k) {
-                set.remove(nums[i - k]);
-            }
-        }
-    return false;
-
-    }
-}
-</code></pre>
+    <h1 id="一312-戳气球httpsleetcode-cncomproblemsburst-balloons">一.<a href="https://leetcode-cn.com/problems/burst-balloons/">312. 戳气球</a></h1>
+<h2 id="1题干及思路">1.题干及思路</h2>
+<p>有 <code>n</code> 个气球，编号为<code>0</code> 到 <code>n - 1</code>，每个气球上都标有一个数字，这些数字存在数组 <code>nums</code> 中。</p>
+<p>现在要求你戳破所有的气球。戳破第 <code>i</code> 个气球，你可以获得 <code>nums[i - 1] * nums[i] * nums[i + 1]</code> 枚硬币。 这里的 <code>i - 1</code> 和 <code>i + 1</code> 代表和 <code>i</code> 相邻的两个气球的序号。如果 <code>i - 1</code>或 <code>i + 1</code> 超出了数组的边界，那么就当它是一个数字为 <code>1</code> 的气球。</p>
+<p>求所能获得硬币的最大数量。</p>
+<p><strong>示例 1：</strong></p>
+<pre tabindex="0"><code>输入：nums = [3,1,5,8]
+输出：167
+解释：
+nums = [3,1,5,8] --&gt; [3,5,8] --&gt; [3,8] --&gt; [8] --&gt; []
+coins =  3*1*5    +   3*5*8   +  1*3*8  + 1*8*1 = 167
+</code></pre><p><strong>示例 2：</strong></p>
+<pre tabindex="0"><code>输入：nums = [1,5]
+输出：10
+</code></pre><p><strong>提示：</strong></p>
+<ul>
+<li><code>n == nums.length</code></li>
+<li><code>1 &lt;= n &lt;= 500</code></li>
+<li><code>0 &lt;= nums[i] &lt;= 100</code></li>
+</ul>
+<p>要点：动态规划</p>
+<p>思路：<code>dp[i][j]</code> 表示开区间 <code>(i,j)</code> 内你能拿到的最多金币</p>
+<p>把 (i,k) 开区间所有气球戳爆，然后把戳爆这些气球的所有金币都收入囊中，金币数量记录在 dp[i][k]
+同理，(k,j) 开区间你也已经都戳爆了，钱也拿了，记录在 dp[k][j]
+所以你把这些之前已经拿到的钱 dp[i][k]+dp[k][j] 收着，
+再加上新赚的钱 val[i]*val[k]*val[j] 不就得到你现在戳爆气球 k 一共手上能拿多少钱</p>
+<h2 id="2c实现">2.C++实现</h2>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="k">class</span> <span class="nc">Solution</span> <span class="p">{</span>
+<span class="k">public</span><span class="o">:</span>
+    <span class="kt">int</span> <span class="n">maxCoins</span><span class="p">(</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;&amp;</span> <span class="n">nums</span><span class="p">)</span> <span class="p">{</span>
+        <span class="kt">int</span> <span class="n">n</span> <span class="o">=</span> <span class="n">nums</span><span class="p">.</span><span class="n">size</span><span class="p">();</span>
+        <span class="n">vector</span><span class="o">&lt;</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;&gt;</span> <span class="n">dp</span><span class="p">(</span><span class="n">n</span> <span class="o">+</span> <span class="mi">2</span><span class="p">,</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="p">(</span><span class="n">n</span> <span class="o">+</span> <span class="mi">2</span><span class="p">,</span><span class="mi">0</span><span class="p">));</span>
+        <span class="c1">//创建一个辅助数组，并在首尾各添加1，方便处理边界情况
+</span><span class="c1"></span>        <span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">temp</span><span class="p">(</span><span class="n">n</span> <span class="o">+</span> <span class="mi">2</span><span class="p">);</span>
+        <span class="n">temp</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+        <span class="n">temp</span><span class="p">[</span><span class="n">n</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+        <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;=</span> <span class="n">n</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>
+            <span class="n">temp</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">nums</span><span class="p">[</span><span class="n">i</span> <span class="o">-</span> <span class="mi">1</span><span class="p">];</span>
+         <span class="c1">//len表示开区间长度（对每一个区间长度进行循环）
+</span><span class="c1"></span>        <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">len</span> <span class="o">=</span> <span class="mi">3</span><span class="p">;</span> <span class="n">len</span> <span class="o">&lt;=</span> <span class="n">n</span> <span class="o">+</span> <span class="mi">2</span><span class="p">;</span> <span class="n">len</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+            <span class="c1">//l表示开区间左端点,l + len - 1则表示开区间右端点
+</span><span class="c1"></span>            <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">l</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">l</span> <span class="o">&lt;=</span> <span class="n">n</span> <span class="o">+</span> <span class="mi">2</span> <span class="o">-</span> <span class="n">len</span><span class="p">;</span> <span class="n">l</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+                <span class="c1">//k为开区间内的索引（代表区间最后一个被戳破的气球）
+</span><span class="c1"></span>                <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">k</span> <span class="o">=</span> <span class="n">l</span> <span class="o">+</span> <span class="mi">1</span><span class="p">;</span> <span class="n">k</span> <span class="o">&lt;</span> <span class="n">l</span> <span class="o">+</span> <span class="n">len</span> <span class="o">-</span> <span class="mi">1</span><span class="p">;</span> <span class="n">k</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+                    <span class="kt">int</span> <span class="n">left</span> <span class="o">=</span> <span class="n">dp</span><span class="p">[</span><span class="n">l</span><span class="p">][</span><span class="n">k</span><span class="p">];</span>
+                    <span class="kt">int</span> <span class="n">right</span> <span class="o">=</span> <span class="n">dp</span><span class="p">[</span><span class="n">k</span><span class="p">][</span><span class="n">l</span> <span class="o">+</span> <span class="n">len</span> <span class="o">-</span> <span class="mi">1</span><span class="p">];</span>
+                    <span class="kt">int</span> <span class="n">sum</span> <span class="o">=</span> <span class="n">left</span> <span class="o">+</span> <span class="n">right</span> <span class="o">+</span> <span class="n">temp</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">*</span> <span class="n">temp</span><span class="p">[</span><span class="n">l</span><span class="p">]</span> <span class="o">*</span> <span class="n">temp</span><span class="p">[</span><span class="n">l</span> <span class="o">+</span> <span class="n">len</span> <span class="o">-</span> <span class="mi">1</span><span class="p">];</span>
+                    <span class="n">dp</span><span class="p">[</span><span class="n">l</span><span class="p">][</span><span class="n">l</span> <span class="o">+</span> <span class="n">len</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">max</span><span class="p">(</span><span class="n">dp</span><span class="p">[</span><span class="n">l</span><span class="p">][</span><span class="n">l</span> <span class="o">+</span> <span class="n">len</span> <span class="o">-</span> <span class="mi">1</span><span class="p">],</span><span class="n">sum</span><span class="p">);</span><span class="c1">//取金币最大值
+</span><span class="c1"></span>                <span class="p">}</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+        <span class="k">return</span> <span class="n">dp</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="n">n</span> <span class="o">+</span> <span class="mi">1</span><span class="p">];</span>
+    <span class="p">}</span>
+<span class="p">};</span>
+</code></pre></div>
     
 	</div>
   <footer class="article-footer clearfix">
@@ -164,6 +163,10 @@ public:
   
   <a href="https://qkgoalkeeper.github.io/tags/leetcode">LeetCode</a>
   
+  <a href="https://qkgoalkeeper.github.io/tags/c&#43;&#43;">C&#43;&#43;</a>
+  
+  <a href="https://qkgoalkeeper.github.io/tags/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92">动态规划</a>
+  
 </div>
 
 
@@ -173,14 +176,14 @@ public:
 <div class="article-categories">
   <span></span>
   
-  <a class="article-category-link" href="https://qkgoalkeeper.github.io/categories/leetcode%E7%AE%80%E5%8D%95%E9%A2%98201-300">LeetCode简单题201-300</a>
+  <a class="article-category-link" href="https://qkgoalkeeper.github.io/categories/%E5%A4%A7%E5%9B%9Bleetcode%E7%AE%97%E6%B3%95%E5%88%B7%E9%A2%98">大四LeetCode算法刷题</a>
   
 </div>
 
 
 
   <div class="article-share" id="share">
-    <div data-url="https://qkgoalkeeper.github.io/post/leetcode%E7%AE%80%E5%8D%95%E9%A2%98219.-%E5%AD%98%E5%9C%A8%E9%87%8D%E5%A4%8D%E5%85%83%E7%B4%A0-iipythonc&#43;&#43;java/" data-title="LeetCode简单题：219. 存在重复元素 II（Python,C&#43;&#43;,Java）" data-tsina="5852167252" class="share clearfix">
+    <div data-url="https://qkgoalkeeper.github.io/post/leetcode%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98312.-%E6%88%B3%E6%B0%94%E7%90%83/" data-title="LeetCode每日一题：312. 戳气球" data-tsina="5852167252" class="share clearfix">
     </div>
   </div>
 </footer>
