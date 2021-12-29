@@ -2,13 +2,13 @@
 <html lang="zh-CN">
 <head>
   <meta charset="UTF-8">
-  <title>LeetCode每日一题：128. 最长连续序列 - qkgoalkeeper&#39;s blog</title>
+  <title>LeetCode每日一题：338. 比特位计数 - qkgoalkeeper&#39;s blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=3, minimum-scale=1">
   
-  <meta name="description" content="一.128. 最长连续序列 1.题干及思路 给定一个未排序的整数数组 nums ，找出数字连续的最长序列（不要求序列元素在原数组中连续）的长度。 请你设计并实">
+  <meta name="description" content="一.338. 比特位计数 1.题干及思路 给你一个整数 n ，对于 0 &lt;= i &lt;= n 中的每个 i ，计算其二进制表示中 1 的个数 ，返回一个长度为 n &#43; 1 的数组 ans 作为答">
   
-  <meta itemprop="name" content="LeetCode每日一题：128. 最长连续序列 - qkgoalkeeper&#39;s blog">
-  <meta itemprop="description" content="一.128. 最长连续序列 1.题干及思路 给定一个未排序的整数数组 nums ，找出数字连续的最长序列（不要求序列元素在原数组中连续）的长度。 请你设计并实">
+  <meta itemprop="name" content="LeetCode每日一题：338. 比特位计数 - qkgoalkeeper&#39;s blog">
+  <meta itemprop="description" content="一.338. 比特位计数 1.题干及思路 给你一个整数 n ，对于 0 &lt;= i &lt;= n 中的每个 i ，计算其二进制表示中 1 的个数 ，返回一个长度为 n &#43; 1 的数组 ans 作为答">
   <meta itemprop="image" content="https://qkgoalkeeper.github.io/img/author.jpg">
   
   
@@ -74,7 +74,7 @@
 	<article itemprop="articleBody">
     <header class="article-info clearfix">
   <h1 itemprop="name">
-      <a href="https://qkgoalkeeper.github.io/post/leetcode%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98128.-%E6%9C%80%E9%95%BF%E8%BF%9E%E7%BB%AD%E5%BA%8F%E5%88%97/" title="LeetCode每日一题：128. 最长连续序列" itemprop="url">LeetCode每日一题：128. 最长连续序列</a>
+      <a href="https://qkgoalkeeper.github.io/post/leetcode%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98338.-%E6%AF%94%E7%89%B9%E4%BD%8D%E8%AE%A1%E6%95%B0/" title="LeetCode每日一题：338. 比特位计数" itemprop="url">LeetCode每日一题：338. 比特位计数</a>
   </h1>
   <p class="article-author">By
     
@@ -82,7 +82,7 @@
     
   </p>
   <p class="article-time">
-    <time datetime="2021-12-16 10:55:19 &#43;0800 CST" itemprop="datePublished">2021年12月16日</time>
+    <time datetime="2021-12-29 10:55:19 &#43;0800 CST" itemprop="datePublished">2021年12月29日</time>
   </p>
 </header>
 
@@ -98,42 +98,46 @@
 </nav>
 		</div>
     
-    <h1 id="一128-最长连续序列httpsleetcode-cncomproblemslongest-consecutive-sequence">一.<a href="https://leetcode-cn.com/problems/longest-consecutive-sequence/">128. 最长连续序列</a></h1>
+    <h1 id="一338-比特位计数httpsleetcode-cncomproblemscounting-bits">一.<a href="https://leetcode-cn.com/problems/counting-bits/">338. 比特位计数</a></h1>
 <h2 id="1题干及思路">1.题干及思路</h2>
-<p>给定一个未排序的整数数组 <code>nums</code> ，找出数字连续的最长序列（不要求序列元素在原数组中连续）的长度。</p>
-<p>请你设计并实现时间复杂度为 <code>O(n)</code> 的算法解决此问题。</p>
+<p>给你一个整数 <code>n</code> ，对于 <code>0 &lt;= i &lt;= n</code> 中的每个 <code>i</code> ，计算其二进制表示中 <strong><code>1</code> 的个数</strong> ，返回一个长度为 <code>n + 1</code> 的数组 <code>ans</code> 作为答案。</p>
 <p><strong>示例 1：</strong></p>
-<pre tabindex="0"><code>输入：nums = [100,4,200,1,3,2]
-输出：4
-解释：最长数字连续序列是 [1, 2, 3, 4]。它的长度为 4。
+<pre tabindex="0"><code>输入：n = 2
+输出：[0,1,1]
+解释：
+0 --&gt; 0
+1 --&gt; 1
+2 --&gt; 10
 </code></pre><p><strong>示例 2：</strong></p>
-<pre tabindex="0"><code>输入：nums = [0,3,7,2,5,8,4,6,0,1]
-输出：9
+<pre tabindex="0"><code>输入：n = 5
+输出：[0,1,1,2,1,2]
+解释：
+0 --&gt; 0
+1 --&gt; 1
+2 --&gt; 10
+3 --&gt; 11
+4 --&gt; 100
+5 --&gt; 101
 </code></pre><p><strong>提示：</strong></p>
 <ul>
-<li><code>0 &lt;= nums.length &lt;= 105</code></li>
-<li><code>-109 &lt;= nums[i] &lt;= 109</code></li>
+<li><code>0 &lt;= n &lt;= 105</code></li>
 </ul>
-<p>要点：并查集</p>
-<p>思路：标准并查集题，用一个hashmap,里面存每一个num的下一个值，然后并查集find函数递归查找最远的那个，哈希表查找有没有用count()函数</p>
+<p><strong>进阶：</strong></p>
+<ul>
+<li>很容易就能实现时间复杂度为 <code>O(n log n)</code> 的解决方案，你可以在线性时间复杂度 <code>O(n)</code> 内用一趟扫描解决此问题吗？</li>
+<li>你能不使用任何内置函数解决此问题吗？（如，C++ 中的 <code>__builtin_popcount</code> ）</li>
+</ul>
+<p>要点：动态规划，位运算</p>
+<p>思路：简单动态规划，转移方程bits[i] = bits[i &raquo; 1] + (i &amp; 1)</p>
 <h2 id="2c实现">2.C++实现</h2>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="k">class</span> <span class="nc">Solution</span> <span class="p">{</span>
 <span class="k">public</span><span class="o">:</span>
-    <span class="n">unordered_map</span><span class="o">&lt;</span><span class="kt">int</span><span class="p">,</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">a</span><span class="p">;</span>
-    <span class="kt">int</span> <span class="nf">find</span><span class="p">(</span><span class="kt">int</span> <span class="n">x</span><span class="p">){</span>
-        <span class="k">return</span> <span class="n">a</span><span class="p">.</span><span class="n">count</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="o">?</span><span class="n">a</span><span class="p">[</span><span class="n">x</span><span class="p">]</span><span class="o">=</span><span class="n">find</span><span class="p">(</span><span class="n">a</span><span class="p">[</span><span class="n">x</span><span class="p">])</span><span class="o">:</span><span class="n">x</span><span class="p">;</span>
-    <span class="p">}</span>
-    <span class="kt">int</span> <span class="nf">longestConsecutive</span><span class="p">(</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;&amp;</span> <span class="n">nums</span><span class="p">)</span> <span class="p">{</span>
-        <span class="k">for</span><span class="p">(</span><span class="k">auto</span> <span class="nl">i</span><span class="p">:</span><span class="n">nums</span><span class="p">){</span>
-            <span class="n">a</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">=</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">;</span>
+    <span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">countBits</span><span class="p">(</span><span class="kt">int</span> <span class="n">n</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">bits</span><span class="p">(</span><span class="n">n</span> <span class="o">+</span> <span class="mi">1</span><span class="p">);</span>
+        <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;=</span> <span class="n">n</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+            <span class="n">bits</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">bits</span><span class="p">[</span><span class="n">i</span> <span class="o">&gt;&gt;</span> <span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="p">(</span><span class="n">i</span> <span class="o">&amp;</span> <span class="mi">1</span><span class="p">);</span>
         <span class="p">}</span>
-
-        <span class="kt">int</span> <span class="n">ans</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span>
-        <span class="k">for</span><span class="p">(</span><span class="k">auto</span> <span class="nl">i</span><span class="p">:</span><span class="n">nums</span><span class="p">){</span>
-            <span class="kt">int</span> <span class="n">y</span><span class="o">=</span><span class="n">find</span><span class="p">(</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">);</span>
-            <span class="n">ans</span><span class="o">=</span><span class="n">max</span><span class="p">(</span><span class="n">ans</span><span class="p">,</span><span class="n">y</span><span class="o">-</span><span class="n">i</span><span class="p">);</span>
-        <span class="p">}</span>
-        <span class="k">return</span> <span class="n">ans</span><span class="p">;</span>
+        <span class="k">return</span> <span class="n">bits</span><span class="p">;</span>
     <span class="p">}</span>
 <span class="p">};</span>
 
@@ -151,7 +155,9 @@
   
   <a href="https://qkgoalkeeper.github.io/tags/c&#43;&#43;">C&#43;&#43;</a>
   
-  <a href="https://qkgoalkeeper.github.io/tags/%E5%B9%B6%E6%9F%A5%E9%9B%86">并查集</a>
+  <a href="https://qkgoalkeeper.github.io/tags/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92">动态规划</a>
+  
+  <a href="https://qkgoalkeeper.github.io/tags/%E4%BD%8D%E8%BF%90%E7%AE%97">位运算</a>
   
 </div>
 
@@ -169,7 +175,7 @@
 
 
   <div class="article-share" id="share">
-    <div data-url="https://qkgoalkeeper.github.io/post/leetcode%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98128.-%E6%9C%80%E9%95%BF%E8%BF%9E%E7%BB%AD%E5%BA%8F%E5%88%97/" data-title="LeetCode每日一题：128. 最长连续序列" data-tsina="5852167252" class="share clearfix">
+    <div data-url="https://qkgoalkeeper.github.io/post/leetcode%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98338.-%E6%AF%94%E7%89%B9%E4%BD%8D%E8%AE%A1%E6%95%B0/" data-title="LeetCode每日一题：338. 比特位计数" data-tsina="5852167252" class="share clearfix">
     </div>
   </div>
 </footer>

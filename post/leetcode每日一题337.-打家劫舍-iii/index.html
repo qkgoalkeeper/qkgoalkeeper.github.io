@@ -2,13 +2,13 @@
 <html lang="zh-CN">
 <head>
   <meta charset="UTF-8">
-  <title>LeetCode每日一题：128. 最长连续序列 - qkgoalkeeper&#39;s blog</title>
+  <title>LeetCode每日一题：337. 打家劫舍 III - qkgoalkeeper&#39;s blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=3, minimum-scale=1">
   
-  <meta name="description" content="一.128. 最长连续序列 1.题干及思路 给定一个未排序的整数数组 nums ，找出数字连续的最长序列（不要求序列元素在原数组中连续）的长度。 请你设计并实">
+  <meta name="description" content="一.337. 打家劫舍 III 1.题干及思路 在上次打劫完一条街道之后和一圈房屋后，小偷又发现了一个新的可行窃的地区。这个地区只有一个入口，我们称之为">
   
-  <meta itemprop="name" content="LeetCode每日一题：128. 最长连续序列 - qkgoalkeeper&#39;s blog">
-  <meta itemprop="description" content="一.128. 最长连续序列 1.题干及思路 给定一个未排序的整数数组 nums ，找出数字连续的最长序列（不要求序列元素在原数组中连续）的长度。 请你设计并实">
+  <meta itemprop="name" content="LeetCode每日一题：337. 打家劫舍 III - qkgoalkeeper&#39;s blog">
+  <meta itemprop="description" content="一.337. 打家劫舍 III 1.题干及思路 在上次打劫完一条街道之后和一圈房屋后，小偷又发现了一个新的可行窃的地区。这个地区只有一个入口，我们称之为">
   <meta itemprop="image" content="https://qkgoalkeeper.github.io/img/author.jpg">
   
   
@@ -74,7 +74,7 @@
 	<article itemprop="articleBody">
     <header class="article-info clearfix">
   <h1 itemprop="name">
-      <a href="https://qkgoalkeeper.github.io/post/leetcode%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98128.-%E6%9C%80%E9%95%BF%E8%BF%9E%E7%BB%AD%E5%BA%8F%E5%88%97/" title="LeetCode每日一题：128. 最长连续序列" itemprop="url">LeetCode每日一题：128. 最长连续序列</a>
+      <a href="https://qkgoalkeeper.github.io/post/leetcode%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98337.-%E6%89%93%E5%AE%B6%E5%8A%AB%E8%88%8D-iii/" title="LeetCode每日一题：337. 打家劫舍 III" itemprop="url">LeetCode每日一题：337. 打家劫舍 III</a>
   </h1>
   <p class="article-author">By
     
@@ -82,7 +82,7 @@
     
   </p>
   <p class="article-time">
-    <time datetime="2021-12-16 10:55:19 &#43;0800 CST" itemprop="datePublished">2021年12月16日</time>
+    <time datetime="2021-12-28 10:55:19 &#43;0800 CST" itemprop="datePublished">2021年12月28日</time>
   </p>
 </header>
 
@@ -98,46 +98,85 @@
 </nav>
 		</div>
     
-    <h1 id="一128-最长连续序列httpsleetcode-cncomproblemslongest-consecutive-sequence">一.<a href="https://leetcode-cn.com/problems/longest-consecutive-sequence/">128. 最长连续序列</a></h1>
+    <h1 id="一337-打家劫舍-iiihttpsleetcode-cncomproblemshouse-robber-iii">一.<a href="https://leetcode-cn.com/problems/house-robber-iii/">337. 打家劫舍 III</a></h1>
 <h2 id="1题干及思路">1.题干及思路</h2>
-<p>给定一个未排序的整数数组 <code>nums</code> ，找出数字连续的最长序列（不要求序列元素在原数组中连续）的长度。</p>
-<p>请你设计并实现时间复杂度为 <code>O(n)</code> 的算法解决此问题。</p>
-<p><strong>示例 1：</strong></p>
-<pre tabindex="0"><code>输入：nums = [100,4,200,1,3,2]
-输出：4
-解释：最长数字连续序列是 [1, 2, 3, 4]。它的长度为 4。
-</code></pre><p><strong>示例 2：</strong></p>
-<pre tabindex="0"><code>输入：nums = [0,3,7,2,5,8,4,6,0,1]
-输出：9
-</code></pre><p><strong>提示：</strong></p>
-<ul>
-<li><code>0 &lt;= nums.length &lt;= 105</code></li>
-<li><code>-109 &lt;= nums[i] &lt;= 109</code></li>
-</ul>
-<p>要点：并查集</p>
-<p>思路：标准并查集题，用一个hashmap,里面存每一个num的下一个值，然后并查集find函数递归查找最远的那个，哈希表查找有没有用count()函数</p>
-<h2 id="2c实现">2.C++实现</h2>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="k">class</span> <span class="nc">Solution</span> <span class="p">{</span>
-<span class="k">public</span><span class="o">:</span>
-    <span class="n">unordered_map</span><span class="o">&lt;</span><span class="kt">int</span><span class="p">,</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">a</span><span class="p">;</span>
-    <span class="kt">int</span> <span class="nf">find</span><span class="p">(</span><span class="kt">int</span> <span class="n">x</span><span class="p">){</span>
-        <span class="k">return</span> <span class="n">a</span><span class="p">.</span><span class="n">count</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="o">?</span><span class="n">a</span><span class="p">[</span><span class="n">x</span><span class="p">]</span><span class="o">=</span><span class="n">find</span><span class="p">(</span><span class="n">a</span><span class="p">[</span><span class="n">x</span><span class="p">])</span><span class="o">:</span><span class="n">x</span><span class="p">;</span>
-    <span class="p">}</span>
-    <span class="kt">int</span> <span class="nf">longestConsecutive</span><span class="p">(</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;&amp;</span> <span class="n">nums</span><span class="p">)</span> <span class="p">{</span>
-        <span class="k">for</span><span class="p">(</span><span class="k">auto</span> <span class="nl">i</span><span class="p">:</span><span class="n">nums</span><span class="p">){</span>
-            <span class="n">a</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">=</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">;</span>
-        <span class="p">}</span>
+<p>在上次打劫完一条街道之后和一圈房屋后，小偷又发现了一个新的可行窃的地区。这个地区只有一个入口，我们称之为“根”。 除了“根”之外，每栋房子有且只有一个“父“房子与之相连。一番侦察之后，聪明的小偷意识到“这个地方的所有房屋的排列类似于一棵二叉树”。 如果两个直接相连的房子在同一天晚上被打劫，房屋将自动报警。</p>
+<p>计算在不触动警报的情况下，小偷一晚能够盗取的最高金额。</p>
+<p><strong>示例 1:</strong></p>
+<pre tabindex="0"><code>输入: [3,2,3,null,3,null,1]
 
-        <span class="kt">int</span> <span class="n">ans</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span>
-        <span class="k">for</span><span class="p">(</span><span class="k">auto</span> <span class="nl">i</span><span class="p">:</span><span class="n">nums</span><span class="p">){</span>
-            <span class="kt">int</span> <span class="n">y</span><span class="o">=</span><span class="n">find</span><span class="p">(</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">);</span>
-            <span class="n">ans</span><span class="o">=</span><span class="n">max</span><span class="p">(</span><span class="n">ans</span><span class="p">,</span><span class="n">y</span><span class="o">-</span><span class="n">i</span><span class="p">);</span>
+     3
+    / \
+   2   3
+    \   \ 
+     3   1
+
+输出: 7 
+解释: 小偷一晚能够盗取的最高金额 = 3 + 3 + 1 = 7.
+</code></pre><p><strong>示例 2:</strong></p>
+<pre tabindex="0"><code>输入: [3,4,5,1,3,null,1]
+
+     3
+    / \
+   4   5
+  / \   \ 
+ 1   3   1
+
+输出: 9
+解释: 小偷一晚能够盗取的最高金额 = 4 + 5 = 9.
+</code></pre><p>要点：动态规划</p>
+<p>思路：这是涉及到树的动态规划，unordered_map&lt;TreeNode*,int&gt; dp_yes dp_no两个哈希表，用来存取当前节点和不取当前节点的最大值，dfs后序遍历，转移方程为
+dp_yes[root] = root-&gt;val + dp_no_left + dp_no_right;
+dp_no[root] = max(dp_no_left,dp_yes_left) + max(dp_no_right,dp_yes_right);</p>
+<h2 id="2c实现">2.C++实现</h2>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="cm">/**
+</span><span class="cm"> * Definition for a binary tree node.
+</span><span class="cm"> * struct TreeNode {
+</span><span class="cm"> *     int val;
+</span><span class="cm"> *     TreeNode *left;
+</span><span class="cm"> *     TreeNode *right;
+</span><span class="cm"> *     TreeNode() : val(0), left(nullptr), right(nullptr) {}
+</span><span class="cm"> *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+</span><span class="cm"> *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
+</span><span class="cm"> * };
+</span><span class="cm"> */</span>
+<span class="k">class</span> <span class="nc">Solution</span> <span class="p">{</span>
+<span class="k">public</span><span class="o">:</span>
+
+    <span class="n">unordered_map</span><span class="o">&lt;</span><span class="n">TreeNode</span><span class="o">*</span><span class="p">,</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">dp_yes</span><span class="p">;</span>
+    <span class="n">unordered_map</span><span class="o">&lt;</span><span class="n">TreeNode</span><span class="o">*</span><span class="p">,</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">dp_no</span><span class="p">;</span>
+
+    <span class="kt">void</span> <span class="nf">dfs</span><span class="p">(</span><span class="n">TreeNode</span><span class="o">*</span> <span class="n">root</span><span class="p">){</span>
+        <span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="n">root</span><span class="p">)</span> <span class="k">return</span><span class="p">;</span>
+        <span class="n">dfs</span><span class="p">(</span><span class="n">root</span><span class="o">-&gt;</span><span class="n">left</span><span class="p">);</span>
+        <span class="n">dfs</span><span class="p">(</span><span class="n">root</span><span class="o">-&gt;</span><span class="n">right</span><span class="p">);</span>
+        <span class="kt">int</span> <span class="n">dp_no_left</span><span class="p">,</span><span class="n">dp_yes_left</span><span class="p">,</span><span class="n">dp_no_right</span><span class="p">,</span><span class="n">dp_yes_right</span><span class="p">;</span>
+        <span class="k">if</span><span class="p">(</span><span class="n">root</span><span class="o">-&gt;</span><span class="n">left</span><span class="o">==</span><span class="k">nullptr</span><span class="p">){</span>
+            <span class="n">dp_no_left</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+            <span class="n">dp_yes_left</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
         <span class="p">}</span>
-        <span class="k">return</span> <span class="n">ans</span><span class="p">;</span>
+        <span class="k">else</span><span class="p">{</span>
+            <span class="n">dp_no_left</span> <span class="o">=</span> <span class="n">dp_no</span><span class="p">[</span><span class="n">root</span><span class="o">-&gt;</span><span class="n">left</span><span class="p">];</span>
+            <span class="n">dp_yes_left</span> <span class="o">=</span> <span class="n">dp_yes</span><span class="p">[</span><span class="n">root</span><span class="o">-&gt;</span><span class="n">left</span><span class="p">];</span>
+        <span class="p">}</span>
+        <span class="k">if</span><span class="p">(</span><span class="n">root</span><span class="o">-&gt;</span><span class="n">right</span><span class="o">==</span><span class="k">nullptr</span><span class="p">){</span>
+            <span class="n">dp_no_right</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+            <span class="n">dp_yes_right</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+        <span class="p">}</span>
+        <span class="k">else</span><span class="p">{</span>
+            <span class="n">dp_no_right</span> <span class="o">=</span> <span class="n">dp_no</span><span class="p">[</span><span class="n">root</span><span class="o">-&gt;</span><span class="n">right</span><span class="p">];</span>
+            <span class="n">dp_yes_right</span> <span class="o">=</span> <span class="n">dp_yes</span><span class="p">[</span><span class="n">root</span><span class="o">-&gt;</span><span class="n">right</span><span class="p">];</span>
+        <span class="p">}</span>
+        <span class="n">dp_yes</span><span class="p">[</span><span class="n">root</span><span class="p">]</span> <span class="o">=</span> <span class="n">root</span><span class="o">-&gt;</span><span class="n">val</span> <span class="o">+</span> <span class="n">dp_no_left</span> <span class="o">+</span> <span class="n">dp_no_right</span><span class="p">;</span>
+        <span class="n">dp_no</span><span class="p">[</span><span class="n">root</span><span class="p">]</span> <span class="o">=</span> <span class="n">max</span><span class="p">(</span><span class="n">dp_no_left</span><span class="p">,</span><span class="n">dp_yes_left</span><span class="p">)</span> <span class="o">+</span> <span class="n">max</span><span class="p">(</span><span class="n">dp_no_right</span><span class="p">,</span><span class="n">dp_yes_right</span><span class="p">);</span>
+    <span class="p">}</span>
+
+
+    <span class="kt">int</span> <span class="nf">rob</span><span class="p">(</span><span class="n">TreeNode</span><span class="o">*</span> <span class="n">root</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">dfs</span><span class="p">(</span><span class="n">root</span><span class="p">);</span>
+        <span class="k">return</span> <span class="n">max</span><span class="p">(</span><span class="n">dp_yes</span><span class="p">[</span><span class="n">root</span><span class="p">],</span><span class="n">dp_no</span><span class="p">[</span><span class="n">root</span><span class="p">]);</span>
     <span class="p">}</span>
 <span class="p">};</span>
-
-
 </code></pre></div>
     
 	</div>
@@ -151,7 +190,7 @@
   
   <a href="https://qkgoalkeeper.github.io/tags/c&#43;&#43;">C&#43;&#43;</a>
   
-  <a href="https://qkgoalkeeper.github.io/tags/%E5%B9%B6%E6%9F%A5%E9%9B%86">并查集</a>
+  <a href="https://qkgoalkeeper.github.io/tags/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92">动态规划</a>
   
 </div>
 
@@ -169,7 +208,7 @@
 
 
   <div class="article-share" id="share">
-    <div data-url="https://qkgoalkeeper.github.io/post/leetcode%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98128.-%E6%9C%80%E9%95%BF%E8%BF%9E%E7%BB%AD%E5%BA%8F%E5%88%97/" data-title="LeetCode每日一题：128. 最长连续序列" data-tsina="5852167252" class="share clearfix">
+    <div data-url="https://qkgoalkeeper.github.io/post/leetcode%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98337.-%E6%89%93%E5%AE%B6%E5%8A%AB%E8%88%8D-iii/" data-title="LeetCode每日一题：337. 打家劫舍 III" data-tsina="5852167252" class="share clearfix">
     </div>
   </div>
 </footer>
