@@ -2,18 +2,18 @@
 <html lang="zh-CN">
 <head>
   <meta charset="UTF-8">
-  <title>排序 - qkgoalkeeper&#39;s blog</title>
+  <title>LeetCode每日一题：416. 分割等和子集 - qkgoalkeeper&#39;s blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=3, minimum-scale=1">
   
-  <meta name="description" content="排序">
+  <meta name="description" content="一.416. 分割等和子集 1.题干及思路 给你一个 只包含正整数 的 非空 数组 nums 。请你判断是否可以将这个数组分割成两个子集，使得两个子集的元素和相等。">
   
-  <meta itemprop="name" content="排序 - qkgoalkeeper&#39;s blog">
-  <meta itemprop="description" content="排序">
+  <meta itemprop="name" content="LeetCode每日一题：416. 分割等和子集 - qkgoalkeeper&#39;s blog">
+  <meta itemprop="description" content="一.416. 分割等和子集 1.题干及思路 给你一个 只包含正整数 的 非空 数组 nums 。请你判断是否可以将这个数组分割成两个子集，使得两个子集的元素和相等。">
   <meta itemprop="image" content="https://qkgoalkeeper.github.io/img/author.jpg">
   
   
   <meta name="twitter:description" content="">
-  <link rel="alternate" href="https://qkgoalkeeper.github.io/feed.xml" title="qkgoalkeeper&#39;s blog" type="application/rss+xml"/>
+  
   <link rel="shortcut icon" href="https://qkgoalkeeper.github.io/img/favicon.ico"/>
   <link rel="apple-touch-icon" href="https://qkgoalkeeper.github.io/apple-touch-icon.png" />
   <link rel="apple-touch-icon-precomposed" href="https://qkgoalkeeper.github.io/apple-touch-icon.png" />
@@ -70,21 +70,130 @@
 
   </header>
   <div id="container">
-    <div id="main">
-      
-      <h2 id="2021-12">2021-12</h2>
-      
-      <section class="post" itemscope itemprop="blogPost">
-    <a href="https://qkgoalkeeper.github.io/post/leetcode%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98148.-%E6%8E%92%E5%BA%8F%E9%93%BE%E8%A1%A8/" title="LeetCode每日一题：148. 排序链表" itemprop="url">
-    <h1 itemprop="name">LeetCode每日一题：148. 排序链表</h1>
-    <p itemprop="description">一.148. 排序链表 1.题干及思路 给你链表的头结点 head ，请将其按 升序 排列并返回 排序后的链表 。 进阶： 你可以在 O(n log n) 时间复杂度和常数级空间复杂度下</p>
-    <time datetime="2021-12-18 10:55:19 &#43;0800 CST" itemprop="datePublished">2021年12月18日</time>
-  </a>
-</section>
+    <div id="main" class="post" itemscope itemprop="blogPost">
+	<article itemprop="articleBody">
+    <header class="article-info clearfix">
+  <h1 itemprop="name">
+      <a href="https://qkgoalkeeper.github.io/post/leetcode%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98416.-%E5%88%86%E5%89%B2%E7%AD%89%E5%92%8C%E5%AD%90%E9%9B%86/" title="LeetCode每日一题：416. 分割等和子集" itemprop="url">LeetCode每日一题：416. 分割等和子集</a>
+  </h1>
+  <p class="article-author">By
+    
+      <a href="https://qkgoalkeeper.github.io/" title="qk">qk</a>
+    
+  </p>
+  <p class="article-time">
+    <time datetime="2022-01-02 10:55:19 &#43;0800 CST" itemprop="datePublished">2022年01月02日</time>
+  </p>
+</header>
 
-      
-      
+	<div class="article-content">
+    
+		<div class="toc-article">
+			<strong class="toc-title">文章目录</strong>
+      <nav id="TableOfContents">
+  <ul>
+    <li><a href="#1题干及思路">1.题干及思路</a></li>
+    <li><a href="#2c实现">2.C++实现</a></li>
+  </ul>
+</nav>
+		</div>
+    
+    <h1 id="一416-分割等和子集httpsleetcode-cncomproblemspartition-equal-subset-sum">一.<a href="https://leetcode-cn.com/problems/partition-equal-subset-sum/">416. 分割等和子集</a></h1>
+<h2 id="1题干及思路">1.题干及思路</h2>
+<p>给你一个 只包含正整数 的 非空 数组 nums 。请你判断是否可以将这个数组分割成两个子集，使得两个子集的元素和相等。</p>
+<p>示例 1：</p>
+<p>输入：nums = [1,5,11,5]
+输出：true
+解释：数组可以分割成 [1, 5, 5] 和 [11] 。
+示例 2：</p>
+<p>输入：nums = [1,2,3,5]
+输出：false
+解释：数组不能分割成两个元素和相等的子集。</p>
+<p>提示：</p>
+<p>1 &lt;= nums.length &lt;= 200
+1 &lt;= nums[i] &lt;= 100</p>
+<p>要点：动态规划</p>
+<p>思路：01背包问题，如果nums和sum为奇数直接排除，target = sum/2，问题转化为是否可以挑选部分位置使得和为target，用动态规划思想，二维动态规划dp[i][j]，i表示位置j表示target，如果 j≥nums[i]，则对于当前的数字nums[i]，可以选取也可以不选取dp[i][j] = dp[i - 1][j] | dp[i - 1][j - num];</p>
+<p>否则dp[i][j] = dp[i - 1][j]</p>
+<h2 id="2c实现">2.C++实现</h2>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="k">class</span> <span class="nc">Solution</span> <span class="p">{</span>
+<span class="k">public</span><span class="o">:</span>
+    <span class="kt">bool</span> <span class="n">canPartition</span><span class="p">(</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;&amp;</span> <span class="n">nums</span><span class="p">)</span> <span class="p">{</span>
+        <span class="kt">int</span> <span class="n">n</span> <span class="o">=</span> <span class="n">nums</span><span class="p">.</span><span class="n">size</span><span class="p">();</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">n</span> <span class="o">&lt;</span> <span class="mi">2</span><span class="p">)</span> <span class="p">{</span>
+            <span class="k">return</span> <span class="nb">false</span><span class="p">;</span>
+        <span class="p">}</span>
+        <span class="kt">int</span> <span class="n">sum</span> <span class="o">=</span> <span class="n">accumulate</span><span class="p">(</span><span class="n">nums</span><span class="p">.</span><span class="n">begin</span><span class="p">(),</span> <span class="n">nums</span><span class="p">.</span><span class="n">end</span><span class="p">(),</span> <span class="mi">0</span><span class="p">);</span>
+        <span class="kt">int</span> <span class="n">maxNum</span> <span class="o">=</span> <span class="o">*</span><span class="n">max_element</span><span class="p">(</span><span class="n">nums</span><span class="p">.</span><span class="n">begin</span><span class="p">(),</span> <span class="n">nums</span><span class="p">.</span><span class="n">end</span><span class="p">());</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">sum</span> <span class="o">&amp;</span> <span class="mi">1</span><span class="p">)</span> <span class="p">{</span>
+            <span class="k">return</span> <span class="nb">false</span><span class="p">;</span>
+        <span class="p">}</span>
+        <span class="kt">int</span> <span class="n">target</span> <span class="o">=</span> <span class="n">sum</span> <span class="o">/</span> <span class="mi">2</span><span class="p">;</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">maxNum</span> <span class="o">&gt;</span> <span class="n">target</span><span class="p">)</span> <span class="p">{</span>
+            <span class="k">return</span> <span class="nb">false</span><span class="p">;</span>
+        <span class="p">}</span>
+        <span class="n">vector</span><span class="o">&lt;</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;&gt;</span> <span class="n">dp</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="p">(</span><span class="n">target</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">));</span>
+        <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">n</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+            <span class="n">dp</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="nb">true</span><span class="p">;</span>
+        <span class="p">}</span>
+        <span class="n">dp</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="n">nums</span><span class="p">[</span><span class="mi">0</span><span class="p">]]</span> <span class="o">=</span> <span class="nb">true</span><span class="p">;</span>
+        <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">n</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+            <span class="kt">int</span> <span class="n">num</span> <span class="o">=</span> <span class="n">nums</span><span class="p">[</span><span class="n">i</span><span class="p">];</span>
+            <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">j</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span> <span class="n">j</span> <span class="o">&lt;=</span> <span class="n">target</span><span class="p">;</span> <span class="n">j</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+                <span class="k">if</span> <span class="p">(</span><span class="n">j</span> <span class="o">&gt;=</span> <span class="n">num</span><span class="p">)</span> <span class="p">{</span>
+                    <span class="n">dp</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="n">dp</span><span class="p">[</span><span class="n">i</span> <span class="o">-</span> <span class="mi">1</span><span class="p">][</span><span class="n">j</span><span class="p">]</span> <span class="o">|</span> <span class="n">dp</span><span class="p">[</span><span class="n">i</span> <span class="o">-</span> <span class="mi">1</span><span class="p">][</span><span class="n">j</span> <span class="o">-</span> <span class="n">num</span><span class="p">];</span>
+                <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+                    <span class="n">dp</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="n">dp</span><span class="p">[</span><span class="n">i</span> <span class="o">-</span> <span class="mi">1</span><span class="p">][</span><span class="n">j</span><span class="p">];</span>
+                <span class="p">}</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+        <span class="k">return</span> <span class="n">dp</span><span class="p">[</span><span class="n">n</span> <span class="o">-</span> <span class="mi">1</span><span class="p">][</span><span class="n">target</span><span class="p">];</span>
+    <span class="p">}</span>
+
+<span class="p">};</span>
+</code></pre></div>
+    
+	</div>
+  <footer class="article-footer clearfix">
+  
+
+<div class="article-tags">
+  <span></span>
+  
+  <a href="https://qkgoalkeeper.github.io/tags/leetcode">LeetCode</a>
+  
+  <a href="https://qkgoalkeeper.github.io/tags/c&#43;&#43;">C&#43;&#43;</a>
+  
+  <a href="https://qkgoalkeeper.github.io/tags/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92">动态规划</a>
+  
+</div>
+
+
+
+
+
+<div class="article-categories">
+  <span></span>
+  
+  <a class="article-category-link" href="https://qkgoalkeeper.github.io/categories/%E5%A4%A7%E5%9B%9Bleetcode%E7%AE%97%E6%B3%95%E5%88%B7%E9%A2%98">大四LeetCode算法刷题</a>
+  
+</div>
+
+
+
+  <div class="article-share" id="share">
+    <div data-url="https://qkgoalkeeper.github.io/post/leetcode%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98416.-%E5%88%86%E5%89%B2%E7%AD%89%E5%92%8C%E5%AD%90%E9%9B%86/" data-title="LeetCode每日一题：416. 分割等和子集" data-tsina="5852167252" class="share clearfix">
     </div>
+  </div>
+</footer>
+
+	</article>
+  
+
+
+
+</div>
+
     <div class="openaside"><a class="navbutton" href="#" title="显示侧边栏"></a></div>
 <div id="asidepart">
 <div class="closeaside"><a class="closebutton" href="#" title="隐藏侧边栏"></a></div>
@@ -246,10 +355,6 @@
 
 
   
-<div class="rsspart">
-  <a rel="nofollow" href="https://qkgoalkeeper.github.io/feed.xml" type="application/rss+xml" target="_blank">RSS 订阅</a>
-</div>
-
 
 </aside>
 </div>
@@ -335,6 +440,38 @@ $(document).ready(function(){
 
 <script type="text/javascript">
 $(document).ready(function(){
+  var ai = $('.article-content>iframe'),
+      ae = $('.article-content>embed'),
+      t  = $('#toc'),
+      h  = $('article h2')
+      ah = $('article h2'),
+      ta = $('#toc.toc-aside'),
+      o  = $('.openaside'),
+      c  = $('.closeaside');
+  if(ai.length>0){
+    ai.wrap('<div class="video-container" />');
+  };
+  if(ae.length>0){
+   ae.wrap('<div class="video-container" />');
+  };
+  if(ah.length==0){
+    t.css('display','none');
+  }else{
+    c.click(function(){
+      ta.css('display', 'block').addClass('fadeIn');
+    });
+    o.click(function(){
+      ta.css('display', 'none');
+    });
+    $(window).scroll(function(){
+      ta.css("top",Math.max(140,320-$(this).scrollTop()));
+    });
+  };
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){
   var $this = $('.share'),
       url = $this.attr('data-url'),
       encodedUrl = encodeURIComponent(url),
@@ -361,6 +498,27 @@ $(document).ready(function(){
 });
 </script>
 
+
+<link rel="stylesheet" href="https://qkgoalkeeper.github.io/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="https://qkgoalkeeper.github.io/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){
+  $('.article-content').each(function(i){
+    $(this).find('img').each(function(){
+      if ($(this).parent().hasClass('fancybox')) return;
+      var alt = this.alt;
+      if (alt) $(this).after('<span class="caption">' + alt + '</span>');
+      $(this).wrap('<a href="' + this.src + '" title="' + alt + '" class="fancybox"></a>');
+    });
+    $(this).find('.fancybox').each(function(){
+      $(this).attr('rel', 'article' + i);
+    });
+  });
+  if($.fancybox){
+    $('.fancybox').fancybox();
+  }
+});
+</script>
 
 
 
