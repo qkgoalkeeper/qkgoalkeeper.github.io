@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>dfs on qkgoalkeeper&#39;s blog</title>
+    <link>https://qkgoalkeeper.github.io/tags/dfs/</link>
+    <description>Recent content in dfs on qkgoalkeeper&#39;s blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-CN</language>
+    <lastBuildDate>Tue, 04 Jan 2022 10:55:19 +0800</lastBuildDate><atom:link href="https://qkgoalkeeper.github.io/tags/dfs/feed.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>LeetCode每日一题：494. 目标和</title>
+      <link>https://qkgoalkeeper.github.io/post/leetcode%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98494.-%E7%9B%AE%E6%A0%87%E5%92%8C/</link>
+      <pubDate>Tue, 04 Jan 2022 10:55:19 +0800</pubDate>
+      
+      <guid>https://qkgoalkeeper.github.io/post/leetcode%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98494.-%E7%9B%AE%E6%A0%87%E5%92%8C/</guid>
+      <description>一.494. 目标和 1.题干及思路 给你一个整数数组 nums 和一个整数 target 。 向数组中的每个整数前添加 &#39;+&#39; 或 &#39;-&#39; ，然后串联起所有整数，可以构造一个 表达式 ： 例如</description>
+    </item>
+    
+  </channel>
+</rss>
