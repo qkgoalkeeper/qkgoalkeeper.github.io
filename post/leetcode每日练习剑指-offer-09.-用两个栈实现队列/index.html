@@ -2,13 +2,13 @@
 <html lang="zh-CN">
 <head>
   <meta charset="UTF-8">
-  <title>LeetCode简单题：278. 第一个错误的版本（Python,C&#43;&#43;,Java） - qkgoalkeeper&#39;s blog</title>
+  <title>LeetCode每日练习：剑指 Offer 09. 用两个栈实现队列 - qkgoalkeeper&#39;s blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=3, minimum-scale=1">
   
-  <meta name="description" content="一.解法 https://leetcode-cn.com/problems/first-bad-version/ 要点：二分法 Python，C&#43;&#43;，Java都用了二分法。 本题是找两堆版本的分界处，每次找中间位置然后调整left和right位置，">
+  <meta name="description" content="一.剑指 Offer 09. 用两个栈实现队列 1.题干及思路 用两个栈实现一个队列。队列的声明如下，请实现它的两个函数 appendTail 和 deleteHead ，分别完成在队列尾部插入整数和在队列">
   
-  <meta itemprop="name" content="LeetCode简单题：278. 第一个错误的版本（Python,C&#43;&#43;,Java） - qkgoalkeeper&#39;s blog">
-  <meta itemprop="description" content="一.解法 https://leetcode-cn.com/problems/first-bad-version/ 要点：二分法 Python，C&#43;&#43;，Java都用了二分法。 本题是找两堆版本的分界处，每次找中间位置然后调整left和right位置，">
+  <meta itemprop="name" content="LeetCode每日练习：剑指 Offer 09. 用两个栈实现队列 - qkgoalkeeper&#39;s blog">
+  <meta itemprop="description" content="一.剑指 Offer 09. 用两个栈实现队列 1.题干及思路 用两个栈实现一个队列。队列的声明如下，请实现它的两个函数 appendTail 和 deleteHead ，分别完成在队列尾部插入整数和在队列">
   <meta itemprop="image" content="https://qkgoalkeeper.github.io/img/author.jpg">
   
   
@@ -74,7 +74,7 @@
 	<article itemprop="articleBody">
     <header class="article-info clearfix">
   <h1 itemprop="name">
-      <a href="https://qkgoalkeeper.github.io/post/leetcode%E7%AE%80%E5%8D%95%E9%A2%98278.-%E7%AC%AC%E4%B8%80%E4%B8%AA%E9%94%99%E8%AF%AF%E7%9A%84%E7%89%88%E6%9C%ACpythonc&#43;&#43;java/" title="LeetCode简单题：278. 第一个错误的版本（Python,C&#43;&#43;,Java）" itemprop="url">LeetCode简单题：278. 第一个错误的版本（Python,C&#43;&#43;,Java）</a>
+      <a href="https://qkgoalkeeper.github.io/post/leetcode%E6%AF%8F%E6%97%A5%E7%BB%83%E4%B9%A0%E5%89%91%E6%8C%87-offer-09.-%E7%94%A8%E4%B8%A4%E4%B8%AA%E6%A0%88%E5%AE%9E%E7%8E%B0%E9%98%9F%E5%88%97/" title="LeetCode每日练习：剑指 Offer 09. 用两个栈实现队列" itemprop="url">LeetCode每日练习：剑指 Offer 09. 用两个栈实现队列</a>
   </h1>
   <p class="article-author">By
     
@@ -82,7 +82,7 @@
     
   </p>
   <p class="article-time">
-    <time datetime="2020-08-13 17:55:19 &#43;0800 CST" itemprop="datePublished">2020年08月13日</time>
+    <time datetime="2022-01-09 10:55:19 &#43;0800 CST" itemprop="datePublished">2022年01月09日</time>
   </p>
 </header>
 
@@ -92,84 +92,75 @@
 			<strong class="toc-title">文章目录</strong>
       <nav id="TableOfContents">
   <ul>
-    <li><a href="#一解法">一.解法</a></li>
-    <li><a href="#二python实现">二.Python实现</a></li>
-    <li><a href="#三c实现">三.C++实现</a></li>
-    <li><a href="#四java实现">四.java实现</a></li>
+    <li><a href="#1题干及思路">1.题干及思路</a></li>
+    <li><a href="#2c实现">2.C++实现</a></li>
   </ul>
 </nav>
 		</div>
     
-    <h2 id="一解法">一.解法</h2>
-<p><a href="https://leetcode-cn.com/problems/first-bad-version/">https://leetcode-cn.com/problems/first-bad-version/</a> <br>
-要点：二分法<br>
-Python，C++，Java都用了二分法。<br>
-本题是找两堆版本的分界处，每次找中间位置然后调整left和right位置，最好画图判断边界是左边还是右边。</p>
-<h2 id="二python实现">二.Python实现</h2>
-<pre tabindex="0"><code># The isBadVersion API is already defined for you.
-# @param version, an integer
-# @return a bool
-# def isBadVersion(version):
-
-class Solution:
-    def firstBadVersion(self, n):
-        &quot;&quot;&quot;
-        :type n: int
-        :rtype: int
-        &quot;&quot;&quot;
-        left = 1
-        right = n
-        while left &lt;= right:
-            midpoint = (left+right) // 2
-            if not isBadVersion(midpoint):
-                left = midpoint + 1
-            else:
-                right = midpoint - 1  
-        return left
-</code></pre><h2 id="三c实现">三.C++实现</h2>
-<pre tabindex="0"><code>// The API isBadVersion is defined for you.
-// bool isBadVersion(int version);
-
-class Solution {
-public:
-    int firstBadVersion(int n) {
-        int left,right,mid;
-        left=1;
-        right=n;
-        while(left&lt;right){
-            mid=left+(right-left)/2;
-            if(isBadVersion(mid)==true){
-                right=mid;
-            }
-            else{left=mid+1;}
-            }
-        
-        return left;
+    <h1 id="一剑指-offer-09-用两个栈实现队列httpsleetcode-cncomproblemsyong-liang-ge-zhan-shi-xian-dui-lie-lcof">一.<a href="https://leetcode-cn.com/problems/yong-liang-ge-zhan-shi-xian-dui-lie-lcof/">剑指 Offer 09. 用两个栈实现队列</a></h1>
+<h2 id="1题干及思路">1.题干及思路</h2>
+<p>用两个栈实现一个队列。队列的声明如下，请实现它的两个函数 <code>appendTail</code> 和 <code>deleteHead</code> ，分别完成在队列尾部插入整数和在队列头部删除整数的功能。(若队列中没有元素，<code>deleteHead</code> 操作返回 -1 )</p>
+<p><strong>示例 1：</strong></p>
+<pre tabindex="0"><code>输入：
+[&quot;CQueue&quot;,&quot;appendTail&quot;,&quot;deleteHead&quot;,&quot;deleteHead&quot;]
+[[],[3],[],[]]
+输出：[null,null,3,-1]
+</code></pre><p><strong>示例 2：</strong></p>
+<pre tabindex="0"><code>输入：
+[&quot;CQueue&quot;,&quot;deleteHead&quot;,&quot;appendTail&quot;,&quot;appendTail&quot;,&quot;deleteHead&quot;,&quot;deleteHead&quot;]
+[[],[],[5],[2],[],[]]
+输出：[null,-1,null,null,5,2]
+</code></pre><p><strong>提示：</strong></p>
+<ul>
+<li><code>1 &lt;= values &lt;= 10000</code></li>
+<li><code>最多会对 appendTail、deleteHead 进行 10000 次调用</code></li>
+</ul>
+<p>要点：栈</p>
+<p>思路：两个栈一个进一个出模拟队列，出的栈没东西时记得从进的栈取</p>
+<h2 id="2c实现">2.C++实现</h2>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="k">class</span> <span class="nc">CQueue</span> <span class="p">{</span>
+<span class="k">public</span><span class="o">:</span>
+    <span class="n">stack</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">stin</span><span class="p">;</span>
+    <span class="n">stack</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">stout</span><span class="p">;</span>
+    <span class="n">CQueue</span><span class="p">()</span> <span class="p">{</span>
+    <span class="p">}</span>
     
-    }
-};
-</code></pre><h2 id="四java实现">四.java实现</h2>
-<pre tabindex="0"><code>/* The isBadVersion API is defined in the parent class VersionControl.
-      boolean isBadVersion(int version); */
+    <span class="kt">void</span> <span class="nf">appendTail</span><span class="p">(</span><span class="kt">int</span> <span class="n">value</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">stin</span><span class="p">.</span><span class="n">push</span><span class="p">(</span><span class="n">value</span><span class="p">);</span>
+    <span class="p">}</span>
+    
+    <span class="kt">int</span> <span class="nf">deleteHead</span><span class="p">()</span> <span class="p">{</span>
+        <span class="k">if</span><span class="p">(</span><span class="n">stout</span><span class="p">.</span><span class="n">empty</span><span class="p">()){</span>
+            <span class="k">while</span><span class="p">(</span><span class="o">!</span><span class="n">stin</span><span class="p">.</span><span class="n">empty</span><span class="p">()){</span>
+                <span class="n">stout</span><span class="p">.</span><span class="n">push</span><span class="p">(</span><span class="n">stin</span><span class="p">.</span><span class="n">top</span><span class="p">());</span>
+                <span class="n">stin</span><span class="p">.</span><span class="n">pop</span><span class="p">();</span>
+            <span class="p">}</span>
+            <span class="k">if</span><span class="p">(</span><span class="n">stout</span><span class="p">.</span><span class="n">empty</span><span class="p">()){</span>
+                <span class="k">return</span> <span class="o">-</span><span class="mi">1</span><span class="p">;</span>
+            <span class="p">}</span>
+            <span class="k">else</span><span class="p">{</span>
+                <span class="kt">int</span> <span class="n">answer</span> <span class="o">=</span> <span class="n">stout</span><span class="p">.</span><span class="n">top</span><span class="p">();</span>
+                <span class="n">stout</span><span class="p">.</span><span class="n">pop</span><span class="p">();</span>
+                <span class="k">return</span> <span class="n">answer</span><span class="p">;</span> 
+            <span class="p">}</span>
+        <span class="p">}</span>
+        <span class="k">else</span><span class="p">{</span>
+            <span class="kt">int</span> <span class="n">answer</span> <span class="o">=</span> <span class="n">stout</span><span class="p">.</span><span class="n">top</span><span class="p">();</span>
+            <span class="n">stout</span><span class="p">.</span><span class="n">pop</span><span class="p">();</span>
+            <span class="k">return</span> <span class="n">answer</span><span class="p">;</span>
+        <span class="p">}</span>
 
-public class Solution extends VersionControl {
-    public int firstBadVersion(int n) {
-        int left,right,mid;
-        left=1;
-        right=n;
-        while(left&lt;right){
-            mid=left+(right-left)/2;
-            if(isBadVersion(mid)==true){
-                right=mid;
-            }
-            else{left=mid+1;}
-            }
-        
-        return left;
-        
-    }
-}
-</code></pre>
+    <span class="p">}</span>
+<span class="p">};</span>
+
+<span class="cm">/**
+</span><span class="cm"> * Your CQueue object will be instantiated and called as such:
+</span><span class="cm"> * CQueue* obj = new CQueue();
+</span><span class="cm"> * obj-&gt;appendTail(value);
+</span><span class="cm"> * int param_2 = obj-&gt;deleteHead();
+</span><span class="cm"> */</span>	
+</code></pre></div>
     
 	</div>
   <footer class="article-footer clearfix">
@@ -180,6 +171,8 @@ public class Solution extends VersionControl {
   
   <a href="https://qkgoalkeeper.github.io/tags/leetcode">LeetCode</a>
   
+  <a href="https://qkgoalkeeper.github.io/tags/c&#43;&#43;">C&#43;&#43;</a>
+  
 </div>
 
 
@@ -189,14 +182,14 @@ public class Solution extends VersionControl {
 <div class="article-categories">
   <span></span>
   
-  <a class="article-category-link" href="https://qkgoalkeeper.github.io/categories/leetcode%E7%AE%80%E5%8D%95%E9%A2%98201-300">LeetCode简单题201-300</a>
+  <a class="article-category-link" href="https://qkgoalkeeper.github.io/categories/%E5%A4%A7%E5%9B%9Bleetcode%E7%AE%97%E6%B3%95%E5%88%B7%E9%A2%98">大四LeetCode算法刷题</a>
   
 </div>
 
 
 
   <div class="article-share" id="share">
-    <div data-url="https://qkgoalkeeper.github.io/post/leetcode%E7%AE%80%E5%8D%95%E9%A2%98278.-%E7%AC%AC%E4%B8%80%E4%B8%AA%E9%94%99%E8%AF%AF%E7%9A%84%E7%89%88%E6%9C%ACpythonc&#43;&#43;java/" data-title="LeetCode简单题：278. 第一个错误的版本（Python,C&#43;&#43;,Java）" data-tsina="5852167252" class="share clearfix">
+    <div data-url="https://qkgoalkeeper.github.io/post/leetcode%E6%AF%8F%E6%97%A5%E7%BB%83%E4%B9%A0%E5%89%91%E6%8C%87-offer-09.-%E7%94%A8%E4%B8%A4%E4%B8%AA%E6%A0%88%E5%AE%9E%E7%8E%B0%E9%98%9F%E5%88%97/" data-title="LeetCode每日练习：剑指 Offer 09. 用两个栈实现队列" data-tsina="5852167252" class="share clearfix">
     </div>
   </div>
 </footer>

@@ -2,13 +2,13 @@
 <html lang="zh-CN">
 <head>
   <meta charset="UTF-8">
-  <title>LeetCode简单题：278. 第一个错误的版本（Python,C&#43;&#43;,Java） - qkgoalkeeper&#39;s blog</title>
+  <title>LeetCode每日练习：剑指 Offer 10- I. 斐波那契数列 - qkgoalkeeper&#39;s blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=3, minimum-scale=1">
   
-  <meta name="description" content="一.解法 https://leetcode-cn.com/problems/first-bad-version/ 要点：二分法 Python，C&#43;&#43;，Java都用了二分法。 本题是找两堆版本的分界处，每次找中间位置然后调整left和right位置，">
+  <meta name="description" content="一.剑指 Offer 10- I. 斐波那契数列 1.题干及思路 写一个函数，输入 n ，求斐波那契（Fibonacci）数列的第 n 项（即 F(N)）。斐波那契数列的定义如">
   
-  <meta itemprop="name" content="LeetCode简单题：278. 第一个错误的版本（Python,C&#43;&#43;,Java） - qkgoalkeeper&#39;s blog">
-  <meta itemprop="description" content="一.解法 https://leetcode-cn.com/problems/first-bad-version/ 要点：二分法 Python，C&#43;&#43;，Java都用了二分法。 本题是找两堆版本的分界处，每次找中间位置然后调整left和right位置，">
+  <meta itemprop="name" content="LeetCode每日练习：剑指 Offer 10- I. 斐波那契数列 - qkgoalkeeper&#39;s blog">
+  <meta itemprop="description" content="一.剑指 Offer 10- I. 斐波那契数列 1.题干及思路 写一个函数，输入 n ，求斐波那契（Fibonacci）数列的第 n 项（即 F(N)）。斐波那契数列的定义如">
   <meta itemprop="image" content="https://qkgoalkeeper.github.io/img/author.jpg">
   
   
@@ -74,7 +74,7 @@
 	<article itemprop="articleBody">
     <header class="article-info clearfix">
   <h1 itemprop="name">
-      <a href="https://qkgoalkeeper.github.io/post/leetcode%E7%AE%80%E5%8D%95%E9%A2%98278.-%E7%AC%AC%E4%B8%80%E4%B8%AA%E9%94%99%E8%AF%AF%E7%9A%84%E7%89%88%E6%9C%ACpythonc&#43;&#43;java/" title="LeetCode简单题：278. 第一个错误的版本（Python,C&#43;&#43;,Java）" itemprop="url">LeetCode简单题：278. 第一个错误的版本（Python,C&#43;&#43;,Java）</a>
+      <a href="https://qkgoalkeeper.github.io/post/leetcode%E6%AF%8F%E6%97%A5%E7%BB%83%E4%B9%A0%E5%89%91%E6%8C%87-offer-10-i.-%E6%96%90%E6%B3%A2%E9%82%A3%E5%A5%91%E6%95%B0%E5%88%97/" title="LeetCode每日练习：剑指 Offer 10- I. 斐波那契数列" itemprop="url">LeetCode每日练习：剑指 Offer 10- I. 斐波那契数列</a>
   </h1>
   <p class="article-author">By
     
@@ -82,7 +82,7 @@
     
   </p>
   <p class="article-time">
-    <time datetime="2020-08-13 17:55:19 &#43;0800 CST" itemprop="datePublished">2020年08月13日</time>
+    <time datetime="2022-01-09 10:55:19 &#43;0800 CST" itemprop="datePublished">2022年01月09日</time>
   </p>
 </header>
 
@@ -92,84 +92,71 @@
 			<strong class="toc-title">文章目录</strong>
       <nav id="TableOfContents">
   <ul>
-    <li><a href="#一解法">一.解法</a></li>
-    <li><a href="#二python实现">二.Python实现</a></li>
-    <li><a href="#三c实现">三.C++实现</a></li>
-    <li><a href="#四java实现">四.java实现</a></li>
+    <li><a href="#1题干及思路">1.题干及思路</a></li>
+    <li><a href="#2c实现">2.C++实现</a></li>
   </ul>
 </nav>
 		</div>
     
-    <h2 id="一解法">一.解法</h2>
-<p><a href="https://leetcode-cn.com/problems/first-bad-version/">https://leetcode-cn.com/problems/first-bad-version/</a> <br>
-要点：二分法<br>
-Python，C++，Java都用了二分法。<br>
-本题是找两堆版本的分界处，每次找中间位置然后调整left和right位置，最好画图判断边界是左边还是右边。</p>
-<h2 id="二python实现">二.Python实现</h2>
-<pre tabindex="0"><code># The isBadVersion API is already defined for you.
-# @param version, an integer
-# @return a bool
-# def isBadVersion(version):
+    <h1 id="一剑指-offer-10--i-斐波那契数列httpsleetcode-cncomproblemsfei-bo-na-qi-shu-lie-lcof">一.<a href="https://leetcode-cn.com/problems/fei-bo-na-qi-shu-lie-lcof/">剑指 Offer 10- I. 斐波那契数列</a></h1>
+<h2 id="1题干及思路">1.题干及思路</h2>
+<p>写一个函数，输入 <code>n</code> ，求斐波那契（Fibonacci）数列的第 <code>n</code> 项（即 <code>F(N)</code>）。斐波那契数列的定义如下：</p>
+<pre tabindex="0"><code>F(0) = 0,   F(1) = 1
+F(N) = F(N - 1) + F(N - 2), 其中 N &gt; 1.
+</code></pre><p>斐波那契数列由 0 和 1 开始，之后的斐波那契数就是由之前的两数相加而得出。</p>
+<p>答案需要取模 1e9+7（1000000007），如计算初始结果为：1000000008，请返回 1。</p>
+<p><strong>示例 1：</strong></p>
+<pre tabindex="0"><code>输入：n = 2
+输出：1
+</code></pre><p><strong>示例 2：</strong></p>
+<pre tabindex="0"><code>输入：n = 5
+输出：5
+</code></pre><p><strong>提示：</strong></p>
+<ul>
+<li><code>0 &lt;= n &lt;= 100</code></li>
+</ul>
+<p>要点：矩阵计算</p>
+<p>思路：快速计算矩阵 M={{1, 1}, {1, 0}} 的 n次幂后取[0][0]位置即为答案，用到线性代数知识</p>
+<h2 id="2c实现">2.C++实现</h2>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="k">class</span> <span class="nc">Solution</span> <span class="p">{</span>
+<span class="k">public</span><span class="o">:</span>
+    <span class="k">const</span> <span class="kt">int</span> <span class="n">MOD</span> <span class="o">=</span> <span class="mi">1000000007</span><span class="p">;</span>
 
-class Solution:
-    def firstBadVersion(self, n):
-        &quot;&quot;&quot;
-        :type n: int
-        :rtype: int
-        &quot;&quot;&quot;
-        left = 1
-        right = n
-        while left &lt;= right:
-            midpoint = (left+right) // 2
-            if not isBadVersion(midpoint):
-                left = midpoint + 1
-            else:
-                right = midpoint - 1  
-        return left
-</code></pre><h2 id="三c实现">三.C++实现</h2>
-<pre tabindex="0"><code>// The API isBadVersion is defined for you.
-// bool isBadVersion(int version);
+    <span class="kt">int</span> <span class="nf">fib</span><span class="p">(</span><span class="kt">int</span> <span class="n">n</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">n</span> <span class="o">&lt;</span> <span class="mi">2</span><span class="p">)</span> <span class="p">{</span>
+            <span class="k">return</span> <span class="n">n</span><span class="p">;</span>
+        <span class="p">}</span>
+        <span class="n">vector</span><span class="o">&lt;</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">long</span><span class="o">&gt;&gt;</span> <span class="n">q</span><span class="p">{{</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">},</span> <span class="p">{</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">}};</span>
+        <span class="n">vector</span><span class="o">&lt;</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">long</span><span class="o">&gt;&gt;</span> <span class="n">res</span> <span class="o">=</span> <span class="n">pow</span><span class="p">(</span><span class="n">q</span><span class="p">,</span> <span class="n">n</span> <span class="o">-</span> <span class="mi">1</span><span class="p">);</span>
+        <span class="k">return</span> <span class="n">res</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">];</span>
+    <span class="p">}</span>
 
-class Solution {
-public:
-    int firstBadVersion(int n) {
-        int left,right,mid;
-        left=1;
-        right=n;
-        while(left&lt;right){
-            mid=left+(right-left)/2;
-            if(isBadVersion(mid)==true){
-                right=mid;
-            }
-            else{left=mid+1;}
-            }
-        
-        return left;
-    
-    }
-};
-</code></pre><h2 id="四java实现">四.java实现</h2>
-<pre tabindex="0"><code>/* The isBadVersion API is defined in the parent class VersionControl.
-      boolean isBadVersion(int version); */
+    <span class="c1">//矩阵
+</span><span class="c1"></span>    <span class="n">vector</span><span class="o">&lt;</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">long</span><span class="o">&gt;&gt;</span> <span class="n">pow</span><span class="p">(</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">long</span><span class="o">&gt;&gt;&amp;</span> <span class="n">a</span><span class="p">,</span> <span class="kt">int</span> <span class="n">n</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">vector</span><span class="o">&lt;</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">long</span><span class="o">&gt;&gt;</span> <span class="n">answer</span> <span class="o">=</span> <span class="p">{{</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">},{</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">}};</span>
+        <span class="k">while</span><span class="p">(</span><span class="n">n</span><span class="o">&gt;</span><span class="mi">0</span><span class="p">){</span>
+            <span class="k">if</span><span class="p">(</span><span class="n">n</span><span class="o">&amp;</span><span class="mi">1</span><span class="o">==</span><span class="mi">1</span><span class="p">){</span>
+                <span class="n">answer</span> <span class="o">=</span> <span class="n">multiply</span><span class="p">(</span><span class="n">answer</span><span class="p">,</span><span class="n">a</span><span class="p">);</span>
+            <span class="p">}</span>
+            <span class="n">n</span><span class="o">=</span><span class="n">n</span><span class="o">&gt;&gt;</span><span class="mi">1</span><span class="p">;</span>
+            <span class="n">a</span> <span class="o">=</span> <span class="n">multiply</span><span class="p">(</span><span class="n">a</span><span class="p">,</span><span class="n">a</span><span class="p">);</span>
+        <span class="p">}</span>
+        <span class="k">return</span> <span class="n">answer</span><span class="p">;</span>
+    <span class="p">}</span>
 
-public class Solution extends VersionControl {
-    public int firstBadVersion(int n) {
-        int left,right,mid;
-        left=1;
-        right=n;
-        while(left&lt;right){
-            mid=left+(right-left)/2;
-            if(isBadVersion(mid)==true){
-                right=mid;
-            }
-            else{left=mid+1;}
-            }
-        
-        return left;
-        
-    }
-}
-</code></pre>
+    <span class="c1">//矩阵乘法
+</span><span class="c1"></span>    <span class="n">vector</span><span class="o">&lt;</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">long</span><span class="o">&gt;&gt;</span> <span class="n">multiply</span><span class="p">(</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">long</span><span class="o">&gt;&gt;&amp;</span> <span class="n">a</span><span class="p">,</span> <span class="n">vector</span><span class="o">&lt;</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">long</span><span class="o">&gt;&gt;&amp;</span> <span class="n">b</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">vector</span><span class="o">&lt;</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">long</span><span class="o">&gt;&gt;</span> <span class="n">c</span><span class="p">{{</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">},</span> <span class="p">{</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">}};</span>
+        <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="mi">2</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+            <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">j</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">j</span> <span class="o">&lt;</span> <span class="mi">2</span><span class="p">;</span> <span class="n">j</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+                <span class="n">c</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">a</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="n">b</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="n">j</span><span class="p">]</span> <span class="o">+</span> <span class="n">a</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="n">b</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="n">j</span><span class="p">])</span> <span class="o">%</span> <span class="n">MOD</span><span class="p">;</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+        <span class="k">return</span> <span class="n">c</span><span class="p">;</span>
+
+    <span class="p">}</span>
+<span class="p">};</span>
+</code></pre></div>
     
 	</div>
   <footer class="article-footer clearfix">
@@ -180,6 +167,8 @@ public class Solution extends VersionControl {
   
   <a href="https://qkgoalkeeper.github.io/tags/leetcode">LeetCode</a>
   
+  <a href="https://qkgoalkeeper.github.io/tags/c&#43;&#43;">C&#43;&#43;</a>
+  
 </div>
 
 
@@ -189,14 +178,14 @@ public class Solution extends VersionControl {
 <div class="article-categories">
   <span></span>
   
-  <a class="article-category-link" href="https://qkgoalkeeper.github.io/categories/leetcode%E7%AE%80%E5%8D%95%E9%A2%98201-300">LeetCode简单题201-300</a>
+  <a class="article-category-link" href="https://qkgoalkeeper.github.io/categories/%E5%A4%A7%E5%9B%9Bleetcode%E7%AE%97%E6%B3%95%E5%88%B7%E9%A2%98">大四LeetCode算法刷题</a>
   
 </div>
 
 
 
   <div class="article-share" id="share">
-    <div data-url="https://qkgoalkeeper.github.io/post/leetcode%E7%AE%80%E5%8D%95%E9%A2%98278.-%E7%AC%AC%E4%B8%80%E4%B8%AA%E9%94%99%E8%AF%AF%E7%9A%84%E7%89%88%E6%9C%ACpythonc&#43;&#43;java/" data-title="LeetCode简单题：278. 第一个错误的版本（Python,C&#43;&#43;,Java）" data-tsina="5852167252" class="share clearfix">
+    <div data-url="https://qkgoalkeeper.github.io/post/leetcode%E6%AF%8F%E6%97%A5%E7%BB%83%E4%B9%A0%E5%89%91%E6%8C%87-offer-10-i.-%E6%96%90%E6%B3%A2%E9%82%A3%E5%A5%91%E6%95%B0%E5%88%97/" data-title="LeetCode每日练习：剑指 Offer 10- I. 斐波那契数列" data-tsina="5852167252" class="share clearfix">
     </div>
   </div>
 </footer>
