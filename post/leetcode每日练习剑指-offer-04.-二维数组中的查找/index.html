@@ -2,13 +2,13 @@
 <html lang="zh-CN">
 <head>
   <meta charset="UTF-8">
-  <title>LeetCode简单题：190. 颠倒二进制位（Python,C&#43;&#43;,Java） - qkgoalkeeper&#39;s blog</title>
+  <title>LeetCode每日练习：剑指 Offer 04. 二维数组中的查找 - qkgoalkeeper&#39;s blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=3, minimum-scale=1">
   
-  <meta name="description" content="一.解法 https://leetcode-cn.com/problems/reverse-bits/ 要点：位运算，分治法 可以像C&#43;&#43;中所示用朴素的循环位运算解法做。 也可以像题解中巧妙分治法做，见下面链接。 举个例子： // 原数字4326">
+  <meta name="description" content="一.剑指 Offer 04. 二维数组中的查找 1.题干及思路 在一个 n * m 的二维数组中，每一行都按照从左到右递增的顺序排序，每一列都按照从上到下递增的顺序排序。">
   
-  <meta itemprop="name" content="LeetCode简单题：190. 颠倒二进制位（Python,C&#43;&#43;,Java） - qkgoalkeeper&#39;s blog">
-  <meta itemprop="description" content="一.解法 https://leetcode-cn.com/problems/reverse-bits/ 要点：位运算，分治法 可以像C&#43;&#43;中所示用朴素的循环位运算解法做。 也可以像题解中巧妙分治法做，见下面链接。 举个例子： // 原数字4326">
+  <meta itemprop="name" content="LeetCode每日练习：剑指 Offer 04. 二维数组中的查找 - qkgoalkeeper&#39;s blog">
+  <meta itemprop="description" content="一.剑指 Offer 04. 二维数组中的查找 1.题干及思路 在一个 n * m 的二维数组中，每一行都按照从左到右递增的顺序排序，每一列都按照从上到下递增的顺序排序。">
   <meta itemprop="image" content="https://qkgoalkeeper.github.io/img/author.jpg">
   
   
@@ -74,7 +74,7 @@
 	<article itemprop="articleBody">
     <header class="article-info clearfix">
   <h1 itemprop="name">
-      <a href="https://qkgoalkeeper.github.io/post/leetcode%E7%AE%80%E5%8D%95%E9%A2%98190.-%E9%A2%A0%E5%80%92%E4%BA%8C%E8%BF%9B%E5%88%B6%E4%BD%8Dpythonc&#43;&#43;java/" title="LeetCode简单题：190. 颠倒二进制位（Python,C&#43;&#43;,Java）" itemprop="url">LeetCode简单题：190. 颠倒二进制位（Python,C&#43;&#43;,Java）</a>
+      <a href="https://qkgoalkeeper.github.io/post/leetcode%E6%AF%8F%E6%97%A5%E7%BB%83%E4%B9%A0%E5%89%91%E6%8C%87-offer-04.-%E4%BA%8C%E7%BB%B4%E6%95%B0%E7%BB%84%E4%B8%AD%E7%9A%84%E6%9F%A5%E6%89%BE/" title="LeetCode每日练习：剑指 Offer 04. 二维数组中的查找" itemprop="url">LeetCode每日练习：剑指 Offer 04. 二维数组中的查找</a>
   </h1>
   <p class="article-author">By
     
@@ -82,7 +82,7 @@
     
   </p>
   <p class="article-time">
-    <time datetime="2020-08-13 17:55:19 &#43;0800 CST" itemprop="datePublished">2020年08月13日</time>
+    <time datetime="2022-01-10 10:55:19 &#43;0800 CST" itemprop="datePublished">2022年01月10日</time>
   </p>
 </header>
 
@@ -92,74 +92,53 @@
 			<strong class="toc-title">文章目录</strong>
       <nav id="TableOfContents">
   <ul>
-    <li><a href="#一解法">一.解法</a></li>
-    <li><a href="#二python实现">二.Python实现</a></li>
-    <li><a href="#三c实现">三.C++实现</a></li>
-    <li><a href="#四java实现">四.java实现</a></li>
+    <li><a href="#1题干及思路">1.题干及思路</a></li>
+    <li><a href="#2c实现">2.C++实现</a></li>
   </ul>
 </nav>
 		</div>
     
-    <h2 id="一解法">一.解法</h2>
-<p><a href="https://leetcode-cn.com/problems/reverse-bits/">https://leetcode-cn.com/problems/reverse-bits/</a><br>
-要点：位运算，分治法<br>
-可以像C++中所示用朴素的循环位运算解法做。<br>
-也可以像题解中巧妙分治法做，见下面链接。<br>
-举个例子：<br>
-// 原数字43261596<br>
-0000 ‭0010 1001 0100 _ 0001 1110 1001 1100‬<br>
-// 反转左右16位：<br>
-‭ 0001 1110 1001 1100 _ 0000 0010 1001 0100‬<br>
-// 继续分为8位一组反转：<br>
-1001 1100 0001 1110 _ 1001 0100 0000 0010<br>
-// 4位一组反转：<br>
-1100 1001 1110 0001 _ 0100 1001 0010 0000‬<br>
-// 2位一组反转：<br>
-0011 0110 1011 0100 _ 0001 0110 1000 0000<br>
-// 每两位再反转一下<br>
-‭ 0011 1001 0111 1000 _ 0010 1001 0100 0000‬‬<br>
-// 这就是43261596反转后的结果：‭964176192‬<br>
-这里引用LeetCode作者：lartecy的解释<br>
-链接：<a href="https://leetcode-cn.com/problems/reverse-bits/solution/zhi-qi-ran-zhi-qi-suo-yi-ran-wei-yun-suan-jie-fa-x/">https://leetcode-cn.com/problems/reverse-bits/solution/zhi-qi-ran-zhi-qi-suo-yi-ran-wei-yun-suan-jie-fa-x/</a></p>
-<h2 id="二python实现">二.Python实现</h2>
-<pre tabindex="0"><code>class Solution:
-    def reverseBits(self, n: int) -&gt; int:
-        n = (n &gt;&gt; 16) | (n &lt;&lt; 16)
-        n = ((n &amp; 0xff00ff00) &gt;&gt; 8) | ((n &amp; 0x00ff00ff) &lt;&lt; 8)
-        n = ((n &amp; 0xf0f0f0f0) &gt;&gt; 4) | ((n &amp; 0x0f0f0f0f) &lt;&lt; 4)
-        n = ((n &amp; 0xcccccccc) &gt;&gt; 2) | ((n &amp; 0x33333333) &lt;&lt; 2)
-        n = ((n &amp; 0xaaaaaaaa) &gt;&gt; 1) | ((n &amp; 0x55555555) &lt;&lt; 1)
-        return n
-</code></pre><h2 id="三c实现">三.C++实现</h2>
-<pre tabindex="0"><code>class Solution {
-public:
-    uint32_t reverseBits(uint32_t n) {
-        uint32_t ans=0;
-        int i=32;
-        while(i&gt;0)
-        {
-            ans&lt;&lt;=1;
-            ans+=n&amp;1;
-            n&gt;&gt;=1;
-            i--;
-        }
-        return ans;
-    }
-
-};
-</code></pre><h2 id="四java实现">四.java实现</h2>
-<pre tabindex="0"><code>public class Solution {
-    // you need treat n as an unsigned value
-    public int reverseBits(int n) {
-         n = (n &gt;&gt;&gt; 16) | (n &lt;&lt; 16); 
-        n = ((n &amp; 0xff00ff00) &gt;&gt;&gt; 8) | ((n &amp; 0x00ff00ff) &lt;&lt; 8); 
-        n = ((n &amp; 0xf0f0f0f0) &gt;&gt;&gt; 4) | ((n &amp; 0x0f0f0f0f) &lt;&lt; 4); 
-        n = ((n &amp; 0xcccccccc) &gt;&gt;&gt; 2) | ((n &amp; 0x33333333) &lt;&lt; 2); 
-        n = ((n &amp; 0xaaaaaaaa) &gt;&gt;&gt; 1) | ((n &amp; 0x55555555) &lt;&lt; 1); 
-        return n;    
-    }
-}
-</code></pre>
+    <h1 id="一剑指-offer-04-二维数组中的查找httpsleetcode-cncomproblemser-wei-shu-zu-zhong-de-cha-zhao-lcof">一.<a href="https://leetcode-cn.com/problems/er-wei-shu-zu-zhong-de-cha-zhao-lcof/">剑指 Offer 04. 二维数组中的查找</a></h1>
+<h2 id="1题干及思路">1.题干及思路</h2>
+<p>在一个 n * m 的二维数组中，每一行都按照从左到右递增的顺序排序，每一列都按照从上到下递增的顺序排序。请完成一个高效的函数，输入这样的一个二维数组和一个整数，判断数组中是否含有该整数。</p>
+<p><strong>示例:</strong></p>
+<p>现有矩阵 matrix 如下：</p>
+<pre tabindex="0"><code>[
+  [1,   4,  7, 11, 15],
+  [2,   5,  8, 12, 19],
+  [3,   6,  9, 16, 22],
+  [10, 13, 14, 17, 24],
+  [18, 21, 23, 26, 30]
+]
+</code></pre><p>给定 target = <code>5</code>，返回 <code>true</code>。</p>
+<p>给定 target = <code>20</code>，返回 <code>false</code>。</p>
+<p><strong>限制：</strong></p>
+<pre tabindex="0"><code>0 &lt;= n &lt;= 1000
+0 &lt;= m &lt;= 1000
+</code></pre><p>**注意：**本题与主站 240 题相同：https://leetcode-cn.com/problems/search-a-2d-matrix-ii/</p>
+<p>要点：二叉搜索树</p>
+<p>思路：从矩阵右上角开始走是一颗二叉搜索树。</p>
+<h2 id="2c实现">2.C++实现</h2>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="k">class</span> <span class="nc">Solution</span> <span class="p">{</span>
+<span class="k">public</span><span class="o">:</span>
+    <span class="kt">bool</span> <span class="n">findNumberIn2DArray</span><span class="p">(</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;&gt;&amp;</span> <span class="n">matrix</span><span class="p">,</span> <span class="kt">int</span> <span class="n">target</span><span class="p">)</span> <span class="p">{</span>
+        <span class="kt">int</span> <span class="n">n</span> <span class="o">=</span> <span class="n">matrix</span><span class="p">.</span><span class="n">size</span><span class="p">();</span>
+        <span class="k">if</span><span class="p">(</span><span class="n">n</span><span class="o">==</span><span class="mi">0</span><span class="p">)</span> <span class="k">return</span> <span class="nb">false</span><span class="p">;</span>
+        <span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+        <span class="kt">int</span> <span class="n">j</span> <span class="o">=</span> <span class="n">matrix</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="n">size</span><span class="p">()</span><span class="o">-</span><span class="mi">1</span><span class="p">;</span>
+        <span class="k">while</span><span class="p">(</span><span class="n">i</span><span class="o">&lt;</span><span class="n">matrix</span><span class="p">.</span><span class="n">size</span><span class="p">()</span><span class="o">&amp;&amp;</span><span class="n">j</span><span class="o">&gt;=</span><span class="mi">0</span><span class="p">){</span>
+            <span class="k">if</span><span class="p">(</span><span class="n">matrix</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">]</span><span class="o">==</span><span class="n">target</span><span class="p">)</span> <span class="k">return</span> <span class="nb">true</span><span class="p">;</span>
+            <span class="k">else</span> <span class="nf">if</span><span class="p">(</span><span class="n">matrix</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">]</span><span class="o">&lt;</span><span class="n">target</span><span class="p">){</span>
+                <span class="n">i</span><span class="o">++</span><span class="p">;</span>
+            <span class="p">}</span>
+            <span class="k">else</span><span class="p">{</span>
+                <span class="n">j</span><span class="o">--</span><span class="p">;</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+        <span class="k">return</span> <span class="nb">false</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">};</span>
+</code></pre></div>
     
 	</div>
   <footer class="article-footer clearfix">
@@ -170,6 +149,8 @@ public:
   
   <a href="https://qkgoalkeeper.github.io/tags/leetcode">LeetCode</a>
   
+  <a href="https://qkgoalkeeper.github.io/tags/c&#43;&#43;">C&#43;&#43;</a>
+  
 </div>
 
 
@@ -179,14 +160,14 @@ public:
 <div class="article-categories">
   <span></span>
   
-  <a class="article-category-link" href="https://qkgoalkeeper.github.io/categories/leetcode%E7%AE%80%E5%8D%95%E9%A2%98101-200">LeetCode简单题101-200</a>
+  <a class="article-category-link" href="https://qkgoalkeeper.github.io/categories/%E5%A4%A7%E5%9B%9Bleetcode%E7%AE%97%E6%B3%95%E5%88%B7%E9%A2%98">大四LeetCode算法刷题</a>
   
 </div>
 
 
 
   <div class="article-share" id="share">
-    <div data-url="https://qkgoalkeeper.github.io/post/leetcode%E7%AE%80%E5%8D%95%E9%A2%98190.-%E9%A2%A0%E5%80%92%E4%BA%8C%E8%BF%9B%E5%88%B6%E4%BD%8Dpythonc&#43;&#43;java/" data-title="LeetCode简单题：190. 颠倒二进制位（Python,C&#43;&#43;,Java）" data-tsina="5852167252" class="share clearfix">
+    <div data-url="https://qkgoalkeeper.github.io/post/leetcode%E6%AF%8F%E6%97%A5%E7%BB%83%E4%B9%A0%E5%89%91%E6%8C%87-offer-04.-%E4%BA%8C%E7%BB%B4%E6%95%B0%E7%BB%84%E4%B8%AD%E7%9A%84%E6%9F%A5%E6%89%BE/" data-title="LeetCode每日练习：剑指 Offer 04. 二维数组中的查找" data-tsina="5852167252" class="share clearfix">
     </div>
   </div>
 </footer>
