@@ -2,13 +2,13 @@
 <html lang="zh-CN">
 <head>
   <meta charset="UTF-8">
-  <title>LeetCode每日一题：416. 分割等和子集 - qkgoalkeeper&#39;s blog</title>
+  <title>LeetCode每日练习：剑指 Offer 28. 对称的二叉树 - qkgoalkeeper&#39;s blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=3, minimum-scale=1">
   
-  <meta name="description" content="一.416. 分割等和子集 1.题干及思路 给你一个 只包含正整数 的 非空 数组 nums 。请你判断是否可以将这个数组分割成两个子集，使得两个子集的元素和相等。">
+  <meta name="description" content="一.剑指 Offer 28. 对称的二叉树 1.题干及思路 请实现一个函数，用来判断一棵二叉树是不是对称的。如果一棵二叉树和它的镜像一样，那么它是对称的。 例如，二">
   
-  <meta itemprop="name" content="LeetCode每日一题：416. 分割等和子集 - qkgoalkeeper&#39;s blog">
-  <meta itemprop="description" content="一.416. 分割等和子集 1.题干及思路 给你一个 只包含正整数 的 非空 数组 nums 。请你判断是否可以将这个数组分割成两个子集，使得两个子集的元素和相等。">
+  <meta itemprop="name" content="LeetCode每日练习：剑指 Offer 28. 对称的二叉树 - qkgoalkeeper&#39;s blog">
+  <meta itemprop="description" content="一.剑指 Offer 28. 对称的二叉树 1.题干及思路 请实现一个函数，用来判断一棵二叉树是不是对称的。如果一棵二叉树和它的镜像一样，那么它是对称的。 例如，二">
   <meta itemprop="image" content="https://qkgoalkeeper.github.io/img/author.jpg">
   
   
@@ -74,7 +74,7 @@
 	<article itemprop="articleBody">
     <header class="article-info clearfix">
   <h1 itemprop="name">
-      <a href="https://qkgoalkeeper.github.io/post/leetcode%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98416.-%E5%88%86%E5%89%B2%E7%AD%89%E5%92%8C%E5%AD%90%E9%9B%86/" title="LeetCode每日一题：416. 分割等和子集" itemprop="url">LeetCode每日一题：416. 分割等和子集</a>
+      <a href="https://qkgoalkeeper.github.io/post/leetcode%E6%AF%8F%E6%97%A5%E7%BB%83%E4%B9%A0%E5%89%91%E6%8C%87-offer-28.-%E5%AF%B9%E7%A7%B0%E7%9A%84%E4%BA%8C%E5%8F%89%E6%A0%91/" title="LeetCode每日练习：剑指 Offer 28. 对称的二叉树" itemprop="url">LeetCode每日练习：剑指 Offer 28. 对称的二叉树</a>
   </h1>
   <p class="article-author">By
     
@@ -82,7 +82,7 @@
     
   </p>
   <p class="article-time">
-    <time datetime="2022-01-02 10:55:19 &#43;0800 CST" itemprop="datePublished">2022年01月02日</time>
+    <time datetime="2022-01-15 10:55:19 &#43;0800 CST" itemprop="datePublished">2022年01月15日</time>
   </p>
 </header>
 
@@ -98,58 +98,55 @@
 </nav>
 		</div>
     
-    <h1 id="一416-分割等和子集httpsleetcode-cncomproblemspartition-equal-subset-sum">一.<a href="https://leetcode-cn.com/problems/partition-equal-subset-sum/">416. 分割等和子集</a></h1>
+    <h1 id="一剑指-offer-28-对称的二叉树httpsleetcode-cncomproblemsdui-cheng-de-er-cha-shu-lcof">一.<a href="https://leetcode-cn.com/problems/dui-cheng-de-er-cha-shu-lcof/">剑指 Offer 28. 对称的二叉树</a></h1>
 <h2 id="1题干及思路">1.题干及思路</h2>
-<p>给你一个 只包含正整数 的 非空 数组 nums 。请你判断是否可以将这个数组分割成两个子集，使得两个子集的元素和相等。</p>
-<p>示例 1：</p>
-<p>输入：nums = [1,5,11,5]
+<p>请实现一个函数，用来判断一棵二叉树是不是对称的。如果一棵二叉树和它的镜像一样，那么它是对称的。</p>
+<p>例如，二叉树 [1,2,2,3,4,4,3] 是对称的。</p>
+<p><code>  1  / \ 2  2 / \ / \3  4 4  3</code>
+但是下面这个 [1,2,2,null,3,null,3] 则不是镜像对称的:</p>
+<pre tabindex="0"><code>  1  / \ 2  2  \  \  3   3
+</code></pre><p><strong>示例 1：</strong></p>
+<pre tabindex="0"><code>输入：root = [1,2,2,3,4,4,3]
 输出：true
-解释：数组可以分割成 [1, 5, 5] 和 [11] 。
-示例 2：</p>
-<p>输入：nums = [1,2,3,5]
+</code></pre><p><strong>示例 2：</strong></p>
+<pre tabindex="0"><code>输入：root = [1,2,2,null,3,null,3]
 输出：false
-解释：数组不能分割成两个元素和相等的子集。</p>
-<p>提示：</p>
-<p>1 &lt;= nums.length &lt;= 200
-1 &lt;= nums[i] &lt;= 100</p>
-<p>要点：动态规划</p>
-<p>思路：01背包问题，如果nums和sum为奇数直接排除，target = sum/2，问题转化为是否可以挑选部分位置使得和为target，用动态规划思想，二维动态规划dp[i][j]，i表示位置j表示target，如果 j≥nums[i]，则对于当前的数字nums[i]，可以选取也可以不选取dp[i][j] = dp[i - 1][j] | dp[i - 1][j - num];</p>
-<p>否则dp[i][j] = dp[i - 1][j]</p>
+</code></pre><p><strong>限制：</strong></p>
+<pre tabindex="0"><code>0 &lt;= 节点个数 &lt;= 1000
+</code></pre><p>注意：本题与主站 101 题相同：https://leetcode-cn.com/problems/symmetric-tree/</p>
+<p>要点：树</p>
+<p>思路：树的递归，两个指针一层层判断</p>
 <h2 id="2c实现">2.C++实现</h2>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="k">class</span> <span class="nc">Solution</span> <span class="p">{</span>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="cm">/**
+</span><span class="cm"> * Definition for a binary tree node.
+</span><span class="cm"> * struct TreeNode {
+</span><span class="cm"> *     int val;
+</span><span class="cm"> *     TreeNode *left;
+</span><span class="cm"> *     TreeNode *right;
+</span><span class="cm"> *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+</span><span class="cm"> * };
+</span><span class="cm"> */</span>
+<span class="k">class</span> <span class="nc">Solution</span> <span class="p">{</span>
 <span class="k">public</span><span class="o">:</span>
-    <span class="kt">bool</span> <span class="n">canPartition</span><span class="p">(</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;&amp;</span> <span class="n">nums</span><span class="p">)</span> <span class="p">{</span>
-        <span class="kt">int</span> <span class="n">n</span> <span class="o">=</span> <span class="n">nums</span><span class="p">.</span><span class="n">size</span><span class="p">();</span>
-        <span class="k">if</span> <span class="p">(</span><span class="n">n</span> <span class="o">&lt;</span> <span class="mi">2</span><span class="p">)</span> <span class="p">{</span>
-            <span class="k">return</span> <span class="nb">false</span><span class="p">;</span>
-        <span class="p">}</span>
-        <span class="kt">int</span> <span class="n">sum</span> <span class="o">=</span> <span class="n">accumulate</span><span class="p">(</span><span class="n">nums</span><span class="p">.</span><span class="n">begin</span><span class="p">(),</span> <span class="n">nums</span><span class="p">.</span><span class="n">end</span><span class="p">(),</span> <span class="mi">0</span><span class="p">);</span>
-        <span class="kt">int</span> <span class="n">maxNum</span> <span class="o">=</span> <span class="o">*</span><span class="n">max_element</span><span class="p">(</span><span class="n">nums</span><span class="p">.</span><span class="n">begin</span><span class="p">(),</span> <span class="n">nums</span><span class="p">.</span><span class="n">end</span><span class="p">());</span>
-        <span class="k">if</span> <span class="p">(</span><span class="n">sum</span> <span class="o">&amp;</span> <span class="mi">1</span><span class="p">)</span> <span class="p">{</span>
-            <span class="k">return</span> <span class="nb">false</span><span class="p">;</span>
-        <span class="p">}</span>
-        <span class="kt">int</span> <span class="n">target</span> <span class="o">=</span> <span class="n">sum</span> <span class="o">/</span> <span class="mi">2</span><span class="p">;</span>
-        <span class="k">if</span> <span class="p">(</span><span class="n">maxNum</span> <span class="o">&gt;</span> <span class="n">target</span><span class="p">)</span> <span class="p">{</span>
-            <span class="k">return</span> <span class="nb">false</span><span class="p">;</span>
-        <span class="p">}</span>
-        <span class="n">vector</span><span class="o">&lt;</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;&gt;</span> <span class="n">dp</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="p">(</span><span class="n">target</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">));</span>
-        <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">n</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
-            <span class="n">dp</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="nb">true</span><span class="p">;</span>
-        <span class="p">}</span>
-        <span class="n">dp</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="n">nums</span><span class="p">[</span><span class="mi">0</span><span class="p">]]</span> <span class="o">=</span> <span class="nb">true</span><span class="p">;</span>
-        <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">n</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
-            <span class="kt">int</span> <span class="n">num</span> <span class="o">=</span> <span class="n">nums</span><span class="p">[</span><span class="n">i</span><span class="p">];</span>
-            <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">j</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span> <span class="n">j</span> <span class="o">&lt;=</span> <span class="n">target</span><span class="p">;</span> <span class="n">j</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
-                <span class="k">if</span> <span class="p">(</span><span class="n">j</span> <span class="o">&gt;=</span> <span class="n">num</span><span class="p">)</span> <span class="p">{</span>
-                    <span class="n">dp</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="n">dp</span><span class="p">[</span><span class="n">i</span> <span class="o">-</span> <span class="mi">1</span><span class="p">][</span><span class="n">j</span><span class="p">]</span> <span class="o">|</span> <span class="n">dp</span><span class="p">[</span><span class="n">i</span> <span class="o">-</span> <span class="mi">1</span><span class="p">][</span><span class="n">j</span> <span class="o">-</span> <span class="n">num</span><span class="p">];</span>
-                <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
-                    <span class="n">dp</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="n">dp</span><span class="p">[</span><span class="n">i</span> <span class="o">-</span> <span class="mi">1</span><span class="p">][</span><span class="n">j</span><span class="p">];</span>
-                <span class="p">}</span>
-            <span class="p">}</span>
-        <span class="p">}</span>
-        <span class="k">return</span> <span class="n">dp</span><span class="p">[</span><span class="n">n</span> <span class="o">-</span> <span class="mi">1</span><span class="p">][</span><span class="n">target</span><span class="p">];</span>
+   <span class="kt">bool</span> <span class="n">isSymmetric</span><span class="p">(</span><span class="n">TreeNode</span><span class="o">*</span> <span class="n">root</span><span class="p">)</span> <span class="p">{</span>
+        <span class="c1">// 如果是空树
+</span><span class="c1"></span>        <span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="n">root</span><span class="p">)</span>
+            <span class="k">return</span> <span class="nb">true</span><span class="p">;</span>
+        <span class="k">else</span>
+            <span class="k">return</span> <span class="nf">isSymmetric2</span><span class="p">(</span><span class="n">root</span><span class="o">-&gt;</span><span class="n">left</span><span class="p">,</span> <span class="n">root</span><span class="o">-&gt;</span><span class="n">right</span><span class="p">);</span>
     <span class="p">}</span>
-
+    <span class="c1">// 此函数比较二叉树中位置对称的两个节点
+</span><span class="c1"></span>    <span class="kt">bool</span> <span class="nf">isSymmetric2</span><span class="p">(</span><span class="n">TreeNode</span><span class="o">*</span> <span class="n">l</span><span class="p">,</span> <span class="n">TreeNode</span><span class="o">*</span> <span class="n">r</span><span class="p">){</span>
+        <span class="c1">// 结束条件1：如果对称两个节点都为空，则返回true
+</span><span class="c1"></span>        <span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="n">l</span> <span class="o">&amp;&amp;</span> <span class="o">!</span><span class="n">r</span><span class="p">){</span>
+            <span class="k">return</span> <span class="nb">true</span><span class="p">;</span>
+        <span class="p">}</span>
+        <span class="c1">// 结束条件2：如果单独一个节点为空，另一个节点不为空，又或者是对称节点间的val值不等，则返回false
+</span><span class="c1"></span>        <span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="n">l</span> <span class="o">||</span> <span class="o">!</span><span class="n">r</span> <span class="o">||</span> <span class="n">l</span><span class="o">-&gt;</span><span class="n">val</span> <span class="o">!=</span> <span class="n">r</span><span class="o">-&gt;</span><span class="n">val</span><span class="p">)</span>
+            <span class="k">return</span> <span class="nb">false</span><span class="p">;</span>
+        <span class="c1">// 该层符合对称二叉树的要求，开始比较下一层
+</span><span class="c1"></span>        <span class="k">return</span> <span class="n">isSymmetric2</span><span class="p">(</span><span class="n">l</span><span class="o">-&gt;</span><span class="n">left</span><span class="p">,</span> <span class="n">r</span><span class="o">-&gt;</span><span class="n">right</span><span class="p">)</span> <span class="o">&amp;&amp;</span> <span class="n">isSymmetric2</span><span class="p">(</span><span class="n">l</span><span class="o">-&gt;</span><span class="n">right</span><span class="p">,</span> <span class="n">r</span><span class="o">-&gt;</span><span class="n">left</span><span class="p">);</span>      
+    <span class="p">}</span>
 <span class="p">};</span>
 </code></pre></div>
     
@@ -164,7 +161,7 @@
   
   <a href="https://qkgoalkeeper.github.io/tags/c&#43;&#43;">C&#43;&#43;</a>
   
-  <a href="https://qkgoalkeeper.github.io/tags/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92">动态规划</a>
+  <a href="https://qkgoalkeeper.github.io/tags/%E6%A0%91">树</a>
   
 </div>
 
@@ -182,7 +179,7 @@
 
 
   <div class="article-share" id="share">
-    <div data-url="https://qkgoalkeeper.github.io/post/leetcode%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98416.-%E5%88%86%E5%89%B2%E7%AD%89%E5%92%8C%E5%AD%90%E9%9B%86/" data-title="LeetCode每日一题：416. 分割等和子集" data-tsina="5852167252" class="share clearfix">
+    <div data-url="https://qkgoalkeeper.github.io/post/leetcode%E6%AF%8F%E6%97%A5%E7%BB%83%E4%B9%A0%E5%89%91%E6%8C%87-offer-28.-%E5%AF%B9%E7%A7%B0%E7%9A%84%E4%BA%8C%E5%8F%89%E6%A0%91/" data-title="LeetCode每日练习：剑指 Offer 28. 对称的二叉树" data-tsina="5852167252" class="share clearfix">
     </div>
   </div>
 </footer>
