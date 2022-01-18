@@ -35,6 +35,15 @@
     </item>
     
     <item>
+      <title>王道机试指南第三章：排序与查找</title>
+      <link>https://qkgoalkeeper.github.io/post/%E7%8E%8B%E9%81%93%E6%9C%BA%E8%AF%95%E6%8C%87%E5%8D%97%E7%AC%AC%E4%B8%89%E7%AB%A0%E6%8E%92%E5%BA%8F%E4%B8%8E%E6%9F%A5%E6%89%BE/</link>
+      <pubDate>Tue, 18 Jan 2022 10:55:19 +0800</pubDate>
+      
+      <guid>https://qkgoalkeeper.github.io/post/%E7%8E%8B%E9%81%93%E6%9C%BA%E8%AF%95%E6%8C%87%E5%8D%97%E7%AC%AC%E4%B8%89%E7%AB%A0%E6%8E%92%E5%BA%8F%E4%B8%8E%E6%9F%A5%E6%89%BE/</guid>
+      <description>一.KY210 排序 1.题干及思路 描述 对输入的n个数进行排序并输出。 输入描述： 输入的第一行包括一个整数n(1&amp;lt;=n&amp;lt;=100)。 接</description>
+    </item>
+    
+    <item>
       <title>LeetCode每日练习：剑指 Offer 16. 数值的整数次方</title>
       <link>https://qkgoalkeeper.github.io/post/leetcode%E6%AF%8F%E6%97%A5%E7%BB%83%E4%B9%A0%E5%89%91%E6%8C%87-offer-16.-%E6%95%B0%E5%80%BC%E7%9A%84%E6%95%B4%E6%95%B0%E6%AC%A1%E6%96%B9/</link>
       <pubDate>Mon, 17 Jan 2022 10:55:19 +0800</pubDate>
