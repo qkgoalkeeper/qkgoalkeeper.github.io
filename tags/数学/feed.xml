@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>数学 on qkgoalkeeper&#39;s blog</title>
+    <link>https://qkgoalkeeper.github.io/tags/%E6%95%B0%E5%AD%A6/</link>
+    <description>Recent content in 数学 on qkgoalkeeper&#39;s blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-CN</language>
+    <lastBuildDate>Sat, 22 Jan 2022 10:55:19 +0800</lastBuildDate><atom:link href="https://qkgoalkeeper.github.io/tags/%E6%95%B0%E5%AD%A6/feed.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>LeetCode每日练习：剑指 Offer 43. 1～n 整数中 1 出现的次数</title>
+      <link>https://qkgoalkeeper.github.io/post/leetcode%E6%AF%8F%E6%97%A5%E7%BB%83%E4%B9%A0%E5%89%91%E6%8C%87-offer-43.-1n-%E6%95%B4%E6%95%B0%E4%B8%AD-1-%E5%87%BA%E7%8E%B0%E7%9A%84%E6%AC%A1%E6%95%B0/</link>
+      <pubDate>Sat, 22 Jan 2022 10:55:19 +0800</pubDate>
+      
+      <guid>https://qkgoalkeeper.github.io/post/leetcode%E6%AF%8F%E6%97%A5%E7%BB%83%E4%B9%A0%E5%89%91%E6%8C%87-offer-43.-1n-%E6%95%B4%E6%95%B0%E4%B8%AD-1-%E5%87%BA%E7%8E%B0%E7%9A%84%E6%AC%A1%E6%95%B0/</guid>
+      <description>一.剑指 Offer 43. 1～n 整数中 1 出现的次数 1.题干及思路 输入一个整数 n ，求1～n这n个整数的十进制表示中1出现的次数。 例如，输入12，1～12这些</description>
+    </item>
+    
+  </channel>
+</rss>
