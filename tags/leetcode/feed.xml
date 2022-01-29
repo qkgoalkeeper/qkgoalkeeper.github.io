@@ -6,7 +6,34 @@
     <description>Recent content in LeetCode on qkgoalkeeper&#39;s blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
-    <lastBuildDate>Fri, 28 Jan 2022 10:55:19 +0800</lastBuildDate><atom:link href="https://qkgoalkeeper.github.io/tags/leetcode/feed.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sat, 29 Jan 2022 10:55:19 +0800</lastBuildDate><atom:link href="https://qkgoalkeeper.github.io/tags/leetcode/feed.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>LeetCode每日练习：剑指 Offer 48. 最长不含重复字符的子字符串</title>
+      <link>https://qkgoalkeeper.github.io/post/leetcode%E6%AF%8F%E6%97%A5%E7%BB%83%E4%B9%A0%E5%89%91%E6%8C%87-offer-48.-%E6%9C%80%E9%95%BF%E4%B8%8D%E5%90%AB%E9%87%8D%E5%A4%8D%E5%AD%97%E7%AC%A6%E7%9A%84%E5%AD%90%E5%AD%97%E7%AC%A6%E4%B8%B2/</link>
+      <pubDate>Sat, 29 Jan 2022 10:55:19 +0800</pubDate>
+      
+      <guid>https://qkgoalkeeper.github.io/post/leetcode%E6%AF%8F%E6%97%A5%E7%BB%83%E4%B9%A0%E5%89%91%E6%8C%87-offer-48.-%E6%9C%80%E9%95%BF%E4%B8%8D%E5%90%AB%E9%87%8D%E5%A4%8D%E5%AD%97%E7%AC%A6%E7%9A%84%E5%AD%90%E5%AD%97%E7%AC%A6%E4%B8%B2/</guid>
+      <description>一.剑指 Offer 48. 最长不含重复字符的子字符串 1.题干及思路 请从字符串中找出一个最长的不包含重复字符的子字符串，计算该最长子字符串的长度。 示例 1: 输入</description>
+    </item>
+    
+    <item>
+      <title>LeetCode每日练习：剑指 Offer 53 - II. 0～n-1中缺失的数字</title>
+      <link>https://qkgoalkeeper.github.io/post/leetcode%E6%AF%8F%E6%97%A5%E7%BB%83%E4%B9%A0%E5%89%91%E6%8C%87-offer-53-ii.-0n-1%E4%B8%AD%E7%BC%BA%E5%A4%B1%E7%9A%84%E6%95%B0%E5%AD%97/</link>
+      <pubDate>Sat, 29 Jan 2022 10:55:19 +0800</pubDate>
+      
+      <guid>https://qkgoalkeeper.github.io/post/leetcode%E6%AF%8F%E6%97%A5%E7%BB%83%E4%B9%A0%E5%89%91%E6%8C%87-offer-53-ii.-0n-1%E4%B8%AD%E7%BC%BA%E5%A4%B1%E7%9A%84%E6%95%B0%E5%AD%97/</guid>
+      <description>一.剑指 Offer 53 - II. 0～n-1中缺失的数字 1.题干及思路 一个长度为n-1的递增排序数组中的所有数字都是唯一的，并且每个数字都在范围0～n-1之内</description>
+    </item>
+    
+    <item>
+      <title>LeetCode每日练习：剑指 Offer 58 - II. 左旋转字符串</title>
+      <link>https://qkgoalkeeper.github.io/post/leetcode%E6%AF%8F%E6%97%A5%E7%BB%83%E4%B9%A0%E5%89%91%E6%8C%87-offer-58-ii.-%E5%B7%A6%E6%97%8B%E8%BD%AC%E5%AD%97%E7%AC%A6%E4%B8%B2/</link>
+      <pubDate>Sat, 29 Jan 2022 10:55:19 +0800</pubDate>
+      
+      <guid>https://qkgoalkeeper.github.io/post/leetcode%E6%AF%8F%E6%97%A5%E7%BB%83%E4%B9%A0%E5%89%91%E6%8C%87-offer-58-ii.-%E5%B7%A6%E6%97%8B%E8%BD%AC%E5%AD%97%E7%AC%A6%E4%B8%B2/</guid>
+      <description>一.剑指 Offer 58 - II. 左旋转字符串 1.题干及思路 字符串的左旋转操作是把字符串前面的若干个字符转移到字符串的尾部。请定义一个函数实现字符串左旋转操作</description>
+    </item>
+    
     <item>
       <title>LeetCode每日练习：剑指 Offer 47. 礼物的最大价值</title>
       <link>https://qkgoalkeeper.github.io/post/leetcode%E6%AF%8F%E6%97%A5%E7%BB%83%E4%B9%A0%E5%89%91%E6%8C%87-offer-47.-%E7%A4%BC%E7%89%A9%E7%9A%84%E6%9C%80%E5%A4%A7%E4%BB%B7%E5%80%BC/</link>
