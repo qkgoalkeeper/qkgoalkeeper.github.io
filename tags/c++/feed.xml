@@ -6,7 +6,25 @@
     <description>Recent content in C&#43;&#43; on qkgoalkeeper&#39;s blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
-    <lastBuildDate>Tue, 15 Feb 2022 08:55:19 +0800</lastBuildDate><atom:link href="https://qkgoalkeeper.github.io/tags/c++/feed.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 16 Feb 2022 08:55:19 +0800</lastBuildDate><atom:link href="https://qkgoalkeeper.github.io/tags/c++/feed.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>LeetCode每日练习：剑指 Offer II 020. 回文子字符串的个数</title>
+      <link>https://qkgoalkeeper.github.io/post/leetcode%E6%AF%8F%E6%97%A5%E7%BB%83%E4%B9%A0%E5%89%91%E6%8C%87-offer-ii-020.-%E5%9B%9E%E6%96%87%E5%AD%90%E5%AD%97%E7%AC%A6%E4%B8%B2%E7%9A%84%E4%B8%AA%E6%95%B0/</link>
+      <pubDate>Wed, 16 Feb 2022 08:55:19 +0800</pubDate>
+      
+      <guid>https://qkgoalkeeper.github.io/post/leetcode%E6%AF%8F%E6%97%A5%E7%BB%83%E4%B9%A0%E5%89%91%E6%8C%87-offer-ii-020.-%E5%9B%9E%E6%96%87%E5%AD%90%E5%AD%97%E7%AC%A6%E4%B8%B2%E7%9A%84%E4%B8%AA%E6%95%B0/</guid>
+      <description>一.剑指 Offer II 020. 回文子字符串的个数 1.题干及思路 给定一个字符串 s ，请计算这个字符串中有多少个回文子字符串。 具有不同开始位置或结束位置的子串，即</description>
+    </item>
+    
+    <item>
+      <title>LeetCode每日练习：剑指 Offer II 021. 删除链表的倒数第 n 个结点</title>
+      <link>https://qkgoalkeeper.github.io/post/leetcode%E6%AF%8F%E6%97%A5%E7%BB%83%E4%B9%A0%E5%89%91%E6%8C%87-offer-ii-021.-%E5%88%A0%E9%99%A4%E9%93%BE%E8%A1%A8%E7%9A%84%E5%80%92%E6%95%B0%E7%AC%AC-n-%E4%B8%AA%E7%BB%93%E7%82%B9/</link>
+      <pubDate>Wed, 16 Feb 2022 08:55:19 +0800</pubDate>
+      
+      <guid>https://qkgoalkeeper.github.io/post/leetcode%E6%AF%8F%E6%97%A5%E7%BB%83%E4%B9%A0%E5%89%91%E6%8C%87-offer-ii-021.-%E5%88%A0%E9%99%A4%E9%93%BE%E8%A1%A8%E7%9A%84%E5%80%92%E6%95%B0%E7%AC%AC-n-%E4%B8%AA%E7%BB%93%E7%82%B9/</guid>
+      <description>一.剑指 Offer II 021. 删除链表的倒数第 n 个结点 1.题干及思路 给定一个链表，删除链表的倒数第 n 个结点，并且返回链表的头结点。 示例 1： 输入：head = [1,2,3,4,5],</description>
+    </item>
+    
     <item>
       <title>LeetCode每日练习：剑指 Offer II 018. 有效的回文</title>
       <link>https://qkgoalkeeper.github.io/post/leetcode%E6%AF%8F%E6%97%A5%E7%BB%83%E4%B9%A0%E5%89%91%E6%8C%87-offer-ii-018.-%E6%9C%89%E6%95%88%E7%9A%84%E5%9B%9E%E6%96%87/</link>

@@ -6,7 +6,16 @@
     <description>Recent content in 链表 on qkgoalkeeper&#39;s blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
-    <lastBuildDate>Sat, 18 Dec 2021 10:55:19 +0800</lastBuildDate><atom:link href="https://qkgoalkeeper.github.io/tags/%E9%93%BE%E8%A1%A8/feed.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 16 Feb 2022 08:55:19 +0800</lastBuildDate><atom:link href="https://qkgoalkeeper.github.io/tags/%E9%93%BE%E8%A1%A8/feed.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>LeetCode每日练习：剑指 Offer II 021. 删除链表的倒数第 n 个结点</title>
+      <link>https://qkgoalkeeper.github.io/post/leetcode%E6%AF%8F%E6%97%A5%E7%BB%83%E4%B9%A0%E5%89%91%E6%8C%87-offer-ii-021.-%E5%88%A0%E9%99%A4%E9%93%BE%E8%A1%A8%E7%9A%84%E5%80%92%E6%95%B0%E7%AC%AC-n-%E4%B8%AA%E7%BB%93%E7%82%B9/</link>
+      <pubDate>Wed, 16 Feb 2022 08:55:19 +0800</pubDate>
+      
+      <guid>https://qkgoalkeeper.github.io/post/leetcode%E6%AF%8F%E6%97%A5%E7%BB%83%E4%B9%A0%E5%89%91%E6%8C%87-offer-ii-021.-%E5%88%A0%E9%99%A4%E9%93%BE%E8%A1%A8%E7%9A%84%E5%80%92%E6%95%B0%E7%AC%AC-n-%E4%B8%AA%E7%BB%93%E7%82%B9/</guid>
+      <description>一.剑指 Offer II 021. 删除链表的倒数第 n 个结点 1.题干及思路 给定一个链表，删除链表的倒数第 n 个结点，并且返回链表的头结点。 示例 1： 输入：head = [1,2,3,4,5],</description>
+    </item>
+    
     <item>
       <title>LeetCode每日一题：148. 排序链表</title>
       <link>https://qkgoalkeeper.github.io/post/leetcode%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98148.-%E6%8E%92%E5%BA%8F%E9%93%BE%E8%A1%A8/</link>
