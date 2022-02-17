@@ -2,13 +2,13 @@
 <html lang="zh-CN">
 <head>
   <meta charset="UTF-8">
-  <title>LeetCode每日练习：剑指 Offer 40. 最小的k个数 - qkgoalkeeper&#39;s blog</title>
+  <title>LeetCode每日练习：剑指 Offer II 022. 链表中环的入口节点 - qkgoalkeeper&#39;s blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=3, minimum-scale=1">
   
-  <meta name="description" content="一.剑指 Offer 40. 最小的k个数 1.题干及思路 输入整数数组 arr ，找出其中最小的 k 个数。例如，输入4、5、1、6、2、7、3、8这8个数字，则最小的4个">
+  <meta name="description" content="一.剑指 Offer II 022. 链表中环的入口节点 1.题干及思路 给定一个链表，返回链表开始入环的第一个节点。 从链表的头节点开始沿着 next 指针进入环的第一个节点为环">
   
-  <meta itemprop="name" content="LeetCode每日练习：剑指 Offer 40. 最小的k个数 - qkgoalkeeper&#39;s blog">
-  <meta itemprop="description" content="一.剑指 Offer 40. 最小的k个数 1.题干及思路 输入整数数组 arr ，找出其中最小的 k 个数。例如，输入4、5、1、6、2、7、3、8这8个数字，则最小的4个">
+  <meta itemprop="name" content="LeetCode每日练习：剑指 Offer II 022. 链表中环的入口节点 - qkgoalkeeper&#39;s blog">
+  <meta itemprop="description" content="一.剑指 Offer II 022. 链表中环的入口节点 1.题干及思路 给定一个链表，返回链表开始入环的第一个节点。 从链表的头节点开始沿着 next 指针进入环的第一个节点为环">
   <meta itemprop="image" content="https://qkgoalkeeper.github.io/img/author.jpg">
   
   
@@ -74,7 +74,7 @@
 	<article itemprop="articleBody">
     <header class="article-info clearfix">
   <h1 itemprop="name">
-      <a href="https://qkgoalkeeper.github.io/post/leetcode%E6%AF%8F%E6%97%A5%E7%BB%83%E4%B9%A0%E5%89%91%E6%8C%87-offer-40.-%E6%9C%80%E5%B0%8F%E7%9A%84k%E4%B8%AA%E6%95%B0/" title="LeetCode每日练习：剑指 Offer 40. 最小的k个数" itemprop="url">LeetCode每日练习：剑指 Offer 40. 最小的k个数</a>
+      <a href="https://qkgoalkeeper.github.io/post/leetcode%E6%AF%8F%E6%97%A5%E7%BB%83%E4%B9%A0%E5%89%91%E6%8C%87-offer-ii-022.-%E9%93%BE%E8%A1%A8%E4%B8%AD%E7%8E%AF%E7%9A%84%E5%85%A5%E5%8F%A3%E8%8A%82%E7%82%B9/" title="LeetCode每日练习：剑指 Offer II 022. 链表中环的入口节点" itemprop="url">LeetCode每日练习：剑指 Offer II 022. 链表中环的入口节点</a>
   </h1>
   <p class="article-author">By
     
@@ -82,7 +82,7 @@
     
   </p>
   <p class="article-time">
-    <time datetime="2022-01-19 10:55:19 &#43;0800 CST" itemprop="datePublished">2022年01月19日</time>
+    <time datetime="2022-02-17 08:55:19 &#43;0800 CST" itemprop="datePublished">2022年02月17日</time>
   </p>
 </header>
 
@@ -98,49 +98,69 @@
 </nav>
 		</div>
     
-    <h1 id="一剑指-offer-40-最小的k个数httpsleetcode-cncomproblemszui-xiao-de-kge-shu-lcof">一.<a href="https://leetcode-cn.com/problems/zui-xiao-de-kge-shu-lcof/">剑指 Offer 40. 最小的k个数</a></h1>
+    <h1 id="一剑指-offer-ii-022-链表中环的入口节点httpsleetcode-cncomproblemsc32eov">一.<a href="https://leetcode-cn.com/problems/c32eOV/">剑指 Offer II 022. 链表中环的入口节点</a></h1>
 <h2 id="1题干及思路">1.题干及思路</h2>
-<p>输入整数数组 <code>arr</code> ，找出其中最小的 <code>k</code> 个数。例如，输入4、5、1、6、2、7、3、8这8个数字，则最小的4个数字是1、2、3、4。</p>
+<p>给定一个链表，返回链表开始入环的第一个节点。 从链表的头节点开始沿着 <code>next</code> 指针进入环的第一个节点为环的入口节点。如果链表无环，则返回 <code>null</code>。</p>
+<p>为了表示给定链表中的环，我们使用整数 <code>pos</code> 来表示链表尾连接到链表中的位置（索引从 0 开始）。 如果 <code>pos</code> 是 <code>-1</code>，则在该链表中没有环。<strong>注意，<code>pos</code> 仅仅是用于标识环的情况，并不会作为参数传递到函数中。</strong></p>
+<p>**说明：**不允许修改给定的链表。</p>
 <p><strong>示例 1：</strong></p>
-<pre tabindex="0"><code>输入：arr = [3,2,1], k = 2
-输出：[1,2] 或者 [2,1]
+<p><img src="https://assets.leetcode-cn.com/aliyun-lc-upload/uploads/2018/12/07/circularlinkedlist.png" alt="img"></p>
+<pre tabindex="0"><code>输入：head = [3,2,0,-4], pos = 1
+输出：返回索引为 1 的链表节点
+解释：链表中有一个环，其尾部连接到第二个节点。
 </code></pre><p><strong>示例 2：</strong></p>
-<pre tabindex="0"><code>输入：arr = [0,1,2,1], k = 1
-输出：[0]
-</code></pre><p><strong>限制：</strong></p>
+<p><img src="https://assets.leetcode-cn.com/aliyun-lc-upload/uploads/2018/12/07/circularlinkedlist_test2.png" alt="img"></p>
+<pre tabindex="0"><code>输入：head = [1,2], pos = 0
+输出：返回索引为 0 的链表节点
+解释：链表中有一个环，其尾部连接到第一个节点。
+</code></pre><p><strong>示例 3：</strong></p>
+<p><img src="https://assets.leetcode-cn.com/aliyun-lc-upload/uploads/2018/12/07/circularlinkedlist_test3.png" alt="img"></p>
+<pre tabindex="0"><code>输入：head = [1], pos = -1
+输出：返回 null
+解释：链表中没有环。
+</code></pre><p><strong>提示：</strong></p>
 <ul>
-<li><code>0 &lt;= k &lt;= arr.length &lt;= 10000</code></li>
-<li><code>0 &lt;= arr[i] &lt;= 10000</code></li>
+<li>链表中节点的数目范围在范围 <code>[0, 104]</code> 内</li>
+<li><code>-105 &lt;= Node.val &lt;= 105</code></li>
+<li><code>pos</code> 的值为 <code>-1</code> 或者链表中的一个有效索引</li>
 </ul>
-<p>要点：堆</p>
-<p>思路：用c++ stl自带堆，priority_queue默认是less从大到小，维护一个k大小的queue如果比top小就pop后加入</p>
+<p>**进阶：**是否可以使用 <code>O(1)</code> 空间解决此题？</p>
+<p>注意：本题与主站 142 题相同： <a href="https://leetcode-cn.com/problems/linked-list-cycle-ii/">https://leetcode-cn.com/problems/linked-list-cycle-ii/</a></p>
+<p>要点：链表</p>
+<p>思路：快慢指针，fast指针每次两步，slow指针每次一步，记录fast和slow重合处为temp，然后temp和head同步前进，temp和head重合处即为答案</p>
 <h2 id="2c实现">2.C++实现</h2>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="k">class</span> <span class="nc">Solution</span> <span class="p">{</span>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="cm">/**
+</span><span class="cm"> * Definition for singly-linked list.
+</span><span class="cm"> * struct ListNode {
+</span><span class="cm"> *     int val;
+</span><span class="cm"> *     ListNode *next;
+</span><span class="cm"> *     ListNode(int x) : val(x), next(NULL) {}
+</span><span class="cm"> * };
+</span><span class="cm"> */</span>
+<span class="k">class</span> <span class="nc">Solution</span> <span class="p">{</span>
 <span class="k">public</span><span class="o">:</span>
-    <span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">getLeastNumbers</span><span class="p">(</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;&amp;</span> <span class="n">arr</span><span class="p">,</span> <span class="kt">int</span> <span class="n">k</span><span class="p">)</span> <span class="p">{</span>
-        <span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">vec</span><span class="p">(</span><span class="n">k</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
-        <span class="k">if</span> <span class="p">(</span><span class="n">k</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span> 
-            <span class="k">return</span> <span class="n">vec</span><span class="p">;</span>
-        <span class="p">}</span>
-        <span class="n">priority_queue</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">Q</span><span class="p">;</span>
-        <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">k</span><span class="p">;</span> <span class="o">++</span><span class="n">i</span><span class="p">)</span> <span class="p">{</span>
-            <span class="n">Q</span><span class="p">.</span><span class="n">push</span><span class="p">(</span><span class="n">arr</span><span class="p">[</span><span class="n">i</span><span class="p">]);</span>
-        <span class="p">}</span>
-        <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="n">k</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="p">(</span><span class="kt">int</span><span class="p">)</span><span class="n">arr</span><span class="p">.</span><span class="n">size</span><span class="p">();</span> <span class="o">++</span><span class="n">i</span><span class="p">)</span> <span class="p">{</span>
-            <span class="k">if</span> <span class="p">(</span><span class="n">Q</span><span class="p">.</span><span class="n">top</span><span class="p">()</span> <span class="o">&gt;</span> <span class="n">arr</span><span class="p">[</span><span class="n">i</span><span class="p">])</span> <span class="p">{</span>
-                <span class="n">Q</span><span class="p">.</span><span class="n">pop</span><span class="p">();</span>
-                <span class="n">Q</span><span class="p">.</span><span class="n">push</span><span class="p">(</span><span class="n">arr</span><span class="p">[</span><span class="n">i</span><span class="p">]);</span>
-            <span class="p">}</span>
-        <span class="p">}</span>
-        <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">k</span><span class="p">;</span> <span class="o">++</span><span class="n">i</span><span class="p">)</span> <span class="p">{</span>
-            <span class="n">vec</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">Q</span><span class="p">.</span><span class="n">top</span><span class="p">();</span>
-            <span class="n">Q</span><span class="p">.</span><span class="n">pop</span><span class="p">();</span>
-        <span class="p">}</span>
-        <span class="k">return</span> <span class="n">vec</span><span class="p">;</span>
+    <span class="n">ListNode</span> <span class="o">*</span><span class="n">detectCycle</span><span class="p">(</span><span class="n">ListNode</span> <span class="o">*</span><span class="n">head</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">ListNode</span><span class="o">*</span> <span class="n">fast</span> <span class="o">=</span> <span class="n">head</span><span class="p">;</span>
+        <span class="n">ListNode</span><span class="o">*</span> <span class="n">slow</span> <span class="o">=</span> <span class="n">head</span><span class="p">;</span>
+        <span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="n">head</span><span class="p">)</span> <span class="k">return</span> <span class="k">nullptr</span><span class="p">;</span>
+         <span class="k">while</span><span class="p">(</span><span class="mi">1</span><span class="p">){</span>
+             <span class="n">fast</span> <span class="o">=</span> <span class="n">fast</span><span class="o">-&gt;</span><span class="n">next</span><span class="p">;</span>
+             <span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="n">fast</span><span class="p">)</span> <span class="k">return</span> <span class="k">nullptr</span><span class="p">;</span>
+             <span class="n">slow</span> <span class="o">=</span> <span class="n">slow</span><span class="o">-&gt;</span><span class="n">next</span><span class="p">;</span>
+             <span class="n">fast</span> <span class="o">=</span> <span class="n">fast</span><span class="o">-&gt;</span><span class="n">next</span><span class="p">;</span>
+             <span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="n">fast</span><span class="p">)</span> <span class="k">return</span> <span class="k">nullptr</span><span class="p">;</span>
+             <span class="k">if</span><span class="p">(</span><span class="n">fast</span><span class="o">==</span><span class="n">slow</span><span class="p">)</span> <span class="k">break</span><span class="p">;</span>
+         <span class="p">}</span>
+         <span class="n">ListNode</span><span class="o">*</span> <span class="n">temp</span> <span class="o">=</span> <span class="n">head</span><span class="p">;</span>
+         <span class="k">while</span><span class="p">(</span><span class="mi">1</span><span class="p">){</span>
+             <span class="k">if</span><span class="p">(</span><span class="n">temp</span><span class="o">==</span><span class="n">fast</span><span class="p">)</span> <span class="k">return</span> <span class="n">temp</span><span class="p">;</span>
+             <span class="n">temp</span> <span class="o">=</span> <span class="n">temp</span><span class="o">-&gt;</span><span class="n">next</span><span class="p">;</span>
+             <span class="n">fast</span> <span class="o">=</span> <span class="n">fast</span><span class="o">-&gt;</span><span class="n">next</span><span class="p">;</span>
+         <span class="p">}</span>
+         <span class="k">return</span> <span class="k">nullptr</span><span class="p">;</span>
+
     <span class="p">}</span>
 <span class="p">};</span>
-
-
 </code></pre></div>
     
 	</div>
@@ -153,6 +173,8 @@
   <a href="https://qkgoalkeeper.github.io/tags/leetcode">LeetCode</a>
   
   <a href="https://qkgoalkeeper.github.io/tags/c&#43;&#43;">C&#43;&#43;</a>
+  
+  <a href="https://qkgoalkeeper.github.io/tags/%E9%93%BE%E8%A1%A8">链表</a>
   
 </div>
 
@@ -170,7 +192,7 @@
 
 
   <div class="article-share" id="share">
-    <div data-url="https://qkgoalkeeper.github.io/post/leetcode%E6%AF%8F%E6%97%A5%E7%BB%83%E4%B9%A0%E5%89%91%E6%8C%87-offer-40.-%E6%9C%80%E5%B0%8F%E7%9A%84k%E4%B8%AA%E6%95%B0/" data-title="LeetCode每日练习：剑指 Offer 40. 最小的k个数" data-tsina="5852167252" class="share clearfix">
+    <div data-url="https://qkgoalkeeper.github.io/post/leetcode%E6%AF%8F%E6%97%A5%E7%BB%83%E4%B9%A0%E5%89%91%E6%8C%87-offer-ii-022.-%E9%93%BE%E8%A1%A8%E4%B8%AD%E7%8E%AF%E7%9A%84%E5%85%A5%E5%8F%A3%E8%8A%82%E7%82%B9/" data-title="LeetCode每日练习：剑指 Offer II 022. 链表中环的入口节点" data-tsina="5852167252" class="share clearfix">
     </div>
   </div>
 </footer>
