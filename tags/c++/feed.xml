@@ -6,7 +6,34 @@
     <description>Recent content in C&#43;&#43; on qkgoalkeeper&#39;s blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
-    <lastBuildDate>Thu, 17 Feb 2022 08:55:19 +0800</lastBuildDate><atom:link href="https://qkgoalkeeper.github.io/tags/c++/feed.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Fri, 18 Feb 2022 08:55:19 +0800</lastBuildDate><atom:link href="https://qkgoalkeeper.github.io/tags/c++/feed.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>LeetCode每日练习：剑指 Offer II 023. 两个链表的第一个重合节点</title>
+      <link>https://qkgoalkeeper.github.io/post/leetcode%E6%AF%8F%E6%97%A5%E7%BB%83%E4%B9%A0%E5%89%91%E6%8C%87-offer-ii-023.-%E4%B8%A4%E4%B8%AA%E9%93%BE%E8%A1%A8%E7%9A%84%E7%AC%AC%E4%B8%80%E4%B8%AA%E9%87%8D%E5%90%88%E8%8A%82%E7%82%B9/</link>
+      <pubDate>Fri, 18 Feb 2022 08:55:19 +0800</pubDate>
+      
+      <guid>https://qkgoalkeeper.github.io/post/leetcode%E6%AF%8F%E6%97%A5%E7%BB%83%E4%B9%A0%E5%89%91%E6%8C%87-offer-ii-023.-%E4%B8%A4%E4%B8%AA%E9%93%BE%E8%A1%A8%E7%9A%84%E7%AC%AC%E4%B8%80%E4%B8%AA%E9%87%8D%E5%90%88%E8%8A%82%E7%82%B9/</guid>
+      <description>一.剑指 Offer II 023. 两个链表的第一个重合节点 1.题干及思路 给定两个单链表的头节点 headA 和 headB ，请找出并返回两个单链表相交的起始节点。如果两个链表没有交点</description>
+    </item>
+    
+    <item>
+      <title>LeetCode每日练习：剑指 Offer II 024. 反转链表</title>
+      <link>https://qkgoalkeeper.github.io/post/leetcode%E6%AF%8F%E6%97%A5%E7%BB%83%E4%B9%A0%E5%89%91%E6%8C%87-offer-ii-024.-%E5%8F%8D%E8%BD%AC%E9%93%BE%E8%A1%A8/</link>
+      <pubDate>Fri, 18 Feb 2022 08:55:19 +0800</pubDate>
+      
+      <guid>https://qkgoalkeeper.github.io/post/leetcode%E6%AF%8F%E6%97%A5%E7%BB%83%E4%B9%A0%E5%89%91%E6%8C%87-offer-ii-024.-%E5%8F%8D%E8%BD%AC%E9%93%BE%E8%A1%A8/</guid>
+      <description>一.剑指 Offer II 024. 反转链表 1.题干及思路 给定单链表的头节点 head ，请反转链表，并返回反转后的链表的头节点。 示例 1： 输入：head = [1,2,3,4,5] 输出：[5,4,</description>
+    </item>
+    
+    <item>
+      <title>LeetCode每日练习：剑指 Offer II 025. 链表中的两数相加</title>
+      <link>https://qkgoalkeeper.github.io/post/leetcode%E6%AF%8F%E6%97%A5%E7%BB%83%E4%B9%A0%E5%89%91%E6%8C%87-offer-ii-025.-%E9%93%BE%E8%A1%A8%E4%B8%AD%E7%9A%84%E4%B8%A4%E6%95%B0%E7%9B%B8%E5%8A%A0/</link>
+      <pubDate>Fri, 18 Feb 2022 08:55:19 +0800</pubDate>
+      
+      <guid>https://qkgoalkeeper.github.io/post/leetcode%E6%AF%8F%E6%97%A5%E7%BB%83%E4%B9%A0%E5%89%91%E6%8C%87-offer-ii-025.-%E9%93%BE%E8%A1%A8%E4%B8%AD%E7%9A%84%E4%B8%A4%E6%95%B0%E7%9B%B8%E5%8A%A0/</guid>
+      <description>一.剑指 Offer II 025. 链表中的两数相加 1.题干及思路 给定两个 非空链表 l1和 l2 来代表两个非负整数。数字最高位位于链表开始位置。它们的每个节点只存储一位</description>
+    </item>
+    
     <item>
       <title>LeetCode每日练习：剑指 Offer II 022. 链表中环的入口节点</title>
       <link>https://qkgoalkeeper.github.io/post/leetcode%E6%AF%8F%E6%97%A5%E7%BB%83%E4%B9%A0%E5%89%91%E6%8C%87-offer-ii-022.-%E9%93%BE%E8%A1%A8%E4%B8%AD%E7%8E%AF%E7%9A%84%E5%85%A5%E5%8F%A3%E8%8A%82%E7%82%B9/</link>
