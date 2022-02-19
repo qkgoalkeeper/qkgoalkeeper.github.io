@@ -6,7 +6,25 @@
     <description>Recent content on qkgoalkeeper&#39;s blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
-    <lastBuildDate>Fri, 18 Feb 2022 08:55:19 +0800</lastBuildDate><atom:link href="https://qkgoalkeeper.github.io/feed.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sat, 19 Feb 2022 08:55:19 +0800</lastBuildDate><atom:link href="https://qkgoalkeeper.github.io/feed.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>LeetCode每日练习：剑指 Offer II 026. 重排链表</title>
+      <link>https://qkgoalkeeper.github.io/post/leetcode%E6%AF%8F%E6%97%A5%E7%BB%83%E4%B9%A0%E5%89%91%E6%8C%87-offer-ii-026.-%E9%87%8D%E6%8E%92%E9%93%BE%E8%A1%A8/</link>
+      <pubDate>Sat, 19 Feb 2022 08:55:19 +0800</pubDate>
+      
+      <guid>https://qkgoalkeeper.github.io/post/leetcode%E6%AF%8F%E6%97%A5%E7%BB%83%E4%B9%A0%E5%89%91%E6%8C%87-offer-ii-026.-%E9%87%8D%E6%8E%92%E9%93%BE%E8%A1%A8/</guid>
+      <description>一.剑指 Offer II 026. 重排链表 1.题干及思路 给定一个单链表 L 的头节点 head ，单链表 L 表示为： L0 → L1 → … → Ln-1 → Ln 请将其重新排列后变为： L0 → Ln → L1 → Ln-1 → L2 →</description>
+    </item>
+    
+    <item>
+      <title>LeetCode每日练习：剑指 Offer II 027. 回文链表</title>
+      <link>https://qkgoalkeeper.github.io/post/leetcode%E6%AF%8F%E6%97%A5%E7%BB%83%E4%B9%A0%E5%89%91%E6%8C%87-offer-ii-027.-%E5%9B%9E%E6%96%87%E9%93%BE%E8%A1%A8/</link>
+      <pubDate>Sat, 19 Feb 2022 08:55:19 +0800</pubDate>
+      
+      <guid>https://qkgoalkeeper.github.io/post/leetcode%E6%AF%8F%E6%97%A5%E7%BB%83%E4%B9%A0%E5%89%91%E6%8C%87-offer-ii-027.-%E5%9B%9E%E6%96%87%E9%93%BE%E8%A1%A8/</guid>
+      <description>一.剑指 Offer II 027. 回文链表 1.题干及思路 给定一个链表的 头节点 head **，**请判断其是否为回文链表。 如果一个链表是回文，那么链表节点序列从前往后看和</description>
+    </item>
+    
     <item>
       <title>LeetCode每日练习：剑指 Offer II 023. 两个链表的第一个重合节点</title>
       <link>https://qkgoalkeeper.github.io/post/leetcode%E6%AF%8F%E6%97%A5%E7%BB%83%E4%B9%A0%E5%89%91%E6%8C%87-offer-ii-023.-%E4%B8%A4%E4%B8%AA%E9%93%BE%E8%A1%A8%E7%9A%84%E7%AC%AC%E4%B8%80%E4%B8%AA%E9%87%8D%E5%90%88%E8%8A%82%E7%82%B9/</link>
