@@ -6,7 +6,25 @@
     <description>Recent content in 栈 on qkgoalkeeper&#39;s blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
-    <lastBuildDate>Fri, 25 Feb 2022 08:55:19 +0800</lastBuildDate><atom:link href="https://qkgoalkeeper.github.io/tags/%E6%A0%88/feed.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sat, 26 Feb 2022 07:55:19 +0800</lastBuildDate><atom:link href="https://qkgoalkeeper.github.io/tags/%E6%A0%88/feed.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>LeetCode每日练习：剑指 Offer II 039. 直方图最大矩形面积</title>
+      <link>https://qkgoalkeeper.github.io/post/leetcode%E6%AF%8F%E6%97%A5%E7%BB%83%E4%B9%A0%E5%89%91%E6%8C%87-offer-ii-039.-%E7%9B%B4%E6%96%B9%E5%9B%BE%E6%9C%80%E5%A4%A7%E7%9F%A9%E5%BD%A2%E9%9D%A2%E7%A7%AF/</link>
+      <pubDate>Sat, 26 Feb 2022 07:55:19 +0800</pubDate>
+      
+      <guid>https://qkgoalkeeper.github.io/post/leetcode%E6%AF%8F%E6%97%A5%E7%BB%83%E4%B9%A0%E5%89%91%E6%8C%87-offer-ii-039.-%E7%9B%B4%E6%96%B9%E5%9B%BE%E6%9C%80%E5%A4%A7%E7%9F%A9%E5%BD%A2%E9%9D%A2%E7%A7%AF/</guid>
+      <description>一.剑指 Offer II 039. 直方图最大矩形面积 1.题干及思路 给定非负整数数组 heights ，数组中的数字用来表示柱状图中各个柱子的高度。每个柱子彼此相邻，且宽度为 1 。</description>
+    </item>
+    
+    <item>
+      <title>LeetCode每日练习：剑指 Offer II 040. 矩阵中最大的矩形</title>
+      <link>https://qkgoalkeeper.github.io/post/leetcode%E6%AF%8F%E6%97%A5%E7%BB%83%E4%B9%A0%E5%89%91%E6%8C%87-offer-ii-040.-%E7%9F%A9%E9%98%B5%E4%B8%AD%E6%9C%80%E5%A4%A7%E7%9A%84%E7%9F%A9%E5%BD%A2/</link>
+      <pubDate>Sat, 26 Feb 2022 07:55:19 +0800</pubDate>
+      
+      <guid>https://qkgoalkeeper.github.io/post/leetcode%E6%AF%8F%E6%97%A5%E7%BB%83%E4%B9%A0%E5%89%91%E6%8C%87-offer-ii-040.-%E7%9F%A9%E9%98%B5%E4%B8%AD%E6%9C%80%E5%A4%A7%E7%9A%84%E7%9F%A9%E5%BD%A2/</guid>
+      <description>一.剑指 Offer II 040. 矩阵中最大的矩形 1.题干及思路 给定一个由 0 和 1 组成的矩阵 matrix ，找出只包含 1 的最大矩形，并返回其面积。 **注意：**此题 matrix 输入格式</description>
+    </item>
+    
     <item>
       <title>LeetCode每日练习：剑指 Offer II 038. 每日温度</title>
       <link>https://qkgoalkeeper.github.io/post/leetcode%E6%AF%8F%E6%97%A5%E7%BB%83%E4%B9%A0%E5%89%91%E6%8C%87-offer-ii-038.-%E6%AF%8F%E6%97%A5%E6%B8%A9%E5%BA%A6/</link>
