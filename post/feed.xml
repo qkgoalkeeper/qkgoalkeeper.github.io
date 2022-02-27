@@ -6,7 +6,25 @@
     <description>Recent content in Posts on qkgoalkeeper&#39;s blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
-    <lastBuildDate>Sat, 26 Feb 2022 07:55:19 +0800</lastBuildDate><atom:link href="https://qkgoalkeeper.github.io/post/feed.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 27 Feb 2022 08:55:19 +0800</lastBuildDate><atom:link href="https://qkgoalkeeper.github.io/post/feed.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>LeetCode每日练习：剑指 Offer II 042. 最近请求次数</title>
+      <link>https://qkgoalkeeper.github.io/post/leetcode%E6%AF%8F%E6%97%A5%E7%BB%83%E4%B9%A0%E5%89%91%E6%8C%87-offer-ii-042.-%E6%9C%80%E8%BF%91%E8%AF%B7%E6%B1%82%E6%AC%A1%E6%95%B0/</link>
+      <pubDate>Sun, 27 Feb 2022 08:55:19 +0800</pubDate>
+      
+      <guid>https://qkgoalkeeper.github.io/post/leetcode%E6%AF%8F%E6%97%A5%E7%BB%83%E4%B9%A0%E5%89%91%E6%8C%87-offer-ii-042.-%E6%9C%80%E8%BF%91%E8%AF%B7%E6%B1%82%E6%AC%A1%E6%95%B0/</guid>
+      <description>一.剑指 Offer II 042. 最近请求次数 1.题干及思路 写一个 RecentCounter 类来计算特定时间范围内最近的请求。 请实现 RecentCounter 类： RecentCounter() 初始化计数器，请求数为 0 。 int ping(int t) 在时间 t 添加</description>
+    </item>
+    
+    <item>
+      <title>LeetCode每日练习：剑指 Offer II 041. 滑动窗口的平均值</title>
+      <link>https://qkgoalkeeper.github.io/post/leetcode%E6%AF%8F%E6%97%A5%E7%BB%83%E4%B9%A0%E5%89%91%E6%8C%87-offer-ii-041.-%E6%BB%91%E5%8A%A8%E7%AA%97%E5%8F%A3%E7%9A%84%E5%B9%B3%E5%9D%87%E5%80%BC/</link>
+      <pubDate>Sun, 27 Feb 2022 07:55:19 +0800</pubDate>
+      
+      <guid>https://qkgoalkeeper.github.io/post/leetcode%E6%AF%8F%E6%97%A5%E7%BB%83%E4%B9%A0%E5%89%91%E6%8C%87-offer-ii-041.-%E6%BB%91%E5%8A%A8%E7%AA%97%E5%8F%A3%E7%9A%84%E5%B9%B3%E5%9D%87%E5%80%BC/</guid>
+      <description>一.剑指 Offer II 041. 滑动窗口的平均值 1.题干及思路 给定一个整数数据流和一个窗口大小，根据该滑动窗口的大小，计算滑动窗口里所有数字的平均值。 实现 MovingAverage 类</description>
+    </item>
+    
     <item>
       <title>LeetCode每日练习：剑指 Offer II 039. 直方图最大矩形面积</title>
       <link>https://qkgoalkeeper.github.io/post/leetcode%E6%AF%8F%E6%97%A5%E7%BB%83%E4%B9%A0%E5%89%91%E6%8C%87-offer-ii-039.-%E7%9B%B4%E6%96%B9%E5%9B%BE%E6%9C%80%E5%A4%A7%E7%9F%A9%E5%BD%A2%E9%9D%A2%E7%A7%AF/</link>
