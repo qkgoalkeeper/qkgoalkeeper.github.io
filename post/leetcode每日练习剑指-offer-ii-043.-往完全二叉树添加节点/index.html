@@ -2,13 +2,13 @@
 <html lang="zh-CN">
 <head>
   <meta charset="UTF-8">
-  <title>LeetCode每日练习：剑指 Offer 63. 股票的最大利润 - qkgoalkeeper&#39;s blog</title>
+  <title>LeetCode每日练习：剑指 Offer II 043. 往完全二叉树添加节点 - qkgoalkeeper&#39;s blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=3, minimum-scale=1">
   
-  <meta name="description" content="一.剑指 Offer 63. 股票的最大利润 1.题干及思路 假设把某股票的价格按照时间先后顺序存储在数组中，请问买卖该股票一次可能获得的最大利润是多少？ 示例 1: 输">
+  <meta name="description" content="一.剑指 Offer II 043. 往完全二叉树添加节点 1.题干及思路 完全二叉树是每一层（除最后一层外）都是完全填充（即，节点数达到最大，第 n 层有 2n-1 个节点）的，并">
   
-  <meta itemprop="name" content="LeetCode每日练习：剑指 Offer 63. 股票的最大利润 - qkgoalkeeper&#39;s blog">
-  <meta itemprop="description" content="一.剑指 Offer 63. 股票的最大利润 1.题干及思路 假设把某股票的价格按照时间先后顺序存储在数组中，请问买卖该股票一次可能获得的最大利润是多少？ 示例 1: 输">
+  <meta itemprop="name" content="LeetCode每日练习：剑指 Offer II 043. 往完全二叉树添加节点 - qkgoalkeeper&#39;s blog">
+  <meta itemprop="description" content="一.剑指 Offer II 043. 往完全二叉树添加节点 1.题干及思路 完全二叉树是每一层（除最后一层外）都是完全填充（即，节点数达到最大，第 n 层有 2n-1 个节点）的，并">
   <meta itemprop="image" content="https://qkgoalkeeper.github.io/img/author.jpg">
   
   
@@ -74,7 +74,7 @@
 	<article itemprop="articleBody">
     <header class="article-info clearfix">
   <h1 itemprop="name">
-      <a href="https://qkgoalkeeper.github.io/post/leetcode%E6%AF%8F%E6%97%A5%E7%BB%83%E4%B9%A0%E5%89%91%E6%8C%87-offer-63.-%E8%82%A1%E7%A5%A8%E7%9A%84%E6%9C%80%E5%A4%A7%E5%88%A9%E6%B6%A6/" title="LeetCode每日练习：剑指 Offer 63. 股票的最大利润" itemprop="url">LeetCode每日练习：剑指 Offer 63. 股票的最大利润</a>
+      <a href="https://qkgoalkeeper.github.io/post/leetcode%E6%AF%8F%E6%97%A5%E7%BB%83%E4%B9%A0%E5%89%91%E6%8C%87-offer-ii-043.-%E5%BE%80%E5%AE%8C%E5%85%A8%E4%BA%8C%E5%8F%89%E6%A0%91%E6%B7%BB%E5%8A%A0%E8%8A%82%E7%82%B9/" title="LeetCode每日练习：剑指 Offer II 043. 往完全二叉树添加节点" itemprop="url">LeetCode每日练习：剑指 Offer II 043. 往完全二叉树添加节点</a>
   </h1>
   <p class="article-author">By
     
@@ -82,7 +82,7 @@
     
   </p>
   <p class="article-time">
-    <time datetime="2022-02-02 10:55:19 &#43;0800 CST" itemprop="datePublished">2022年02月02日</time>
+    <time datetime="2022-02-28 08:55:19 &#43;0800 CST" itemprop="datePublished">2022年02月28日</time>
   </p>
 </header>
 
@@ -98,41 +98,85 @@
 </nav>
 		</div>
     
-    <h1 id="一剑指-offer-63-股票的最大利润httpsleetcode-cncomproblemsgu-piao-de-zui-da-li-run-lcof">一.<a href="https://leetcode-cn.com/problems/gu-piao-de-zui-da-li-run-lcof/">剑指 Offer 63. 股票的最大利润</a></h1>
+    <h1 id="一剑指-offer-ii-043-往完全二叉树添加节点httpsleetcode-cncomproblemsnaqhdt">一.<a href="https://leetcode-cn.com/problems/NaqhDT/">剑指 Offer II 043. 往完全二叉树添加节点</a></h1>
 <h2 id="1题干及思路">1.题干及思路</h2>
-<p>假设把某股票的价格按照时间先后顺序存储在数组中，请问买卖该股票一次可能获得的最大利润是多少？</p>
-<p><strong>示例 1:</strong></p>
-<pre tabindex="0"><code>输入: [7,1,5,3,6,4]
-输出: 5
-解释: 在第 2 天（股票价格 = 1）的时候买入，在第 5 天（股票价格 = 6）的时候卖出，最大利润 = 6-1 = 5 。
-     注意利润不能是 7-1 = 6, 因为卖出价格需要大于买入价格。
-</code></pre><p><strong>示例 2:</strong></p>
-<pre tabindex="0"><code>输入: [7,6,4,3,1]
-输出: 0
-解释: 在这种情况下, 没有交易完成, 所以最大利润为 0。
-</code></pre><p><strong>限制：</strong></p>
-<pre tabindex="0"><code>0 &lt;= 数组长度 &lt;= 10^5
-</code></pre><p>**注意：**本题与主站 121 题相同：https://leetcode-cn.com/problems/best-time-to-buy-and-sell-stock/</p>
-<p>要点：动态规划</p>
-<p>思路：dp[i]表示第i个位置卖出时盈利最大值，用min_price表示当前位置前的最小值，转移方程dp[i] = max(dp[i-1],prices[i]-min_price)</p>
+<p>完全二叉树是每一层（除最后一层外）都是完全填充（即，节点数达到最大，第 <code>n</code> 层有 <code>2n-1</code> 个节点）的，并且所有的节点都尽可能地集中在左侧。</p>
+<p>设计一个用完全二叉树初始化的数据结构 <code>CBTInserter</code>，它支持以下几种操作：</p>
+<ul>
+<li><code>CBTInserter(TreeNode root)</code> 使用根节点为 <code>root</code> 的给定树初始化该数据结构；</li>
+<li><code>CBTInserter.insert(int v)</code> 向树中插入一个新节点，节点类型为 <code>TreeNode</code>，值为 <code>v</code> 。使树保持完全二叉树的状态，<strong>并返回插入的新节点的父节点的值</strong>；</li>
+<li><code>CBTInserter.get_root()</code> 将返回树的根节点。</li>
+</ul>
+<p><strong>示例 1：</strong></p>
+<pre tabindex="0"><code>输入：inputs = [&quot;CBTInserter&quot;,&quot;insert&quot;,&quot;get_root&quot;], inputs = [[[1]],[2],[]]
+输出：[null,1,[1,2]]
+</code></pre><p><strong>示例 2：</strong></p>
+<pre tabindex="0"><code>输入：inputs = [&quot;CBTInserter&quot;,&quot;insert&quot;,&quot;insert&quot;,&quot;get_root&quot;], inputs = [[[1,2,3,4,5,6]],[7],[8],[]]
+输出：[null,3,4,[1,2,3,4,5,6,7,8]]
+</code></pre><p><strong>提示：</strong></p>
+<ul>
+<li>最初给定的树是完全二叉树，且包含 <code>1</code> 到 <code>1000</code> 个节点。</li>
+<li>每个测试用例最多调用 <code>CBTInserter.insert</code> 操作 <code>10000</code> 次。</li>
+<li>给定节点或插入节点的每个值都在 <code>0</code> 到 <code>5000</code> 之间。</li>
+</ul>
+<p>注意：本题与主站 919 题相同： <a href="https://leetcode-cn.com/problems/complete-binary-tree-inserter/">https://leetcode-cn.com/problems/complete-binary-tree-inserter/</a></p>
+<p>要点：树</p>
+<p>思路：bfs树的层次遍历，用队列进行层次遍历，用一个cur指针指向最先孩子节点未满的节点，新插入后更新cur指针</p>
 <h2 id="2c实现">2.C++实现</h2>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="k">class</span> <span class="nc">Solution</span> <span class="p">{</span>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="cm">/**
+</span><span class="cm"> * Definition for a binary tree node.
+</span><span class="cm"> * struct TreeNode {
+</span><span class="cm"> *     int val;
+</span><span class="cm"> *     TreeNode *left;
+</span><span class="cm"> *     TreeNode *right;
+</span><span class="cm"> *     TreeNode() : val(0), left(nullptr), right(nullptr) {}
+</span><span class="cm"> *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+</span><span class="cm"> *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
+</span><span class="cm"> * };
+</span><span class="cm"> */</span>
+<span class="k">class</span> <span class="nc">CBTInserter</span> <span class="p">{</span>
 <span class="k">public</span><span class="o">:</span>
-    <span class="kt">int</span> <span class="n">maxProfit</span><span class="p">(</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;&amp;</span> <span class="n">prices</span><span class="p">)</span> <span class="p">{</span>
-        <span class="kt">int</span> <span class="n">n</span> <span class="o">=</span> <span class="n">prices</span><span class="p">.</span><span class="n">size</span><span class="p">();</span>
-        <span class="k">if</span><span class="p">(</span><span class="n">n</span><span class="o">==</span><span class="mi">0</span><span class="p">)</span> <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
-        <span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">dp</span><span class="p">(</span><span class="n">n</span><span class="p">);</span>
-        <span class="n">dp</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span>
-        <span class="kt">int</span> <span class="n">min_price</span> <span class="o">=</span> <span class="n">prices</span><span class="p">[</span><span class="mi">0</span><span class="p">];</span>
-        <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span><span class="o">=</span><span class="mi">1</span><span class="p">;</span><span class="n">i</span><span class="o">&lt;</span><span class="n">n</span><span class="p">;</span><span class="n">i</span><span class="o">++</span><span class="p">){</span>
-            <span class="n">dp</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">max</span><span class="p">(</span><span class="n">dp</span><span class="p">[</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span><span class="n">prices</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">-</span><span class="n">min_price</span><span class="p">);</span>
-            <span class="n">min_price</span> <span class="o">=</span> <span class="n">min</span><span class="p">(</span><span class="n">min_price</span><span class="p">,</span><span class="n">prices</span><span class="p">[</span><span class="n">i</span><span class="p">]);</span>
+    <span class="n">TreeNode</span><span class="o">*</span><span class="n">mRoot</span><span class="p">;</span>
+    <span class="n">queue</span><span class="o">&lt;</span><span class="n">TreeNode</span><span class="o">*&gt;</span><span class="n">que</span><span class="p">;</span>
+    <span class="n">TreeNode</span><span class="o">*</span><span class="n">cur</span><span class="p">;</span>
+    <span class="n">CBTInserter</span><span class="p">(</span><span class="n">TreeNode</span><span class="o">*</span> <span class="n">root</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">mRoot</span><span class="o">=</span><span class="n">root</span><span class="p">;</span>
+        <span class="n">que</span><span class="p">.</span><span class="n">push</span><span class="p">(</span><span class="n">root</span><span class="p">);</span>
+        <span class="k">while</span><span class="p">(</span><span class="n">que</span><span class="p">.</span><span class="n">empty</span><span class="p">()</span><span class="o">==</span><span class="nb">false</span><span class="p">){</span>
+            <span class="n">TreeNode</span><span class="o">*</span><span class="n">node</span><span class="o">=</span><span class="n">que</span><span class="p">.</span><span class="n">front</span><span class="p">();</span><span class="n">que</span><span class="p">.</span><span class="n">pop</span><span class="p">();</span>
+            <span class="k">if</span><span class="p">(</span><span class="n">node</span><span class="o">-&gt;</span><span class="n">left</span><span class="p">)</span><span class="n">que</span><span class="p">.</span><span class="n">push</span><span class="p">(</span><span class="n">node</span><span class="o">-&gt;</span><span class="n">left</span><span class="p">);</span>
+            <span class="k">if</span><span class="p">(</span><span class="n">node</span><span class="o">-&gt;</span><span class="n">right</span><span class="p">)</span><span class="n">que</span><span class="p">.</span><span class="n">push</span><span class="p">(</span><span class="n">node</span><span class="o">-&gt;</span><span class="n">right</span><span class="p">);</span>
+            <span class="k">if</span><span class="p">(</span><span class="n">node</span><span class="o">-&gt;</span><span class="n">left</span><span class="o">==</span><span class="k">nullptr</span><span class="o">||</span><span class="n">node</span><span class="o">-&gt;</span><span class="n">right</span><span class="o">==</span><span class="k">nullptr</span><span class="p">){</span>
+                <span class="n">cur</span><span class="o">=</span><span class="n">node</span><span class="p">;</span>
+                <span class="k">break</span><span class="p">;</span>
+            <span class="p">}</span>
         <span class="p">}</span>
-        <span class="k">return</span> <span class="n">dp</span><span class="p">[</span><span class="n">n</span><span class="o">-</span><span class="mi">1</span><span class="p">];</span>
-
+    <span class="p">}</span>
+    <span class="kt">int</span> <span class="nf">insert</span><span class="p">(</span><span class="kt">int</span> <span class="n">val</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">if</span><span class="p">(</span><span class="n">cur</span><span class="o">-&gt;</span><span class="n">left</span><span class="o">==</span><span class="k">nullptr</span><span class="p">){</span>
+            <span class="n">cur</span><span class="o">-&gt;</span><span class="n">left</span><span class="o">=</span><span class="k">new</span> <span class="n">TreeNode</span><span class="p">(</span><span class="n">val</span><span class="p">);</span>
+            <span class="n">que</span><span class="p">.</span><span class="n">push</span><span class="p">(</span><span class="n">cur</span><span class="o">-&gt;</span><span class="n">left</span><span class="p">);</span>
+        <span class="p">}</span><span class="k">else</span> <span class="k">if</span><span class="p">(</span><span class="n">cur</span><span class="o">-&gt;</span><span class="n">right</span><span class="o">==</span><span class="k">nullptr</span><span class="p">){</span>
+            <span class="n">cur</span><span class="o">-&gt;</span><span class="n">right</span><span class="o">=</span><span class="k">new</span> <span class="n">TreeNode</span><span class="p">(</span><span class="n">val</span><span class="p">);</span>
+            <span class="n">que</span><span class="p">.</span><span class="n">push</span><span class="p">(</span><span class="n">cur</span><span class="o">-&gt;</span><span class="n">right</span><span class="p">);</span>
+        <span class="p">}</span>
+        <span class="kt">int</span> <span class="n">ans</span><span class="o">=</span><span class="n">cur</span><span class="o">-&gt;</span><span class="n">val</span><span class="p">;</span>
+        <span class="k">if</span><span class="p">(</span><span class="n">cur</span><span class="o">-&gt;</span><span class="n">right</span><span class="p">){</span>
+            <span class="n">cur</span><span class="o">=</span><span class="n">que</span><span class="p">.</span><span class="n">front</span><span class="p">();</span><span class="n">que</span><span class="p">.</span><span class="n">pop</span><span class="p">();</span>
+        <span class="p">}</span>
+        <span class="k">return</span> <span class="n">ans</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="n">TreeNode</span><span class="o">*</span> <span class="nf">get_root</span><span class="p">()</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="n">mRoot</span><span class="p">;</span>
     <span class="p">}</span>
 <span class="p">};</span>
 
+<span class="cm">/**
+</span><span class="cm"> * Your CBTInserter object will be instantiated and called as such:
+</span><span class="cm"> * CBTInserter* obj = new CBTInserter(root);
+</span><span class="cm"> * int param_1 = obj-&gt;insert(v);
+</span><span class="cm"> * TreeNode* param_2 = obj-&gt;get_root();
+</span><span class="cm"> */</span>
 </code></pre></div>
     
 	</div>
@@ -145,6 +189,10 @@
   <a href="https://qkgoalkeeper.github.io/tags/leetcode">LeetCode</a>
   
   <a href="https://qkgoalkeeper.github.io/tags/c&#43;&#43;">C&#43;&#43;</a>
+  
+  <a href="https://qkgoalkeeper.github.io/tags/%E6%A0%91">树</a>
+  
+  <a href="https://qkgoalkeeper.github.io/tags/bfs">bfs</a>
   
 </div>
 
@@ -162,7 +210,7 @@
 
 
   <div class="article-share" id="share">
-    <div data-url="https://qkgoalkeeper.github.io/post/leetcode%E6%AF%8F%E6%97%A5%E7%BB%83%E4%B9%A0%E5%89%91%E6%8C%87-offer-63.-%E8%82%A1%E7%A5%A8%E7%9A%84%E6%9C%80%E5%A4%A7%E5%88%A9%E6%B6%A6/" data-title="LeetCode每日练习：剑指 Offer 63. 股票的最大利润" data-tsina="5852167252" class="share clearfix">
+    <div data-url="https://qkgoalkeeper.github.io/post/leetcode%E6%AF%8F%E6%97%A5%E7%BB%83%E4%B9%A0%E5%89%91%E6%8C%87-offer-ii-043.-%E5%BE%80%E5%AE%8C%E5%85%A8%E4%BA%8C%E5%8F%89%E6%A0%91%E6%B7%BB%E5%8A%A0%E8%8A%82%E7%82%B9/" data-title="LeetCode每日练习：剑指 Offer II 043. 往完全二叉树添加节点" data-tsina="5852167252" class="share clearfix">
     </div>
   </div>
 </footer>
