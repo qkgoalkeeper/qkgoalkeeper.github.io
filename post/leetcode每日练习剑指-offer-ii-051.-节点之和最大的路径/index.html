@@ -2,18 +2,18 @@
 <html lang="zh-CN">
 <head>
   <meta charset="UTF-8">
-  <title>栈 - qkgoalkeeper&#39;s blog</title>
+  <title>LeetCode每日练习：剑指 Offer II 051. 节点之和最大的路径 - qkgoalkeeper&#39;s blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=3, minimum-scale=1">
   
-  <meta name="description" content="栈">
+  <meta name="description" content="一.剑指 Offer II 051. 节点之和最大的路径 1.题干及思路 路径 被定义为一条从树中任意节点出发，沿父节点-子节点连接，达到任意节点的序列。同一个节点在一条">
   
-  <meta itemprop="name" content="栈 - qkgoalkeeper&#39;s blog">
-  <meta itemprop="description" content="栈">
+  <meta itemprop="name" content="LeetCode每日练习：剑指 Offer II 051. 节点之和最大的路径 - qkgoalkeeper&#39;s blog">
+  <meta itemprop="description" content="一.剑指 Offer II 051. 节点之和最大的路径 1.题干及思路 路径 被定义为一条从树中任意节点出发，沿父节点-子节点连接，达到任意节点的序列。同一个节点在一条">
   <meta itemprop="image" content="https://qkgoalkeeper.github.io/img/author.jpg">
   
   
   <meta name="twitter:description" content="">
-  <link rel="alternate" href="https://qkgoalkeeper.github.io/feed.xml" title="qkgoalkeeper&#39;s blog" type="application/rss+xml"/>
+  
   <link rel="shortcut icon" href="https://qkgoalkeeper.github.io/img/favicon.ico"/>
   <link rel="apple-touch-icon" href="https://qkgoalkeeper.github.io/apple-touch-icon.png" />
   <link rel="apple-touch-icon-precomposed" href="https://qkgoalkeeper.github.io/apple-touch-icon.png" />
@@ -70,90 +70,134 @@
 
   </header>
   <div id="container">
-    <div id="main">
-      
-      <h2 id="2022-02">2022-02</h2>
-      
-      <section class="post" itemscope itemprop="blogPost">
-    <a href="https://qkgoalkeeper.github.io/post/leetcode%E6%AF%8F%E6%97%A5%E7%BB%83%E4%B9%A0%E5%89%91%E6%8C%87-offer-ii-040.-%E7%9F%A9%E9%98%B5%E4%B8%AD%E6%9C%80%E5%A4%A7%E7%9A%84%E7%9F%A9%E5%BD%A2/" title="LeetCode每日练习：剑指 Offer II 040. 矩阵中最大的矩形" itemprop="url">
-    <h1 itemprop="name">LeetCode每日练习：剑指 Offer II 040. 矩阵中最大的矩形</h1>
-    <p itemprop="description">一.剑指 Offer II 040. 矩阵中最大的矩形 1.题干及思路 给定一个由 0 和 1 组成的矩阵 matrix ，找出只包含 1 的最大矩形，并返回其面积。 **注意：**此题 matrix 输入格式</p>
-    <time datetime="2022-02-26 07:55:19 &#43;0800 CST" itemprop="datePublished">2022年02月26日</time>
-  </a>
-</section>
+    <div id="main" class="post" itemscope itemprop="blogPost">
+	<article itemprop="articleBody">
+    <header class="article-info clearfix">
+  <h1 itemprop="name">
+      <a href="https://qkgoalkeeper.github.io/post/leetcode%E6%AF%8F%E6%97%A5%E7%BB%83%E4%B9%A0%E5%89%91%E6%8C%87-offer-ii-051.-%E8%8A%82%E7%82%B9%E4%B9%8B%E5%92%8C%E6%9C%80%E5%A4%A7%E7%9A%84%E8%B7%AF%E5%BE%84/" title="LeetCode每日练习：剑指 Offer II 051. 节点之和最大的路径" itemprop="url">LeetCode每日练习：剑指 Offer II 051. 节点之和最大的路径</a>
+  </h1>
+  <p class="article-author">By
+    
+      <a href="https://qkgoalkeeper.github.io/" title="qk">qk</a>
+    
+  </p>
+  <p class="article-time">
+    <time datetime="2022-03-04 09:55:19 &#43;0800 CST" itemprop="datePublished">2022年03月04日</time>
+  </p>
+</header>
 
-      
-      <section class="post" itemscope itemprop="blogPost">
-    <a href="https://qkgoalkeeper.github.io/post/leetcode%E6%AF%8F%E6%97%A5%E7%BB%83%E4%B9%A0%E5%89%91%E6%8C%87-offer-ii-039.-%E7%9B%B4%E6%96%B9%E5%9B%BE%E6%9C%80%E5%A4%A7%E7%9F%A9%E5%BD%A2%E9%9D%A2%E7%A7%AF/" title="LeetCode每日练习：剑指 Offer II 039. 直方图最大矩形面积" itemprop="url">
-    <h1 itemprop="name">LeetCode每日练习：剑指 Offer II 039. 直方图最大矩形面积</h1>
-    <p itemprop="description">一.剑指 Offer II 039. 直方图最大矩形面积 1.题干及思路 给定非负整数数组 heights ，数组中的数字用来表示柱状图中各个柱子的高度。每个柱子彼此相邻，且宽度为 1 。</p>
-    <time datetime="2022-02-26 07:55:19 &#43;0800 CST" itemprop="datePublished">2022年02月26日</time>
-  </a>
-</section>
+	<div class="article-content">
+    
+		<div class="toc-article">
+			<strong class="toc-title">文章目录</strong>
+      <nav id="TableOfContents">
+  <ul>
+    <li><a href="#1题干及思路">1.题干及思路</a></li>
+    <li><a href="#2c实现">2.C++实现</a></li>
+  </ul>
+</nav>
+		</div>
+    
+    <h1 id="一剑指-offer-ii-051-节点之和最大的路径httpsleetcode-cncomproblemsjc7mid">一.<a href="https://leetcode-cn.com/problems/jC7MId/">剑指 Offer II 051. 节点之和最大的路径</a></h1>
+<h2 id="1题干及思路">1.题干及思路</h2>
+<p><strong>路径</strong> 被定义为一条从树中任意节点出发，沿父节点-子节点连接，达到任意节点的序列。同一个节点在一条路径序列中 <strong>至多出现一次</strong> 。该路径 <strong>至少包含一个</strong> 节点，且不一定经过根节点。</p>
+<p><strong>路径和</strong> 是路径中各节点值的总和。</p>
+<p>给定一个二叉树的根节点 <code>root</code> ，返回其 <strong>最大路径和</strong>，即所有路径上节点值之和的最大值。</p>
+<p><strong>示例 1：</strong></p>
+<p><img src="https://assets.leetcode.com/uploads/2020/10/13/exx1.jpg" alt="img"></p>
+<pre tabindex="0"><code>输入：root = [1,2,3]
+输出：6
+解释：最优路径是 2 -&gt; 1 -&gt; 3 ，路径和为 2 + 1 + 3 = 6
+</code></pre><p><strong>示例 2：</strong></p>
+<p><img src="https://assets.leetcode.com/uploads/2020/10/13/exx2.jpg" alt="img"></p>
+<pre tabindex="0"><code>输入：root = [-10,9,20,null,null,15,7]
+输出：42
+解释：最优路径是 15 -&gt; 20 -&gt; 7 ，路径和为 15 + 20 + 7 = 42
+</code></pre><p><strong>提示：</strong></p>
+<ul>
+<li>树中节点数目范围是 <code>[1, 3 * 104]</code></li>
+<li><code>-1000 &lt;= Node.val &lt;= 1000</code></li>
+</ul>
+<p>注意：本题与主站 124 题相同： <a href="https://leetcode-cn.com/problems/binary-tree-maximum-path-sum/">https://leetcode-cn.com/problems/binary-tree-maximum-path-sum/</a></p>
+<p>要点：dfs</p>
+<p>思路：后序遍历，采用递归的方式先处理左右孩子节点再处理当前节点</p>
+<h2 id="2c实现">2.C++实现</h2>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="cm">/**
+</span><span class="cm"> * Definition for a binary tree node.
+</span><span class="cm"> * struct TreeNode {
+</span><span class="cm"> *     int val;
+</span><span class="cm"> *     TreeNode *left;
+</span><span class="cm"> *     TreeNode *right;
+</span><span class="cm"> *     TreeNode() : val(0), left(nullptr), right(nullptr) {}
+</span><span class="cm"> *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+</span><span class="cm"> *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
+</span><span class="cm"> * };
+</span><span class="cm"> */</span>
+<span class="k">class</span> <span class="nc">Solution</span> <span class="p">{</span>
+<span class="k">public</span><span class="o">:</span>
+    <span class="kt">int</span> <span class="n">maxPathSum</span><span class="p">(</span><span class="n">TreeNode</span><span class="o">*</span> <span class="n">root</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">ret</span> <span class="o">=</span> <span class="n">INT_MIN</span><span class="p">;</span>
+        <span class="n">dfs</span><span class="p">(</span><span class="n">root</span><span class="p">);</span>
+        <span class="k">return</span> <span class="n">ret</span><span class="p">;</span>
+    <span class="p">}</span>
 
-      
-      <section class="post" itemscope itemprop="blogPost">
-    <a href="https://qkgoalkeeper.github.io/post/leetcode%E6%AF%8F%E6%97%A5%E7%BB%83%E4%B9%A0%E5%89%91%E6%8C%87-offer-ii-038.-%E6%AF%8F%E6%97%A5%E6%B8%A9%E5%BA%A6/" title="LeetCode每日练习：剑指 Offer II 038. 每日温度" itemprop="url">
-    <h1 itemprop="name">LeetCode每日练习：剑指 Offer II 038. 每日温度</h1>
-    <p itemprop="description">一.剑指 Offer II 038. 每日温度 1.题干及思路 请根据每日 气温 列表 temperatures ，重新生成一个列表，要求其对应位置的输出为：要想观测到更高的气温，至少需要等待的天数</p>
-    <time datetime="2022-02-25 08:55:19 &#43;0800 CST" itemprop="datePublished">2022年02月25日</time>
-  </a>
-</section>
+<span class="k">private</span><span class="o">:</span>
+    <span class="kt">int</span> <span class="n">ret</span><span class="p">;</span>
+    <span class="kt">int</span> <span class="nf">dfs</span><span class="p">(</span><span class="n">TreeNode</span><span class="o">*</span> <span class="n">root</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">root</span> <span class="o">==</span> <span class="k">nullptr</span><span class="p">)</span> <span class="p">{</span>
+            <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+        <span class="p">}</span>
+        <span class="kt">int</span> <span class="n">left</span> <span class="o">=</span> <span class="n">max</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">dfs</span><span class="p">(</span><span class="n">root</span><span class="o">-&gt;</span><span class="n">left</span><span class="p">));</span>
+        <span class="kt">int</span> <span class="n">right</span> <span class="o">=</span> <span class="n">max</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">dfs</span><span class="p">(</span><span class="n">root</span><span class="o">-&gt;</span><span class="n">right</span><span class="p">));</span>
+        <span class="n">ret</span> <span class="o">=</span> <span class="n">max</span><span class="p">(</span><span class="n">ret</span><span class="p">,</span> <span class="n">left</span> <span class="o">+</span> <span class="n">right</span> <span class="o">+</span> <span class="n">root</span><span class="o">-&gt;</span><span class="n">val</span><span class="p">);</span>
+        <span class="k">return</span> <span class="n">root</span><span class="o">-&gt;</span><span class="n">val</span> <span class="o">+</span> <span class="n">max</span><span class="p">(</span><span class="n">left</span><span class="p">,</span> <span class="n">right</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">};</span>
+</code></pre></div>
+    
+	</div>
+  <footer class="article-footer clearfix">
+  
 
-      
-      <section class="post" itemscope itemprop="blogPost">
-    <a href="https://qkgoalkeeper.github.io/post/leetcode%E6%AF%8F%E6%97%A5%E7%BB%83%E4%B9%A0%E5%89%91%E6%8C%87-offer-ii-037.-%E5%B0%8F%E8%A1%8C%E6%98%9F%E7%A2%B0%E6%92%9E/" title="LeetCode每日练习：剑指 Offer II 037. 小行星碰撞" itemprop="url">
-    <h1 itemprop="name">LeetCode每日练习：剑指 Offer II 037. 小行星碰撞</h1>
-    <p itemprop="description">一.剑指 Offer II 037. 小行星碰撞 1.题干及思路 给定一个整数数组 asteroids，表示在同一行的小行星。 对于数组中的每一个元素，其绝对值表示小行星的</p>
-    <time datetime="2022-02-25 07:55:19 &#43;0800 CST" itemprop="datePublished">2022年02月25日</time>
-  </a>
-</section>
+<div class="article-tags">
+  <span></span>
+  
+  <a href="https://qkgoalkeeper.github.io/tags/leetcode">LeetCode</a>
+  
+  <a href="https://qkgoalkeeper.github.io/tags/c&#43;&#43;">C&#43;&#43;</a>
+  
+  <a href="https://qkgoalkeeper.github.io/tags/%E6%A0%91">树</a>
+  
+  <a href="https://qkgoalkeeper.github.io/tags/dfs">dfs</a>
+  
+</div>
 
-      
-      <section class="post" itemscope itemprop="blogPost">
-    <a href="https://qkgoalkeeper.github.io/post/leetcode%E6%AF%8F%E6%97%A5%E7%BB%83%E4%B9%A0%E5%89%91%E6%8C%87-offer-ii-036.-%E5%90%8E%E7%BC%80%E8%A1%A8%E8%BE%BE%E5%BC%8F/" title="LeetCode每日练习：剑指 Offer II 036. 后缀表达式" itemprop="url">
-    <h1 itemprop="name">LeetCode每日练习：剑指 Offer II 036. 后缀表达式</h1>
-    <p itemprop="description">一.剑指 Offer II 036. 后缀表达式 1.题干及思路 根据逆波兰表示法，求该后缀表达式的计算结果。 有效的算符包括 +、-、*、/ 。每个运算对象可以是整数，也可</p>
-    <time datetime="2022-02-24 08:55:19 &#43;0800 CST" itemprop="datePublished">2022年02月24日</time>
-  </a>
-</section>
 
-      
-      
-      <h2 id="2022-01">2022-01</h2>
-      
-      <section class="post" itemscope itemprop="blogPost">
-    <a href="https://qkgoalkeeper.github.io/post/leetcode%E6%AF%8F%E6%97%A5%E7%BB%83%E4%B9%A0%E5%89%91%E6%8C%87-offer-31.-%E6%A0%88%E7%9A%84%E5%8E%8B%E5%85%A5%E5%BC%B9%E5%87%BA%E5%BA%8F%E5%88%97/" title="LeetCode每日练习：剑指 Offer 31. 栈的压入、弹出序列" itemprop="url">
-    <h1 itemprop="name">LeetCode每日练习：剑指 Offer 31. 栈的压入、弹出序列</h1>
-    <p itemprop="description">一.剑指 Offer 31. 栈的压入、弹出序列 1.题干及思路 输入两个整数序列，第一个序列表示栈的压入顺序，请判断第二个序列是否为该栈的弹出顺序。假设压入栈的</p>
-    <time datetime="2022-01-21 10:55:19 &#43;0800 CST" itemprop="datePublished">2022年01月21日</time>
-  </a>
-</section>
 
-      
-      <section class="post" itemscope itemprop="blogPost">
-    <a href="https://qkgoalkeeper.github.io/post/leetcode%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98739.-%E6%AF%8F%E6%97%A5%E6%B8%A9%E5%BA%A6/" title="LeetCode每日一题：739. 每日温度" itemprop="url">
-    <h1 itemprop="name">LeetCode每日一题：739. 每日温度</h1>
-    <p itemprop="description">一.739. 每日温度 1.题干及思路 请根据每日 气温 列表 temperatures ，请计算在每一天需要等几天才会有更高的温度。如果气温在这之后都不会升高，请在该位置用 0</p>
-    <time datetime="2022-01-08 10:55:19 &#43;0800 CST" itemprop="datePublished">2022年01月08日</time>
-  </a>
-</section>
 
-      
-      
-      <h2 id="2021-12">2021-12</h2>
-      
-      <section class="post" itemscope itemprop="blogPost">
-    <a href="https://qkgoalkeeper.github.io/post/leetcode%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98394.-%E5%AD%97%E7%AC%A6%E4%B8%B2%E8%A7%A3%E7%A0%81/" title="LeetCode每日一题：394. 字符串解码" itemprop="url">
-    <h1 itemprop="name">LeetCode每日一题：394. 字符串解码</h1>
-    <p itemprop="description">一.394. 字符串解码 1.题干及思路 给定一个经过编码的字符串，返回它解码后的字符串。 编码规则为: k[encoded_string]，表示其中</p>
-    <time datetime="2021-12-30 10:55:19 &#43;0800 CST" itemprop="datePublished">2021年12月30日</time>
-  </a>
-</section>
 
-      
-      
+<div class="article-categories">
+  <span></span>
+  
+  <a class="article-category-link" href="https://qkgoalkeeper.github.io/categories/%E5%A4%A7%E5%9B%9Bleetcode%E7%AE%97%E6%B3%95%E5%88%B7%E9%A2%98">大四LeetCode算法刷题</a>
+  
+</div>
+
+
+
+  <div class="article-share" id="share">
+    <div data-url="https://qkgoalkeeper.github.io/post/leetcode%E6%AF%8F%E6%97%A5%E7%BB%83%E4%B9%A0%E5%89%91%E6%8C%87-offer-ii-051.-%E8%8A%82%E7%82%B9%E4%B9%8B%E5%92%8C%E6%9C%80%E5%A4%A7%E7%9A%84%E8%B7%AF%E5%BE%84/" data-title="LeetCode每日练习：剑指 Offer II 051. 节点之和最大的路径" data-tsina="5852167252" class="share clearfix">
     </div>
+  </div>
+</footer>
+
+	</article>
+  
+
+
+
+</div>
+
     <div class="openaside"><a class="navbutton" href="#" title="显示侧边栏"></a></div>
 <div id="asidepart">
 <div class="closeaside"><a class="closebutton" href="#" title="隐藏侧边栏"></a></div>
@@ -393,10 +437,6 @@
 
 
   
-<div class="rsspart">
-  <a rel="nofollow" href="https://qkgoalkeeper.github.io/feed.xml" type="application/rss+xml" target="_blank">RSS 订阅</a>
-</div>
-
 
 </aside>
 </div>
@@ -482,6 +522,38 @@ $(document).ready(function(){
 
 <script type="text/javascript">
 $(document).ready(function(){
+  var ai = $('.article-content>iframe'),
+      ae = $('.article-content>embed'),
+      t  = $('#toc'),
+      h  = $('article h2')
+      ah = $('article h2'),
+      ta = $('#toc.toc-aside'),
+      o  = $('.openaside'),
+      c  = $('.closeaside');
+  if(ai.length>0){
+    ai.wrap('<div class="video-container" />');
+  };
+  if(ae.length>0){
+   ae.wrap('<div class="video-container" />');
+  };
+  if(ah.length==0){
+    t.css('display','none');
+  }else{
+    c.click(function(){
+      ta.css('display', 'block').addClass('fadeIn');
+    });
+    o.click(function(){
+      ta.css('display', 'none');
+    });
+    $(window).scroll(function(){
+      ta.css("top",Math.max(140,320-$(this).scrollTop()));
+    });
+  };
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){
   var $this = $('.share'),
       url = $this.attr('data-url'),
       encodedUrl = encodeURIComponent(url),
@@ -508,6 +580,27 @@ $(document).ready(function(){
 });
 </script>
 
+
+<link rel="stylesheet" href="https://qkgoalkeeper.github.io/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="https://qkgoalkeeper.github.io/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){
+  $('.article-content').each(function(i){
+    $(this).find('img').each(function(){
+      if ($(this).parent().hasClass('fancybox')) return;
+      var alt = this.alt;
+      if (alt) $(this).after('<span class="caption">' + alt + '</span>');
+      $(this).wrap('<a href="' + this.src + '" title="' + alt + '" class="fancybox"></a>');
+    });
+    $(this).find('.fancybox').each(function(){
+      $(this).attr('rel', 'article' + i);
+    });
+  });
+  if($.fancybox){
+    $('.fancybox').fancybox();
+  }
+});
+</script>
 
 
 
