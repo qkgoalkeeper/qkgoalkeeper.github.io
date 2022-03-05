@@ -2,13 +2,13 @@
 <html lang="zh-CN">
 <head>
   <meta charset="UTF-8">
-  <title>LeetCode简单题：225. 用队列实现栈（Python,C&#43;&#43;,Java） - qkgoalkeeper&#39;s blog</title>
+  <title>LeetCode每日练习：剑指 Offer II 052. 展平二叉搜索树 - qkgoalkeeper&#39;s blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=3, minimum-scale=1">
   
-  <meta name="description" content="一.解法 https://leetcode-cn.com/problems/implement-stack-using-queues/ 要点：队列 Python，C&#43;&#43;，Java都用了单队列模拟栈，关键在于push新元素之后要将前面所有的元素pop然后重新push到队">
+  <meta name="description" content="一.剑指 Offer II 052. 展平二叉搜索树 1.题干及思路 给你一棵二叉搜索树，请 按中序遍历 将其重新排列为一棵递增顺序搜索树，使树中最左边的节点成为树的根节点">
   
-  <meta itemprop="name" content="LeetCode简单题：225. 用队列实现栈（Python,C&#43;&#43;,Java） - qkgoalkeeper&#39;s blog">
-  <meta itemprop="description" content="一.解法 https://leetcode-cn.com/problems/implement-stack-using-queues/ 要点：队列 Python，C&#43;&#43;，Java都用了单队列模拟栈，关键在于push新元素之后要将前面所有的元素pop然后重新push到队">
+  <meta itemprop="name" content="LeetCode每日练习：剑指 Offer II 052. 展平二叉搜索树 - qkgoalkeeper&#39;s blog">
+  <meta itemprop="description" content="一.剑指 Offer II 052. 展平二叉搜索树 1.题干及思路 给你一棵二叉搜索树，请 按中序遍历 将其重新排列为一棵递增顺序搜索树，使树中最左边的节点成为树的根节点">
   <meta itemprop="image" content="https://qkgoalkeeper.github.io/img/author.jpg">
   
   
@@ -74,7 +74,7 @@
 	<article itemprop="articleBody">
     <header class="article-info clearfix">
   <h1 itemprop="name">
-      <a href="https://qkgoalkeeper.github.io/post/leetcode%E7%AE%80%E5%8D%95%E9%A2%98225.-%E7%94%A8%E9%98%9F%E5%88%97%E5%AE%9E%E7%8E%B0%E6%A0%88pythonc&#43;&#43;java/" title="LeetCode简单题：225. 用队列实现栈（Python,C&#43;&#43;,Java）" itemprop="url">LeetCode简单题：225. 用队列实现栈（Python,C&#43;&#43;,Java）</a>
+      <a href="https://qkgoalkeeper.github.io/post/leetcode%E6%AF%8F%E6%97%A5%E7%BB%83%E4%B9%A0%E5%89%91%E6%8C%87-offer-ii-052.-%E5%B1%95%E5%B9%B3%E4%BA%8C%E5%8F%89%E6%90%9C%E7%B4%A2%E6%A0%91/" title="LeetCode每日练习：剑指 Offer II 052. 展平二叉搜索树" itemprop="url">LeetCode每日练习：剑指 Offer II 052. 展平二叉搜索树</a>
   </h1>
   <p class="article-author">By
     
@@ -82,7 +82,7 @@
     
   </p>
   <p class="article-time">
-    <time datetime="2020-08-13 17:55:19 &#43;0800 CST" itemprop="datePublished">2020年08月13日</time>
+    <time datetime="2022-03-05 09:55:19 &#43;0800 CST" itemprop="datePublished">2022年03月05日</time>
   </p>
 </header>
 
@@ -92,158 +92,65 @@
 			<strong class="toc-title">文章目录</strong>
       <nav id="TableOfContents">
   <ul>
-    <li><a href="#一解法">一.解法</a></li>
-    <li><a href="#二python实现">二.Python实现</a></li>
-    <li><a href="#三c实现">三.C++实现</a></li>
-    <li><a href="#四java实现">四.java实现</a></li>
+    <li><a href="#1题干及思路">1.题干及思路</a></li>
+    <li><a href="#2c实现">2.C++实现</a></li>
   </ul>
 </nav>
 		</div>
     
-    <h2 id="一解法">一.解法</h2>
-<p><a href="https://leetcode-cn.com/problems/implement-stack-using-queues/">https://leetcode-cn.com/problems/implement-stack-using-queues/</a><br>
-要点：队列<br>
-Python，C++，Java都用了单队列模拟栈，关键在于push新元素之后要将前面所有的元素pop然后重新push到队尾让新元素到第一个pop位置。</p>
-<h2 id="二python实现">二.Python实现</h2>
-<pre tabindex="0"><code>class MyStack:
+    <h1 id="一剑指-offer-ii-052-展平二叉搜索树httpsleetcode-cncomproblemsnybbnl">一.<a href="https://leetcode-cn.com/problems/NYBBNL/">剑指 Offer II 052. 展平二叉搜索树</a></h1>
+<h2 id="1题干及思路">1.题干及思路</h2>
+<p>给你一棵二叉搜索树，请 <strong>按中序遍历</strong> 将其重新排列为一棵递增顺序搜索树，使树中最左边的节点成为树的根节点，并且每个节点没有左子节点，只有一个右子节点。</p>
+<p><strong>示例 1：</strong></p>
+<p><img src="https://assets.leetcode.com/uploads/2020/11/17/ex1.jpg" alt="img"></p>
+<pre tabindex="0"><code>输入：root = [5,3,6,2,4,null,8,1,null,null,null,7,9]
+输出：[1,null,2,null,3,null,4,null,5,null,6,null,7,null,8,null,9]
+</code></pre><p><strong>示例 2：</strong></p>
+<p><img src="https://assets.leetcode.com/uploads/2020/11/17/ex2.jpg" alt="img"></p>
+<pre tabindex="0"><code>输入：root = [5,1,7]
+输出：[1,null,5,null,7]
+</code></pre><p><strong>提示：</strong></p>
+<ul>
+<li>树中节点数的取值范围是 <code>[1, 100]</code></li>
+<li><code>0 &lt;= Node.val &lt;= 1000</code></li>
+</ul>
+<p>注意：本题与主站 897 题相同： <a href="https://leetcode-cn.com/problems/increasing-order-search-tree/">https://leetcode-cn.com/problems/increasing-order-search-tree/</a></p>
+<p>要点：dfs</p>
+<p>思路：中序遍历，注意用一个假头结点开始，每次添加新节点时注意把left置为nullptr</p>
+<h2 id="2c实现">2.C++实现</h2>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="cm">/**
+</span><span class="cm"> * Definition for a binary tree node.
+</span><span class="cm"> * struct TreeNode {
+</span><span class="cm"> *     int val;
+</span><span class="cm"> *     TreeNode *left;
+</span><span class="cm"> *     TreeNode *right;
+</span><span class="cm"> *     TreeNode() : val(0), left(nullptr), right(nullptr) {}
+</span><span class="cm"> *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+</span><span class="cm"> *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
+</span><span class="cm"> * };
+</span><span class="cm"> */</span>
+<span class="k">class</span> <span class="nc">Solution</span> <span class="p">{</span>
+<span class="k">public</span><span class="o">:</span>
+    <span class="n">TreeNode</span><span class="o">*</span> <span class="n">temp</span><span class="p">;</span>
+    <span class="kt">void</span> <span class="nf">dfs</span><span class="p">(</span><span class="n">TreeNode</span><span class="o">*</span> <span class="n">root</span><span class="p">){</span>
+        <span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="n">root</span><span class="p">)</span> <span class="k">return</span><span class="p">;</span>
+        <span class="n">dfs</span><span class="p">(</span><span class="n">root</span><span class="o">-&gt;</span><span class="n">left</span><span class="p">);</span>
+        <span class="n">root</span><span class="o">-&gt;</span><span class="n">left</span> <span class="o">=</span> <span class="k">nullptr</span><span class="p">;</span>
+        <span class="n">temp</span><span class="o">-&gt;</span><span class="n">right</span> <span class="o">=</span> <span class="n">root</span><span class="p">;</span>
+        <span class="n">temp</span> <span class="o">=</span> <span class="n">temp</span><span class="o">-&gt;</span><span class="n">right</span><span class="p">;</span>
+        <span class="n">dfs</span><span class="p">(</span><span class="n">root</span><span class="o">-&gt;</span><span class="n">right</span><span class="p">);</span>
+    <span class="p">}</span>
 
-    def __init__(self):
-        &quot;&quot;&quot;
-        Initialize your data structure here.
-        &quot;&quot;&quot;
-        self.q = []
-
-    def push(self, x: int) -&gt; None:
-        &quot;&quot;&quot;
-        Push element x onto stack.
-        &quot;&quot;&quot;
-        self.q.append(x)
-        q_length = len(self.q)
-        while q_length &gt; 1:
-            self.q.append(self.q.pop(0)) #反转前n-1个元素，栈顶元素始终保留在队首
-            q_length -= 1
-
-    def pop(self) -&gt; int:
-        &quot;&quot;&quot;
-        Removes the element on top of the stack and returns that element.
-        &quot;&quot;&quot;
-        return self.q.pop(0)
-
-    def top(self) -&gt; int:
-        &quot;&quot;&quot;
-        Get the top element.
-        &quot;&quot;&quot;
-        return self.q[0]
-
-
-    def empty(self) -&gt; bool:
-        &quot;&quot;&quot;
-        Returns whether the stack is empty.
-        &quot;&quot;&quot;
-        return not bool(self.q)
-
-# Your MyStack object will be instantiated and called as such:
-# obj = MyStack()
-# obj.push(x)
-# param_2 = obj.pop()
-# param_3 = obj.top()
-# param_4 = obj.empty()
-</code></pre><h2 id="三c实现">三.C++实现</h2>
-<pre tabindex="0"><code>class MyStack {
-public:
-    /** Initialize your data structure here. */
-    MyStack() {
-        
-    }
-    queue &lt;int&gt; a;
-    
-    /** Push element x onto stack. */
-    void push(int x) {
-        a.push(x);
-    }
-    
-    /** Removes the element on top of the stack and returns that element. */
-    int pop() {
-        for(int i=0;i&lt;a.size()-1;i++)
-        {a.push(a.front());a.pop();}
-        int temp=a.front();
-        a.pop();
-        return temp;
-    }
-    
-    /** Get the top element. */
-    int top() {
-         for(int i=0;i&lt;a.size()-1;i++)
-        {a.push(a.front());a.pop();}
-        int temp=a.front();
-        a.push(a.front());
-        a.pop();
-        return temp;
-    }
-    
-    /** Returns whether the stack is empty. */
-    bool empty() {
-        return a.empty();
-    }
-};
-
-/**
- * Your MyStack object will be instantiated and called as such:
- * MyStack* obj = new MyStack();
- * obj-&gt;push(x);
- * int param_2 = obj-&gt;pop();
- * int param_3 = obj-&gt;top();
- * bool param_4 = obj-&gt;empty();
- */
-</code></pre><h2 id="四java实现">四.java实现</h2>
-<pre tabindex="0"><code>class MyStack {
-
-    /** Initialize your data structure here. */
-    public MyStack() {
-        
-    }
-
-    private LinkedList&lt;Integer&gt; q1 = new LinkedList&lt;&gt;();
-
-    
-    /** Push element x onto stack. */
-    public void push(int x) {
-        q1.add(x);
-        int sz = q1.size();
-        while (sz &gt; 1) {
-            q1.add(q1.remove());
-            sz--;
-        }
-    }
-
-    /** Removes the element on top of the stack and returns that element. */
-    public int pop() {
-        return q1.remove();
-    }
-    
-    /** Get the top element. */
-    public int top() {
-       return q1.peek();
-
-    }
-    
-    /** Returns whether the stack is empty. */
-    public boolean empty() {
-        
-        return q1.isEmpty();
-
-    }
-}
-
-/**
- * Your MyStack object will be instantiated and called as such:
- * MyStack obj = new MyStack();
- * obj.push(x);
- * int param_2 = obj.pop();
- * int param_3 = obj.top();
- * boolean param_4 = obj.empty();
- */
-</code></pre>
+    <span class="n">TreeNode</span><span class="o">*</span> <span class="nf">increasingBST</span><span class="p">(</span><span class="n">TreeNode</span><span class="o">*</span> <span class="n">root</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">TreeNode</span><span class="o">*</span> <span class="n">answer</span> <span class="o">=</span> <span class="k">new</span> <span class="n">TreeNode</span><span class="p">();</span>
+        <span class="n">temp</span> <span class="o">=</span> <span class="n">answer</span><span class="p">;</span>
+        <span class="n">dfs</span><span class="p">(</span><span class="n">root</span><span class="p">);</span>
+        <span class="n">temp</span> <span class="o">=</span> <span class="n">answer</span><span class="o">-&gt;</span><span class="n">right</span><span class="p">;</span>
+        <span class="k">delete</span> <span class="n">answer</span><span class="p">;</span>
+        <span class="k">return</span> <span class="n">temp</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">};</span>
+</code></pre></div>
     
 	</div>
   <footer class="article-footer clearfix">
@@ -254,6 +161,8 @@ public:
   
   <a href="https://qkgoalkeeper.github.io/tags/leetcode">LeetCode</a>
   
+  <a href="https://qkgoalkeeper.github.io/tags/c&#43;&#43;">C&#43;&#43;</a>
+  
 </div>
 
 
@@ -263,14 +172,14 @@ public:
 <div class="article-categories">
   <span></span>
   
-  <a class="article-category-link" href="https://qkgoalkeeper.github.io/categories/leetcode%E7%AE%80%E5%8D%95%E9%A2%98201-300">LeetCode简单题201-300</a>
+  <a class="article-category-link" href="https://qkgoalkeeper.github.io/categories/%E5%A4%A7%E5%9B%9Bleetcode%E7%AE%97%E6%B3%95%E5%88%B7%E9%A2%98">大四LeetCode算法刷题</a>
   
 </div>
 
 
 
   <div class="article-share" id="share">
-    <div data-url="https://qkgoalkeeper.github.io/post/leetcode%E7%AE%80%E5%8D%95%E9%A2%98225.-%E7%94%A8%E9%98%9F%E5%88%97%E5%AE%9E%E7%8E%B0%E6%A0%88pythonc&#43;&#43;java/" data-title="LeetCode简单题：225. 用队列实现栈（Python,C&#43;&#43;,Java）" data-tsina="5852167252" class="share clearfix">
+    <div data-url="https://qkgoalkeeper.github.io/post/leetcode%E6%AF%8F%E6%97%A5%E7%BB%83%E4%B9%A0%E5%89%91%E6%8C%87-offer-ii-052.-%E5%B1%95%E5%B9%B3%E4%BA%8C%E5%8F%89%E6%90%9C%E7%B4%A2%E6%A0%91/" data-title="LeetCode每日练习：剑指 Offer II 052. 展平二叉搜索树" data-tsina="5852167252" class="share clearfix">
     </div>
   </div>
 </footer>
