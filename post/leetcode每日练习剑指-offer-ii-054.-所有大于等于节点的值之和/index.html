@@ -2,13 +2,13 @@
 <html lang="zh-CN">
 <head>
   <meta charset="UTF-8">
-  <title>LeetCode简单题：67. 二进制求和（Python,C&#43;&#43;,Java） - qkgoalkeeper&#39;s blog</title>
+  <title>LeetCode每日练习：剑指 Offer II 054. 所有大于等于节点的值之和 - qkgoalkeeper&#39;s blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=3, minimum-scale=1">
   
-  <meta name="description" content="一.解法 https://leetcode-cn.com/problems/add-binary/ 要点：char的运算 Python采用暴力转int然后相加转二进制 C&#43;&#43;和Java则用模拟计算进位，逢二进一的方法 字符串中拿到每一个">
+  <meta name="description" content="一.剑指 Offer II 054. 所有大于等于节点的值之和 1.题干及思路 给定一个二叉搜索树，请将它的每个节点的值替换成树中大于或者等于该节点值的所有节点值之和。">
   
-  <meta itemprop="name" content="LeetCode简单题：67. 二进制求和（Python,C&#43;&#43;,Java） - qkgoalkeeper&#39;s blog">
-  <meta itemprop="description" content="一.解法 https://leetcode-cn.com/problems/add-binary/ 要点：char的运算 Python采用暴力转int然后相加转二进制 C&#43;&#43;和Java则用模拟计算进位，逢二进一的方法 字符串中拿到每一个">
+  <meta itemprop="name" content="LeetCode每日练习：剑指 Offer II 054. 所有大于等于节点的值之和 - qkgoalkeeper&#39;s blog">
+  <meta itemprop="description" content="一.剑指 Offer II 054. 所有大于等于节点的值之和 1.题干及思路 给定一个二叉搜索树，请将它的每个节点的值替换成树中大于或者等于该节点值的所有节点值之和。">
   <meta itemprop="image" content="https://qkgoalkeeper.github.io/img/author.jpg">
   
   
@@ -74,7 +74,7 @@
 	<article itemprop="articleBody">
     <header class="article-info clearfix">
   <h1 itemprop="name">
-      <a href="https://qkgoalkeeper.github.io/post/leetcode%E7%AE%80%E5%8D%95%E9%A2%9867.-%E4%BA%8C%E8%BF%9B%E5%88%B6%E6%B1%82%E5%92%8Cpythonc&#43;&#43;java/" title="LeetCode简单题：67. 二进制求和（Python,C&#43;&#43;,Java）" itemprop="url">LeetCode简单题：67. 二进制求和（Python,C&#43;&#43;,Java）</a>
+      <a href="https://qkgoalkeeper.github.io/post/leetcode%E6%AF%8F%E6%97%A5%E7%BB%83%E4%B9%A0%E5%89%91%E6%8C%87-offer-ii-054.-%E6%89%80%E6%9C%89%E5%A4%A7%E4%BA%8E%E7%AD%89%E4%BA%8E%E8%8A%82%E7%82%B9%E7%9A%84%E5%80%BC%E4%B9%8B%E5%92%8C/" title="LeetCode每日练习：剑指 Offer II 054. 所有大于等于节点的值之和" itemprop="url">LeetCode每日练习：剑指 Offer II 054. 所有大于等于节点的值之和</a>
   </h1>
   <p class="article-author">By
     
@@ -82,7 +82,7 @@
     
   </p>
   <p class="article-time">
-    <time datetime="2020-08-13 17:55:19 &#43;0800 CST" itemprop="datePublished">2020年08月13日</time>
+    <time datetime="2022-03-07 09:55:19 &#43;0800 CST" itemprop="datePublished">2022年03月07日</time>
   </p>
 </header>
 
@@ -92,87 +92,79 @@
 			<strong class="toc-title">文章目录</strong>
       <nav id="TableOfContents">
   <ul>
-    <li><a href="#一解法">一.解法</a></li>
-    <li><a href="#二python实现">二.Python实现</a></li>
-    <li><a href="#三c实现">三.C++实现</a></li>
-    <li><a href="#四java实现">四.java实现</a></li>
+    <li><a href="#1题干及思路">1.题干及思路</a></li>
+    <li><a href="#2c实现">2.C++实现</a></li>
   </ul>
 </nav>
 		</div>
     
-    <h2 id="一解法">一.解法</h2>
-<p><a href="https://leetcode-cn.com/problems/add-binary/">https://leetcode-cn.com/problems/add-binary/</a><br>
-要点：char的运算<br>
-Python采用暴力转int然后相加转二进制<br>
-C++和Java则用模拟计算进位，逢二进一的方法<br>
-字符串中拿到每一个数字后<br>
-处理两个字符串长度可能不一致，在短的前面添0<br>
-保存两个数字之和用string，需要翻转</p>
-<h2 id="二python实现">二.Python实现</h2>
-<pre tabindex="0"><code>class Solution:
-    def addBinary(self, a: str, b: str) -&gt; str:
+    <h1 id="一剑指-offer-ii-054-所有大于等于节点的值之和httpsleetcode-cncomproblemsw6cpku">一.<a href="https://leetcode-cn.com/problems/w6cpku/">剑指 Offer II 054. 所有大于等于节点的值之和</a></h1>
+<h2 id="1题干及思路">1.题干及思路</h2>
+<p>给定一个二叉搜索树，请将它的每个节点的值替换成树中大于或者等于该节点值的所有节点值之和。</p>
+<p>提醒一下，二叉搜索树满足下列约束条件：</p>
+<ul>
+<li>节点的左子树仅包含键 <strong>小于</strong> 节点键的节点。</li>
+<li>节点的右子树仅包含键 <strong>大于</strong> 节点键的节点。</li>
+<li>左右子树也必须是二叉搜索树。</li>
+</ul>
+<p><strong>示例 1：</strong></p>
+<p><strong><img src="https://assets.leetcode-cn.com/aliyun-lc-upload/uploads/2019/05/03/tree.png" alt="img"></strong></p>
+<pre tabindex="0"><code>输入：root = [4,1,6,0,2,5,7,null,null,null,3,null,null,null,8]
+输出：[30,36,21,36,35,26,15,null,null,null,33,null,null,null,8]
+</code></pre><p><strong>示例 2：</strong></p>
+<pre tabindex="0"><code>输入：root = [0,null,1]
+输出：[1,null,1]
+</code></pre><p><strong>示例 3：</strong></p>
+<pre tabindex="0"><code>输入：root = [1,0,2]
+输出：[3,3,2]
+</code></pre><p><strong>示例 4：</strong></p>
+<pre tabindex="0"><code>输入：root = [3,2,4,1]
+输出：[7,9,4,10]
+</code></pre><p><strong>提示：</strong></p>
+<ul>
+<li>树中的节点数介于 <code>0</code> 和 <code>104</code> 之间。</li>
+<li>每个节点的值介于 <code>-104</code> 和 <code>104</code> 之间。</li>
+<li>树中的所有值 <strong>互不相同</strong> 。</li>
+<li>给定的树为二叉搜索树。</li>
+</ul>
+<p>注意：</p>
+<ul>
+<li>本题与主站 538 题相同： <a href="https://leetcode-cn.com/problems/convert-bst-to-greater-tree/">https://leetcode-cn.com/problems/convert-bst-to-greater-tree/</a></li>
+<li>本题与主站 1038 题相同：https://leetcode-cn.com/problems/binary-search-tree-to-greater-sum-tree/</li>
+</ul>
+<p>要点：dfs</p>
+<p>思路：中序遍历，不过是先右子树再中间再左子树的顺序，用一个变量记录当前和</p>
+<h2 id="2c实现">2.C++实现</h2>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="cm">/**
+</span><span class="cm"> * Definition for a binary tree node.
+</span><span class="cm"> * struct TreeNode {
+</span><span class="cm"> *     int val;
+</span><span class="cm"> *     TreeNode *left;
+</span><span class="cm"> *     TreeNode *right;
+</span><span class="cm"> *     TreeNode() : val(0), left(nullptr), right(nullptr) {}
+</span><span class="cm"> *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+</span><span class="cm"> *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
+</span><span class="cm"> * };
+</span><span class="cm"> */</span>
+<span class="k">class</span> <span class="nc">Solution</span> <span class="p">{</span>
+<span class="k">public</span><span class="o">:</span>
+    <span class="kt">int</span> <span class="n">sum</span><span class="p">;</span>
+    <span class="kt">void</span> <span class="nf">dfs</span><span class="p">(</span><span class="n">TreeNode</span><span class="o">*</span> <span class="n">root</span><span class="p">){</span>
+        <span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="n">root</span><span class="p">)</span> <span class="k">return</span><span class="p">;</span>
+        <span class="n">dfs</span><span class="p">(</span><span class="n">root</span><span class="o">-&gt;</span><span class="n">right</span><span class="p">);</span>
+        <span class="kt">int</span> <span class="n">temp</span> <span class="o">=</span> <span class="n">sum</span><span class="p">;</span>
+        <span class="n">sum</span><span class="o">+=</span><span class="n">root</span><span class="o">-&gt;</span><span class="n">val</span><span class="p">;</span>
+        <span class="n">root</span><span class="o">-&gt;</span><span class="n">val</span> <span class="o">=</span> <span class="n">root</span><span class="o">-&gt;</span><span class="n">val</span><span class="o">+</span><span class="n">temp</span><span class="p">;</span>
+        <span class="n">dfs</span><span class="p">(</span><span class="n">root</span><span class="o">-&gt;</span><span class="n">left</span><span class="p">);</span>
+    <span class="p">}</span>
 
-        return '{:b}'.format(int(a, 2) + int(b, 2))
-</code></pre><h2 id="三c实现">三.C++实现</h2>
-<pre tabindex="0"><code>class Solution {
-public:
-    string addBinary(string a, string b) {
-        int al = a.size();
-        int bl = b.size();
-        while(al &lt; bl) //让两个字符串等长，若不等长，在短的字符串前补零，否则之后的操作会超出索引
-        {
-            a = '0' + a; al++;
-        }
-        while(al &gt; bl)
-        {
-            b = '0' + b; bl++;
-       
-        }
-        for(int j = a.size() - 1; j &gt; 0; -- j) //从后到前遍历所有的位数，同位相加
-        {
-            a[j] = a[j] - '0' + b[j];
-            if(a[j] &gt;=  '2') //若大于等于字符‘2’，需要进一
-            {
-                a[j] = (a[j] - '0') % 2 + '0';
-                a[j-1] = a[j-1] + 1;
-            }
-        }
-        a[0] = a[0] - '0' + b[0]; //将ab的第0位相加
-        if(a[0] &gt;= '2') //若大于等于2，需要进一
-        {
-            a[0] = (a[0] - '0') % 2 + '0';
-            a = '1' + a;
-        }
-        return a;
-    }
-};
-</code></pre><h2 id="四java实现">四.java实现</h2>
-<pre tabindex="0"><code>class Solution {
-    public String addBinary(String a, String b) {
-    //计算个位的位置
-    int indexa = a.length() - 1;
-    int indexb = b.length() - 1;
-    //存储计算结果
-    StringBuilder res = new StringBuilder();
-    //存储进位
-    int carry = 0;
-    for( ;indexa&gt;=0||indexb&gt;=0; indexa--,indexb--){
-        //如果短字符串循环完了,就用0补位
-        char valuea = indexa&lt;0?'0':a.charAt(indexa);
-        char valueb = indexb&lt;0?'0':b.charAt(indexb);
-        int sum = (valuea-'0') + (valueb-'0') + carry;
-        res.append(sum % 2);
-        carry = sum / 2;
-    }
-    //两个字符串都遍历完成后,判断是仍否存在进位
-    if(carry&gt;0){
-        res.append(carry);
-    }
-    return res.reverse().toString();
-}
-
-}
-</code></pre>
+    <span class="n">TreeNode</span><span class="o">*</span> <span class="nf">convertBST</span><span class="p">(</span><span class="n">TreeNode</span><span class="o">*</span> <span class="n">root</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">sum</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+        <span class="n">dfs</span><span class="p">(</span><span class="n">root</span><span class="p">);</span>
+        <span class="k">return</span> <span class="n">root</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">};</span>
+</code></pre></div>
     
 	</div>
   <footer class="article-footer clearfix">
@@ -183,6 +175,12 @@ public:
   
   <a href="https://qkgoalkeeper.github.io/tags/leetcode">LeetCode</a>
   
+  <a href="https://qkgoalkeeper.github.io/tags/c&#43;&#43;">C&#43;&#43;</a>
+  
+  <a href="https://qkgoalkeeper.github.io/tags/dfs">dfs</a>
+  
+  <a href="https://qkgoalkeeper.github.io/tags/%E6%A0%91">树</a>
+  
 </div>
 
 
@@ -192,14 +190,14 @@ public:
 <div class="article-categories">
   <span></span>
   
-  <a class="article-category-link" href="https://qkgoalkeeper.github.io/categories/leetcode%E7%AE%80%E5%8D%95%E9%A2%981-100">LeetCode简单题1-100</a>
+  <a class="article-category-link" href="https://qkgoalkeeper.github.io/categories/%E5%A4%A7%E5%9B%9Bleetcode%E7%AE%97%E6%B3%95%E5%88%B7%E9%A2%98">大四LeetCode算法刷题</a>
   
 </div>
 
 
 
   <div class="article-share" id="share">
-    <div data-url="https://qkgoalkeeper.github.io/post/leetcode%E7%AE%80%E5%8D%95%E9%A2%9867.-%E4%BA%8C%E8%BF%9B%E5%88%B6%E6%B1%82%E5%92%8Cpythonc&#43;&#43;java/" data-title="LeetCode简单题：67. 二进制求和（Python,C&#43;&#43;,Java）" data-tsina="5852167252" class="share clearfix">
+    <div data-url="https://qkgoalkeeper.github.io/post/leetcode%E6%AF%8F%E6%97%A5%E7%BB%83%E4%B9%A0%E5%89%91%E6%8C%87-offer-ii-054.-%E6%89%80%E6%9C%89%E5%A4%A7%E4%BA%8E%E7%AD%89%E4%BA%8E%E8%8A%82%E7%82%B9%E7%9A%84%E5%80%BC%E4%B9%8B%E5%92%8C/" data-title="LeetCode每日练习：剑指 Offer II 054. 所有大于等于节点的值之和" data-tsina="5852167252" class="share clearfix">
     </div>
   </div>
 </footer>
