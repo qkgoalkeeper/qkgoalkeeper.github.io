@@ -2,13 +2,13 @@
 <html lang="zh-CN">
 <head>
   <meta charset="UTF-8">
-  <title>LeetCode每日练习：剑指 Offer 10- I. 斐波那契数列 - qkgoalkeeper&#39;s blog</title>
+  <title>LeetCode每日练习：剑指 Offer II 058. 日程表 - qkgoalkeeper&#39;s blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=3, minimum-scale=1">
   
-  <meta name="description" content="一.剑指 Offer 10- I. 斐波那契数列 1.题干及思路 写一个函数，输入 n ，求斐波那契（Fibonacci）数列的第 n 项（即 F(N)）。斐波那契数列的定义如">
+  <meta name="description" content="一.剑指 Offer II 058. 日程表 1.题干及思路 请实现一个 MyCalendar 类来存放你的日程安排。如果要添加的时间内没有其他安排，则可以存储这个新的日程安排。 MyCalendar 有一个 book(int start,">
   
-  <meta itemprop="name" content="LeetCode每日练习：剑指 Offer 10- I. 斐波那契数列 - qkgoalkeeper&#39;s blog">
-  <meta itemprop="description" content="一.剑指 Offer 10- I. 斐波那契数列 1.题干及思路 写一个函数，输入 n ，求斐波那契（Fibonacci）数列的第 n 项（即 F(N)）。斐波那契数列的定义如">
+  <meta itemprop="name" content="LeetCode每日练习：剑指 Offer II 058. 日程表 - qkgoalkeeper&#39;s blog">
+  <meta itemprop="description" content="一.剑指 Offer II 058. 日程表 1.题干及思路 请实现一个 MyCalendar 类来存放你的日程安排。如果要添加的时间内没有其他安排，则可以存储这个新的日程安排。 MyCalendar 有一个 book(int start,">
   <meta itemprop="image" content="https://qkgoalkeeper.github.io/img/author.jpg">
   
   
@@ -74,7 +74,7 @@
 	<article itemprop="articleBody">
     <header class="article-info clearfix">
   <h1 itemprop="name">
-      <a href="https://qkgoalkeeper.github.io/post/leetcode%E6%AF%8F%E6%97%A5%E7%BB%83%E4%B9%A0%E5%89%91%E6%8C%87-offer-10-i.-%E6%96%90%E6%B3%A2%E9%82%A3%E5%A5%91%E6%95%B0%E5%88%97/" title="LeetCode每日练习：剑指 Offer 10- I. 斐波那契数列" itemprop="url">LeetCode每日练习：剑指 Offer 10- I. 斐波那契数列</a>
+      <a href="https://qkgoalkeeper.github.io/post/leetcode%E6%AF%8F%E6%97%A5%E7%BB%83%E4%B9%A0%E5%89%91%E6%8C%87-offer-ii-058.-%E6%97%A5%E7%A8%8B%E8%A1%A8/" title="LeetCode每日练习：剑指 Offer II 058. 日程表" itemprop="url">LeetCode每日练习：剑指 Offer II 058. 日程表</a>
   </h1>
   <p class="article-author">By
     
@@ -82,7 +82,7 @@
     
   </p>
   <p class="article-time">
-    <time datetime="2022-01-09 10:55:19 &#43;0800 CST" itemprop="datePublished">2022年01月09日</time>
+    <time datetime="2022-03-11 09:55:19 &#43;0800 CST" itemprop="datePublished">2022年03月11日</time>
   </p>
 </header>
 
@@ -98,64 +98,59 @@
 </nav>
 		</div>
     
-    <h1 id="一剑指-offer-10--i-斐波那契数列httpsleetcode-cncomproblemsfei-bo-na-qi-shu-lie-lcof">一.<a href="https://leetcode-cn.com/problems/fei-bo-na-qi-shu-lie-lcof/">剑指 Offer 10- I. 斐波那契数列</a></h1>
+    <h1 id="一剑指-offer-ii-058-日程表httpsleetcode-cncomproblemsfi9suh">一.<a href="https://leetcode-cn.com/problems/fi9suh/">剑指 Offer II 058. 日程表</a></h1>
 <h2 id="1题干及思路">1.题干及思路</h2>
-<p>写一个函数，输入 <code>n</code> ，求斐波那契（Fibonacci）数列的第 <code>n</code> 项（即 <code>F(N)</code>）。斐波那契数列的定义如下：</p>
-<pre tabindex="0"><code>F(0) = 0,   F(1) = 1
-F(N) = F(N - 1) + F(N - 2), 其中 N &gt; 1.
-</code></pre><p>斐波那契数列由 0 和 1 开始，之后的斐波那契数就是由之前的两数相加而得出。</p>
-<p>答案需要取模 1e9+7（1000000007），如计算初始结果为：1000000008，请返回 1。</p>
-<p><strong>示例 1：</strong></p>
-<pre tabindex="0"><code>输入：n = 2
-输出：1
-</code></pre><p><strong>示例 2：</strong></p>
-<pre tabindex="0"><code>输入：n = 5
-输出：5
+<p>请实现一个 <code>MyCalendar</code> 类来存放你的日程安排。如果要添加的时间内没有其他安排，则可以存储这个新的日程安排。</p>
+<p><code>MyCalendar</code> 有一个 <code>book(int start, int end)</code>方法。它意味着在 start 到 end 时间内增加一个日程安排，注意，这里的时间是半开区间，即 <code>[start, end)</code>, 实数 <code>x</code> 的范围为，  <code>start &lt;= x &lt; end</code>。</p>
+<p>当两个日程安排有一些时间上的交叉时（例如两个日程安排都在同一时间内），就会产生重复预订。</p>
+<p>每次调用 <code>MyCalendar.book</code>方法时，如果可以将日程安排成功添加到日历中而不会导致重复预订，返回 <code>true</code>。否则，返回 <code>false</code> 并且不要将该日程安排添加到日历中。</p>
+<p>请按照以下步骤调用 <code>MyCalendar</code> 类: <code>MyCalendar cal = new MyCalendar();</code> <code>MyCalendar.book(start, end)</code></p>
+<p><strong>示例:</strong></p>
+<pre tabindex="0"><code>输入:
+[&quot;MyCalendar&quot;,&quot;book&quot;,&quot;book&quot;,&quot;book&quot;]
+[[],[10,20],[15,25],[20,30]]
+输出: [null,true,false,true]
+解释: 
+MyCalendar myCalendar = new MyCalendar();
+MyCalendar.book(10, 20); // returns true 
+MyCalendar.book(15, 25); // returns false ，第二个日程安排不能添加到日历中，因为时间 15 已经被第一个日程安排预定了
+MyCalendar.book(20, 30); // returns true ，第三个日程安排可以添加到日历中，因为第一个日程安排并不包含时间 20 
 </code></pre><p><strong>提示：</strong></p>
 <ul>
-<li><code>0 &lt;= n &lt;= 100</code></li>
+<li>每个测试用例，调用 <code>MyCalendar.book</code> 函数最多不超过 <code>1000</code>次。</li>
+<li><code>0 &lt;= start &lt; end &lt;= 109</code></li>
 </ul>
-<p>要点：矩阵计算</p>
-<p>思路：快速计算矩阵 M={{1, 1}, {1, 0}} 的 n次幂后取[0][0]位置即为答案，用到线性代数知识</p>
+<p>注意：本题与主站 729 题相同： <a href="https://leetcode-cn.com/problems/my-calendar-i/">https://leetcode-cn.com/problems/my-calendar-i/</a></p>
+<p>要点：哈希表，map</p>
+<p>思路：c++的map用红黑树实现，有着自动排序的功能，lower_bound可以二分法返回第一个比目标大的值</p>
 <h2 id="2c实现">2.C++实现</h2>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="k">class</span> <span class="nc">Solution</span> <span class="p">{</span>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="k">class</span> <span class="nc">MyCalendar</span> <span class="p">{</span>
+<span class="k">private</span><span class="o">:</span>
+    <span class="n">map</span><span class="o">&lt;</span><span class="kt">int</span><span class="p">,</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">calendar</span><span class="p">;</span>
 <span class="k">public</span><span class="o">:</span>
-    <span class="k">const</span> <span class="kt">int</span> <span class="n">MOD</span> <span class="o">=</span> <span class="mi">1000000007</span><span class="p">;</span>
-
-    <span class="kt">int</span> <span class="nf">fib</span><span class="p">(</span><span class="kt">int</span> <span class="n">n</span><span class="p">)</span> <span class="p">{</span>
-        <span class="k">if</span> <span class="p">(</span><span class="n">n</span> <span class="o">&lt;</span> <span class="mi">2</span><span class="p">)</span> <span class="p">{</span>
-            <span class="k">return</span> <span class="n">n</span><span class="p">;</span>
-        <span class="p">}</span>
-        <span class="n">vector</span><span class="o">&lt;</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">long</span><span class="o">&gt;&gt;</span> <span class="n">q</span><span class="p">{{</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">},</span> <span class="p">{</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">}};</span>
-        <span class="n">vector</span><span class="o">&lt;</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">long</span><span class="o">&gt;&gt;</span> <span class="n">res</span> <span class="o">=</span> <span class="n">pow</span><span class="p">(</span><span class="n">q</span><span class="p">,</span> <span class="n">n</span> <span class="o">-</span> <span class="mi">1</span><span class="p">);</span>
-        <span class="k">return</span> <span class="n">res</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">];</span>
+    <span class="n">MyCalendar</span><span class="p">()</span> <span class="p">{</span>
+        
     <span class="p">}</span>
-
-    <span class="c1">//矩阵
-</span><span class="c1"></span>    <span class="n">vector</span><span class="o">&lt;</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">long</span><span class="o">&gt;&gt;</span> <span class="n">pow</span><span class="p">(</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">long</span><span class="o">&gt;&gt;&amp;</span> <span class="n">a</span><span class="p">,</span> <span class="kt">int</span> <span class="n">n</span><span class="p">)</span> <span class="p">{</span>
-        <span class="n">vector</span><span class="o">&lt;</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">long</span><span class="o">&gt;&gt;</span> <span class="n">answer</span> <span class="o">=</span> <span class="p">{{</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">},{</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">}};</span>
-        <span class="k">while</span><span class="p">(</span><span class="n">n</span><span class="o">&gt;</span><span class="mi">0</span><span class="p">){</span>
-            <span class="k">if</span><span class="p">(</span><span class="n">n</span><span class="o">&amp;</span><span class="mi">1</span><span class="o">==</span><span class="mi">1</span><span class="p">){</span>
-                <span class="n">answer</span> <span class="o">=</span> <span class="n">multiply</span><span class="p">(</span><span class="n">answer</span><span class="p">,</span><span class="n">a</span><span class="p">);</span>
-            <span class="p">}</span>
-            <span class="n">n</span><span class="o">=</span><span class="n">n</span><span class="o">&gt;&gt;</span><span class="mi">1</span><span class="p">;</span>
-            <span class="n">a</span> <span class="o">=</span> <span class="n">multiply</span><span class="p">(</span><span class="n">a</span><span class="p">,</span><span class="n">a</span><span class="p">);</span>
-        <span class="p">}</span>
-        <span class="k">return</span> <span class="n">answer</span><span class="p">;</span>
-    <span class="p">}</span>
-
-    <span class="c1">//矩阵乘法
-</span><span class="c1"></span>    <span class="n">vector</span><span class="o">&lt;</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">long</span><span class="o">&gt;&gt;</span> <span class="n">multiply</span><span class="p">(</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">long</span><span class="o">&gt;&gt;&amp;</span> <span class="n">a</span><span class="p">,</span> <span class="n">vector</span><span class="o">&lt;</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">long</span><span class="o">&gt;&gt;&amp;</span> <span class="n">b</span><span class="p">)</span> <span class="p">{</span>
-        <span class="n">vector</span><span class="o">&lt;</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">long</span><span class="o">&gt;&gt;</span> <span class="n">c</span><span class="p">{{</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">},</span> <span class="p">{</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">}};</span>
-        <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="mi">2</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
-            <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">j</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">j</span> <span class="o">&lt;</span> <span class="mi">2</span><span class="p">;</span> <span class="n">j</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
-                <span class="n">c</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">a</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="n">b</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="n">j</span><span class="p">]</span> <span class="o">+</span> <span class="n">a</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="n">b</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="n">j</span><span class="p">])</span> <span class="o">%</span> <span class="n">MOD</span><span class="p">;</span>
-            <span class="p">}</span>
-        <span class="p">}</span>
-        <span class="k">return</span> <span class="n">c</span><span class="p">;</span>
-
+    <span class="kt">bool</span> <span class="nf">book</span><span class="p">(</span><span class="kt">int</span> <span class="n">start</span><span class="p">,</span> <span class="kt">int</span> <span class="n">end</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">auto</span> <span class="n">iter</span> <span class="o">=</span> <span class="n">calendar</span><span class="p">.</span><span class="n">lower_bound</span><span class="p">(</span><span class="n">start</span><span class="p">);</span>
+        <span class="c1">//第一个大于等于插入元素的时间段。这个时间段的起始时间不能小于插入时间的终止时间
+</span><span class="c1"></span>        <span class="k">if</span><span class="p">(</span><span class="n">iter</span> <span class="o">!=</span> <span class="n">calendar</span><span class="p">.</span><span class="n">end</span><span class="p">()</span> <span class="o">&amp;&amp;</span> <span class="n">iter</span><span class="o">-&gt;</span><span class="n">first</span> <span class="o">&lt;</span> <span class="n">end</span><span class="p">)</span>
+            <span class="k">return</span> <span class="nb">false</span><span class="p">;</span>
+        <span class="c1">//迭代器往前走一步就是小于等于当前时间段的最大时间段。这个时间段的终止时间不能大于插入的起始时间
+</span><span class="c1"></span>        <span class="k">if</span><span class="p">(</span><span class="n">iter</span> <span class="o">!=</span> <span class="n">calendar</span><span class="p">.</span><span class="n">begin</span><span class="p">()</span> <span class="o">&amp;&amp;</span> <span class="p">(</span><span class="o">--</span><span class="n">iter</span><span class="p">)</span><span class="o">-&gt;</span><span class="n">second</span> <span class="o">&gt;</span> <span class="n">start</span><span class="p">)</span>
+            <span class="k">return</span> <span class="nb">false</span><span class="p">;</span>
+        <span class="n">calendar</span><span class="p">[</span><span class="n">start</span><span class="p">]</span> <span class="o">=</span> <span class="n">end</span><span class="p">;</span>
+        <span class="k">return</span> <span class="nb">true</span><span class="p">;</span>
     <span class="p">}</span>
 <span class="p">};</span>
+
+
+<span class="cm">/**
+</span><span class="cm"> * Your MyCalendar object will be instantiated and called as such:
+</span><span class="cm"> * MyCalendar* obj = new MyCalendar();
+</span><span class="cm"> * bool param_1 = obj-&gt;book(start,end);
+</span><span class="cm"> */</span>
+
 </code></pre></div>
     
 	</div>
@@ -168,6 +163,8 @@ F(N) = F(N - 1) + F(N - 2), 其中 N &gt; 1.
   <a href="https://qkgoalkeeper.github.io/tags/leetcode">LeetCode</a>
   
   <a href="https://qkgoalkeeper.github.io/tags/c&#43;&#43;">C&#43;&#43;</a>
+  
+  <a href="https://qkgoalkeeper.github.io/tags/%E5%93%88%E5%B8%8C%E8%A1%A8">哈希表</a>
   
 </div>
 
@@ -185,7 +182,7 @@ F(N) = F(N - 1) + F(N - 2), 其中 N &gt; 1.
 
 
   <div class="article-share" id="share">
-    <div data-url="https://qkgoalkeeper.github.io/post/leetcode%E6%AF%8F%E6%97%A5%E7%BB%83%E4%B9%A0%E5%89%91%E6%8C%87-offer-10-i.-%E6%96%90%E6%B3%A2%E9%82%A3%E5%A5%91%E6%95%B0%E5%88%97/" data-title="LeetCode每日练习：剑指 Offer 10- I. 斐波那契数列" data-tsina="5852167252" class="share clearfix">
+    <div data-url="https://qkgoalkeeper.github.io/post/leetcode%E6%AF%8F%E6%97%A5%E7%BB%83%E4%B9%A0%E5%89%91%E6%8C%87-offer-ii-058.-%E6%97%A5%E7%A8%8B%E8%A1%A8/" data-title="LeetCode每日练习：剑指 Offer II 058. 日程表" data-tsina="5852167252" class="share clearfix">
     </div>
   </div>
 </footer>
