@@ -2,13 +2,13 @@
 <html lang="zh-CN">
 <head>
   <meta charset="UTF-8">
-  <title>LeetCode每日练习：剑指 Offer II 025. 链表中的两数相加 - qkgoalkeeper&#39;s blog</title>
+  <title>LeetCode每日练习：剑指 Offer II 060. 出现频率最高的 k 个数字 - qkgoalkeeper&#39;s blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=3, minimum-scale=1">
   
-  <meta name="description" content="一.剑指 Offer II 025. 链表中的两数相加 1.题干及思路 给定两个 非空链表 l1和 l2 来代表两个非负整数。数字最高位位于链表开始位置。它们的每个节点只存储一位">
+  <meta name="description" content="一.剑指 Offer II 060. 出现频率最高的 k 个数字 1.题干及思路 给定一个整数数组 nums 和一个整数 k ，请返回其中出现频率前 k 高的元素。可以按 任意顺序 返回答案。 示">
   
-  <meta itemprop="name" content="LeetCode每日练习：剑指 Offer II 025. 链表中的两数相加 - qkgoalkeeper&#39;s blog">
-  <meta itemprop="description" content="一.剑指 Offer II 025. 链表中的两数相加 1.题干及思路 给定两个 非空链表 l1和 l2 来代表两个非负整数。数字最高位位于链表开始位置。它们的每个节点只存储一位">
+  <meta itemprop="name" content="LeetCode每日练习：剑指 Offer II 060. 出现频率最高的 k 个数字 - qkgoalkeeper&#39;s blog">
+  <meta itemprop="description" content="一.剑指 Offer II 060. 出现频率最高的 k 个数字 1.题干及思路 给定一个整数数组 nums 和一个整数 k ，请返回其中出现频率前 k 高的元素。可以按 任意顺序 返回答案。 示">
   <meta itemprop="image" content="https://qkgoalkeeper.github.io/img/author.jpg">
   
   
@@ -74,7 +74,7 @@
 	<article itemprop="articleBody">
     <header class="article-info clearfix">
   <h1 itemprop="name">
-      <a href="https://qkgoalkeeper.github.io/post/leetcode%E6%AF%8F%E6%97%A5%E7%BB%83%E4%B9%A0%E5%89%91%E6%8C%87-offer-ii-025.-%E9%93%BE%E8%A1%A8%E4%B8%AD%E7%9A%84%E4%B8%A4%E6%95%B0%E7%9B%B8%E5%8A%A0/" title="LeetCode每日练习：剑指 Offer II 025. 链表中的两数相加" itemprop="url">LeetCode每日练习：剑指 Offer II 025. 链表中的两数相加</a>
+      <a href="https://qkgoalkeeper.github.io/post/leetcode%E6%AF%8F%E6%97%A5%E7%BB%83%E4%B9%A0%E5%89%91%E6%8C%87-offer-ii-060.-%E5%87%BA%E7%8E%B0%E9%A2%91%E7%8E%87%E6%9C%80%E9%AB%98%E7%9A%84-k-%E4%B8%AA%E6%95%B0%E5%AD%97/" title="LeetCode每日练习：剑指 Offer II 060. 出现频率最高的 k 个数字" itemprop="url">LeetCode每日练习：剑指 Offer II 060. 出现频率最高的 k 个数字</a>
   </h1>
   <p class="article-author">By
     
@@ -82,7 +82,7 @@
     
   </p>
   <p class="article-time">
-    <time datetime="2022-02-18 08:55:19 &#43;0800 CST" itemprop="datePublished">2022年02月18日</time>
+    <time datetime="2022-03-13 09:55:19 &#43;0800 CST" itemprop="datePublished">2022年03月13日</time>
   </p>
 </header>
 
@@ -98,78 +98,59 @@
 </nav>
 		</div>
     
-    <h1 id="一剑指-offer-ii-025-链表中的两数相加httpsleetcode-cncomproblemslmsnwu">一.<a href="https://leetcode-cn.com/problems/lMSNwu/">剑指 Offer II 025. 链表中的两数相加</a></h1>
+    <h1 id="一剑指-offer-ii-060-出现频率最高的-k-个数字httpsleetcode-cncomproblemsg5c51o">一.<a href="https://leetcode-cn.com/problems/g5c51o/">剑指 Offer II 060. 出现频率最高的 k 个数字</a></h1>
 <h2 id="1题干及思路">1.题干及思路</h2>
-<p>给定两个 <strong>非空链表</strong> <code>l1</code>和 <code>l2</code> 来代表两个非负整数。数字最高位位于链表开始位置。它们的每个节点只存储一位数字。将这两数相加会返回一个新的链表。</p>
-<p>可以假设除了数字 0 之外，这两个数字都不会以零开头。</p>
-<p><strong>示例1：</strong></p>
-<p><img src="https://pic.leetcode-cn.com/1626420025-fZfzMX-image.png" alt="img"></p>
-<pre tabindex="0"><code>输入：l1 = [7,2,4,3], l2 = [5,6,4]
-输出：[7,8,0,7]
-</code></pre><p><strong>示例2：</strong></p>
-<pre tabindex="0"><code>输入：l1 = [2,4,3], l2 = [5,6,4]
-输出：[8,0,7]
-</code></pre><p><strong>示例3：</strong></p>
-<pre tabindex="0"><code>输入：l1 = [0], l2 = [0]
-输出：[0]
+<p>给定一个整数数组 <code>nums</code> 和一个整数 <code>k</code> ，请返回其中出现频率前 <code>k</code> 高的元素。可以按 <strong>任意顺序</strong> 返回答案。</p>
+<p><strong>示例 1:</strong></p>
+<pre tabindex="0"><code>输入: nums = [1,1,1,2,2,3], k = 2
+输出: [1,2]
+</code></pre><p><strong>示例 2:</strong></p>
+<pre tabindex="0"><code>输入: nums = [1], k = 1
+输出: [1]
 </code></pre><p><strong>提示：</strong></p>
 <ul>
-<li>链表的长度范围为<code> [1, 100]</code></li>
-<li><code>0 &lt;= node.val &lt;= 9</code></li>
-<li>输入数据保证链表代表的数字无前导 0</li>
+<li><code>1 &lt;= nums.length &lt;= 105</code></li>
+<li><code>k</code> 的取值范围是 <code>[1, 数组中不相同的元素的个数]</code></li>
+<li>题目数据保证答案唯一，换句话说，数组中前 <code>k</code> 个高频元素的集合是唯一的</li>
 </ul>
-<p>**进阶：**如果输入链表不能修改该如何处理？换句话说，不能对列表中的节点进行翻转。</p>
-<p>注意：本题与主站 445 题相同：https://leetcode-cn.com/problems/add-two-numbers-ii/</p>
-<p>要点：链表</p>
-<p>思路：因为模拟竖式要从小的一端开始对齐，一种想法是翻转两个链表然后从翻转后的链表头开始模拟竖式，如果不翻转链表那么就利用栈的后进先出性质用两个辅助栈存节点，用carry表示进位值，每次对两个栈的top值相加再加上carry</p>
+<p>**进阶：**所设计算法的时间复杂度 <strong>必须</strong> 优于 <code>O(n log n)</code> ，其中 <code>n</code> 是数组大小。</p>
+<p>注意：本题与主站 347 题相同：https://leetcode-cn.com/problems/top-k-frequent-elements/</p>
+<p>要点：堆，优先队列</p>
+<p>思路：topk问题，c++的堆由priority_queue优先队列实现，我们可以利用堆的思想建立一个小顶堆，然后遍历出现次数数组放入堆中</p>
 <h2 id="2c实现">2.C++实现</h2>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="cm">/**
-</span><span class="cm"> * Definition for singly-linked list.
-</span><span class="cm"> * struct ListNode {
-</span><span class="cm"> *     int val;
-</span><span class="cm"> *     ListNode *next;
-</span><span class="cm"> *     ListNode() : val(0), next(nullptr) {}
-</span><span class="cm"> *     ListNode(int x) : val(x), next(nullptr) {}
-</span><span class="cm"> *     ListNode(int x, ListNode *next) : val(x), next(next) {}
-</span><span class="cm"> * };
-</span><span class="cm"> */</span>
-<span class="k">class</span> <span class="nc">Solution</span> <span class="p">{</span>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="k">class</span> <span class="nc">Solution</span> <span class="p">{</span>
 <span class="k">public</span><span class="o">:</span>
-    <span class="n">ListNode</span><span class="o">*</span> <span class="n">addTwoNumbers</span><span class="p">(</span><span class="n">ListNode</span><span class="o">*</span> <span class="n">l1</span><span class="p">,</span> <span class="n">ListNode</span><span class="o">*</span> <span class="n">l2</span><span class="p">)</span> <span class="p">{</span>
-        <span class="n">ListNode</span> <span class="o">*</span><span class="n">head</span> <span class="o">=</span><span class="k">new</span> <span class="n">ListNode</span><span class="p">();</span> <span class="c1">//新链表的头节点
-</span><span class="c1"></span>        <span class="n">head</span><span class="o">-&gt;</span><span class="n">next</span><span class="o">=</span><span class="k">nullptr</span><span class="p">;</span>
-        <span class="n">stack</span><span class="o">&lt;</span><span class="n">ListNode</span><span class="o">*&gt;</span> <span class="n">L1</span><span class="p">;</span>  <span class="c1">//存放l1
-</span><span class="c1"></span>        <span class="n">stack</span><span class="o">&lt;</span><span class="n">ListNode</span><span class="o">*&gt;</span> <span class="n">L2</span><span class="p">;</span>  <span class="c1">//存放l2
-</span><span class="c1"></span>        <span class="k">while</span><span class="p">(</span><span class="n">l1</span><span class="p">){</span>
-            <span class="n">L1</span><span class="p">.</span><span class="n">push</span><span class="p">(</span><span class="n">l1</span><span class="p">);</span>
-            <span class="n">l1</span><span class="o">=</span><span class="n">l1</span><span class="o">-&gt;</span><span class="n">next</span><span class="p">;</span>
+    <span class="k">static</span> <span class="kt">bool</span> <span class="n">cmp</span><span class="p">(</span><span class="n">pair</span><span class="o">&lt;</span><span class="kt">int</span><span class="p">,</span> <span class="kt">int</span><span class="o">&gt;&amp;</span> <span class="n">m</span><span class="p">,</span> <span class="n">pair</span><span class="o">&lt;</span><span class="kt">int</span><span class="p">,</span> <span class="kt">int</span><span class="o">&gt;&amp;</span> <span class="n">n</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="n">m</span><span class="p">.</span><span class="n">second</span> <span class="o">&gt;</span> <span class="n">n</span><span class="p">.</span><span class="n">second</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">topKFrequent</span><span class="p">(</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;&amp;</span> <span class="n">nums</span><span class="p">,</span> <span class="kt">int</span> <span class="n">k</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">unordered_map</span><span class="o">&lt;</span><span class="kt">int</span><span class="p">,</span> <span class="kt">int</span><span class="o">&gt;</span> <span class="n">occurrences</span><span class="p">;</span>
+        <span class="k">for</span> <span class="p">(</span><span class="k">auto</span><span class="o">&amp;</span> <span class="nl">v</span> <span class="p">:</span> <span class="n">nums</span><span class="p">)</span> <span class="p">{</span>
+            <span class="n">occurrences</span><span class="p">[</span><span class="n">v</span><span class="p">]</span><span class="o">++</span><span class="p">;</span>
         <span class="p">}</span>
-        <span class="k">while</span><span class="p">(</span><span class="n">l2</span><span class="p">){</span>
-            <span class="n">L2</span><span class="p">.</span><span class="n">push</span><span class="p">(</span><span class="n">l2</span><span class="p">);</span>
-            <span class="n">l2</span><span class="o">=</span><span class="n">l2</span><span class="o">-&gt;</span><span class="n">next</span><span class="p">;</span>
-        <span class="p">}</span>
-        <span class="kt">int</span> <span class="n">carry</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span> <span class="c1">//进位值
-</span><span class="c1"></span>        <span class="k">while</span><span class="p">(</span><span class="o">!</span><span class="n">L1</span><span class="p">.</span><span class="n">empty</span><span class="p">()</span><span class="o">||!</span><span class="n">L2</span><span class="p">.</span><span class="n">empty</span><span class="p">()</span><span class="o">||</span><span class="n">carry</span><span class="p">){</span>  <span class="c1">//非空，或carry进位值还没加入链表，则循环继续
-</span><span class="c1"></span>            <span class="kt">int</span> <span class="n">val</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span>
-            <span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="n">L1</span><span class="p">.</span><span class="n">empty</span><span class="p">()){</span>
-                <span class="n">ListNode</span> <span class="o">*</span><span class="n">temp</span><span class="o">=</span><span class="n">L1</span><span class="p">.</span><span class="n">top</span><span class="p">();</span>
-                <span class="n">val</span><span class="o">+=</span><span class="n">temp</span><span class="o">-&gt;</span><span class="n">val</span><span class="p">;</span>
-                <span class="n">L1</span><span class="p">.</span><span class="n">pop</span><span class="p">();</span>
+
+        <span class="c1">// pair 的第一个元素代表数组的值，第二个元素代表了该值出现的次数
+</span><span class="c1"></span>        <span class="n">priority_queue</span><span class="o">&lt;</span><span class="n">pair</span><span class="o">&lt;</span><span class="kt">int</span><span class="p">,</span> <span class="kt">int</span><span class="o">&gt;</span><span class="p">,</span> <span class="n">vector</span><span class="o">&lt;</span><span class="n">pair</span><span class="o">&lt;</span><span class="kt">int</span><span class="p">,</span> <span class="kt">int</span><span class="o">&gt;&gt;</span><span class="p">,</span> <span class="k">decltype</span><span class="p">(</span><span class="o">&amp;</span><span class="n">cmp</span><span class="p">)</span><span class="o">&gt;</span> <span class="n">q</span><span class="p">(</span><span class="n">cmp</span><span class="p">);</span>
+        <span class="k">for</span> <span class="p">(</span><span class="k">auto</span><span class="o">&amp;</span> <span class="p">[</span><span class="n">num</span><span class="p">,</span> <span class="n">count</span><span class="p">]</span> <span class="o">:</span> <span class="n">occurrences</span><span class="p">)</span> <span class="p">{</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">q</span><span class="p">.</span><span class="n">size</span><span class="p">()</span> <span class="o">==</span> <span class="n">k</span><span class="p">)</span> <span class="p">{</span>
+                <span class="k">if</span> <span class="p">(</span><span class="n">q</span><span class="p">.</span><span class="n">top</span><span class="p">().</span><span class="n">second</span> <span class="o">&lt;</span> <span class="n">count</span><span class="p">)</span> <span class="p">{</span>
+                    <span class="n">q</span><span class="p">.</span><span class="n">pop</span><span class="p">();</span>
+                    <span class="n">q</span><span class="p">.</span><span class="n">emplace</span><span class="p">(</span><span class="n">num</span><span class="p">,</span> <span class="n">count</span><span class="p">);</span>
+                <span class="p">}</span>
+            <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+                <span class="n">q</span><span class="p">.</span><span class="n">emplace</span><span class="p">(</span><span class="n">num</span><span class="p">,</span> <span class="n">count</span><span class="p">);</span>
             <span class="p">}</span>
-            <span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="n">L2</span><span class="p">.</span><span class="n">empty</span><span class="p">()){</span>
-                <span class="n">ListNode</span> <span class="o">*</span><span class="n">temp</span><span class="o">=</span><span class="n">L2</span><span class="p">.</span><span class="n">top</span><span class="p">();</span>
-                <span class="n">val</span><span class="o">+=</span><span class="n">temp</span><span class="o">-&gt;</span><span class="n">val</span><span class="p">;</span>
-                <span class="n">L2</span><span class="p">.</span><span class="n">pop</span><span class="p">();</span>
-            <span class="p">}</span>
-            <span class="n">val</span><span class="o">+=</span><span class="n">carry</span><span class="p">;</span>
-            <span class="n">ListNode</span><span class="o">*</span> <span class="n">p</span><span class="o">=</span><span class="k">new</span> <span class="n">ListNode</span><span class="p">(</span><span class="n">val</span><span class="o">%</span><span class="mi">10</span><span class="p">);</span>  <span class="c1">//建立了一个节点
-</span><span class="c1"></span>            <span class="n">p</span><span class="o">-&gt;</span><span class="n">next</span><span class="o">=</span><span class="n">head</span><span class="o">-&gt;</span><span class="n">next</span><span class="p">;</span> <span class="c1">// 头插法
-</span><span class="c1"></span>            <span class="n">head</span><span class="o">-&gt;</span><span class="n">next</span><span class="o">=</span><span class="n">p</span><span class="p">;</span>       <span class="c1">// 头插法
-</span><span class="c1"></span>            <span class="n">carry</span><span class="o">=</span><span class="n">val</span><span class="o">/</span><span class="mi">10</span><span class="p">;</span>
         <span class="p">}</span>
-        <span class="k">return</span> <span class="n">head</span><span class="o">-&gt;</span><span class="n">next</span><span class="p">;</span> 
+        <span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">ret</span><span class="p">;</span>
+        <span class="k">while</span> <span class="p">(</span><span class="o">!</span><span class="n">q</span><span class="p">.</span><span class="n">empty</span><span class="p">())</span> <span class="p">{</span>
+            <span class="n">ret</span><span class="p">.</span><span class="n">emplace_back</span><span class="p">(</span><span class="n">q</span><span class="p">.</span><span class="n">top</span><span class="p">().</span><span class="n">first</span><span class="p">);</span>
+            <span class="n">q</span><span class="p">.</span><span class="n">pop</span><span class="p">();</span>
+        <span class="p">}</span>
+        <span class="k">return</span> <span class="n">ret</span><span class="p">;</span>
     <span class="p">}</span>
 <span class="p">};</span>
+
 </code></pre></div>
     
 	</div>
@@ -183,7 +164,9 @@
   
   <a href="https://qkgoalkeeper.github.io/tags/c&#43;&#43;">C&#43;&#43;</a>
   
-  <a href="https://qkgoalkeeper.github.io/tags/%E9%93%BE%E8%A1%A8">链表</a>
+  <a href="https://qkgoalkeeper.github.io/tags/%E5%A0%86">堆</a>
+  
+  <a href="https://qkgoalkeeper.github.io/tags/%E4%BC%98%E5%85%88%E9%98%9F%E5%88%97">优先队列</a>
   
 </div>
 
@@ -201,7 +184,7 @@
 
 
   <div class="article-share" id="share">
-    <div data-url="https://qkgoalkeeper.github.io/post/leetcode%E6%AF%8F%E6%97%A5%E7%BB%83%E4%B9%A0%E5%89%91%E6%8C%87-offer-ii-025.-%E9%93%BE%E8%A1%A8%E4%B8%AD%E7%9A%84%E4%B8%A4%E6%95%B0%E7%9B%B8%E5%8A%A0/" data-title="LeetCode每日练习：剑指 Offer II 025. 链表中的两数相加" data-tsina="5852167252" class="share clearfix">
+    <div data-url="https://qkgoalkeeper.github.io/post/leetcode%E6%AF%8F%E6%97%A5%E7%BB%83%E4%B9%A0%E5%89%91%E6%8C%87-offer-ii-060.-%E5%87%BA%E7%8E%B0%E9%A2%91%E7%8E%87%E6%9C%80%E9%AB%98%E7%9A%84-k-%E4%B8%AA%E6%95%B0%E5%AD%97/" data-title="LeetCode每日练习：剑指 Offer II 060. 出现频率最高的 k 个数字" data-tsina="5852167252" class="share clearfix">
     </div>
   </div>
 </footer>
