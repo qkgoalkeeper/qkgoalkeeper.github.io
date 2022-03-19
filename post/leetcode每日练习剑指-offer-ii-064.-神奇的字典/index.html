@@ -2,13 +2,13 @@
 <html lang="zh-CN">
 <head>
   <meta charset="UTF-8">
-  <title>LeetCode数据结构基础第5天：数组 - qkgoalkeeper&#39;s blog</title>
+  <title>LeetCode每日练习：剑指 Offer II 064. 神奇的字典 - qkgoalkeeper&#39;s blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=3, minimum-scale=1">
   
-  <meta name="description" content="一.334. 递增的三元子序列 1.题干及思路 给你一个整数数组 nums ，判断这个数组中是否存在长度为 3 的递增子序列。 如果存在这样的三元组下标 (i, j, k) 且满">
+  <meta name="description" content="一.剑指 Offer II 064. 神奇的字典 1.题干及思路 设计一个使用单词列表进行初始化的数据结构，单词列表中的单词 互不相同 。 如果给出一个单词，请判定能否只将这">
   
-  <meta itemprop="name" content="LeetCode数据结构基础第5天：数组 - qkgoalkeeper&#39;s blog">
-  <meta itemprop="description" content="一.334. 递增的三元子序列 1.题干及思路 给你一个整数数组 nums ，判断这个数组中是否存在长度为 3 的递增子序列。 如果存在这样的三元组下标 (i, j, k) 且满">
+  <meta itemprop="name" content="LeetCode每日练习：剑指 Offer II 064. 神奇的字典 - qkgoalkeeper&#39;s blog">
+  <meta itemprop="description" content="一.剑指 Offer II 064. 神奇的字典 1.题干及思路 设计一个使用单词列表进行初始化的数据结构，单词列表中的单词 互不相同 。 如果给出一个单词，请判定能否只将这">
   <meta itemprop="image" content="https://qkgoalkeeper.github.io/img/author.jpg">
   
   
@@ -74,7 +74,7 @@
 	<article itemprop="articleBody">
     <header class="article-info clearfix">
   <h1 itemprop="name">
-      <a href="https://qkgoalkeeper.github.io/post/leetcode%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E5%9F%BA%E7%A1%80%E7%AC%AC5%E5%A4%A9%E6%95%B0%E7%BB%84/" title="LeetCode数据结构基础第5天：数组" itemprop="url">LeetCode数据结构基础第5天：数组</a>
+      <a href="https://qkgoalkeeper.github.io/post/leetcode%E6%AF%8F%E6%97%A5%E7%BB%83%E4%B9%A0%E5%89%91%E6%8C%87-offer-ii-064.-%E7%A5%9E%E5%A5%87%E7%9A%84%E5%AD%97%E5%85%B8/" title="LeetCode每日练习：剑指 Offer II 064. 神奇的字典" itemprop="url">LeetCode每日练习：剑指 Offer II 064. 神奇的字典</a>
   </h1>
   <p class="article-author">By
     
@@ -82,7 +82,7 @@
     
   </p>
   <p class="article-time">
-    <time datetime="2021-11-17 10:55:19 &#43;0800 CST" itemprop="datePublished">2021年11月17日</time>
+    <time datetime="2022-03-19 09:55:19 &#43;0800 CST" itemprop="datePublished">2022年03月19日</time>
   </p>
 </header>
 
@@ -95,144 +95,116 @@
     <li><a href="#1题干及思路">1.题干及思路</a></li>
     <li><a href="#2c实现">2.C++实现</a></li>
   </ul>
-
-  <ul>
-    <li><a href="#1题干及思路-1">1.题干及思路</a></li>
-    <li><a href="#2c实现-1">2.C++实现</a></li>
-  </ul>
-
-  <ul>
-    <li><a href="#1题干及思路-2">1.题干及思路</a></li>
-    <li><a href="#2c实现-2">2.C++实现</a></li>
-  </ul>
 </nav>
 		</div>
     
-    <h1 id="一334-递增的三元子序列httpsleetcode-cncomproblemsincreasing-triplet-subsequence">一.<a href="https://leetcode-cn.com/problems/increasing-triplet-subsequence/">334. 递增的三元子序列</a></h1>
+    <h1 id="一剑指-offer-ii-064-神奇的字典httpsleetcode-cncomproblemsus1pgt">一.<a href="https://leetcode-cn.com/problems/US1pGT/">剑指 Offer II 064. 神奇的字典</a></h1>
 <h2 id="1题干及思路">1.题干及思路</h2>
-<p>给你一个整数数组 <code>nums</code> ，判断这个数组中是否存在长度为 <code>3</code> 的递增子序列。</p>
-<p>如果存在这样的三元组下标 <code>(i, j, k)</code> 且满足 <code>i &lt; j &lt; k</code> ，使得 <code>nums[i] &lt; nums[j] &lt; nums[k]</code> ，返回 <code>true</code> ；否则，返回 <code>false</code> 。</p>
-<p><strong>示例 1：</strong></p>
-<pre tabindex="0"><code>输入：nums = [1,2,3,4,5]
-输出：true
-解释：任何 i &lt; j &lt; k 的三元组都满足题意
-</code></pre><p><strong>示例 2：</strong></p>
-<pre tabindex="0"><code>输入：nums = [5,4,3,2,1]
-输出：false
-解释：不存在满足题意的三元组
-</code></pre><p><strong>示例 3：</strong></p>
-<pre tabindex="0"><code>输入：nums = [2,1,5,0,4,6]
-输出：true
-解释：三元组 (3, 4, 5) 满足题意，因为 nums[3] == 0 &lt; nums[4] == 4 &lt; nums[5] == 6
+<p>设计一个使用单词列表进行初始化的数据结构，单词列表中的单词 <strong>互不相同</strong> 。 如果给出一个单词，请判定能否只将这个单词中<strong>一个</strong>字母换成另一个字母，使得所形成的新单词存在于已构建的神奇字典中。</p>
+<p>实现 <code>MagicDictionary</code> 类：</p>
+<ul>
+<li><code>MagicDictionary()</code> 初始化对象</li>
+<li><code>void buildDict(String[] dictionary)</code> 使用字符串数组 <code>dictionary</code> 设定该数据结构，<code>dictionary</code> 中的字符串互不相同</li>
+<li><code>bool search(String searchWord)</code> 给定一个字符串 <code>searchWord</code> ，判定能否只将字符串中 <strong>一个</strong> 字母换成另一个字母，使得所形成的新字符串能够与字典中的任一字符串匹配。如果可以，返回 <code>true</code> ；否则，返回 <code>false</code> 。</li>
+</ul>
+<p><strong>示例：</strong></p>
+<pre tabindex="0"><code>输入
+inputs = [&quot;MagicDictionary&quot;, &quot;buildDict&quot;, &quot;search&quot;, &quot;search&quot;, &quot;search&quot;, &quot;search&quot;]
+inputs = [[], [[&quot;hello&quot;, &quot;leetcode&quot;]], [&quot;hello&quot;], [&quot;hhllo&quot;], [&quot;hell&quot;], [&quot;leetcoded&quot;]]
+输出
+[null, null, false, true, false, false]
+
+解释
+MagicDictionary magicDictionary = new MagicDictionary();
+magicDictionary.buildDict([&quot;hello&quot;, &quot;leetcode&quot;]);
+magicDictionary.search(&quot;hello&quot;); // 返回 False
+magicDictionary.search(&quot;hhllo&quot;); // 将第二个 'h' 替换为 'e' 可以匹配 &quot;hello&quot; ，所以返回 True
+magicDictionary.search(&quot;hell&quot;); // 返回 False
+magicDictionary.search(&quot;leetcoded&quot;); // 返回 False
 </code></pre><p><strong>提示：</strong></p>
 <ul>
-<li><code>1 &lt;= nums.length &lt;= 105</code></li>
-<li><code>-231 &lt;= nums[i] &lt;= 231 - 1</code></li>
+<li><code>1 &lt;= dictionary.length &lt;= 100</code></li>
+<li><code>1 &lt;= dictionary[i].length &lt;= 100</code></li>
+<li><code>dictionary[i]</code> 仅由小写英文字母组成</li>
+<li><code>dictionary</code> 中的所有字符串 <strong>互不相同</strong></li>
+<li><code>1 &lt;= searchWord.length &lt;= 100</code></li>
+<li><code>searchWord</code> 仅由小写英文字母组成</li>
+<li><code>buildDict</code> 仅在 <code>search</code> 之前调用一次</li>
+<li>最多调用 <code>100</code> 次 <code>search</code></li>
 </ul>
-<p>**进阶：**你能实现时间复杂度为 <code>O(n)</code> ，空间复杂度为 <code>O(1)</code> 的解决方案吗？</p>
-<p>要点：数组</p>
-<p>思路：新建两个变量 small 和 mid ，分别用来保存题目要我们求的长度为 3 的递增子序列的最小值和中间值。接着，我们遍历数组，每遇到一个数字，我们将它和 small 和 mid 相比，若小于等于 small ，则替换 small；否则，若小于等于 mid，则替换 mid；否则，若大于 mid，则说明我们找到了长度为 3 的递增数组。即使我们更新了 small ，这个 small 在 mid 后面，没有严格遵守递增顺序，但它隐含着的真相是，有一个比 small 大比 mid 小的前·最小值出现在 mid 之前。因此，当后续出现比 mid 大的值的时候，我们一样可以通过当前 small 和 mid 推断的确存在着长度为 3 的递增序列。</p>
+<p>注意：本题与主站 676 题相同： <a href="https://leetcode-cn.com/problems/implement-magic-dictionary/">https://leetcode-cn.com/problems/implement-magic-dictionary/</a></p>
+<p>要点：字典树</p>
+<p>思路：字典树的应用，dfs找路径时有一次错误机会</p>
 <h2 id="2c实现">2.C++实现</h2>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="k">class</span> <span class="nc">Solution</span> <span class="p">{</span>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="c1">// 构造前缀树节点
+</span><span class="c1"></span><span class="k">class</span> <span class="nc">Trie</span> <span class="p">{</span>                                                                               
 <span class="k">public</span><span class="o">:</span>
-    <span class="kt">bool</span> <span class="n">increasingTriplet</span><span class="p">(</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;&amp;</span> <span class="n">nums</span><span class="p">)</span> <span class="p">{</span>
-        <span class="kt">int</span> <span class="n">len</span> <span class="o">=</span> <span class="n">nums</span><span class="p">.</span><span class="n">size</span><span class="p">();</span>
-        <span class="k">if</span> <span class="p">(</span><span class="n">len</span> <span class="o">&lt;</span> <span class="mi">3</span><span class="p">)</span> <span class="k">return</span> <span class="nb">false</span><span class="p">;</span>
-        <span class="kt">int</span> <span class="n">small</span> <span class="o">=</span> <span class="n">INT_MAX</span><span class="p">,</span> <span class="n">mid</span> <span class="o">=</span> <span class="n">INT_MAX</span><span class="p">;</span>
-        <span class="k">for</span> <span class="p">(</span><span class="k">auto</span> <span class="nl">num</span> <span class="p">:</span> <span class="n">nums</span><span class="p">)</span> <span class="p">{</span>
-        <span class="k">if</span> <span class="p">(</span><span class="n">num</span> <span class="o">&lt;=</span> <span class="n">small</span><span class="p">)</span> <span class="p">{</span>
-            <span class="n">small</span> <span class="o">=</span> <span class="n">num</span><span class="p">;</span>
-        <span class="p">}</span> <span class="k">else</span> <span class="nf">if</span> <span class="p">(</span><span class="n">num</span> <span class="o">&lt;=</span> <span class="n">mid</span><span class="p">)</span> <span class="p">{</span>
-            <span class="n">mid</span> <span class="o">=</span> <span class="n">num</span><span class="p">;</span>
-        <span class="p">}</span> 
-        <span class="k">else</span> <span class="nf">if</span> <span class="p">(</span><span class="n">num</span> <span class="o">&gt;</span> <span class="n">mid</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kt">bool</span> <span class="n">isWord</span><span class="p">;</span>
+    <span class="n">vector</span><span class="o">&lt;</span><span class="n">Trie</span><span class="o">*&gt;</span> <span class="n">children</span><span class="p">;</span>
+    <span class="n">Trie</span> <span class="p">()</span> <span class="o">:</span> <span class="n">isWord</span><span class="p">(</span><span class="nb">false</span><span class="p">),</span> <span class="n">children</span><span class="p">(</span><span class="mi">26</span><span class="p">,</span> <span class="k">nullptr</span><span class="p">)</span> <span class="p">{}</span>
+
+    <span class="kt">void</span> <span class="nf">insert</span><span class="p">(</span><span class="k">const</span> <span class="n">string</span><span class="o">&amp;</span> <span class="n">str</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">Trie</span><span class="o">*</span> <span class="n">node</span> <span class="o">=</span> <span class="k">this</span><span class="p">;</span>
+        <span class="k">for</span> <span class="p">(</span><span class="k">auto</span><span class="o">&amp;</span> <span class="nl">ch</span> <span class="p">:</span> <span class="n">str</span><span class="p">)</span> <span class="p">{</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">node</span><span class="o">-&gt;</span><span class="n">children</span><span class="p">[</span><span class="n">ch</span> <span class="o">-</span> <span class="sc">&#39;a&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="k">nullptr</span><span class="p">)</span> <span class="p">{</span>
+                <span class="n">node</span><span class="o">-&gt;</span><span class="n">children</span><span class="p">[</span><span class="n">ch</span> <span class="o">-</span> <span class="sc">&#39;a&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Trie</span><span class="p">();</span>
+            <span class="p">}</span>
+            <span class="n">node</span> <span class="o">=</span> <span class="n">node</span><span class="o">-&gt;</span><span class="n">children</span><span class="p">[</span><span class="n">ch</span> <span class="o">-</span> <span class="sc">&#39;a&#39;</span><span class="p">];</span>
+        <span class="p">}</span>
+        <span class="n">node</span><span class="o">-&gt;</span><span class="n">isWord</span> <span class="o">=</span> <span class="nb">true</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">};</span>
+
+
+<span class="k">class</span> <span class="nc">MagicDictionary</span> <span class="p">{</span>
+<span class="k">private</span><span class="o">:</span>
+    <span class="n">Trie</span><span class="o">*</span> <span class="n">root</span><span class="p">;</span>
+    <span class="kt">bool</span> <span class="nf">dfs</span><span class="p">(</span><span class="n">Trie</span><span class="o">*</span> <span class="n">root</span><span class="p">,</span> <span class="n">string</span><span class="o">&amp;</span> <span class="n">word</span><span class="p">,</span> <span class="kt">int</span> <span class="n">i</span><span class="p">,</span> <span class="kt">int</span> <span class="n">edit</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">root</span> <span class="o">==</span> <span class="k">nullptr</span><span class="p">)</span> <span class="p">{</span>
+            <span class="k">return</span> <span class="nb">false</span><span class="p">;</span>
+        <span class="p">}</span>
+
+        <span class="k">if</span> <span class="p">(</span><span class="n">root</span><span class="o">-&gt;</span><span class="n">isWord</span> <span class="o">&amp;&amp;</span> <span class="n">i</span> <span class="o">==</span> <span class="n">word</span><span class="p">.</span><span class="n">size</span><span class="p">()</span> <span class="o">&amp;&amp;</span> <span class="n">edit</span> <span class="o">==</span> <span class="mi">1</span><span class="p">)</span> <span class="p">{</span>
             <span class="k">return</span> <span class="nb">true</span><span class="p">;</span>
         <span class="p">}</span>
-        <span class="p">}</span>
-        <span class="k">return</span> <span class="nb">false</span><span class="p">;</span>    
-    <span class="p">}</span>
-<span class="p">};</span>
 
-</code></pre></div><h1 id="二238-除自身以外数组的乘积httpsleetcode-cncomproblemsproduct-of-array-except-self">二.<a href="https://leetcode-cn.com/problems/product-of-array-except-self/">238. 除自身以外数组的乘积</a></h1>
-<h2 id="1题干及思路-1">1.题干及思路</h2>
-<p>给你一个长度为 <em>n</em> 的整数数组 <code>nums</code>，其中 <em>n</em> &gt; 1，返回输出数组 <code>output</code> ，其中 <code>output[i]</code> 等于 <code>nums</code> 中除 <code>nums[i]</code> 之外其余各元素的乘积。</p>
-<p><strong>示例:</strong></p>
-<pre tabindex="0"><code>输入: [1,2,3,4]
-输出: [24,12,8,6]
-</code></pre><p>**提示：**题目数据保证数组之中任意元素的全部前缀元素和后缀（甚至是整个数组）的乘积都在 32 位整数范围内。</p>
-<p><strong>说明:</strong> 请**不要使用除法，**且在 O(<em>n</em>) 时间复杂度内完成此题。</p>
-<p><strong>进阶：</strong>
-你可以在常数空间复杂度内完成这个题目吗？（ 出于对空间复杂度分析的目的，输出数组<strong>不被视为</strong>额外空间。）</p>
-<p>要点：数组</p>
-<p>思路：不能用除法因为可能有0，维护两个数组表示某位置左边所有值乘积和右边所有乘积，answer[i] = L[i] * R[i]</p>
-<h2 id="2c实现-1">2.C++实现</h2>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="k">class</span> <span class="nc">Solution</span> <span class="p">{</span>
-<span class="k">public</span><span class="o">:</span>
-    <span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">productExceptSelf</span><span class="p">(</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;&amp;</span> <span class="n">nums</span><span class="p">)</span> <span class="p">{</span>
-        <span class="kt">int</span> <span class="n">length</span> <span class="o">=</span> <span class="n">nums</span><span class="p">.</span><span class="n">size</span><span class="p">();</span>
-
-        <span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">L</span><span class="p">(</span><span class="n">length</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="n">R</span><span class="p">(</span><span class="n">length</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
-
-        <span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">answer</span><span class="p">(</span><span class="n">length</span><span class="p">);</span>
-
-        <span class="n">L</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
-        <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">length</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
-            <span class="n">L</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">nums</span><span class="p">[</span><span class="n">i</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="n">L</span><span class="p">[</span><span class="n">i</span> <span class="o">-</span> <span class="mi">1</span><span class="p">];</span>
-        <span class="p">}</span>
-
-        <span class="n">R</span><span class="p">[</span><span class="n">length</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
-        <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="n">length</span> <span class="o">-</span> <span class="mi">2</span><span class="p">;</span> <span class="n">i</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span><span class="o">--</span><span class="p">)</span> <span class="p">{</span>
-            <span class="n">R</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">nums</span><span class="p">[</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="n">R</span><span class="p">[</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">];</span>
-        <span class="p">}</span>
-
-        <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">length</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
-            <span class="n">answer</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">L</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">*</span> <span class="n">R</span><span class="p">[</span><span class="n">i</span><span class="p">];</span>
-        <span class="p">}</span>
-
-        <span class="k">return</span> <span class="n">answer</span><span class="p">;</span>
-    <span class="p">}</span>
-<span class="p">};</span>
-
-
-
-
-</code></pre></div><h1 id="三560-和为-k-的子数组httpsleetcode-cncomproblemssubarray-sum-equals-k">三.<a href="https://leetcode-cn.com/problems/subarray-sum-equals-k/">560. 和为 K 的子数组</a></h1>
-<h2 id="1题干及思路-2">1.题干及思路</h2>
-<p>给你一个整数数组 <code>nums</code> 和一个整数 <code>k</code> ，请你统计并返回该数组中和为 <code>k</code> 的连续子数组的个数。</p>
-<p><strong>示例 1：</strong></p>
-<pre tabindex="0"><code>输入：nums = [1,1,1], k = 2
-输出：2
-</code></pre><p><strong>示例 2：</strong></p>
-<pre tabindex="0"><code>输入：nums = [1,2,3], k = 3
-输出：2
-</code></pre><p><strong>提示：</strong></p>
-<ul>
-<li><code>1 &lt;= nums.length &lt;= 2 * 104</code></li>
-<li><code>-1000 &lt;= nums[i] &lt;= 1000</code></li>
-<li><code>-107 &lt;= k &lt;= 107</code></li>
-</ul>
-<p>要点：数组</p>
-<p>思路：哈希前缀和，我们考虑以 ii 结尾的和为 kk 的连续子数组个数时只要统计有多少个前缀和为pre[i]−k 的pre[j] 即可</p>
-<h2 id="2c实现-2">2.C++实现</h2>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="k">class</span> <span class="nc">Solution</span> <span class="p">{</span>
-<span class="k">public</span><span class="o">:</span>
-    <span class="kt">int</span> <span class="n">subarraySum</span><span class="p">(</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;&amp;</span> <span class="n">nums</span><span class="p">,</span> <span class="kt">int</span> <span class="n">k</span><span class="p">)</span> <span class="p">{</span>
-        <span class="n">unordered_map</span><span class="o">&lt;</span><span class="kt">int</span><span class="p">,</span> <span class="kt">int</span><span class="o">&gt;</span> <span class="n">mp</span><span class="p">;</span>
-        <span class="n">mp</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
-        <span class="kt">int</span> <span class="n">count</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">pre</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
-        <span class="k">for</span> <span class="p">(</span><span class="k">auto</span><span class="o">&amp;</span> <span class="nl">x</span><span class="p">:</span><span class="n">nums</span><span class="p">)</span> <span class="p">{</span>
-            <span class="n">pre</span> <span class="o">+=</span> <span class="n">x</span><span class="p">;</span>
-            <span class="k">if</span> <span class="p">(</span><span class="n">mp</span><span class="p">.</span><span class="n">find</span><span class="p">(</span><span class="n">pre</span> <span class="o">-</span> <span class="n">k</span><span class="p">)</span> <span class="o">!=</span> <span class="n">mp</span><span class="p">.</span><span class="n">end</span><span class="p">())</span> <span class="p">{</span>
-                <span class="n">count</span> <span class="o">+=</span> <span class="n">mp</span><span class="p">[</span><span class="n">pre</span> <span class="o">-</span> <span class="n">k</span><span class="p">];</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">i</span> <span class="o">&lt;</span> <span class="n">word</span><span class="p">.</span><span class="n">size</span><span class="p">()</span> <span class="o">&amp;&amp;</span> <span class="n">edit</span> <span class="o">&lt;=</span> <span class="mi">1</span><span class="p">)</span> <span class="p">{</span>
+            <span class="kt">bool</span> <span class="n">found</span> <span class="o">=</span> <span class="nb">false</span><span class="p">;</span>
+            <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">j</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">j</span> <span class="o">&lt;</span> <span class="mi">26</span> <span class="o">&amp;&amp;</span> <span class="o">!</span><span class="n">found</span><span class="p">;</span> <span class="o">++</span><span class="n">j</span><span class="p">)</span> <span class="p">{</span>
+                <span class="kt">int</span> <span class="n">next</span> <span class="o">=</span> <span class="p">(</span><span class="n">j</span> <span class="o">==</span> <span class="n">word</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">-</span> <span class="sc">&#39;a&#39;</span><span class="p">)</span> <span class="o">?</span> <span class="nl">edit</span> <span class="p">:</span> <span class="n">edit</span> <span class="o">+</span> <span class="mi">1</span><span class="p">;</span>
+                <span class="n">found</span> <span class="o">=</span> <span class="n">dfs</span><span class="p">(</span><span class="n">root</span><span class="o">-&gt;</span><span class="n">children</span><span class="p">[</span><span class="n">j</span><span class="p">],</span> <span class="n">word</span><span class="p">,</span> <span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">next</span><span class="p">);</span>
             <span class="p">}</span>
-            <span class="n">mp</span><span class="p">[</span><span class="n">pre</span><span class="p">]</span><span class="o">++</span><span class="p">;</span>
+
+            <span class="k">return</span> <span class="n">found</span><span class="p">;</span>
         <span class="p">}</span>
-        <span class="k">return</span> <span class="n">count</span><span class="p">;</span>
+
+        <span class="k">return</span> <span class="nb">false</span><span class="p">;</span>
+    <span class="p">}</span>
+
+<span class="k">public</span><span class="o">:</span>
+    <span class="cm">/** Initialize your data structure here. */</span>
+    <span class="n">MagicDictionary</span><span class="p">()</span> <span class="p">{</span>
+        <span class="n">root</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Trie</span><span class="p">();</span>
+    <span class="p">}</span>
+    
+    <span class="kt">void</span> <span class="nf">buildDict</span><span class="p">(</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">string</span><span class="o">&gt;</span> <span class="n">dictionary</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">for</span> <span class="p">(</span><span class="k">auto</span><span class="o">&amp;</span> <span class="nl">word</span> <span class="p">:</span> <span class="n">dictionary</span><span class="p">)</span> <span class="p">{</span>
+            <span class="n">root</span><span class="o">-&gt;</span><span class="n">insert</span><span class="p">(</span><span class="n">word</span><span class="p">);</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+    
+    <span class="kt">bool</span> <span class="nf">search</span><span class="p">(</span><span class="n">string</span> <span class="n">searchWord</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="n">dfs</span><span class="p">(</span><span class="n">root</span><span class="p">,</span> <span class="n">searchWord</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
     <span class="p">}</span>
 <span class="p">};</span>
 
 
-
+<span class="cm">/**
+</span><span class="cm"> * Your MagicDictionary object will be instantiated and called as such:
+</span><span class="cm"> * MagicDictionary* obj = new MagicDictionary();
+</span><span class="cm"> * obj-&gt;buildDict(dictionary);
+</span><span class="cm"> * bool param_2 = obj-&gt;search(searchWord);
+</span><span class="cm"> */</span>
 </code></pre></div>
     
 	</div>
@@ -245,6 +217,10 @@
   <a href="https://qkgoalkeeper.github.io/tags/leetcode">LeetCode</a>
   
   <a href="https://qkgoalkeeper.github.io/tags/c&#43;&#43;">C&#43;&#43;</a>
+  
+  <a href="https://qkgoalkeeper.github.io/tags/%E6%A0%91">树</a>
+  
+  <a href="https://qkgoalkeeper.github.io/tags/%E5%AD%97%E5%85%B8%E6%A0%91">字典树</a>
   
 </div>
 
@@ -262,7 +238,7 @@
 
 
   <div class="article-share" id="share">
-    <div data-url="https://qkgoalkeeper.github.io/post/leetcode%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E5%9F%BA%E7%A1%80%E7%AC%AC5%E5%A4%A9%E6%95%B0%E7%BB%84/" data-title="LeetCode数据结构基础第5天：数组" data-tsina="5852167252" class="share clearfix">
+    <div data-url="https://qkgoalkeeper.github.io/post/leetcode%E6%AF%8F%E6%97%A5%E7%BB%83%E4%B9%A0%E5%89%91%E6%8C%87-offer-ii-064.-%E7%A5%9E%E5%A5%87%E7%9A%84%E5%AD%97%E5%85%B8/" data-title="LeetCode每日练习：剑指 Offer II 064. 神奇的字典" data-tsina="5852167252" class="share clearfix">
     </div>
   </div>
 </footer>
