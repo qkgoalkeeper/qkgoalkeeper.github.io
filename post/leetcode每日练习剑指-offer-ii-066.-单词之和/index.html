@@ -2,13 +2,13 @@
 <html lang="zh-CN">
 <head>
   <meta charset="UTF-8">
-  <title>LeetCode每日练习：剑指 Offer II 087. 复原 IP  - qkgoalkeeper&#39;s blog</title>
+  <title>LeetCode每日练习：剑指 Offer II 066. 单词之和 - qkgoalkeeper&#39;s blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=3, minimum-scale=1">
   
-  <meta name="description" content="一.剑指 Offer II 087. 复原 IP 1.题干及思路 给定一个只包含数字的字符串 s ，用以表示一个 IP 地址，返回所有可能从 s 获得的 有效 IP 地址 。你可以按任何顺序返回答">
+  <meta name="description" content="一.剑指 Offer II 066. 单词之和 1.题干及思路 实现一个 MapSum 类，支持两个方法，insert 和 sum： MapSum() 初始化 MapSum 对象 void insert(String key, int val) 插入 key-val 键值对，字符串表示键 key ，">
   
-  <meta itemprop="name" content="LeetCode每日练习：剑指 Offer II 087. 复原 IP  - qkgoalkeeper&#39;s blog">
-  <meta itemprop="description" content="一.剑指 Offer II 087. 复原 IP 1.题干及思路 给定一个只包含数字的字符串 s ，用以表示一个 IP 地址，返回所有可能从 s 获得的 有效 IP 地址 。你可以按任何顺序返回答">
+  <meta itemprop="name" content="LeetCode每日练习：剑指 Offer II 066. 单词之和 - qkgoalkeeper&#39;s blog">
+  <meta itemprop="description" content="一.剑指 Offer II 066. 单词之和 1.题干及思路 实现一个 MapSum 类，支持两个方法，insert 和 sum： MapSum() 初始化 MapSum 对象 void insert(String key, int val) 插入 key-val 键值对，字符串表示键 key ，">
   <meta itemprop="image" content="https://qkgoalkeeper.github.io/img/author.jpg">
   
   
@@ -74,7 +74,7 @@
 	<article itemprop="articleBody">
     <header class="article-info clearfix">
   <h1 itemprop="name">
-      <a href="https://qkgoalkeeper.github.io/post/leetcode%E6%AF%8F%E6%97%A5%E7%BB%83%E4%B9%A0%E5%89%91%E6%8C%87-offer-ii-087.-%E5%A4%8D%E5%8E%9F-ip/" title="LeetCode每日练习：剑指 Offer II 087. 复原 IP " itemprop="url">LeetCode每日练习：剑指 Offer II 087. 复原 IP </a>
+      <a href="https://qkgoalkeeper.github.io/post/leetcode%E6%AF%8F%E6%97%A5%E7%BB%83%E4%B9%A0%E5%89%91%E6%8C%87-offer-ii-066.-%E5%8D%95%E8%AF%8D%E4%B9%8B%E5%92%8C/" title="LeetCode每日练习：剑指 Offer II 066. 单词之和" itemprop="url">LeetCode每日练习：剑指 Offer II 066. 单词之和</a>
   </h1>
   <p class="article-author">By
     
@@ -82,7 +82,7 @@
     
   </p>
   <p class="article-time">
-    <time datetime="2022-02-08 10:55:19 &#43;0800 CST" itemprop="datePublished">2022年02月08日</time>
+    <time datetime="2022-03-23 09:55:19 &#43;0800 CST" itemprop="datePublished">2022年03月23日</time>
   </p>
 </header>
 
@@ -93,76 +93,113 @@
       <nav id="TableOfContents">
   <ul>
     <li><a href="#1题干及思路">1.题干及思路</a></li>
-    <li><a href="#2c实现">2.C++实现</a></li>
+    <li><a href="#2golang实现">2.golang实现</a></li>
   </ul>
 </nav>
 		</div>
     
-    <h1 id="一剑指-offer-ii-087-复原-ip-httpsleetcode-cncomproblems0on3un">一.<a href="https://leetcode-cn.com/problems/0on3uN/">剑指 Offer II 087. 复原 IP </a></h1>
+    <h1 id="一剑指-offer-ii-066-单词之和httpsleetcode-cncomproblemsz1r5dt">一.<a href="https://leetcode-cn.com/problems/z1R5dt/">剑指 Offer II 066. 单词之和</a></h1>
 <h2 id="1题干及思路">1.题干及思路</h2>
-<p>给定一个只包含数字的字符串 <code>s</code> ，用以表示一个 IP 地址，返回所有可能从 <code>s</code> 获得的 <strong>有效 IP 地址</strong> 。你可以按任何顺序返回答案。</p>
-<p><strong>有效 IP 地址</strong> 正好由四个整数（每个整数位于 0 到 255 之间组成，且不能含有前导 <code>0</code>），整数之间用 <code>'.'</code> 分隔。</p>
-<p>例如：&ldquo;0.1.2.201&rdquo; 和 &ldquo;192.168.1.1&rdquo; 是 <strong>有效</strong> IP 地址，但是 &ldquo;0.011.255.245&rdquo;、&ldquo;192.168.1.312&rdquo; 和 &ldquo;<a href="mailto:192.168@1.1">192.168@1.1</a>&rdquo; 是 <strong>无效</strong> IP 地址。</p>
-<p><strong>示例 1：</strong></p>
-<pre tabindex="0"><code>输入：s = &quot;25525511135&quot;
-输出：[&quot;255.255.11.135&quot;,&quot;255.255.111.35&quot;]
-</code></pre><p><strong>示例 2：</strong></p>
-<pre tabindex="0"><code>输入：s = &quot;0000&quot;
-输出：[&quot;0.0.0.0&quot;]
-</code></pre><p><strong>示例 3：</strong></p>
-<pre tabindex="0"><code>输入：s = &quot;1111&quot;
-输出：[&quot;1.1.1.1&quot;]
-</code></pre><p><strong>示例 4：</strong></p>
-<pre tabindex="0"><code>输入：s = &quot;010010&quot;
-输出：[&quot;0.10.0.10&quot;,&quot;0.100.1.0&quot;]
-</code></pre><p><strong>示例 5：</strong></p>
-<pre tabindex="0"><code>输入：s = &quot;10203040&quot;
-输出：[&quot;10.20.30.40&quot;,&quot;102.0.30.40&quot;,&quot;10.203.0.40&quot;]
+<p>实现一个 <code>MapSum</code> 类，支持两个方法，<code>insert</code> 和 <code>sum</code>：</p>
+<ul>
+<li><code>MapSum()</code> 初始化 <code>MapSum</code> 对象</li>
+<li><code>void insert(String key, int val)</code> 插入 <code>key-val</code> 键值对，字符串表示键 <code>key</code> ，整数表示值 <code>val</code> 。如果键 <code>key</code> 已经存在，那么原来的键值对将被替代成新的键值对。</li>
+<li><code>int sum(string prefix)</code> 返回所有以该前缀 <code>prefix</code> 开头的键 <code>key</code> 的值的总和。</li>
+</ul>
+<p><strong>示例：</strong></p>
+<pre tabindex="0"><code>输入：
+inputs = [&quot;MapSum&quot;, &quot;insert&quot;, &quot;sum&quot;, &quot;insert&quot;, &quot;sum&quot;]
+inputs = [[], [&quot;apple&quot;, 3], [&quot;ap&quot;], [&quot;app&quot;, 2], [&quot;ap&quot;]]
+输出：
+[null, null, 3, null, 5]
+
+解释：
+MapSum mapSum = new MapSum();
+mapSum.insert(&quot;apple&quot;, 3);  
+mapSum.sum(&quot;ap&quot;);           // return 3 (apple = 3)
+mapSum.insert(&quot;app&quot;, 2);    
+mapSum.sum(&quot;ap&quot;);           // return 5 (apple + app = 3 + 2 = 5)
 </code></pre><p><strong>提示：</strong></p>
 <ul>
-<li><code>0 &lt;= s.length &lt;= 3000</code></li>
-<li><code>s</code> 仅由数字组成</li>
+<li><code>1 &lt;= key.length, prefix.length &lt;= 50</code></li>
+<li><code>key</code> 和 <code>prefix</code> 仅由小写英文字母组成</li>
+<li><code>1 &lt;= val &lt;= 1000</code></li>
+<li>最多调用 <code>50</code> 次 <code>insert</code> 和 <code>sum</code></li>
 </ul>
-<p>注意：本题与主站 93 题相同：https://leetcode-cn.com/problems/restore-ip-addresses/</p>
-<p>要点：dfs</p>
-<p>思路：dfs，同样是字符串分割的dfs，每次取1-3位判断合不合法后继续dfs，注意子串的数量为4和前置0</p>
-<h2 id="2c实现">2.C++实现</h2>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="k">class</span> <span class="nc">Solution</span> <span class="p">{</span>
-<span class="k">public</span><span class="o">:</span>
-    <span class="n">vector</span><span class="o">&lt;</span><span class="n">string</span><span class="o">&gt;</span> <span class="n">answer</span><span class="p">;</span>
-    <span class="kt">void</span> <span class="nf">dfs</span><span class="p">(</span><span class="n">string</span><span class="o">&amp;</span> <span class="n">s</span><span class="p">,</span><span class="kt">int</span> <span class="n">start</span><span class="p">,</span><span class="n">string</span> <span class="n">temp</span><span class="p">,</span><span class="kt">int</span> <span class="n">num</span><span class="p">){</span>
-        <span class="k">if</span><span class="p">(</span><span class="n">start</span><span class="o">==</span><span class="n">s</span><span class="p">.</span><span class="n">size</span><span class="p">()){</span>
-            <span class="k">if</span><span class="p">(</span><span class="n">num</span><span class="o">==</span><span class="mi">4</span><span class="p">){</span>
-                <span class="n">temp</span><span class="p">.</span><span class="n">pop_back</span><span class="p">();</span>
-                <span class="n">answer</span><span class="p">.</span><span class="n">emplace_back</span><span class="p">(</span><span class="n">temp</span><span class="p">);</span>
-            <span class="p">}</span>
-            <span class="k">return</span><span class="p">;</span>
-        <span class="p">}</span>
-        <span class="k">if</span><span class="p">(</span><span class="n">num</span><span class="o">&gt;=</span><span class="mi">4</span><span class="p">)</span> <span class="k">return</span><span class="p">;</span>
-        <span class="k">if</span><span class="p">(</span><span class="n">s</span><span class="p">[</span><span class="n">start</span><span class="p">]</span><span class="o">==</span><span class="sc">&#39;0&#39;</span><span class="p">){</span>
-            <span class="n">temp</span><span class="o">+=</span><span class="s">&#34;0.&#34;</span><span class="p">;</span>
-            <span class="n">dfs</span><span class="p">(</span><span class="n">s</span><span class="p">,</span><span class="n">start</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span><span class="n">temp</span><span class="p">,</span><span class="n">num</span><span class="o">+</span><span class="mi">1</span><span class="p">);</span>
-        <span class="p">}</span>
-        <span class="k">else</span><span class="p">{</span>
-            <span class="n">string</span> <span class="n">child</span> <span class="o">=</span> <span class="n">temp</span><span class="p">;</span>
-            <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">end</span><span class="o">=</span><span class="n">start</span><span class="p">;</span><span class="n">end</span><span class="o">&lt;</span><span class="n">start</span><span class="o">+</span><span class="mi">3</span><span class="p">;</span><span class="n">end</span><span class="o">++</span><span class="p">){</span>
-                <span class="n">child</span><span class="o">+=</span><span class="n">s</span><span class="p">[</span><span class="n">end</span><span class="p">];</span>
-                <span class="k">if</span><span class="p">(</span><span class="n">end</span><span class="o">&lt;</span><span class="n">s</span><span class="p">.</span><span class="n">size</span><span class="p">()){</span>
-                    <span class="kt">int</span> <span class="n">intStr</span> <span class="o">=</span> <span class="n">atoi</span><span class="p">(</span><span class="n">s</span><span class="p">.</span><span class="n">substr</span><span class="p">(</span><span class="n">start</span><span class="p">,</span><span class="n">end</span><span class="o">-</span><span class="n">start</span><span class="o">+</span><span class="mi">1</span><span class="p">).</span><span class="n">c_str</span><span class="p">());</span>
-                    <span class="k">if</span><span class="p">(</span><span class="n">intStr</span><span class="o">&gt;</span><span class="mi">0</span><span class="o">&amp;&amp;</span><span class="n">intStr</span><span class="o">&lt;=</span><span class="mi">255</span><span class="p">){</span>
-                        <span class="n">dfs</span><span class="p">(</span><span class="n">s</span><span class="p">,</span><span class="n">end</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span><span class="n">child</span><span class="o">+</span><span class="s">&#34;.&#34;</span><span class="p">,</span><span class="n">num</span><span class="o">+</span><span class="mi">1</span><span class="p">);</span>
-                    <span class="p">}</span>
-                <span class="p">}</span>
-            <span class="p">}</span>
-        <span class="p">}</span>
-    <span class="p">}</span>
+<p>注意：本题与主站 677 题相同： <a href="https://leetcode-cn.com/problems/map-sum-pairs/">https://leetcode-cn.com/problems/map-sum-pairs/</a></p>
+<p>要点：字典树</p>
+<p>思路：字典树的应用，insert时如果没找到key，就对路径上每个点加val，如果找到key，先保存原来的key对应val，再对路径上每个点更新val的差值</p>
+<h2 id="2golang实现">2.golang实现</h2>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="n">package</span> <span class="n">main</span>
 
-    <span class="n">vector</span><span class="o">&lt;</span><span class="n">string</span><span class="o">&gt;</span> <span class="n">restoreIpAddresses</span><span class="p">(</span><span class="n">string</span> <span class="n">s</span><span class="p">)</span> <span class="p">{</span>
-        <span class="n">dfs</span><span class="p">(</span><span class="n">s</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="s">&#34;&#34;</span><span class="p">,</span><span class="mi">0</span><span class="p">);</span>
-        <span class="k">return</span> <span class="n">answer</span><span class="p">;</span>
+<span class="n">import</span> <span class="s">&#34;fmt&#34;</span>
 
-    <span class="p">}</span>
-<span class="p">};</span>
+<span class="n">type</span> <span class="n">MapSum</span> <span class="k">struct</span> <span class="p">{</span>
+	<span class="n">child</span> <span class="p">[</span><span class="mi">26</span><span class="p">]</span><span class="o">*</span><span class="n">MapSum</span>
+	<span class="n">value</span> <span class="kt">int</span>
+	<span class="n">sum</span>   <span class="kt">int</span>
+<span class="p">}</span>
+
+<span class="cm">/** Initialize your data structure here. */</span>
+<span class="n">func</span> <span class="nf">Constructor</span><span class="p">()</span> <span class="n">MapSum</span> <span class="p">{</span>
+	<span class="k">return</span> <span class="n">MapSum</span><span class="p">{</span><span class="nl">child</span><span class="p">:</span> <span class="p">[</span><span class="mi">26</span><span class="p">]</span><span class="o">*</span><span class="n">MapSum</span><span class="p">{}}</span>
+<span class="p">}</span>
+
+<span class="n">func</span> <span class="p">(</span><span class="k">this</span> <span class="o">*</span><span class="n">MapSum</span><span class="p">)</span> <span class="n">Insert</span><span class="p">(</span><span class="n">key</span> <span class="n">string</span><span class="p">,</span> <span class="n">val</span> <span class="kt">int</span><span class="p">)</span> <span class="p">{</span>
+	<span class="nl">node</span> <span class="p">:</span><span class="o">=</span> <span class="k">this</span>
+	<span class="nl">oldVal</span> <span class="p">:</span><span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="n">find</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
+	<span class="k">for</span> <span class="n">_</span><span class="p">,</span> <span class="nl">c</span> <span class="p">:</span><span class="o">=</span> <span class="n">range</span> <span class="n">key</span><span class="p">[</span><span class="mi">0</span><span class="o">:</span><span class="p">]</span> <span class="p">{</span>
+		<span class="nl">newNode</span> <span class="p">:</span><span class="o">=</span> <span class="n">node</span><span class="p">.</span><span class="n">child</span><span class="p">[</span><span class="n">c</span><span class="o">-</span><span class="sc">&#39;a&#39;</span><span class="p">]</span>
+		<span class="k">if</span> <span class="n">newNode</span> <span class="o">==</span> <span class="n">nil</span> <span class="p">{</span>
+			<span class="n">newNode</span> <span class="o">=</span> <span class="o">&amp;</span><span class="n">MapSum</span><span class="p">{</span><span class="nl">child</span><span class="p">:</span> <span class="p">[</span><span class="mi">26</span><span class="p">]</span><span class="o">*</span><span class="n">MapSum</span><span class="p">{}}</span>
+		<span class="p">}</span>
+		<span class="n">newNode</span><span class="p">.</span><span class="n">sum</span> <span class="o">+=</span> <span class="n">val</span> <span class="o">-</span> <span class="n">oldVal</span>
+		<span class="n">node</span><span class="p">.</span><span class="n">child</span><span class="p">[</span><span class="n">c</span><span class="o">-</span><span class="sc">&#39;a&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">newNode</span>
+		<span class="n">node</span> <span class="o">=</span> <span class="n">newNode</span>
+	<span class="p">}</span>
+	<span class="n">node</span><span class="p">.</span><span class="n">value</span> <span class="o">=</span> <span class="n">val</span>
+<span class="p">}</span>
+
+<span class="n">func</span> <span class="p">(</span><span class="k">this</span> <span class="o">*</span><span class="n">MapSum</span><span class="p">)</span> <span class="n">find</span><span class="p">(</span><span class="n">key</span> <span class="n">string</span><span class="p">)</span> <span class="kt">int</span> <span class="p">{</span>
+	<span class="nl">node</span> <span class="p">:</span><span class="o">=</span> <span class="k">this</span>
+	<span class="k">for</span> <span class="n">_</span><span class="p">,</span> <span class="nl">c</span> <span class="p">:</span><span class="o">=</span> <span class="n">range</span> <span class="n">key</span><span class="p">[</span><span class="mi">0</span><span class="o">:</span><span class="p">]</span> <span class="p">{</span>
+		<span class="nl">newNode</span> <span class="p">:</span><span class="o">=</span> <span class="n">node</span><span class="p">.</span><span class="n">child</span><span class="p">[</span><span class="n">c</span><span class="o">-</span><span class="sc">&#39;a&#39;</span><span class="p">]</span>
+		<span class="k">if</span> <span class="n">newNode</span> <span class="o">==</span> <span class="n">nil</span> <span class="p">{</span>
+			<span class="k">return</span> <span class="mi">0</span>
+		<span class="p">}</span>
+		<span class="n">node</span> <span class="o">=</span> <span class="n">newNode</span>
+	<span class="p">}</span>
+	<span class="k">return</span> <span class="n">node</span><span class="p">.</span><span class="n">value</span>
+<span class="p">}</span>
+
+<span class="n">func</span> <span class="p">(</span><span class="k">this</span> <span class="o">*</span><span class="n">MapSum</span><span class="p">)</span> <span class="n">Sum</span><span class="p">(</span><span class="n">prefix</span> <span class="n">string</span><span class="p">)</span> <span class="kt">int</span> <span class="p">{</span>
+	<span class="nl">node</span> <span class="p">:</span><span class="o">=</span> <span class="k">this</span>
+	<span class="k">for</span> <span class="n">_</span><span class="p">,</span> <span class="nl">c</span> <span class="p">:</span><span class="o">=</span> <span class="n">range</span> <span class="n">prefix</span><span class="p">[</span><span class="mi">0</span><span class="o">:</span><span class="p">]</span> <span class="p">{</span>
+		<span class="nl">newNode</span> <span class="p">:</span><span class="o">=</span> <span class="n">node</span><span class="p">.</span><span class="n">child</span><span class="p">[</span><span class="n">c</span><span class="o">-</span><span class="sc">&#39;a&#39;</span><span class="p">]</span>
+		<span class="k">if</span> <span class="n">newNode</span> <span class="o">==</span> <span class="n">nil</span> <span class="p">{</span>
+			<span class="k">return</span> <span class="mi">0</span>
+		<span class="p">}</span>
+		<span class="n">node</span> <span class="o">=</span> <span class="n">newNode</span>
+	<span class="p">}</span>
+	<span class="k">return</span> <span class="n">node</span><span class="p">.</span><span class="n">sum</span>
+<span class="p">}</span>
+
+<span class="cm">/**
+</span><span class="cm"> * Your MapSum object will be instantiated and called as such:
+</span><span class="cm"> * obj := Constructor();
+</span><span class="cm"> * obj.Insert(key,val);
+</span><span class="cm"> * param_2 := obj.Sum(prefix);
+</span><span class="cm"> */</span>
+<span class="n">func</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+	<span class="nl">a</span> <span class="p">:</span><span class="o">=</span> <span class="n">MapSum</span><span class="p">{}</span>
+	<span class="n">a</span> <span class="o">=</span> <span class="n">Constructor</span><span class="p">()</span>
+	<span class="n">a</span><span class="p">.</span><span class="n">Insert</span><span class="p">(</span><span class="s">&#34;apple&#34;</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
+	<span class="n">fmt</span><span class="p">.</span><span class="n">Print</span><span class="p">(</span><span class="n">a</span><span class="p">.</span><span class="n">Sum</span><span class="p">(</span><span class="s">&#34;ap&#34;</span><span class="p">))</span>
+	<span class="n">fmt</span><span class="p">.</span><span class="n">Print</span><span class="p">(</span><span class="s">&#34;</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">)</span>
+	<span class="n">a</span><span class="p">.</span><span class="n">Insert</span><span class="p">(</span><span class="s">&#34;app&#34;</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+	<span class="n">fmt</span><span class="p">.</span><span class="n">Print</span><span class="p">(</span><span class="n">a</span><span class="p">.</span><span class="n">Sum</span><span class="p">(</span><span class="s">&#34;ap&#34;</span><span class="p">))</span>
+<span class="p">}</span>
+
 </code></pre></div>
     
 	</div>
@@ -174,9 +211,11 @@
   
   <a href="https://qkgoalkeeper.github.io/tags/leetcode">LeetCode</a>
   
-  <a href="https://qkgoalkeeper.github.io/tags/c&#43;&#43;">C&#43;&#43;</a>
+  <a href="https://qkgoalkeeper.github.io/tags/golang">golang</a>
   
-  <a href="https://qkgoalkeeper.github.io/tags/dfs">dfs</a>
+  <a href="https://qkgoalkeeper.github.io/tags/%E6%A0%91">树</a>
+  
+  <a href="https://qkgoalkeeper.github.io/tags/%E5%AD%97%E5%85%B8%E6%A0%91">字典树</a>
   
 </div>
 
@@ -194,7 +233,7 @@
 
 
   <div class="article-share" id="share">
-    <div data-url="https://qkgoalkeeper.github.io/post/leetcode%E6%AF%8F%E6%97%A5%E7%BB%83%E4%B9%A0%E5%89%91%E6%8C%87-offer-ii-087.-%E5%A4%8D%E5%8E%9F-ip/" data-title="LeetCode每日练习：剑指 Offer II 087. 复原 IP " data-tsina="5852167252" class="share clearfix">
+    <div data-url="https://qkgoalkeeper.github.io/post/leetcode%E6%AF%8F%E6%97%A5%E7%BB%83%E4%B9%A0%E5%89%91%E6%8C%87-offer-ii-066.-%E5%8D%95%E8%AF%8D%E4%B9%8B%E5%92%8C/" data-title="LeetCode每日练习：剑指 Offer II 066. 单词之和" data-tsina="5852167252" class="share clearfix">
     </div>
   </div>
 </footer>
