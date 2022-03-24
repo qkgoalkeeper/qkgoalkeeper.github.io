@@ -6,7 +6,16 @@
     <description>Recent content in golang on qkgoalkeeper&#39;s blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
-    <lastBuildDate>Wed, 23 Mar 2022 09:55:19 +0800</lastBuildDate><atom:link href="https://qkgoalkeeper.github.io/tags/golang/feed.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Thu, 24 Mar 2022 09:55:19 +0800</lastBuildDate><atom:link href="https://qkgoalkeeper.github.io/tags/golang/feed.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>LeetCode每日练习：剑指 Offer II 067. 最大的异或</title>
+      <link>https://qkgoalkeeper.github.io/post/leetcode%E6%AF%8F%E6%97%A5%E7%BB%83%E4%B9%A0%E5%89%91%E6%8C%87-offer-ii-067.-%E6%9C%80%E5%A4%A7%E7%9A%84%E5%BC%82%E6%88%96/</link>
+      <pubDate>Thu, 24 Mar 2022 09:55:19 +0800</pubDate>
+      
+      <guid>https://qkgoalkeeper.github.io/post/leetcode%E6%AF%8F%E6%97%A5%E7%BB%83%E4%B9%A0%E5%89%91%E6%8C%87-offer-ii-067.-%E6%9C%80%E5%A4%A7%E7%9A%84%E5%BC%82%E6%88%96/</guid>
+      <description>一.剑指 Offer II 067. 最大的异或 1.题干及思路 给定一个整数数组 nums ，返回 nums[i] XOR nums[j] 的最大运算结果，其中 0 ≤ i ≤ j &amp;lt; n 。 示例 1： 输入：nums = [3,10,5,25,2,8] 输出：28</description>
+    </item>
+    
     <item>
       <title>LeetCode每日练习：剑指 Offer II 066. 单词之和</title>
       <link>https://qkgoalkeeper.github.io/post/leetcode%E6%AF%8F%E6%97%A5%E7%BB%83%E4%B9%A0%E5%89%91%E6%8C%87-offer-ii-066.-%E5%8D%95%E8%AF%8D%E4%B9%8B%E5%92%8C/</link>
