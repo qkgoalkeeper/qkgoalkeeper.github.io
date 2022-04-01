@@ -2,13 +2,13 @@
 <html lang="zh-CN">
 <head>
   <meta charset="UTF-8">
-  <title>LeetCode每日练习：剑指 Offer II 065. 最短的单词编码 - qkgoalkeeper&#39;s blog</title>
+  <title>LeetCode每日练习：剑指 Offer II 076. 数组中的第 k 大的数字 - qkgoalkeeper&#39;s blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=3, minimum-scale=1">
   
-  <meta name="description" content="一.剑指 Offer II 065. 最短的单词编码 1.题干及思路 单词数组 words 的 有效编码 由任意助记字符串 s 和下标数组 indices 组成，且满足： words.length == indices.length 助记字符串 s 以 &#39;#&#39; 字符结尾 对于">
+  <meta name="description" content="一.剑指 Offer II 076. 数组中的第 k 大的数字 1.题干及思路 给定整数数组 nums 和整数 k，请返回数组中第 **k** 个最大的元素。 请注意，你需要找的是数组排序后的第 k 个">
   
-  <meta itemprop="name" content="LeetCode每日练习：剑指 Offer II 065. 最短的单词编码 - qkgoalkeeper&#39;s blog">
-  <meta itemprop="description" content="一.剑指 Offer II 065. 最短的单词编码 1.题干及思路 单词数组 words 的 有效编码 由任意助记字符串 s 和下标数组 indices 组成，且满足： words.length == indices.length 助记字符串 s 以 &#39;#&#39; 字符结尾 对于">
+  <meta itemprop="name" content="LeetCode每日练习：剑指 Offer II 076. 数组中的第 k 大的数字 - qkgoalkeeper&#39;s blog">
+  <meta itemprop="description" content="一.剑指 Offer II 076. 数组中的第 k 大的数字 1.题干及思路 给定整数数组 nums 和整数 k，请返回数组中第 **k** 个最大的元素。 请注意，你需要找的是数组排序后的第 k 个">
   <meta itemprop="image" content="https://qkgoalkeeper.github.io/img/author.jpg">
   
   
@@ -74,7 +74,7 @@
 	<article itemprop="articleBody">
     <header class="article-info clearfix">
   <h1 itemprop="name">
-      <a href="https://qkgoalkeeper.github.io/post/leetcode%E6%AF%8F%E6%97%A5%E7%BB%83%E4%B9%A0%E5%89%91%E6%8C%87-offer-ii-065.-%E6%9C%80%E7%9F%AD%E7%9A%84%E5%8D%95%E8%AF%8D%E7%BC%96%E7%A0%81/" title="LeetCode每日练习：剑指 Offer II 065. 最短的单词编码" itemprop="url">LeetCode每日练习：剑指 Offer II 065. 最短的单词编码</a>
+      <a href="https://qkgoalkeeper.github.io/post/leetcode%E6%AF%8F%E6%97%A5%E7%BB%83%E4%B9%A0%E5%89%91%E6%8C%87-offer-ii-076.-%E6%95%B0%E7%BB%84%E4%B8%AD%E7%9A%84%E7%AC%AC-k-%E5%A4%A7%E7%9A%84%E6%95%B0%E5%AD%97/" title="LeetCode每日练习：剑指 Offer II 076. 数组中的第 k 大的数字" itemprop="url">LeetCode每日练习：剑指 Offer II 076. 数组中的第 k 大的数字</a>
   </h1>
   <p class="article-author">By
     
@@ -82,7 +82,7 @@
     
   </p>
   <p class="article-time">
-    <time datetime="2022-03-22 09:55:19 &#43;0800 CST" itemprop="datePublished">2022年03月22日</time>
+    <time datetime="2022-04-01 09:55:19 &#43;0800 CST" itemprop="datePublished">2022年04月01日</time>
   </p>
 </header>
 
@@ -93,97 +93,48 @@
       <nav id="TableOfContents">
   <ul>
     <li><a href="#1题干及思路">1.题干及思路</a></li>
-    <li><a href="#2golang实现">2.golang实现</a></li>
+    <li><a href="#2c实现">2.C++实现</a></li>
   </ul>
 </nav>
 		</div>
     
-    <h1 id="一剑指-offer-ii-065-最短的单词编码httpsleetcode-cncomproblemsiswd2y">一.<a href="https://leetcode-cn.com/problems/iSwD2y/">剑指 Offer II 065. 最短的单词编码</a></h1>
+    <h1 id="一剑指-offer-ii-076-数组中的第-k-大的数字httpsleetcode-cncomproblemsxx4gt2">一.<a href="https://leetcode-cn.com/problems/xx4gT2/">剑指 Offer II 076. 数组中的第 k 大的数字</a></h1>
 <h2 id="1题干及思路">1.题干及思路</h2>
-<p>单词数组 <code>words</code> 的 <strong>有效编码</strong> 由任意助记字符串 <code>s</code> 和下标数组 <code>indices</code> 组成，且满足：</p>
-<ul>
-<li><code>words.length == indices.length</code></li>
-<li>助记字符串 <code>s</code> 以 <code>'#'</code> 字符结尾</li>
-<li>对于每个下标 <code>indices[i]</code> ，<code>s</code> 的一个从 <code>indices[i]</code> 开始、到下一个 <code>'#'</code> 字符结束（但不包括 <code>'#'</code>）的 <strong>子字符串</strong> 恰好与 <code>words[i]</code> 相等</li>
-</ul>
-<p>给定一个单词数组 <code>words</code> ，返回成功对 <code>words</code> 进行编码的最小助记字符串 <code>s</code> 的长度 。</p>
-<p><strong>示例 1：</strong></p>
-<pre tabindex="0"><code>输入：words = [&quot;time&quot;, &quot;me&quot;, &quot;bell&quot;]
-输出：10
-解释：一组有效编码为 s = &quot;time#bell#&quot; 和 indices = [0, 2, 5] 。
-words[0] = &quot;time&quot; ，s 开始于 indices[0] = 0 到下一个 '#' 结束的子字符串，如加粗部分所示 &quot;time#bell#&quot;
-words[1] = &quot;me&quot; ，s 开始于 indices[1] = 2 到下一个 '#' 结束的子字符串，如加粗部分所示 &quot;time#bell#&quot;
-words[2] = &quot;bell&quot; ，s 开始于 indices[2] = 5 到下一个 '#' 结束的子字符串，如加粗部分所示 &quot;time#bell#&quot;
-</code></pre><p><strong>示例 2：</strong></p>
-<pre tabindex="0"><code>输入：words = [&quot;t&quot;]
-输出：2
-解释：一组有效编码为 s = &quot;t#&quot; 和 indices = [0] 。
+<p>给定整数数组 <code>nums</code> 和整数 <code>k</code>，请返回数组中第 <code>**k**</code> 个最大的元素。</p>
+<p>请注意，你需要找的是数组排序后的第 <code>k</code> 个最大的元素，而不是第 <code>k</code> 个不同的元素。</p>
+<p><strong>示例 1:</strong></p>
+<pre tabindex="0"><code>输入: [3,2,1,5,6,4] 和 k = 2
+输出: 5
+</code></pre><p><strong>示例 2:</strong></p>
+<pre tabindex="0"><code>输入: [3,2,3,1,2,4,5,5,6] 和 k = 4
+输出: 4
 </code></pre><p><strong>提示：</strong></p>
 <ul>
-<li><code>1 &lt;= words.length &lt;= 2000</code></li>
-<li><code>1 &lt;= words[i].length &lt;= 7</code></li>
-<li><code>words[i]</code> 仅由小写字母组成</li>
+<li><code>1 &lt;= k &lt;= nums.length &lt;= 104</code></li>
+<li><code>-104 &lt;= nums[i] &lt;= 104</code></li>
 </ul>
-<p>注意：本题与主站 820 题相同： <a href="https://leetcode-cn.com/problems/short-encoding-of-words/">https://leetcode-cn.com/problems/short-encoding-of-words/</a></p>
-<p>要点：字典树</p>
-<p>思路：字典树的应用，倒序将每个字符串插入到trie树，最后dfs找路径求和</p>
-<h2 id="2golang实现">2.golang实现</h2>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="n">package</span> <span class="n">main</span>
+<p>注意：本题与主站 215 题相同： <a href="https://leetcode-cn.com/problems/kth-largest-element-in-an-array/">https://leetcode-cn.com/problems/kth-largest-element-in-an-array/</a></p>
+<p>要点：堆排序</p>
+<p>思路：topk问题用堆排序，c++有自带的优先队列来实现</p>
+<h2 id="2c实现">2.C++实现</h2>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="k">class</span> <span class="nc">Solution</span> <span class="p">{</span>
+<span class="k">public</span><span class="o">:</span>
+    <span class="kt">int</span> <span class="n">findKthLargest</span><span class="p">(</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;&amp;</span> <span class="n">nums</span><span class="p">,</span> <span class="kt">int</span> <span class="n">k</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">priority_queue</span><span class="o">&lt;</span><span class="kt">int</span><span class="p">,</span> <span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="p">,</span> <span class="n">greater</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;&gt;</span> <span class="n">heap</span><span class="p">;</span>
+        <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">nums</span><span class="p">.</span><span class="n">size</span><span class="p">();</span> <span class="o">++</span><span class="n">i</span><span class="p">)</span> <span class="p">{</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">i</span> <span class="o">&lt;</span> <span class="n">k</span><span class="p">)</span> <span class="p">{</span>
+                <span class="n">heap</span><span class="p">.</span><span class="n">push</span><span class="p">(</span><span class="n">nums</span><span class="p">[</span><span class="n">i</span><span class="p">]);</span>
+            <span class="p">}</span>
+            <span class="k">else</span> <span class="nf">if</span> <span class="p">(</span><span class="n">nums</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">heap</span><span class="p">.</span><span class="n">top</span><span class="p">())</span> <span class="p">{</span>
+                <span class="n">heap</span><span class="p">.</span><span class="n">pop</span><span class="p">();</span>
+                <span class="n">heap</span><span class="p">.</span><span class="n">push</span><span class="p">(</span><span class="n">nums</span><span class="p">[</span><span class="n">i</span><span class="p">]);</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+        <span class="k">return</span> <span class="n">heap</span><span class="p">.</span><span class="n">top</span><span class="p">();</span>
+    <span class="p">}</span>
+<span class="p">};</span>
 
-<span class="n">import</span> <span class="s">&#34;fmt&#34;</span>
 
-<span class="n">type</span> <span class="n">Trie</span> <span class="k">struct</span> <span class="p">{</span>
-	<span class="n">child</span> <span class="p">[</span><span class="mi">26</span><span class="p">]</span><span class="o">*</span><span class="n">Trie</span>
-	<span class="n">depth</span> <span class="kt">int</span>
-<span class="p">}</span>
-
-<span class="n">func</span> <span class="nf">Constructor</span><span class="p">()</span> <span class="o">*</span><span class="n">Trie</span> <span class="p">{</span>
-	<span class="k">return</span> <span class="o">&amp;</span><span class="n">Trie</span><span class="p">{</span>
-		<span class="nl">child</span><span class="p">:</span> <span class="p">[</span><span class="mi">26</span><span class="p">]</span><span class="o">*</span><span class="n">Trie</span><span class="p">{},</span>
-		<span class="nl">depth</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
-	<span class="p">}</span>
-<span class="p">}</span>
-
-<span class="n">func</span> <span class="p">(</span><span class="n">t</span> <span class="o">*</span><span class="n">Trie</span><span class="p">)</span> <span class="n">Insert</span><span class="p">(</span><span class="n">word</span> <span class="n">string</span><span class="p">)</span> <span class="p">{</span>
-	<span class="nl">curr</span> <span class="p">:</span><span class="o">=</span> <span class="n">t</span>
-	<span class="nl">n</span> <span class="p">:</span><span class="o">=</span> <span class="n">len</span><span class="p">(</span><span class="n">word</span><span class="p">)</span>
-	<span class="k">for</span> <span class="nl">i</span> <span class="p">:</span><span class="o">=</span> <span class="n">n</span> <span class="o">-</span> <span class="mi">1</span><span class="p">;</span> <span class="n">i</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span><span class="o">--</span> <span class="p">{</span>
-		<span class="nl">c</span> <span class="p">:</span><span class="o">=</span> <span class="n">word</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">-</span> <span class="sc">&#39;a&#39;</span>
-		<span class="k">if</span> <span class="n">curr</span><span class="p">.</span><span class="n">child</span><span class="p">[</span><span class="n">c</span><span class="p">]</span> <span class="o">==</span> <span class="n">nil</span> <span class="p">{</span>
-			<span class="n">curr</span><span class="p">.</span><span class="n">child</span><span class="p">[</span><span class="n">c</span><span class="p">]</span> <span class="o">=</span> <span class="n">Constructor</span><span class="p">()</span>
-		<span class="p">}</span>
-		<span class="n">curr</span><span class="p">.</span><span class="n">child</span><span class="p">[</span><span class="n">c</span><span class="p">].</span><span class="n">depth</span> <span class="o">=</span> <span class="n">curr</span><span class="p">.</span><span class="n">depth</span> <span class="o">+</span> <span class="mi">1</span>
-		<span class="n">curr</span> <span class="o">=</span> <span class="n">curr</span><span class="p">.</span><span class="n">child</span><span class="p">[</span><span class="n">c</span><span class="p">]</span>
-	<span class="p">}</span>
-<span class="p">}</span>
-
-<span class="n">func</span> <span class="nf">minimumLengthEncoding</span><span class="p">(</span><span class="n">words</span> <span class="p">[]</span><span class="n">string</span><span class="p">)</span> <span class="kt">int</span> <span class="p">{</span>
-	<span class="nl">t</span> <span class="p">:</span><span class="o">=</span> <span class="n">Constructor</span><span class="p">()</span>
-	<span class="k">for</span> <span class="n">_</span><span class="p">,</span> <span class="nl">w</span> <span class="p">:</span><span class="o">=</span> <span class="n">range</span> <span class="n">words</span> <span class="p">{</span>
-		<span class="n">t</span><span class="p">.</span><span class="n">Insert</span><span class="p">(</span><span class="n">w</span><span class="p">)</span>
-	<span class="p">}</span>
-	<span class="n">var</span> <span class="n">res</span> <span class="kt">int</span>
-	<span class="n">var</span> <span class="n">dfs</span> <span class="n">func</span><span class="p">(</span><span class="n">node</span> <span class="o">*</span><span class="n">Trie</span><span class="p">)</span>
-	<span class="n">dfs</span> <span class="o">=</span> <span class="n">func</span><span class="p">(</span><span class="n">node</span> <span class="o">*</span><span class="n">Trie</span><span class="p">)</span> <span class="p">{</span>
-		<span class="n">var</span> <span class="n">hasChild</span> <span class="kt">bool</span>
-		<span class="k">for</span> <span class="nl">i</span> <span class="p">:</span><span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="mi">26</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span> <span class="p">{</span>
-			<span class="k">if</span> <span class="n">node</span><span class="p">.</span><span class="n">child</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">!=</span> <span class="n">nil</span> <span class="p">{</span>
-				<span class="n">hasChild</span> <span class="o">=</span> <span class="nb">true</span>
-				<span class="n">dfs</span><span class="p">(</span><span class="n">node</span><span class="p">.</span><span class="n">child</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
-			<span class="p">}</span>
-		<span class="p">}</span>
-		<span class="k">if</span> <span class="o">!</span><span class="n">hasChild</span> <span class="p">{</span>
-			<span class="n">res</span> <span class="o">+=</span> <span class="n">node</span><span class="p">.</span><span class="n">depth</span>
-		<span class="p">}</span>
-	<span class="p">}</span>
-	<span class="n">dfs</span><span class="p">(</span><span class="n">t</span><span class="p">)</span>
-	<span class="k">return</span> <span class="n">res</span>
-<span class="p">}</span>
-
-<span class="n">func</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
-	<span class="n">var</span> <span class="n">s</span> <span class="o">=</span> <span class="p">[]</span><span class="n">string</span><span class="p">{</span><span class="s">&#34;time&#34;</span><span class="p">,</span> <span class="s">&#34;me&#34;</span><span class="p">,</span> <span class="s">&#34;bell&#34;</span><span class="p">}</span>
-	<span class="n">fmt</span><span class="p">.</span><span class="n">Print</span><span class="p">(</span><span class="n">minimumLengthEncoding</span><span class="p">(</span><span class="n">s</span><span class="p">))</span>
-<span class="p">}</span>
 
 </code></pre></div>
     
@@ -196,11 +147,7 @@ words[2] = &quot;bell&quot; ，s 开始于 indices[2] = 5 到下一个 '#' 结�
   
   <a href="https://qkgoalkeeper.github.io/tags/leetcode">LeetCode</a>
   
-  <a href="https://qkgoalkeeper.github.io/tags/golang">golang</a>
-  
-  <a href="https://qkgoalkeeper.github.io/tags/%E6%A0%91">树</a>
-  
-  <a href="https://qkgoalkeeper.github.io/tags/%E5%AD%97%E5%85%B8%E6%A0%91">字典树</a>
+  <a href="https://qkgoalkeeper.github.io/tags/c&#43;&#43;">C&#43;&#43;</a>
   
 </div>
 
@@ -218,7 +165,7 @@ words[2] = &quot;bell&quot; ，s 开始于 indices[2] = 5 到下一个 '#' 结�
 
 
   <div class="article-share" id="share">
-    <div data-url="https://qkgoalkeeper.github.io/post/leetcode%E6%AF%8F%E6%97%A5%E7%BB%83%E4%B9%A0%E5%89%91%E6%8C%87-offer-ii-065.-%E6%9C%80%E7%9F%AD%E7%9A%84%E5%8D%95%E8%AF%8D%E7%BC%96%E7%A0%81/" data-title="LeetCode每日练习：剑指 Offer II 065. 最短的单词编码" data-tsina="5852167252" class="share clearfix">
+    <div data-url="https://qkgoalkeeper.github.io/post/leetcode%E6%AF%8F%E6%97%A5%E7%BB%83%E4%B9%A0%E5%89%91%E6%8C%87-offer-ii-076.-%E6%95%B0%E7%BB%84%E4%B8%AD%E7%9A%84%E7%AC%AC-k-%E5%A4%A7%E7%9A%84%E6%95%B0%E5%AD%97/" data-title="LeetCode每日练习：剑指 Offer II 076. 数组中的第 k 大的数字" data-tsina="5852167252" class="share clearfix">
     </div>
   </div>
 </footer>
