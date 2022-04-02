@@ -2,13 +2,13 @@
 <html lang="zh-CN">
 <head>
   <meta charset="UTF-8">
-  <title>LeetCode简单题：168. Excel表列名称（Python,C&#43;&#43;,Java） - qkgoalkeeper&#39;s blog</title>
+  <title>LeetCode每日练习：剑指 Offer II 077. 链表排序 - qkgoalkeeper&#39;s blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=3, minimum-scale=1">
   
-  <meta name="description" content="一.解法 https://leetcode-cn.com/problems/excel-sheet-column-title/ 要点：进制转换，取模取余 Python，C&#43;&#43;，Java都用了相同的取模取余法 看成26进制转换，但要注意题目不是0-25为基而是1-">
+  <meta name="description" content="一.剑指 Offer II 077. 链表排序 1.题干及思路 给定链表的头结点 head ，请将其按 升序 排列并返回 排序后的链表 。 示例 1： 输入：head = [4,2,1,3] 输出：[1,2,3,4">
   
-  <meta itemprop="name" content="LeetCode简单题：168. Excel表列名称（Python,C&#43;&#43;,Java） - qkgoalkeeper&#39;s blog">
-  <meta itemprop="description" content="一.解法 https://leetcode-cn.com/problems/excel-sheet-column-title/ 要点：进制转换，取模取余 Python，C&#43;&#43;，Java都用了相同的取模取余法 看成26进制转换，但要注意题目不是0-25为基而是1-">
+  <meta itemprop="name" content="LeetCode每日练习：剑指 Offer II 077. 链表排序 - qkgoalkeeper&#39;s blog">
+  <meta itemprop="description" content="一.剑指 Offer II 077. 链表排序 1.题干及思路 给定链表的头结点 head ，请将其按 升序 排列并返回 排序后的链表 。 示例 1： 输入：head = [4,2,1,3] 输出：[1,2,3,4">
   <meta itemprop="image" content="https://qkgoalkeeper.github.io/img/author.jpg">
   
   
@@ -74,7 +74,7 @@
 	<article itemprop="articleBody">
     <header class="article-info clearfix">
   <h1 itemprop="name">
-      <a href="https://qkgoalkeeper.github.io/post/leetcode%E7%AE%80%E5%8D%95%E9%A2%98168.-excel%E8%A1%A8%E5%88%97%E5%90%8D%E7%A7%B0pythonc&#43;&#43;java/" title="LeetCode简单题：168. Excel表列名称（Python,C&#43;&#43;,Java）" itemprop="url">LeetCode简单题：168. Excel表列名称（Python,C&#43;&#43;,Java）</a>
+      <a href="https://qkgoalkeeper.github.io/post/leetcode%E6%AF%8F%E6%97%A5%E7%BB%83%E4%B9%A0%E5%89%91%E6%8C%87-offer-ii-077.-%E9%93%BE%E8%A1%A8%E6%8E%92%E5%BA%8F/" title="LeetCode每日练习：剑指 Offer II 077. 链表排序" itemprop="url">LeetCode每日练习：剑指 Offer II 077. 链表排序</a>
   </h1>
   <p class="article-author">By
     
@@ -82,7 +82,7 @@
     
   </p>
   <p class="article-time">
-    <time datetime="2020-08-13 17:55:19 &#43;0800 CST" itemprop="datePublished">2020年08月13日</time>
+    <time datetime="2022-04-02 09:55:19 &#43;0800 CST" itemprop="datePublished">2022年04月02日</time>
   </p>
 </header>
 
@@ -92,75 +92,108 @@
 			<strong class="toc-title">文章目录</strong>
       <nav id="TableOfContents">
   <ul>
-    <li><a href="#一解法">一.解法</a></li>
-    <li><a href="#二python实现">二.Python实现</a></li>
-    <li><a href="#三c实现">三.C++实现</a></li>
-    <li><a href="#四java实现">四.java实现</a></li>
+    <li><a href="#1题干及思路">1.题干及思路</a></li>
+    <li><a href="#2c实现">2.C++实现</a></li>
   </ul>
 </nav>
 		</div>
     
-    <h2 id="一解法">一.解法</h2>
-<p><a href="https://leetcode-cn.com/problems/excel-sheet-column-title/">https://leetcode-cn.com/problems/excel-sheet-column-title/</a><br>
-要点：进制转换，取模取余<br>
-Python，C++，Java都用了相同的取模取余法<br>
-看成26进制转换，但要注意题目不是0-25为基而是1-26为基，所以每次取余前都要减1<br>
-节约时间可以用hash表或字典把0-25映射成A-Z</p>
-<h2 id="二python实现">二.Python实现</h2>
-<pre tabindex="0"><code>class Solution:
-    def convertToTitle(self, n: int) -&gt; str:
-        answer=&quot;&quot;
-        while n&gt;0:
-            n-=1
-            temp=n%26
-            answer+=chr(65+temp)
-            n=int(n/26)
-        return answer[::-1]
-</code></pre><h2 id="三c实现">三.C++实现</h2>
-<pre tabindex="0"><code>class Solution {
-public:
-    string convertToTitle(int n) {
-        unordered_map&lt;int,char&gt; hashmap;
-        string answer;
-        string answerreverse;
-        int temp;
-        for(int i=0;i&lt;26;i++){
-            hashmap[i]='A'+i;
-        }
-
-        while(n!=0){     
-            n-=1;    
-            temp=n%26;       
-            answer+=hashmap[temp];
-            n=n/26;                      
-        }
-
-
-        for(int i=answer.size()-1;i&gt;=0;i--){
-            answerreverse+=answer[i];
-        }
-        return answerreverse;
-
-
-    }
-};
-</code></pre><h2 id="四java实现">四.java实现</h2>
-<pre tabindex="0"><code>class Solution {
-    public String convertToTitle(int n) {
-
-    StringBuilder sb = new StringBuilder();
-    int temp;
-    while (n &gt; 0) {
-        n-=1;
-        temp = n % 26;  
-        sb.insert(0, (char) ('A' + temp ));
-        n /= 26;
-    }
-    return sb.toString();
-
-    }
-}
-</code></pre>
+    <h1 id="一剑指-offer-ii-077-链表排序httpsleetcode-cncomproblems7whec2">一.<a href="https://leetcode-cn.com/problems/7WHec2/">剑指 Offer II 077. 链表排序</a></h1>
+<h2 id="1题干及思路">1.题干及思路</h2>
+<p>给定链表的头结点 <code>head</code> ，请将其按 <strong>升序</strong> 排列并返回 <strong>排序后的链表</strong> 。</p>
+<p><strong>示例 1：</strong></p>
+<p><img src="https://assets.leetcode.com/uploads/2020/09/14/sort_list_1.jpg" alt="img"></p>
+<pre tabindex="0"><code>输入：head = [4,2,1,3]
+输出：[1,2,3,4]
+</code></pre><p><strong>示例 2：</strong></p>
+<p><img src="https://assets.leetcode.com/uploads/2020/09/14/sort_list_2.jpg" alt="img"></p>
+<pre tabindex="0"><code>输入：head = [-1,5,3,4,0]
+输出：[-1,0,3,4,5]
+</code></pre><p><strong>示例 3：</strong></p>
+<pre tabindex="0"><code>输入：head = []
+输出：[]
+</code></pre><p><strong>提示：</strong></p>
+<ul>
+<li>链表中节点的数目在范围 <code>[0, 5 * 104]</code> 内</li>
+<li><code>-105 &lt;= Node.val &lt;= 105</code></li>
+</ul>
+<p>**进阶：**你可以在 <code>O(n log n)</code> 时间复杂度和常数级空间复杂度下，对链表进行排序吗？</p>
+<p>注意：本题与主站 148 题相同：https://leetcode-cn.com/problems/sort-list/</p>
+<p>要点：链表</p>
+<p>思路：链表归并排序，两个辅助函数分别是分割链表以及有序链表归并</p>
+<h2 id="2c实现">2.C++实现</h2>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="cm">/**
+</span><span class="cm"> * Definition for singly-linked list.
+</span><span class="cm"> * struct ListNode {
+</span><span class="cm"> *     int val;
+</span><span class="cm"> *     ListNode *next;
+</span><span class="cm"> *     ListNode() : val(0), next(nullptr) {}
+</span><span class="cm"> *     ListNode(int x) : val(x), next(nullptr) {}
+</span><span class="cm"> *     ListNode(int x, ListNode *next) : val(x), next(next) {}
+</span><span class="cm"> * };
+</span><span class="cm"> */</span>
+<span class="k">class</span> <span class="nc">Solution</span> <span class="p">{</span>
+<span class="k">public</span><span class="o">:</span>
+    <span class="n">ListNode</span><span class="o">*</span> <span class="n">sortList</span><span class="p">(</span><span class="n">ListNode</span><span class="o">*</span> <span class="n">head</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">ListNode</span> <span class="nf">dummyHead</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
+        <span class="n">dummyHead</span><span class="p">.</span><span class="n">next</span> <span class="o">=</span> <span class="n">head</span><span class="p">;</span>
+        <span class="k">auto</span> <span class="n">p</span> <span class="o">=</span> <span class="n">head</span><span class="p">;</span>
+        <span class="kt">int</span> <span class="n">length</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+        <span class="k">while</span> <span class="p">(</span><span class="n">p</span><span class="p">)</span> <span class="p">{</span>
+            <span class="o">++</span><span class="n">length</span><span class="p">;</span>
+            <span class="n">p</span> <span class="o">=</span> <span class="n">p</span><span class="o">-&gt;</span><span class="n">next</span><span class="p">;</span>
+        <span class="p">}</span>
+        
+        <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">size</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span> <span class="n">size</span> <span class="o">&lt;</span> <span class="n">length</span><span class="p">;</span> <span class="n">size</span> <span class="o">&lt;&lt;=</span> <span class="mi">1</span><span class="p">)</span> <span class="p">{</span>
+            <span class="k">auto</span> <span class="n">cur</span> <span class="o">=</span> <span class="n">dummyHead</span><span class="p">.</span><span class="n">next</span><span class="p">;</span>
+            <span class="k">auto</span> <span class="n">tail</span> <span class="o">=</span> <span class="o">&amp;</span><span class="n">dummyHead</span><span class="p">;</span>
+            
+            <span class="k">while</span> <span class="p">(</span><span class="n">cur</span><span class="p">)</span> <span class="p">{</span>
+                <span class="k">auto</span> <span class="n">left</span> <span class="o">=</span> <span class="n">cur</span><span class="p">;</span>
+                <span class="k">auto</span> <span class="n">right</span> <span class="o">=</span> <span class="n">cut</span><span class="p">(</span><span class="n">left</span><span class="p">,</span> <span class="n">size</span><span class="p">);</span> <span class="c1">// left-&gt;@-&gt;@ right-&gt;@-&gt;@-&gt;@...
+</span><span class="c1"></span>                <span class="n">cur</span> <span class="o">=</span> <span class="n">cut</span><span class="p">(</span><span class="n">right</span><span class="p">,</span> <span class="n">size</span><span class="p">);</span> <span class="c1">// left-&gt;@-&gt;@ right-&gt;@-&gt;@  cur-&gt;@-&gt;...
+</span><span class="c1"></span>                
+                <span class="n">tail</span><span class="o">-&gt;</span><span class="n">next</span> <span class="o">=</span> <span class="n">merge</span><span class="p">(</span><span class="n">left</span><span class="p">,</span> <span class="n">right</span><span class="p">);</span>
+                <span class="k">while</span> <span class="p">(</span><span class="n">tail</span><span class="o">-&gt;</span><span class="n">next</span><span class="p">)</span> <span class="p">{</span>
+                    <span class="n">tail</span> <span class="o">=</span> <span class="n">tail</span><span class="o">-&gt;</span><span class="n">next</span><span class="p">;</span>
+                <span class="p">}</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+        <span class="k">return</span> <span class="n">dummyHead</span><span class="p">.</span><span class="n">next</span><span class="p">;</span>
+    <span class="p">}</span>
+    
+    <span class="n">ListNode</span><span class="o">*</span> <span class="nf">cut</span><span class="p">(</span><span class="n">ListNode</span><span class="o">*</span> <span class="n">head</span><span class="p">,</span> <span class="kt">int</span> <span class="n">n</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">auto</span> <span class="n">p</span> <span class="o">=</span> <span class="n">head</span><span class="p">;</span>
+        <span class="k">while</span> <span class="p">(</span><span class="o">--</span><span class="n">n</span> <span class="o">&amp;&amp;</span> <span class="n">p</span><span class="p">)</span> <span class="p">{</span>
+            <span class="n">p</span> <span class="o">=</span> <span class="n">p</span><span class="o">-&gt;</span><span class="n">next</span><span class="p">;</span>
+        <span class="p">}</span>
+        
+        <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">p</span><span class="p">)</span> <span class="k">return</span> <span class="k">nullptr</span><span class="p">;</span>
+        
+        <span class="k">auto</span> <span class="n">next</span> <span class="o">=</span> <span class="n">p</span><span class="o">-&gt;</span><span class="n">next</span><span class="p">;</span>
+        <span class="n">p</span><span class="o">-&gt;</span><span class="n">next</span> <span class="o">=</span> <span class="k">nullptr</span><span class="p">;</span>
+        <span class="k">return</span> <span class="n">next</span><span class="p">;</span>
+    <span class="p">}</span>
+    
+    <span class="n">ListNode</span><span class="o">*</span> <span class="nf">merge</span><span class="p">(</span><span class="n">ListNode</span><span class="o">*</span> <span class="n">l1</span><span class="p">,</span> <span class="n">ListNode</span><span class="o">*</span> <span class="n">l2</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">ListNode</span> <span class="n">dummyHead</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
+        <span class="k">auto</span> <span class="n">p</span> <span class="o">=</span> <span class="o">&amp;</span><span class="n">dummyHead</span><span class="p">;</span>
+        <span class="k">while</span> <span class="p">(</span><span class="n">l1</span> <span class="o">&amp;&amp;</span> <span class="n">l2</span><span class="p">)</span> <span class="p">{</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">l1</span><span class="o">-&gt;</span><span class="n">val</span> <span class="o">&lt;</span> <span class="n">l2</span><span class="o">-&gt;</span><span class="n">val</span><span class="p">)</span> <span class="p">{</span>
+                <span class="n">p</span><span class="o">-&gt;</span><span class="n">next</span> <span class="o">=</span> <span class="n">l1</span><span class="p">;</span>
+                <span class="n">p</span> <span class="o">=</span> <span class="n">l1</span><span class="p">;</span>
+                <span class="n">l1</span> <span class="o">=</span> <span class="n">l1</span><span class="o">-&gt;</span><span class="n">next</span><span class="p">;</span>       
+            <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+                <span class="n">p</span><span class="o">-&gt;</span><span class="n">next</span> <span class="o">=</span> <span class="n">l2</span><span class="p">;</span>
+                <span class="n">p</span> <span class="o">=</span> <span class="n">l2</span><span class="p">;</span>
+                <span class="n">l2</span> <span class="o">=</span> <span class="n">l2</span><span class="o">-&gt;</span><span class="n">next</span><span class="p">;</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+        <span class="n">p</span><span class="o">-&gt;</span><span class="n">next</span> <span class="o">=</span> <span class="n">l1</span> <span class="o">?</span> <span class="nl">l1</span> <span class="p">:</span> <span class="n">l2</span><span class="p">;</span>
+        <span class="k">return</span> <span class="n">dummyHead</span><span class="p">.</span><span class="n">next</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">};</span>
+</code></pre></div>
     
 	</div>
   <footer class="article-footer clearfix">
@@ -171,6 +204,10 @@ public:
   
   <a href="https://qkgoalkeeper.github.io/tags/leetcode">LeetCode</a>
   
+  <a href="https://qkgoalkeeper.github.io/tags/c&#43;&#43;">C&#43;&#43;</a>
+  
+  <a href="https://qkgoalkeeper.github.io/tags/%E9%93%BE%E8%A1%A8">链表</a>
+  
 </div>
 
 
@@ -180,14 +217,14 @@ public:
 <div class="article-categories">
   <span></span>
   
-  <a class="article-category-link" href="https://qkgoalkeeper.github.io/categories/leetcode%E7%AE%80%E5%8D%95%E9%A2%98101-200">LeetCode简单题101-200</a>
+  <a class="article-category-link" href="https://qkgoalkeeper.github.io/categories/%E5%A4%A7%E5%9B%9Bleetcode%E7%AE%97%E6%B3%95%E5%88%B7%E9%A2%98">大四LeetCode算法刷题</a>
   
 </div>
 
 
 
   <div class="article-share" id="share">
-    <div data-url="https://qkgoalkeeper.github.io/post/leetcode%E7%AE%80%E5%8D%95%E9%A2%98168.-excel%E8%A1%A8%E5%88%97%E5%90%8D%E7%A7%B0pythonc&#43;&#43;java/" data-title="LeetCode简单题：168. Excel表列名称（Python,C&#43;&#43;,Java）" data-tsina="5852167252" class="share clearfix">
+    <div data-url="https://qkgoalkeeper.github.io/post/leetcode%E6%AF%8F%E6%97%A5%E7%BB%83%E4%B9%A0%E5%89%91%E6%8C%87-offer-ii-077.-%E9%93%BE%E8%A1%A8%E6%8E%92%E5%BA%8F/" data-title="LeetCode每日练习：剑指 Offer II 077. 链表排序" data-tsina="5852167252" class="share clearfix">
     </div>
   </div>
 </footer>
