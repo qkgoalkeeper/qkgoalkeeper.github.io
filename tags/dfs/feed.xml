@@ -6,7 +6,16 @@
     <description>Recent content in dfs on qkgoalkeeper&#39;s blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
-    <lastBuildDate>Wed, 09 Mar 2022 09:55:19 +0800</lastBuildDate><atom:link href="https://qkgoalkeeper.github.io/tags/dfs/feed.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 04 Apr 2022 09:55:19 +0800</lastBuildDate><atom:link href="https://qkgoalkeeper.github.io/tags/dfs/feed.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>LeetCode每日练习：剑指 Offer II 079. 所有子集</title>
+      <link>https://qkgoalkeeper.github.io/post/leetcode%E6%AF%8F%E6%97%A5%E7%BB%83%E4%B9%A0%E5%89%91%E6%8C%87-offer-ii-079.-%E6%89%80%E6%9C%89%E5%AD%90%E9%9B%86/</link>
+      <pubDate>Mon, 04 Apr 2022 09:55:19 +0800</pubDate>
+      
+      <guid>https://qkgoalkeeper.github.io/post/leetcode%E6%AF%8F%E6%97%A5%E7%BB%83%E4%B9%A0%E5%89%91%E6%8C%87-offer-ii-079.-%E6%89%80%E6%9C%89%E5%AD%90%E9%9B%86/</guid>
+      <description>一.剑指 Offer II 079. 所有子集 1.题干及思路 给定一个整数数组 nums ，数组中的元素 互不相同 。返回该数组所有可能的子集（幂集）。 解集 不能 包含重复的子集。你可</description>
+    </item>
+    
     <item>
       <title>LeetCode每日练习：剑指 Offer II 056. 二叉搜索树中两个节点之和</title>
       <link>https://qkgoalkeeper.github.io/post/leetcode%E6%AF%8F%E6%97%A5%E7%BB%83%E4%B9%A0%E5%89%91%E6%8C%87-offer-ii-056.-%E4%BA%8C%E5%8F%89%E6%90%9C%E7%B4%A2%E6%A0%91%E4%B8%AD%E4%B8%A4%E4%B8%AA%E8%8A%82%E7%82%B9%E4%B9%8B%E5%92%8C/</link>
