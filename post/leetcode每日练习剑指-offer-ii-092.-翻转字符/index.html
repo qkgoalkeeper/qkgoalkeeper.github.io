@@ -2,13 +2,13 @@
 <html lang="zh-CN">
 <head>
   <meta charset="UTF-8">
-  <title>LeetCode每日练习：剑指 Offer 42. 连续子数组的最大和 - qkgoalkeeper&#39;s blog</title>
+  <title>LeetCode每日练习：剑指 Offer II 092. 翻转字符 - qkgoalkeeper&#39;s blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=3, minimum-scale=1">
   
-  <meta name="description" content="一.剑指 Offer 42. 连续子数组的最大和 1.题干及思路 输入一个整型数组，数组中的一个或连续多个整数组成一个子数组。求所有子数组的和的最大值。 要求时间复">
+  <meta name="description" content="一.剑指 Offer II 092. 翻转字符 1.题干及思路 如果一个由 &#39;0&#39; 和 &#39;1&#39; 组成的字符串，是以一些 &#39;0&#39;（可能没有 &#39;0&#39;）后面跟着一些 &#39;1&#39;（也可能没有 &#39;1&#39;）的形">
   
-  <meta itemprop="name" content="LeetCode每日练习：剑指 Offer 42. 连续子数组的最大和 - qkgoalkeeper&#39;s blog">
-  <meta itemprop="description" content="一.剑指 Offer 42. 连续子数组的最大和 1.题干及思路 输入一个整型数组，数组中的一个或连续多个整数组成一个子数组。求所有子数组的和的最大值。 要求时间复">
+  <meta itemprop="name" content="LeetCode每日练习：剑指 Offer II 092. 翻转字符 - qkgoalkeeper&#39;s blog">
+  <meta itemprop="description" content="一.剑指 Offer II 092. 翻转字符 1.题干及思路 如果一个由 &#39;0&#39; 和 &#39;1&#39; 组成的字符串，是以一些 &#39;0&#39;（可能没有 &#39;0&#39;）后面跟着一些 &#39;1&#39;（也可能没有 &#39;1&#39;）的形">
   <meta itemprop="image" content="https://qkgoalkeeper.github.io/img/author.jpg">
   
   
@@ -74,7 +74,7 @@
 	<article itemprop="articleBody">
     <header class="article-info clearfix">
   <h1 itemprop="name">
-      <a href="https://qkgoalkeeper.github.io/post/leetcode%E6%AF%8F%E6%97%A5%E7%BB%83%E4%B9%A0%E5%89%91%E6%8C%87-offer-42.-%E8%BF%9E%E7%BB%AD%E5%AD%90%E6%95%B0%E7%BB%84%E7%9A%84%E6%9C%80%E5%A4%A7%E5%92%8C/" title="LeetCode每日练习：剑指 Offer 42. 连续子数组的最大和" itemprop="url">LeetCode每日练习：剑指 Offer 42. 连续子数组的最大和</a>
+      <a href="https://qkgoalkeeper.github.io/post/leetcode%E6%AF%8F%E6%97%A5%E7%BB%83%E4%B9%A0%E5%89%91%E6%8C%87-offer-ii-092.-%E7%BF%BB%E8%BD%AC%E5%AD%97%E7%AC%A6/" title="LeetCode每日练习：剑指 Offer II 092. 翻转字符" itemprop="url">LeetCode每日练习：剑指 Offer II 092. 翻转字符</a>
   </h1>
   <p class="article-author">By
     
@@ -82,7 +82,7 @@
     
   </p>
   <p class="article-time">
-    <time datetime="2022-01-20 10:55:19 &#43;0800 CST" itemprop="datePublished">2022年01月20日</time>
+    <time datetime="2022-04-08 09:55:19 &#43;0800 CST" itemprop="datePublished">2022年04月08日</time>
   </p>
 </header>
 
@@ -98,37 +98,43 @@
 </nav>
 		</div>
     
-    <h1 id="一剑指-offer-42-连续子数组的最大和httpsleetcode-cncomproblemslian-xu-zi-shu-zu-de-zui-da-he-lcof">一.<a href="https://leetcode-cn.com/problems/lian-xu-zi-shu-zu-de-zui-da-he-lcof/">剑指 Offer 42. 连续子数组的最大和</a></h1>
+    <h1 id="一剑指-offer-ii-092-翻转字符httpsleetcode-cncomproblemscyjerh">一.<a href="https://leetcode-cn.com/problems/cyJERH/">剑指 Offer II 092. 翻转字符</a></h1>
 <h2 id="1题干及思路">1.题干及思路</h2>
-<p>输入一个整型数组，数组中的一个或连续多个整数组成一个子数组。求所有子数组的和的最大值。</p>
-<p>要求时间复杂度为O(n)。</p>
-<p><strong>示例1:</strong></p>
-<pre tabindex="0"><code>输入: nums = [-2,1,-3,4,-1,2,1,-5,4]
-输出: 6
-解释: 连续子数组 [4,-1,2,1] 的和最大，为 6。
+<p>如果一个由 <code>'0'</code> 和 <code>'1'</code> 组成的字符串，是以一些 <code>'0'</code>（可能没有 <code>'0'</code>）后面跟着一些 <code>'1'</code>（也可能没有 <code>'1'</code>）的形式组成的，那么该字符串是 <strong>单调递增</strong> 的。</p>
+<p>我们给出一个由字符 <code>'0'</code> 和 <code>'1'</code> 组成的字符串 s，我们可以将任何 <code>'0'</code> 翻转为 <code>'1'</code> 或者将 <code>'1'</code> 翻转为 <code>'0'</code>。</p>
+<p>返回使 s <strong>单调递增</strong> 的最小翻转次数。</p>
+<p><strong>示例 1：</strong></p>
+<pre tabindex="0"><code>输入：s = &quot;00110&quot;
+输出：1
+解释：我们翻转最后一位得到 00111.
+</code></pre><p><strong>示例 2：</strong></p>
+<pre tabindex="0"><code>输入：s = &quot;010110&quot;
+输出：2
+解释：我们翻转得到 011111，或者是 000111。
+</code></pre><p><strong>示例 3：</strong></p>
+<pre tabindex="0"><code>输入：s = &quot;00011000&quot;
+输出：2
+解释：我们翻转得到 00000000。
 </code></pre><p><strong>提示：</strong></p>
 <ul>
-<li><code>1 &lt;= arr.length &lt;= 10^5</code></li>
-<li><code>-100 &lt;= arr[i] &lt;= 100</code></li>
+<li><code>1 &lt;= s.length &lt;= 20000</code></li>
+<li>s 中只包含字符 <code>'0'</code> 和 <code>'1'</code></li>
 </ul>
-<p>注意：本题与主站 53 题相同：https://leetcode-cn.com/problems/maximum-subarray/</p>
+<p>注意：本题与主站 926 题相同： <a href="https://leetcode-cn.com/problems/flip-string-to-monotone-increasing/">https://leetcode-cn.com/problems/flip-string-to-monotone-increasing/</a></p>
 <p>要点：动态规划</p>
-<p>思路：动态规划问题，dp[i]表示以i结尾的连续子数组之和，转移方程为dp[i] = max(dp[i-1]+nums[i],nums[i]);</p>
+<p>思路：动态规划，二维dp，用取模来节省空间，dp[i][0]表示以第i个位置以0结尾的情况，dp[i][1]表示以1结尾，dp转移方程见代码for循环处</p>
 <h2 id="2c实现">2.C++实现</h2>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="k">class</span> <span class="nc">Solution</span> <span class="p">{</span>
 <span class="k">public</span><span class="o">:</span>
-    <span class="kt">int</span> <span class="n">maxSubArray</span><span class="p">(</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;&amp;</span> <span class="n">nums</span><span class="p">)</span> <span class="p">{</span>
-        <span class="kt">int</span> <span class="n">n</span> <span class="o">=</span> <span class="n">nums</span><span class="p">.</span><span class="n">size</span><span class="p">();</span>
-        <span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">dp</span><span class="p">(</span><span class="n">n</span><span class="p">);</span>
-        <span class="kt">int</span> <span class="n">answer</span> <span class="o">=</span> <span class="n">nums</span><span class="p">[</span><span class="mi">0</span><span class="p">];</span>
-        <span class="n">dp</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">=</span><span class="n">nums</span><span class="p">[</span><span class="mi">0</span><span class="p">];</span>
-        <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span><span class="o">=</span><span class="mi">1</span><span class="p">;</span><span class="n">i</span><span class="o">&lt;</span><span class="n">nums</span><span class="p">.</span><span class="n">size</span><span class="p">();</span><span class="n">i</span><span class="o">++</span><span class="p">){</span>
-            <span class="n">dp</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">max</span><span class="p">(</span><span class="n">dp</span><span class="p">[</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">+</span><span class="n">nums</span><span class="p">[</span><span class="n">i</span><span class="p">],</span><span class="n">nums</span><span class="p">[</span><span class="n">i</span><span class="p">]);</span>
-            <span class="k">if</span><span class="p">(</span><span class="n">dp</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">&gt;</span><span class="n">answer</span><span class="p">){</span>
-                <span class="n">answer</span> <span class="o">=</span> <span class="n">dp</span><span class="p">[</span><span class="n">i</span><span class="p">];</span>
-            <span class="p">}</span>
+    <span class="kt">int</span> <span class="n">minFlipsMonoIncr</span><span class="p">(</span><span class="n">string</span> <span class="n">s</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">vector</span><span class="o">&lt;</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;&gt;</span> <span class="n">dp</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="p">(</span><span class="mi">2</span><span class="p">));</span>
+        <span class="n">dp</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">s</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">==</span><span class="sc">&#39;1&#39;</span><span class="p">);</span>
+        <span class="n">dp</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">s</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">==</span><span class="sc">&#39;0&#39;</span><span class="p">);</span>
+        <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span><span class="o">=</span><span class="mi">1</span><span class="p">;</span><span class="n">i</span><span class="o">&lt;</span><span class="n">s</span><span class="p">.</span><span class="n">size</span><span class="p">();</span><span class="n">i</span><span class="o">++</span><span class="p">){</span>
+            <span class="n">dp</span><span class="p">[</span><span class="n">i</span><span class="o">%</span><span class="mi">2</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">dp</span><span class="p">[(</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span><span class="o">%</span><span class="mi">2</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="p">(</span><span class="n">s</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">==</span><span class="sc">&#39;1&#39;</span><span class="p">);</span> 
+            <span class="n">dp</span><span class="p">[</span><span class="n">i</span><span class="o">%</span><span class="mi">2</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">min</span><span class="p">(</span><span class="n">dp</span><span class="p">[(</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span><span class="o">%</span><span class="mi">2</span><span class="p">][</span><span class="mi">0</span><span class="p">],</span><span class="n">dp</span><span class="p">[(</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span><span class="o">%</span><span class="mi">2</span><span class="p">][</span><span class="mi">1</span><span class="p">])</span><span class="o">+</span><span class="p">(</span><span class="n">s</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">==</span><span class="sc">&#39;0&#39;</span><span class="p">);</span>
         <span class="p">}</span>
-        <span class="k">return</span> <span class="n">answer</span><span class="p">;</span>
+        <span class="k">return</span> <span class="nf">min</span><span class="p">(</span><span class="n">dp</span><span class="p">[(</span><span class="n">s</span><span class="p">.</span><span class="n">size</span><span class="p">()</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">%</span><span class="mi">2</span><span class="p">][</span><span class="mi">0</span><span class="p">],</span><span class="n">dp</span><span class="p">[(</span><span class="n">s</span><span class="p">.</span><span class="n">size</span><span class="p">()</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">%</span><span class="mi">2</span><span class="p">][</span><span class="mi">1</span><span class="p">]);</span>
     <span class="p">}</span>
 <span class="p">};</span>
 </code></pre></div>
@@ -143,6 +149,8 @@
   <a href="https://qkgoalkeeper.github.io/tags/leetcode">LeetCode</a>
   
   <a href="https://qkgoalkeeper.github.io/tags/c&#43;&#43;">C&#43;&#43;</a>
+  
+  <a href="https://qkgoalkeeper.github.io/tags/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92">动态规划</a>
   
 </div>
 
@@ -160,7 +168,7 @@
 
 
   <div class="article-share" id="share">
-    <div data-url="https://qkgoalkeeper.github.io/post/leetcode%E6%AF%8F%E6%97%A5%E7%BB%83%E4%B9%A0%E5%89%91%E6%8C%87-offer-42.-%E8%BF%9E%E7%BB%AD%E5%AD%90%E6%95%B0%E7%BB%84%E7%9A%84%E6%9C%80%E5%A4%A7%E5%92%8C/" data-title="LeetCode每日练习：剑指 Offer 42. 连续子数组的最大和" data-tsina="5852167252" class="share clearfix">
+    <div data-url="https://qkgoalkeeper.github.io/post/leetcode%E6%AF%8F%E6%97%A5%E7%BB%83%E4%B9%A0%E5%89%91%E6%8C%87-offer-ii-092.-%E7%BF%BB%E8%BD%AC%E5%AD%97%E7%AC%A6/" data-title="LeetCode每日练习：剑指 Offer II 092. 翻转字符" data-tsina="5852167252" class="share clearfix">
     </div>
   </div>
 </footer>
