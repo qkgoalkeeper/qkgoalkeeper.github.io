@@ -2,13 +2,13 @@
 <html lang="zh-CN">
 <head>
   <meta charset="UTF-8">
-  <title>LeetCode每日练习：剑指 Offer II 053. 二叉搜索树中的中序后继 - qkgoalkeeper&#39;s blog</title>
+  <title>LeetCode每日练习：剑指 Offer II 096. 字符串交织 - qkgoalkeeper&#39;s blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=3, minimum-scale=1">
   
-  <meta name="description" content="一.剑指 Offer II 053. 二叉搜索树中的中序后继 1.题干及思路 给定一棵二叉搜索树和其中的一个节点 p ，找到该节点在树中的中序后继。如果节点没有中序后继，请">
+  <meta name="description" content="一.剑指 Offer II 096. 字符串交织 1.题干及思路 给定三个字符串 s1、s2、s3，请判断 s3 能不能由 s1 和 s2 交织（交错） 组成。 两个字符串 s 和 t 交织 的定义与过">
   
-  <meta itemprop="name" content="LeetCode每日练习：剑指 Offer II 053. 二叉搜索树中的中序后继 - qkgoalkeeper&#39;s blog">
-  <meta itemprop="description" content="一.剑指 Offer II 053. 二叉搜索树中的中序后继 1.题干及思路 给定一棵二叉搜索树和其中的一个节点 p ，找到该节点在树中的中序后继。如果节点没有中序后继，请">
+  <meta itemprop="name" content="LeetCode每日练习：剑指 Offer II 096. 字符串交织 - qkgoalkeeper&#39;s blog">
+  <meta itemprop="description" content="一.剑指 Offer II 096. 字符串交织 1.题干及思路 给定三个字符串 s1、s2、s3，请判断 s3 能不能由 s1 和 s2 交织（交错） 组成。 两个字符串 s 和 t 交织 的定义与过">
   <meta itemprop="image" content="https://qkgoalkeeper.github.io/img/author.jpg">
   
   
@@ -74,7 +74,7 @@
 	<article itemprop="articleBody">
     <header class="article-info clearfix">
   <h1 itemprop="name">
-      <a href="https://qkgoalkeeper.github.io/post/leetcode%E6%AF%8F%E6%97%A5%E7%BB%83%E4%B9%A0%E5%89%91%E6%8C%87-offer-ii-053.-%E4%BA%8C%E5%8F%89%E6%90%9C%E7%B4%A2%E6%A0%91%E4%B8%AD%E7%9A%84%E4%B8%AD%E5%BA%8F%E5%90%8E%E7%BB%A7/" title="LeetCode每日练习：剑指 Offer II 053. 二叉搜索树中的中序后继" itemprop="url">LeetCode每日练习：剑指 Offer II 053. 二叉搜索树中的中序后继</a>
+      <a href="https://qkgoalkeeper.github.io/post/leetcode%E6%AF%8F%E6%97%A5%E7%BB%83%E4%B9%A0%E5%89%91%E6%8C%87-offer-ii-096.-%E5%AD%97%E7%AC%A6%E4%B8%B2%E4%BA%A4%E7%BB%87/" title="LeetCode每日练习：剑指 Offer II 096. 字符串交织" itemprop="url">LeetCode每日练习：剑指 Offer II 096. 字符串交织</a>
   </h1>
   <p class="article-author">By
     
@@ -82,7 +82,7 @@
     
   </p>
   <p class="article-time">
-    <time datetime="2022-03-06 09:55:19 &#43;0800 CST" itemprop="datePublished">2022年03月06日</time>
+    <time datetime="2022-04-12 09:55:19 &#43;0800 CST" itemprop="datePublished">2022年04月12日</time>
   </p>
 </header>
 
@@ -98,60 +98,69 @@
 </nav>
 		</div>
     
-    <h1 id="一剑指-offer-ii-053-二叉搜索树中的中序后继httpsleetcode-cncomproblemsp5rct8">一.<a href="https://leetcode-cn.com/problems/P5rCT8/">剑指 Offer II 053. 二叉搜索树中的中序后继</a></h1>
+    <h1 id="一剑指-offer-ii-096-字符串交织httpsleetcode-cncomproblemsiy6buf">一.<a href="https://leetcode-cn.com/problems/IY6buf/">剑指 Offer II 096. 字符串交织</a></h1>
 <h2 id="1题干及思路">1.题干及思路</h2>
-<p>给定一棵二叉搜索树和其中的一个节点 <code>p</code> ，找到该节点在树中的中序后继。如果节点没有中序后继，请返回 <code>null</code> 。</p>
-<p>节点 <code>p</code> 的后继是值比 <code>p.val</code> 大的节点中键值最小的节点，即按中序遍历的顺序节点 <code>p</code> 的下一个节点。</p>
+<p>给定三个字符串 <code>s1</code>、<code>s2</code>、<code>s3</code>，请判断 <code>s3</code> 能不能由 <code>s1</code> 和 <code>s2</code> <strong>交织（交错）</strong> 组成。</p>
+<p>两个字符串 <code>s</code> 和 <code>t</code> <strong>交织</strong> 的定义与过程如下，其中每个字符串都会被分割成若干 <strong>非空</strong> 子字符串：</p>
+<ul>
+<li><code>s = s1 + s2 + ... + sn</code></li>
+<li><code>t = t1 + t2 + ... + tm</code></li>
+<li><code>|n - m| &lt;= 1</code></li>
+<li><strong>交织</strong> 是 <code>s1 + t1 + s2 + t2 + s3 + t3 + ...</code> 或者 <code>t1 + s1 + t2 + s2 + t3 + s3 + ...</code></li>
+</ul>
+<p><strong>提示：</strong><code>a + b</code> 意味着字符串 <code>a</code> 和 <code>b</code> 连接。</p>
 <p><strong>示例 1：</strong></p>
-<p><img src="https://assets.leetcode.com/uploads/2019/01/23/285_example_1.PNG" alt="img"></p>
-<pre tabindex="0"><code>输入：root = [2,1,3], p = 1
-输出：2
-解释：这里 1 的中序后继是 2。请注意 p 和返回值都应是 TreeNode 类型。
+<p><img src="https://assets.leetcode.com/uploads/2020/09/02/interleave.jpg" alt="img"></p>
+<pre tabindex="0"><code>输入：s1 = &quot;aabcc&quot;, s2 = &quot;dbbca&quot;, s3 = &quot;aadbbcbcac&quot;
+输出：true
 </code></pre><p><strong>示例 2：</strong></p>
-<p><img src="https://assets.leetcode.com/uploads/2019/01/23/285_example_2.PNG" alt="img"></p>
-<pre tabindex="0"><code>输入：root = [5,3,6,2,4,null,null,1], p = 6
-输出：null
-解释：因为给出的节点没有中序后继，所以答案就返回 null 了。
+<pre tabindex="0"><code>输入：s1 = &quot;aabcc&quot;, s2 = &quot;dbbca&quot;, s3 = &quot;aadbbbaccc&quot;
+输出：false
+</code></pre><p><strong>示例 3：</strong></p>
+<pre tabindex="0"><code>输入：s1 = &quot;&quot;, s2 = &quot;&quot;, s3 = &quot;&quot;
+输出：true
 </code></pre><p><strong>提示：</strong></p>
 <ul>
-<li>树中节点的数目在范围 <code>[1, 104]</code> 内。</li>
-<li><code>-105 &lt;= Node.val &lt;= 105</code></li>
-<li>树中各节点的值均保证唯一。</li>
+<li><code>0 &lt;= s1.length, s2.length &lt;= 100</code></li>
+<li><code>0 &lt;= s3.length &lt;= 200</code></li>
+<li><code>s1</code>、<code>s2</code>、和 <code>s3</code> 都由小写英文字母组成</li>
 </ul>
-<p>注意：本题与主站 285 题相同： <a href="https://leetcode-cn.com/problems/inorder-successor-in-bst/">https://leetcode-cn.com/problems/inorder-successor-in-bst/</a></p>
-<p>要点：dfs</p>
-<p>思路：中序遍历，用一个flag变量判断是否是目标节点后第一个后继</p>
+<p>注意：本题与主站 97 题相同： <a href="https://leetcode-cn.com/problems/interleaving-string/">https://leetcode-cn.com/problems/interleaving-string/</a></p>
+<p>要点：动态规划</p>
+<p>思路：二维动态规划，f[i][j]表示s1前i位与s2前j位是否可以组合成s3前i+j位，转移方程见代码for循环</p>
 <h2 id="2c实现">2.C++实现</h2>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="cm">/**
-</span><span class="cm"> * Definition for a binary tree node.
-</span><span class="cm"> * struct TreeNode {
-</span><span class="cm"> *     int val;
-</span><span class="cm"> *     TreeNode *left;
-</span><span class="cm"> *     TreeNode *right;
-</span><span class="cm"> *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
-</span><span class="cm"> * };
-</span><span class="cm"> */</span>
-<span class="k">class</span> <span class="nc">Solution</span> <span class="p">{</span>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="k">class</span> <span class="nc">Solution</span> <span class="p">{</span>
 <span class="k">public</span><span class="o">:</span>
-    <span class="kt">int</span> <span class="n">flag</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
-    <span class="n">TreeNode</span><span class="o">*</span> <span class="n">answer</span><span class="p">;</span>
-    <span class="kt">void</span> <span class="nf">dfs</span><span class="p">(</span><span class="n">TreeNode</span><span class="o">*</span> <span class="n">root</span><span class="p">,</span><span class="n">TreeNode</span><span class="o">*</span> <span class="n">p</span><span class="p">){</span>
-        <span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="n">root</span><span class="p">)</span> <span class="k">return</span><span class="p">;</span>
-        <span class="n">dfs</span><span class="p">(</span><span class="n">root</span><span class="o">-&gt;</span><span class="n">left</span><span class="p">,</span><span class="n">p</span><span class="p">);</span>
-        <span class="k">if</span><span class="p">(</span><span class="n">root</span><span class="o">==</span><span class="n">p</span><span class="p">){</span><span class="n">flag</span><span class="o">=</span><span class="mi">1</span><span class="p">;}</span>
-        <span class="k">if</span><span class="p">(</span><span class="n">flag</span><span class="o">==</span><span class="mi">1</span><span class="o">&amp;&amp;</span><span class="n">root</span><span class="o">-&gt;</span><span class="n">val</span><span class="o">&gt;</span><span class="n">p</span><span class="o">-&gt;</span><span class="n">val</span><span class="p">){</span>
-            <span class="n">answer</span> <span class="o">=</span> <span class="n">root</span><span class="p">;</span>
-            <span class="n">flag</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
-            <span class="k">return</span><span class="p">;</span>
-        <span class="p">}</span>
-        <span class="n">dfs</span><span class="p">(</span><span class="n">root</span><span class="o">-&gt;</span><span class="n">right</span><span class="p">,</span><span class="n">p</span><span class="p">);</span>
+    <span class="kt">bool</span> <span class="n">isInterleave</span><span class="p">(</span><span class="n">string</span> <span class="n">s1</span><span class="p">,</span> <span class="n">string</span> <span class="n">s2</span><span class="p">,</span> <span class="n">string</span> <span class="n">s3</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">vector</span><span class="o">&lt;</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;&gt;</span> <span class="n">f</span> <span class="o">=</span> <span class="n">vector</span><span class="o">&lt;</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;&gt;</span><span class="p">(</span><span class="n">s1</span><span class="p">.</span><span class="n">size</span><span class="p">()</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="p">(</span><span class="n">s2</span><span class="p">.</span><span class="n">size</span><span class="p">()</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span> <span class="nb">false</span><span class="p">));</span>
 
-    <span class="p">}</span>
-    <span class="n">TreeNode</span><span class="o">*</span> <span class="nf">inorderSuccessor</span><span class="p">(</span><span class="n">TreeNode</span><span class="o">*</span> <span class="n">root</span><span class="p">,</span> <span class="n">TreeNode</span><span class="o">*</span> <span class="n">p</span><span class="p">)</span> <span class="p">{</span>
-        <span class="n">dfs</span><span class="p">(</span><span class="n">root</span><span class="p">,</span><span class="n">p</span><span class="p">);</span>
-        <span class="k">return</span> <span class="n">answer</span><span class="p">;</span>
+        <span class="kt">int</span> <span class="n">n</span> <span class="o">=</span> <span class="n">s1</span><span class="p">.</span><span class="n">size</span><span class="p">(),</span> <span class="n">m</span> <span class="o">=</span> <span class="n">s2</span><span class="p">.</span><span class="n">size</span><span class="p">(),</span> <span class="n">t</span> <span class="o">=</span> <span class="n">s3</span><span class="p">.</span><span class="n">size</span><span class="p">();</span>
+
+        <span class="k">if</span> <span class="p">(</span><span class="n">n</span> <span class="o">+</span> <span class="n">m</span> <span class="o">!=</span> <span class="n">t</span><span class="p">)</span> <span class="p">{</span>
+            <span class="k">return</span> <span class="nb">false</span><span class="p">;</span>
+        <span class="p">}</span>
+
+        <span class="n">f</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="nb">true</span><span class="p">;</span>
+
+
+        <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span><span class="n">i</span><span class="o">&lt;=</span><span class="n">n</span><span class="p">;</span><span class="n">i</span><span class="o">++</span><span class="p">){</span>
+            <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">j</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span><span class="n">j</span><span class="o">&lt;=</span><span class="n">m</span><span class="p">;</span><span class="n">j</span><span class="o">++</span><span class="p">){</span>
+                <span class="kt">int</span> <span class="n">k</span> <span class="o">=</span> <span class="n">i</span><span class="o">+</span><span class="n">j</span><span class="o">-</span><span class="mi">1</span><span class="p">;</span>
+                <span class="k">if</span><span class="p">(</span><span class="n">i</span><span class="o">&gt;</span><span class="mi">0</span><span class="p">){</span>
+                    <span class="n">f</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">]</span><span class="o">|=</span> <span class="p">(</span><span class="n">f</span><span class="p">[</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">][</span><span class="n">j</span><span class="p">]</span><span class="o">&amp;&amp;</span><span class="n">s1</span><span class="p">[</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">==</span><span class="n">s3</span><span class="p">[</span><span class="n">k</span><span class="p">]);</span>
+                <span class="p">}</span>
+                <span class="k">if</span><span class="p">(</span><span class="n">j</span><span class="o">&gt;</span><span class="mi">0</span><span class="p">){</span>
+                    <span class="n">f</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">]</span><span class="o">|=</span> <span class="p">(</span><span class="n">f</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">&amp;&amp;</span><span class="n">s2</span><span class="p">[</span><span class="n">j</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">==</span><span class="n">s3</span><span class="p">[</span><span class="n">k</span><span class="p">]);</span>
+                <span class="p">}</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+
+
+        <span class="k">return</span> <span class="n">f</span><span class="p">[</span><span class="n">n</span><span class="p">][</span><span class="n">m</span><span class="p">];</span>
     <span class="p">}</span>
 <span class="p">};</span>
+
+
 </code></pre></div>
     
 	</div>
@@ -165,9 +174,7 @@
   
   <a href="https://qkgoalkeeper.github.io/tags/c&#43;&#43;">C&#43;&#43;</a>
   
-  <a href="https://qkgoalkeeper.github.io/tags/dfs">dfs</a>
-  
-  <a href="https://qkgoalkeeper.github.io/tags/%E6%A0%91">树</a>
+  <a href="https://qkgoalkeeper.github.io/tags/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92">动态规划</a>
   
 </div>
 
@@ -185,7 +192,7 @@
 
 
   <div class="article-share" id="share">
-    <div data-url="https://qkgoalkeeper.github.io/post/leetcode%E6%AF%8F%E6%97%A5%E7%BB%83%E4%B9%A0%E5%89%91%E6%8C%87-offer-ii-053.-%E4%BA%8C%E5%8F%89%E6%90%9C%E7%B4%A2%E6%A0%91%E4%B8%AD%E7%9A%84%E4%B8%AD%E5%BA%8F%E5%90%8E%E7%BB%A7/" data-title="LeetCode每日练习：剑指 Offer II 053. 二叉搜索树中的中序后继" data-tsina="5852167252" class="share clearfix">
+    <div data-url="https://qkgoalkeeper.github.io/post/leetcode%E6%AF%8F%E6%97%A5%E7%BB%83%E4%B9%A0%E5%89%91%E6%8C%87-offer-ii-096.-%E5%AD%97%E7%AC%A6%E4%B8%B2%E4%BA%A4%E7%BB%87/" data-title="LeetCode每日练习：剑指 Offer II 096. 字符串交织" data-tsina="5852167252" class="share clearfix">
     </div>
   </div>
 </footer>
