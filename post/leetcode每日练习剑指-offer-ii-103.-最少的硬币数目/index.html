@@ -2,13 +2,13 @@
 <html lang="zh-CN">
 <head>
   <meta charset="UTF-8">
-  <title>LeetCode每日练习：剑指 Offer II 052. 展平二叉搜索树 - qkgoalkeeper&#39;s blog</title>
+  <title>LeetCode每日练习：剑指 Offer II 103. 最少的硬币数目 - qkgoalkeeper&#39;s blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=3, minimum-scale=1">
   
-  <meta name="description" content="一.剑指 Offer II 052. 展平二叉搜索树 1.题干及思路 给你一棵二叉搜索树，请 按中序遍历 将其重新排列为一棵递增顺序搜索树，使树中最左边的节点成为树的根节点">
+  <meta name="description" content="一.剑指 Offer II 103. 最少的硬币数目 1.题干及思路 给定不同面额的硬币 coins 和一个总金额 amount。编写一个函数来计算可以凑成总金额所需的最少的硬币个数">
   
-  <meta itemprop="name" content="LeetCode每日练习：剑指 Offer II 052. 展平二叉搜索树 - qkgoalkeeper&#39;s blog">
-  <meta itemprop="description" content="一.剑指 Offer II 052. 展平二叉搜索树 1.题干及思路 给你一棵二叉搜索树，请 按中序遍历 将其重新排列为一棵递增顺序搜索树，使树中最左边的节点成为树的根节点">
+  <meta itemprop="name" content="LeetCode每日练习：剑指 Offer II 103. 最少的硬币数目 - qkgoalkeeper&#39;s blog">
+  <meta itemprop="description" content="一.剑指 Offer II 103. 最少的硬币数目 1.题干及思路 给定不同面额的硬币 coins 和一个总金额 amount。编写一个函数来计算可以凑成总金额所需的最少的硬币个数">
   <meta itemprop="image" content="https://qkgoalkeeper.github.io/img/author.jpg">
   
   
@@ -74,7 +74,7 @@
 	<article itemprop="articleBody">
     <header class="article-info clearfix">
   <h1 itemprop="name">
-      <a href="https://qkgoalkeeper.github.io/post/leetcode%E6%AF%8F%E6%97%A5%E7%BB%83%E4%B9%A0%E5%89%91%E6%8C%87-offer-ii-052.-%E5%B1%95%E5%B9%B3%E4%BA%8C%E5%8F%89%E6%90%9C%E7%B4%A2%E6%A0%91/" title="LeetCode每日练习：剑指 Offer II 052. 展平二叉搜索树" itemprop="url">LeetCode每日练习：剑指 Offer II 052. 展平二叉搜索树</a>
+      <a href="https://qkgoalkeeper.github.io/post/leetcode%E6%AF%8F%E6%97%A5%E7%BB%83%E4%B9%A0%E5%89%91%E6%8C%87-offer-ii-103.-%E6%9C%80%E5%B0%91%E7%9A%84%E7%A1%AC%E5%B8%81%E6%95%B0%E7%9B%AE/" title="LeetCode每日练习：剑指 Offer II 103. 最少的硬币数目" itemprop="url">LeetCode每日练习：剑指 Offer II 103. 最少的硬币数目</a>
   </h1>
   <p class="article-author">By
     
@@ -82,7 +82,7 @@
     
   </p>
   <p class="article-time">
-    <time datetime="2022-03-05 09:55:19 &#43;0800 CST" itemprop="datePublished">2022年03月05日</time>
+    <time datetime="2022-04-23 07:55:19 &#43;0800 CST" itemprop="datePublished">2022年04月23日</time>
   </p>
 </header>
 
@@ -98,58 +98,54 @@
 </nav>
 		</div>
     
-    <h1 id="一剑指-offer-ii-052-展平二叉搜索树httpsleetcode-cncomproblemsnybbnl">一.<a href="https://leetcode-cn.com/problems/NYBBNL/">剑指 Offer II 052. 展平二叉搜索树</a></h1>
+    <h1 id="一剑指-offer-ii-103-最少的硬币数目httpsleetcode-cncomproblemsgam7ch">一.<a href="https://leetcode-cn.com/problems/gaM7Ch/">剑指 Offer II 103. 最少的硬币数目</a></h1>
 <h2 id="1题干及思路">1.题干及思路</h2>
-<p>给你一棵二叉搜索树，请 <strong>按中序遍历</strong> 将其重新排列为一棵递增顺序搜索树，使树中最左边的节点成为树的根节点，并且每个节点没有左子节点，只有一个右子节点。</p>
+<p>给定不同面额的硬币 <code>coins</code> 和一个总金额 <code>amount</code>。编写一个函数来计算可以凑成总金额所需的最少的硬币个数。如果没有任何一种硬币组合能组成总金额，返回 <code>-1</code>。</p>
+<p>你可以认为每种硬币的数量是无限的。</p>
 <p><strong>示例 1：</strong></p>
-<p><img src="https://assets.leetcode.com/uploads/2020/11/17/ex1.jpg" alt="img"></p>
-<pre tabindex="0"><code>输入：root = [5,3,6,2,4,null,8,1,null,null,null,7,9]
-输出：[1,null,2,null,3,null,4,null,5,null,6,null,7,null,8,null,9]
+<pre tabindex="0"><code>输入：coins = [1, 2, 5], amount = 11
+输出：3 
+解释：11 = 5 + 5 + 1
 </code></pre><p><strong>示例 2：</strong></p>
-<p><img src="https://assets.leetcode.com/uploads/2020/11/17/ex2.jpg" alt="img"></p>
-<pre tabindex="0"><code>输入：root = [5,1,7]
-输出：[1,null,5,null,7]
+<pre tabindex="0"><code>输入：coins = [2], amount = 3
+输出：-1
+</code></pre><p><strong>示例 3：</strong></p>
+<pre tabindex="0"><code>输入：coins = [1], amount = 0
+输出：0
+</code></pre><p><strong>示例 4：</strong></p>
+<pre tabindex="0"><code>输入：coins = [1], amount = 1
+输出：1
+</code></pre><p><strong>示例 5：</strong></p>
+<pre tabindex="0"><code>输入：coins = [1], amount = 2
+输出：2
 </code></pre><p><strong>提示：</strong></p>
 <ul>
-<li>树中节点数的取值范围是 <code>[1, 100]</code></li>
-<li><code>0 &lt;= Node.val &lt;= 1000</code></li>
+<li><code>1 &lt;= coins.length &lt;= 12</code></li>
+<li><code>1 &lt;= coins[i] &lt;= 231 - 1</code></li>
+<li><code>0 &lt;= amount &lt;= 104</code></li>
 </ul>
-<p>注意：本题与主站 897 题相同： <a href="https://leetcode-cn.com/problems/increasing-order-search-tree/">https://leetcode-cn.com/problems/increasing-order-search-tree/</a></p>
-<p>要点：dfs</p>
-<p>思路：中序遍历，注意用一个假头结点开始，每次添加新节点时注意把left置为nullptr</p>
+<p>注意：本题与主站 322 题相同： <a href="https://leetcode-cn.com/problems/coin-change/">https://leetcode-cn.com/problems/coin-change/</a></p>
+<p>要点：动态规划</p>
+<p>思路：动态规划，dp[i]表示达到i元需要的钞票数目，转移方程见代码循环部分</p>
 <h2 id="2c实现">2.C++实现</h2>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="cm">/**
-</span><span class="cm"> * Definition for a binary tree node.
-</span><span class="cm"> * struct TreeNode {
-</span><span class="cm"> *     int val;
-</span><span class="cm"> *     TreeNode *left;
-</span><span class="cm"> *     TreeNode *right;
-</span><span class="cm"> *     TreeNode() : val(0), left(nullptr), right(nullptr) {}
-</span><span class="cm"> *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
-</span><span class="cm"> *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
-</span><span class="cm"> * };
-</span><span class="cm"> */</span>
-<span class="k">class</span> <span class="nc">Solution</span> <span class="p">{</span>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="k">class</span> <span class="nc">Solution</span> <span class="p">{</span>
 <span class="k">public</span><span class="o">:</span>
-    <span class="n">TreeNode</span><span class="o">*</span> <span class="n">temp</span><span class="p">;</span>
-    <span class="kt">void</span> <span class="nf">dfs</span><span class="p">(</span><span class="n">TreeNode</span><span class="o">*</span> <span class="n">root</span><span class="p">){</span>
-        <span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="n">root</span><span class="p">)</span> <span class="k">return</span><span class="p">;</span>
-        <span class="n">dfs</span><span class="p">(</span><span class="n">root</span><span class="o">-&gt;</span><span class="n">left</span><span class="p">);</span>
-        <span class="n">root</span><span class="o">-&gt;</span><span class="n">left</span> <span class="o">=</span> <span class="k">nullptr</span><span class="p">;</span>
-        <span class="n">temp</span><span class="o">-&gt;</span><span class="n">right</span> <span class="o">=</span> <span class="n">root</span><span class="p">;</span>
-        <span class="n">temp</span> <span class="o">=</span> <span class="n">temp</span><span class="o">-&gt;</span><span class="n">right</span><span class="p">;</span>
-        <span class="n">dfs</span><span class="p">(</span><span class="n">root</span><span class="o">-&gt;</span><span class="n">right</span><span class="p">);</span>
-    <span class="p">}</span>
-
-    <span class="n">TreeNode</span><span class="o">*</span> <span class="nf">increasingBST</span><span class="p">(</span><span class="n">TreeNode</span><span class="o">*</span> <span class="n">root</span><span class="p">)</span> <span class="p">{</span>
-        <span class="n">TreeNode</span><span class="o">*</span> <span class="n">answer</span> <span class="o">=</span> <span class="k">new</span> <span class="n">TreeNode</span><span class="p">();</span>
-        <span class="n">temp</span> <span class="o">=</span> <span class="n">answer</span><span class="p">;</span>
-        <span class="n">dfs</span><span class="p">(</span><span class="n">root</span><span class="p">);</span>
-        <span class="n">temp</span> <span class="o">=</span> <span class="n">answer</span><span class="o">-&gt;</span><span class="n">right</span><span class="p">;</span>
-        <span class="k">delete</span> <span class="n">answer</span><span class="p">;</span>
-        <span class="k">return</span> <span class="n">temp</span><span class="p">;</span>
+    <span class="kt">int</span> <span class="n">coinChange</span><span class="p">(</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;&amp;</span> <span class="n">coins</span><span class="p">,</span> <span class="kt">int</span> <span class="n">amount</span><span class="p">)</span> <span class="p">{</span>
+        <span class="kt">int</span> <span class="n">Max</span> <span class="o">=</span> <span class="n">amount</span> <span class="o">+</span> <span class="mi">1</span><span class="p">;</span>
+        <span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">dp</span><span class="p">(</span><span class="n">amount</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">Max</span><span class="p">);</span>
+        <span class="n">dp</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+        <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;=</span> <span class="n">amount</span><span class="p">;</span> <span class="o">++</span><span class="n">i</span><span class="p">)</span> <span class="p">{</span>
+            <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">j</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">j</span> <span class="o">&lt;</span> <span class="p">(</span><span class="kt">int</span><span class="p">)</span><span class="n">coins</span><span class="p">.</span><span class="n">size</span><span class="p">();</span> <span class="o">++</span><span class="n">j</span><span class="p">)</span> <span class="p">{</span>
+                <span class="k">if</span> <span class="p">(</span><span class="n">coins</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="o">&lt;=</span> <span class="n">i</span><span class="p">)</span> <span class="p">{</span>
+                    <span class="n">dp</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">min</span><span class="p">(</span><span class="n">dp</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">dp</span><span class="p">[</span><span class="n">i</span> <span class="o">-</span> <span class="n">coins</span><span class="p">[</span><span class="n">j</span><span class="p">]]</span> <span class="o">+</span> <span class="mi">1</span><span class="p">);</span>
+                <span class="p">}</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+        <span class="k">return</span> <span class="n">dp</span><span class="p">[</span><span class="n">amount</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">amount</span> <span class="o">?</span> <span class="o">-</span><span class="mi">1</span> <span class="o">:</span> <span class="n">dp</span><span class="p">[</span><span class="n">amount</span><span class="p">];</span>
     <span class="p">}</span>
 <span class="p">};</span>
+
+
 </code></pre></div>
     
 	</div>
@@ -162,6 +158,8 @@
   <a href="https://qkgoalkeeper.github.io/tags/leetcode">LeetCode</a>
   
   <a href="https://qkgoalkeeper.github.io/tags/c&#43;&#43;">C&#43;&#43;</a>
+  
+  <a href="https://qkgoalkeeper.github.io/tags/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92">动态规划</a>
   
 </div>
 
@@ -179,7 +177,7 @@
 
 
   <div class="article-share" id="share">
-    <div data-url="https://qkgoalkeeper.github.io/post/leetcode%E6%AF%8F%E6%97%A5%E7%BB%83%E4%B9%A0%E5%89%91%E6%8C%87-offer-ii-052.-%E5%B1%95%E5%B9%B3%E4%BA%8C%E5%8F%89%E6%90%9C%E7%B4%A2%E6%A0%91/" data-title="LeetCode每日练习：剑指 Offer II 052. 展平二叉搜索树" data-tsina="5852167252" class="share clearfix">
+    <div data-url="https://qkgoalkeeper.github.io/post/leetcode%E6%AF%8F%E6%97%A5%E7%BB%83%E4%B9%A0%E5%89%91%E6%8C%87-offer-ii-103.-%E6%9C%80%E5%B0%91%E7%9A%84%E7%A1%AC%E5%B8%81%E6%95%B0%E7%9B%AE/" data-title="LeetCode每日练习：剑指 Offer II 103. 最少的硬币数目" data-tsina="5852167252" class="share clearfix">
     </div>
   </div>
 </footer>
