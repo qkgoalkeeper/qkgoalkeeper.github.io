@@ -2,13 +2,13 @@
 <html lang="zh-CN">
 <head>
   <meta charset="UTF-8">
-  <title>LeetCode简单题：26. 删除排序数组中的重复项（Python,C&#43;&#43;,Java） - qkgoalkeeper&#39;s blog</title>
+  <title>LeetCode每日练习：剑指 Offer II 105. 岛屿的最大面积 - qkgoalkeeper&#39;s blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=3, minimum-scale=1">
   
-  <meta name="description" content="一.解法 https://leetcode-cn.com/problems/remove-duplicates-from-sorted-array/ 要点：双指针 不要用新数组存。 Python，C&#43;&#43;，Java都用双指针法，i表示当前位置，j去找第一个不等同nums[i]的位置，i">
+  <meta name="description" content="一.剑指 Offer II 105. 岛屿的最大面积 1.题干及思路 给定一个由 0 和 1 组成的非空二维数组 grid ，用来表示海洋岛屿地图。 一个 岛屿 是由一些相邻的 1 (代表土地) 构">
   
-  <meta itemprop="name" content="LeetCode简单题：26. 删除排序数组中的重复项（Python,C&#43;&#43;,Java） - qkgoalkeeper&#39;s blog">
-  <meta itemprop="description" content="一.解法 https://leetcode-cn.com/problems/remove-duplicates-from-sorted-array/ 要点：双指针 不要用新数组存。 Python，C&#43;&#43;，Java都用双指针法，i表示当前位置，j去找第一个不等同nums[i]的位置，i">
+  <meta itemprop="name" content="LeetCode每日练习：剑指 Offer II 105. 岛屿的最大面积 - qkgoalkeeper&#39;s blog">
+  <meta itemprop="description" content="一.剑指 Offer II 105. 岛屿的最大面积 1.题干及思路 给定一个由 0 和 1 组成的非空二维数组 grid ，用来表示海洋岛屿地图。 一个 岛屿 是由一些相邻的 1 (代表土地) 构">
   <meta itemprop="image" content="https://qkgoalkeeper.github.io/img/author.jpg">
   
   
@@ -74,7 +74,7 @@
 	<article itemprop="articleBody">
     <header class="article-info clearfix">
   <h1 itemprop="name">
-      <a href="https://qkgoalkeeper.github.io/post/leetcode%E7%AE%80%E5%8D%95%E9%A2%9826.-%E5%88%A0%E9%99%A4%E6%8E%92%E5%BA%8F%E6%95%B0%E7%BB%84%E4%B8%AD%E7%9A%84%E9%87%8D%E5%A4%8D%E9%A1%B9pythonc&#43;&#43;java/" title="LeetCode简单题：26. 删除排序数组中的重复项（Python,C&#43;&#43;,Java）" itemprop="url">LeetCode简单题：26. 删除排序数组中的重复项（Python,C&#43;&#43;,Java）</a>
+      <a href="https://qkgoalkeeper.github.io/post/leetcode%E6%AF%8F%E6%97%A5%E7%BB%83%E4%B9%A0%E5%89%91%E6%8C%87-offer-ii-105.-%E5%B2%9B%E5%B1%BF%E7%9A%84%E6%9C%80%E5%A4%A7%E9%9D%A2%E7%A7%AF/" title="LeetCode每日练习：剑指 Offer II 105. 岛屿的最大面积" itemprop="url">LeetCode每日练习：剑指 Offer II 105. 岛屿的最大面积</a>
   </h1>
   <p class="article-author">By
     
@@ -82,7 +82,7 @@
     
   </p>
   <p class="article-time">
-    <time datetime="2020-08-13 17:55:19 &#43;0800 CST" itemprop="datePublished">2020年08月13日</time>
+    <time datetime="2022-04-26 07:55:19 &#43;0800 CST" itemprop="datePublished">2022年04月26日</time>
   </p>
 </header>
 
@@ -92,98 +92,69 @@
 			<strong class="toc-title">文章目录</strong>
       <nav id="TableOfContents">
   <ul>
-    <li><a href="#一解法">一.解法</a></li>
-    <li><a href="#二python实现">二.Python实现</a></li>
-    <li><a href="#三c实现">三.C++实现</a></li>
-    <li><a href="#四java实现">四.java实现</a></li>
+    <li><a href="#1题干及思路">1.题干及思路</a></li>
+    <li><a href="#2c实现">2.C++实现</a></li>
   </ul>
 </nav>
 		</div>
     
-    <h2 id="一解法">一.解法</h2>
-<p><a href="https://leetcode-cn.com/problems/remove-duplicates-from-sorted-array/">https://leetcode-cn.com/problems/remove-duplicates-from-sorted-array/</a><br>
-要点：双指针<br>
-不要用新数组存。<br>
-Python，C++，Java都用双指针法，i表示当前位置，j去找第一个不等同nums[i]的位置，i++，注意到最后不要越界需要加一句判断语句</p>
-<h2 id="二python实现">二.Python实现</h2>
-<pre tabindex="0"><code>class Solution:
-    def removeDuplicates(self, nums: List[int]) -&gt; int:
-        answer=1
-        
-        if(len(nums)==0):
-            return 0
-        if(len(nums)==1):
-            return 1
+    <h1 id="一剑指-offer-ii-105-岛屿的最大面积httpsleetcode-cncomproblemszl6zan">一.<a href="https://leetcode-cn.com/problems/ZL6zAn/">剑指 Offer II 105. 岛屿的最大面积</a></h1>
+<h2 id="1题干及思路">1.题干及思路</h2>
+<p>给定一个由 <code>0</code> 和 <code>1</code> 组成的非空二维数组 <code>grid</code> ，用来表示海洋岛屿地图。</p>
+<p>一个 <strong>岛屿</strong> 是由一些相邻的 <code>1</code> (代表土地) 构成的组合，这里的「相邻」要求两个 <code>1</code> 必须在水平或者竖直方向上相邻。你可以假设 <code>grid</code> 的四个边缘都被 <code>0</code>（代表水）包围着。</p>
+<p>找到给定的二维数组中最大的岛屿面积。如果没有岛屿，则返回面积为 <code>0</code> 。</p>
+<p><strong>示例 1:</strong></p>
+<p><img src="https://pic.leetcode-cn.com/1626667010-nSGPXz-image.png" alt="img"></p>
+<pre tabindex="0"><code>输入: grid = [[0,0,1,0,0,0,0,1,0,0,0,0,0],[0,0,0,0,0,0,0,1,1,1,0,0,0],[0,1,1,0,1,0,0,0,0,0,0,0,0],[0,1,0,0,1,1,0,0,1,0,1,0,0],[0,1,0,0,1,1,0,0,1,1,1,0,0],[0,0,0,0,0,0,0,0,0,0,1,0,0],[0,0,0,0,0,0,0,1,1,1,0,0,0],[0,0,0,0,0,0,0,1,1,0,0,0,0]]
+输出: 6
+解释: 对于上面这个给定矩阵应返回 6。注意答案不应该是 11 ，因为岛屿只能包含水平或垂直的四个方向的 1 。
+</code></pre><p><strong>示例 2:</strong></p>
+<pre tabindex="0"><code>输入: grid = [[0,0,0,0,0,0,0,0]]
+输出: 0
+</code></pre><p><strong>提示：</strong></p>
+<ul>
+<li><code>m == grid.length</code></li>
+<li><code>n == grid[i].length</code></li>
+<li><code>1 &lt;= m, n &lt;= 50</code></li>
+<li><code>grid[i][j] is either 0 or 1</code></li>
+</ul>
+<p>注意：本题与主站 695 题相同： <a href="https://leetcode-cn.com/problems/max-area-of-island/">https://leetcode-cn.com/problems/max-area-of-island/</a></p>
+<p>要点：dfs</p>
+<p>思路：对1处的格子dfs计算该块的面积，访问过的位置设置为2，二维数组遍历找到最大的那个块即可</p>
+<h2 id="2c实现">2.C++实现</h2>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="k">class</span> <span class="nc">Solution</span> <span class="p">{</span>
+<span class="k">public</span><span class="o">:</span>
+    <span class="kt">int</span> <span class="n">m</span><span class="p">;</span>
+    <span class="kt">int</span> <span class="n">n</span><span class="p">;</span>
 
-        i=0
-        j=0
-        
-        while(j&lt;len(nums)-1):
-            while(nums[j]==nums[i]):
-                j+=1
-                if(j&gt;len(nums)-1):
-                     break;
-            
-            if(j&gt;len(nums)-1):
-                 break
-            nums[i+1]=nums[j]
-            answer+=1
-            i+=1
-        
-        return answer
-</code></pre><h2 id="三c实现">三.C++实现</h2>
-<pre tabindex="0"><code>class Solution {
-public:
-    int removeDuplicates(vector&lt;int&gt;&amp; nums) {
-        int answer=1;
-        int i,j;
-        if(nums.size()==0) return 0;
-        if(nums.size()==1) return 1;
+    <span class="kt">int</span> <span class="nf">dfs</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span><span class="p">,</span><span class="kt">int</span> <span class="n">j</span><span class="p">,</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;&gt;&amp;</span> <span class="n">grid</span><span class="p">){</span>
+        <span class="k">if</span><span class="p">(</span><span class="n">i</span><span class="o">&lt;</span><span class="mi">0</span><span class="o">||</span><span class="n">i</span><span class="o">&gt;=</span><span class="n">m</span><span class="o">||</span><span class="n">j</span><span class="o">&lt;</span><span class="mi">0</span><span class="o">||</span><span class="n">j</span><span class="o">&gt;=</span><span class="n">n</span><span class="p">){</span>
+            <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+        <span class="p">}</span>
+        <span class="k">if</span><span class="p">(</span><span class="n">grid</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">]</span><span class="o">==</span><span class="mi">0</span><span class="o">||</span><span class="n">grid</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">]</span><span class="o">==</span><span class="mi">2</span><span class="p">){</span>
+            <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+        <span class="p">}</span>
+        <span class="k">else</span><span class="p">{</span>
+            <span class="n">grid</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">]</span><span class="o">=</span><span class="mi">2</span><span class="p">;</span>
+            <span class="k">return</span> <span class="n">dfs</span><span class="p">(</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="n">j</span><span class="p">,</span><span class="n">grid</span><span class="p">)</span><span class="o">+</span><span class="n">dfs</span><span class="p">(</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span><span class="n">j</span><span class="p">,</span><span class="n">grid</span><span class="p">)</span><span class="o">+</span><span class="n">dfs</span><span class="p">(</span><span class="n">i</span><span class="p">,</span><span class="n">j</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="n">grid</span><span class="p">)</span><span class="o">+</span><span class="n">dfs</span><span class="p">(</span><span class="n">i</span><span class="p">,</span><span class="n">j</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span><span class="n">grid</span><span class="p">)</span><span class="o">+</span><span class="mi">1</span><span class="p">;</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
 
-        i=0;
-        j=0;
-        
-        while(j&lt;nums.size()-1){
-            while(nums[j]==nums[i]){
-                j++;
-                if(j&gt;nums.size()-1) break;
-            }
-            if(j&gt;nums.size()-1) break;
-            nums[i+1]=nums[j];
-            answer++;
-            i++;
-        }
-    
-        return answer;
-    }
-};
-</code></pre><h2 id="四java实现">四.java实现</h2>
-<pre tabindex="0"><code>class Solution {
-    public int removeDuplicates(int[] nums) {
-        int answer=1;
-        int i,j;
-        if(nums.length==0) return 0;
-        if(nums.length==1) return 1;
+    <span class="kt">int</span> <span class="nf">maxAreaOfIsland</span><span class="p">(</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;&gt;&amp;</span> <span class="n">grid</span><span class="p">)</span> <span class="p">{</span>
+        <span class="kt">int</span> <span class="n">answer</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+        <span class="n">m</span> <span class="o">=</span> <span class="n">grid</span><span class="p">.</span><span class="n">size</span><span class="p">();</span>
+        <span class="n">n</span> <span class="o">=</span> <span class="n">grid</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="n">size</span><span class="p">();</span>
 
-        i=0;
-        j=0;
-        
-        while(j&lt;nums.length-1){
-            while(nums[j]==nums[i]){
-                j++;
-                if(j&gt;nums.length-1) break;
-            }
-            if(j&gt;nums.length-1) break;
-            nums[i+1]=nums[j];
-            answer++;
-            i++;
-        }
-    
-        return answer;
+        <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span><span class="n">i</span><span class="o">&lt;</span><span class="n">m</span><span class="p">;</span><span class="n">i</span><span class="o">++</span><span class="p">){</span>
+            <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">j</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span><span class="n">j</span><span class="o">&lt;</span><span class="n">n</span><span class="p">;</span><span class="n">j</span><span class="o">++</span><span class="p">){</span>
+                <span class="n">answer</span> <span class="o">=</span> <span class="n">max</span><span class="p">(</span><span class="n">answer</span><span class="p">,</span><span class="n">dfs</span><span class="p">(</span><span class="n">i</span><span class="p">,</span><span class="n">j</span><span class="p">,</span><span class="n">grid</span><span class="p">));</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+        <span class="k">return</span> <span class="n">answer</span><span class="p">;</span>
 
-    }
-}
-</code></pre>
+    <span class="p">}</span>
+<span class="p">};</span>
+</code></pre></div>
     
 	</div>
   <footer class="article-footer clearfix">
@@ -194,6 +165,10 @@ public:
   
   <a href="https://qkgoalkeeper.github.io/tags/leetcode">LeetCode</a>
   
+  <a href="https://qkgoalkeeper.github.io/tags/c&#43;&#43;">C&#43;&#43;</a>
+  
+  <a href="https://qkgoalkeeper.github.io/tags/dfs">dfs</a>
+  
 </div>
 
 
@@ -203,14 +178,14 @@ public:
 <div class="article-categories">
   <span></span>
   
-  <a class="article-category-link" href="https://qkgoalkeeper.github.io/categories/leetcode%E7%AE%80%E5%8D%95%E9%A2%981-100">LeetCode简单题1-100</a>
+  <a class="article-category-link" href="https://qkgoalkeeper.github.io/categories/%E5%A4%A7%E5%9B%9Bleetcode%E7%AE%97%E6%B3%95%E5%88%B7%E9%A2%98">大四LeetCode算法刷题</a>
   
 </div>
 
 
 
   <div class="article-share" id="share">
-    <div data-url="https://qkgoalkeeper.github.io/post/leetcode%E7%AE%80%E5%8D%95%E9%A2%9826.-%E5%88%A0%E9%99%A4%E6%8E%92%E5%BA%8F%E6%95%B0%E7%BB%84%E4%B8%AD%E7%9A%84%E9%87%8D%E5%A4%8D%E9%A1%B9pythonc&#43;&#43;java/" data-title="LeetCode简单题：26. 删除排序数组中的重复项（Python,C&#43;&#43;,Java）" data-tsina="5852167252" class="share clearfix">
+    <div data-url="https://qkgoalkeeper.github.io/post/leetcode%E6%AF%8F%E6%97%A5%E7%BB%83%E4%B9%A0%E5%89%91%E6%8C%87-offer-ii-105.-%E5%B2%9B%E5%B1%BF%E7%9A%84%E6%9C%80%E5%A4%A7%E9%9D%A2%E7%A7%AF/" data-title="LeetCode每日练习：剑指 Offer II 105. 岛屿的最大面积" data-tsina="5852167252" class="share clearfix">
     </div>
   </div>
 </footer>
