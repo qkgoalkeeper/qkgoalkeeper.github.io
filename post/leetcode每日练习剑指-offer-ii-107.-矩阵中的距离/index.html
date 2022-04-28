@@ -2,13 +2,13 @@
 <html lang="zh-CN">
 <head>
   <meta charset="UTF-8">
-  <title>LeetCode每日练习：剑指 Offer II 034. 外星语言是否排序 - qkgoalkeeper&#39;s blog</title>
+  <title>LeetCode每日练习：剑指 Offer II 107. 矩阵中的距离 - qkgoalkeeper&#39;s blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=3, minimum-scale=1">
   
-  <meta name="description" content="一.剑指 Offer II 034. 外星语言是否排序 1.题干及思路 某种外星语也使用英文小写字母，但可能顺序 order 不同。字母表的顺序（order）是一些小写字母的排列。">
+  <meta name="description" content="一.剑指 Offer II 107. 矩阵中的距离 1.题干及思路 给定一个由 0 和 1 组成的矩阵 mat ，请输出一个大小相同的矩阵，其中每一个格子是 mat 中对应位置元素到最近的 0 的">
   
-  <meta itemprop="name" content="LeetCode每日练习：剑指 Offer II 034. 外星语言是否排序 - qkgoalkeeper&#39;s blog">
-  <meta itemprop="description" content="一.剑指 Offer II 034. 外星语言是否排序 1.题干及思路 某种外星语也使用英文小写字母，但可能顺序 order 不同。字母表的顺序（order）是一些小写字母的排列。">
+  <meta itemprop="name" content="LeetCode每日练习：剑指 Offer II 107. 矩阵中的距离 - qkgoalkeeper&#39;s blog">
+  <meta itemprop="description" content="一.剑指 Offer II 107. 矩阵中的距离 1.题干及思路 给定一个由 0 和 1 组成的矩阵 mat ，请输出一个大小相同的矩阵，其中每一个格子是 mat 中对应位置元素到最近的 0 的">
   <meta itemprop="image" content="https://qkgoalkeeper.github.io/img/author.jpg">
   
   
@@ -74,7 +74,7 @@
 	<article itemprop="articleBody">
     <header class="article-info clearfix">
   <h1 itemprop="name">
-      <a href="https://qkgoalkeeper.github.io/post/leetcode%E6%AF%8F%E6%97%A5%E7%BB%83%E4%B9%A0%E5%89%91%E6%8C%87-offer-ii-034.-%E5%A4%96%E6%98%9F%E8%AF%AD%E8%A8%80%E6%98%AF%E5%90%A6%E6%8E%92%E5%BA%8F/" title="LeetCode每日练习：剑指 Offer II 034. 外星语言是否排序" itemprop="url">LeetCode每日练习：剑指 Offer II 034. 外星语言是否排序</a>
+      <a href="https://qkgoalkeeper.github.io/post/leetcode%E6%AF%8F%E6%97%A5%E7%BB%83%E4%B9%A0%E5%89%91%E6%8C%87-offer-ii-107.-%E7%9F%A9%E9%98%B5%E4%B8%AD%E7%9A%84%E8%B7%9D%E7%A6%BB/" title="LeetCode每日练习：剑指 Offer II 107. 矩阵中的距离" itemprop="url">LeetCode每日练习：剑指 Offer II 107. 矩阵中的距离</a>
   </h1>
   <p class="article-author">By
     
@@ -82,7 +82,7 @@
     
   </p>
   <p class="article-time">
-    <time datetime="2022-02-23 08:55:19 &#43;0800 CST" itemprop="datePublished">2022年02月23日</time>
+    <time datetime="2022-04-28 07:55:19 &#43;0800 CST" itemprop="datePublished">2022年04月28日</time>
   </p>
 </header>
 
@@ -98,65 +98,66 @@
 </nav>
 		</div>
     
-    <h1 id="一剑指-offer-ii-034-外星语言是否排序httpsleetcode-cncomproblemslwyvbb">一.<a href="https://leetcode-cn.com/problems/lwyVBB/">剑指 Offer II 034. 外星语言是否排序</a></h1>
+    <h1 id="一剑指-offer-ii-107-矩阵中的距离httpsleetcode-cncomproblems2bcmpm">一.<a href="https://leetcode-cn.com/problems/2bCMpM/">剑指 Offer II 107. 矩阵中的距离</a></h1>
 <h2 id="1题干及思路">1.题干及思路</h2>
-<p>某种外星语也使用英文小写字母，但可能顺序 <code>order</code> 不同。字母表的顺序（<code>order</code>）是一些小写字母的排列。</p>
-<p>给定一组用外星语书写的单词 <code>words</code>，以及其字母表的顺序 <code>order</code>，只有当给定的单词在这种外星语中按字典序排列时，返回 <code>true</code>；否则，返回 <code>false</code>。</p>
+<p>给定一个由 <code>0</code> 和 <code>1</code> 组成的矩阵 <code>mat</code> ，请输出一个大小相同的矩阵，其中每一个格子是 <code>mat</code> 中对应位置元素到最近的 <code>0</code> 的距离。</p>
+<p>两个相邻元素间的距离为 <code>1</code> 。</p>
 <p><strong>示例 1：</strong></p>
-<pre tabindex="0"><code>输入：words = [&quot;hello&quot;,&quot;leetcode&quot;], order = &quot;hlabcdefgijkmnopqrstuvwxyz&quot;
-输出：true
-解释：在该语言的字母表中，'h' 位于 'l' 之前，所以单词序列是按字典序排列的。
+<p><img src="https://pic.leetcode-cn.com/1626667201-NCWmuP-image.png" alt="img"></p>
+<pre tabindex="0"><code>输入：mat = [[0,0,0],[0,1,0],[0,0,0]]
+输出：[[0,0,0],[0,1,0],[0,0,0]]
 </code></pre><p><strong>示例 2：</strong></p>
-<pre tabindex="0"><code>输入：words = [&quot;word&quot;,&quot;world&quot;,&quot;row&quot;], order = &quot;worldabcefghijkmnpqstuvxyz&quot;
-输出：false
-解释：在该语言的字母表中，'d' 位于 'l' 之后，那么 words[0] &gt; words[1]，因此单词序列不是按字典序排列的。
-</code></pre><p><strong>示例 3：</strong></p>
-<pre tabindex="0"><code>输入：words = [&quot;apple&quot;,&quot;app&quot;], order = &quot;abcdefghijklmnopqrstuvwxyz&quot;
-输出：false
-解释：当前三个字符 &quot;app&quot; 匹配时，第二个字符串相对短一些，然后根据词典编纂规则 &quot;apple&quot; &gt; &quot;app&quot;，因为 'l' &gt; '∅'，其中 '∅' 是空白字符，定义为比任何其他字符都小（更多信息）。
+<p><img src="https://pic.leetcode-cn.com/1626667205-xFxIeK-image.png" alt="img"></p>
+<pre tabindex="0"><code>输入：mat = [[0,0,0],[0,1,0],[1,1,1]]
+输出：[[0,0,0],[0,1,0],[1,2,1]]
 </code></pre><p><strong>提示：</strong></p>
 <ul>
-<li><code>1 &lt;= words.length &lt;= 100</code></li>
-<li><code>1 &lt;= words[i].length &lt;= 20</code></li>
-<li><code>order.length == 26</code></li>
-<li>在 <code>words[i]</code> 和 <code>order</code> 中的所有字符都是英文小写字母。</li>
+<li><code>m == mat.length</code></li>
+<li><code>n == mat[i].length</code></li>
+<li><code>1 &lt;= m, n &lt;= 104</code></li>
+<li><code>1 &lt;= m * n &lt;= 104</code></li>
+<li><code>mat[i][j] is either 0 or 1.</code></li>
+<li><code>mat</code> 中至少有一个 <code>0 </code></li>
 </ul>
-<p>注意：本题与主站 953 题相同： <a href="https://leetcode-cn.com/problems/verifying-an-alien-dictionary/">https://leetcode-cn.com/problems/verifying-an-alien-dictionary/</a></p>
-<p>要点：字符串</p>
-<p>思路：先用哈希表存每个字母的排位号，再以此设置自定义字符串比较函数</p>
+<p>注意：本题与主站 542 题相同：https://leetcode-cn.com/problems/01-matrix/</p>
+<p>要点：bfs</p>
+<p>思路：广度优先搜索，但如果是对每个1去找最近的0的bfs会超时，正解是对于0处bfs，然后更新所有遇到1位置的距离</p>
 <h2 id="2c实现">2.C++实现</h2>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="k">class</span> <span class="nc">Solution</span> <span class="p">{</span>
 <span class="k">public</span><span class="o">:</span>
-    <span class="n">unordered_map</span><span class="o">&lt;</span><span class="kt">char</span><span class="p">,</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">new_alphabet</span><span class="p">;</span>
-
-    <span class="kt">bool</span> <span class="nf">compare</span><span class="p">(</span><span class="n">string</span> <span class="n">a</span><span class="p">,</span><span class="n">string</span> <span class="n">b</span><span class="p">){</span>
-        <span class="kt">int</span> <span class="n">len</span> <span class="o">=</span> <span class="n">min</span><span class="p">(</span><span class="n">a</span><span class="p">.</span><span class="n">size</span><span class="p">(),</span><span class="n">b</span><span class="p">.</span><span class="n">size</span><span class="p">());</span>
-        <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span><span class="n">i</span><span class="o">&lt;</span><span class="n">len</span><span class="p">;</span><span class="n">i</span><span class="o">++</span><span class="p">){</span>
-            <span class="k">if</span><span class="p">(</span><span class="n">new_alphabet</span><span class="p">[</span><span class="n">a</span><span class="p">[</span><span class="n">i</span><span class="p">]]</span><span class="o">&gt;</span><span class="n">new_alphabet</span><span class="p">[</span><span class="n">b</span><span class="p">[</span><span class="n">i</span><span class="p">]]){</span>
-                <span class="k">return</span> <span class="nb">false</span><span class="p">;</span>
-            <span class="p">}</span>
-            <span class="k">else</span> <span class="k">if</span><span class="p">(</span><span class="n">new_alphabet</span><span class="p">[</span><span class="n">a</span><span class="p">[</span><span class="n">i</span><span class="p">]]</span><span class="o">&lt;</span><span class="n">new_alphabet</span><span class="p">[</span><span class="n">b</span><span class="p">[</span><span class="n">i</span><span class="p">]]){</span>
-                <span class="k">return</span> <span class="nb">true</span><span class="p">;</span>
-            <span class="p">}</span>
-        <span class="p">}</span>
-
-        <span class="k">if</span><span class="p">(</span><span class="n">a</span><span class="p">.</span><span class="n">size</span><span class="p">()</span><span class="o">&lt;=</span><span class="n">b</span><span class="p">.</span><span class="n">size</span><span class="p">())</span> <span class="k">return</span> <span class="nb">true</span><span class="p">;</span>
-        <span class="k">return</span> <span class="nb">false</span><span class="p">;</span>
-    <span class="p">}</span>
-
-
-
-    <span class="kt">bool</span> <span class="nf">isAlienSorted</span><span class="p">(</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">string</span><span class="o">&gt;&amp;</span> <span class="n">words</span><span class="p">,</span> <span class="n">string</span> <span class="n">order</span><span class="p">)</span> <span class="p">{</span>
-
-        <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span><span class="n">i</span><span class="o">&lt;</span><span class="n">order</span><span class="p">.</span><span class="n">size</span><span class="p">();</span><span class="n">i</span><span class="o">++</span><span class="p">){</span>
-            <span class="n">new_alphabet</span><span class="p">[</span><span class="n">order</span><span class="p">[</span><span class="n">i</span><span class="p">]]</span> <span class="o">=</span> <span class="n">i</span><span class="p">;</span>
-        <span class="p">}</span>
-        <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span><span class="n">i</span><span class="o">&lt;</span><span class="n">words</span><span class="p">.</span><span class="n">size</span><span class="p">()</span><span class="o">-</span><span class="mi">1</span><span class="p">;</span><span class="n">i</span><span class="o">++</span><span class="p">){</span>
-            <span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="n">compare</span><span class="p">(</span><span class="n">words</span><span class="p">[</span><span class="n">i</span><span class="p">],</span><span class="n">words</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">])){</span>
-                <span class="k">return</span> <span class="nb">false</span><span class="p">;</span>
+    <span class="n">vector</span><span class="o">&lt;</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;&gt;</span> <span class="n">updateMatrix</span><span class="p">(</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;&gt;&amp;</span> <span class="n">mat</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">vector</span><span class="o">&lt;</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;&gt;</span> <span class="n">dists</span><span class="p">(</span><span class="n">mat</span><span class="p">.</span><span class="n">size</span><span class="p">(),</span> <span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="p">(</span><span class="n">mat</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="n">size</span><span class="p">()));</span>
+        <span class="n">queue</span><span class="o">&lt;</span><span class="n">pair</span><span class="o">&lt;</span><span class="kt">int</span><span class="p">,</span> <span class="kt">int</span><span class="o">&gt;&gt;</span> <span class="n">que</span><span class="p">;</span>
+        <span class="n">vector</span><span class="o">&lt;</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;&gt;</span> <span class="n">dirs</span><span class="p">{{</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">},</span> <span class="p">{</span><span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">},</span> <span class="p">{</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">},</span> <span class="p">{</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">}};</span>
+        <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">mat</span><span class="p">.</span><span class="n">size</span><span class="p">();</span> <span class="o">++</span><span class="n">i</span><span class="p">)</span> <span class="p">{</span>
+            <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">j</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">j</span> <span class="o">&lt;</span> <span class="n">mat</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="n">size</span><span class="p">();</span> <span class="o">++</span><span class="n">j</span><span class="p">)</span> <span class="p">{</span>
+                <span class="k">if</span> <span class="p">(</span><span class="n">mat</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">]</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+                    <span class="n">dists</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+                    <span class="n">que</span><span class="p">.</span><span class="n">push</span><span class="p">({</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">});</span>
+                <span class="p">}</span>
+                <span class="k">else</span> <span class="p">{</span>
+                    <span class="n">dists</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="n">INT_MAX</span><span class="p">;</span>
+                <span class="p">}</span>
             <span class="p">}</span>
         <span class="p">}</span>
-        <span class="k">return</span> <span class="nb">true</span><span class="p">;</span>
+
+        <span class="k">while</span> <span class="p">(</span><span class="o">!</span><span class="n">que</span><span class="p">.</span><span class="n">empty</span><span class="p">())</span> <span class="p">{</span>
+            <span class="k">auto</span> <span class="n">pos</span> <span class="o">=</span> <span class="n">que</span><span class="p">.</span><span class="n">front</span><span class="p">();</span>
+            <span class="n">que</span><span class="p">.</span><span class="n">pop</span><span class="p">();</span>
+            <span class="kt">int</span> <span class="n">dist</span> <span class="o">=</span> <span class="n">dists</span><span class="p">[</span><span class="n">pos</span><span class="p">.</span><span class="n">first</span><span class="p">][</span><span class="n">pos</span><span class="p">.</span><span class="n">second</span><span class="p">];</span>
+
+            <span class="k">for</span> <span class="p">(</span><span class="k">auto</span><span class="o">&amp;</span> <span class="nl">d</span> <span class="p">:</span> <span class="n">dirs</span><span class="p">)</span> <span class="p">{</span>
+                <span class="kt">int</span> <span class="n">r</span> <span class="o">=</span> <span class="n">pos</span><span class="p">.</span><span class="n">first</span> <span class="o">+</span> <span class="n">d</span><span class="p">[</span><span class="mi">0</span><span class="p">];</span>
+                <span class="kt">int</span> <span class="n">c</span> <span class="o">=</span> <span class="n">pos</span><span class="p">.</span><span class="n">second</span> <span class="o">+</span> <span class="n">d</span><span class="p">[</span><span class="mi">1</span><span class="p">];</span>
+                <span class="k">if</span> <span class="p">(</span><span class="n">r</span> <span class="o">&gt;=</span> <span class="mi">0</span> <span class="o">&amp;&amp;</span> <span class="n">r</span> <span class="o">&lt;</span> <span class="n">mat</span><span class="p">.</span><span class="n">size</span><span class="p">()</span> <span class="o">&amp;&amp;</span> <span class="n">c</span> <span class="o">&gt;=</span> <span class="mi">0</span> <span class="o">&amp;&amp;</span> <span class="n">c</span> <span class="o">&lt;</span> <span class="n">mat</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="n">size</span><span class="p">())</span> <span class="p">{</span>
+                    <span class="k">if</span> <span class="p">(</span><span class="n">dist</span> <span class="o">+</span> <span class="mi">1</span><span class="o">&lt;</span> <span class="n">dists</span><span class="p">[</span><span class="n">r</span><span class="p">][</span><span class="n">c</span><span class="p">])</span> <span class="p">{</span>
+                        <span class="n">dists</span><span class="p">[</span><span class="n">r</span><span class="p">][</span><span class="n">c</span><span class="p">]</span> <span class="o">=</span> <span class="n">dist</span> <span class="o">+</span> <span class="mi">1</span><span class="p">;</span>
+                        <span class="n">que</span><span class="p">.</span><span class="n">push</span><span class="p">({</span><span class="n">r</span><span class="p">,</span> <span class="n">c</span><span class="p">});</span>
+                    <span class="p">}</span>
+                <span class="p">}</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+        <span class="k">return</span> <span class="n">dists</span><span class="p">;</span>
     <span class="p">}</span>
 <span class="p">};</span>
 </code></pre></div>
@@ -171,6 +172,8 @@
   <a href="https://qkgoalkeeper.github.io/tags/leetcode">LeetCode</a>
   
   <a href="https://qkgoalkeeper.github.io/tags/c&#43;&#43;">C&#43;&#43;</a>
+  
+  <a href="https://qkgoalkeeper.github.io/tags/bfs">bfs</a>
   
 </div>
 
@@ -188,7 +191,7 @@
 
 
   <div class="article-share" id="share">
-    <div data-url="https://qkgoalkeeper.github.io/post/leetcode%E6%AF%8F%E6%97%A5%E7%BB%83%E4%B9%A0%E5%89%91%E6%8C%87-offer-ii-034.-%E5%A4%96%E6%98%9F%E8%AF%AD%E8%A8%80%E6%98%AF%E5%90%A6%E6%8E%92%E5%BA%8F/" data-title="LeetCode每日练习：剑指 Offer II 034. 外星语言是否排序" data-tsina="5852167252" class="share clearfix">
+    <div data-url="https://qkgoalkeeper.github.io/post/leetcode%E6%AF%8F%E6%97%A5%E7%BB%83%E4%B9%A0%E5%89%91%E6%8C%87-offer-ii-107.-%E7%9F%A9%E9%98%B5%E4%B8%AD%E7%9A%84%E8%B7%9D%E7%A6%BB/" data-title="LeetCode每日练习：剑指 Offer II 107. 矩阵中的距离" data-tsina="5852167252" class="share clearfix">
     </div>
   </div>
 </footer>
