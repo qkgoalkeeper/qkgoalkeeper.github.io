@@ -6,7 +6,16 @@
     <description>Recent content on qkgoalkeeper&#39;s blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
-    <lastBuildDate>Thu, 28 Apr 2022 07:55:19 +0800</lastBuildDate><atom:link href="https://qkgoalkeeper.github.io/feed.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sat, 30 Apr 2022 07:55:19 +0800</lastBuildDate><atom:link href="https://qkgoalkeeper.github.io/feed.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>LeetCode每日练习：剑指 Offer II 108. 单词演变</title>
+      <link>https://qkgoalkeeper.github.io/post/leetcode%E6%AF%8F%E6%97%A5%E7%BB%83%E4%B9%A0%E5%89%91%E6%8C%87-offer-ii-108.-%E5%8D%95%E8%AF%8D%E6%BC%94%E5%8F%98/</link>
+      <pubDate>Sat, 30 Apr 2022 07:55:19 +0800</pubDate>
+      
+      <guid>https://qkgoalkeeper.github.io/post/leetcode%E6%AF%8F%E6%97%A5%E7%BB%83%E4%B9%A0%E5%89%91%E6%8C%87-offer-ii-108.-%E5%8D%95%E8%AF%8D%E6%BC%94%E5%8F%98/</guid>
+      <description>一.剑指 Offer II 108. 单词演变 1.题干及思路 在字典（单词列表） wordList 中，从单词 beginWord 和 endWord 的 转换序列 是一个按下述规格形成的序列： 序列中第一个单词是 beginWord 。 序列中最</description>
+    </item>
+    
     <item>
       <title>LeetCode每日练习：剑指 Offer II 107. 矩阵中的距离</title>
       <link>https://qkgoalkeeper.github.io/post/leetcode%E6%AF%8F%E6%97%A5%E7%BB%83%E4%B9%A0%E5%89%91%E6%8C%87-offer-ii-107.-%E7%9F%A9%E9%98%B5%E4%B8%AD%E7%9A%84%E8%B7%9D%E7%A6%BB/</link>

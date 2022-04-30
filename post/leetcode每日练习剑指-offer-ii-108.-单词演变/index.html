@@ -2,13 +2,13 @@
 <html lang="zh-CN">
 <head>
   <meta charset="UTF-8">
-  <title>LeetCode算法基础第3天：双指针 - qkgoalkeeper&#39;s blog</title>
+  <title>LeetCode每日练习：剑指 Offer II 108. 单词演变 - qkgoalkeeper&#39;s blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=3, minimum-scale=1">
   
-  <meta name="description" content="一.82. 删除排序链表中的重复元素 II 1.题干及思路 存在一个按升序排列的链表，给你这个链表的头节点 head ，请你删除链表中所有存在数字重复情况的节点">
+  <meta name="description" content="一.剑指 Offer II 108. 单词演变 1.题干及思路 在字典（单词列表） wordList 中，从单词 beginWord 和 endWord 的 转换序列 是一个按下述规格形成的序列： 序列中第一个单词是 beginWord 。 序列中最">
   
-  <meta itemprop="name" content="LeetCode算法基础第3天：双指针 - qkgoalkeeper&#39;s blog">
-  <meta itemprop="description" content="一.82. 删除排序链表中的重复元素 II 1.题干及思路 存在一个按升序排列的链表，给你这个链表的头节点 head ，请你删除链表中所有存在数字重复情况的节点">
+  <meta itemprop="name" content="LeetCode每日练习：剑指 Offer II 108. 单词演变 - qkgoalkeeper&#39;s blog">
+  <meta itemprop="description" content="一.剑指 Offer II 108. 单词演变 1.题干及思路 在字典（单词列表） wordList 中，从单词 beginWord 和 endWord 的 转换序列 是一个按下述规格形成的序列： 序列中第一个单词是 beginWord 。 序列中最">
   <meta itemprop="image" content="https://qkgoalkeeper.github.io/img/author.jpg">
   
   
@@ -74,7 +74,7 @@
 	<article itemprop="articleBody">
     <header class="article-info clearfix">
   <h1 itemprop="name">
-      <a href="https://qkgoalkeeper.github.io/post/leetcode%E7%AE%97%E6%B3%95%E5%9F%BA%E7%A1%80%E7%AC%AC3%E5%A4%A9%E5%8F%8C%E6%8C%87%E9%92%88/" title="LeetCode算法基础第3天：双指针" itemprop="url">LeetCode算法基础第3天：双指针</a>
+      <a href="https://qkgoalkeeper.github.io/post/leetcode%E6%AF%8F%E6%97%A5%E7%BB%83%E4%B9%A0%E5%89%91%E6%8C%87-offer-ii-108.-%E5%8D%95%E8%AF%8D%E6%BC%94%E5%8F%98/" title="LeetCode每日练习：剑指 Offer II 108. 单词演变" itemprop="url">LeetCode每日练习：剑指 Offer II 108. 单词演变</a>
   </h1>
   <p class="article-author">By
     
@@ -82,7 +82,7 @@
     
   </p>
   <p class="article-time">
-    <time datetime="2021-10-12 10:55:19 &#43;0800 CST" itemprop="datePublished">2021年10月12日</time>
+    <time datetime="2022-04-30 07:55:19 &#43;0800 CST" itemprop="datePublished">2022年04月30日</time>
   </p>
 </header>
 
@@ -95,121 +95,96 @@
     <li><a href="#1题干及思路">1.题干及思路</a></li>
     <li><a href="#2c实现">2.C++实现</a></li>
   </ul>
-
-  <ul>
-    <li><a href="#1题干及思路-1">1.题干及思路</a></li>
-    <li><a href="#2c实现-1">2.C++实现</a></li>
-  </ul>
 </nav>
 		</div>
     
-    <h1 id="一82-删除排序链表中的重复元素-iihttpsleetcode-cncomproblemsremove-duplicates-from-sorted-list-ii">一.<a href="https://leetcode-cn.com/problems/remove-duplicates-from-sorted-list-ii/">82. 删除排序链表中的重复元素 II</a></h1>
+    <h1 id="一剑指-offer-ii-108-单词演变httpsleetcode-cncomproblemsom3rec">一.<a href="https://leetcode-cn.com/problems/om3reC/">剑指 Offer II 108. 单词演变</a></h1>
 <h2 id="1题干及思路">1.题干及思路</h2>
-<p>存在一个按升序排列的链表，给你这个链表的头节点 head ，请你删除链表中所有存在数字重复情况的节点，只保留原始链表中 没有重复出现 的数字。</p>
-<p>返回同样按升序排列的结果链表。</p>
-<p>示例 1：</p>
-<p>输入：head = [1,2,3,3,4,4,5]
-输出：[1,2,5]
-示例 2：</p>
-<p>输入：head = [1,1,1,2,3]
-输出：[2,3]</p>
-<p>提示：</p>
-<p>链表中节点数目在范围 [0, 300] 内
--100 &lt;= Node.val &lt;= 100
-题目数据保证链表已经按升序排列</p>
-<p>来源：力扣（LeetCode）
-链接：https://leetcode-cn.com/problems/remove-duplicates-from-sorted-list-ii
-著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。</p>
-<p>要点：双指针</p>
-<p>思路： 用一个哑结点，再用双指针法进行删除</p>
+<p>在字典（单词列表） <code>wordList</code> 中，从单词 <code>beginWord</code> 和 <code>endWord</code> 的 <strong>转换序列</strong> 是一个按下述规格形成的序列：</p>
+<ul>
+<li>序列中第一个单词是 <code>beginWord</code> 。</li>
+<li>序列中最后一个单词是 <code>endWord</code> 。</li>
+<li>每次转换只能改变一个字母。</li>
+<li>转换过程中的中间单词必须是字典 <code>wordList</code> 中的单词。</li>
+</ul>
+<p>给定两个长度相同但内容不同的单词 <code>beginWord</code> 和 <code>endWord</code> 和一个字典 <code>wordList</code> ，找到从 <code>beginWord</code> 到 <code>endWord</code> 的 <strong>最短转换序列</strong> 中的 <strong>单词数目</strong> 。如果不存在这样的转换序列，返回 0。</p>
+<p><strong>示例 1：</strong></p>
+<pre tabindex="0"><code>输入：beginWord = &quot;hit&quot;, endWord = &quot;cog&quot;, wordList = [&quot;hot&quot;,&quot;dot&quot;,&quot;dog&quot;,&quot;lot&quot;,&quot;log&quot;,&quot;cog&quot;]
+输出：5
+解释：一个最短转换序列是 &quot;hit&quot; -&gt; &quot;hot&quot; -&gt; &quot;dot&quot; -&gt; &quot;dog&quot; -&gt; &quot;cog&quot;, 返回它的长度 5。
+</code></pre><p><strong>示例 2：</strong></p>
+<pre tabindex="0"><code>输入：beginWord = &quot;hit&quot;, endWord = &quot;cog&quot;, wordList = [&quot;hot&quot;,&quot;dot&quot;,&quot;dog&quot;,&quot;lot&quot;,&quot;log&quot;]
+输出：0
+解释：endWord &quot;cog&quot; 不在字典中，所以无法进行转换。
+</code></pre><p><strong>提示：</strong></p>
+<ul>
+<li><code>1 &lt;= beginWord.length &lt;= 10</code></li>
+<li><code>endWord.length == beginWord.length</code></li>
+<li><code>1 &lt;= wordList.length &lt;= 5000</code></li>
+<li><code>wordList[i].length == beginWord.length</code></li>
+<li><code>beginWord</code>、<code>endWord</code> 和 <code>wordList[i]</code> 由小写英文字母组成</li>
+<li><code>beginWord != endWord</code></li>
+<li><code>wordList</code> 中的所有字符串 <strong>互不相同</strong></li>
+</ul>
+<p>注意：本题与主站 127 题相同： <a href="https://leetcode-cn.com/problems/word-ladder/">https://leetcode-cn.com/problems/word-ladder/</a></p>
+<p>要点：bfs</p>
+<p>思路：图广度优先搜索，对一个单词除了生成单词节点本身，还要生成该单词的衍生通配词（某一个位置变为星号的该单词）放入图中，重点看一下建立图的函数addedge</p>
 <h2 id="2c实现">2.C++实现</h2>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="cm">/**
-</span><span class="cm"> * Definition for singly-linked list.
-</span><span class="cm"> * struct ListNode {
-</span><span class="cm"> *     int val;
-</span><span class="cm"> *     ListNode *next;
-</span><span class="cm"> *     ListNode() : val(0), next(nullptr) {}
-</span><span class="cm"> *     ListNode(int x) : val(x), next(nullptr) {}
-</span><span class="cm"> *     ListNode(int x, ListNode *next) : val(x), next(next) {}
-</span><span class="cm"> * };
-</span><span class="cm"> */</span>
-<span class="k">class</span> <span class="nc">Solution</span> <span class="p">{</span>
-<span class="k">public</span><span class="o">:</span>
-    <span class="n">ListNode</span><span class="o">*</span> <span class="n">deleteDuplicates</span><span class="p">(</span><span class="n">ListNode</span><span class="o">*</span> <span class="n">head</span><span class="p">)</span> <span class="p">{</span>
-        <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">head</span> <span class="o">||</span> <span class="o">!</span><span class="n">head</span><span class="o">-&gt;</span><span class="n">next</span><span class="p">)</span>
-            <span class="k">return</span> <span class="n">head</span><span class="p">;</span>
-        
-        <span class="n">ListNode</span><span class="o">*</span> <span class="n">dummy</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ListNode</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">);</span>
-        <span class="n">dummy</span><span class="o">-&gt;</span><span class="n">next</span> <span class="o">=</span> <span class="n">head</span><span class="p">;</span>
-        
-        <span class="n">ListNode</span><span class="o">*</span> <span class="n">pre</span> <span class="o">=</span> <span class="n">dummy</span><span class="p">;</span>
-        <span class="n">ListNode</span><span class="o">*</span> <span class="n">cur</span> <span class="o">=</span> <span class="n">head</span><span class="p">;</span>
-        <span class="k">while</span> <span class="p">(</span><span class="n">cur</span> <span class="o">&amp;&amp;</span> <span class="n">cur</span><span class="o">-&gt;</span><span class="n">next</span><span class="p">)</span> <span class="p">{</span>
-            <span class="k">if</span> <span class="p">(</span><span class="n">cur</span><span class="o">-&gt;</span><span class="n">val</span> <span class="o">==</span> <span class="n">cur</span><span class="o">-&gt;</span><span class="n">next</span><span class="o">-&gt;</span><span class="n">val</span><span class="p">)</span> <span class="p">{</span>
-                <span class="k">while</span> <span class="p">(</span><span class="n">cur</span><span class="o">-&gt;</span><span class="n">next</span> <span class="o">&amp;&amp;</span> <span class="n">cur</span><span class="o">-&gt;</span><span class="n">val</span> <span class="o">==</span> <span class="n">cur</span><span class="o">-&gt;</span><span class="n">next</span><span class="o">-&gt;</span><span class="n">val</span><span class="p">)</span> <span class="p">{</span>
-                    <span class="n">cur</span> <span class="o">=</span> <span class="n">cur</span><span class="o">-&gt;</span><span class="n">next</span><span class="p">;</span>
-                <span class="p">}</span>
-                <span class="n">pre</span><span class="o">-&gt;</span><span class="n">next</span> <span class="o">=</span> <span class="n">cur</span><span class="o">-&gt;</span><span class="n">next</span><span class="p">;</span>
-                <span class="n">cur</span> <span class="o">=</span> <span class="n">cur</span><span class="o">-&gt;</span><span class="n">next</span><span class="p">;</span>
-            <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>                
-                <span class="n">pre</span> <span class="o">=</span> <span class="n">cur</span><span class="p">;</span>
-                <span class="n">cur</span> <span class="o">=</span> <span class="n">cur</span><span class="o">-&gt;</span><span class="n">next</span><span class="p">;</span>
-            <span class="p">}</span>
-        <span class="p">}</span>
-        <span class="k">return</span> <span class="n">dummy</span><span class="o">-&gt;</span><span class="n">next</span><span class="p">;</span>
-
-    <span class="p">}</span>
-<span class="p">};</span>
-</code></pre></div><h1 id="二15-三数之和httpsleetcode-cncomproblems3sum">二.<a href="https://leetcode-cn.com/problems/3sum/">15. 三数之和</a></h1>
-<h2 id="1题干及思路-1">1.题干及思路</h2>
-<p>给你一个包含 n 个整数的数组 nums，判断 nums 中是否存在三个元素 a，b，c ，使得 a + b + c = 0 ？请你找出所有和为 0 且不重复的三元组。</p>
-<p>注意：答案中不可以包含重复的三元组。</p>
-<p>示例 1：</p>
-<p>输入：nums = [-1,0,1,2,-1,-4]
-输出：[[-1,-1,2],[-1,0,1]]
-示例 2：</p>
-<p>输入：nums = []
-输出：[]
-示例 3：</p>
-<p>输入：nums = [0]
-输出：[]</p>
-<p>提示：</p>
-<p>0 &lt;= nums.length &lt;= 3000
--105 &lt;= nums[i] &lt;= 105</p>
-<p>来源：力扣（LeetCode）
-链接：https://leetcode-cn.com/problems/3sum
-著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。</p>
-<p>要点：双指针</p>
-<p>思路： 先排序（O(nlogn))，一层循环确定第一个值再用双指针两头向中间靠拢求第二和第三个值</p>
-<h2 id="2c实现-1">2.C++实现</h2>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="k">class</span> <span class="nc">Solution</span> <span class="p">{</span>
 <span class="k">public</span><span class="o">:</span>
-    <span class="n">vector</span><span class="o">&lt;</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;&gt;</span> <span class="n">threeSum</span><span class="p">(</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;&amp;</span> <span class="n">nums</span><span class="p">)</span> <span class="p">{</span>
-        <span class="kt">int</span> <span class="n">n</span> <span class="o">=</span> <span class="n">nums</span><span class="p">.</span><span class="n">size</span><span class="p">();</span>
-        <span class="n">sort</span><span class="p">(</span><span class="n">nums</span><span class="p">.</span><span class="n">begin</span><span class="p">(),</span> <span class="n">nums</span><span class="p">.</span><span class="n">end</span><span class="p">());</span>
-        <span class="n">vector</span><span class="o">&lt;</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;&gt;</span> <span class="n">ans</span><span class="p">;</span>
-        <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">first</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">first</span> <span class="o">&lt;</span> <span class="n">n</span><span class="p">;</span> <span class="o">++</span><span class="n">first</span><span class="p">)</span> <span class="p">{</span>
-            <span class="k">if</span> <span class="p">(</span><span class="n">first</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="o">&amp;&amp;</span> <span class="n">nums</span><span class="p">[</span><span class="n">first</span><span class="p">]</span> <span class="o">==</span> <span class="n">nums</span><span class="p">[</span><span class="n">first</span> <span class="o">-</span> <span class="mi">1</span><span class="p">])</span> <span class="p">{</span>
-                <span class="k">continue</span><span class="p">;</span>
+    <span class="n">unordered_map</span><span class="o">&lt;</span><span class="n">string</span><span class="p">,</span> <span class="kt">int</span><span class="o">&gt;</span> <span class="n">wordId</span><span class="p">;</span>
+    <span class="n">vector</span><span class="o">&lt;</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;&gt;</span> <span class="n">edge</span><span class="p">;</span>
+    <span class="kt">int</span> <span class="n">nodeNum</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+
+    <span class="kt">void</span> <span class="nf">addWord</span><span class="p">(</span><span class="n">string</span><span class="o">&amp;</span> <span class="n">word</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">wordId</span><span class="p">.</span><span class="n">count</span><span class="p">(</span><span class="n">word</span><span class="p">))</span> <span class="p">{</span>
+            <span class="n">wordId</span><span class="p">[</span><span class="n">word</span><span class="p">]</span> <span class="o">=</span> <span class="n">nodeNum</span><span class="o">++</span><span class="p">;</span>
+            <span class="n">edge</span><span class="p">.</span><span class="n">emplace_back</span><span class="p">();</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+
+    <span class="kt">void</span> <span class="nf">addEdge</span><span class="p">(</span><span class="n">string</span><span class="o">&amp;</span> <span class="n">word</span><span class="p">)</span> <span class="p">{</span> <span class="c1">//添加单词时，同时添加每个位置变为星号通配符的单词，添加相应的边
+</span><span class="c1"></span>        <span class="n">addWord</span><span class="p">(</span><span class="n">word</span><span class="p">);</span>
+        <span class="kt">int</span> <span class="n">id1</span> <span class="o">=</span> <span class="n">wordId</span><span class="p">[</span><span class="n">word</span><span class="p">];</span>
+        <span class="k">for</span> <span class="p">(</span><span class="kt">char</span><span class="o">&amp;</span> <span class="nl">it</span> <span class="p">:</span> <span class="n">word</span><span class="p">)</span> <span class="p">{</span>
+            <span class="kt">char</span> <span class="n">tmp</span> <span class="o">=</span> <span class="n">it</span><span class="p">;</span>
+            <span class="n">it</span> <span class="o">=</span> <span class="sc">&#39;*&#39;</span><span class="p">;</span>
+            <span class="n">addWord</span><span class="p">(</span><span class="n">word</span><span class="p">);</span>
+            <span class="kt">int</span> <span class="n">id2</span> <span class="o">=</span> <span class="n">wordId</span><span class="p">[</span><span class="n">word</span><span class="p">];</span>
+            <span class="n">edge</span><span class="p">[</span><span class="n">id1</span><span class="p">].</span><span class="n">push_back</span><span class="p">(</span><span class="n">id2</span><span class="p">);</span>
+            <span class="n">edge</span><span class="p">[</span><span class="n">id2</span><span class="p">].</span><span class="n">push_back</span><span class="p">(</span><span class="n">id1</span><span class="p">);</span>
+            <span class="n">it</span> <span class="o">=</span> <span class="n">tmp</span><span class="p">;</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+
+    <span class="kt">int</span> <span class="nf">ladderLength</span><span class="p">(</span><span class="n">string</span> <span class="n">beginWord</span><span class="p">,</span> <span class="n">string</span> <span class="n">endWord</span><span class="p">,</span> <span class="n">vector</span><span class="o">&lt;</span><span class="n">string</span><span class="o">&gt;&amp;</span> <span class="n">wordList</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">for</span> <span class="p">(</span><span class="n">string</span><span class="o">&amp;</span> <span class="nl">word</span> <span class="p">:</span> <span class="n">wordList</span><span class="p">)</span> <span class="p">{</span>
+            <span class="n">addEdge</span><span class="p">(</span><span class="n">word</span><span class="p">);</span>
+        <span class="p">}</span>
+        <span class="n">addEdge</span><span class="p">(</span><span class="n">beginWord</span><span class="p">);</span>
+        <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">wordId</span><span class="p">.</span><span class="n">count</span><span class="p">(</span><span class="n">endWord</span><span class="p">))</span> <span class="p">{</span>
+            <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+        <span class="p">}</span>
+        <span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">dis</span><span class="p">(</span><span class="n">nodeNum</span><span class="p">,</span> <span class="n">INT_MAX</span><span class="p">);</span>
+        <span class="kt">int</span> <span class="n">beginId</span> <span class="o">=</span> <span class="n">wordId</span><span class="p">[</span><span class="n">beginWord</span><span class="p">],</span> <span class="n">endId</span> <span class="o">=</span> <span class="n">wordId</span><span class="p">[</span><span class="n">endWord</span><span class="p">];</span>
+        <span class="n">dis</span><span class="p">[</span><span class="n">beginId</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+
+        <span class="n">queue</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">que</span><span class="p">;</span>
+        <span class="n">que</span><span class="p">.</span><span class="n">push</span><span class="p">(</span><span class="n">beginId</span><span class="p">);</span>
+        <span class="k">while</span> <span class="p">(</span><span class="o">!</span><span class="n">que</span><span class="p">.</span><span class="n">empty</span><span class="p">())</span> <span class="p">{</span>
+            <span class="kt">int</span> <span class="n">x</span> <span class="o">=</span> <span class="n">que</span><span class="p">.</span><span class="n">front</span><span class="p">();</span>
+            <span class="n">que</span><span class="p">.</span><span class="n">pop</span><span class="p">();</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">x</span> <span class="o">==</span> <span class="n">endId</span><span class="p">)</span> <span class="p">{</span>
+                <span class="k">return</span> <span class="n">dis</span><span class="p">[</span><span class="n">endId</span><span class="p">]</span> <span class="o">/</span> <span class="mi">2</span> <span class="o">+</span> <span class="mi">1</span><span class="p">;</span>
             <span class="p">}</span>
-            <span class="kt">int</span> <span class="n">third</span> <span class="o">=</span> <span class="n">n</span> <span class="o">-</span> <span class="mi">1</span><span class="p">;</span>
-            <span class="kt">int</span> <span class="n">target</span> <span class="o">=</span> <span class="o">-</span><span class="n">nums</span><span class="p">[</span><span class="n">first</span><span class="p">];</span>
-            <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">second</span> <span class="o">=</span> <span class="n">first</span> <span class="o">+</span> <span class="mi">1</span><span class="p">;</span> <span class="n">second</span> <span class="o">&lt;</span> <span class="n">n</span><span class="p">;</span> <span class="o">++</span><span class="n">second</span><span class="p">)</span> <span class="p">{</span>
-                <span class="k">if</span> <span class="p">(</span><span class="n">second</span> <span class="o">&gt;</span> <span class="n">first</span> <span class="o">+</span> <span class="mi">1</span> <span class="o">&amp;&amp;</span> <span class="n">nums</span><span class="p">[</span><span class="n">second</span><span class="p">]</span> <span class="o">==</span> <span class="n">nums</span><span class="p">[</span><span class="n">second</span> <span class="o">-</span> <span class="mi">1</span><span class="p">])</span> <span class="p">{</span>
-                    <span class="k">continue</span><span class="p">;</span>
-                <span class="p">}</span>
-                <span class="k">while</span> <span class="p">(</span><span class="n">second</span> <span class="o">&lt;</span> <span class="n">third</span> <span class="o">&amp;&amp;</span> <span class="n">nums</span><span class="p">[</span><span class="n">second</span><span class="p">]</span> <span class="o">+</span> <span class="n">nums</span><span class="p">[</span><span class="n">third</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">target</span><span class="p">)</span> <span class="p">{</span>
-                    <span class="o">--</span><span class="n">third</span><span class="p">;</span>
-                <span class="p">}</span>
-                <span class="k">if</span> <span class="p">(</span><span class="n">second</span> <span class="o">==</span> <span class="n">third</span><span class="p">)</span> <span class="p">{</span>
-                    <span class="k">break</span><span class="p">;</span>
-                <span class="p">}</span>
-                <span class="k">if</span> <span class="p">(</span><span class="n">nums</span><span class="p">[</span><span class="n">second</span><span class="p">]</span> <span class="o">+</span> <span class="n">nums</span><span class="p">[</span><span class="n">third</span><span class="p">]</span> <span class="o">==</span> <span class="n">target</span><span class="p">)</span> <span class="p">{</span>
-                    <span class="n">ans</span><span class="p">.</span><span class="n">push_back</span><span class="p">({</span><span class="n">nums</span><span class="p">[</span><span class="n">first</span><span class="p">],</span> <span class="n">nums</span><span class="p">[</span><span class="n">second</span><span class="p">],</span> <span class="n">nums</span><span class="p">[</span><span class="n">third</span><span class="p">]});</span>
+            <span class="k">for</span> <span class="p">(</span><span class="kt">int</span><span class="o">&amp;</span> <span class="nl">it</span> <span class="p">:</span> <span class="n">edge</span><span class="p">[</span><span class="n">x</span><span class="p">])</span> <span class="p">{</span>
+                <span class="k">if</span> <span class="p">(</span><span class="n">dis</span><span class="p">[</span><span class="n">it</span><span class="p">]</span> <span class="o">==</span> <span class="n">INT_MAX</span><span class="p">)</span> <span class="p">{</span>
+                    <span class="n">dis</span><span class="p">[</span><span class="n">it</span><span class="p">]</span> <span class="o">=</span> <span class="n">dis</span><span class="p">[</span><span class="n">x</span><span class="p">]</span> <span class="o">+</span> <span class="mi">1</span><span class="p">;</span>
+                    <span class="n">que</span><span class="p">.</span><span class="n">push</span><span class="p">(</span><span class="n">it</span><span class="p">);</span>
                 <span class="p">}</span>
             <span class="p">}</span>
         <span class="p">}</span>
-        <span class="k">return</span> <span class="n">ans</span><span class="p">;</span>
+        <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
     <span class="p">}</span>
 <span class="p">};</span>
 </code></pre></div>
@@ -224,6 +199,8 @@
   <a href="https://qkgoalkeeper.github.io/tags/leetcode">LeetCode</a>
   
   <a href="https://qkgoalkeeper.github.io/tags/c&#43;&#43;">C&#43;&#43;</a>
+  
+  <a href="https://qkgoalkeeper.github.io/tags/bfs">bfs</a>
   
 </div>
 
@@ -241,7 +218,7 @@
 
 
   <div class="article-share" id="share">
-    <div data-url="https://qkgoalkeeper.github.io/post/leetcode%E7%AE%97%E6%B3%95%E5%9F%BA%E7%A1%80%E7%AC%AC3%E5%A4%A9%E5%8F%8C%E6%8C%87%E9%92%88/" data-title="LeetCode算法基础第3天：双指针" data-tsina="5852167252" class="share clearfix">
+    <div data-url="https://qkgoalkeeper.github.io/post/leetcode%E6%AF%8F%E6%97%A5%E7%BB%83%E4%B9%A0%E5%89%91%E6%8C%87-offer-ii-108.-%E5%8D%95%E8%AF%8D%E6%BC%94%E5%8F%98/" data-title="LeetCode每日练习：剑指 Offer II 108. 单词演变" data-tsina="5852167252" class="share clearfix">
     </div>
   </div>
 </footer>
