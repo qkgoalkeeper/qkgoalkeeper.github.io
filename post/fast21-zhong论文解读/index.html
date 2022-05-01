@@ -2,13 +2,13 @@
 <html lang="zh-CN">
 <head>
   <meta charset="UTF-8">
-  <title>LeetCode每日一题：96. 不同的二叉搜索树 - qkgoalkeeper&#39;s blog</title>
+  <title>fast21-zhong论文解读 - qkgoalkeeper&#39;s blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=3, minimum-scale=1">
   
-  <meta name="description" content="一.96. 不同的二叉搜索树 1.题干及思路 给你一个整数 n ，求恰由 n 个节点组成且节点值从 1 到 n 互不相同的 二叉搜索树 有多少种？返回满足题意的二叉搜">
+  <meta name="description" content="REMIX：LSM树的高效范围查询 0.摘要 基于LSM树的键值（KV）以多级结构存储数据，用于高速写入。传统LSM树上的范围查询必须动态地从多">
   
-  <meta itemprop="name" content="LeetCode每日一题：96. 不同的二叉搜索树 - qkgoalkeeper&#39;s blog">
-  <meta itemprop="description" content="一.96. 不同的二叉搜索树 1.题干及思路 给你一个整数 n ，求恰由 n 个节点组成且节点值从 1 到 n 互不相同的 二叉搜索树 有多少种？返回满足题意的二叉搜">
+  <meta itemprop="name" content="fast21-zhong论文解读 - qkgoalkeeper&#39;s blog">
+  <meta itemprop="description" content="REMIX：LSM树的高效范围查询 0.摘要 基于LSM树的键值（KV）以多级结构存储数据，用于高速写入。传统LSM树上的范围查询必须动态地从多">
   <meta itemprop="image" content="https://qkgoalkeeper.github.io/img/author.jpg">
   
   
@@ -74,7 +74,7 @@
 	<article itemprop="articleBody">
     <header class="article-info clearfix">
   <h1 itemprop="name">
-      <a href="https://qkgoalkeeper.github.io/post/leetcode%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%9896.-%E4%B8%8D%E5%90%8C%E7%9A%84%E4%BA%8C%E5%8F%89%E6%90%9C%E7%B4%A2%E6%A0%91/" title="LeetCode每日一题：96. 不同的二叉搜索树" itemprop="url">LeetCode每日一题：96. 不同的二叉搜索树</a>
+      <a href="https://qkgoalkeeper.github.io/post/fast21-zhong%E8%AE%BA%E6%96%87%E8%A7%A3%E8%AF%BB/" title="fast21-zhong论文解读" itemprop="url">fast21-zhong论文解读</a>
   </h1>
   <p class="article-author">By
     
@@ -82,7 +82,7 @@
     
   </p>
   <p class="article-time">
-    <time datetime="2021-12-14 10:55:19 &#43;0800 CST" itemprop="datePublished">2021年12月14日</time>
+    <time datetime="2022-05-01 11:55:19 &#43;0800 CST" itemprop="datePublished">2022年05月01日</time>
   </p>
 </header>
 
@@ -92,47 +92,24 @@
 			<strong class="toc-title">文章目录</strong>
       <nav id="TableOfContents">
   <ul>
-    <li><a href="#1题干及思路">1.题干及思路</a></li>
-    <li><a href="#2c实现">2.C++实现</a></li>
+    <li><a href="#0摘要">0.摘要</a></li>
+    <li><a href="#1简介">1.简介</a></li>
+    <li><a href="#2背景">2.背景</a></li>
+    <li><a href="#3remix">3.remix</a></li>
   </ul>
 </nav>
 		</div>
     
-    <h1 id="一96-不同的二叉搜索树httpsleetcode-cncomproblemsunique-binary-search-trees">一.<a href="https://leetcode-cn.com/problems/unique-binary-search-trees/">96. 不同的二叉搜索树</a></h1>
-<h2 id="1题干及思路">1.题干及思路</h2>
-<p>给你一个整数 <code>n</code> ，求恰由 <code>n</code> 个节点组成且节点值从 <code>1</code> 到 <code>n</code> 互不相同的 <strong>二叉搜索树</strong> 有多少种？返回满足题意的二叉搜索树的种数。</p>
-<p><strong>示例 1：</strong></p>
-<p><img src="https://assets.leetcode.com/uploads/2021/01/18/uniquebstn3.jpg" alt="img"></p>
-<pre tabindex="0"><code>输入：n = 3
-输出：5
-</code></pre><p><strong>示例 2：</strong></p>
-<pre tabindex="0"><code>输入：n = 1
-输出：1
-</code></pre><p><strong>提示：</strong></p>
-<ul>
-<li><code>1 &lt;= n &lt;= 19</code></li>
-</ul>
-<p>要点：动态规划</p>
-<p>思路：卡特兰数递推式，G（n）表示前n个组成的树个数，递推公式 G*(<em>n</em>)=∑G*(<em>i</em>−1)⋅<em>G</em>(<em>n</em>−<em>i</em>) (i从1到n)</p>
-<h2 id="2c实现">2.C++实现</h2>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="k">class</span> <span class="nc">Solution</span> <span class="p">{</span>
-<span class="k">public</span><span class="o">:</span>
-    <span class="kt">int</span> <span class="n">numTrees</span><span class="p">(</span><span class="kt">int</span> <span class="n">n</span><span class="p">)</span> <span class="p">{</span>
-        <span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">G</span><span class="p">(</span><span class="n">n</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
-        <span class="n">G</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
-        <span class="n">G</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+    <h1 id="remixlsm树的高效范围查询">REMIX：LSM树的高效范围查询</h1>
+<h2 id="0摘要">0.摘要</h2>
+<p>基于LSM树的键值（KV）以多级结构存储数据，用于高速写入。传统LSM树上的范围查询必须动态地从多个表文件中查找和排序合并数据，这非常昂贵，而且通常会导致平庸的读取性能。为了提高LSM树上的范围查询效率，我们引入了一种空间高效的KV索引数据结构，名为REMIX，它记录了跨越多个表文件的KV数据的全局排序视图。对多个remix索引数据文件的范围查询可以使用二进制搜索快速定位目标密钥，并按排序顺序检索后续key，而无需进行key比较。我们构建了RemixDB，这是一个基于LSM树的KV存储，它采用了一种高效写压缩策略，并使用Remix进行快速的点和范围查询。实验结果表明，在基于写优化LSM树的KV-store中，remix可以显著提高范围查询性能。</p>
+<h2 id="1简介">1.简介</h2>
+<p>Key  value stores（KV  stores）是许多云和数据中心服务的主干，包括社交媒体、实时分析、电子商务和加密货币。日志结构的合并树（LSMtree）是许多KV存储的核心数据结构。与需要在磁盘上进行就地更新的传统存储结构（如B+树）不同，LSMTree遵循一种异地更新方案，该方案支持高速顺序写入I/O。它在内存中缓冲区更新，并定期将其刷新到持久存储中，以生成不可变文件。然而，这会对搜索效率造成影响，因为一个范围内的键可能位于不同的表中，由于计算和I/O成本较高，可能会降低查询速度。基于LSM树的设计代表了更新成本和搜索成本之间的权衡，与B+树相比，保持了较低的更新成本，但搜索成本要高得多。为了提高查询性能，已经做了很多工作。为了加快点查询的速度，每个表通常都与内存驻留Bloom过滤器相关联，以便查询可以跳过不包含目标键的表。但是，Bloom过滤器无法处理范围查询。提出了SuRF和Rosetta等范围过滤器，通过过滤掉不包含请求范围内任何键的表来加速范围查询。然而，当请求范围内的键位于大多数候选表中时，过滤方法很难提高查询性能，尤其是在大范围查询中。此外，当可以通过缓存回答查询时，访问过滤器的计算成本可能会导致性能平平，这在现实世界的工作负载中通常是如此。为了限制搜索请求必须访问的表的数量，LSM树保留了一个后台压缩线程来不断地合并表进行排序。表格选择由压缩策略决定。许多KV存储都采用了compaction策略，包括LevelDB[26]和RocksDB[20]。分级压缩排序将较小的排序运行合并为较大的运行，以将重叠表的数量保持在阈值以下。实际上，分级压缩提供了最佳的读取效率，但由于其积极的排序合并策略，具有较高的写入放大率（WA）。或者，分层压缩策略等待多个大小相似的排序运行，并将它们合并到一个更大的运行中。分层压缩提供了更低的WA和更高的更新吞吐量。它已被许多KVStore采用，如Cassandra和Scyllab。由于分层压缩不能有效地限制重叠表的数量，因此与分层压缩相比，它会导致更高的搜索成本。其他压缩策略可以更好地平衡读写效率，但它们都不能同时达到最佳读写效率。问题在于，为了限制已排序的运行次数，存储必须对现有数据进行排序、合并和重写。今天的存储技术已经显示出随机存取效率的显著提高。例如，商品闪存SSD上的随机读取可能超过顺序读取吞吐量的50%。3D XPoint等新技术（如英特尔的Optane  SSD）为随机和顺序I/O提供了几乎相同的性能。因此，无需对KV对进行物理排序，即可快速接入。相反，KV存储可以保持数据的逻辑排序，以实现高效的点和范围查询，同时避免过度重写。 为此，我们设计了REMIX，即范围查询效率高的多表索引。与现有的解决方案不同，现有的解决方案可以改善范围查询，这些查询需要在物理重写数据和动态执行昂贵的排序合并之间苦苦挣扎，remix使用节省空间的数据结构来记录跨多个表文件的KV数据的全局排序视图。通过remix，基于LSM树的KV存储可以利用高效写压缩策略，而不牺牲搜索性能。我们构建了RemixDB，一个基于混合索引LSM树的KV存储。RemixDB集成了高效写分层压缩策略和分区LSM树布局，同时实现了低WA和快速搜索。实验结果表明，当在多个重叠表上搜索时，remix可以有效地提高范围查询的性能。性能评估表明，RemixDB在读写操作上同时优于最先进的基于LSM树的KV存储。</p>
+<h2 id="2背景">2.背景</h2>
+<p>LSM树是为持久存储设备上的高写入效率而设计的。它通过在内存结构（称为MemTable）中缓冲所有更新来实现高速写入。当MemTable填满时，缓冲的key将被排序，并通过一个名为“minor 压缩”的进程以排序的run的方式刷新到持久存储中。minor压缩是高效的，因为更新是按顺序成批写入的，而不会与存储中的现有数据合并。由于排序的run可能有重叠的关键点范围，点查询必须检查所有可能的运行，从而导致较高的搜索成本。为了限制重叠run的数量，LSMtree使用主要的压缩过程将多个重叠管路排序合并为较少的管路。压缩策略决定了如何选择表进行主要压缩。最常用的两种策略是leveling压实和tiering压实。使用分级压缩的存储具有多级结构，其中每一级维护由一个或多个表组成的排序运行。一个级别（Ln）的容量是前一个级别（Ln）的倍数（通常为10）−1）  ，这样就可以在几个级别（通常为5到7级）内组织一个大型KV存储。分级压缩使读取相对高效，但会导致较低的写入效率。分级压缩从相邻级别（Ln和Ln+1）中选择重叠表进行排序合并，并在更大级别（Ln+1）中生成新表。由于容量呈指数级增长，一个表的键范围通常会在下一级与多个表重叠。因此，大多数写操作都是为了重写Ln+1中的现有数据，导致实际情况下WA比率高达40。图1显示了一个分层压缩的示例，其中每个表包含两个或三个键。如果选择L1中的第一个表（包含键（4,21,38））与L2中的前两个表（（6,26）和（31,40,46））进行排序合并，L2中的五个键将被重写。通过分层压缩，可以在一个级别中缓冲多个重叠的排序运行，如图2所示。一个级别中的运行次数以T表示的阈值为界，其中T&gt;1。当一个级别（Ln）中的已排序run数达到阈值时，Ln中的所有已排序运行将被排序合并为下一个级别（Ln+1）中的新已排序运行，而不重写Ln+1中的任何现有数据。因此，使用分层压缩，LSM树的WA比率为O（L），其中L是层数。对于相对较大的T，分层压缩提供的WA比使用类似L的分层压缩低得多。但是，由于在每个级别中可能有多个重叠的排序run，点查询将需要检查多达T×L表，从而导致搜索速度慢得多。LevelDB/RocksDB中的范围查询是通过使用迭代器结构在多个表之间导航来实现的，就像所有键都在一个排序的run中一样。范围查询首先使用带有搜索键（目标键范围的下边界）的搜索操作初始化迭代器。seek操作定位迭代器，使其指向存储中等于或大于seek键（按字符串键的词法顺序）的最小键，seek键被表示为范围查询的目标键。下一个操作推进迭代器，使其指向排序顺序中的下一个键。接下来的一系列操作可用于检索目标范围内的后续key，直到满足特定条件（例如，key数或范围结束）。由于排序的run是按时间顺序生成的，所以目标键可以驻留在任何run中。因此，迭代器必须跟踪所有排序的运行。图1显示了使用分层压缩在LSM树上搜索的示例。为了寻找密钥67，在每次运行时使用二进制搜索来识别满足密钥要求的最小密钥≥  寻找key。每个已识别的键都由光标标记。然后使用最小堆结构对这些键进行排序合并，从而选择L2中的键67。随后，接下来的每个操作都会比较光标下的键，返回最小的键，并前进相应的光标。这个过程显示了键的全局排序视图，如图1右上角所示。在本例中，排序合并必须访问所有三个级别。图2显示了分层压缩的类似示例。由于有六个重叠的排序run，搜索操作比前一个示例更昂贵。实际上，分层压缩中的阈值T通常设置为一个较小的值，例如Scyllab中的T=4，以避免存储中有太多重叠的排序run。</p>
+<h2 id="3remix">3.remix</h2>
+<p>对多个排序run的范围查询操作动态构造基础表的排序视图，以便可以按排序顺序检索键。实际上，排序视图继承了表文件的不变性，并在删除或替换任何表之前保持有效。然而，现有的基于LSM树的KV存储无法利用这种继承的不变性。相反，排序视图会在搜索时重复重建，然后立即丢弃，这会由于计算和I/O过多而导致搜索性能不佳。REMIX的动机是通过保留基础表的排序视图并在未来搜索中重用它们来利用表文件的不变性。为了提高I/O效率，基于LSM树的KV存储采用了节省内存的元数据格式，包括稀疏索引和Bloom过滤器。如果我们记录每个键及其位置以在存储中保留已排序的视图，存储的元数据可能会大大膨胀，从而导致读写性能下降。为了避免这个问题，remix数据结构必须节省空间。</p>
 
-        <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">2</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;=</span> <span class="n">n</span><span class="p">;</span> <span class="o">++</span><span class="n">i</span><span class="p">)</span> <span class="p">{</span>
-            <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">j</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span> <span class="n">j</span> <span class="o">&lt;=</span> <span class="n">i</span><span class="p">;</span> <span class="o">++</span><span class="n">j</span><span class="p">)</span> <span class="p">{</span>
-                <span class="n">G</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">+=</span> <span class="n">G</span><span class="p">[</span><span class="n">j</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="n">G</span><span class="p">[</span><span class="n">i</span> <span class="o">-</span> <span class="n">j</span><span class="p">];</span>
-            <span class="p">}</span>
-        <span class="p">}</span>
-        <span class="k">return</span> <span class="n">G</span><span class="p">[</span><span class="n">n</span><span class="p">];</span>
-    <span class="p">}</span>
-<span class="p">};</span>
-
-       
-</code></pre></div>
     
 	</div>
   <footer class="article-footer clearfix">
@@ -141,9 +118,7 @@
 <div class="article-tags">
   <span></span>
   
-  <a href="https://qkgoalkeeper.github.io/tags/leetcode">LeetCode</a>
-  
-  <a href="https://qkgoalkeeper.github.io/tags/c&#43;&#43;">C&#43;&#43;</a>
+  <a href="https://qkgoalkeeper.github.io/tags/%E8%AE%BA%E6%96%87%E8%A7%A3%E8%AF%BB">论文解读</a>
   
 </div>
 
@@ -154,14 +129,14 @@
 <div class="article-categories">
   <span></span>
   
-  <a class="article-category-link" href="https://qkgoalkeeper.github.io/categories/%E5%A4%A7%E5%9B%9Bleetcode%E7%AE%97%E6%B3%95%E5%88%B7%E9%A2%98">大四LeetCode算法刷题</a>
+  <a class="article-category-link" href="https://qkgoalkeeper.github.io/categories/%E8%AE%BA%E6%96%87%E8%A7%A3%E8%AF%BB">论文解读</a>
   
 </div>
 
 
 
   <div class="article-share" id="share">
-    <div data-url="https://qkgoalkeeper.github.io/post/leetcode%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%9896.-%E4%B8%8D%E5%90%8C%E7%9A%84%E4%BA%8C%E5%8F%89%E6%90%9C%E7%B4%A2%E6%A0%91/" data-title="LeetCode每日一题：96. 不同的二叉搜索树" data-tsina="5852167252" class="share clearfix">
+    <div data-url="https://qkgoalkeeper.github.io/post/fast21-zhong%E8%AE%BA%E6%96%87%E8%A7%A3%E8%AF%BB/" data-title="fast21-zhong论文解读" data-tsina="5852167252" class="share clearfix">
     </div>
   </div>
 </footer>
