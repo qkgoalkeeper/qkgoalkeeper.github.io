@@ -6,7 +6,16 @@
     <description>Recent content in Posts on qkgoalkeeper&#39;s blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
-    <lastBuildDate>Sun, 01 May 2022 11:55:19 +0800</lastBuildDate><atom:link href="https://qkgoalkeeper.github.io/post/feed.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 04 May 2022 07:55:19 +0800</lastBuildDate><atom:link href="https://qkgoalkeeper.github.io/post/feed.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>LeetCode每日练习：460. LFU 缓存</title>
+      <link>https://qkgoalkeeper.github.io/post/leetcode%E6%AF%8F%E6%97%A5%E7%BB%83%E4%B9%A0460.-lfu-%E7%BC%93%E5%AD%98/</link>
+      <pubDate>Wed, 04 May 2022 07:55:19 +0800</pubDate>
+      
+      <guid>https://qkgoalkeeper.github.io/post/leetcode%E6%AF%8F%E6%97%A5%E7%BB%83%E4%B9%A0460.-lfu-%E7%BC%93%E5%AD%98/</guid>
+      <description>一.460. LFU 缓存 1.题干及思路 请你为 最不经常使用（LFU）缓存算法设计并实现数据结构。 实现 LFUCache 类： LFUCache(int capacity) - 用数据结构的容量 capacity 初始化对象 int get(int key) -</description>
+    </item>
+    
     <item>
       <title>fast21-zhong论文解读</title>
       <link>https://qkgoalkeeper.github.io/post/fast21-zhong%E8%AE%BA%E6%96%87%E8%A7%A3%E8%AF%BB/</link>
