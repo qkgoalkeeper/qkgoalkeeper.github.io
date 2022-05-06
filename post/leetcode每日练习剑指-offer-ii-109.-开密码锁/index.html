@@ -2,13 +2,13 @@
 <html lang="zh-CN">
 <head>
   <meta charset="UTF-8">
-  <title>LeetCode每日一题：406. 根据身高重建队列 - qkgoalkeeper&#39;s blog</title>
+  <title>LeetCode每日练习：剑指 Offer II 109. 开密码锁 - qkgoalkeeper&#39;s blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=3, minimum-scale=1">
   
-  <meta name="description" content="一.406. 根据身高重建队列 1.题干及思路 假设有打乱顺序的一群人站成一个队列，数组 people 表示队列中一些人的属性（不一定按顺序）。每个 people[i] = [hi, ki] 表示">
+  <meta name="description" content="一.剑指 Offer II 109. 开密码锁 1.题干及思路 一个密码锁由 4 个环形拨轮组成，每个拨轮都有 10 个数字： &#39;0&#39;, &#39;1&#39;, &#39;2&#39;, &#39;3&#39;, &#39;4&#39;, &#39;5&#39;, &#39;6&#39;, &#39;7&#39;, &#39;8&#39;, &#39;9&#39; 。每个拨轮可以自由旋转：例如把 &#39;9&#39;">
   
-  <meta itemprop="name" content="LeetCode每日一题：406. 根据身高重建队列 - qkgoalkeeper&#39;s blog">
-  <meta itemprop="description" content="一.406. 根据身高重建队列 1.题干及思路 假设有打乱顺序的一群人站成一个队列，数组 people 表示队列中一些人的属性（不一定按顺序）。每个 people[i] = [hi, ki] 表示">
+  <meta itemprop="name" content="LeetCode每日练习：剑指 Offer II 109. 开密码锁 - qkgoalkeeper&#39;s blog">
+  <meta itemprop="description" content="一.剑指 Offer II 109. 开密码锁 1.题干及思路 一个密码锁由 4 个环形拨轮组成，每个拨轮都有 10 个数字： &#39;0&#39;, &#39;1&#39;, &#39;2&#39;, &#39;3&#39;, &#39;4&#39;, &#39;5&#39;, &#39;6&#39;, &#39;7&#39;, &#39;8&#39;, &#39;9&#39; 。每个拨轮可以自由旋转：例如把 &#39;9&#39;">
   <meta itemprop="image" content="https://qkgoalkeeper.github.io/img/author.jpg">
   
   
@@ -74,7 +74,7 @@
 	<article itemprop="articleBody">
     <header class="article-info clearfix">
   <h1 itemprop="name">
-      <a href="https://qkgoalkeeper.github.io/post/leetcode%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98406.-%E6%A0%B9%E6%8D%AE%E8%BA%AB%E9%AB%98%E9%87%8D%E5%BB%BA%E9%98%9F%E5%88%97/" title="LeetCode每日一题：406. 根据身高重建队列" itemprop="url">LeetCode每日一题：406. 根据身高重建队列</a>
+      <a href="https://qkgoalkeeper.github.io/post/leetcode%E6%AF%8F%E6%97%A5%E7%BB%83%E4%B9%A0%E5%89%91%E6%8C%87-offer-ii-109.-%E5%BC%80%E5%AF%86%E7%A0%81%E9%94%81/" title="LeetCode每日练习：剑指 Offer II 109. 开密码锁" itemprop="url">LeetCode每日练习：剑指 Offer II 109. 开密码锁</a>
   </h1>
   <p class="article-author">By
     
@@ -82,7 +82,7 @@
     
   </p>
   <p class="article-time">
-    <time datetime="2022-01-01 10:55:19 &#43;0800 CST" itemprop="datePublished">2022年01月01日</time>
+    <time datetime="2022-05-06 07:55:19 &#43;0800 CST" itemprop="datePublished">2022年05月06日</time>
   </p>
 </header>
 
@@ -98,45 +98,95 @@
 </nav>
 		</div>
     
-    <h1 id="一406-根据身高重建队列httpsleetcode-cncomproblemsqueue-reconstruction-by-height">一.<a href="https://leetcode-cn.com/problems/queue-reconstruction-by-height/">406. 根据身高重建队列</a></h1>
+    <h1 id="一剑指-offer-ii-109-开密码锁httpsleetcode-cncomproblemszldjc7">一.<a href="https://leetcode-cn.com/problems/zlDJc7/">剑指 Offer II 109. 开密码锁</a></h1>
 <h2 id="1题干及思路">1.题干及思路</h2>
-<p>假设有打乱顺序的一群人站成一个队列，数组 <code>people</code> 表示队列中一些人的属性（不一定按顺序）。每个 <code>people[i] = [hi, ki]</code> 表示第 <code>i</code> 个人的身高为 <code>hi</code> ，前面 <strong>正好</strong> 有 <code>ki</code> 个身高大于或等于 <code>hi</code> 的人。</p>
-<p>请你重新构造并返回输入数组 <code>people</code> 所表示的队列。返回的队列应该格式化为数组 <code>queue</code> ，其中 <code>queue[j] = [hj, kj]</code> 是队列中第 <code>j</code> 个人的属性（<code>queue[0]</code> 是排在队列前面的人）。</p>
-<p><strong>示例 1：</strong></p>
-<pre tabindex="0"><code>输入：people = [[7,0],[4,4],[7,1],[5,0],[6,1],[5,2]]
-输出：[[5,0],[7,0],[5,2],[6,1],[4,4],[7,1]]
+<p>一个密码锁由 4 个环形拨轮组成，每个拨轮都有 10 个数字： <code>'0', '1', '2', '3', '4', '5', '6', '7', '8', '9'</code> 。每个拨轮可以自由旋转：例如把 <code>'9'</code> 变为 <code>'0'</code>，<code>'0'</code> 变为 <code>'9'</code> 。每次旋转都只能旋转一个拨轮的一位数字。</p>
+<p>锁的初始数字为 <code>'0000'</code> ，一个代表四个拨轮的数字的字符串。</p>
+<p>列表 <code>deadends</code> 包含了一组死亡数字，一旦拨轮的数字和列表里的任何一个元素相同，这个锁将会被永久锁定，无法再被旋转。</p>
+<p>字符串 <code>target</code> 代表可以解锁的数字，请给出解锁需要的最小旋转次数，如果无论如何不能解锁，返回 <code>-1</code> 。</p>
+<p><strong>示例 1:</strong></p>
+<pre tabindex="0"><code>输入：deadends = [&quot;0201&quot;,&quot;0101&quot;,&quot;0102&quot;,&quot;1212&quot;,&quot;2002&quot;], target = &quot;0202&quot;
+输出：6
 解释：
-编号为 0 的人身高为 5 ，没有身高更高或者相同的人排在他前面。
-编号为 1 的人身高为 7 ，没有身高更高或者相同的人排在他前面。
-编号为 2 的人身高为 5 ，有 2 个身高更高或者相同的人排在他前面，即编号为 0 和 1 的人。
-编号为 3 的人身高为 6 ，有 1 个身高更高或者相同的人排在他前面，即编号为 1 的人。
-编号为 4 的人身高为 4 ，有 4 个身高更高或者相同的人排在他前面，即编号为 0、1、2、3 的人。
-编号为 5 的人身高为 7 ，有 1 个身高更高或者相同的人排在他前面，即编号为 1 的人。
-因此 [[5,0],[7,0],[5,2],[6,1],[4,4],[7,1]] 是重新构造后的队列。
-</code></pre><p><strong>示例 2：</strong></p>
-<pre tabindex="0"><code>输入：people = [[6,0],[5,0],[4,0],[3,2],[2,2],[1,4]]
-输出：[[4,0],[5,0],[2,2],[3,2],[1,4],[6,0]]
+可能的移动序列为 &quot;0000&quot; -&gt; &quot;1000&quot; -&gt; &quot;1100&quot; -&gt; &quot;1200&quot; -&gt; &quot;1201&quot; -&gt; &quot;1202&quot; -&gt; &quot;0202&quot;。
+注意 &quot;0000&quot; -&gt; &quot;0001&quot; -&gt; &quot;0002&quot; -&gt; &quot;0102&quot; -&gt; &quot;0202&quot; 这样的序列是不能解锁的，因为当拨动到 &quot;0102&quot; 时这个锁就会被锁定。
+</code></pre><p><strong>示例 2:</strong></p>
+<pre tabindex="0"><code>输入: deadends = [&quot;8888&quot;], target = &quot;0009&quot;
+输出：1
+解释：
+把最后一位反向旋转一次即可 &quot;0000&quot; -&gt; &quot;0009&quot;。
+</code></pre><p><strong>示例 3:</strong></p>
+<pre tabindex="0"><code>输入: deadends = [&quot;8887&quot;,&quot;8889&quot;,&quot;8878&quot;,&quot;8898&quot;,&quot;8788&quot;,&quot;8988&quot;,&quot;7888&quot;,&quot;9888&quot;], target = &quot;8888&quot;
+输出：-1
+解释：
+无法旋转到目标数字且不被锁定。
+</code></pre><p><strong>示例 4:</strong></p>
+<pre tabindex="0"><code>输入: deadends = [&quot;0000&quot;], target = &quot;8888&quot;
+输出：-1
 </code></pre><p><strong>提示：</strong></p>
 <ul>
-<li><code>1 &lt;= people.length &lt;= 2000</code></li>
-<li><code>0 &lt;= hi &lt;= 106</code></li>
-<li><code>0 &lt;= ki &lt; people.length</code></li>
-<li>题目数据确保队列可以被重建</li>
+<li><code>1 &lt;= deadends.length &lt;= 500</code></li>
+<li><code>deadends[i].length == 4</code></li>
+<li><code>target.length == 4</code></li>
+<li><code>target</code> <strong>不在</strong> <code>deadends</code> 之中</li>
+<li><code>target</code> 和 <code>deadends[i]</code> 仅由若干位数字组成</li>
 </ul>
-<p>要点：贪心法</p>
-<p>思路：将people按照高度升序，相同高度按照前面人数升序，接着将people在每次answer.begin()+people[i][1]处插入即可，用了贪心的思想</p>
+<p>注意：本题与主站 752 题相同： <a href="https://leetcode-cn.com/problems/open-the-lock/">https://leetcode-cn.com/problems/open-the-lock/</a></p>
+<p>要点：bfs</p>
+<p>思路：广度优先搜索，upone函数和updown函数用来变换字符串中的一位，将0000放入队列，对四个位置+1或-1，将符合条件的8个新字符串放入队列，dead列表中的以及已访问的就忽略</p>
 <h2 id="2c实现">2.C++实现</h2>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="k">class</span> <span class="nc">Solution</span> <span class="p">{</span>
-<span class="k">public</span><span class="o">:</span>
-    <span class="n">vector</span><span class="o">&lt;</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;&gt;</span> <span class="n">reconstructQueue</span><span class="p">(</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;&gt;&amp;</span> <span class="n">people</span><span class="p">)</span> <span class="p">{</span>
-        <span class="n">sort</span><span class="p">(</span><span class="n">people</span><span class="p">.</span><span class="n">begin</span><span class="p">(),</span><span class="n">people</span><span class="p">.</span><span class="n">end</span><span class="p">(),[](</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="o">&amp;</span><span class="n">a</span><span class="p">,</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="o">&amp;</span><span class="n">b</span><span class="p">){</span><span class="k">return</span> <span class="n">a</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">&gt;</span><span class="n">b</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">||</span><span class="p">(</span><span class="n">a</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">==</span><span class="n">b</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">&amp;&amp;</span><span class="n">a</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">&lt;</span><span class="n">b</span><span class="p">[</span><span class="mi">1</span><span class="p">]);});</span>
-        <span class="n">vector</span><span class="o">&lt;</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;&gt;</span> <span class="n">answer</span><span class="p">;</span>
-        <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span><span class="n">i</span><span class="o">&lt;</span><span class="n">people</span><span class="p">.</span><span class="n">size</span><span class="p">();</span><span class="n">i</span><span class="o">++</span><span class="p">){</span>
-            <span class="n">answer</span><span class="p">.</span><span class="n">insert</span><span class="p">(</span><span class="n">answer</span><span class="p">.</span><span class="n">begin</span><span class="p">()</span><span class="o">+</span><span class="n">people</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">1</span><span class="p">],</span><span class="n">people</span><span class="p">[</span><span class="n">i</span><span class="p">]);</span>
-        <span class="p">}</span>
-        <span class="k">return</span> <span class="n">answer</span><span class="p">;</span>
+<span class="k">private</span><span class="o">:</span>
+    <span class="c1">//向上转动后，密码的变化
+</span><span class="c1"></span>    <span class="n">string</span> <span class="n">upOne</span><span class="p">(</span><span class="n">string</span> <span class="n">s</span><span class="p">,</span> <span class="kt">int</span> <span class="n">index</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">s</span><span class="p">[</span><span class="n">index</span><span class="p">]</span> <span class="o">==</span> <span class="sc">&#39;9&#39;</span><span class="p">)</span>
+            <span class="n">s</span><span class="p">[</span><span class="n">index</span><span class="p">]</span> <span class="o">=</span> <span class="sc">&#39;0&#39;</span><span class="p">;</span>
+        <span class="k">else</span> <span class="n">s</span><span class="p">[</span><span class="n">index</span><span class="p">]</span><span class="o">++</span><span class="p">;</span>
+        <span class="k">return</span> <span class="n">s</span><span class="p">;</span>
     <span class="p">}</span>
+        <span class="c1">//向下转动后，密码的变化
+</span><span class="c1"></span>    <span class="n">string</span> <span class="nf">downOne</span><span class="p">(</span><span class="n">string</span> <span class="n">s</span><span class="p">,</span> <span class="kt">int</span> <span class="n">index</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">s</span><span class="p">[</span><span class="n">index</span><span class="p">]</span> <span class="o">==</span> <span class="sc">&#39;0&#39;</span><span class="p">)</span>
+            <span class="n">s</span><span class="p">[</span><span class="n">index</span><span class="p">]</span> <span class="o">=</span> <span class="sc">&#39;9&#39;</span><span class="p">;</span>
+        <span class="k">else</span> <span class="n">s</span><span class="p">[</span><span class="n">index</span><span class="p">]</span><span class="o">--</span><span class="p">;</span>
+        <span class="k">return</span> <span class="n">s</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="k">public</span><span class="o">:</span>
+    <span class="kt">int</span> <span class="n">openLock</span><span class="p">(</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">string</span><span class="o">&gt;&amp;</span> <span class="n">deadends</span><span class="p">,</span> <span class="n">string</span> <span class="n">target</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">queue</span><span class="o">&lt;</span><span class="n">string</span><span class="o">&gt;</span> <span class="n">q</span><span class="p">;</span> <span class="c1">//辅助队列
+</span><span class="c1"></span>        <span class="n">unordered_set</span><span class="o">&lt;</span><span class="n">string</span><span class="o">&gt;</span> <span class="n">deadendsSet</span><span class="p">(</span><span class="n">deadends</span><span class="p">.</span><span class="n">begin</span><span class="p">(),</span> <span class="n">deadends</span><span class="p">.</span><span class="n">end</span><span class="p">());</span> <span class="c1">//死亡数字集合
+</span><span class="c1"></span>        <span class="n">unordered_set</span><span class="o">&lt;</span><span class="n">string</span><span class="o">&gt;</span> <span class="n">visited</span><span class="p">;</span> <span class="c1">//标记已访问过的密码，防止重复遍历
+</span><span class="c1"></span>        <span class="n">q</span><span class="p">.</span><span class="n">push</span><span class="p">(</span><span class="s">&#34;0000&#34;</span><span class="p">);</span> <span class="c1">//首元素入队列
+</span><span class="c1"></span>        <span class="n">visited</span><span class="p">.</span><span class="n">insert</span><span class="p">(</span><span class="s">&#34;0000&#34;</span><span class="p">);</span>
+        <span class="kt">int</span> <span class="n">step</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="c1">//记录步长
+</span><span class="c1"></span>        <span class="k">while</span> <span class="p">(</span><span class="o">!</span><span class="n">q</span><span class="p">.</span><span class="n">empty</span><span class="p">())</span> <span class="p">{</span>
+            <span class="kt">int</span> <span class="n">Qsize</span> <span class="o">=</span> <span class="n">q</span><span class="p">.</span><span class="n">size</span><span class="p">();</span>
+            <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">Qsize</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+                <span class="n">string</span> <span class="n">cur</span> <span class="o">=</span> <span class="n">q</span><span class="p">.</span><span class="n">front</span><span class="p">();</span>
+                <span class="n">q</span><span class="p">.</span><span class="n">pop</span><span class="p">();</span>
+                <span class="k">if</span> <span class="p">(</span><span class="n">deadendsSet</span><span class="p">.</span><span class="n">find</span><span class="p">(</span><span class="n">cur</span><span class="p">)</span> <span class="o">!=</span> <span class="n">deadendsSet</span><span class="p">.</span><span class="n">end</span><span class="p">())</span> <span class="k">continue</span><span class="p">;</span> <span class="c1">//如果在危险列表中则跳过
+</span><span class="c1"></span>                <span class="k">if</span> <span class="p">(</span><span class="n">cur</span> <span class="o">==</span> <span class="n">target</span><span class="p">)</span> <span class="k">return</span> <span class="n">step</span><span class="p">;</span> <span class="c1">//如果找到目标值，则返回步长
+</span><span class="c1"></span>                <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span><span class="n">i</span><span class="o">&lt;</span><span class="mi">4</span><span class="p">;</span><span class="n">i</span><span class="o">++</span><span class="p">){</span>
+                    <span class="n">string</span> <span class="n">up</span> <span class="o">=</span> <span class="n">upOne</span><span class="p">(</span><span class="n">cur</span><span class="p">,</span><span class="n">i</span><span class="p">);</span>
+                    <span class="n">string</span> <span class="n">down</span> <span class="o">=</span> <span class="n">downOne</span><span class="p">(</span><span class="n">cur</span><span class="p">,</span><span class="n">i</span><span class="p">);</span>
+                    <span class="k">if</span><span class="p">(</span><span class="n">visited</span><span class="p">.</span><span class="n">find</span><span class="p">(</span><span class="n">up</span><span class="p">)</span> <span class="o">==</span> <span class="n">visited</span><span class="p">.</span><span class="n">end</span><span class="p">()){</span>
+                        <span class="n">q</span><span class="p">.</span><span class="n">push</span><span class="p">(</span><span class="n">up</span><span class="p">);</span>
+                        <span class="n">visited</span><span class="p">.</span><span class="n">insert</span><span class="p">(</span><span class="n">up</span><span class="p">);</span>
+                    <span class="p">}</span>
+                    <span class="k">if</span><span class="p">(</span><span class="n">visited</span><span class="p">.</span><span class="n">find</span><span class="p">(</span><span class="n">down</span><span class="p">)</span> <span class="o">==</span> <span class="n">visited</span><span class="p">.</span><span class="n">end</span><span class="p">()){</span>
+                        <span class="n">q</span><span class="p">.</span><span class="n">push</span><span class="p">(</span><span class="n">down</span><span class="p">);</span>
+                        <span class="n">visited</span><span class="p">.</span><span class="n">insert</span><span class="p">(</span><span class="n">down</span><span class="p">);</span>
+                    <span class="p">}</span>
+
+                <span class="p">}</span>
+            <span class="p">}</span>
+            <span class="n">step</span><span class="o">++</span><span class="p">;</span>
+        <span class="p">}</span>
+        <span class="k">return</span> <span class="o">-</span><span class="mi">1</span><span class="p">;</span> <span class="c1">//没有找到返回-1
+</span><span class="c1"></span>    <span class="p">}</span>
 <span class="p">};</span>
+
+
 
 </code></pre></div>
     
@@ -150,6 +200,8 @@
   <a href="https://qkgoalkeeper.github.io/tags/leetcode">LeetCode</a>
   
   <a href="https://qkgoalkeeper.github.io/tags/c&#43;&#43;">C&#43;&#43;</a>
+  
+  <a href="https://qkgoalkeeper.github.io/tags/bfs">bfs</a>
   
 </div>
 
@@ -167,7 +219,7 @@
 
 
   <div class="article-share" id="share">
-    <div data-url="https://qkgoalkeeper.github.io/post/leetcode%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98406.-%E6%A0%B9%E6%8D%AE%E8%BA%AB%E9%AB%98%E9%87%8D%E5%BB%BA%E9%98%9F%E5%88%97/" data-title="LeetCode每日一题：406. 根据身高重建队列" data-tsina="5852167252" class="share clearfix">
+    <div data-url="https://qkgoalkeeper.github.io/post/leetcode%E6%AF%8F%E6%97%A5%E7%BB%83%E4%B9%A0%E5%89%91%E6%8C%87-offer-ii-109.-%E5%BC%80%E5%AF%86%E7%A0%81%E9%94%81/" data-title="LeetCode每日练习：剑指 Offer II 109. 开密码锁" data-tsina="5852167252" class="share clearfix">
     </div>
   </div>
 </footer>
