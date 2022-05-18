@@ -2,13 +2,13 @@
 <html lang="zh-CN">
 <head>
   <meta charset="UTF-8">
-  <title>LeetCode算法入门第11天：递归 回溯 - qkgoalkeeper&#39;s blog</title>
+  <title>LeetCode每日练习：剑指 Offer II 112. 最长递增路径 - qkgoalkeeper&#39;s blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=3, minimum-scale=1">
   
-  <meta name="description" content="一.77. 组合 1.题干及思路 给定两个整数 n 和 k，返回范围 [1, n] 中所有可能的 k 个数的组合。 你可以按 任何顺序 返回答案。 示例 1： 输入：n = 4, k = 2 输">
+  <meta name="description" content="一.剑指 Offer II 112. 最长递增路径 1.题干及思路 给定一个 m x n 整数矩阵 matrix ，找出其中 最长递增路径 的长度。 对于每个单元格，你可以往上，下，左，右四个方向">
   
-  <meta itemprop="name" content="LeetCode算法入门第11天：递归 回溯 - qkgoalkeeper&#39;s blog">
-  <meta itemprop="description" content="一.77. 组合 1.题干及思路 给定两个整数 n 和 k，返回范围 [1, n] 中所有可能的 k 个数的组合。 你可以按 任何顺序 返回答案。 示例 1： 输入：n = 4, k = 2 输">
+  <meta itemprop="name" content="LeetCode每日练习：剑指 Offer II 112. 最长递增路径 - qkgoalkeeper&#39;s blog">
+  <meta itemprop="description" content="一.剑指 Offer II 112. 最长递增路径 1.题干及思路 给定一个 m x n 整数矩阵 matrix ，找出其中 最长递增路径 的长度。 对于每个单元格，你可以往上，下，左，右四个方向">
   <meta itemprop="image" content="https://qkgoalkeeper.github.io/img/author.jpg">
   
   
@@ -74,7 +74,7 @@
 	<article itemprop="articleBody">
     <header class="article-info clearfix">
   <h1 itemprop="name">
-      <a href="https://qkgoalkeeper.github.io/post/leetcode%E7%AE%97%E6%B3%95%E5%85%A5%E9%97%A8%E7%AC%AC11%E5%A4%A9%E9%80%92%E5%BD%92-%E5%9B%9E%E6%BA%AF/" title="LeetCode算法入门第11天：递归 回溯" itemprop="url">LeetCode算法入门第11天：递归 回溯</a>
+      <a href="https://qkgoalkeeper.github.io/post/leetcode%E6%AF%8F%E6%97%A5%E7%BB%83%E4%B9%A0%E5%89%91%E6%8C%87-offer-ii-112.-%E6%9C%80%E9%95%BF%E9%80%92%E5%A2%9E%E8%B7%AF%E5%BE%84/" title="LeetCode每日练习：剑指 Offer II 112. 最长递增路径" itemprop="url">LeetCode每日练习：剑指 Offer II 112. 最长递增路径</a>
   </h1>
   <p class="article-author">By
     
@@ -82,7 +82,7 @@
     
   </p>
   <p class="article-time">
-    <time datetime="2021-10-06 17:55:19 &#43;0800 CST" itemprop="datePublished">2021年10月06日</time>
+    <time datetime="2022-05-18 07:55:19 &#43;0800 CST" itemprop="datePublished">2022年05月18日</time>
   </p>
 </header>
 
@@ -95,189 +95,75 @@
     <li><a href="#1题干及思路">1.题干及思路</a></li>
     <li><a href="#2c实现">2.C++实现</a></li>
   </ul>
-
-  <ul>
-    <li><a href="#1题干及思路-1">1.题干及思路</a></li>
-    <li><a href="#2c实现-1">2.C++实现</a></li>
-  </ul>
-
-  <ul>
-    <li><a href="#1题干及思路-2">1.题干及思路</a></li>
-    <li><a href="#2c实现-2">2.C++实现</a></li>
-  </ul>
 </nav>
 		</div>
     
-    <h1 id="一77-组合httpsleetcode-cncomproblemscombinations">一.<a href="https://leetcode-cn.com/problems/combinations/">77. 组合</a></h1>
+    <h1 id="一剑指-offer-ii-112-最长递增路径httpsleetcodecnproblemsfptfwp">一.<a href="https://leetcode.cn/problems/fpTFWP/">剑指 Offer II 112. 最长递增路径</a></h1>
 <h2 id="1题干及思路">1.题干及思路</h2>
-<p>给定两个整数 n 和 k，返回范围 [1, n] 中所有可能的 k 个数的组合。</p>
-<p>你可以按 任何顺序 返回答案。</p>
-<p>示例 1：</p>
-<p>输入：n = 4, k = 2
-输出：
-[
-[2,4],
-[3,4],
-[2,3],
-[1,2],
-[1,3],
-[1,4],
-]
-示例 2：</p>
-<p>输入：n = 1, k = 1
-输出：[[1]]</p>
-<p>提示：</p>
-<p>1 &lt;= n &lt;= 20
-1 &lt;= k &lt;= n</p>
-<p>来源：力扣（LeetCode）
-链接：https://leetcode-cn.com/problems/combinations
-著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。</p>
-<p>要点：递归</p>
-<p>思路：递归终止条件为数组temp的大小为所需要的k，过程是取当前位置start对start+1后的数组dfs再回溯到start不取当前的start对start+1后进行dfs</p>
+<p>给定一个 <code>m x n</code> 整数矩阵 <code>matrix</code> ，找出其中 <strong>最长递增路径</strong> 的长度。</p>
+<p>对于每个单元格，你可以往上，下，左，右四个方向移动。 <strong>不能</strong> 在 <strong>对角线</strong> 方向上移动或移动到 <strong>边界外</strong>（即不允许环绕）。</p>
+<p><strong>示例 1：</strong></p>
+<p><img src="https://assets.leetcode.com/uploads/2021/01/05/grid1.jpg" alt="img"></p>
+<pre tabindex="0"><code>输入：matrix = [[9,9,4],[6,6,8],[2,1,1]]
+输出：4 
+解释：最长递增路径为 [1, 2, 6, 9]。
+</code></pre><p><strong>示例 2：</strong></p>
+<p><img src="https://assets.leetcode.com/uploads/2021/01/27/tmp-grid.jpg" alt="img"></p>
+<pre tabindex="0"><code>输入：matrix = [[3,4,5],[3,2,6],[2,2,1]]
+输出：4 
+解释：最长递增路径是 [3, 4, 5, 6]。注意不允许在对角线方向上移动。
+</code></pre><p><strong>示例 3：</strong></p>
+<pre tabindex="0"><code>输入：matrix = [[1]]
+输出：1
+</code></pre><p><strong>提示：</strong></p>
+<ul>
+<li><code>m == matrix.length</code></li>
+<li><code>n == matrix[i].length</code></li>
+<li><code>1 &lt;= m, n &lt;= 200</code></li>
+<li><code>0 &lt;= matrix[i][j] &lt;= 231 - 1</code></li>
+</ul>
+<p>注意：本题与主站 329 题相同： <a href="https://leetcode-cn.com/problems/longest-increasing-path-in-a-matrix/">https://leetcode-cn.com/problems/longest-increasing-path-in-a-matrix/</a></p>
+<p>要点：dfs</p>
+<p>思路：记忆化的深度优先搜索，已经求过的路径长度保留</p>
 <h2 id="2c实现">2.C++实现</h2>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="k">class</span> <span class="nc">Solution</span> <span class="p">{</span>
 <span class="k">public</span><span class="o">:</span>
-    <span class="n">vector</span><span class="o">&lt;</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;&gt;</span> <span class="n">answer</span><span class="p">;</span>
-    <span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">temp</span><span class="p">;</span>
+    <span class="n">vector</span><span class="o">&lt;</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;&gt;</span> <span class="n">dires</span><span class="p">{{</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">},</span> <span class="p">{</span><span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">},</span> <span class="p">{</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">},</span> <span class="p">{</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">}};</span>
 
-    <span class="kt">void</span> <span class="nf">dfs</span><span class="p">(</span><span class="kt">int</span> <span class="n">start</span><span class="p">,</span><span class="kt">int</span> <span class="n">n</span><span class="p">,</span><span class="kt">int</span> <span class="n">k</span><span class="p">){</span>
-        <span class="k">if</span><span class="p">(</span><span class="n">temp</span><span class="p">.</span><span class="n">size</span><span class="p">()</span><span class="o">==</span><span class="n">k</span><span class="p">){</span>
-            <span class="n">answer</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">temp</span><span class="p">);</span>
-            <span class="k">return</span><span class="p">;</span>
+    <span class="kt">int</span> <span class="nf">dfs</span><span class="p">(</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;&gt;&amp;</span> <span class="n">matrix</span><span class="p">,</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;&gt;</span> <span class="o">&amp;</span><span class="n">path</span><span class="p">,</span> <span class="kt">int</span> <span class="n">i</span><span class="p">,</span> <span class="kt">int</span> <span class="n">j</span><span class="p">)</span> <span class="p">{</span>
+        <span class="kt">int</span> <span class="n">len</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+        <span class="k">for</span> <span class="p">(</span><span class="k">auto</span><span class="o">&amp;</span> <span class="nl">d</span> <span class="p">:</span> <span class="n">dires</span><span class="p">)</span> <span class="p">{</span>
+            <span class="kt">int</span> <span class="n">row</span> <span class="o">=</span> <span class="n">i</span> <span class="o">+</span> <span class="n">d</span><span class="p">[</span><span class="mi">0</span><span class="p">];</span>
+            <span class="kt">int</span> <span class="n">col</span> <span class="o">=</span> <span class="n">j</span> <span class="o">+</span> <span class="n">d</span><span class="p">[</span><span class="mi">1</span><span class="p">];</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">row</span> <span class="o">&gt;=</span> <span class="mi">0</span> <span class="o">&amp;&amp;</span> <span class="n">row</span> <span class="o">&lt;</span> <span class="n">matrix</span><span class="p">.</span><span class="n">size</span><span class="p">()</span> <span class="o">&amp;&amp;</span> <span class="n">col</span> <span class="o">&gt;=</span> <span class="mi">0</span> <span class="o">&amp;&amp;</span> <span class="n">col</span> <span class="o">&lt;</span> <span class="n">matrix</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="n">size</span><span class="p">()</span> <span class="o">&amp;&amp;</span> <span class="n">matrix</span><span class="p">[</span><span class="n">row</span><span class="p">][</span><span class="n">col</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">matrix</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">])</span> <span class="p">{</span>
+                <span class="k">if</span> <span class="p">(</span><span class="n">path</span><span class="p">[</span><span class="n">row</span><span class="p">][</span><span class="n">col</span><span class="p">]</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+                    <span class="n">len</span> <span class="o">=</span> <span class="n">max</span><span class="p">(</span><span class="n">len</span><span class="p">,</span> <span class="n">dfs</span><span class="p">(</span><span class="n">matrix</span><span class="p">,</span><span class="n">path</span><span class="p">,</span> <span class="n">row</span><span class="p">,</span> <span class="n">col</span><span class="p">));</span>
+                <span class="p">}</span>
+                <span class="k">else</span> <span class="p">{</span>
+                    <span class="n">len</span> <span class="o">=</span> <span class="n">max</span><span class="p">(</span><span class="n">len</span><span class="p">,</span> <span class="n">path</span><span class="p">[</span><span class="n">row</span><span class="p">][</span><span class="n">col</span><span class="p">]);</span>
+                <span class="p">}</span>
+            <span class="p">}</span>
         <span class="p">}</span>
-        <span class="k">else</span> <span class="k">if</span><span class="p">(</span><span class="n">temp</span><span class="p">.</span><span class="n">size</span><span class="p">()</span><span class="o">+</span><span class="n">n</span><span class="o">-</span><span class="n">start</span><span class="o">+</span><span class="mi">1</span><span class="o">&lt;</span><span class="n">k</span><span class="p">){</span>
-            <span class="k">return</span><span class="p">;</span>
-        <span class="p">}</span>
-        <span class="k">else</span><span class="p">{</span>
-            <span class="n">temp</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">start</span><span class="p">);</span>
-            <span class="n">dfs</span><span class="p">(</span><span class="n">start</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span><span class="n">n</span><span class="p">,</span><span class="n">k</span><span class="p">);</span>
-            <span class="n">temp</span><span class="p">.</span><span class="n">pop_back</span><span class="p">();</span>
-            <span class="n">dfs</span><span class="p">(</span><span class="n">start</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span><span class="n">n</span><span class="p">,</span><span class="n">k</span><span class="p">);</span>
-        <span class="p">}</span>
+        <span class="n">path</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="n">len</span> <span class="o">+</span> <span class="mi">1</span><span class="p">;</span>
+        <span class="k">return</span> <span class="n">path</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">];</span>
     <span class="p">}</span>
 
 
-    <span class="n">vector</span><span class="o">&lt;</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;&gt;</span> <span class="n">combine</span><span class="p">(</span><span class="kt">int</span> <span class="n">n</span><span class="p">,</span> <span class="kt">int</span> <span class="n">k</span><span class="p">)</span> <span class="p">{</span>
-        <span class="n">dfs</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="n">n</span><span class="p">,</span><span class="n">k</span><span class="p">);</span>
-        <span class="k">return</span> <span class="n">answer</span><span class="p">;</span>
-    <span class="p">}</span>
-<span class="p">};</span>
-</code></pre></div><h1 id="二46-全排列httpsleetcode-cncomproblemspermutations">二.<a href="https://leetcode-cn.com/problems/permutations/">46. 全排列</a></h1>
-<h2 id="1题干及思路-1">1.题干及思路</h2>
-<p>给定一个不含重复数字的数组 nums ，返回其 所有可能的全排列 。你可以 按任意顺序 返回答案。</p>
-<p>示例 1：</p>
-<p>输入：nums = [1,2,3]
-输出：[[1,2,3],[1,3,2],[2,1,3],[2,3,1],[3,1,2],[3,2,1]]
-示例 2：</p>
-<p>输入：nums = [0,1]
-输出：[[0,1],[1,0]]
-示例 3：</p>
-<p>输入：nums = [1]
-输出：[[1]]</p>
-<p>提示：</p>
-<p>1 &lt;= nums.length &lt;= 6
--10 &lt;= nums[i] &lt;= 10
-nums 中的所有整数 互不相同</p>
-<p>来源：力扣（LeetCode）
-链接：https://leetcode-cn.com/problems/permutations
-著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。</p>
-<p>要点：递归</p>
-<p>思路：递归终止条件为first等于len，过程是取当前位置和first到len位置交换后对first+1后的数组dfs再回溯（first到len位置交换回来）</p>
-<p>如果要按顺序输出可以用自定义sort函数，写一个cmp1函数（类内必须static）</p>
-<h2 id="2c实现-1">2.C++实现</h2>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="k">class</span> <span class="nc">Solution</span> <span class="p">{</span>
-<span class="k">public</span><span class="o">:</span>
-    <span class="n">vector</span><span class="o">&lt;</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="o">&gt;</span> <span class="n">res</span><span class="p">;</span>
-    
-    <span class="kt">void</span> <span class="nf">dfs</span><span class="p">(</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;&amp;</span> <span class="n">output</span><span class="p">,</span> <span class="kt">int</span> <span class="n">first</span><span class="p">,</span> <span class="kt">int</span> <span class="n">len</span><span class="p">){</span>
-        <span class="k">if</span> <span class="p">(</span><span class="n">first</span> <span class="o">==</span> <span class="n">len</span><span class="p">)</span> <span class="p">{</span>
-            <span class="n">res</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">output</span><span class="p">);</span>
-            <span class="k">return</span><span class="p">;</span>
-        <span class="p">}</span>
-        <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="n">first</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">len</span><span class="p">;</span> <span class="o">++</span><span class="n">i</span><span class="p">)</span> <span class="p">{</span>
-            <span class="n">swap</span><span class="p">(</span><span class="n">output</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">output</span><span class="p">[</span><span class="n">first</span><span class="p">]);</span>
-            <span class="n">dfs</span><span class="p">(</span><span class="n">output</span><span class="p">,</span> <span class="n">first</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">len</span><span class="p">);</span>
-            <span class="n">swap</span><span class="p">(</span><span class="n">output</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">output</span><span class="p">[</span><span class="n">first</span><span class="p">]);</span>
-        <span class="p">}</span>
-    <span class="p">}</span>
-    <span class="k">static</span> <span class="kt">bool</span> <span class="nf">cmp1</span><span class="p">(</span><span class="k">const</span> <span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="o">&amp;</span><span class="n">a</span><span class="p">,</span> <span class="k">const</span> <span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="o">&amp;</span><span class="n">b</span><span class="p">)</span>
-    <span class="p">{</span>
-        <span class="kt">int</span> <span class="n">len</span> <span class="o">=</span> <span class="n">a</span><span class="p">.</span><span class="n">size</span><span class="p">();</span>
-        <span class="kt">int</span> <span class="n">temp</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
-        <span class="k">while</span><span class="p">(</span><span class="n">a</span><span class="p">[</span><span class="n">temp</span><span class="p">]</span><span class="o">==</span><span class="n">b</span><span class="p">[</span><span class="n">temp</span><span class="p">]</span><span class="o">&amp;&amp;</span><span class="n">temp</span><span class="o">&lt;</span><span class="n">len</span><span class="p">)</span> <span class="p">{</span><span class="n">temp</span><span class="o">++</span><span class="p">;}</span>
-        <span class="k">if</span><span class="p">(</span><span class="n">temp</span><span class="o">==</span><span class="n">len</span><span class="p">){</span><span class="k">return</span> <span class="n">a</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">b</span><span class="p">[</span><span class="mi">0</span><span class="p">];}</span>
-        <span class="k">return</span> <span class="n">a</span><span class="p">[</span><span class="n">temp</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">b</span><span class="p">[</span><span class="n">temp</span><span class="p">];</span>
-    <span class="p">}</span>
-
-    <span class="n">vector</span><span class="o">&lt;</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;&gt;</span> <span class="n">permute</span><span class="p">(</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;&amp;</span> <span class="n">nums</span><span class="p">)</span> <span class="p">{</span>
-
-        <span class="n">dfs</span><span class="p">(</span><span class="n">nums</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="p">(</span><span class="kt">int</span><span class="p">)</span><span class="n">nums</span><span class="p">.</span><span class="n">size</span><span class="p">());</span>
-        
-        <span class="n">sort</span><span class="p">(</span><span class="n">res</span><span class="p">.</span><span class="n">begin</span><span class="p">(),</span> <span class="n">res</span><span class="p">.</span><span class="n">end</span><span class="p">(),</span> <span class="n">cmp1</span><span class="p">);</span>
-        <span class="k">return</span> <span class="n">res</span><span class="p">;</span>
-    <span class="p">}</span>
-<span class="p">};</span>
-</code></pre></div><h1 id="三784-字母大小写全排列httpsleetcode-cncomproblemsletter-case-permutation">三.<a href="https://leetcode-cn.com/problems/letter-case-permutation/">784. 字母大小写全排列</a></h1>
-<h2 id="1题干及思路-2">1.题干及思路</h2>
-<p>给定一个字符串S，通过将字符串S中的每个字母转变大小写，我们可以获得一个新的字符串。返回所有可能得到的字符串集合。</p>
-<p>示例：
-输入：S = &ldquo;a1b2&rdquo;
-输出：[&ldquo;a1b2&rdquo;, &ldquo;a1B2&rdquo;, &ldquo;A1b2&rdquo;, &ldquo;A1B2&rdquo;]</p>
-<p>输入：S = &ldquo;3z4&rdquo;
-输出：[&ldquo;3z4&rdquo;, &ldquo;3Z4&rdquo;]</p>
-<p>输入：S = &ldquo;12345&rdquo;
-输出：[&ldquo;12345&rdquo;]</p>
-<p>提示：</p>
-<p>S 的长度不超过12。
-S 仅由数字和字母组成。</p>
-<p>来源：力扣（LeetCode）
-链接：https://leetcode-cn.com/problems/letter-case-permutation
-著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。</p>
-<p>要点：递归</p>
-<p>思路：递归终止条件为start==end，过程是判断当前位置：如果数字则dfs(start+1,end,s)；如果大写字母则dfs(start+1,end,s);
-将start换大小写s[start] = &lsquo;a&rsquo;+s[start]-&lsquo;A&rsquo;;再dfs(start+1,end,s); 如果小写字母则dfs(start+1,end,s);将start换大小写s[start] = &lsquo;A&rsquo;+s[start]-&lsquo;a&rsquo;;再dfs(start+1,end,s);</p>
-<h2 id="2c实现-2">2.C++实现</h2>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="k">class</span> <span class="nc">Solution</span> <span class="p">{</span>
-<span class="k">public</span><span class="o">:</span>
-    <span class="n">vector</span><span class="o">&lt;</span><span class="n">string</span><span class="o">&gt;</span> <span class="n">res</span><span class="p">;</span>
-    <span class="kt">void</span> <span class="nf">dfs</span><span class="p">(</span><span class="kt">int</span> <span class="n">start</span><span class="p">,</span><span class="kt">int</span> <span class="n">end</span><span class="p">,</span><span class="n">string</span> <span class="n">s</span><span class="p">){</span>
-        <span class="k">if</span><span class="p">(</span><span class="n">start</span><span class="o">==</span><span class="n">end</span><span class="p">){</span>
-            <span class="k">if</span><span class="p">(</span><span class="n">s</span><span class="p">[</span><span class="n">start</span><span class="p">]</span><span class="o">&gt;=</span><span class="sc">&#39;0&#39;</span><span class="o">&amp;&amp;</span><span class="n">s</span><span class="p">[</span><span class="n">start</span><span class="p">]</span><span class="o">&lt;=</span><span class="sc">&#39;9&#39;</span><span class="p">){</span>
-                <span class="n">res</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">s</span><span class="p">);</span>
-            <span class="p">}</span>
-            <span class="k">else</span> <span class="k">if</span><span class="p">(</span><span class="n">s</span><span class="p">[</span><span class="n">start</span><span class="p">]</span><span class="o">&gt;=</span><span class="sc">&#39;a&#39;</span><span class="o">&amp;&amp;</span><span class="n">s</span><span class="p">[</span><span class="n">start</span><span class="p">]</span><span class="o">&lt;=</span><span class="sc">&#39;z&#39;</span><span class="p">){</span>
-                <span class="n">res</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">s</span><span class="p">);</span>
-                <span class="n">s</span><span class="p">[</span><span class="n">start</span><span class="p">]</span> <span class="o">=</span> <span class="sc">&#39;A&#39;</span><span class="o">+</span><span class="n">s</span><span class="p">[</span><span class="n">start</span><span class="p">]</span><span class="o">-</span><span class="sc">&#39;a&#39;</span><span class="p">;</span>
-                <span class="n">res</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">s</span><span class="p">);</span>
-            <span class="p">}</span>
-            <span class="k">else</span><span class="p">{</span>
-                <span class="n">res</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">s</span><span class="p">);</span>
-                <span class="n">s</span><span class="p">[</span><span class="n">start</span><span class="p">]</span> <span class="o">=</span> <span class="sc">&#39;a&#39;</span><span class="o">+</span><span class="n">s</span><span class="p">[</span><span class="n">start</span><span class="p">]</span><span class="o">-</span><span class="sc">&#39;A&#39;</span><span class="p">;</span>
-                <span class="n">res</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">s</span><span class="p">);</span>
-            <span class="p">}</span>
-            <span class="k">return</span><span class="p">;</span>
-        <span class="p">}</span>
-        <span class="k">else</span><span class="p">{</span>
-            <span class="k">if</span><span class="p">(</span><span class="n">s</span><span class="p">[</span><span class="n">start</span><span class="p">]</span><span class="o">&gt;=</span><span class="sc">&#39;0&#39;</span><span class="o">&amp;&amp;</span><span class="n">s</span><span class="p">[</span><span class="n">start</span><span class="p">]</span><span class="o">&lt;=</span><span class="sc">&#39;9&#39;</span><span class="p">){</span>
-                <span class="n">dfs</span><span class="p">(</span><span class="n">start</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span><span class="n">end</span><span class="p">,</span><span class="n">s</span><span class="p">);</span>
-            <span class="p">}</span>
-            <span class="k">else</span> <span class="k">if</span><span class="p">(</span><span class="n">s</span><span class="p">[</span><span class="n">start</span><span class="p">]</span><span class="o">&gt;=</span><span class="sc">&#39;a&#39;</span><span class="o">&amp;&amp;</span><span class="n">s</span><span class="p">[</span><span class="n">start</span><span class="p">]</span><span class="o">&lt;=</span><span class="sc">&#39;z&#39;</span><span class="p">){</span>
-                <span class="n">dfs</span><span class="p">(</span><span class="n">start</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span><span class="n">end</span><span class="p">,</span><span class="n">s</span><span class="p">);</span>
-                <span class="n">s</span><span class="p">[</span><span class="n">start</span><span class="p">]</span> <span class="o">=</span> <span class="sc">&#39;A&#39;</span><span class="o">+</span><span class="n">s</span><span class="p">[</span><span class="n">start</span><span class="p">]</span><span class="o">-</span><span class="sc">&#39;a&#39;</span><span class="p">;</span>
-                <span class="n">dfs</span><span class="p">(</span><span class="n">start</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span><span class="n">end</span><span class="p">,</span><span class="n">s</span><span class="p">);</span>
-            <span class="p">}</span>
-            <span class="k">else</span><span class="p">{</span>
-                <span class="n">dfs</span><span class="p">(</span><span class="n">start</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span><span class="n">end</span><span class="p">,</span><span class="n">s</span><span class="p">);</span>
-                <span class="n">s</span><span class="p">[</span><span class="n">start</span><span class="p">]</span> <span class="o">=</span> <span class="sc">&#39;a&#39;</span><span class="o">+</span><span class="n">s</span><span class="p">[</span><span class="n">start</span><span class="p">]</span><span class="o">-</span><span class="sc">&#39;A&#39;</span><span class="p">;</span>
-                <span class="n">dfs</span><span class="p">(</span><span class="n">start</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span><span class="n">end</span><span class="p">,</span><span class="n">s</span><span class="p">);</span>
+    <span class="kt">int</span> <span class="nf">longestIncreasingPath</span><span class="p">(</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;&gt;&amp;</span> <span class="n">matrix</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">vector</span><span class="o">&lt;</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;&gt;</span> <span class="n">path</span><span class="p">(</span><span class="n">matrix</span><span class="p">.</span><span class="n">size</span><span class="p">(),</span> <span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="p">(</span><span class="n">matrix</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="n">size</span><span class="p">(),</span> <span class="mi">0</span><span class="p">));</span>
+        <span class="kt">int</span> <span class="n">ret</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+        <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">matrix</span><span class="p">.</span><span class="n">size</span><span class="p">();</span> <span class="o">++</span><span class="n">i</span><span class="p">)</span> <span class="p">{</span>
+            <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">j</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">j</span> <span class="o">&lt;</span> <span class="n">matrix</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="n">size</span><span class="p">();</span> <span class="o">++</span><span class="n">j</span><span class="p">)</span> <span class="p">{</span>
+                <span class="k">if</span> <span class="p">(</span><span class="n">path</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">]</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+                    <span class="n">ret</span> <span class="o">=</span> <span class="n">max</span><span class="p">(</span><span class="n">ret</span><span class="p">,</span> <span class="n">dfs</span><span class="p">(</span><span class="n">matrix</span><span class="p">,</span><span class="n">path</span><span class="p">,</span> <span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">));</span>
+                <span class="p">}</span>
+                <span class="k">else</span> <span class="p">{</span>
+                    <span class="n">ret</span> <span class="o">=</span> <span class="n">max</span><span class="p">(</span><span class="n">ret</span><span class="p">,</span> <span class="n">path</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">]);</span>
+                <span class="p">}</span>
             <span class="p">}</span>
         <span class="p">}</span>
-    <span class="p">}</span>
 
-
-    <span class="n">vector</span><span class="o">&lt;</span><span class="n">string</span><span class="o">&gt;</span> <span class="n">letterCasePermutation</span><span class="p">(</span><span class="n">string</span> <span class="n">s</span><span class="p">)</span> <span class="p">{</span>
-        <span class="n">dfs</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="n">s</span><span class="p">.</span><span class="n">size</span><span class="p">()</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="n">s</span><span class="p">);</span>
-        <span class="k">return</span> <span class="n">res</span><span class="p">;</span>
+        <span class="k">return</span> <span class="n">ret</span><span class="p">;</span>
     <span class="p">}</span>
 <span class="p">};</span>
 </code></pre></div>
@@ -292,6 +178,8 @@ S 仅由数字和字母组成。</p>
   <a href="https://qkgoalkeeper.github.io/tags/leetcode">LeetCode</a>
   
   <a href="https://qkgoalkeeper.github.io/tags/c&#43;&#43;">C&#43;&#43;</a>
+  
+  <a href="https://qkgoalkeeper.github.io/tags/dfs">dfs</a>
   
 </div>
 
@@ -309,7 +197,7 @@ S 仅由数字和字母组成。</p>
 
 
   <div class="article-share" id="share">
-    <div data-url="https://qkgoalkeeper.github.io/post/leetcode%E7%AE%97%E6%B3%95%E5%85%A5%E9%97%A8%E7%AC%AC11%E5%A4%A9%E9%80%92%E5%BD%92-%E5%9B%9E%E6%BA%AF/" data-title="LeetCode算法入门第11天：递归 回溯" data-tsina="5852167252" class="share clearfix">
+    <div data-url="https://qkgoalkeeper.github.io/post/leetcode%E6%AF%8F%E6%97%A5%E7%BB%83%E4%B9%A0%E5%89%91%E6%8C%87-offer-ii-112.-%E6%9C%80%E9%95%BF%E9%80%92%E5%A2%9E%E8%B7%AF%E5%BE%84/" data-title="LeetCode每日练习：剑指 Offer II 112. 最长递增路径" data-tsina="5852167252" class="share clearfix">
     </div>
   </div>
 </footer>
