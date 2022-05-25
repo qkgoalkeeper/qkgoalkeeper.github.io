@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>代码 on qkgoalkeeper&#39;s blog</title>
+    <link>https://qkgoalkeeper.github.io/tags/%E4%BB%A3%E7%A0%81/</link>
+    <description>Recent content in 代码 on qkgoalkeeper&#39;s blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-CN</language>
+    <lastBuildDate>Wed, 25 May 2022 07:55:19 +0800</lastBuildDate><atom:link href="https://qkgoalkeeper.github.io/tags/%E4%BB%A3%E7%A0%81/feed.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>golang：以太坊随机生成address</title>
+      <link>https://qkgoalkeeper.github.io/post/golang%E4%BB%A5%E5%A4%AA%E5%9D%8A%E9%9A%8F%E6%9C%BA%E7%94%9F%E6%88%90address/</link>
+      <pubDate>Wed, 25 May 2022 07:55:19 +0800</pubDate>
+      
+      <guid>https://qkgoalkeeper.github.io/post/golang%E4%BB%A5%E5%A4%AA%E5%9D%8A%E9%9A%8F%E6%9C%BA%E7%94%9F%E6%88%90address/</guid>
+      <description>一.golang：以太坊随机生成address 1.说明 实验需要随机创建测试的地址，golang的go ethereum中的 &amp;ldquo;git</description>
+    </item>
+    
+  </channel>
+</rss>
