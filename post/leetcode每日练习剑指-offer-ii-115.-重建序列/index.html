@@ -2,13 +2,13 @@
 <html lang="zh-CN">
 <head>
   <meta charset="UTF-8">
-  <title>LeetCode每日练习：剑指 Offer II 009. 乘积小于 K 的子数组 - qkgoalkeeper&#39;s blog</title>
+  <title>LeetCode每日练习：剑指 Offer II 114. 外星文字典 - qkgoalkeeper&#39;s blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=3, minimum-scale=1">
   
-  <meta name="description" content="一.剑指 Offer II 009. 乘积小于 K 的子数组 1.题干及思路 给定一个正整数数组 nums和整数 k ，请找出该数组内乘积小于 k 的连续的子数组的个数。 示例 1: 输入:">
+  <meta name="description" content="一.剑指 Offer II 115. 重建序列 1.题干及思路 请判断原始的序列 org 是否可以从序列集 seqs 中唯一地 重建 。 序列 org 是 1 到 n 整数的排列，其中 1 ≤ n ≤ 104。重建 是指">
   
-  <meta itemprop="name" content="LeetCode每日练习：剑指 Offer II 009. 乘积小于 K 的子数组 - qkgoalkeeper&#39;s blog">
-  <meta itemprop="description" content="一.剑指 Offer II 009. 乘积小于 K 的子数组 1.题干及思路 给定一个正整数数组 nums和整数 k ，请找出该数组内乘积小于 k 的连续的子数组的个数。 示例 1: 输入:">
+  <meta itemprop="name" content="LeetCode每日练习：剑指 Offer II 114. 外星文字典 - qkgoalkeeper&#39;s blog">
+  <meta itemprop="description" content="一.剑指 Offer II 115. 重建序列 1.题干及思路 请判断原始的序列 org 是否可以从序列集 seqs 中唯一地 重建 。 序列 org 是 1 到 n 整数的排列，其中 1 ≤ n ≤ 104。重建 是指">
   <meta itemprop="image" content="https://qkgoalkeeper.github.io/img/author.jpg">
   
   
@@ -74,7 +74,7 @@
 	<article itemprop="articleBody">
     <header class="article-info clearfix">
   <h1 itemprop="name">
-      <a href="https://qkgoalkeeper.github.io/post/leetcode%E6%AF%8F%E6%97%A5%E7%BB%83%E4%B9%A0%E5%89%91%E6%8C%87-offer-ii-009.-%E4%B9%98%E7%A7%AF%E5%B0%8F%E4%BA%8E-k-%E7%9A%84%E5%AD%90%E6%95%B0%E7%BB%84/" title="LeetCode每日练习：剑指 Offer II 009. 乘积小于 K 的子数组" itemprop="url">LeetCode每日练习：剑指 Offer II 009. 乘积小于 K 的子数组</a>
+      <a href="https://qkgoalkeeper.github.io/post/leetcode%E6%AF%8F%E6%97%A5%E7%BB%83%E4%B9%A0%E5%89%91%E6%8C%87-offer-ii-115.-%E9%87%8D%E5%BB%BA%E5%BA%8F%E5%88%97/" title="LeetCode每日练习：剑指 Offer II 114. 外星文字典" itemprop="url">LeetCode每日练习：剑指 Offer II 114. 外星文字典</a>
   </h1>
   <p class="article-author">By
     
@@ -82,7 +82,7 @@
     
   </p>
   <p class="article-time">
-    <time datetime="2022-02-10 08:55:19 &#43;0800 CST" itemprop="datePublished">2022年02月10日</time>
+    <time datetime="2022-05-27 07:55:19 &#43;0800 CST" itemprop="datePublished">2022年05月27日</time>
   </p>
 </header>
 
@@ -98,42 +98,61 @@
 </nav>
 		</div>
     
-    <h1 id="一剑指-offer-ii-009-乘积小于-k-的子数组httpsleetcode-cncomproblemszvavxx">一.<a href="https://leetcode-cn.com/problems/ZVAVXX/">剑指 Offer II 009. 乘积小于 K 的子数组</a></h1>
+    <h1 id="一剑指-offer-ii-115-重建序列httpsleetcodecnproblemsur2n8p">一.<a href="https://leetcode.cn/problems/ur2n8P/">剑指 Offer II 115. 重建序列</a></h1>
 <h2 id="1题干及思路">1.题干及思路</h2>
-<p>给定一个正整数数组 <code>nums</code>和整数 <code>k</code> ，请找出该数组内乘积小于 <code>k</code> 的连续的子数组的个数。</p>
-<p><strong>示例 1:</strong></p>
-<pre tabindex="0"><code>输入: nums = [10,5,2,6], k = 100
-输出: 8
-解释: 8 个乘积小于 100 的子数组分别为: [10], [5], [2], [6], [10,5], [5,2], [2,6], [5,2,6]。
-需要注意的是 [10,5,2] 并不是乘积小于100的子数组。
-</code></pre><p><strong>示例 2:</strong></p>
-<pre tabindex="0"><code>输入: nums = [1,2,3], k = 0
-输出: 0
-</code></pre><p><strong>提示:</strong></p>
+<p>请判断原始的序列 <code>org</code> 是否可以从序列集 <code>seqs</code> 中唯一地 <strong>重建</strong> 。</p>
+<p>序列 <code>org</code> 是 1 到 n 整数的排列，其中 1 ≤ n ≤ 104。<strong>重建</strong> 是指在序列集 <code>seqs</code> 中构建最短的公共超序列，即 <code>seqs</code> 中的任意序列都是该最短序列的子序列。</p>
+<p><strong>示例 1：</strong></p>
+<pre tabindex="0"><code>输入: org = [1,2,3], seqs = [[1,2],[1,3]]
+输出: false
+解释：[1,2,3] 不是可以被重建的唯一的序列，因为 [1,3,2] 也是一个合法的序列。
+</code></pre><p><strong>示例 2：</strong></p>
+<pre tabindex="0"><code>输入: org = [1,2,3], seqs = [[1,2]]
+输出: false
+解释：可以重建的序列只有 [1,2]。
+</code></pre><p><strong>示例 3：</strong></p>
+<pre tabindex="0"><code>输入: org = [1,2,3], seqs = [[1,2],[1,3],[2,3]]
+输出: true
+解释：序列 [1,2], [1,3] 和 [2,3] 可以被唯一地重建为原始的序列 [1,2,3]。
+</code></pre><p><strong>示例 4：</strong></p>
+<pre tabindex="0"><code>输入: org = [4,1,5,2,6,3], seqs = [[5,2,6,3],[4,1,5,2]]
+输出: true
+</code></pre><p><strong>提示：</strong></p>
 <ul>
-<li><code>1 &lt;= nums.length &lt;= 3 * 104</code></li>
-<li><code>1 &lt;= nums[i] &lt;= 1000</code></li>
-<li><code>0 &lt;= k &lt;= 106</code></li>
+<li><code>1 &lt;= n &lt;= 104</code></li>
+<li><code>org</code> 是数字 <code>1</code> 到 <code>n</code> 的一个排列</li>
+<li><code>1 &lt;= segs[i].length &lt;= 105</code></li>
+<li><code>seqs[i][j]</code> 是 <code>32</code> 位有符号整数</li>
 </ul>
-<p>注意：本题与主站 713 题相同：https://leetcode-cn.com/problems/subarray-product-less-than-k/</p>
-<p>要点：滑动窗口</p>
-<p>思路：滑动窗口，先逐步增加right，再while缩小left至小于k并根据是否right&gt;=left增加right-left+1个答案</p>
+<p>注意：本题与主站 444 题相同：https://leetcode-cn.com/problems/sequence-reconstruction/</p>
+<p>要点：拓扑排序</p>
+<p>思路：拓扑排序的唯一性判断，寻找相邻字典序，如果所有的字典序都相邻说明是唯一的拓扑排序</p>
 <h2 id="2c实现">2.C++实现</h2>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="k">class</span> <span class="nc">Solution</span> <span class="p">{</span>
 <span class="k">public</span><span class="o">:</span>
-    <span class="kt">int</span> <span class="n">numSubarrayProductLessThanK</span><span class="p">(</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;&amp;</span> <span class="n">nums</span><span class="p">,</span> <span class="kt">int</span> <span class="n">k</span><span class="p">)</span> <span class="p">{</span>
-        <span class="kt">int</span> <span class="n">right</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span><span class="n">left</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span>
-        <span class="kt">int</span> <span class="n">ans</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span>
-        <span class="kt">long</span> <span class="n">pro</span><span class="o">=</span><span class="mi">1</span><span class="p">;</span>
-        <span class="k">while</span><span class="p">(</span><span class="n">right</span><span class="o">&lt;</span><span class="n">nums</span><span class="p">.</span><span class="n">size</span><span class="p">()){</span>
-            <span class="n">pro</span><span class="o">*=</span><span class="n">nums</span><span class="p">[</span><span class="n">right</span><span class="p">];</span>
-            <span class="k">while</span><span class="p">(</span><span class="n">left</span><span class="o">&lt;=</span><span class="n">right</span><span class="o">&amp;&amp;</span><span class="n">pro</span><span class="o">&gt;=</span><span class="n">k</span><span class="p">){</span>
-                <span class="n">pro</span><span class="o">/=</span><span class="n">nums</span><span class="p">[</span><span class="n">left</span><span class="o">++</span><span class="p">];</span>
-            <span class="p">}</span>
-            <span class="n">ans</span><span class="o">+=</span><span class="n">right</span><span class="o">&gt;=</span><span class="n">left</span><span class="o">?</span><span class="n">right</span><span class="o">-</span><span class="n">left</span><span class="o">+</span><span class="mi">1</span><span class="o">:</span><span class="mi">0</span><span class="p">;</span>
-            <span class="n">right</span><span class="o">++</span><span class="p">;</span>
+    <span class="kt">bool</span> <span class="n">sequenceReconstruction</span><span class="p">(</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;&amp;</span> <span class="n">org</span><span class="p">,</span> <span class="n">vector</span><span class="o">&lt;</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;&gt;&amp;</span> <span class="n">seqs</span><span class="p">)</span> <span class="p">{</span>      
+        <span class="kt">int</span> <span class="n">n</span><span class="o">=</span><span class="n">org</span><span class="p">.</span><span class="n">size</span><span class="p">();</span>
+        <span class="k">if</span><span class="p">(</span><span class="n">seqs</span><span class="p">.</span><span class="n">empty</span><span class="p">())</span> <span class="k">return</span> <span class="nb">false</span><span class="p">;</span>
+        <span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">mp</span><span class="p">(</span><span class="n">n</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">),</span><span class="n">book</span><span class="p">(</span><span class="n">n</span><span class="p">,</span><span class="mi">0</span><span class="p">);</span>           <span class="c1">// mp是字典记录每个1~n在org中的下标，表示字典 mp[1~n]=0~n-1
+</span><span class="c1"></span>        <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span><span class="n">i</span><span class="o">&lt;</span><span class="n">n</span><span class="p">;</span><span class="o">++</span><span class="n">i</span><span class="p">)</span> <span class="n">mp</span><span class="p">[</span><span class="n">org</span><span class="p">[</span><span class="n">i</span><span class="p">]]</span><span class="o">=</span><span class="n">i</span><span class="p">;</span>   <span class="c1">// 这是一个字典下标，记录了org的字典序
+</span><span class="c1"></span>        <span class="k">for</span><span class="p">(</span><span class="k">auto</span> <span class="nl">vec</span> <span class="p">:</span> <span class="n">seqs</span><span class="p">){</span>
+            <span class="k">if</span><span class="p">(</span><span class="n">vec</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">&gt;</span><span class="n">n</span><span class="o">||</span><span class="n">vec</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">&lt;</span><span class="mi">1</span><span class="p">)</span><span class="k">return</span> <span class="nb">false</span><span class="p">;</span>     <span class="c1">// seqs超出org的范围的直接返回false
+</span><span class="c1"></span>            <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span><span class="o">=</span><span class="mi">1</span><span class="p">;</span><span class="n">i</span><span class="o">&lt;</span><span class="n">vec</span><span class="p">.</span><span class="n">size</span><span class="p">();</span><span class="o">++</span><span class="n">i</span><span class="p">){</span>
+                <span class="kt">int</span> <span class="n">a</span><span class="o">=</span><span class="n">vec</span><span class="p">[</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span><span class="n">b</span><span class="o">=</span><span class="n">vec</span><span class="p">[</span><span class="n">i</span><span class="p">];</span>
+                <span class="k">if</span><span class="p">(</span><span class="n">b</span><span class="o">&gt;</span><span class="n">n</span><span class="o">||</span><span class="n">b</span><span class="o">&lt;</span><span class="mi">1</span><span class="p">)</span><span class="k">return</span> <span class="nb">false</span><span class="p">;</span>           <span class="c1">// seqs超出org的范围的直接返回false
+</span><span class="c1"></span>                <span class="k">if</span><span class="p">(</span><span class="n">mp</span><span class="p">[</span><span class="n">a</span><span class="p">]</span><span class="o">&gt;=</span><span class="n">mp</span><span class="p">[</span><span class="n">b</span><span class="p">])</span> <span class="k">return</span> <span class="nb">false</span><span class="p">;</span>      <span class="c1">// seqs的顺序与字典序相反的直接返回false
+</span><span class="c1"></span>                <span class="k">if</span><span class="p">(</span><span class="n">mp</span><span class="p">[</span><span class="n">a</span><span class="p">]</span><span class="o">==</span><span class="n">mp</span><span class="p">[</span><span class="n">b</span><span class="p">]</span><span class="o">+</span><span class="mi">1</span><span class="p">){</span>                 <span class="c1">// 相邻序一定存在，记录在org中相邻的序
+</span><span class="c1"></span>                    <span class="n">book</span><span class="p">[</span><span class="n">mp</span><span class="p">[</span><span class="n">a</span><span class="p">]]</span><span class="o">=</span><span class="mi">1</span><span class="p">;</span>
+                <span class="p">}</span><span class="k">else</span> <span class="nf">if</span><span class="p">(</span><span class="n">mp</span><span class="p">[</span><span class="n">a</span><span class="p">]</span><span class="o">==</span><span class="n">mp</span><span class="p">[</span><span class="n">b</span><span class="p">]</span><span class="o">-</span><span class="mi">1</span><span class="p">){</span>
+                    <span class="n">book</span><span class="p">[</span><span class="n">mp</span><span class="p">[</span><span class="n">b</span><span class="p">]]</span><span class="o">=</span><span class="mi">1</span><span class="p">;</span>
+                <span class="p">}</span>
+            <span class="p">}</span>                       
         <span class="p">}</span>
-        <span class="k">return</span> <span class="n">ans</span><span class="p">;</span>
+        <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span><span class="o">=</span><span class="mi">1</span><span class="p">;</span><span class="n">i</span><span class="o">&lt;</span><span class="n">n</span><span class="p">;</span><span class="o">++</span><span class="n">i</span><span class="p">){</span>                       <span class="c1">// 检测字典序是否全部出现
+</span><span class="c1"></span>            <span class="k">if</span><span class="p">(</span><span class="n">book</span><span class="p">[</span><span class="n">i</span><span class="p">])</span><span class="k">continue</span><span class="p">;</span>
+            <span class="k">return</span> <span class="nb">false</span><span class="p">;</span>
+        <span class="p">}</span>
+        <span class="k">return</span> <span class="nb">true</span><span class="p">;</span>
     <span class="p">}</span>
 <span class="p">};</span>
 
@@ -151,7 +170,7 @@
   
   <a href="https://qkgoalkeeper.github.io/tags/c&#43;&#43;">C&#43;&#43;</a>
   
-  <a href="https://qkgoalkeeper.github.io/tags/%E6%BB%91%E5%8A%A8%E7%AA%97%E5%8F%A3">滑动窗口</a>
+  <a href="https://qkgoalkeeper.github.io/tags/%E6%8B%93%E6%89%91%E6%8E%92%E5%BA%8F">拓扑排序</a>
   
 </div>
 
@@ -169,7 +188,7 @@
 
 
   <div class="article-share" id="share">
-    <div data-url="https://qkgoalkeeper.github.io/post/leetcode%E6%AF%8F%E6%97%A5%E7%BB%83%E4%B9%A0%E5%89%91%E6%8C%87-offer-ii-009.-%E4%B9%98%E7%A7%AF%E5%B0%8F%E4%BA%8E-k-%E7%9A%84%E5%AD%90%E6%95%B0%E7%BB%84/" data-title="LeetCode每日练习：剑指 Offer II 009. 乘积小于 K 的子数组" data-tsina="5852167252" class="share clearfix">
+    <div data-url="https://qkgoalkeeper.github.io/post/leetcode%E6%AF%8F%E6%97%A5%E7%BB%83%E4%B9%A0%E5%89%91%E6%8C%87-offer-ii-115.-%E9%87%8D%E5%BB%BA%E5%BA%8F%E5%88%97/" data-title="LeetCode每日练习：剑指 Offer II 114. 外星文字典" data-tsina="5852167252" class="share clearfix">
     </div>
   </div>
 </footer>
