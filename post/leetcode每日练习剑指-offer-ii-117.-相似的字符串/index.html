@@ -2,13 +2,13 @@
 <html lang="zh-CN">
 <head>
   <meta charset="UTF-8">
-  <title>LeetCode每日练习：剑指 Offer II 052. 展平二叉搜索树 - qkgoalkeeper&#39;s blog</title>
+  <title>LeetCode每日练习：剑指 Offer II 117. 相似的字符串 - qkgoalkeeper&#39;s blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=3, minimum-scale=1">
   
-  <meta name="description" content="一.剑指 Offer II 052. 展平二叉搜索树 1.题干及思路 给你一棵二叉搜索树，请 按中序遍历 将其重新排列为一棵递增顺序搜索树，使树中最左边的节点成为树的根节点">
+  <meta name="description" content="一.剑指 Offer II 117. 相似的字符串 1.题干及思路 如果交换字符串 X 中的两个不同位置的字母，使得它和字符串 Y 相等，那么称 X 和 Y 两个字符串相似。如果这两个">
   
-  <meta itemprop="name" content="LeetCode每日练习：剑指 Offer II 052. 展平二叉搜索树 - qkgoalkeeper&#39;s blog">
-  <meta itemprop="description" content="一.剑指 Offer II 052. 展平二叉搜索树 1.题干及思路 给你一棵二叉搜索树，请 按中序遍历 将其重新排列为一棵递增顺序搜索树，使树中最左边的节点成为树的根节点">
+  <meta itemprop="name" content="LeetCode每日练习：剑指 Offer II 117. 相似的字符串 - qkgoalkeeper&#39;s blog">
+  <meta itemprop="description" content="一.剑指 Offer II 117. 相似的字符串 1.题干及思路 如果交换字符串 X 中的两个不同位置的字母，使得它和字符串 Y 相等，那么称 X 和 Y 两个字符串相似。如果这两个">
   <meta itemprop="image" content="https://qkgoalkeeper.github.io/img/author.jpg">
   
   
@@ -74,7 +74,7 @@
 	<article itemprop="articleBody">
     <header class="article-info clearfix">
   <h1 itemprop="name">
-      <a href="https://qkgoalkeeper.github.io/post/leetcode%E6%AF%8F%E6%97%A5%E7%BB%83%E4%B9%A0%E5%89%91%E6%8C%87-offer-ii-052.-%E5%B1%95%E5%B9%B3%E4%BA%8C%E5%8F%89%E6%90%9C%E7%B4%A2%E6%A0%91/" title="LeetCode每日练习：剑指 Offer II 052. 展平二叉搜索树" itemprop="url">LeetCode每日练习：剑指 Offer II 052. 展平二叉搜索树</a>
+      <a href="https://qkgoalkeeper.github.io/post/leetcode%E6%AF%8F%E6%97%A5%E7%BB%83%E4%B9%A0%E5%89%91%E6%8C%87-offer-ii-117.-%E7%9B%B8%E4%BC%BC%E7%9A%84%E5%AD%97%E7%AC%A6%E4%B8%B2/" title="LeetCode每日练习：剑指 Offer II 117. 相似的字符串" itemprop="url">LeetCode每日练习：剑指 Offer II 117. 相似的字符串</a>
   </h1>
   <p class="article-author">By
     
@@ -82,7 +82,7 @@
     
   </p>
   <p class="article-time">
-    <time datetime="2022-03-05 09:55:19 &#43;0800 CST" itemprop="datePublished">2022年03月05日</time>
+    <time datetime="2022-05-29 07:55:19 &#43;0800 CST" itemprop="datePublished">2022年05月29日</time>
   </p>
 </header>
 
@@ -93,63 +93,113 @@
       <nav id="TableOfContents">
   <ul>
     <li><a href="#1题干及思路">1.题干及思路</a></li>
-    <li><a href="#2c实现">2.C++实现</a></li>
+    <li><a href="#2golang实现">2.golang实现</a></li>
   </ul>
 </nav>
 		</div>
     
-    <h1 id="一剑指-offer-ii-052-展平二叉搜索树httpsleetcode-cncomproblemsnybbnl">一.<a href="https://leetcode-cn.com/problems/NYBBNL/">剑指 Offer II 052. 展平二叉搜索树</a></h1>
+    <h1 id="一剑指-offer-ii-117-相似的字符串httpsleetcodecnproblemsh6lpxb">一.<a href="https://leetcode.cn/problems/H6lPxb/">剑指 Offer II 117. 相似的字符串</a></h1>
 <h2 id="1题干及思路">1.题干及思路</h2>
-<p>给你一棵二叉搜索树，请 <strong>按中序遍历</strong> 将其重新排列为一棵递增顺序搜索树，使树中最左边的节点成为树的根节点，并且每个节点没有左子节点，只有一个右子节点。</p>
+<p>如果交换字符串 <code>X</code> 中的两个不同位置的字母，使得它和字符串 <code>Y</code> 相等，那么称 <code>X</code> 和 <code>Y</code> 两个字符串相似。如果这两个字符串本身是相等的，那它们也是相似的。</p>
+<p>例如，<code>&quot;tars&quot;</code> 和 <code>&quot;rats&quot;</code> 是相似的 (交换 <code>0</code> 与 <code>2</code> 的位置)； <code>&quot;rats&quot;</code> 和 <code>&quot;arts&quot;</code> 也是相似的，但是 <code>&quot;star&quot;</code> 不与 <code>&quot;tars&quot;</code>，<code>&quot;rats&quot;</code>，或 <code>&quot;arts&quot;</code> 相似。</p>
+<p>总之，它们通过相似性形成了两个关联组：<code>{&quot;tars&quot;, &quot;rats&quot;, &quot;arts&quot;}</code> 和 <code>{&quot;star&quot;}</code>。注意，<code>&quot;tars&quot;</code> 和 <code>&quot;arts&quot;</code> 是在同一组中，即使它们并不相似。形式上，对每个组而言，要确定一个单词在组中，只需要这个词和该组中至少一个单词相似。</p>
+<p>给定一个字符串列表 <code>strs</code>。列表中的每个字符串都是 <code>strs</code> 中其它所有字符串的一个 <strong>字母异位词</strong> 。请问 <code>strs</code> 中有多少个相似字符串组？</p>
+<p><strong>字母异位词（anagram）</strong>，一种把某个字符串的字母的位置（顺序）加以改换所形成的新词。</p>
 <p><strong>示例 1：</strong></p>
-<p><img src="https://assets.leetcode.com/uploads/2020/11/17/ex1.jpg" alt="img"></p>
-<pre tabindex="0"><code>输入：root = [5,3,6,2,4,null,8,1,null,null,null,7,9]
-输出：[1,null,2,null,3,null,4,null,5,null,6,null,7,null,8,null,9]
+<pre tabindex="0"><code>输入：strs = [&quot;tars&quot;,&quot;rats&quot;,&quot;arts&quot;,&quot;star&quot;]
+输出：2
 </code></pre><p><strong>示例 2：</strong></p>
-<p><img src="https://assets.leetcode.com/uploads/2020/11/17/ex2.jpg" alt="img"></p>
-<pre tabindex="0"><code>输入：root = [5,1,7]
-输出：[1,null,5,null,7]
+<pre tabindex="0"><code>输入：strs = [&quot;omv&quot;,&quot;ovm&quot;]
+输出：1
 </code></pre><p><strong>提示：</strong></p>
 <ul>
-<li>树中节点数的取值范围是 <code>[1, 100]</code></li>
-<li><code>0 &lt;= Node.val &lt;= 1000</code></li>
+<li><code>1 &lt;= strs.length &lt;= 300</code></li>
+<li><code>1 &lt;= strs[i].length &lt;= 300</code></li>
+<li><code>strs[i]</code> 只包含小写字母。</li>
+<li><code>strs</code> 中的所有单词都具有相同的长度，且是彼此的字母异位词。</li>
 </ul>
-<p>注意：本题与主站 897 题相同： <a href="https://leetcode-cn.com/problems/increasing-order-search-tree/">https://leetcode-cn.com/problems/increasing-order-search-tree/</a></p>
-<p>要点：dfs</p>
-<p>思路：中序遍历，注意用一个假头结点开始，每次添加新节点时注意把left置为nullptr</p>
-<h2 id="2c实现">2.C++实现</h2>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="cm">/**
-</span><span class="cm"> * Definition for a binary tree node.
-</span><span class="cm"> * struct TreeNode {
-</span><span class="cm"> *     int val;
-</span><span class="cm"> *     TreeNode *left;
-</span><span class="cm"> *     TreeNode *right;
-</span><span class="cm"> *     TreeNode() : val(0), left(nullptr), right(nullptr) {}
-</span><span class="cm"> *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
-</span><span class="cm"> *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
-</span><span class="cm"> * };
-</span><span class="cm"> */</span>
-<span class="k">class</span> <span class="nc">Solution</span> <span class="p">{</span>
-<span class="k">public</span><span class="o">:</span>
-    <span class="n">TreeNode</span><span class="o">*</span> <span class="n">temp</span><span class="p">;</span>
-    <span class="kt">void</span> <span class="nf">dfs</span><span class="p">(</span><span class="n">TreeNode</span><span class="o">*</span> <span class="n">root</span><span class="p">){</span>
-        <span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="n">root</span><span class="p">)</span> <span class="k">return</span><span class="p">;</span>
-        <span class="n">dfs</span><span class="p">(</span><span class="n">root</span><span class="o">-&gt;</span><span class="n">left</span><span class="p">);</span>
-        <span class="n">root</span><span class="o">-&gt;</span><span class="n">left</span> <span class="o">=</span> <span class="k">nullptr</span><span class="p">;</span>
-        <span class="n">temp</span><span class="o">-&gt;</span><span class="n">right</span> <span class="o">=</span> <span class="n">root</span><span class="p">;</span>
-        <span class="n">temp</span> <span class="o">=</span> <span class="n">temp</span><span class="o">-&gt;</span><span class="n">right</span><span class="p">;</span>
-        <span class="n">dfs</span><span class="p">(</span><span class="n">root</span><span class="o">-&gt;</span><span class="n">right</span><span class="p">);</span>
+<p>注意：本题与主站 839 题相同：https://leetcode-cn.com/problems/similar-string-groups/</p>
+<p>要点：并查集</p>
+<p>思路：并查集，hanming函数计算汉明距离，UnionFind类两个函数find用来找类别，union用来合并类别，先初始化并查集每个串单独一个类，然后二重循环计算汉明距离进行合并</p>
+<h2 id="2golang实现">2.golang实现</h2>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="n">func</span> <span class="nf">numSimilarGroups</span><span class="p">(</span><span class="n">strs</span> <span class="p">[]</span><span class="n">string</span><span class="p">)</span> <span class="kt">int</span> <span class="p">{</span>
+    <span class="nl">n</span> <span class="p">:</span><span class="o">=</span> <span class="n">len</span><span class="p">(</span><span class="n">strs</span><span class="p">)</span>
+    <span class="nl">uf</span> <span class="p">:</span><span class="o">=</span> <span class="n">initialUF</span><span class="p">(</span><span class="n">n</span><span class="p">)</span>
+    <span class="k">for</span> <span class="nl">i</span> <span class="p">:</span><span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">n</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span> <span class="p">{</span>
+        <span class="k">for</span> <span class="nl">j</span> <span class="p">:</span><span class="o">=</span> <span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">;</span> <span class="n">j</span> <span class="o">&lt;</span> <span class="n">n</span><span class="p">;</span> <span class="n">j</span><span class="o">++</span> <span class="p">{</span>
+            <span class="k">if</span> <span class="n">hanming</span><span class="p">(</span><span class="n">strs</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">strs</span><span class="p">[</span><span class="n">j</span><span class="p">])</span> <span class="p">{</span>
+                <span class="n">uf</span><span class="p">.</span><span class="k">union</span><span class="err">(</span><span class="nc">i</span><span class="p">,</span> <span class="n">j</span><span class="p">)</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
     <span class="p">}</span>
+    <span class="k">return</span> <span class="n">uf</span><span class="p">.</span><span class="n">groups</span>
+<span class="p">}</span>
 
-    <span class="n">TreeNode</span><span class="o">*</span> <span class="nf">increasingBST</span><span class="p">(</span><span class="n">TreeNode</span><span class="o">*</span> <span class="n">root</span><span class="p">)</span> <span class="p">{</span>
-        <span class="n">TreeNode</span><span class="o">*</span> <span class="n">answer</span> <span class="o">=</span> <span class="k">new</span> <span class="n">TreeNode</span><span class="p">();</span>
-        <span class="n">temp</span> <span class="o">=</span> <span class="n">answer</span><span class="p">;</span>
-        <span class="n">dfs</span><span class="p">(</span><span class="n">root</span><span class="p">);</span>
-        <span class="n">temp</span> <span class="o">=</span> <span class="n">answer</span><span class="o">-&gt;</span><span class="n">right</span><span class="p">;</span>
-        <span class="k">delete</span> <span class="n">answer</span><span class="p">;</span>
-        <span class="k">return</span> <span class="n">temp</span><span class="p">;</span>
+<span class="c1">// hanming 计算两个字符串的汉明距离，根据题意，距离为0或者2为相似
+</span><span class="c1"></span><span class="n">func</span> <span class="nf">hanming</span><span class="p">(</span><span class="n">s1</span><span class="p">,</span> <span class="n">s2</span> <span class="n">string</span><span class="p">)</span> <span class="kt">bool</span> <span class="p">{</span>
+    <span class="nl">distance</span> <span class="p">:</span><span class="o">=</span> <span class="mi">0</span>
+    <span class="k">for</span> <span class="nl">i</span><span class="p">:</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span><span class="n">i</span><span class="o">&lt;</span><span class="n">len</span><span class="p">(</span><span class="n">s1</span><span class="p">);</span><span class="n">i</span><span class="o">++</span><span class="p">{</span>
+        <span class="k">if</span> <span class="n">s1</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">!=</span><span class="n">s2</span><span class="p">[</span><span class="n">i</span><span class="p">]{</span>
+            <span class="n">distance</span><span class="o">++</span>
+        <span class="p">}</span>
     <span class="p">}</span>
-<span class="p">};</span>
+    <span class="k">if</span> <span class="n">distance</span><span class="o">==</span><span class="mi">0</span><span class="o">||</span><span class="n">distance</span><span class="o">==</span><span class="mi">2</span><span class="p">{</span>
+        <span class="k">return</span> <span class="nb">true</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="nb">false</span>
+<span class="p">}</span>
+
+<span class="n">type</span> <span class="n">UnionFind</span> <span class="k">struct</span> <span class="p">{</span>
+    <span class="n">g</span> <span class="p">[]</span><span class="kt">int</span>
+    <span class="n">cnt</span> <span class="p">[]</span><span class="kt">int</span>
+    <span class="n">groups</span> <span class="kt">int</span>
+<span class="p">}</span>
+
+<span class="n">func</span> <span class="nf">initialUF</span><span class="p">(</span><span class="n">n</span> <span class="kt">int</span><span class="p">)</span> <span class="o">*</span><span class="n">UnionFind</span> <span class="p">{</span>
+	<span class="nl">uf</span> <span class="p">:</span><span class="o">=</span> <span class="n">UnionFind</span><span class="p">{</span><span class="nl">groups</span><span class="p">:</span><span class="n">n</span><span class="p">}</span>
+	<span class="n">uf</span><span class="p">.</span><span class="n">g</span> <span class="o">=</span> <span class="n">make</span><span class="p">([]</span><span class="kt">int</span><span class="p">,</span><span class="n">n</span><span class="p">)</span>
+	<span class="n">uf</span><span class="p">.</span><span class="n">cnt</span> <span class="o">=</span> <span class="n">make</span><span class="p">([]</span><span class="kt">int</span><span class="p">,</span><span class="n">n</span><span class="p">)</span>
+	<span class="k">for</span> <span class="nl">i</span><span class="p">:</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span><span class="n">i</span><span class="o">&lt;</span><span class="n">n</span><span class="p">;</span><span class="n">i</span><span class="o">++</span><span class="p">{</span>
+		<span class="n">uf</span><span class="p">.</span><span class="n">g</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">i</span>
+		<span class="n">uf</span><span class="p">.</span><span class="n">cnt</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>
+	<span class="p">}</span>
+	<span class="k">return</span> <span class="o">&amp;</span><span class="n">uf</span>
+<span class="p">}</span>
+
+<span class="c1">// find 递归查找元素x的根结点，查找的同时将该组所有元素都直接指向根节点（路径压缩）
+</span><span class="c1"></span><span class="n">func</span> <span class="p">(</span><span class="n">u</span> <span class="o">*</span><span class="n">UnionFind</span><span class="p">)</span> <span class="n">find</span><span class="p">(</span><span class="n">x</span> <span class="kt">int</span><span class="p">)</span> <span class="kt">int</span> <span class="p">{</span>
+	<span class="k">if</span> <span class="n">u</span><span class="p">.</span><span class="n">g</span><span class="p">[</span><span class="n">x</span><span class="p">]</span> <span class="o">==</span> <span class="n">x</span> <span class="p">{</span>
+		<span class="k">return</span> <span class="n">x</span>
+	<span class="p">}</span>
+	<span class="n">u</span><span class="p">.</span><span class="n">g</span><span class="p">[</span><span class="n">x</span><span class="p">]</span> <span class="o">=</span> <span class="n">u</span><span class="p">.</span><span class="n">find</span><span class="p">(</span><span class="n">u</span><span class="p">.</span><span class="n">g</span><span class="p">[</span><span class="n">x</span><span class="p">])</span>
+	<span class="k">return</span> <span class="n">u</span><span class="p">.</span><span class="n">g</span><span class="p">[</span><span class="n">x</span><span class="p">]</span>
+<span class="p">}</span>
+
+<span class="c1">// union 合并两个分组
+</span><span class="c1"></span><span class="n">func</span> <span class="p">(</span><span class="n">u</span> <span class="o">*</span><span class="n">UnionFind</span><span class="p">)</span> <span class="k">union</span><span class="err">(</span><span class="nc">x</span><span class="p">,</span> <span class="n">y</span> <span class="kt">int</span><span class="p">)</span> <span class="p">{</span>
+	<span class="nl">xp</span> <span class="p">:</span><span class="o">=</span> <span class="n">u</span><span class="p">.</span><span class="n">find</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+	<span class="nl">yp</span> <span class="p">:</span><span class="o">=</span> <span class="n">u</span><span class="p">.</span><span class="n">find</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
+	<span class="k">if</span> <span class="n">xp</span> <span class="o">==</span> <span class="n">yp</span> <span class="p">{</span>
+		<span class="c1">// 已经是同一个分组了，直接返回
+</span><span class="c1"></span>		<span class="k">return</span>
+	<span class="p">}</span>
+	<span class="c1">// 我们将小分组合并到大分组（这一步不是必须的）
+</span><span class="c1"></span>	<span class="k">if</span> <span class="n">u</span><span class="p">.</span><span class="n">cnt</span><span class="p">[</span><span class="n">yp</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">u</span><span class="p">.</span><span class="n">cnt</span><span class="p">[</span><span class="n">xp</span><span class="p">]</span> <span class="p">{</span>
+		<span class="n">xp</span><span class="p">,</span> <span class="n">yp</span> <span class="o">=</span> <span class="n">yp</span><span class="p">,</span> <span class="n">xp</span>
+	<span class="p">}</span>
+	<span class="c1">// 大分组的元素数量增加
+</span><span class="c1"></span>	<span class="n">u</span><span class="p">.</span><span class="n">cnt</span><span class="p">[</span><span class="n">xp</span><span class="p">]</span> <span class="o">+=</span> <span class="n">u</span><span class="p">.</span><span class="n">cnt</span><span class="p">[</span><span class="n">yp</span><span class="p">]</span>
+	<span class="c1">// 小分组消失，让元素数量变0
+</span><span class="c1"></span>	<span class="n">u</span><span class="p">.</span><span class="n">cnt</span><span class="p">[</span><span class="n">yp</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
+	<span class="c1">// 合并只需要小分组的根指向大分组任意一个元素即可
+</span><span class="c1"></span>	<span class="c1">// 这里我们让小分组的根指向大分组的根
+</span><span class="c1"></span>	<span class="n">u</span><span class="p">.</span><span class="n">g</span><span class="p">[</span><span class="n">yp</span><span class="p">]</span> <span class="o">=</span> <span class="n">xp</span>
+	<span class="c1">// 总的分组数减少
+</span><span class="c1"></span>	<span class="n">u</span><span class="p">.</span><span class="n">groups</span><span class="o">--</span>
+<span class="p">}</span>
+
+
+
 </code></pre></div>
     
 	</div>
@@ -161,7 +211,9 @@
   
   <a href="https://qkgoalkeeper.github.io/tags/leetcode">LeetCode</a>
   
-  <a href="https://qkgoalkeeper.github.io/tags/c&#43;&#43;">C&#43;&#43;</a>
+  <a href="https://qkgoalkeeper.github.io/tags/golang">golang</a>
+  
+  <a href="https://qkgoalkeeper.github.io/tags/%E5%B9%B6%E6%9F%A5%E9%9B%86">并查集</a>
   
 </div>
 
@@ -179,7 +231,7 @@
 
 
   <div class="article-share" id="share">
-    <div data-url="https://qkgoalkeeper.github.io/post/leetcode%E6%AF%8F%E6%97%A5%E7%BB%83%E4%B9%A0%E5%89%91%E6%8C%87-offer-ii-052.-%E5%B1%95%E5%B9%B3%E4%BA%8C%E5%8F%89%E6%90%9C%E7%B4%A2%E6%A0%91/" data-title="LeetCode每日练习：剑指 Offer II 052. 展平二叉搜索树" data-tsina="5852167252" class="share clearfix">
+    <div data-url="https://qkgoalkeeper.github.io/post/leetcode%E6%AF%8F%E6%97%A5%E7%BB%83%E4%B9%A0%E5%89%91%E6%8C%87-offer-ii-117.-%E7%9B%B8%E4%BC%BC%E7%9A%84%E5%AD%97%E7%AC%A6%E4%B8%B2/" data-title="LeetCode每日练习：剑指 Offer II 117. 相似的字符串" data-tsina="5852167252" class="share clearfix">
     </div>
   </div>
 </footer>
