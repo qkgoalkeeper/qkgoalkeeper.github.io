@@ -2,13 +2,13 @@
 <html lang="zh-CN">
 <head>
   <meta charset="UTF-8">
-  <title>LeetCode简单题：118. 杨辉三角（Python,C&#43;&#43;,Java） - qkgoalkeeper&#39;s blog</title>
+  <title>LeetCode每日练习：剑指 Offer II 119. 最长连续序列 - qkgoalkeeper&#39;s blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=3, minimum-scale=1">
   
-  <meta name="description" content="一.解法 https://leetcode-cn.com/problems/pascals-triangle/ 要点：二维数组 先写好第一层，然后一层一层完成二维数组即可，注意Python直接append[]制造二维数组，C&#43;&#43;用 vector&">
+  <meta name="description" content="一.剑指 Offer II 119. 最长连续序列 1.题干及思路 给定一个未排序的整数数组 nums ，找出数字连续的最长序列（不要求序列元素在原数组中连续）的长度。 示例 1： 输">
   
-  <meta itemprop="name" content="LeetCode简单题：118. 杨辉三角（Python,C&#43;&#43;,Java） - qkgoalkeeper&#39;s blog">
-  <meta itemprop="description" content="一.解法 https://leetcode-cn.com/problems/pascals-triangle/ 要点：二维数组 先写好第一层，然后一层一层完成二维数组即可，注意Python直接append[]制造二维数组，C&#43;&#43;用 vector&">
+  <meta itemprop="name" content="LeetCode每日练习：剑指 Offer II 119. 最长连续序列 - qkgoalkeeper&#39;s blog">
+  <meta itemprop="description" content="一.剑指 Offer II 119. 最长连续序列 1.题干及思路 给定一个未排序的整数数组 nums ，找出数字连续的最长序列（不要求序列元素在原数组中连续）的长度。 示例 1： 输">
   <meta itemprop="image" content="https://qkgoalkeeper.github.io/img/author.jpg">
   
   
@@ -74,7 +74,7 @@
 	<article itemprop="articleBody">
     <header class="article-info clearfix">
   <h1 itemprop="name">
-      <a href="https://qkgoalkeeper.github.io/post/leetcode%E7%AE%80%E5%8D%95%E9%A2%98118.-%E6%9D%A8%E8%BE%89%E4%B8%89%E8%A7%92pythonc&#43;&#43;java/" title="LeetCode简单题：118. 杨辉三角（Python,C&#43;&#43;,Java）" itemprop="url">LeetCode简单题：118. 杨辉三角（Python,C&#43;&#43;,Java）</a>
+      <a href="https://qkgoalkeeper.github.io/post/leetcode%E6%AF%8F%E6%97%A5%E7%BB%83%E4%B9%A0%E5%89%91%E6%8C%87-offer-ii-119.-%E6%9C%80%E9%95%BF%E8%BF%9E%E7%BB%AD%E5%BA%8F%E5%88%97/" title="LeetCode每日练习：剑指 Offer II 119. 最长连续序列" itemprop="url">LeetCode每日练习：剑指 Offer II 119. 最长连续序列</a>
   </h1>
   <p class="article-author">By
     
@@ -82,7 +82,7 @@
     
   </p>
   <p class="article-time">
-    <time datetime="2020-08-13 17:55:19 &#43;0800 CST" itemprop="datePublished">2020年08月13日</time>
+    <time datetime="2022-06-02 07:55:19 &#43;0800 CST" itemprop="datePublished">2022年06月02日</time>
   </p>
 </header>
 
@@ -92,110 +92,107 @@
 			<strong class="toc-title">文章目录</strong>
       <nav id="TableOfContents">
   <ul>
-    <li><a href="#一解法">一.解法</a></li>
-    <li><a href="#二python实现">二.Python实现</a></li>
-    <li><a href="#三c实现">三.C++实现</a></li>
-    <li><a href="#四java实现">四.java实现</a></li>
+    <li><a href="#1题干及思路">1.题干及思路</a></li>
+    <li><a href="#2golang实现">2.golang实现</a></li>
   </ul>
 </nav>
 		</div>
     
-    <h2 id="一解法">一.解法</h2>
-<p><a href="https://leetcode-cn.com/problems/pascals-triangle/">https://leetcode-cn.com/problems/pascals-triangle/</a><br>
-要点：二维数组<br>
-先写好第一层，然后一层一层完成二维数组即可，注意Python直接append[]制造二维数组，C++用 vector&lt;vector<!-- raw HTML omitted -->&gt;制造二维数组，Java用List&lt;List<!-- raw HTML omitted -->&gt; 制造二维数组</p>
-<h2 id="二python实现">二.Python实现</h2>
-<pre tabindex="0"><code>class Solution:
-    def generate(self, numRows: int) -&gt; List[List[int]]:
-        answer=[]
-        temp=[]
-        for k in range(0,numRows):
-            temp.append([])
+    <h1 id="一剑指-offer-ii-119-最长连续序列httpsleetcodecnproblemswhswhi">一.<a href="https://leetcode.cn/problems/WhsWhI/">剑指 Offer II 119. 最长连续序列</a></h1>
+<h2 id="1题干及思路">1.题干及思路</h2>
+<p>给定一个未排序的整数数组 <code>nums</code> ，找出数字连续的最长序列（不要求序列元素在原数组中连续）的长度。</p>
+<p><strong>示例 1：</strong></p>
+<pre tabindex="0"><code>输入：nums = [100,4,200,1,3,2]
+输出：4
+解释：最长数字连续序列是 [1, 2, 3, 4]。它的长度为 4。
+</code></pre><p><strong>示例 2：</strong></p>
+<pre tabindex="0"><code>输入：nums = [0,3,7,2,5,8,4,6,0,1]
+输出：9
+</code></pre><p><strong>提示：</strong></p>
+<ul>
+<li><code>0 &lt;= nums.length &lt;= 104</code></li>
+<li><code>-109 &lt;= nums[i] &lt;= 109</code></li>
+</ul>
+<p>**进阶：**可以设计并实现时间复杂度为 <code>O(n)</code> 的解决方案吗？</p>
+<p>注意：本题与主站 128 题相同： <a href="https://leetcode-cn.com/problems/longest-consecutive-sequence/">https://leetcode-cn.com/problems/longest-consecutive-sequence/</a></p>
+<p>要点：并查集</p>
+<p>思路：并查集，find匿名函数用来查找根，union匿名函数用来合并两个集合，用一个map表对应每个num与uf下标，对于一个新的nums[i]来说如果发现nums[i]-1或者nums[i]+1以及查询过，就将nums[i]加入到对应集合中</p>
+<h2 id="2golang实现">2.golang实现</h2>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="n">func</span> <span class="nf">longestConsecutive</span><span class="p">(</span><span class="n">nums</span> <span class="p">[]</span><span class="kt">int</span><span class="p">)</span> <span class="kt">int</span> <span class="p">{</span>
+    <span class="nl">n</span><span class="p">:</span><span class="o">=</span><span class="n">len</span><span class="p">(</span><span class="n">nums</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">n</span><span class="o">&lt;=</span><span class="mi">1</span><span class="p">{</span>
+        <span class="k">return</span> <span class="n">n</span>
+    <span class="p">}</span>
+    <span class="nl">m</span><span class="p">:</span><span class="o">=</span><span class="n">make</span><span class="p">(</span><span class="n">map</span><span class="p">[</span><span class="kt">int</span><span class="p">]</span><span class="kt">int</span><span class="p">,</span><span class="n">n</span><span class="p">)</span>
+    <span class="nl">uf</span><span class="p">:</span><span class="o">=</span><span class="n">initialUF</span><span class="p">(</span><span class="n">n</span><span class="p">)</span>
+    <span class="k">for</span> <span class="nl">i</span><span class="p">:</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span><span class="n">i</span><span class="o">&lt;</span><span class="n">len</span><span class="p">(</span><span class="n">nums</span><span class="p">);</span><span class="n">i</span><span class="o">++</span><span class="p">{</span>
+        <span class="n">_</span><span class="p">,</span> <span class="nl">ok</span> <span class="p">:</span><span class="o">=</span> <span class="n">m</span><span class="p">[</span><span class="n">nums</span><span class="p">[</span><span class="n">i</span><span class="p">]]</span>  <span class="c1">//golang map返回两个参数，第一个是值，第二个判断是否存在
+</span><span class="c1"></span>        <span class="k">if</span> <span class="o">!</span><span class="n">ok</span><span class="p">{</span>
+            <span class="n">m</span><span class="p">[</span><span class="n">nums</span><span class="p">[</span><span class="n">i</span><span class="p">]]</span> <span class="o">=</span> <span class="n">i</span>
+            <span class="n">idx1</span><span class="p">,</span> <span class="nl">ok1</span> <span class="p">:</span><span class="o">=</span> <span class="n">m</span><span class="p">[</span><span class="n">nums</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+            <span class="n">idx2</span><span class="p">,</span> <span class="nl">ok2</span> <span class="p">:</span><span class="o">=</span> <span class="n">m</span><span class="p">[</span><span class="n">nums</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span>
+            <span class="k">if</span> <span class="n">ok1</span><span class="p">{</span>
+                <span class="n">uf</span><span class="p">.</span><span class="k">union</span><span class="err">(</span><span class="nc">i</span><span class="p">,</span><span class="n">idx1</span><span class="p">)</span>
+            <span class="p">}</span>
+            <span class="k">if</span> <span class="n">ok2</span><span class="p">{</span>
+                <span class="n">uf</span><span class="p">.</span><span class="k">union</span><span class="err">(</span><span class="nc">i</span><span class="p">,</span><span class="n">idx2</span><span class="p">)</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="n">uf</span><span class="p">.</span><span class="n">maxG</span>
+<span class="p">}</span>
 
-        if numRows==0:
-            return answer
-        temp[0].append(1)
-        answer.append(temp[0])
-        
-        if numRows==1:
-            return answer
-        
-        temp[1].append(1)
-        temp[1].append(1)
-        answer.append(temp[1])
-    
-        if numRows==2:
-            return answer
-        
-        for i in range(3,numRows+1):
-            temp[i-1].append(1)
-            for j in range(0,i-2):
-                temp[i-1].append(answer[i-2][j]+answer[i-2][j+1])
-            temp[i-1].append(1)
-            answer.append(temp[i-1])
-    
-        return answer
-</code></pre><h2 id="三c实现">三.C++实现</h2>
-<pre tabindex="0"><code>class Solution {
-public:
-    vector&lt;vector&lt;int&gt;&gt; generate(int numRows) {
-        vector&lt;vector&lt;int&gt;&gt; answer;
-        vector&lt;int&gt; pre;
-        if(numRows==0) return answer;
-        pre.push_back(1);
-        answer.push_back(pre);
-        if(numRows==1) return answer;
-        pre.clear();
-        pre.push_back(1);
-        pre.push_back(1);
-        answer.push_back(pre);
-        if(numRows==2) return answer;
-        pre.clear();
-        for(int i=3;i&lt;=numRows;i++){
-            pre.push_back(1);
-            for(int j=0;j&lt;i-2;j++){
-                pre.push_back(answer[i-2][j]+answer[i-2][j+1]);
-            }
-            pre.push_back(1);
-            answer.push_back(pre);
-            pre.clear();
-        }
-        return answer;
-    }
-};
-</code></pre><h2 id="四java实现">四.java实现</h2>
-<pre tabindex="0"><code>class Solution {
-    public List&lt;List&lt;Integer&gt;&gt; generate(int numRows) {
-        List&lt;List&lt;Integer&gt;&gt; retList = new ArrayList&lt;&gt;();
-        if(numRows &lt; 1){
-            return retList;
-        }
+<span class="n">type</span> <span class="n">UnionFind</span> <span class="k">struct</span> <span class="p">{</span>
+    <span class="n">g</span> <span class="p">[]</span><span class="kt">int</span>
+    <span class="n">cnt</span> <span class="p">[]</span><span class="kt">int</span>
+    <span class="n">groups</span> <span class="kt">int</span>
+    <span class="n">maxG</span> <span class="kt">int</span>
+<span class="p">}</span>
 
-        List&lt;Integer&gt; ret = new ArrayList&lt;&gt;();
-        ret.add(1);
-        retList.add(ret);
-        if(numRows == 1){
-            return retList;
-        }
-        
-        List&lt;Integer&gt; pre = new ArrayList&lt;&gt;();
-        pre = ret;
-        for(int i = 1;i &lt; numRows;i++){
-            ret = new ArrayList&lt;&gt;();
-            ret.add(1);
-            for(int j = 1;j&lt;i;j++){
-                ret.add(pre.get(j)+pre.get(j-1));
-            }
-            ret.add(1);
-            retList.add(ret);
-            pre = ret;
-        }
+<span class="n">func</span> <span class="nf">initialUF</span><span class="p">(</span><span class="n">n</span> <span class="kt">int</span><span class="p">)</span> <span class="o">*</span><span class="n">UnionFind</span> <span class="p">{</span>
+    <span class="nl">uf</span> <span class="p">:</span><span class="o">=</span> <span class="o">&amp;</span><span class="n">UnionFind</span><span class="p">{</span><span class="nl">groups</span><span class="p">:</span> <span class="n">n</span><span class="p">,</span> <span class="nl">maxG</span><span class="p">:</span> <span class="mi">1</span><span class="p">}</span>
+    <span class="n">uf</span><span class="p">.</span><span class="n">g</span> <span class="o">=</span> <span class="n">make</span><span class="p">([]</span><span class="kt">int</span><span class="p">,</span> <span class="n">n</span><span class="p">)</span>
+    <span class="n">uf</span><span class="p">.</span><span class="n">cnt</span> <span class="o">=</span> <span class="n">make</span><span class="p">([]</span><span class="kt">int</span><span class="p">,</span> <span class="n">n</span><span class="p">)</span>
+    <span class="k">for</span> <span class="nl">i</span> <span class="p">:</span><span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">n</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span> <span class="p">{</span>
+        <span class="n">uf</span><span class="p">.</span><span class="n">g</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">i</span>
+        <span class="n">uf</span><span class="p">.</span><span class="n">cnt</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="n">uf</span>
+<span class="p">}</span>
 
-        return retList;
+<span class="n">func</span> <span class="p">(</span><span class="n">u</span> <span class="o">*</span><span class="n">UnionFind</span><span class="p">)</span> <span class="n">find</span><span class="p">(</span><span class="n">x</span> <span class="kt">int</span><span class="p">)</span> <span class="kt">int</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="n">u</span><span class="p">.</span><span class="n">g</span><span class="p">[</span><span class="n">x</span><span class="p">]</span> <span class="o">==</span> <span class="n">x</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="n">x</span>
+    <span class="p">}</span>
+    <span class="n">u</span><span class="p">.</span><span class="n">g</span><span class="p">[</span><span class="n">x</span><span class="p">]</span> <span class="o">=</span> <span class="n">u</span><span class="p">.</span><span class="n">find</span><span class="p">(</span><span class="n">u</span><span class="p">.</span><span class="n">g</span><span class="p">[</span><span class="n">x</span><span class="p">])</span>
+    <span class="k">return</span> <span class="n">u</span><span class="p">.</span><span class="n">g</span><span class="p">[</span><span class="n">x</span><span class="p">]</span>
+<span class="p">}</span>
 
-    }
-}
-</code></pre>
+<span class="n">func</span> <span class="p">(</span><span class="n">u</span> <span class="o">*</span><span class="n">UnionFind</span><span class="p">)</span> <span class="k">union</span><span class="err">(</span><span class="nc">x</span><span class="p">,</span> <span class="n">y</span> <span class="kt">int</span><span class="p">)</span> <span class="kt">bool</span> <span class="p">{</span>
+    <span class="nl">xp</span> <span class="p">:</span><span class="o">=</span> <span class="n">u</span><span class="p">.</span><span class="n">find</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+    <span class="nl">yp</span> <span class="p">:</span><span class="o">=</span> <span class="n">u</span><span class="p">.</span><span class="n">find</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">xp</span> <span class="o">==</span> <span class="n">yp</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="nb">false</span>
+    <span class="p">}</span>
+    <span class="k">if</span> <span class="n">u</span><span class="p">.</span><span class="n">cnt</span><span class="p">[</span><span class="n">yp</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">u</span><span class="p">.</span><span class="n">cnt</span><span class="p">[</span><span class="n">xp</span><span class="p">]</span> <span class="p">{</span>
+        <span class="n">xp</span><span class="p">,</span> <span class="n">yp</span> <span class="o">=</span> <span class="n">yp</span><span class="p">,</span> <span class="n">xp</span>
+    <span class="p">}</span>
+    <span class="n">u</span><span class="p">.</span><span class="n">cnt</span><span class="p">[</span><span class="n">xp</span><span class="p">]</span> <span class="o">+=</span> <span class="n">u</span><span class="p">.</span><span class="n">cnt</span><span class="p">[</span><span class="n">yp</span><span class="p">]</span> <span class="c1">//小集合并入大集合
+</span><span class="c1"></span>    <span class="n">u</span><span class="p">.</span><span class="n">maxG</span> <span class="o">=</span> <span class="n">max</span><span class="p">(</span><span class="n">u</span><span class="p">.</span><span class="n">maxG</span><span class="p">,</span> <span class="n">u</span><span class="p">.</span><span class="n">cnt</span><span class="p">[</span><span class="n">xp</span><span class="p">])</span>
+    <span class="n">u</span><span class="p">.</span><span class="n">cnt</span><span class="p">[</span><span class="n">yp</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">u</span><span class="p">.</span><span class="n">g</span><span class="p">[</span><span class="n">yp</span><span class="p">]</span> <span class="o">=</span> <span class="n">xp</span>
+    <span class="n">u</span><span class="p">.</span><span class="n">groups</span><span class="o">--</span>
+    <span class="k">return</span> <span class="nb">true</span>
+<span class="p">}</span>
+
+<span class="n">func</span> <span class="nf">max</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span> <span class="kt">int</span><span class="p">)</span> <span class="kt">int</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="n">a</span> <span class="o">&gt;</span> <span class="n">b</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="n">a</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="n">b</span>
+<span class="p">}</span>
+
+</code></pre></div>
     
 	</div>
   <footer class="article-footer clearfix">
@@ -206,6 +203,10 @@ public:
   
   <a href="https://qkgoalkeeper.github.io/tags/leetcode">LeetCode</a>
   
+  <a href="https://qkgoalkeeper.github.io/tags/golang">golang</a>
+  
+  <a href="https://qkgoalkeeper.github.io/tags/%E5%B9%B6%E6%9F%A5%E9%9B%86">并查集</a>
+  
 </div>
 
 
@@ -215,14 +216,14 @@ public:
 <div class="article-categories">
   <span></span>
   
-  <a class="article-category-link" href="https://qkgoalkeeper.github.io/categories/leetcode%E7%AE%80%E5%8D%95%E9%A2%98101-200">LeetCode简单题101-200</a>
+  <a class="article-category-link" href="https://qkgoalkeeper.github.io/categories/%E5%A4%A7%E5%9B%9Bleetcode%E7%AE%97%E6%B3%95%E5%88%B7%E9%A2%98">大四LeetCode算法刷题</a>
   
 </div>
 
 
 
   <div class="article-share" id="share">
-    <div data-url="https://qkgoalkeeper.github.io/post/leetcode%E7%AE%80%E5%8D%95%E9%A2%98118.-%E6%9D%A8%E8%BE%89%E4%B8%89%E8%A7%92pythonc&#43;&#43;java/" data-title="LeetCode简单题：118. 杨辉三角（Python,C&#43;&#43;,Java）" data-tsina="5852167252" class="share clearfix">
+    <div data-url="https://qkgoalkeeper.github.io/post/leetcode%E6%AF%8F%E6%97%A5%E7%BB%83%E4%B9%A0%E5%89%91%E6%8C%87-offer-ii-119.-%E6%9C%80%E9%95%BF%E8%BF%9E%E7%BB%AD%E5%BA%8F%E5%88%97/" data-title="LeetCode每日练习：剑指 Offer II 119. 最长连续序列" data-tsina="5852167252" class="share clearfix">
     </div>
   </div>
 </footer>
