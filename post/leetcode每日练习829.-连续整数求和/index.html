@@ -2,13 +2,13 @@
 <html lang="zh-CN">
 <head>
   <meta charset="UTF-8">
-  <title>LeetCode每日练习：剑指 Offer 31. 栈的压入、弹出序列 - qkgoalkeeper&#39;s blog</title>
+  <title>LeetCode每日练习：829. 连续整数求和 - qkgoalkeeper&#39;s blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=3, minimum-scale=1">
   
-  <meta name="description" content="一.剑指 Offer 31. 栈的压入、弹出序列 1.题干及思路 输入两个整数序列，第一个序列表示栈的压入顺序，请判断第二个序列是否为该栈的弹出顺序。假设压入栈的">
+  <meta name="description" content="一.829. 连续整数求和 1.题干及思路 给定一个正整数 n，返回 连续正整数满足所有数字之和为 n 的组数 。 示****例 1: 输入: n = 5 输出: 2 解释: 5">
   
-  <meta itemprop="name" content="LeetCode每日练习：剑指 Offer 31. 栈的压入、弹出序列 - qkgoalkeeper&#39;s blog">
-  <meta itemprop="description" content="一.剑指 Offer 31. 栈的压入、弹出序列 1.题干及思路 输入两个整数序列，第一个序列表示栈的压入顺序，请判断第二个序列是否为该栈的弹出顺序。假设压入栈的">
+  <meta itemprop="name" content="LeetCode每日练习：829. 连续整数求和 - qkgoalkeeper&#39;s blog">
+  <meta itemprop="description" content="一.829. 连续整数求和 1.题干及思路 给定一个正整数 n，返回 连续正整数满足所有数字之和为 n 的组数 。 示****例 1: 输入: n = 5 输出: 2 解释: 5">
   <meta itemprop="image" content="https://qkgoalkeeper.github.io/img/author.jpg">
   
   
@@ -74,7 +74,7 @@
 	<article itemprop="articleBody">
     <header class="article-info clearfix">
   <h1 itemprop="name">
-      <a href="https://qkgoalkeeper.github.io/post/leetcode%E6%AF%8F%E6%97%A5%E7%BB%83%E4%B9%A0%E5%89%91%E6%8C%87-offer-31.-%E6%A0%88%E7%9A%84%E5%8E%8B%E5%85%A5%E5%BC%B9%E5%87%BA%E5%BA%8F%E5%88%97/" title="LeetCode每日练习：剑指 Offer 31. 栈的压入、弹出序列" itemprop="url">LeetCode每日练习：剑指 Offer 31. 栈的压入、弹出序列</a>
+      <a href="https://qkgoalkeeper.github.io/post/leetcode%E6%AF%8F%E6%97%A5%E7%BB%83%E4%B9%A0829.-%E8%BF%9E%E7%BB%AD%E6%95%B4%E6%95%B0%E6%B1%82%E5%92%8C/" title="LeetCode每日练习：829. 连续整数求和" itemprop="url">LeetCode每日练习：829. 连续整数求和</a>
   </h1>
   <p class="article-author">By
     
@@ -82,7 +82,7 @@
     
   </p>
   <p class="article-time">
-    <time datetime="2022-01-21 10:55:19 &#43;0800 CST" itemprop="datePublished">2022年01月21日</time>
+    <time datetime="2022-06-03 07:55:19 &#43;0800 CST" itemprop="datePublished">2022年06月03日</time>
   </p>
 </header>
 
@@ -93,59 +93,52 @@
       <nav id="TableOfContents">
   <ul>
     <li><a href="#1题干及思路">1.题干及思路</a></li>
-    <li><a href="#2c实现">2.C++实现</a></li>
+    <li><a href="#2golang实现">2.golang实现</a></li>
   </ul>
 </nav>
 		</div>
     
-    <h1 id="一剑指-offer-31-栈的压入弹出序列httpsleetcode-cncomproblemszhan-de-ya-ru-dan-chu-xu-lie-lcof">一.<a href="https://leetcode-cn.com/problems/zhan-de-ya-ru-dan-chu-xu-lie-lcof/">剑指 Offer 31. 栈的压入、弹出序列</a></h1>
+    <h1 id="一829-连续整数求和httpsleetcodecnproblemsconsecutive-numbers-sum">一.<a href="https://leetcode.cn/problems/consecutive-numbers-sum/">829. 连续整数求和</a></h1>
 <h2 id="1题干及思路">1.题干及思路</h2>
-<p>输入两个整数序列，第一个序列表示栈的压入顺序，请判断第二个序列是否为该栈的弹出顺序。假设压入栈的所有数字均不相等。例如，序列 {1,2,3,4,5} 是某栈的压栈序列，序列 {4,5,3,2,1} 是该压栈序列对应的一个弹出序列，但 {4,3,5,1,2} 就不可能是该压栈序列的弹出序列。</p>
-<p><strong>示例 1：</strong></p>
-<pre tabindex="0"><code>输入：pushed = [1,2,3,4,5], popped = [4,5,3,2,1]
-输出：true
-解释：我们可以按以下顺序执行：
-push(1), push(2), push(3), push(4), pop() -&gt; 4,
-push(5), pop() -&gt; 5, pop() -&gt; 3, pop() -&gt; 2, pop() -&gt; 1
-</code></pre><p><strong>示例 2：</strong></p>
-<pre tabindex="0"><code>输入：pushed = [1,2,3,4,5], popped = [4,3,5,1,2]
-输出：false
-解释：1 不能在 2 之前弹出。
-</code></pre><p><strong>提示：</strong></p>
-<ol>
-<li><code>0 &lt;= pushed.length == popped.length &lt;= 1000</code></li>
-<li><code>0 &lt;= pushed[i], popped[i] &lt; 1000</code></li>
-<li><code>pushed</code> 是 <code>popped</code> 的排列。</li>
-</ol>
-<p>注意：本题与主站 946 题相同：https://leetcode-cn.com/problems/validate-stack-sequences/</p>
-<p>要点：模拟</p>
-<p>思路：模拟一个栈，看看是否都pop成功即可，如果遇到pop卡住说明是错的</p>
-<h2 id="2c实现">2.C++实现</h2>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="k">class</span> <span class="nc">Solution</span> <span class="p">{</span>
-<span class="k">public</span><span class="o">:</span>
-    <span class="kt">bool</span> <span class="n">validateStackSequences</span><span class="p">(</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;&amp;</span> <span class="n">pushed</span><span class="p">,</span> <span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;&amp;</span> <span class="n">popped</span><span class="p">)</span> <span class="p">{</span>
-        <span class="n">stack</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">st</span><span class="p">;</span>
-        <span class="kt">int</span> <span class="n">i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span>
-        <span class="kt">int</span> <span class="n">j</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span>
-        <span class="kt">int</span> <span class="n">pushsize</span> <span class="o">=</span> <span class="n">pushed</span><span class="p">.</span><span class="n">size</span><span class="p">();</span>
-        <span class="kt">int</span> <span class="n">popsize</span> <span class="o">=</span> <span class="n">popped</span><span class="p">.</span><span class="n">size</span><span class="p">();</span>
-        <span class="k">while</span><span class="p">(</span><span class="n">j</span><span class="o">&lt;</span><span class="n">popsize</span><span class="p">){</span>
-            <span class="k">while</span><span class="p">((</span><span class="n">st</span><span class="p">.</span><span class="n">empty</span><span class="p">()</span><span class="o">||</span><span class="n">st</span><span class="p">.</span><span class="n">top</span><span class="p">()</span><span class="o">!=</span><span class="n">popped</span><span class="p">[</span><span class="n">j</span><span class="p">])</span><span class="o">&amp;&amp;</span><span class="n">i</span><span class="o">&lt;</span><span class="n">pushsize</span><span class="p">){</span>
-                <span class="n">st</span><span class="p">.</span><span class="n">push</span><span class="p">(</span><span class="n">pushed</span><span class="p">[</span><span class="n">i</span><span class="p">]);</span>
-                <span class="n">i</span><span class="o">++</span><span class="p">;</span>
-            <span class="p">}</span>
-            <span class="k">if</span><span class="p">(</span><span class="n">st</span><span class="p">.</span><span class="n">top</span><span class="p">()</span><span class="o">!=</span><span class="n">popped</span><span class="p">[</span><span class="n">j</span><span class="p">]){</span>
-                <span class="k">return</span> <span class="nb">false</span><span class="p">;</span>
-            <span class="p">}</span>
-            <span class="k">else</span><span class="p">{</span>
-                <span class="n">j</span><span class="o">++</span><span class="p">;</span>
-                <span class="n">st</span><span class="p">.</span><span class="n">pop</span><span class="p">();</span>
-            <span class="p">}</span>
+<p>给定一个正整数 <code>n</code>，返回 <em>连续正整数满足所有数字之和为 <code>n</code> 的组数</em> 。</p>
+<p><strong>示****例 1:</strong></p>
+<pre tabindex="0"><code>输入: n = 5
+输出: 2
+解释: 5 = 2 + 3，共有两组连续整数([5],[2,3])求和后为 5。
+</code></pre><p><strong>示例 2:</strong></p>
+<pre tabindex="0"><code>输入: n = 9
+输出: 3
+解释: 9 = 4 + 5 = 2 + 3 + 4
+</code></pre><p><strong>示例 3:</strong></p>
+<pre tabindex="0"><code>输入: n = 15
+输出: 4
+解释: 15 = 8 + 7 = 4 + 5 + 6 = 1 + 2 + 3 + 4 + 5
+</code></pre><p><strong>提示:</strong></p>
+<ul>
+<li><code>1 &lt;= n &lt;= 109</code></li>
+</ul>
+<p>要点：数学</p>
+<p>思路：第一想法是滑动窗口，但是时间复杂度为O(n)对于大数会超时，正解为数学方法，从k=1开始寻找长度为k的解，k最大为k(k+1)/2小于n，求和公式倒过来推出是否存在整数x使得[x,x+k]中整数和为n，发现x为n/k-(k-1)/2，这里分类讨论如果k是奇数，那么n/k为整数就有解，如果k为偶数，那么2n/k为整数且n/k不为整数有解</p>
+<h2 id="2golang实现">2.golang实现</h2>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="n">func</span> <span class="nf">consecutiveNumbersSum</span><span class="p">(</span><span class="n">n</span> <span class="kt">int</span><span class="p">)</span> <span class="p">(</span><span class="n">ans</span> <span class="kt">int</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">var</span> <span class="n">isKConsecutive</span> <span class="n">func</span><span class="p">(</span><span class="n">n</span><span class="p">,</span><span class="n">k</span> <span class="kt">int</span><span class="p">)</span><span class="kt">bool</span>
+    <span class="n">isKConsecutive</span> <span class="o">=</span> <span class="n">func</span><span class="p">(</span><span class="n">n</span><span class="p">,</span><span class="n">k</span> <span class="kt">int</span><span class="p">)</span><span class="kt">bool</span><span class="p">{</span>
+        <span class="k">if</span> <span class="n">k</span><span class="o">%</span><span class="mi">2</span><span class="o">==</span><span class="mi">1</span><span class="p">{</span>
+            <span class="k">return</span> <span class="n">n</span><span class="o">%</span><span class="n">k</span><span class="o">==</span><span class="mi">0</span>
+        <span class="p">}</span><span class="k">else</span><span class="p">{</span>
+            <span class="k">return</span> <span class="o">!</span><span class="p">(</span><span class="n">n</span><span class="o">%</span><span class="n">k</span><span class="o">==</span><span class="mi">0</span><span class="p">)</span><span class="o">&amp;&amp;</span><span class="p">((</span><span class="mi">2</span><span class="o">*</span><span class="n">n</span><span class="p">)</span><span class="o">%</span><span class="n">k</span><span class="o">==</span><span class="mi">0</span><span class="p">)</span>
         <span class="p">}</span>
-        <span class="k">return</span> <span class="nb">true</span><span class="p">;</span>
-
     <span class="p">}</span>
-<span class="p">};</span>
+
+    <span class="k">for</span> <span class="nl">k</span> <span class="p">:</span><span class="o">=</span> <span class="mi">1</span><span class="p">;</span> <span class="n">k</span><span class="o">*</span><span class="p">(</span><span class="n">k</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span> <span class="o">&lt;=</span> <span class="n">n</span><span class="o">*</span><span class="mi">2</span><span class="p">;</span> <span class="n">k</span><span class="o">++</span> <span class="p">{</span>
+        <span class="k">if</span> <span class="n">isKConsecutive</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">k</span><span class="p">)</span> <span class="p">{</span>
+            <span class="n">ans</span><span class="o">++</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+    <span class="k">return</span>
+<span class="p">}</span>
+
+
 </code></pre></div>
     
 	</div>
@@ -157,9 +150,9 @@ push(5), pop() -&gt; 5, pop() -&gt; 3, pop() -&gt; 2, pop() -&gt; 1
   
   <a href="https://qkgoalkeeper.github.io/tags/leetcode">LeetCode</a>
   
-  <a href="https://qkgoalkeeper.github.io/tags/c&#43;&#43;">C&#43;&#43;</a>
+  <a href="https://qkgoalkeeper.github.io/tags/golang">golang</a>
   
-  <a href="https://qkgoalkeeper.github.io/tags/%E6%A0%88">栈</a>
+  <a href="https://qkgoalkeeper.github.io/tags/%E6%95%B0%E5%AD%A6">数学</a>
   
 </div>
 
@@ -177,7 +170,7 @@ push(5), pop() -&gt; 5, pop() -&gt; 3, pop() -&gt; 2, pop() -&gt; 1
 
 
   <div class="article-share" id="share">
-    <div data-url="https://qkgoalkeeper.github.io/post/leetcode%E6%AF%8F%E6%97%A5%E7%BB%83%E4%B9%A0%E5%89%91%E6%8C%87-offer-31.-%E6%A0%88%E7%9A%84%E5%8E%8B%E5%85%A5%E5%BC%B9%E5%87%BA%E5%BA%8F%E5%88%97/" data-title="LeetCode每日练习：剑指 Offer 31. 栈的压入、弹出序列" data-tsina="5852167252" class="share clearfix">
+    <div data-url="https://qkgoalkeeper.github.io/post/leetcode%E6%AF%8F%E6%97%A5%E7%BB%83%E4%B9%A0829.-%E8%BF%9E%E7%BB%AD%E6%95%B4%E6%95%B0%E6%B1%82%E5%92%8C/" data-title="LeetCode每日练习：829. 连续整数求和" data-tsina="5852167252" class="share clearfix">
     </div>
   </div>
 </footer>
