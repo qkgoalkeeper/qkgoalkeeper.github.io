@@ -2,13 +2,13 @@
 <html lang="zh-CN">
 <head>
   <meta charset="UTF-8">
-  <title>LeetCode简单题：53. 最大子序和（Python,C&#43;&#43;,Java） - qkgoalkeeper&#39;s blog</title>
+  <title>LeetCode每日练习：478. 在圆内随机生成点 - qkgoalkeeper&#39;s blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=3, minimum-scale=1">
   
-  <meta name="description" content="一.解法 https://leetcode-cn.com/problems/maximum-subarray/ 要点：dp动态规划 注意转移方程为v[i] = max(v[i-1]&#43;nums[i],nums[i])，v[i]表示结尾为位置i且子串包">
+  <meta name="description" content="一.478. 在圆内随机生成点 1.题干及思路 给定圆的半径和圆心的位置，实现函数 randPoint ，在圆中产生均匀随机点。 实现 Solution 类: Solution(double radius, double x_center, double y_center) 用圆的半径 radius 和圆">
   
-  <meta itemprop="name" content="LeetCode简单题：53. 最大子序和（Python,C&#43;&#43;,Java） - qkgoalkeeper&#39;s blog">
-  <meta itemprop="description" content="一.解法 https://leetcode-cn.com/problems/maximum-subarray/ 要点：dp动态规划 注意转移方程为v[i] = max(v[i-1]&#43;nums[i],nums[i])，v[i]表示结尾为位置i且子串包">
+  <meta itemprop="name" content="LeetCode每日练习：478. 在圆内随机生成点 - qkgoalkeeper&#39;s blog">
+  <meta itemprop="description" content="一.478. 在圆内随机生成点 1.题干及思路 给定圆的半径和圆心的位置，实现函数 randPoint ，在圆中产生均匀随机点。 实现 Solution 类: Solution(double radius, double x_center, double y_center) 用圆的半径 radius 和圆">
   <meta itemprop="image" content="https://qkgoalkeeper.github.io/img/author.jpg">
   
   
@@ -74,7 +74,7 @@
 	<article itemprop="articleBody">
     <header class="article-info clearfix">
   <h1 itemprop="name">
-      <a href="https://qkgoalkeeper.github.io/post/leetcode%E7%AE%80%E5%8D%95%E9%A2%9853.-%E6%9C%80%E5%A4%A7%E5%AD%90%E5%BA%8F%E5%92%8Cpythonc&#43;&#43;java/" title="LeetCode简单题：53. 最大子序和（Python,C&#43;&#43;,Java）" itemprop="url">LeetCode简单题：53. 最大子序和（Python,C&#43;&#43;,Java）</a>
+      <a href="https://qkgoalkeeper.github.io/post/leetcode%E6%AF%8F%E6%97%A5%E7%BB%83%E4%B9%A0478.-%E5%9C%A8%E5%9C%86%E5%86%85%E9%9A%8F%E6%9C%BA%E7%94%9F%E6%88%90%E7%82%B9/" title="LeetCode每日练习：478. 在圆内随机生成点" itemprop="url">LeetCode每日练习：478. 在圆内随机生成点</a>
   </h1>
   <p class="article-author">By
     
@@ -82,7 +82,7 @@
     
   </p>
   <p class="article-time">
-    <time datetime="2020-08-13 17:55:19 &#43;0800 CST" itemprop="datePublished">2020年08月13日</time>
+    <time datetime="2022-06-05 07:55:19 &#43;0800 CST" itemprop="datePublished">2022年06月05日</time>
   </p>
 </header>
 
@@ -92,86 +92,70 @@
 			<strong class="toc-title">文章目录</strong>
       <nav id="TableOfContents">
   <ul>
-    <li><a href="#一解法">一.解法</a></li>
-    <li><a href="#二python实现">二.Python实现</a></li>
-    <li><a href="#三c实现">三.C++实现</a></li>
-    <li><a href="#四java实现">四.java实现</a></li>
+    <li><a href="#1题干及思路">1.题干及思路</a></li>
+    <li><a href="#2golang实现">2.golang实现</a></li>
   </ul>
 </nav>
 		</div>
     
-    <h2 id="一解法">一.解法</h2>
-<p><a href="https://leetcode-cn.com/problems/maximum-subarray/">https://leetcode-cn.com/problems/maximum-subarray/</a><br>
-要点：dp动态规划<br>
-注意转移方程为v[i] = max(v[i-1]+nums[i],nums[i])，v[i]表示结尾为位置i且子串包含了nums[i]的最大字序和的子串<br>
-Python,C++,Java都用了同样的dp算法，最后比较所有结尾位置为i的最大子序和的最大值即可</p>
-<h2 id="二python实现">二.Python实现</h2>
-<pre tabindex="0"><code>class Solution:
-    def maxSubArray(self, nums: List[int]) -&gt; int:
-        if len(nums)==0:
-            return 0
-    
-        answer=[]
-        finalanswer=nums[0];
-        answer.append(nums[0])
-        
-        i=1
-        while i&lt;=len(nums)-1:
-            temp=max(answer[i-1]+nums[i],nums[i])
-            answer.append(temp)
-            if temp&gt;finalanswer:
-                finalanswer=temp
-            i+=1
-        
-        return finalanswer
-</code></pre><h2 id="三c实现">三.C++实现</h2>
-<pre tabindex="0"><code>class Solution {
-public:
-    int maxSubArray(vector&lt;int&gt;&amp; nums) {
-        //dp
-        //1.状态定义 F(i)表示下标为i时连续数组的最大和
-        //2.状态转移方程 F(i) = max(F(i-1)+nums[i],nums[i]);
-        //3.初始状态 F(0) = nums[0];
-        //4.返回值 F(nums.size()-1)
-        
-        //code
-        if(nums.empty()) return 0;
-        
-        vector&lt;int&gt; v(nums);
-        v[0]=nums[0];
-        int maxNum = nums[0];
-        for(int i = 1;i &lt; nums.size();++i){
-            v[i] = max(v[i-1]+nums[i],nums[i]);
-            
-            if(maxNum &lt; v[i])
-                maxNum = v[i];
-        }
-        
-        return maxNum;
-    }
-};
-</code></pre><h2 id="四java实现">四.java实现</h2>
-<pre tabindex="0"><code>class Solution {
-    public int maxSubArray(int[] nums) {
+    <h1 id="一478-在圆内随机生成点httpsleetcodecnproblemsgenerate-random-point-in-a-circle">一.<a href="https://leetcode.cn/problems/generate-random-point-in-a-circle/">478. 在圆内随机生成点</a></h1>
+<h2 id="1题干及思路">1.题干及思路</h2>
+<p>给定圆的半径和圆心的位置，实现函数 <code>randPoint</code> ，在圆中产生均匀随机点。</p>
+<p>实现 <code>Solution</code> 类:</p>
+<ul>
+<li><code>Solution(double radius, double x_center, double y_center)</code> 用圆的半径 <code>radius</code> 和圆心的位置<code> (x_center, y_center)</code> 初始化对象</li>
+<li><code>randPoint()</code> 返回圆内的一个随机点。圆周上的一点被认为在圆内。答案作为数组返回 <code>[x, y]</code> 。</li>
+</ul>
+<p><strong>示例 1：</strong></p>
+<pre tabindex="0"><code>输入: 
+[&quot;Solution&quot;,&quot;randPoint&quot;,&quot;randPoint&quot;,&quot;randPoint&quot;]
+[[1.0, 0.0, 0.0], [], [], []]
+输出: [null, [-0.02493, -0.38077], [0.82314, 0.38945], [0.36572, 0.17248]]
+解释:
+Solution solution = new Solution(1.0, 0.0, 0.0);
+solution.randPoint ();//返回[-0.02493，-0.38077]
+solution.randPoint ();//返回[0.82314,0.38945]
+solution.randPoint ();//返回[0.36572,0.17248]
+</code></pre><p><strong>提示：</strong></p>
+<ul>
+<li><code>0 &lt; radius &lt;= 108</code></li>
+<li><code>-107 &lt;= x_center, y_center &lt;= 107</code></li>
+<li><code>randPoint</code> 最多被调用 <code>3 * 104</code> 次</li>
+</ul>
+<p>要点：随机数</p>
+<p>思路：直接在圆中随机需要统计学知识，这里使用拒绝采样方法使得随机简单化，golang中rand.Float64()可以求0到1之间的随机浮点数，将其范围扩展到题目的圆对应的正方形，在正方形中取点如果在圆内即为所求的点</p>
+<h2 id="2golang实现">2.golang实现</h2>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="n">type</span> <span class="n">Solution</span> <span class="k">struct</span> <span class="p">{</span>
+    <span class="n">radius_</span> <span class="n">float64</span>
+    <span class="n">xCenter_</span> <span class="n">float64</span>
+    <span class="n">yCenter_</span> <span class="n">float64</span>
+<span class="p">}</span>
 
-        if(nums.length==0) return 0;
-        int[] answer = new int[nums.length];
-        answer[0] = nums[0];
-      
-        int maxNum = nums[0];
-        for(int i = 1;i &lt; nums.length;++i){
-            answer[i] = Math.max(answer[i-1]+nums[i],nums[i]);
-            
-            if(maxNum &lt; answer[i])
-                maxNum = answer[i];
-        }
-        
-        return maxNum;
-        
 
-    }
-}
-</code></pre>
+<span class="n">func</span> <span class="nf">Constructor</span><span class="p">(</span><span class="n">radius</span> <span class="n">float64</span><span class="p">,</span> <span class="n">x_center</span> <span class="n">float64</span><span class="p">,</span> <span class="n">y_center</span> <span class="n">float64</span><span class="p">)</span> <span class="n">Solution</span> <span class="p">{</span>
+    <span class="nl">a</span> <span class="p">:</span><span class="o">=</span> <span class="n">Solution</span><span class="p">{</span><span class="n">radius</span><span class="p">,</span><span class="n">x_center</span><span class="p">,</span><span class="n">y_center</span><span class="p">}</span>
+    <span class="k">return</span> <span class="n">a</span>
+<span class="p">}</span>
+
+<span class="n">func</span> <span class="p">(</span><span class="k">this</span> <span class="o">*</span><span class="n">Solution</span><span class="p">)</span> <span class="n">RandPoint</span><span class="p">()</span> <span class="p">[]</span><span class="n">float64</span> <span class="p">{</span>
+    <span class="k">for</span><span class="p">{</span>
+        <span class="nl">tempX</span> <span class="p">:</span><span class="o">=</span> <span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="n">xCenter_</span><span class="o">-</span><span class="k">this</span><span class="p">.</span><span class="n">radius_</span><span class="p">)</span><span class="o">+</span><span class="n">rand</span><span class="p">.</span><span class="n">Float64</span><span class="p">()</span><span class="o">*</span><span class="mi">2</span><span class="o">*</span><span class="k">this</span><span class="p">.</span><span class="n">radius_</span>
+        <span class="nl">tempY</span> <span class="p">:</span><span class="o">=</span> <span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="n">yCenter_</span><span class="o">-</span><span class="k">this</span><span class="p">.</span><span class="n">radius_</span><span class="p">)</span><span class="o">+</span><span class="n">rand</span><span class="p">.</span><span class="n">Float64</span><span class="p">()</span><span class="o">*</span><span class="mi">2</span><span class="o">*</span><span class="k">this</span><span class="p">.</span><span class="n">radius_</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">tempX</span><span class="o">-</span><span class="k">this</span><span class="p">.</span><span class="n">xCenter_</span><span class="p">)</span><span class="o">*</span><span class="p">(</span><span class="n">tempX</span><span class="o">-</span><span class="k">this</span><span class="p">.</span><span class="n">xCenter_</span><span class="p">)</span><span class="o">+</span><span class="p">(</span><span class="n">tempY</span><span class="o">-</span><span class="k">this</span><span class="p">.</span><span class="n">yCenter_</span><span class="p">)</span><span class="o">*</span><span class="p">(</span><span class="n">tempY</span><span class="o">-</span><span class="k">this</span><span class="p">.</span><span class="n">yCenter_</span><span class="p">)</span><span class="o">&lt;</span><span class="k">this</span><span class="p">.</span><span class="n">radius_</span><span class="o">*</span><span class="k">this</span><span class="p">.</span><span class="n">radius_</span><span class="p">{</span>
+            <span class="k">return</span> <span class="p">[]</span><span class="n">float64</span><span class="p">{</span><span class="n">tempX</span><span class="p">,</span><span class="n">tempY</span><span class="p">}</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+
+<span class="p">}</span>
+
+
+<span class="cm">/**
+</span><span class="cm"> * Your Solution object will be instantiated and called as such:
+</span><span class="cm"> * obj := Constructor(radius, x_center, y_center);
+</span><span class="cm"> * param_1 := obj.RandPoint();
+</span><span class="cm"> */</span>
+
+</code></pre></div>
     
 	</div>
   <footer class="article-footer clearfix">
@@ -182,6 +166,10 @@ public:
   
   <a href="https://qkgoalkeeper.github.io/tags/leetcode">LeetCode</a>
   
+  <a href="https://qkgoalkeeper.github.io/tags/golang">golang</a>
+  
+  <a href="https://qkgoalkeeper.github.io/tags/%E9%9A%8F%E6%9C%BA%E6%95%B0">随机数</a>
+  
 </div>
 
 
@@ -191,14 +179,14 @@ public:
 <div class="article-categories">
   <span></span>
   
-  <a class="article-category-link" href="https://qkgoalkeeper.github.io/categories/leetcode%E7%AE%80%E5%8D%95%E9%A2%981-100">LeetCode简单题1-100</a>
+  <a class="article-category-link" href="https://qkgoalkeeper.github.io/categories/leetcode%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98">LeetCode每日一题</a>
   
 </div>
 
 
 
   <div class="article-share" id="share">
-    <div data-url="https://qkgoalkeeper.github.io/post/leetcode%E7%AE%80%E5%8D%95%E9%A2%9853.-%E6%9C%80%E5%A4%A7%E5%AD%90%E5%BA%8F%E5%92%8Cpythonc&#43;&#43;java/" data-title="LeetCode简单题：53. 最大子序和（Python,C&#43;&#43;,Java）" data-tsina="5852167252" class="share clearfix">
+    <div data-url="https://qkgoalkeeper.github.io/post/leetcode%E6%AF%8F%E6%97%A5%E7%BB%83%E4%B9%A0478.-%E5%9C%A8%E5%9C%86%E5%86%85%E9%9A%8F%E6%9C%BA%E7%94%9F%E6%88%90%E7%82%B9/" data-title="LeetCode每日练习：478. 在圆内随机生成点" data-tsina="5852167252" class="share clearfix">
     </div>
   </div>
 </footer>
