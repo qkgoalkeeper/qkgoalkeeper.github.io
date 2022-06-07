@@ -2,13 +2,13 @@
 <html lang="zh-CN">
 <head>
   <meta charset="UTF-8">
-  <title>LeetCode数据结构基础第11天：链表 - qkgoalkeeper&#39;s blog</title>
+  <title>LeetCode每日练习：875. 爱吃香蕉的珂珂 - qkgoalkeeper&#39;s blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=3, minimum-scale=1">
   
-  <meta name="description" content="一.160. 相交链表 1.题干及思路 给你两个单链表的头节点 headA 和 headB ，请你找出并返回两个单链表相交的起始节点。如果两个链表不存在相交节点，返回 null 。">
+  <meta name="description" content="一.875. 爱吃香蕉的珂珂 1.题干及思路 珂珂喜欢吃香蕉。这里有 n 堆香蕉，第 i 堆中有 piles[i] 根香蕉。警卫已经离开了，将在 h 小时后回来。 珂珂可以决定她">
   
-  <meta itemprop="name" content="LeetCode数据结构基础第11天：链表 - qkgoalkeeper&#39;s blog">
-  <meta itemprop="description" content="一.160. 相交链表 1.题干及思路 给你两个单链表的头节点 headA 和 headB ，请你找出并返回两个单链表相交的起始节点。如果两个链表不存在相交节点，返回 null 。">
+  <meta itemprop="name" content="LeetCode每日练习：875. 爱吃香蕉的珂珂 - qkgoalkeeper&#39;s blog">
+  <meta itemprop="description" content="一.875. 爱吃香蕉的珂珂 1.题干及思路 珂珂喜欢吃香蕉。这里有 n 堆香蕉，第 i 堆中有 piles[i] 根香蕉。警卫已经离开了，将在 h 小时后回来。 珂珂可以决定她">
   <meta itemprop="image" content="https://qkgoalkeeper.github.io/img/author.jpg">
   
   
@@ -74,7 +74,7 @@
 	<article itemprop="articleBody">
     <header class="article-info clearfix">
   <h1 itemprop="name">
-      <a href="https://qkgoalkeeper.github.io/post/leetcode%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E5%9F%BA%E7%A1%80%E7%AC%AC11%E5%A4%A9%E9%93%BE%E8%A1%A8/" title="LeetCode数据结构基础第11天：链表" itemprop="url">LeetCode数据结构基础第11天：链表</a>
+      <a href="https://qkgoalkeeper.github.io/post/leetcode%E6%AF%8F%E6%97%A5%E7%BB%83%E4%B9%A0875.-%E7%88%B1%E5%90%83%E9%A6%99%E8%95%89%E7%9A%84%E7%8F%82%E7%8F%82/" title="LeetCode每日练习：875. 爱吃香蕉的珂珂" itemprop="url">LeetCode每日练习：875. 爱吃香蕉的珂珂</a>
   </h1>
   <p class="article-author">By
     
@@ -82,7 +82,7 @@
     
   </p>
   <p class="article-time">
-    <time datetime="2021-11-23 10:55:19 &#43;0800 CST" itemprop="datePublished">2021年11月23日</time>
+    <time datetime="2022-06-07 07:55:19 &#43;0800 CST" itemprop="datePublished">2022年06月07日</time>
   </p>
 </header>
 
@@ -93,149 +93,75 @@
       <nav id="TableOfContents">
   <ul>
     <li><a href="#1题干及思路">1.题干及思路</a></li>
-    <li><a href="#2c实现">2.C++实现</a></li>
-  </ul>
-
-  <ul>
-    <li><a href="#1题干及思路-1">1.题干及思路</a></li>
-    <li><a href="#2c实现-1">2.C++实现</a></li>
+    <li><a href="#2golang实现">2.golang实现</a></li>
   </ul>
 </nav>
 		</div>
     
-    <h1 id="一160-相交链表httpsleetcode-cncomproblemsintersection-of-two-linked-lists">一.<a href="https://leetcode-cn.com/problems/intersection-of-two-linked-lists/">160. 相交链表</a></h1>
+    <h1 id="一875-爱吃香蕉的珂珂httpsleetcodecnproblemskoko-eating-bananas">一.<a href="https://leetcode.cn/problems/koko-eating-bananas/">875. 爱吃香蕉的珂珂</a></h1>
 <h2 id="1题干及思路">1.题干及思路</h2>
-<p>给你两个单链表的头节点 <code>headA</code> 和 <code>headB</code> ，请你找出并返回两个单链表相交的起始节点。如果两个链表不存在相交节点，返回 <code>null</code> 。</p>
-<p>图示两个链表在节点 <code>c1</code> 开始相交**：**</p>
-<p><a href="https://assets.leetcode-cn.com/aliyun-lc-upload/uploads/2018/12/14/160_statement.png"><img src="https://assets.leetcode-cn.com/aliyun-lc-upload/uploads/2018/12/14/160_statement.png" alt="img"></a></p>
-<p>题目数据 <strong>保证</strong> 整个链式结构中不存在环。</p>
-<p><strong>注意</strong>，函数返回结果后，链表必须 <strong>保持其原始结构</strong> 。</p>
-<p><strong>自定义评测：</strong></p>
-<p><strong>评测系统</strong> 的输入如下（你设计的程序 <strong>不适用</strong> 此输入）：</p>
-<ul>
-<li><code>intersectVal</code> - 相交的起始节点的值。如果不存在相交节点，这一值为 <code>0</code></li>
-<li><code>listA</code> - 第一个链表</li>
-<li><code>listB</code> - 第二个链表</li>
-<li><code>skipA</code> - 在 <code>listA</code> 中（从头节点开始）跳到交叉节点的节点数</li>
-<li><code>skipB</code> - 在 <code>listB</code> 中（从头节点开始）跳到交叉节点的节点数</li>
-</ul>
-<p>评测系统将根据这些输入创建链式数据结构，并将两个头节点 <code>headA</code> 和 <code>headB</code> 传递给你的程序。如果程序能够正确返回相交节点，那么你的解决方案将被 <strong>视作正确答案</strong> 。</p>
+<p>珂珂喜欢吃香蕉。这里有 <code>n</code> 堆香蕉，第 <code>i</code> 堆中有 <code>piles[i]</code> 根香蕉。警卫已经离开了，将在 <code>h</code> 小时后回来。</p>
+<p>珂珂可以决定她吃香蕉的速度 <code>k</code> （单位：根/小时）。每个小时，她将会选择一堆香蕉，从中吃掉 <code>k</code> 根。如果这堆香蕉少于 <code>k</code> 根，她将吃掉这堆的所有香蕉，然后这一小时内不会再吃更多的香蕉。</p>
+<p>珂珂喜欢慢慢吃，但仍然想在警卫回来前吃掉所有的香蕉。</p>
+<p>返回她可以在 <code>h</code> 小时内吃掉所有香蕉的最小速度 <code>k</code>（<code>k</code> 为整数）。</p>
 <p><strong>示例 1：</strong></p>
-<p><a href="https://assets.leetcode.com/uploads/2018/12/13/160_example_1.png"><img src="https://assets.leetcode.com/uploads/2021/03/05/160_example_1_1.png" alt="img"></a></p>
-<pre tabindex="0"><code>输入：intersectVal = 8, listA = [4,1,8,4,5], listB = [5,6,1,8,4,5], skipA = 2, skipB = 3
-输出：Intersected at '8'
-解释：相交节点的值为 8 （注意，如果两个链表相交则不能为 0）。
-从各自的表头开始算起，链表 A 为 [4,1,8,4,5]，链表 B 为 [5,6,1,8,4,5]。
-在 A 中，相交节点前有 2 个节点；在 B 中，相交节点前有 3 个节点。
+<pre tabindex="0"><code>输入：piles = [3,6,7,11], h = 8
+输出：4
 </code></pre><p><strong>示例 2：</strong></p>
-<p><a href="https://assets.leetcode.com/uploads/2018/12/13/160_example_2.png"><img src="https://assets.leetcode.com/uploads/2021/03/05/160_example_2.png" alt="img"></a></p>
-<pre tabindex="0"><code>输入：intersectVal = 2, listA = [1,9,1,2,4], listB = [3,2,4], skipA = 3, skipB = 1
-输出：Intersected at '2'
-解释：相交节点的值为 2 （注意，如果两个链表相交则不能为 0）。
-从各自的表头开始算起，链表 A 为 [1,9,1,2,4]，链表 B 为 [3,2,4]。
-在 A 中，相交节点前有 3 个节点；在 B 中，相交节点前有 1 个节点。
+<pre tabindex="0"><code>输入：piles = [30,11,23,4,20], h = 5
+输出：30
 </code></pre><p><strong>示例 3：</strong></p>
-<p><a href="https://assets.leetcode.com/uploads/2018/12/13/160_example_3.png"><img src="https://assets.leetcode-cn.com/aliyun-lc-upload/uploads/2018/12/14/160_example_3.png" alt="img"></a></p>
-<pre tabindex="0"><code>输入：intersectVal = 0, listA = [2,6,4], listB = [1,5], skipA = 3, skipB = 2
-输出：null
-解释：从各自的表头开始算起，链表 A 为 [2,6,4]，链表 B 为 [1,5]。
-由于这两个链表不相交，所以 intersectVal 必须为 0，而 skipA 和 skipB 可以是任意值。
-这两个链表不相交，因此返回 null 。
+<pre tabindex="0"><code>输入：piles = [30,11,23,4,20], h = 6
+输出：23
 </code></pre><p><strong>提示：</strong></p>
 <ul>
-<li><code>listA</code> 中节点数目为 <code>m</code></li>
-<li><code>listB</code> 中节点数目为 <code>n</code></li>
-<li><code>0 &lt;= m, n &lt;= 3 * 104</code></li>
-<li><code>1 &lt;= Node.val &lt;= 105</code></li>
-<li><code>0 &lt;= skipA &lt;= m</code></li>
-<li><code>0 &lt;= skipB &lt;= n</code></li>
-<li>如果 <code>listA</code> 和 <code>listB</code> 没有交点，<code>intersectVal</code> 为 <code>0</code></li>
-<li>如果 <code>listA</code> 和 <code>listB</code> 有交点，<code>intersectVal == listA[skipA] == listB[skipB]</code></li>
+<li><code>1 &lt;= piles.length &lt;= 104</code></li>
+<li><code>piles.length &lt;= h &lt;= 109</code></li>
+<li><code>1 &lt;= piles[i] &lt;= 109</code></li>
 </ul>
-<p>**进阶：**你能否设计一个时间复杂度 <code>O(n)</code> 、仅用 <code>O(1)</code> 内存的解决方案？</p>
-<p>要点：链表</p>
-<p>思路：用数学方法抹平长度差。</p>
-<h2 id="2c实现">2.C++实现</h2>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="cm">/**
-</span><span class="cm"> * Definition for singly-linked list.
-</span><span class="cm"> * struct ListNode {
-</span><span class="cm"> *     int val;
-</span><span class="cm"> *     ListNode *next;
-</span><span class="cm"> *     ListNode(int x) : val(x), next(NULL) {}
-</span><span class="cm"> * };
-</span><span class="cm"> */</span>
-<span class="k">class</span> <span class="nc">Solution</span> <span class="p">{</span>
-<span class="k">public</span><span class="o">:</span>
-    <span class="n">ListNode</span> <span class="o">*</span><span class="n">getIntersectionNode</span><span class="p">(</span><span class="n">ListNode</span> <span class="o">*</span><span class="n">headA</span><span class="p">,</span> <span class="n">ListNode</span> <span class="o">*</span><span class="n">headB</span><span class="p">)</span> <span class="p">{</span>
-        <span class="n">ListNode</span><span class="o">*</span> <span class="n">p</span> <span class="o">=</span> <span class="n">headA</span><span class="p">,</span> <span class="o">*</span><span class="n">q</span> <span class="o">=</span> <span class="n">headB</span><span class="p">;</span>
-        <span class="k">while</span><span class="p">(</span><span class="n">p</span> <span class="o">!=</span> <span class="n">q</span><span class="p">){</span>
-            <span class="n">p</span> <span class="o">=</span> <span class="n">p</span> <span class="o">?</span> <span class="n">p</span><span class="o">-&gt;</span><span class="nl">next</span> <span class="p">:</span> <span class="n">headB</span><span class="p">;</span>
-            <span class="n">q</span> <span class="o">=</span> <span class="n">q</span> <span class="o">?</span> <span class="n">q</span><span class="o">-&gt;</span><span class="nl">next</span> <span class="p">:</span> <span class="n">headA</span><span class="p">;</span>
-        <span class="p">}</span>
-        <span class="k">return</span> <span class="n">p</span><span class="p">;</span>
+<p>要点：二分法</p>
+<p>思路：相当于在1到数组中最大值的范围内用二分搜索猜答案，二分搜索至左等于右时即为最小答案</p>
+<h2 id="2golang实现">2.golang实现</h2>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++">
+<span class="n">func</span> <span class="nf">minEatingSpeed</span><span class="p">(</span><span class="n">piles</span> <span class="p">[]</span><span class="kt">int</span><span class="p">,</span> <span class="n">h</span> <span class="kt">int</span><span class="p">)</span> <span class="kt">int</span> <span class="p">{</span>
+    <span class="nl">start</span><span class="p">:</span><span class="o">=</span><span class="mi">1</span>
+    <span class="nl">end</span><span class="p">:</span><span class="o">=</span><span class="n">piles</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="k">for</span> <span class="nl">i</span><span class="p">:</span><span class="o">=</span><span class="mi">1</span><span class="p">;</span><span class="n">i</span><span class="o">&lt;</span><span class="n">len</span><span class="p">(</span><span class="n">piles</span><span class="p">);</span><span class="n">i</span><span class="o">++</span><span class="p">{</span>
+        <span class="n">end</span> <span class="o">=</span> <span class="n">max</span><span class="p">(</span><span class="n">end</span><span class="p">,</span><span class="n">piles</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
     <span class="p">}</span>
-<span class="p">};</span>
 
-                                                                                    
-</code></pre></div><h1 id="二82-删除排序链表中的重复元素-iihttpsleetcode-cncomproblemsremove-duplicates-from-sorted-list-ii">二.<a href="https://leetcode-cn.com/problems/remove-duplicates-from-sorted-list-ii/">82. 删除排序链表中的重复元素 II</a></h1>
-<h2 id="1题干及思路-1">1.题干及思路</h2>
-<p>存在一个按升序排列的链表，给你这个链表的头节点 <code>head</code> ，请你删除链表中所有存在数字重复情况的节点，只保留原始链表中 <strong>没有重复出现</strong> 的数字。</p>
-<p>返回同样按升序排列的结果链表。</p>
-<p><strong>示例 1：</strong></p>
-<p><img src="https://assets.leetcode.com/uploads/2021/01/04/linkedlist1.jpg" alt="img"></p>
-<pre tabindex="0"><code>输入：head = [1,2,3,3,4,4,5]
-输出：[1,2,5]
-</code></pre><p><strong>示例 2：</strong></p>
-<p><img src="https://assets.leetcode.com/uploads/2021/01/04/linkedlist2.jpg" alt="img"></p>
-<pre tabindex="0"><code>输入：head = [1,1,1,2,3]
-输出：[2,3]
-</code></pre><p><strong>提示：</strong></p>
-<ul>
-<li>链表中节点数目在范围 <code>[0, 300]</code> 内</li>
-<li><code>-100 &lt;= Node.val &lt;= 100</code></li>
-<li>题目数据保证链表已经按升序排列</li>
-</ul>
-<p>**进阶：**你是否可以使用 <code>O(1)</code> 空间解决此题？</p>
-<p>要点：链表</p>
-<p>思路：双指针法，重复去除即可</p>
-<h2 id="2c实现-1">2.C++实现</h2>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="cm">/**
-</span><span class="cm"> * Definition for singly-linked list.
-</span><span class="cm"> * struct ListNode {
-</span><span class="cm"> *     int val;
-</span><span class="cm"> *     ListNode *next;
-</span><span class="cm"> *     ListNode() : val(0), next(nullptr) {}
-</span><span class="cm"> *     ListNode(int x) : val(x), next(nullptr) {}
-</span><span class="cm"> *     ListNode(int x, ListNode *next) : val(x), next(next) {}
-</span><span class="cm"> * };
-</span><span class="cm"> */</span>
-<span class="k">class</span> <span class="nc">Solution</span> <span class="p">{</span>
-<span class="k">public</span><span class="o">:</span>
-    <span class="n">ListNode</span><span class="o">*</span> <span class="n">deleteDuplicates</span><span class="p">(</span><span class="n">ListNode</span><span class="o">*</span> <span class="n">head</span><span class="p">)</span> <span class="p">{</span>
-        <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">head</span> <span class="o">||</span> <span class="o">!</span><span class="n">head</span><span class="o">-&gt;</span><span class="n">next</span><span class="p">)</span>
-            <span class="k">return</span> <span class="n">head</span><span class="p">;</span>
-        
-        <span class="n">ListNode</span><span class="o">*</span> <span class="n">dummy</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ListNode</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">);</span>
-        <span class="n">dummy</span><span class="o">-&gt;</span><span class="n">next</span> <span class="o">=</span> <span class="n">head</span><span class="p">;</span>
-        
-        <span class="n">ListNode</span><span class="o">*</span> <span class="n">pre</span> <span class="o">=</span> <span class="n">dummy</span><span class="p">;</span>
-        <span class="n">ListNode</span><span class="o">*</span> <span class="n">cur</span> <span class="o">=</span> <span class="n">head</span><span class="p">;</span>
-        <span class="k">while</span> <span class="p">(</span><span class="n">cur</span> <span class="o">&amp;&amp;</span> <span class="n">cur</span><span class="o">-&gt;</span><span class="n">next</span><span class="p">)</span> <span class="p">{</span>
-            <span class="k">if</span> <span class="p">(</span><span class="n">cur</span><span class="o">-&gt;</span><span class="n">val</span> <span class="o">==</span> <span class="n">cur</span><span class="o">-&gt;</span><span class="n">next</span><span class="o">-&gt;</span><span class="n">val</span><span class="p">)</span> <span class="p">{</span>
-                <span class="k">while</span> <span class="p">(</span><span class="n">cur</span><span class="o">-&gt;</span><span class="n">next</span> <span class="o">&amp;&amp;</span> <span class="n">cur</span><span class="o">-&gt;</span><span class="n">val</span> <span class="o">==</span> <span class="n">cur</span><span class="o">-&gt;</span><span class="n">next</span><span class="o">-&gt;</span><span class="n">val</span><span class="p">)</span> <span class="p">{</span>
-                    <span class="n">cur</span> <span class="o">=</span> <span class="n">cur</span><span class="o">-&gt;</span><span class="n">next</span><span class="p">;</span>
-                <span class="p">}</span>
-                <span class="n">pre</span><span class="o">-&gt;</span><span class="n">next</span> <span class="o">=</span> <span class="n">cur</span><span class="o">-&gt;</span><span class="n">next</span><span class="p">;</span>
-                <span class="n">cur</span> <span class="o">=</span> <span class="n">cur</span><span class="o">-&gt;</span><span class="n">next</span><span class="p">;</span>
-            <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>                
-                <span class="n">pre</span> <span class="o">=</span> <span class="n">cur</span><span class="p">;</span>
-                <span class="n">cur</span> <span class="o">=</span> <span class="n">cur</span><span class="o">-&gt;</span><span class="n">next</span><span class="p">;</span>
-            <span class="p">}</span>
+	<span class="c1">//二分搜索
+</span><span class="c1"></span>    <span class="k">for</span> <span class="n">start</span><span class="o">&lt;</span><span class="n">end</span><span class="p">{</span>
+        <span class="nl">middle</span> <span class="p">:</span><span class="o">=</span> <span class="p">(</span><span class="n">start</span><span class="o">+</span><span class="n">end</span><span class="p">)</span><span class="o">&gt;&gt;</span><span class="mi">1</span>
+        <span class="k">if</span> <span class="n">compute</span><span class="p">(</span><span class="n">piles</span><span class="p">,</span><span class="n">middle</span><span class="p">)</span><span class="o">&gt;</span><span class="n">h</span><span class="p">{</span>
+            <span class="n">start</span> <span class="o">=</span> <span class="n">middle</span><span class="o">+</span><span class="mi">1</span>
+        <span class="p">}</span><span class="k">else</span><span class="p">{</span>
+            <span class="n">end</span> <span class="o">=</span> <span class="n">middle</span>
         <span class="p">}</span>
-        <span class="k">return</span> <span class="n">dummy</span><span class="o">-&gt;</span><span class="n">next</span><span class="p">;</span>
-
     <span class="p">}</span>
-<span class="p">};</span>
+    <span class="k">return</span> <span class="n">start</span>
+
+<span class="p">}</span>
+
+<span class="n">func</span> <span class="nf">compute</span><span class="p">(</span><span class="n">piles</span> <span class="p">[]</span><span class="kt">int</span><span class="p">,</span><span class="n">v</span> <span class="kt">int</span><span class="p">)</span><span class="kt">int</span><span class="p">{</span>
+    <span class="nl">answer</span> <span class="p">:</span><span class="o">=</span> <span class="mi">0</span>
+    <span class="k">for</span> <span class="n">_</span><span class="p">,</span><span class="nl">val</span> <span class="p">:</span><span class="o">=</span> <span class="n">range</span> <span class="n">piles</span><span class="p">{</span>
+        <span class="k">if</span> <span class="n">val</span><span class="o">%</span><span class="n">v</span> <span class="o">==</span><span class="mi">0</span><span class="p">{</span>
+            <span class="n">answer</span><span class="o">+=</span><span class="n">val</span><span class="o">/</span><span class="n">v</span>
+        <span class="p">}</span><span class="k">else</span><span class="p">{</span>
+            <span class="n">answer</span><span class="o">+=</span><span class="n">val</span><span class="o">/</span><span class="n">v</span><span class="o">+</span><span class="mi">1</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="n">answer</span>
+<span class="p">}</span>
+
+
+<span class="n">func</span> <span class="nf">max</span><span class="p">(</span><span class="n">a</span> <span class="kt">int</span><span class="p">,</span><span class="n">b</span> <span class="kt">int</span><span class="p">)</span><span class="kt">int</span><span class="p">{</span>
+    <span class="k">if</span> <span class="n">a</span><span class="o">&gt;=</span><span class="n">b</span><span class="p">{</span>
+        <span class="k">return</span> <span class="n">a</span>
+    <span class="p">}</span> 
+    <span class="k">return</span> <span class="n">b</span>
+<span class="p">}</span>
 </code></pre></div>
     
 	</div>
@@ -247,7 +173,9 @@
   
   <a href="https://qkgoalkeeper.github.io/tags/leetcode">LeetCode</a>
   
-  <a href="https://qkgoalkeeper.github.io/tags/c&#43;&#43;">C&#43;&#43;</a>
+  <a href="https://qkgoalkeeper.github.io/tags/golang">golang</a>
+  
+  <a href="https://qkgoalkeeper.github.io/tags/%E4%BA%8C%E5%88%86%E6%B3%95">二分法</a>
   
 </div>
 
@@ -258,14 +186,14 @@
 <div class="article-categories">
   <span></span>
   
-  <a class="article-category-link" href="https://qkgoalkeeper.github.io/categories/%E5%A4%A7%E5%9B%9Bleetcode%E7%AE%97%E6%B3%95%E5%88%B7%E9%A2%98">大四LeetCode算法刷题</a>
+  <a class="article-category-link" href="https://qkgoalkeeper.github.io/categories/leetcode%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98">LeetCode每日一题</a>
   
 </div>
 
 
 
   <div class="article-share" id="share">
-    <div data-url="https://qkgoalkeeper.github.io/post/leetcode%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E5%9F%BA%E7%A1%80%E7%AC%AC11%E5%A4%A9%E9%93%BE%E8%A1%A8/" data-title="LeetCode数据结构基础第11天：链表" data-tsina="5852167252" class="share clearfix">
+    <div data-url="https://qkgoalkeeper.github.io/post/leetcode%E6%AF%8F%E6%97%A5%E7%BB%83%E4%B9%A0875.-%E7%88%B1%E5%90%83%E9%A6%99%E8%95%89%E7%9A%84%E7%8F%82%E7%8F%82/" data-title="LeetCode每日练习：875. 爱吃香蕉的珂珂" data-tsina="5852167252" class="share clearfix">
     </div>
   </div>
 </footer>
