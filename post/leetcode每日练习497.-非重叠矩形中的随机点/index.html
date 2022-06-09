@@ -2,13 +2,13 @@
 <html lang="zh-CN">
 <head>
   <meta charset="UTF-8">
-  <title>LeetCode简单题：69. x 的平方根（Python,C&#43;&#43;,Java） - qkgoalkeeper&#39;s blog</title>
+  <title>LeetCode每日练习：497. 非重叠矩形中的随机点 - qkgoalkeeper&#39;s blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=3, minimum-scale=1">
   
-  <meta name="description" content="一.解法 https://leetcode-cn.com/problems/sqrtx/ 要点：牛顿迭代法 本题可以暴力计算或者二分计算，C&#43;&#43;版本就是暴力计算注意不要溢出 Python和Java版本都用的是牛顿迭代法 所谓牛">
+  <meta name="description" content="一.497. 非重叠矩形中的随机点 1.题干及思路 给定一个由非重叠的轴对齐矩形的数组 rects ，其中 rects[i] = [ai, bi, xi, yi] 表示 (ai, bi) 是第 i 个矩形的左下角点，(xi,">
   
-  <meta itemprop="name" content="LeetCode简单题：69. x 的平方根（Python,C&#43;&#43;,Java） - qkgoalkeeper&#39;s blog">
-  <meta itemprop="description" content="一.解法 https://leetcode-cn.com/problems/sqrtx/ 要点：牛顿迭代法 本题可以暴力计算或者二分计算，C&#43;&#43;版本就是暴力计算注意不要溢出 Python和Java版本都用的是牛顿迭代法 所谓牛">
+  <meta itemprop="name" content="LeetCode每日练习：497. 非重叠矩形中的随机点 - qkgoalkeeper&#39;s blog">
+  <meta itemprop="description" content="一.497. 非重叠矩形中的随机点 1.题干及思路 给定一个由非重叠的轴对齐矩形的数组 rects ，其中 rects[i] = [ai, bi, xi, yi] 表示 (ai, bi) 是第 i 个矩形的左下角点，(xi,">
   <meta itemprop="image" content="https://qkgoalkeeper.github.io/img/author.jpg">
   
   
@@ -74,7 +74,7 @@
 	<article itemprop="articleBody">
     <header class="article-info clearfix">
   <h1 itemprop="name">
-      <a href="https://qkgoalkeeper.github.io/post/leetcode%E7%AE%80%E5%8D%95%E9%A2%9869.-x-%E7%9A%84%E5%B9%B3%E6%96%B9%E6%A0%B9pythonc&#43;&#43;java/" title="LeetCode简单题：69. x 的平方根（Python,C&#43;&#43;,Java）" itemprop="url">LeetCode简单题：69. x 的平方根（Python,C&#43;&#43;,Java）</a>
+      <a href="https://qkgoalkeeper.github.io/post/leetcode%E6%AF%8F%E6%97%A5%E7%BB%83%E4%B9%A0497.-%E9%9D%9E%E9%87%8D%E5%8F%A0%E7%9F%A9%E5%BD%A2%E4%B8%AD%E7%9A%84%E9%9A%8F%E6%9C%BA%E7%82%B9/" title="LeetCode每日练习：497. 非重叠矩形中的随机点" itemprop="url">LeetCode每日练习：497. 非重叠矩形中的随机点</a>
   </h1>
   <p class="article-author">By
     
@@ -82,7 +82,7 @@
     
   </p>
   <p class="article-time">
-    <time datetime="2020-08-13 17:55:19 &#43;0800 CST" itemprop="datePublished">2020年08月13日</time>
+    <time datetime="2022-06-09 07:55:19 &#43;0800 CST" itemprop="datePublished">2022年06月09日</time>
   </p>
 </header>
 
@@ -92,61 +92,98 @@
 			<strong class="toc-title">文章目录</strong>
       <nav id="TableOfContents">
   <ul>
-    <li><a href="#一解法">一.解法</a></li>
-    <li><a href="#二python实现">二.Python实现</a></li>
-    <li><a href="#三c实现">三.C++实现</a></li>
-    <li><a href="#四java实现">四.java实现</a></li>
+    <li><a href="#1题干及思路">1.题干及思路</a></li>
+    <li><a href="#2golang实现">2.golang实现</a></li>
   </ul>
 </nav>
 		</div>
     
-    <h2 id="一解法">一.解法</h2>
-<p><a href="https://leetcode-cn.com/problems/sqrtx/">https://leetcode-cn.com/problems/sqrtx/</a><br>
-要点：牛顿迭代法<br>
-本题可以暴力计算或者二分计算，C++版本就是暴力计算注意不要溢出<br>
-Python和Java版本都用的是牛顿迭代法<br>
-所谓牛顿迭代法就是不断用 $(x, f(x))(x,f(x))$ 的切线来逼近方程 $x^2-a=0$的根。根号 a 实际上就是 $x^2-a=0$ 的一个正实根，这个函数的导数是 2x。也就是说，函数上任一点$ (x,f(x))(x,f(x))$ 处的切线斜率是 $2x$。那么，$x-f(x)/(2x)$就是一个比 x 更接近的近似值。代入 $f(x)=x^2-a $得到$ x-(x^2-a)/(2x)$，也就是$(x+a/x)/2$。<br>
-其它的近似值计算中也可以通过找到一个函数零点为所求值去做</p>
-<h2 id="二python实现">二.Python实现</h2>
-<pre tabindex="0"><code>class Solution:
+    <h1 id="一497-非重叠矩形中的随机点httpsleetcodecnproblemsrandom-point-in-non-overlapping-rectangles">一.<a href="https://leetcode.cn/problems/random-point-in-non-overlapping-rectangles/">497. 非重叠矩形中的随机点</a></h1>
+<h2 id="1题干及思路">1.题干及思路</h2>
+<p>给定一个由非重叠的轴对齐矩形的数组 <code>rects</code> ，其中 <code>rects[i] = [ai, bi, xi, yi]</code> 表示 <code>(ai, bi)</code> 是第 <code>i</code> 个矩形的左下角点，<code>(xi, yi)</code> 是第 <code>i</code> 个矩形的右上角点。设计一个算法来随机挑选一个被某一矩形覆盖的整数点。矩形周长上的点也算做是被矩形覆盖。所有满足要求的点必须等概率被返回。</p>
+<p>在给定的矩形覆盖的空间内的任何整数点都有可能被返回。</p>
+<p><strong>请注意</strong> ，整数点是具有整数坐标的点。</p>
+<p>实现 <code>Solution</code> 类:</p>
+<ul>
+<li><code>Solution(int[][] rects)</code> 用给定的矩形数组 <code>rects</code> 初始化对象。</li>
+<li><code>int[] pick()</code> 返回一个随机的整数点 <code>[u, v]</code> 在给定的矩形所覆盖的空间内。</li>
+</ul>
+<p><strong>示例 1：</strong></p>
+<p><img src="https://assets.leetcode.com/uploads/2021/07/24/lc-pickrandomrec.jpg" alt="img"></p>
+<pre tabindex="0"><code>输入: 
+[&quot;Solution&quot;, &quot;pick&quot;, &quot;pick&quot;, &quot;pick&quot;, &quot;pick&quot;, &quot;pick&quot;]
+[[[[-2, -2, 1, 1], [2, 2, 4, 6]]], [], [], [], [], []]
+输出: 
+[null, [1, -2], [1, -1], [-1, -2], [-2, -2], [0, 0]]
 
-    def mySqrt(self, x):
-        if x &lt; 0:
-            raise Exception('the int should be larger than 0')
-        if x == 0:
-            return 0
-        cur = 1
-        while True:
-            pre = cur
-            cur = (cur + x / cur) / 2
-            if abs(cur - pre) &lt; 1e-6:
-                return int(cur)
-</code></pre><h2 id="三c实现">三.C++实现</h2>
-<pre tabindex="0"><code>class Solution {
-public:
-    int mySqrt(int x) {
-        int i;
-        for(i=0;i&lt;=x;i++){
-            if(i&gt;46340) return 46340;
-            if(i*i&gt;x) break;
-        }
+解释：
+Solution solution = new Solution([[-2, -2, 1, 1], [2, 2, 4, 6]]);
+solution.pick(); // 返回 [1, -2]
+solution.pick(); // 返回 [1, -1]
+solution.pick(); // 返回 [-1, -2]
+solution.pick(); // 返回 [-2, -2]
+solution.pick(); // 返回 [0, 0]
+</code></pre><p><strong>提示：</strong></p>
+<ul>
+<li><code>1 &lt;= rects.length &lt;= 100</code></li>
+<li><code>rects[i].length == 4</code></li>
+<li><code>-109 &lt;= ai &lt; xi &lt;= 109</code></li>
+<li><code>-109 &lt;= bi &lt; yi &lt;= 109</code></li>
+<li><code>xi - ai &lt;= 2000</code></li>
+<li><code>yi - bi &lt;= 2000</code></li>
+<li>所有的矩形不重叠。</li>
+<li><code>pick</code> 最多被调用 <code>104</code> 次。</li>
+</ul>
+<p>要点：前缀和、二分法</p>
+<p>思路：pre数组保存每个矩形中整数点个数的前缀和，整数点总数中random一个数字，二分法寻找该数字在哪个矩形内，再根据其在矩形内的顺序寻找具体坐标</p>
+<h2 id="2golang实现">2.golang实现</h2>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="n">type</span> <span class="n">Solution</span> <span class="k">struct</span> <span class="p">{</span>
+	<span class="n">pre</span>   <span class="p">[]</span><span class="kt">int</span> <span class="c1">//水塘抽样的前缀和
+</span><span class="c1"></span>	<span class="n">rects</span> <span class="p">[][]</span><span class="kt">int</span>
+<span class="p">}</span>
 
-        return i-1;
-        
-    }
-};
-</code></pre><h2 id="四java实现">四.java实现</h2>
-<pre tabindex="0"><code>class Solution {
-   
-    public int mySqrt(int a) {
-        long x = a;
-        while (x * x &gt; a) {
-            x = (x + a / x) / 2;
-        }
-        return (int) x;
-    }
-}
-</code></pre>
+<span class="n">func</span> <span class="nf">Constructor</span><span class="p">(</span><span class="n">rects</span> <span class="p">[][]</span><span class="kt">int</span><span class="p">)</span> <span class="n">Solution</span> <span class="p">{</span>
+	<span class="nl">pre</span> <span class="p">:</span><span class="o">=</span> <span class="n">make</span><span class="p">([]</span><span class="kt">int</span><span class="p">,</span> <span class="n">len</span><span class="p">(</span><span class="n">rects</span><span class="p">))</span>
+	<span class="k">for</span> <span class="nl">i</span> <span class="p">:</span><span class="o">=</span> <span class="n">range</span> <span class="n">rects</span> <span class="p">{</span>
+        <span class="c1">//计算每个矩形有几个点
+</span><span class="c1"></span>		<span class="k">if</span> <span class="n">i</span> <span class="o">==</span> <span class="mi">0</span> <span class="p">{</span>
+			<span class="n">pre</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">rects</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">2</span><span class="p">]</span> <span class="o">-</span> <span class="n">rects</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="n">rects</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">3</span><span class="p">]</span> <span class="o">-</span> <span class="n">rects</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
+		<span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+			<span class="n">pre</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">pre</span><span class="p">[</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="p">(</span><span class="n">rects</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">2</span><span class="p">]</span><span class="o">-</span><span class="n">rects</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span><span class="o">*</span><span class="p">(</span><span class="n">rects</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">3</span><span class="p">]</span><span class="o">-</span><span class="n">rects</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span>
+		<span class="p">}</span>
+	<span class="p">}</span>
+	<span class="k">return</span> <span class="n">Solution</span><span class="p">{</span><span class="n">pre</span><span class="p">,</span> <span class="n">rects</span><span class="p">}</span>
+<span class="p">}</span>
+
+<span class="n">func</span> <span class="p">(</span><span class="k">this</span> <span class="o">*</span><span class="n">Solution</span><span class="p">)</span> <span class="n">Pick</span><span class="p">()</span> <span class="p">[]</span><span class="kt">int</span> <span class="p">{</span>
+	<span class="nl">random</span> <span class="p">:</span><span class="o">=</span> <span class="n">rand</span><span class="p">.</span><span class="n">Intn</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="n">pre</span><span class="p">[</span><span class="n">len</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="n">pre</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
+
+    <span class="c1">//二分法用来快速查询在哪个矩形内
+</span><span class="c1"></span>	<span class="nl">l</span> <span class="p">:</span><span class="o">=</span> <span class="mi">0</span>
+	<span class="nl">r</span> <span class="p">:</span><span class="o">=</span> <span class="n">len</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="n">pre</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span>
+	<span class="k">for</span> <span class="n">l</span> <span class="o">&lt;=</span> <span class="n">r</span> <span class="p">{</span>
+		<span class="nl">mid</span> <span class="p">:</span><span class="o">=</span> <span class="p">(</span><span class="n">l</span> <span class="o">+</span> <span class="n">r</span><span class="p">)</span> <span class="o">/</span> <span class="mi">2</span>
+		<span class="k">if</span> <span class="k">this</span><span class="p">.</span><span class="n">pre</span><span class="p">[</span><span class="n">mid</span><span class="p">]</span> <span class="o">&lt;=</span> <span class="n">random</span> <span class="p">{</span>
+			<span class="n">l</span> <span class="o">=</span> <span class="n">mid</span> <span class="o">+</span> <span class="mi">1</span>
+		<span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+			<span class="n">r</span> <span class="o">=</span> <span class="n">mid</span> <span class="o">-</span> <span class="mi">1</span>
+		<span class="p">}</span>
+	<span class="p">}</span>
+	<span class="nl">num</span> <span class="p">:</span><span class="o">=</span> <span class="n">random</span>
+	<span class="k">if</span> <span class="n">l</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="p">{</span>
+		<span class="n">num</span> <span class="o">=</span> <span class="n">random</span> <span class="o">-</span> <span class="k">this</span><span class="p">.</span><span class="n">pre</span><span class="p">[</span><span class="n">l</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+	<span class="p">}</span>
+	<span class="nl">x</span> <span class="p">:</span><span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="n">rects</span><span class="p">[</span><span class="n">l</span><span class="p">][</span><span class="mi">2</span><span class="p">]</span> <span class="o">-</span> <span class="k">this</span><span class="p">.</span><span class="n">rects</span><span class="p">[</span><span class="n">l</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="mi">1</span>
+	<span class="k">return</span> <span class="p">[]</span><span class="kt">int</span><span class="p">{</span><span class="k">this</span><span class="p">.</span><span class="n">rects</span><span class="p">[</span><span class="n">l</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="n">num</span><span class="o">%</span><span class="n">x</span><span class="p">,</span> <span class="k">this</span><span class="p">.</span><span class="n">rects</span><span class="p">[</span><span class="n">l</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="n">num</span><span class="o">/</span><span class="n">x</span><span class="p">}</span>  <span class="c1">//矩形内计算点位置
+</span><span class="c1"></span><span class="p">}</span>
+
+
+<span class="cm">/**
+</span><span class="cm"> * Your Solution object will be instantiated and called as such:
+</span><span class="cm"> * obj := Constructor(rects);
+</span><span class="cm"> * param_1 := obj.Pick();
+</span><span class="cm"> */</span>
+</code></pre></div>
     
 	</div>
   <footer class="article-footer clearfix">
@@ -157,6 +194,12 @@ public:
   
   <a href="https://qkgoalkeeper.github.io/tags/leetcode">LeetCode</a>
   
+  <a href="https://qkgoalkeeper.github.io/tags/golang">golang</a>
+  
+  <a href="https://qkgoalkeeper.github.io/tags/%E5%89%8D%E7%BC%80%E5%92%8C">前缀和</a>
+  
+  <a href="https://qkgoalkeeper.github.io/tags/%E4%BA%8C%E5%88%86%E6%B3%95">二分法</a>
+  
 </div>
 
 
@@ -166,14 +209,14 @@ public:
 <div class="article-categories">
   <span></span>
   
-  <a class="article-category-link" href="https://qkgoalkeeper.github.io/categories/leetcode%E7%AE%80%E5%8D%95%E9%A2%981-100">LeetCode简单题1-100</a>
+  <a class="article-category-link" href="https://qkgoalkeeper.github.io/categories/leetcode%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98">LeetCode每日一题</a>
   
 </div>
 
 
 
   <div class="article-share" id="share">
-    <div data-url="https://qkgoalkeeper.github.io/post/leetcode%E7%AE%80%E5%8D%95%E9%A2%9869.-x-%E7%9A%84%E5%B9%B3%E6%96%B9%E6%A0%B9pythonc&#43;&#43;java/" data-title="LeetCode简单题：69. x 的平方根（Python,C&#43;&#43;,Java）" data-tsina="5852167252" class="share clearfix">
+    <div data-url="https://qkgoalkeeper.github.io/post/leetcode%E6%AF%8F%E6%97%A5%E7%BB%83%E4%B9%A0497.-%E9%9D%9E%E9%87%8D%E5%8F%A0%E7%9F%A9%E5%BD%A2%E4%B8%AD%E7%9A%84%E9%9A%8F%E6%9C%BA%E7%82%B9/" data-title="LeetCode每日练习：497. 非重叠矩形中的随机点" data-tsina="5852167252" class="share clearfix">
     </div>
   </div>
 </footer>
