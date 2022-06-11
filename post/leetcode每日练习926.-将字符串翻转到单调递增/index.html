@@ -2,13 +2,13 @@
 <html lang="zh-CN">
 <head>
   <meta charset="UTF-8">
-  <title>LeetCode数据结构基础第14天：栈&amp;队列 - qkgoalkeeper&#39;s blog</title>
+  <title>LeetCode每日练习：926. 将字符串翻转到单调递增 - qkgoalkeeper&#39;s blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=3, minimum-scale=1">
   
-  <meta name="description" content="一.155. 最小栈 1.题干及思路 设计一个支持 push ，pop ，top 操作，并能在常数时间内检索到最小元素的栈。 push(x) —— 将元素 x 推入栈中。 pop() —— 删除栈">
+  <meta name="description" content="一.926. 将字符串翻转到单调递增 1.题干及思路 如果一个二进制字符串，是以一些 0（可能没有 0）后面跟着一些 1（也可能没有 1）的形式组成的，那">
   
-  <meta itemprop="name" content="LeetCode数据结构基础第14天：栈&amp;队列 - qkgoalkeeper&#39;s blog">
-  <meta itemprop="description" content="一.155. 最小栈 1.题干及思路 设计一个支持 push ，pop ，top 操作，并能在常数时间内检索到最小元素的栈。 push(x) —— 将元素 x 推入栈中。 pop() —— 删除栈">
+  <meta itemprop="name" content="LeetCode每日练习：926. 将字符串翻转到单调递增 - qkgoalkeeper&#39;s blog">
+  <meta itemprop="description" content="一.926. 将字符串翻转到单调递增 1.题干及思路 如果一个二进制字符串，是以一些 0（可能没有 0）后面跟着一些 1（也可能没有 1）的形式组成的，那">
   <meta itemprop="image" content="https://qkgoalkeeper.github.io/img/author.jpg">
   
   
@@ -74,7 +74,7 @@
 	<article itemprop="articleBody">
     <header class="article-info clearfix">
   <h1 itemprop="name">
-      <a href="https://qkgoalkeeper.github.io/post/leetcode%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E5%9F%BA%E7%A1%80%E7%AC%AC14%E5%A4%A9%E6%A0%88%E9%98%9F%E5%88%97/" title="LeetCode数据结构基础第14天：栈&amp;队列" itemprop="url">LeetCode数据结构基础第14天：栈&amp;队列</a>
+      <a href="https://qkgoalkeeper.github.io/post/leetcode%E6%AF%8F%E6%97%A5%E7%BB%83%E4%B9%A0926.-%E5%B0%86%E5%AD%97%E7%AC%A6%E4%B8%B2%E7%BF%BB%E8%BD%AC%E5%88%B0%E5%8D%95%E8%B0%83%E9%80%92%E5%A2%9E/" title="LeetCode每日练习：926. 将字符串翻转到单调递增" itemprop="url">LeetCode每日练习：926. 将字符串翻转到单调递增</a>
   </h1>
   <p class="article-author">By
     
@@ -82,7 +82,7 @@
     
   </p>
   <p class="article-time">
-    <time datetime="2021-11-26 10:55:19 &#43;0800 CST" itemprop="datePublished">2021年11月26日</time>
+    <time datetime="2022-06-11 07:55:19 &#43;0800 CST" itemprop="datePublished">2022年06月11日</time>
   </p>
 </header>
 
@@ -93,202 +93,96 @@
       <nav id="TableOfContents">
   <ul>
     <li><a href="#1题干及思路">1.题干及思路</a></li>
-    <li><a href="#2c实现">2.C++实现</a></li>
-  </ul>
-
-  <ul>
-    <li><a href="#1题干及思路-1">1.题干及思路</a></li>
-    <li><a href="#2c实现-1">2.C++实现</a></li>
-  </ul>
-
-  <ul>
-    <li><a href="#1题干及思路-2">1.题干及思路</a></li>
-    <li><a href="#2c实现-2">2.C++实现</a></li>
+    <li><a href="#2golang实现">2.golang实现</a></li>
   </ul>
 </nav>
 		</div>
     
-    <h1 id="一155-最小栈httpsleetcode-cncomproblemsmin-stack">一.<a href="https://leetcode-cn.com/problems/min-stack/">155. 最小栈</a></h1>
+    <h1 id="一926-将字符串翻转到单调递增httpsleetcodecnproblemsflip-string-to-monotone-increasing">一.<a href="https://leetcode.cn/problems/flip-string-to-monotone-increasing/">926. 将字符串翻转到单调递增</a></h1>
 <h2 id="1题干及思路">1.题干及思路</h2>
-<p>设计一个支持 <code>push</code> ，<code>pop</code> ，<code>top</code> 操作，并能在常数时间内检索到最小元素的栈。</p>
-<ul>
-<li><code>push(x)</code> —— 将元素 x 推入栈中。</li>
-<li><code>pop()</code> —— 删除栈顶的元素。</li>
-<li><code>top()</code> —— 获取栈顶元素。</li>
-<li><code>getMin()</code> —— 检索栈中的最小元素。</li>
-</ul>
-<p><strong>示例:</strong></p>
-<pre tabindex="0"><code>输入：
-[&quot;MinStack&quot;,&quot;push&quot;,&quot;push&quot;,&quot;push&quot;,&quot;getMin&quot;,&quot;pop&quot;,&quot;top&quot;,&quot;getMin&quot;]
-[[],[-2],[0],[-3],[],[],[],[]]
-
-输出：
-[null,null,null,null,-3,null,0,-2]
-
-解释：
-MinStack minStack = new MinStack();
-minStack.push(-2);
-minStack.push(0);
-minStack.push(-3);
-minStack.getMin();   --&gt; 返回 -3.
-minStack.pop();
-minStack.top();      --&gt; 返回 0.
-minStack.getMin();   --&gt; 返回 -2.
-</code></pre><p><strong>提示：</strong></p>
-<ul>
-<li><code>pop</code>、<code>top</code> 和 <code>getMin</code> 操作总是在 <strong>非空栈</strong> 上调用。</li>
-</ul>
-<p>要点：栈</p>
-<p>思路：添加一个辅助栈高度和原栈保持一致，辅助栈存当前栈高以及以下的最小值</p>
-<h2 id="2c实现">2.C++实现</h2>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="k">class</span> <span class="nc">MinStack</span> <span class="p">{</span>
-<span class="k">public</span><span class="o">:</span>
-    <span class="n">stack</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">x_stack</span><span class="p">;</span>
-    <span class="n">stack</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">min_stack</span><span class="p">;</span>
-    <span class="n">MinStack</span><span class="p">()</span> <span class="p">{</span>
-
-    <span class="p">}</span>
-    
-    <span class="kt">void</span> <span class="nf">push</span><span class="p">(</span><span class="kt">int</span> <span class="n">val</span><span class="p">)</span> <span class="p">{</span>
-        <span class="k">if</span><span class="p">(</span><span class="n">x_stack</span><span class="p">.</span><span class="n">empty</span><span class="p">())</span> <span class="n">min_stack</span><span class="p">.</span><span class="n">push</span><span class="p">(</span><span class="n">val</span><span class="p">);</span>
-        <span class="k">else</span><span class="p">{</span>
-            <span class="kt">int</span> <span class="n">temp</span> <span class="o">=</span> <span class="n">min_stack</span><span class="p">.</span><span class="n">top</span><span class="p">();</span>
-            <span class="k">if</span><span class="p">(</span><span class="n">temp</span><span class="o">&lt;</span><span class="n">val</span><span class="p">){</span>
-                <span class="n">min_stack</span><span class="p">.</span><span class="n">push</span><span class="p">(</span><span class="n">temp</span><span class="p">);</span>
-            <span class="p">}</span>
-            <span class="k">else</span><span class="p">{</span>
-                <span class="n">min_stack</span><span class="p">.</span><span class="n">push</span><span class="p">(</span><span class="n">val</span><span class="p">);</span>
-            <span class="p">}</span>
-        <span class="p">}</span>
-        <span class="n">x_stack</span><span class="p">.</span><span class="n">push</span><span class="p">(</span><span class="n">val</span><span class="p">);</span>
-    <span class="p">}</span>
-    
-    <span class="kt">void</span> <span class="nf">pop</span><span class="p">()</span> <span class="p">{</span>
-        <span class="n">x_stack</span><span class="p">.</span><span class="n">pop</span><span class="p">();</span>
-        <span class="n">min_stack</span><span class="p">.</span><span class="n">pop</span><span class="p">();</span>
-    <span class="p">}</span>
-    
-    <span class="kt">int</span> <span class="nf">top</span><span class="p">()</span> <span class="p">{</span>
-        <span class="k">return</span> <span class="n">x_stack</span><span class="p">.</span><span class="n">top</span><span class="p">();</span>
-    <span class="p">}</span>
-    
-    <span class="kt">int</span> <span class="nf">getMin</span><span class="p">()</span> <span class="p">{</span>
-        <span class="k">return</span> <span class="n">min_stack</span><span class="p">.</span><span class="n">top</span><span class="p">();</span>
-    <span class="p">}</span>
-<span class="p">};</span>
-
-<span class="cm">/**
-</span><span class="cm"> * Your MinStack object will be instantiated and called as such:
-</span><span class="cm"> * MinStack* obj = new MinStack();
-</span><span class="cm"> * obj-&gt;push(val);
-</span><span class="cm"> * obj-&gt;pop();
-</span><span class="cm"> * int param_3 = obj-&gt;top();
-</span><span class="cm"> * int param_4 = obj-&gt;getMin();
-</span><span class="cm"> */</span>
-                                                                                    
-</code></pre></div><h1 id="二1249-移除无效的括号httpsleetcode-cncomproblemsminimum-remove-to-make-valid-parentheses">二.<a href="https://leetcode-cn.com/problems/minimum-remove-to-make-valid-parentheses/">1249. 移除无效的括号</a></h1>
-<h2 id="1题干及思路-1">1.题干及思路</h2>
-<p>给你一个由 <code>'('</code>、<code>')'</code> 和小写字母组成的字符串 <code>s</code>。</p>
-<p>你需要从字符串中删除最少数目的 <code>'('</code> 或者 <code>')'</code> （可以删除任意位置的括号)，使得剩下的「括号字符串」有效。</p>
-<p>请返回任意一个合法字符串。</p>
-<p>有效「括号字符串」应当符合以下 <strong>任意一条</strong> 要求：</p>
-<ul>
-<li>空字符串或只包含小写字母的字符串</li>
-<li>可以被写作 <code>AB</code>（<code>A</code> 连接 <code>B</code>）的字符串，其中 <code>A</code> 和 <code>B</code> 都是有效「括号字符串」</li>
-<li>可以被写作 <code>(A)</code> 的字符串，其中 <code>A</code> 是一个有效的「括号字符串」</li>
-</ul>
+<p>如果一个二进制字符串，是以一些 <code>0</code>（可能没有 <code>0</code>）后面跟着一些 <code>1</code>（也可能没有 <code>1</code>）的形式组成的，那么该字符串是 <strong>单调递增</strong> 的。</p>
+<p>给你一个二进制字符串 <code>s</code>，你可以将任何 <code>0</code> 翻转为 <code>1</code> 或者将 <code>1</code> 翻转为 <code>0</code> 。</p>
+<p>返回使 <code>s</code> 单调递增的最小翻转次数。</p>
 <p><strong>示例 1：</strong></p>
-<pre tabindex="0"><code>输入：s = &quot;lee(t(c)o)de)&quot;
-输出：&quot;lee(t(c)o)de&quot;
-解释：&quot;lee(t(co)de)&quot; , &quot;lee(t(c)ode)&quot; 也是一个可行答案。
-</code></pre><p><strong>示例 2：</strong></p>
-<pre tabindex="0"><code>输入：s = &quot;a)b(c)d&quot;
-输出：&quot;ab(c)d&quot;
-</code></pre><p><strong>示例 3：</strong></p>
-<pre tabindex="0"><code>输入：s = &quot;))((&quot;
-输出：&quot;&quot;
-解释：空字符串也是有效的
-</code></pre><p><strong>示例 4：</strong></p>
-<pre tabindex="0"><code>输入：s = &quot;(a(b(c)d)&quot;
-输出：&quot;a(b(c)d)&quot;
-</code></pre><p><strong>提示：</strong></p>
-<ul>
-<li><code>1 &lt;= s.length &lt;= 10^5</code></li>
-<li><code>s[i]</code> 可能是 <code>'('</code>、<code>')'</code> 或英文小写字母</li>
-</ul>
-<p>要点：栈</p>
-<p>思路：用栈存括号，对于右括号有左括号就pop左括号，否则标记该右括号为*，遍历字符串完毕后如果栈中还有左括号则把这些左括号也标记为*，最后把所有*删除即可</p>
-<h2 id="2c实现-1">2.C++实现</h2>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="k">class</span> <span class="nc">Solution</span> <span class="p">{</span>
-<span class="k">public</span><span class="o">:</span>
-    <span class="n">string</span> <span class="n">minRemoveToMakeValid</span><span class="p">(</span><span class="n">string</span> <span class="n">s</span><span class="p">)</span> <span class="p">{</span>
-        <span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">worker</span><span class="p">;</span>
-        <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">s</span><span class="p">.</span><span class="n">size</span><span class="p">();</span> <span class="o">++</span><span class="n">i</span><span class="p">)</span> <span class="p">{</span>
-            <span class="k">if</span> <span class="p">(</span><span class="n">s</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">==</span> <span class="sc">&#39;)&#39;</span><span class="p">)</span>
-                <span class="k">if</span><span class="p">(</span><span class="n">worker</span><span class="p">.</span><span class="n">size</span><span class="p">()</span><span class="o">!=</span><span class="mi">0</span><span class="p">){</span>
-                    <span class="n">worker</span><span class="p">.</span><span class="n">pop_back</span><span class="p">();</span>
-                <span class="p">}</span>
-                <span class="k">else</span><span class="p">{</span>
-                    <span class="n">s</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="sc">&#39;*&#39;</span><span class="p">;</span>
-                <span class="p">}</span>
-            <span class="k">else</span> <span class="nf">if</span> <span class="p">(</span><span class="n">s</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">==</span> <span class="sc">&#39;(&#39;</span><span class="p">)</span> <span class="n">worker</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">i</span><span class="p">);</span>
-        <span class="p">}</span>
-        <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span><span class="n">i</span><span class="o">&lt;</span><span class="n">worker</span><span class="p">.</span><span class="n">size</span><span class="p">();</span><span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="n">s</span><span class="p">[</span><span class="n">worker</span><span class="p">[</span><span class="n">i</span><span class="p">]]</span> <span class="o">=</span> <span class="sc">&#39;*&#39;</span><span class="p">;</span>
-        <span class="n">s</span><span class="p">.</span><span class="n">erase</span><span class="p">(</span><span class="n">remove</span><span class="p">(</span><span class="n">s</span><span class="p">.</span><span class="n">begin</span><span class="p">(),</span> <span class="n">s</span><span class="p">.</span><span class="n">end</span><span class="p">(),</span> <span class="sc">&#39;*&#39;</span><span class="p">),</span> <span class="n">s</span><span class="p">.</span><span class="n">end</span><span class="p">());</span>
-        <span class="k">return</span> <span class="n">s</span><span class="p">;</span>
-    <span class="p">}</span>
-<span class="p">};</span>
-
-
-</code></pre></div><h1 id="三1823-找出游戏的获胜者httpsleetcode-cncomproblemsfind-the-winner-of-the-circular-game">三.<a href="https://leetcode-cn.com/problems/find-the-winner-of-the-circular-game/">1823. 找出游戏的获胜者</a></h1>
-<h2 id="1题干及思路-2">1.题干及思路</h2>
-<p>共有 <code>n</code> 名小伙伴一起做游戏。小伙伴们围成一圈，按 <strong>顺时针顺序</strong> 从 <code>1</code> 到 <code>n</code> 编号。确切地说，从第 <code>i</code> 名小伙伴顺时针移动一位会到达第 <code>(i+1)</code> 名小伙伴的位置，其中 <code>1 &lt;= i &lt; n</code> ，从第 <code>n</code> 名小伙伴顺时针移动一位会回到第 <code>1</code> 名小伙伴的位置。</p>
-<p>游戏遵循如下规则：</p>
-<ol>
-<li>从第 <code>1</code> 名小伙伴所在位置 <strong>开始</strong> 。</li>
-<li>沿着顺时针方向数 <code>k</code> 名小伙伴，计数时需要 <strong>包含</strong> 起始时的那位小伙伴。逐个绕圈进行计数，一些小伙伴可能会被数过不止一次。</li>
-<li>你数到的最后一名小伙伴需要离开圈子，并视作输掉游戏。</li>
-<li>如果圈子中仍然有不止一名小伙伴，从刚刚输掉的小伙伴的 <strong>顺时针下一位</strong> 小伙伴 <strong>开始</strong>，回到步骤 <code>2</code> 继续执行。</li>
-<li>否则，圈子中最后一名小伙伴赢得游戏。</li>
-</ol>
-<p>给你参与游戏的小伙伴总数 <code>n</code> ，和一个整数 <code>k</code> ，返回游戏的获胜者。</p>
-<p><strong>示例 1：</strong></p>
-<p><img src="https://assets.leetcode.com/uploads/2021/03/25/ic234-q2-ex11.png" alt="img"></p>
-<pre tabindex="0"><code>输入：n = 5, k = 2
-输出：3
-解释：游戏运行步骤如下：
-1) 从小伙伴 1 开始。
-2) 顺时针数 2 名小伙伴，也就是小伙伴 1 和 2 。
-3) 小伙伴 2 离开圈子。下一次从小伙伴 3 开始。
-4) 顺时针数 2 名小伙伴，也就是小伙伴 3 和 4 。
-5) 小伙伴 4 离开圈子。下一次从小伙伴 5 开始。
-6) 顺时针数 2 名小伙伴，也就是小伙伴 5 和 1 。
-7) 小伙伴 1 离开圈子。下一次从小伙伴 3 开始。
-8) 顺时针数 2 名小伙伴，也就是小伙伴 3 和 5 。
-9) 小伙伴 5 离开圈子。只剩下小伙伴 3 。所以小伙伴 3 是游戏的获胜者。
-</code></pre><p><strong>示例 2：</strong></p>
-<pre tabindex="0"><code>输入：n = 6, k = 5
+<pre tabindex="0"><code>输入：s = &quot;00110&quot;
 输出：1
-解释：小伙伴离开圈子的顺序：5、4、6、2、3 。小伙伴 1 是游戏的获胜者。
+解释：翻转最后一位得到 00111.
+</code></pre><p><strong>示例 2：</strong></p>
+<pre tabindex="0"><code>输入：s = &quot;010110&quot;
+输出：2
+解释：翻转得到 011111，或者是 000111。
+</code></pre><p><strong>示例 3：</strong></p>
+<pre tabindex="0"><code>输入：s = &quot;00011000&quot;
+输出：2
+解释：翻转得到 00000000。
 </code></pre><p><strong>提示：</strong></p>
 <ul>
-<li><code>1 &lt;= k &lt;= n &lt;= 500</code></li>
+<li><code>1 &lt;= s.length &lt;= 105</code></li>
+<li><code>s[i]</code> 为 <code>'0'</code> 或 <code>'1'</code></li>
 </ul>
-<p>要点：队列</p>
-<p>思路：约瑟夫环问题，可以直接用vector模拟，也可以用动态规划dp(n,k)=(dp(n-1,k)+k)%n</p>
-<h2 id="2c实现-2">2.C++实现</h2>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="k">class</span> <span class="nc">Solution</span> <span class="p">{</span>
-<span class="k">public</span><span class="o">:</span>
-    <span class="kt">int</span> <span class="n">dp</span><span class="p">(</span><span class="kt">int</span> <span class="n">n</span><span class="p">,</span> <span class="kt">int</span> <span class="n">k</span><span class="p">)</span> <span class="p">{</span>
-        <span class="k">if</span> <span class="p">(</span><span class="n">n</span> <span class="o">==</span> <span class="mi">1</span><span class="p">)</span> <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
-        <span class="k">return</span> <span class="p">(</span><span class="n">dp</span><span class="p">(</span><span class="n">n</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="n">k</span><span class="p">)</span> <span class="o">+</span> <span class="n">k</span><span class="p">)</span> <span class="o">%</span> <span class="n">n</span><span class="p">;</span>
+<p>要点：动态规划</p>
+<p>思路：用一个dp[len(s)][2]二维dp数组保存状态，dp[i][0]表示到i位置为止i位置为“1”时成为单调递增所需步数，dp[i][1]表示到i位置为止i位置为“0”时成为单调递增所需步数，转移方程见循环部分，可以用取模滚动来节约空间</p>
+<h2 id="2golang实现">2.golang实现</h2>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++">
+<span class="c1">// func minFlipsMonoIncr(s string) int {
+</span><span class="c1">//     n := len(s)
+</span><span class="c1">//     dp:=make([][]int,n)
+</span><span class="c1">//     for i:=range dp{
+</span><span class="c1">//         dp[i] = make([]int,2)
+</span><span class="c1">//     }
+</span><span class="c1">//     if s[0]==&#39;0&#39;{
+</span><span class="c1">//         dp[0][0] = 0
+</span><span class="c1">//         dp[0][1] = 0
+</span><span class="c1">//     }else{
+</span><span class="c1">//         dp[0][0] = 0
+</span><span class="c1">//         dp[0][1] = 1
+</span><span class="c1">//     }
+</span><span class="c1"></span>
+<span class="c1">//     for i:=1;i&lt;n;i++{
+</span><span class="c1">//         if s[i]==&#39;0&#39;{
+</span><span class="c1">//             dp[i][0] = min(dp[i-1][0],dp[i-1][1])+1
+</span><span class="c1">//             dp[i][1] = dp[i-1][1]
+</span><span class="c1">//         }else{
+</span><span class="c1">//             dp[i][0] = min(dp[i-1][0],dp[i-1][1])
+</span><span class="c1">//             dp[i][1] = dp[i-1][1]+1
+</span><span class="c1">//         }
+</span><span class="c1">//     }
+</span><span class="c1"></span>
+<span class="c1">//     return min(dp[n-1][0],dp[n-1][1])
+</span><span class="c1">// }
+</span><span class="c1"></span>
+<span class="c1">//用取模滚动数组来节约空间
+</span><span class="c1"></span><span class="n">func</span> <span class="nf">minFlipsMonoIncr</span><span class="p">(</span><span class="n">s</span> <span class="n">string</span><span class="p">)</span> <span class="kt">int</span> <span class="p">{</span>
+    <span class="nl">n</span> <span class="p">:</span><span class="o">=</span> <span class="n">len</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>
+    <span class="nl">dp</span><span class="p">:</span><span class="o">=</span><span class="p">[</span><span class="mi">2</span><span class="p">][</span><span class="mi">2</span><span class="p">]</span><span class="kt">int</span><span class="p">{}</span>
+    <span class="k">if</span> <span class="n">s</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">==</span><span class="sc">&#39;0&#39;</span><span class="p">{</span>
+        <span class="n">dp</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="n">dp</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="p">}</span><span class="k">else</span><span class="p">{</span>
+        <span class="n">dp</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="n">dp</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>
     <span class="p">}</span>
-    <span class="kt">int</span> <span class="nf">findTheWinner</span><span class="p">(</span><span class="kt">int</span> <span class="n">n</span><span class="p">,</span> <span class="kt">int</span> <span class="n">k</span><span class="p">)</span> <span class="p">{</span>
-        <span class="k">return</span> <span class="n">dp</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">k</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span><span class="p">;</span>
+
+    <span class="k">for</span> <span class="nl">i</span><span class="p">:</span><span class="o">=</span><span class="mi">1</span><span class="p">;</span><span class="n">i</span><span class="o">&lt;</span><span class="n">n</span><span class="p">;</span><span class="n">i</span><span class="o">++</span><span class="p">{</span>
+        <span class="k">if</span> <span class="n">s</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">==</span><span class="sc">&#39;0&#39;</span><span class="p">{</span>
+            <span class="n">dp</span><span class="p">[</span><span class="n">i</span><span class="o">%</span><span class="mi">2</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">min</span><span class="p">(</span><span class="n">dp</span><span class="p">[(</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span><span class="o">%</span><span class="mi">2</span><span class="p">][</span><span class="mi">0</span><span class="p">],</span><span class="n">dp</span><span class="p">[(</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span><span class="o">%</span><span class="mi">2</span><span class="p">][</span><span class="mi">1</span><span class="p">])</span><span class="o">+</span><span class="mi">1</span>
+            <span class="n">dp</span><span class="p">[</span><span class="n">i</span><span class="o">%</span><span class="mi">2</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">dp</span><span class="p">[(</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span><span class="o">%</span><span class="mi">2</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span>
+        <span class="p">}</span><span class="k">else</span><span class="p">{</span>
+            <span class="n">dp</span><span class="p">[</span><span class="n">i</span><span class="o">%</span><span class="mi">2</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">min</span><span class="p">(</span><span class="n">dp</span><span class="p">[(</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span><span class="o">%</span><span class="mi">2</span><span class="p">][</span><span class="mi">0</span><span class="p">],</span><span class="n">dp</span><span class="p">[(</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span><span class="o">%</span><span class="mi">2</span><span class="p">][</span><span class="mi">1</span><span class="p">])</span>
+            <span class="n">dp</span><span class="p">[</span><span class="n">i</span><span class="o">%</span><span class="mi">2</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">dp</span><span class="p">[(</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span><span class="o">%</span><span class="mi">2</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span><span class="o">+</span><span class="mi">1</span>
+        <span class="p">}</span>
     <span class="p">}</span>
-<span class="p">};</span>
 
+    <span class="k">return</span> <span class="n">min</span><span class="p">(</span><span class="n">dp</span><span class="p">[(</span><span class="n">n</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">%</span><span class="mi">2</span><span class="p">][</span><span class="mi">0</span><span class="p">],</span><span class="n">dp</span><span class="p">[(</span><span class="n">n</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">%</span><span class="mi">2</span><span class="p">][</span><span class="mi">1</span><span class="p">])</span>
 
+<span class="p">}</span>
+
+<span class="n">func</span> <span class="nf">min</span><span class="p">(</span><span class="n">a</span> <span class="kt">int</span><span class="p">,</span><span class="n">b</span> <span class="kt">int</span><span class="p">)</span> <span class="kt">int</span><span class="p">{</span>
+    <span class="k">if</span> <span class="n">a</span><span class="o">&lt;=</span><span class="n">b</span><span class="p">{</span>
+        <span class="k">return</span> <span class="n">a</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="n">b</span>
+<span class="p">}</span>
 </code></pre></div>
     
 	</div>
@@ -300,7 +194,9 @@ minStack.getMin();   --&gt; 返回 -2.
   
   <a href="https://qkgoalkeeper.github.io/tags/leetcode">LeetCode</a>
   
-  <a href="https://qkgoalkeeper.github.io/tags/c&#43;&#43;">C&#43;&#43;</a>
+  <a href="https://qkgoalkeeper.github.io/tags/golang">golang</a>
+  
+  <a href="https://qkgoalkeeper.github.io/tags/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92">动态规划</a>
   
 </div>
 
@@ -311,14 +207,14 @@ minStack.getMin();   --&gt; 返回 -2.
 <div class="article-categories">
   <span></span>
   
-  <a class="article-category-link" href="https://qkgoalkeeper.github.io/categories/%E5%A4%A7%E5%9B%9Bleetcode%E7%AE%97%E6%B3%95%E5%88%B7%E9%A2%98">大四LeetCode算法刷题</a>
+  <a class="article-category-link" href="https://qkgoalkeeper.github.io/categories/leetcode%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98">LeetCode每日一题</a>
   
 </div>
 
 
 
   <div class="article-share" id="share">
-    <div data-url="https://qkgoalkeeper.github.io/post/leetcode%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E5%9F%BA%E7%A1%80%E7%AC%AC14%E5%A4%A9%E6%A0%88%E9%98%9F%E5%88%97/" data-title="LeetCode数据结构基础第14天：栈&amp;队列" data-tsina="5852167252" class="share clearfix">
+    <div data-url="https://qkgoalkeeper.github.io/post/leetcode%E6%AF%8F%E6%97%A5%E7%BB%83%E4%B9%A0926.-%E5%B0%86%E5%AD%97%E7%AC%A6%E4%B8%B2%E7%BF%BB%E8%BD%AC%E5%88%B0%E5%8D%95%E8%B0%83%E9%80%92%E5%A2%9E/" data-title="LeetCode每日练习：926. 将字符串翻转到单调递增" data-tsina="5852167252" class="share clearfix">
     </div>
   </div>
 </footer>
