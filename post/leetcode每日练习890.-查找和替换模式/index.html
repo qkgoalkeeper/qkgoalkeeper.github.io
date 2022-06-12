@@ -2,13 +2,13 @@
 <html lang="zh-CN">
 <head>
   <meta charset="UTF-8">
-  <title>LeetCode每日练习：剑指 Offer 64. 求1&#43;2&#43;…&#43;n - qkgoalkeeper&#39;s blog</title>
+  <title>LeetCode每日练习：890. 查找和替换模式 - qkgoalkeeper&#39;s blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=3, minimum-scale=1">
   
-  <meta name="description" content="一.剑指 Offer 64. 求1&#43;2&#43;…&#43;n 1.题干及思路 求 1&#43;2&#43;...&#43;n ，要求不能使用乘除法、for、while、if、else、switch、case等关键字及条件">
+  <meta name="description" content="一.890. 查找和替换模式 1.题干及思路 你有一个单词列表 words 和一个模式 pattern，你想知道 words 中的哪些单词与模式匹配。 如果存在字母的排列 p ，">
   
-  <meta itemprop="name" content="LeetCode每日练习：剑指 Offer 64. 求1&#43;2&#43;…&#43;n - qkgoalkeeper&#39;s blog">
-  <meta itemprop="description" content="一.剑指 Offer 64. 求1&#43;2&#43;…&#43;n 1.题干及思路 求 1&#43;2&#43;...&#43;n ，要求不能使用乘除法、for、while、if、else、switch、case等关键字及条件">
+  <meta itemprop="name" content="LeetCode每日练习：890. 查找和替换模式 - qkgoalkeeper&#39;s blog">
+  <meta itemprop="description" content="一.890. 查找和替换模式 1.题干及思路 你有一个单词列表 words 和一个模式 pattern，你想知道 words 中的哪些单词与模式匹配。 如果存在字母的排列 p ，">
   <meta itemprop="image" content="https://qkgoalkeeper.github.io/img/author.jpg">
   
   
@@ -74,7 +74,7 @@
 	<article itemprop="articleBody">
     <header class="article-info clearfix">
   <h1 itemprop="name">
-      <a href="https://qkgoalkeeper.github.io/post/leetcode%E6%AF%8F%E6%97%A5%E7%BB%83%E4%B9%A0%E5%89%91%E6%8C%87-offer-64.-%E6%B1%821&#43;2&#43;&#43;n/" title="LeetCode每日练习：剑指 Offer 64. 求1&#43;2&#43;…&#43;n" itemprop="url">LeetCode每日练习：剑指 Offer 64. 求1&#43;2&#43;…&#43;n</a>
+      <a href="https://qkgoalkeeper.github.io/post/leetcode%E6%AF%8F%E6%97%A5%E7%BB%83%E4%B9%A0890.-%E6%9F%A5%E6%89%BE%E5%92%8C%E6%9B%BF%E6%8D%A2%E6%A8%A1%E5%BC%8F/" title="LeetCode每日练习：890. 查找和替换模式" itemprop="url">LeetCode每日练习：890. 查找和替换模式</a>
   </h1>
   <p class="article-author">By
     
@@ -82,7 +82,7 @@
     
   </p>
   <p class="article-time">
-    <time datetime="2022-02-03 10:55:19 &#43;0800 CST" itemprop="datePublished">2022年02月03日</time>
+    <time datetime="2022-06-12 07:55:19 &#43;0800 CST" itemprop="datePublished">2022年06月12日</time>
   </p>
 </header>
 
@@ -93,36 +93,69 @@
       <nav id="TableOfContents">
   <ul>
     <li><a href="#1题干及思路">1.题干及思路</a></li>
-    <li><a href="#2c实现">2.C++实现</a></li>
+    <li><a href="#2golang实现">2.golang实现</a></li>
   </ul>
 </nav>
 		</div>
     
-    <h1 id="一剑指-offer-64-求12nhttpsleetcode-cncomproblemsqiu-12n-lcof">一.<a href="https://leetcode-cn.com/problems/qiu-12n-lcof/">剑指 Offer 64. 求1+2+…+n</a></h1>
+    <h1 id="一890-查找和替换模式httpsleetcodecnproblemsfind-and-replace-pattern">一.<a href="https://leetcode.cn/problems/find-and-replace-pattern/">890. 查找和替换模式</a></h1>
 <h2 id="1题干及思路">1.题干及思路</h2>
-<p>求 <code>1+2+...+n</code> ，要求不能使用乘除法、for、while、if、else、switch、case等关键字及条件判断语句（A?B:C）。</p>
-<p><strong>示例 1：</strong></p>
-<pre tabindex="0"><code>输入: n = 3
-输出: 6
-</code></pre><p><strong>示例 2：</strong></p>
-<pre tabindex="0"><code>输入: n = 9
-输出: 45
-</code></pre><p><strong>限制：</strong></p>
+<p>你有一个单词列表 <code>words</code> 和一个模式 <code>pattern</code>，你想知道 <code>words</code> 中的哪些单词与模式匹配。</p>
+<p>如果存在字母的排列 <code>p</code> ，使得将模式中的每个字母 <code>x</code> 替换为 <code>p(x)</code> 之后，我们就得到了所需的单词，那么单词与模式是匹配的。</p>
+<p><em>（回想一下，字母的排列是从字母到字母的双射：每个字母映射到另一个字母，没有两个字母映射到同一个字母。）</em></p>
+<p>返回 <code>words</code> 中与给定模式匹配的单词列表。</p>
+<p>你可以按任何顺序返回答案。</p>
+<p><strong>示例：</strong></p>
+<pre tabindex="0"><code>输入：words = [&quot;abc&quot;,&quot;deq&quot;,&quot;mee&quot;,&quot;aqq&quot;,&quot;dkd&quot;,&quot;ccc&quot;], pattern = &quot;abb&quot;
+输出：[&quot;mee&quot;,&quot;aqq&quot;]
+解释：
+&quot;mee&quot; 与模式匹配，因为存在排列 {a -&gt; m, b -&gt; e, ...}。
+&quot;ccc&quot; 与模式不匹配，因为 {a -&gt; c, b -&gt; c, ...} 不是排列。
+因为 a 和 b 映射到同一个字母。
+</code></pre><p><strong>提示：</strong></p>
 <ul>
-<li><code>1 &lt;= n &lt;= 10000</code></li>
+<li><code>1 &lt;= words.length &lt;= 50</code></li>
+<li><code>1 &lt;= pattern.length = words[i].length &lt;= 20</code></li>
 </ul>
-<p>要点：递归</p>
-<p>思路：用递归实现加法并避免循环，用&amp;&amp;代替if进行递归的终止</p>
-<h2 id="2c实现">2.C++实现</h2>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="k">class</span> <span class="nc">Solution</span> <span class="p">{</span>
-<span class="k">public</span><span class="o">:</span>
-    <span class="kt">int</span> <span class="n">sumNums</span><span class="p">(</span><span class="kt">int</span> <span class="n">n</span><span class="p">)</span> <span class="p">{</span>
-        <span class="kt">int</span> <span class="n">res</span><span class="o">=</span><span class="n">n</span><span class="p">;</span>
-        <span class="n">n</span><span class="o">&gt;</span><span class="mi">0</span><span class="o">&amp;&amp;</span><span class="p">(</span><span class="n">res</span><span class="o">+=</span><span class="n">sumNums</span><span class="p">(</span><span class="n">n</span><span class="o">-</span><span class="mi">1</span><span class="p">));</span> <span class="c1">// 递归实现
-</span><span class="c1"></span>        <span class="k">return</span> <span class="n">res</span><span class="p">;</span>
-    <span class="p">}</span>
-<span class="p">};</span>
+<p>要点：哈希表</p>
+<p>思路：golang哈希表的练习，注意点是string中的字符在golang中以byte形式保存，patternCheck匿名函数用map保存对应关系，用一个set避免重复的对应关系</p>
+<h2 id="2golang实现">2.golang实现</h2>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="n">func</span> <span class="nf">findAndReplacePattern</span><span class="p">(</span><span class="n">words</span> <span class="p">[]</span><span class="n">string</span><span class="p">,</span> <span class="n">pattern</span> <span class="n">string</span><span class="p">)</span> <span class="p">[]</span><span class="n">string</span> <span class="p">{</span>
+    <span class="nl">answer</span> <span class="p">:</span><span class="o">=</span> <span class="n">make</span><span class="p">([]</span><span class="n">string</span><span class="p">,</span><span class="mi">0</span><span class="p">)</span>
 
+    <span class="c1">//匿名函数的用法    
+</span><span class="c1"></span>    <span class="nl">patternCheck</span> <span class="p">:</span><span class="o">=</span> <span class="n">func</span><span class="p">(</span><span class="n">a</span> <span class="n">string</span><span class="p">,</span><span class="n">b</span> <span class="n">string</span><span class="p">)</span><span class="kt">bool</span><span class="p">{</span>
+        <span class="k">if</span> <span class="n">len</span><span class="p">(</span><span class="n">a</span><span class="p">)</span><span class="o">!=</span><span class="n">len</span><span class="p">(</span><span class="n">b</span><span class="p">){</span>
+            <span class="k">return</span> <span class="nb">false</span>
+        <span class="p">}</span>
+        <span class="nl">m</span> <span class="p">:</span><span class="o">=</span> <span class="n">make</span><span class="p">(</span><span class="n">map</span><span class="p">[</span><span class="n">byte</span><span class="p">]</span><span class="n">byte</span><span class="p">)</span>
+        <span class="nl">n</span> <span class="p">:</span><span class="o">=</span> <span class="n">make</span><span class="p">(</span><span class="n">map</span><span class="p">[</span><span class="n">byte</span><span class="p">]</span><span class="kt">bool</span><span class="p">)</span>
+        <span class="k">for</span> <span class="nl">i</span><span class="p">:</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span><span class="n">i</span><span class="o">&lt;</span><span class="n">len</span><span class="p">(</span><span class="n">a</span><span class="p">);</span><span class="n">i</span><span class="o">++</span><span class="p">{</span>
+            <span class="n">val</span><span class="p">,</span><span class="nl">ok</span> <span class="p">:</span><span class="o">=</span> <span class="n">m</span><span class="p">[</span><span class="n">a</span><span class="p">[</span><span class="n">i</span><span class="p">]]</span> <span class="c1">//看看之前是否已经记录过a[i]对应什么
+</span><span class="c1"></span>            <span class="k">if</span> <span class="n">ok</span><span class="p">{</span>
+                <span class="k">if</span><span class="p">(</span><span class="n">val</span><span class="o">!=</span><span class="n">b</span><span class="p">[</span><span class="n">i</span><span class="p">]){</span>
+                    <span class="k">return</span> <span class="nb">false</span>
+                <span class="p">}</span>
+            <span class="p">}</span><span class="k">else</span><span class="p">{</span>
+                <span class="n">_</span><span class="p">,</span><span class="nl">ok2</span><span class="p">:</span><span class="o">=</span><span class="n">n</span><span class="p">[</span><span class="n">b</span><span class="p">[</span><span class="n">i</span><span class="p">]]</span> <span class="c1">//看看b[i]是否已经对应了之前的a中字符
+</span><span class="c1"></span>                <span class="k">if</span><span class="p">(</span><span class="n">ok2</span><span class="p">){</span>
+                    <span class="k">return</span> <span class="nb">false</span>
+                <span class="p">}</span>
+                <span class="n">m</span><span class="p">[</span><span class="n">a</span><span class="p">[</span><span class="n">i</span><span class="p">]]</span> <span class="o">=</span> <span class="n">b</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+                <span class="n">n</span><span class="p">[</span><span class="n">b</span><span class="p">[</span><span class="n">i</span><span class="p">]]</span> <span class="o">=</span> <span class="nb">true</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+        <span class="k">return</span> <span class="nb">true</span>
+    <span class="p">}</span>
+
+    <span class="k">for</span> <span class="n">_</span><span class="p">,</span><span class="nl">word</span><span class="p">:</span><span class="o">=</span><span class="n">range</span> <span class="n">words</span><span class="p">{</span>
+        <span class="k">if</span> <span class="n">patternCheck</span><span class="p">(</span><span class="n">pattern</span><span class="p">,</span><span class="n">word</span><span class="p">){</span>
+            <span class="n">answer</span> <span class="o">=</span> <span class="n">append</span><span class="p">(</span><span class="n">answer</span><span class="p">,</span><span class="n">word</span><span class="p">)</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+
+    <span class="k">return</span> <span class="n">answer</span>
+<span class="p">}</span>
 </code></pre></div>
     
 	</div>
@@ -134,7 +167,9 @@
   
   <a href="https://qkgoalkeeper.github.io/tags/leetcode">LeetCode</a>
   
-  <a href="https://qkgoalkeeper.github.io/tags/c&#43;&#43;">C&#43;&#43;</a>
+  <a href="https://qkgoalkeeper.github.io/tags/golang">golang</a>
+  
+  <a href="https://qkgoalkeeper.github.io/tags/%E5%93%88%E5%B8%8C%E8%A1%A8">哈希表</a>
   
 </div>
 
@@ -145,14 +180,14 @@
 <div class="article-categories">
   <span></span>
   
-  <a class="article-category-link" href="https://qkgoalkeeper.github.io/categories/%E5%A4%A7%E5%9B%9Bleetcode%E7%AE%97%E6%B3%95%E5%88%B7%E9%A2%98">大四LeetCode算法刷题</a>
+  <a class="article-category-link" href="https://qkgoalkeeper.github.io/categories/leetcode%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98">LeetCode每日一题</a>
   
 </div>
 
 
 
   <div class="article-share" id="share">
-    <div data-url="https://qkgoalkeeper.github.io/post/leetcode%E6%AF%8F%E6%97%A5%E7%BB%83%E4%B9%A0%E5%89%91%E6%8C%87-offer-64.-%E6%B1%821&#43;2&#43;&#43;n/" data-title="LeetCode每日练习：剑指 Offer 64. 求1&#43;2&#43;…&#43;n" data-tsina="5852167252" class="share clearfix">
+    <div data-url="https://qkgoalkeeper.github.io/post/leetcode%E6%AF%8F%E6%97%A5%E7%BB%83%E4%B9%A0890.-%E6%9F%A5%E6%89%BE%E5%92%8C%E6%9B%BF%E6%8D%A2%E6%A8%A1%E5%BC%8F/" data-title="LeetCode每日练习：890. 查找和替换模式" data-tsina="5852167252" class="share clearfix">
     </div>
   </div>
 </footer>
