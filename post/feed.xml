@@ -6,7 +6,16 @@
     <description>Recent content in Posts on qkgoalkeeper&#39;s blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
-    <lastBuildDate>Sun, 12 Jun 2022 07:55:19 +0800</lastBuildDate><atom:link href="https://qkgoalkeeper.github.io/post/feed.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 13 Jun 2022 07:55:19 +0800</lastBuildDate><atom:link href="https://qkgoalkeeper.github.io/post/feed.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>LeetCode每日练习：1051. 高度检查器</title>
+      <link>https://qkgoalkeeper.github.io/post/leetcode%E6%AF%8F%E6%97%A5%E7%BB%83%E4%B9%A01051.-%E9%AB%98%E5%BA%A6%E6%A3%80%E6%9F%A5%E5%99%A8/</link>
+      <pubDate>Mon, 13 Jun 2022 07:55:19 +0800</pubDate>
+      
+      <guid>https://qkgoalkeeper.github.io/post/leetcode%E6%AF%8F%E6%97%A5%E7%BB%83%E4%B9%A01051.-%E9%AB%98%E5%BA%A6%E6%A3%80%E6%9F%A5%E5%99%A8/</guid>
+      <description>一.1051. 高度检查器 1.题干及思路 学校打算为全体学生拍一张年度纪念照。根据要求，学生需要按照 非递减 的高度顺序排成一行。 排序后的高度情况用</description>
+    </item>
+    
     <item>
       <title>LeetCode每日练习：890. 查找和替换模式</title>
       <link>https://qkgoalkeeper.github.io/post/leetcode%E6%AF%8F%E6%97%A5%E7%BB%83%E4%B9%A0890.-%E6%9F%A5%E6%89%BE%E5%92%8C%E6%9B%BF%E6%8D%A2%E6%A8%A1%E5%BC%8F/</link>
