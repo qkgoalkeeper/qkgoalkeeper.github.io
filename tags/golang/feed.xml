@@ -6,7 +6,16 @@
     <description>Recent content in golang on qkgoalkeeper&#39;s blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
-    <lastBuildDate>Wed, 15 Jun 2022 07:55:19 +0800</lastBuildDate><atom:link href="https://qkgoalkeeper.github.io/tags/golang/feed.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Thu, 16 Jun 2022 07:55:19 +0800</lastBuildDate><atom:link href="https://qkgoalkeeper.github.io/tags/golang/feed.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>LeetCode每日练习：532. 数组中的 k-diff 数对</title>
+      <link>https://qkgoalkeeper.github.io/post/leetcode%E6%AF%8F%E6%97%A5%E7%BB%83%E4%B9%A0532.-%E6%95%B0%E7%BB%84%E4%B8%AD%E7%9A%84-k-diff-%E6%95%B0%E5%AF%B9/</link>
+      <pubDate>Thu, 16 Jun 2022 07:55:19 +0800</pubDate>
+      
+      <guid>https://qkgoalkeeper.github.io/post/leetcode%E6%AF%8F%E6%97%A5%E7%BB%83%E4%B9%A0532.-%E6%95%B0%E7%BB%84%E4%B8%AD%E7%9A%84-k-diff-%E6%95%B0%E5%AF%B9/</guid>
+      <description>一.532. 数组中的 k-diff 数对 1.题干及思路 给你一个整数数组 nums 和一个整数 k，请你在数组中找出 不同的 k-diff 数对，并返回不同的 k-diff 数对 的数目。 k-diff 数对定义为</description>
+    </item>
+    
     <item>
       <title>LeetCode每日练习：719. 找出第 K 小的数对距离</title>
       <link>https://qkgoalkeeper.github.io/post/leetcode%E6%AF%8F%E6%97%A5%E7%BB%83%E4%B9%A0719.-%E6%89%BE%E5%87%BA%E7%AC%AC-k-%E5%B0%8F%E7%9A%84%E6%95%B0%E5%AF%B9%E8%B7%9D%E7%A6%BB/</link>
