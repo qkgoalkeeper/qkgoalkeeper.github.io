@@ -97,6 +97,12 @@
 
   <ul>
     <li><a href="#1entrygo">1.entry.go</a></li>
+    <li><a href="#2db_filego">2.db_file.go</a></li>
+    <li><a href="#3dbgo">3.db.go</a></li>
+  </ul>
+
+  <ul>
+    <li><a href="#1db_testgo">1.db_test.go</a></li>
   </ul>
 </nav>
 		</div>
@@ -168,8 +174,437 @@
 	<span class="k">return</span> <span class="o">&amp;</span><span class="nx">Entry</span><span class="p">{</span><span class="nx">KeySize</span><span class="p">:</span> <span class="nx">ks</span><span class="p">,</span> <span class="nx">ValueSize</span><span class="p">:</span> <span class="nx">vs</span><span class="p">,</span> <span class="nx">Mark</span><span class="p">:</span> <span class="nx">mark</span><span class="p">},</span> <span class="kc">nil</span>
 <span class="p">}</span>
 
-</code></pre></div><h1 id="三minidb测试">三.minidb测试</h1>
+</code></pre></div><h2 id="2db_filego">2.db_file.go</h2>
+<p>db_file.go负责磁盘上文件的存储，db的恢复则在db.go内部，db_file.go代码如下</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="kn">package</span> <span class="nx">minidb</span>
 
+<span class="kn">import</span> <span class="s">&#34;os&#34;</span>
+
+<span class="kd">const</span> <span class="nx">FileName</span> <span class="p">=</span> <span class="s">&#34;minidb.data&#34;</span>
+<span class="kd">const</span> <span class="nx">MergeFileName</span> <span class="p">=</span> <span class="s">&#34;minidb.data.merge&#34;</span>
+
+<span class="c1">// DBFile 数据文件定义
+</span><span class="c1"></span><span class="kd">type</span> <span class="nx">DBFile</span> <span class="kd">struct</span> <span class="p">{</span>
+	<span class="nx">File</span>   <span class="o">*</span><span class="nx">os</span><span class="p">.</span><span class="nx">File</span>
+	<span class="nx">Offset</span> <span class="kt">int64</span>
+<span class="p">}</span>
+
+<span class="kd">func</span> <span class="nf">newInternal</span><span class="p">(</span><span class="nx">fileName</span> <span class="kt">string</span><span class="p">)</span> <span class="p">(</span><span class="o">*</span><span class="nx">DBFile</span><span class="p">,</span> <span class="kt">error</span><span class="p">)</span> <span class="p">{</span>
+	<span class="nx">file</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">os</span><span class="p">.</span><span class="nf">OpenFile</span><span class="p">(</span><span class="nx">fileName</span><span class="p">,</span> <span class="nx">os</span><span class="p">.</span><span class="nx">O_CREATE</span><span class="p">|</span><span class="nx">os</span><span class="p">.</span><span class="nx">O_RDWR</span><span class="p">,</span> <span class="mo">0644</span><span class="p">)</span>
+	<span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+		<span class="k">return</span> <span class="kc">nil</span><span class="p">,</span> <span class="nx">err</span>
+	<span class="p">}</span>
+
+	<span class="nx">stat</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">os</span><span class="p">.</span><span class="nf">Stat</span><span class="p">(</span><span class="nx">fileName</span><span class="p">)</span>
+	<span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+		<span class="k">return</span> <span class="kc">nil</span><span class="p">,</span> <span class="nx">err</span>
+	<span class="p">}</span>
+	<span class="k">return</span> <span class="o">&amp;</span><span class="nx">DBFile</span><span class="p">{</span><span class="nx">Offset</span><span class="p">:</span> <span class="nx">stat</span><span class="p">.</span><span class="nf">Size</span><span class="p">(),</span> <span class="nx">File</span><span class="p">:</span> <span class="nx">file</span><span class="p">},</span> <span class="kc">nil</span>
+<span class="p">}</span>
+
+<span class="c1">// NewDBFile 创建一个新的数据文件
+</span><span class="c1"></span><span class="kd">func</span> <span class="nf">NewDBFile</span><span class="p">(</span><span class="nx">path</span> <span class="kt">string</span><span class="p">)</span> <span class="p">(</span><span class="o">*</span><span class="nx">DBFile</span><span class="p">,</span> <span class="kt">error</span><span class="p">)</span> <span class="p">{</span>
+	<span class="nx">fileName</span> <span class="o">:=</span> <span class="nx">path</span> <span class="o">+</span> <span class="nb">string</span><span class="p">(</span><span class="nx">os</span><span class="p">.</span><span class="nx">PathSeparator</span><span class="p">)</span> <span class="o">+</span> <span class="nx">FileName</span>
+	<span class="k">return</span> <span class="nf">newInternal</span><span class="p">(</span><span class="nx">fileName</span><span class="p">)</span>
+<span class="p">}</span>
+
+<span class="c1">// NewMergeDBFile 新建一个合并时的数据文件
+</span><span class="c1"></span><span class="kd">func</span> <span class="nf">NewMergeDBFile</span><span class="p">(</span><span class="nx">path</span> <span class="kt">string</span><span class="p">)</span> <span class="p">(</span><span class="o">*</span><span class="nx">DBFile</span><span class="p">,</span> <span class="kt">error</span><span class="p">)</span> <span class="p">{</span>
+	<span class="nx">fileName</span> <span class="o">:=</span> <span class="nx">path</span> <span class="o">+</span> <span class="nb">string</span><span class="p">(</span><span class="nx">os</span><span class="p">.</span><span class="nx">PathSeparator</span><span class="p">)</span> <span class="o">+</span> <span class="nx">MergeFileName</span>
+	<span class="k">return</span> <span class="nf">newInternal</span><span class="p">(</span><span class="nx">fileName</span><span class="p">)</span>
+<span class="p">}</span>
+
+<span class="c1">// Read 从 offset 处开始读取，go的file模块的ReadAt函数用来定位
+</span><span class="c1"></span><span class="kd">func</span> <span class="p">(</span><span class="nx">df</span> <span class="o">*</span><span class="nx">DBFile</span><span class="p">)</span> <span class="nf">Read</span><span class="p">(</span><span class="nx">offset</span> <span class="kt">int64</span><span class="p">)</span> <span class="p">(</span><span class="nx">e</span> <span class="o">*</span><span class="nx">Entry</span><span class="p">,</span> <span class="nx">err</span> <span class="kt">error</span><span class="p">)</span> <span class="p">{</span>
+	<span class="nx">buf</span> <span class="o">:=</span> <span class="nb">make</span><span class="p">([]</span><span class="kt">byte</span><span class="p">,</span> <span class="nx">entryHeaderSize</span><span class="p">)</span>
+	<span class="k">if</span> <span class="nx">_</span><span class="p">,</span> <span class="nx">err</span> <span class="p">=</span> <span class="nx">df</span><span class="p">.</span><span class="nx">File</span><span class="p">.</span><span class="nf">ReadAt</span><span class="p">(</span><span class="nx">buf</span><span class="p">,</span> <span class="nx">offset</span><span class="p">);</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+		<span class="k">return</span>
+	<span class="p">}</span>
+	<span class="k">if</span> <span class="nx">e</span><span class="p">,</span> <span class="nx">err</span> <span class="p">=</span> <span class="nf">Decode</span><span class="p">(</span><span class="nx">buf</span><span class="p">);</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+		<span class="k">return</span>
+	<span class="p">}</span>
+
+	<span class="nx">offset</span> <span class="o">+=</span> <span class="nx">entryHeaderSize</span>
+	<span class="k">if</span> <span class="nx">e</span><span class="p">.</span><span class="nx">KeySize</span> <span class="p">&gt;</span> <span class="mi">0</span> <span class="p">{</span>
+		<span class="nx">key</span> <span class="o">:=</span> <span class="nb">make</span><span class="p">([]</span><span class="kt">byte</span><span class="p">,</span> <span class="nx">e</span><span class="p">.</span><span class="nx">KeySize</span><span class="p">)</span>
+		<span class="k">if</span> <span class="nx">_</span><span class="p">,</span> <span class="nx">err</span> <span class="p">=</span> <span class="nx">df</span><span class="p">.</span><span class="nx">File</span><span class="p">.</span><span class="nf">ReadAt</span><span class="p">(</span><span class="nx">key</span><span class="p">,</span> <span class="nx">offset</span><span class="p">);</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+			<span class="k">return</span>
+		<span class="p">}</span>
+		<span class="nx">e</span><span class="p">.</span><span class="nx">Key</span> <span class="p">=</span> <span class="nx">key</span>
+	<span class="p">}</span>
+
+	<span class="nx">offset</span> <span class="o">+=</span> <span class="nb">int64</span><span class="p">(</span><span class="nx">e</span><span class="p">.</span><span class="nx">KeySize</span><span class="p">)</span>
+	<span class="k">if</span> <span class="nx">e</span><span class="p">.</span><span class="nx">ValueSize</span> <span class="p">&gt;</span> <span class="mi">0</span> <span class="p">{</span>
+		<span class="nx">value</span> <span class="o">:=</span> <span class="nb">make</span><span class="p">([]</span><span class="kt">byte</span><span class="p">,</span> <span class="nx">e</span><span class="p">.</span><span class="nx">ValueSize</span><span class="p">)</span>
+		<span class="k">if</span> <span class="nx">_</span><span class="p">,</span> <span class="nx">err</span> <span class="p">=</span> <span class="nx">df</span><span class="p">.</span><span class="nx">File</span><span class="p">.</span><span class="nf">ReadAt</span><span class="p">(</span><span class="nx">value</span><span class="p">,</span> <span class="nx">offset</span><span class="p">);</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+			<span class="k">return</span>
+		<span class="p">}</span>
+		<span class="nx">e</span><span class="p">.</span><span class="nx">Value</span> <span class="p">=</span> <span class="nx">value</span>
+	<span class="p">}</span>
+	<span class="k">return</span>
+<span class="p">}</span>
+
+<span class="c1">// Write 写入 Entry，WriteAt函数负责在offset处写
+</span><span class="c1"></span><span class="kd">func</span> <span class="p">(</span><span class="nx">df</span> <span class="o">*</span><span class="nx">DBFile</span><span class="p">)</span> <span class="nf">Write</span><span class="p">(</span><span class="nx">e</span> <span class="o">*</span><span class="nx">Entry</span><span class="p">)</span> <span class="p">(</span><span class="nx">err</span> <span class="kt">error</span><span class="p">)</span> <span class="p">{</span>
+	<span class="nx">enc</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">e</span><span class="p">.</span><span class="nf">Encode</span><span class="p">()</span>
+	<span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+		<span class="k">return</span> <span class="nx">err</span>
+	<span class="p">}</span>
+	<span class="nx">_</span><span class="p">,</span> <span class="nx">err</span> <span class="p">=</span> <span class="nx">df</span><span class="p">.</span><span class="nx">File</span><span class="p">.</span><span class="nf">WriteAt</span><span class="p">(</span><span class="nx">enc</span><span class="p">,</span> <span class="nx">df</span><span class="p">.</span><span class="nx">Offset</span><span class="p">)</span>
+	<span class="nx">df</span><span class="p">.</span><span class="nx">Offset</span> <span class="o">+=</span> <span class="nx">e</span><span class="p">.</span><span class="nf">GetSize</span><span class="p">()</span>
+	<span class="k">return</span>
+<span class="p">}</span>
+
+</code></pre></div><h2 id="3dbgo">3.db.go</h2>
+<p>minidb的对外接口，db.go的代码如下</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="kn">package</span> <span class="nx">minidb</span>
+
+<span class="kn">import</span> <span class="p">(</span>
+	<span class="s">&#34;io&#34;</span>
+	<span class="s">&#34;os&#34;</span>
+	<span class="s">&#34;sync&#34;</span>
+<span class="p">)</span>
+
+<span class="kd">type</span> <span class="nx">MiniDB</span> <span class="kd">struct</span> <span class="p">{</span>
+	<span class="nx">indexes</span> <span class="kd">map</span><span class="p">[</span><span class="kt">string</span><span class="p">]</span><span class="kt">int64</span> <span class="c1">// 内存中的索引信息
+</span><span class="c1"></span>	<span class="nx">dbFile</span>  <span class="o">*</span><span class="nx">DBFile</span>          <span class="c1">// 数据文件
+</span><span class="c1"></span>	<span class="nx">dirPath</span> <span class="kt">string</span>           <span class="c1">// 数据目录
+</span><span class="c1"></span>	<span class="nx">mu</span>      <span class="nx">sync</span><span class="p">.</span><span class="nx">RWMutex</span>
+<span class="p">}</span>
+
+<span class="c1">// Open 开启一个数据库实例
+</span><span class="c1"></span><span class="kd">func</span> <span class="nf">Open</span><span class="p">(</span><span class="nx">dirPath</span> <span class="kt">string</span><span class="p">)</span> <span class="p">(</span><span class="o">*</span><span class="nx">MiniDB</span><span class="p">,</span> <span class="kt">error</span><span class="p">)</span> <span class="p">{</span>
+	<span class="c1">// 如果数据库目录不存在，则新建一个
+</span><span class="c1"></span>	<span class="k">if</span> <span class="nx">_</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">os</span><span class="p">.</span><span class="nf">Stat</span><span class="p">(</span><span class="nx">dirPath</span><span class="p">);</span> <span class="nx">os</span><span class="p">.</span><span class="nf">IsNotExist</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span> <span class="p">{</span>
+		<span class="k">if</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">os</span><span class="p">.</span><span class="nf">MkdirAll</span><span class="p">(</span><span class="nx">dirPath</span><span class="p">,</span> <span class="nx">os</span><span class="p">.</span><span class="nx">ModePerm</span><span class="p">);</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+			<span class="k">return</span> <span class="kc">nil</span><span class="p">,</span> <span class="nx">err</span>
+		<span class="p">}</span>
+	<span class="p">}</span>
+
+	<span class="c1">// 加载数据文件
+</span><span class="c1"></span>	<span class="nx">dbFile</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nf">NewDBFile</span><span class="p">(</span><span class="nx">dirPath</span><span class="p">)</span>
+	<span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+		<span class="k">return</span> <span class="kc">nil</span><span class="p">,</span> <span class="nx">err</span>
+	<span class="p">}</span>
+
+	<span class="nx">db</span> <span class="o">:=</span> <span class="o">&amp;</span><span class="nx">MiniDB</span><span class="p">{</span>
+		<span class="nx">dbFile</span><span class="p">:</span>  <span class="nx">dbFile</span><span class="p">,</span>
+		<span class="nx">indexes</span><span class="p">:</span> <span class="nb">make</span><span class="p">(</span><span class="kd">map</span><span class="p">[</span><span class="kt">string</span><span class="p">]</span><span class="kt">int64</span><span class="p">),</span>
+		<span class="nx">dirPath</span><span class="p">:</span> <span class="nx">dirPath</span><span class="p">,</span>
+	<span class="p">}</span>
+
+	<span class="c1">// 加载索引
+</span><span class="c1"></span>	<span class="nx">db</span><span class="p">.</span><span class="nf">loadIndexesFromFile</span><span class="p">()</span>
+	<span class="k">return</span> <span class="nx">db</span><span class="p">,</span> <span class="kc">nil</span>
+<span class="p">}</span>
+
+<span class="c1">// Merge 合并数据文件，在rosedb当中是 Reclaim 方法
+</span><span class="c1"></span><span class="kd">func</span> <span class="p">(</span><span class="nx">db</span> <span class="o">*</span><span class="nx">MiniDB</span><span class="p">)</span> <span class="nf">Merge</span><span class="p">()</span> <span class="kt">error</span> <span class="p">{</span>
+	<span class="c1">// 没有数据，忽略
+</span><span class="c1"></span>	<span class="k">if</span> <span class="nx">db</span><span class="p">.</span><span class="nx">dbFile</span><span class="p">.</span><span class="nx">Offset</span> <span class="o">==</span> <span class="mi">0</span> <span class="p">{</span>
+		<span class="k">return</span> <span class="kc">nil</span>
+	<span class="p">}</span>
+
+	<span class="kd">var</span> <span class="p">(</span>
+		<span class="nx">validEntries</span> <span class="p">[]</span><span class="o">*</span><span class="nx">Entry</span>
+		<span class="nx">offset</span>       <span class="kt">int64</span>
+	<span class="p">)</span>
+
+	<span class="c1">// 读取原数据文件中的 Entry
+</span><span class="c1"></span>	<span class="k">for</span> <span class="p">{</span>
+		<span class="nx">e</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">db</span><span class="p">.</span><span class="nx">dbFile</span><span class="p">.</span><span class="nf">Read</span><span class="p">(</span><span class="nx">offset</span><span class="p">)</span>
+		<span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+			<span class="k">if</span> <span class="nx">err</span> <span class="o">==</span> <span class="nx">io</span><span class="p">.</span><span class="nx">EOF</span> <span class="p">{</span>
+				<span class="k">break</span>
+			<span class="p">}</span>
+			<span class="k">return</span> <span class="nx">err</span>
+		<span class="p">}</span>
+		<span class="c1">// 内存中的索引状态是最新的，直接对比过滤出有效的 Entry
+</span><span class="c1"></span>		<span class="k">if</span> <span class="nx">off</span><span class="p">,</span> <span class="nx">ok</span> <span class="o">:=</span> <span class="nx">db</span><span class="p">.</span><span class="nx">indexes</span><span class="p">[</span><span class="nb">string</span><span class="p">(</span><span class="nx">e</span><span class="p">.</span><span class="nx">Key</span><span class="p">)];</span> <span class="nx">ok</span> <span class="o">&amp;&amp;</span> <span class="nx">off</span> <span class="o">==</span> <span class="nx">offset</span> <span class="p">{</span>
+			<span class="nx">validEntries</span> <span class="p">=</span> <span class="nb">append</span><span class="p">(</span><span class="nx">validEntries</span><span class="p">,</span> <span class="nx">e</span><span class="p">)</span>
+		<span class="p">}</span>
+		<span class="nx">offset</span> <span class="o">+=</span> <span class="nx">e</span><span class="p">.</span><span class="nf">GetSize</span><span class="p">()</span>
+	<span class="p">}</span>
+
+	<span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="nx">validEntries</span><span class="p">)</span> <span class="p">&gt;</span> <span class="mi">0</span> <span class="p">{</span>
+		<span class="c1">// 新建临时文件
+</span><span class="c1"></span>		<span class="nx">mergeDBFile</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nf">NewMergeDBFile</span><span class="p">(</span><span class="nx">db</span><span class="p">.</span><span class="nx">dirPath</span><span class="p">)</span>
+		<span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+			<span class="k">return</span> <span class="nx">err</span>
+		<span class="p">}</span>
+		<span class="k">defer</span> <span class="nx">os</span><span class="p">.</span><span class="nf">Remove</span><span class="p">(</span><span class="nx">mergeDBFile</span><span class="p">.</span><span class="nx">File</span><span class="p">.</span><span class="nf">Name</span><span class="p">())</span>
+
+		<span class="c1">// 重新写入有效的 entry
+</span><span class="c1"></span>		<span class="k">for</span> <span class="nx">_</span><span class="p">,</span> <span class="nx">entry</span> <span class="o">:=</span> <span class="k">range</span> <span class="nx">validEntries</span> <span class="p">{</span>
+			<span class="nx">writeOff</span> <span class="o">:=</span> <span class="nx">mergeDBFile</span><span class="p">.</span><span class="nx">Offset</span>
+			<span class="nx">err</span> <span class="o">:=</span> <span class="nx">mergeDBFile</span><span class="p">.</span><span class="nf">Write</span><span class="p">(</span><span class="nx">entry</span><span class="p">)</span>
+			<span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+				<span class="k">return</span> <span class="nx">err</span>
+			<span class="p">}</span>
+
+			<span class="c1">// 更新索引
+</span><span class="c1"></span>			<span class="nx">db</span><span class="p">.</span><span class="nx">indexes</span><span class="p">[</span><span class="nb">string</span><span class="p">(</span><span class="nx">entry</span><span class="p">.</span><span class="nx">Key</span><span class="p">)]</span> <span class="p">=</span> <span class="nx">writeOff</span>
+		<span class="p">}</span>
+
+		<span class="c1">// 获取文件名
+</span><span class="c1"></span>		<span class="nx">dbFileName</span> <span class="o">:=</span> <span class="nx">db</span><span class="p">.</span><span class="nx">dbFile</span><span class="p">.</span><span class="nx">File</span><span class="p">.</span><span class="nf">Name</span><span class="p">()</span>
+		<span class="c1">// 关闭文件
+</span><span class="c1"></span>		<span class="nx">db</span><span class="p">.</span><span class="nx">dbFile</span><span class="p">.</span><span class="nx">File</span><span class="p">.</span><span class="nf">Close</span><span class="p">()</span>
+		<span class="c1">// 删除旧的数据文件
+</span><span class="c1"></span>		<span class="nx">os</span><span class="p">.</span><span class="nf">Remove</span><span class="p">(</span><span class="nx">dbFileName</span><span class="p">)</span>
+
+		<span class="c1">// 获取文件名
+</span><span class="c1"></span>		<span class="nx">mergeDBFileName</span> <span class="o">:=</span> <span class="nx">mergeDBFile</span><span class="p">.</span><span class="nx">File</span><span class="p">.</span><span class="nf">Name</span><span class="p">()</span>
+		<span class="c1">// 关闭文件
+</span><span class="c1"></span>		<span class="nx">mergeDBFile</span><span class="p">.</span><span class="nx">File</span><span class="p">.</span><span class="nf">Close</span><span class="p">()</span>
+		<span class="c1">// 临时文件变更为新的数据文件
+</span><span class="c1"></span>		<span class="nx">os</span><span class="p">.</span><span class="nf">Rename</span><span class="p">(</span><span class="nx">mergeDBFileName</span><span class="p">,</span> <span class="nx">db</span><span class="p">.</span><span class="nx">dirPath</span><span class="o">+</span><span class="nb">string</span><span class="p">(</span><span class="nx">os</span><span class="p">.</span><span class="nx">PathSeparator</span><span class="p">)</span><span class="o">+</span><span class="nx">FileName</span><span class="p">)</span>
+		<span class="c1">// 重新打开文件（否则merge完后就不能read write了）
+</span><span class="c1"></span>		<span class="nx">db</span><span class="p">.</span><span class="nx">dbFile</span><span class="p">,</span> <span class="nx">_</span> <span class="p">=</span> <span class="nf">NewDBFile</span><span class="p">(</span><span class="nx">db</span><span class="p">.</span><span class="nx">dirPath</span><span class="p">)</span>
+
+	<span class="p">}</span>
+	<span class="k">return</span> <span class="kc">nil</span>
+<span class="p">}</span>
+
+<span class="c1">// Put 写入数据
+</span><span class="c1"></span><span class="kd">func</span> <span class="p">(</span><span class="nx">db</span> <span class="o">*</span><span class="nx">MiniDB</span><span class="p">)</span> <span class="nf">Put</span><span class="p">(</span><span class="nx">key</span> <span class="p">[]</span><span class="kt">byte</span><span class="p">,</span> <span class="nx">value</span> <span class="p">[]</span><span class="kt">byte</span><span class="p">)</span> <span class="p">(</span><span class="nx">err</span> <span class="kt">error</span><span class="p">)</span> <span class="p">{</span>
+	<span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="nx">key</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span> <span class="p">{</span>
+		<span class="k">return</span>
+	<span class="p">}</span>
+
+	<span class="nx">db</span><span class="p">.</span><span class="nx">mu</span><span class="p">.</span><span class="nf">Lock</span><span class="p">()</span>
+	<span class="k">defer</span> <span class="nx">db</span><span class="p">.</span><span class="nx">mu</span><span class="p">.</span><span class="nf">Unlock</span><span class="p">()</span>
+
+	<span class="nx">offset</span> <span class="o">:=</span> <span class="nx">db</span><span class="p">.</span><span class="nx">dbFile</span><span class="p">.</span><span class="nx">Offset</span>
+	<span class="c1">// 封装成 Entry
+</span><span class="c1"></span>	<span class="nx">entry</span> <span class="o">:=</span> <span class="nf">NewEntry</span><span class="p">(</span><span class="nx">key</span><span class="p">,</span> <span class="nx">value</span><span class="p">,</span> <span class="nx">PUT</span><span class="p">)</span>
+	<span class="c1">// 追加到数据文件当中
+</span><span class="c1"></span>	<span class="nx">err</span> <span class="p">=</span> <span class="nx">db</span><span class="p">.</span><span class="nx">dbFile</span><span class="p">.</span><span class="nf">Write</span><span class="p">(</span><span class="nx">entry</span><span class="p">)</span>
+
+	<span class="c1">// 写到内存
+</span><span class="c1"></span>	<span class="nx">db</span><span class="p">.</span><span class="nx">indexes</span><span class="p">[</span><span class="nb">string</span><span class="p">(</span><span class="nx">key</span><span class="p">)]</span> <span class="p">=</span> <span class="nx">offset</span>
+	<span class="k">return</span>
+<span class="p">}</span>
+
+<span class="c1">// Get 取出数据
+</span><span class="c1"></span><span class="kd">func</span> <span class="p">(</span><span class="nx">db</span> <span class="o">*</span><span class="nx">MiniDB</span><span class="p">)</span> <span class="nf">Get</span><span class="p">(</span><span class="nx">key</span> <span class="p">[]</span><span class="kt">byte</span><span class="p">)</span> <span class="p">(</span><span class="nx">val</span> <span class="p">[]</span><span class="kt">byte</span><span class="p">,</span> <span class="nx">err</span> <span class="kt">error</span><span class="p">)</span> <span class="p">{</span>
+	<span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="nx">key</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span> <span class="p">{</span>
+		<span class="k">return</span>
+	<span class="p">}</span>
+
+	<span class="nx">db</span><span class="p">.</span><span class="nx">mu</span><span class="p">.</span><span class="nf">RLock</span><span class="p">()</span>
+	<span class="k">defer</span> <span class="nx">db</span><span class="p">.</span><span class="nx">mu</span><span class="p">.</span><span class="nf">RUnlock</span><span class="p">()</span>
+
+	<span class="c1">// 从内存当中取出索引信息
+</span><span class="c1"></span>	<span class="nx">offset</span><span class="p">,</span> <span class="nx">ok</span> <span class="o">:=</span> <span class="nx">db</span><span class="p">.</span><span class="nx">indexes</span><span class="p">[</span><span class="nb">string</span><span class="p">(</span><span class="nx">key</span><span class="p">)]</span>
+	<span class="c1">// key 不存在
+</span><span class="c1"></span>	<span class="k">if</span> <span class="p">!</span><span class="nx">ok</span> <span class="p">{</span>
+		<span class="k">return</span>
+	<span class="p">}</span>
+
+	<span class="c1">// 从磁盘中读取数据
+</span><span class="c1"></span>	<span class="kd">var</span> <span class="nx">e</span> <span class="o">*</span><span class="nx">Entry</span>
+	<span class="nx">e</span><span class="p">,</span> <span class="nx">err</span> <span class="p">=</span> <span class="nx">db</span><span class="p">.</span><span class="nx">dbFile</span><span class="p">.</span><span class="nf">Read</span><span class="p">(</span><span class="nx">offset</span><span class="p">)</span>
+	<span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="o">&amp;&amp;</span> <span class="nx">err</span> <span class="o">!=</span> <span class="nx">io</span><span class="p">.</span><span class="nx">EOF</span> <span class="p">{</span>
+		<span class="k">return</span>
+	<span class="p">}</span>
+	<span class="k">if</span> <span class="nx">e</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+		<span class="nx">val</span> <span class="p">=</span> <span class="nx">e</span><span class="p">.</span><span class="nx">Value</span>
+	<span class="p">}</span>
+	<span class="k">return</span>
+<span class="p">}</span>
+
+<span class="c1">// Del 删除数据
+</span><span class="c1"></span><span class="kd">func</span> <span class="p">(</span><span class="nx">db</span> <span class="o">*</span><span class="nx">MiniDB</span><span class="p">)</span> <span class="nf">Del</span><span class="p">(</span><span class="nx">key</span> <span class="p">[]</span><span class="kt">byte</span><span class="p">)</span> <span class="p">(</span><span class="nx">err</span> <span class="kt">error</span><span class="p">)</span> <span class="p">{</span>
+	<span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="nx">key</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span> <span class="p">{</span>
+		<span class="k">return</span>
+	<span class="p">}</span>
+
+	<span class="nx">db</span><span class="p">.</span><span class="nx">mu</span><span class="p">.</span><span class="nf">Lock</span><span class="p">()</span>
+	<span class="k">defer</span> <span class="nx">db</span><span class="p">.</span><span class="nx">mu</span><span class="p">.</span><span class="nf">Unlock</span><span class="p">()</span>
+	<span class="c1">// 从内存当中取出索引信息
+</span><span class="c1"></span>	<span class="nx">_</span><span class="p">,</span> <span class="nx">ok</span> <span class="o">:=</span> <span class="nx">db</span><span class="p">.</span><span class="nx">indexes</span><span class="p">[</span><span class="nb">string</span><span class="p">(</span><span class="nx">key</span><span class="p">)]</span>
+	<span class="c1">// key 不存在，忽略
+</span><span class="c1"></span>	<span class="k">if</span> <span class="p">!</span><span class="nx">ok</span> <span class="p">{</span>
+		<span class="k">return</span>
+	<span class="p">}</span>
+
+	<span class="c1">// 封装成 Entry 并写入
+</span><span class="c1"></span>	<span class="nx">e</span> <span class="o">:=</span> <span class="nf">NewEntry</span><span class="p">(</span><span class="nx">key</span><span class="p">,</span> <span class="kc">nil</span><span class="p">,</span> <span class="nx">DEL</span><span class="p">)</span>
+	<span class="nx">err</span> <span class="p">=</span> <span class="nx">db</span><span class="p">.</span><span class="nx">dbFile</span><span class="p">.</span><span class="nf">Write</span><span class="p">(</span><span class="nx">e</span><span class="p">)</span>
+	<span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+		<span class="k">return</span>
+	<span class="p">}</span>
+
+	<span class="c1">// 删除内存中的 key
+</span><span class="c1"></span>	<span class="nb">delete</span><span class="p">(</span><span class="nx">db</span><span class="p">.</span><span class="nx">indexes</span><span class="p">,</span> <span class="nb">string</span><span class="p">(</span><span class="nx">key</span><span class="p">))</span>
+	<span class="k">return</span>
+<span class="p">}</span>
+
+<span class="c1">// 从文件当中加载索引
+</span><span class="c1"></span><span class="kd">func</span> <span class="p">(</span><span class="nx">db</span> <span class="o">*</span><span class="nx">MiniDB</span><span class="p">)</span> <span class="nf">loadIndexesFromFile</span><span class="p">()</span> <span class="p">{</span>
+	<span class="k">if</span> <span class="nx">db</span><span class="p">.</span><span class="nx">dbFile</span> <span class="o">==</span> <span class="kc">nil</span> <span class="p">{</span>
+		<span class="k">return</span>
+	<span class="p">}</span>
+
+	<span class="kd">var</span> <span class="nx">offset</span> <span class="kt">int64</span>
+	<span class="k">for</span> <span class="p">{</span>
+		<span class="nx">e</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">db</span><span class="p">.</span><span class="nx">dbFile</span><span class="p">.</span><span class="nf">Read</span><span class="p">(</span><span class="nx">offset</span><span class="p">)</span>
+		<span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+			<span class="c1">// 读取完毕
+</span><span class="c1"></span>			<span class="k">if</span> <span class="nx">err</span> <span class="o">==</span> <span class="nx">io</span><span class="p">.</span><span class="nx">EOF</span> <span class="p">{</span>
+				<span class="k">break</span>
+			<span class="p">}</span>
+			<span class="k">return</span>
+		<span class="p">}</span>
+
+		<span class="c1">// 设置索引状态
+</span><span class="c1"></span>		<span class="nx">db</span><span class="p">.</span><span class="nx">indexes</span><span class="p">[</span><span class="nb">string</span><span class="p">(</span><span class="nx">e</span><span class="p">.</span><span class="nx">Key</span><span class="p">)]</span> <span class="p">=</span> <span class="nx">offset</span>
+
+		<span class="k">if</span> <span class="nx">e</span><span class="p">.</span><span class="nx">Mark</span> <span class="o">==</span> <span class="nx">DEL</span> <span class="p">{</span>
+			<span class="c1">// 删除内存中的 key
+</span><span class="c1"></span>			<span class="nb">delete</span><span class="p">(</span><span class="nx">db</span><span class="p">.</span><span class="nx">indexes</span><span class="p">,</span> <span class="nb">string</span><span class="p">(</span><span class="nx">e</span><span class="p">.</span><span class="nx">Key</span><span class="p">))</span>
+		<span class="p">}</span>
+
+		<span class="nx">offset</span> <span class="o">+=</span> <span class="nx">e</span><span class="p">.</span><span class="nf">GetSize</span><span class="p">()</span>
+	<span class="p">}</span>
+	<span class="k">return</span>
+<span class="p">}</span>
+
+</code></pre></div><h1 id="三minidb测试">三.minidb测试</h1>
+<h2 id="1db_testgo">1.db_test.go</h2>
+<p>增删改查的测试，db_test.go代码如下</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="kn">package</span> <span class="nx">minidb</span>
+
+<span class="kn">import</span> <span class="p">(</span>
+	<span class="s">&#34;math/rand&#34;</span>
+	<span class="s">&#34;strconv&#34;</span>
+	<span class="s">&#34;testing&#34;</span>
+	<span class="s">&#34;time&#34;</span>
+<span class="p">)</span>
+
+<span class="kd">func</span> <span class="nf">TestOpen</span><span class="p">(</span><span class="nx">t</span> <span class="o">*</span><span class="nx">testing</span><span class="p">.</span><span class="nx">T</span><span class="p">)</span> <span class="p">{</span>
+	<span class="nx">db</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nf">Open</span><span class="p">(</span><span class="s">&#34;/home/dase/go/src/minidb/testdb&#34;</span><span class="p">)</span>
+	<span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+		<span class="nx">t</span><span class="p">.</span><span class="nf">Error</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span>
+	<span class="p">}</span>
+	<span class="nx">t</span><span class="p">.</span><span class="nf">Log</span><span class="p">(</span><span class="nx">db</span><span class="p">)</span>
+<span class="p">}</span>
+
+<span class="kd">func</span> <span class="nf">TestMiniDB_Put</span><span class="p">(</span><span class="nx">t</span> <span class="o">*</span><span class="nx">testing</span><span class="p">.</span><span class="nx">T</span><span class="p">)</span> <span class="p">{</span>
+	<span class="nx">db</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nf">Open</span><span class="p">(</span><span class="s">&#34;/home/dase/go/src/minidb/testdb&#34;</span><span class="p">)</span>
+	<span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+		<span class="nx">t</span><span class="p">.</span><span class="nf">Error</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span>
+	<span class="p">}</span>
+
+	<span class="nx">rand</span><span class="p">.</span><span class="nf">Seed</span><span class="p">(</span><span class="nx">time</span><span class="p">.</span><span class="nf">Now</span><span class="p">().</span><span class="nf">UnixNano</span><span class="p">())</span>
+	<span class="nx">keyPrefix</span> <span class="o">:=</span> <span class="s">&#34;test_key_&#34;</span>
+	<span class="nx">valPrefix</span> <span class="o">:=</span> <span class="s">&#34;test_val_&#34;</span>
+	<span class="k">for</span> <span class="nx">i</span> <span class="o">:=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="p">&lt;</span> <span class="mi">10000</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span> <span class="p">{</span>
+		<span class="nx">key</span> <span class="o">:=</span> <span class="p">[]</span><span class="nb">byte</span><span class="p">(</span><span class="nx">keyPrefix</span> <span class="o">+</span> <span class="nx">strconv</span><span class="p">.</span><span class="nf">Itoa</span><span class="p">(</span><span class="nx">i</span><span class="o">%</span><span class="mi">5</span><span class="p">))</span>
+		<span class="nx">val</span> <span class="o">:=</span> <span class="p">[]</span><span class="nb">byte</span><span class="p">(</span><span class="nx">valPrefix</span> <span class="o">+</span> <span class="nx">strconv</span><span class="p">.</span><span class="nf">FormatInt</span><span class="p">(</span><span class="nx">rand</span><span class="p">.</span><span class="nf">Int63</span><span class="p">(),</span> <span class="mi">10</span><span class="p">))</span>
+		<span class="nx">err</span> <span class="p">=</span> <span class="nx">db</span><span class="p">.</span><span class="nf">Put</span><span class="p">(</span><span class="nx">key</span><span class="p">,</span> <span class="nx">val</span><span class="p">)</span>
+	<span class="p">}</span>
+
+	<span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+		<span class="nx">t</span><span class="p">.</span><span class="nf">Log</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span>
+	<span class="p">}</span>
+<span class="p">}</span>
+
+<span class="kd">func</span> <span class="nf">TestMiniDB_Get</span><span class="p">(</span><span class="nx">t</span> <span class="o">*</span><span class="nx">testing</span><span class="p">.</span><span class="nx">T</span><span class="p">)</span> <span class="p">{</span>
+	<span class="nx">db</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nf">Open</span><span class="p">(</span><span class="s">&#34;/home/dase/go/src/minidb/testdb&#34;</span><span class="p">)</span>
+	<span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+		<span class="nx">t</span><span class="p">.</span><span class="nf">Error</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span>
+	<span class="p">}</span>
+
+	<span class="nx">getVal</span> <span class="o">:=</span> <span class="kd">func</span><span class="p">(</span><span class="nx">key</span> <span class="p">[]</span><span class="kt">byte</span><span class="p">)</span> <span class="p">{</span>
+		<span class="nx">val</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">db</span><span class="p">.</span><span class="nf">Get</span><span class="p">(</span><span class="nx">key</span><span class="p">)</span>
+		<span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+			<span class="nx">t</span><span class="p">.</span><span class="nf">Error</span><span class="p">(</span><span class="s">&#34;read val err: &#34;</span><span class="p">,</span> <span class="nx">err</span><span class="p">)</span>
+		<span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+			<span class="nx">t</span><span class="p">.</span><span class="nf">Logf</span><span class="p">(</span><span class="s">&#34;key = %s, val = %s\n&#34;</span><span class="p">,</span> <span class="nb">string</span><span class="p">(</span><span class="nx">key</span><span class="p">),</span> <span class="nb">string</span><span class="p">(</span><span class="nx">val</span><span class="p">))</span>
+		<span class="p">}</span>
+	<span class="p">}</span>
+
+	<span class="nf">getVal</span><span class="p">([]</span><span class="nb">byte</span><span class="p">(</span><span class="s">&#34;test_key_0&#34;</span><span class="p">))</span>
+	<span class="nf">getVal</span><span class="p">([]</span><span class="nb">byte</span><span class="p">(</span><span class="s">&#34;test_key_1&#34;</span><span class="p">))</span>
+	<span class="nf">getVal</span><span class="p">([]</span><span class="nb">byte</span><span class="p">(</span><span class="s">&#34;test_key_2&#34;</span><span class="p">))</span>
+	<span class="nf">getVal</span><span class="p">([]</span><span class="nb">byte</span><span class="p">(</span><span class="s">&#34;test_key_3&#34;</span><span class="p">))</span>
+	<span class="nf">getVal</span><span class="p">([]</span><span class="nb">byte</span><span class="p">(</span><span class="s">&#34;test_key_4&#34;</span><span class="p">))</span>
+	<span class="nf">getVal</span><span class="p">([]</span><span class="nb">byte</span><span class="p">(</span><span class="s">&#34;test_key_5&#34;</span><span class="p">))</span>
+<span class="p">}</span>
+
+<span class="kd">func</span> <span class="nf">TestMiniDB_Del</span><span class="p">(</span><span class="nx">t</span> <span class="o">*</span><span class="nx">testing</span><span class="p">.</span><span class="nx">T</span><span class="p">)</span> <span class="p">{</span>
+	<span class="nx">db</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nf">Open</span><span class="p">(</span><span class="s">&#34;/home/dase/go/src/minidb/testdb&#34;</span><span class="p">)</span>
+	<span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+		<span class="nx">t</span><span class="p">.</span><span class="nf">Error</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span>
+	<span class="p">}</span>
+
+	<span class="nx">key</span> <span class="o">:=</span> <span class="p">[]</span><span class="nb">byte</span><span class="p">(</span><span class="s">&#34;test_key_78&#34;</span><span class="p">)</span>
+	<span class="nx">err</span> <span class="p">=</span> <span class="nx">db</span><span class="p">.</span><span class="nf">Del</span><span class="p">(</span><span class="nx">key</span><span class="p">)</span>
+
+	<span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+		<span class="nx">t</span><span class="p">.</span><span class="nf">Error</span><span class="p">(</span><span class="s">&#34;del err: &#34;</span><span class="p">,</span> <span class="nx">err</span><span class="p">)</span>
+	<span class="p">}</span>
+<span class="p">}</span>
+
+<span class="kd">func</span> <span class="nf">TestMiniDB_Merge</span><span class="p">(</span><span class="nx">t</span> <span class="o">*</span><span class="nx">testing</span><span class="p">.</span><span class="nx">T</span><span class="p">)</span> <span class="p">{</span>
+	<span class="nx">db</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nf">Open</span><span class="p">(</span><span class="s">&#34;/home/dase/go/src/minidb/testdb&#34;</span><span class="p">)</span>
+	<span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+		<span class="nx">t</span><span class="p">.</span><span class="nf">Error</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span>
+	<span class="p">}</span>
+	<span class="nx">err</span> <span class="p">=</span> <span class="nx">db</span><span class="p">.</span><span class="nf">Merge</span><span class="p">()</span>
+	<span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+		<span class="nx">t</span><span class="p">.</span><span class="nf">Error</span><span class="p">(</span><span class="s">&#34;merge err: &#34;</span><span class="p">,</span> <span class="nx">err</span><span class="p">)</span>
+	<span class="p">}</span>
+<span class="p">}</span>
+
+<span class="kd">func</span> <span class="nf">TestMyLearn</span><span class="p">(</span><span class="nx">t</span> <span class="o">*</span><span class="nx">testing</span><span class="p">.</span><span class="nx">T</span><span class="p">)</span> <span class="p">{</span>
+	<span class="nx">db</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nf">Open</span><span class="p">(</span><span class="s">&#34;/home/dase/go/src/minidb/testdb&#34;</span><span class="p">)</span>
+	<span class="nx">db</span><span class="p">.</span><span class="nf">Put</span><span class="p">([]</span><span class="nb">byte</span><span class="p">(</span><span class="s">&#34;123&#34;</span><span class="p">),</span> <span class="p">[]</span><span class="nb">byte</span><span class="p">(</span><span class="s">&#34;456&#34;</span><span class="p">))</span>
+	<span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+		<span class="nx">t</span><span class="p">.</span><span class="nf">Error</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span>
+	<span class="p">}</span>
+
+<span class="p">}</span>
+
+
+</code></pre></div><p>2.main.go</p>
+<p>在main函数中使用minidb，main.go代码如下</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="kn">package</span> <span class="nx">main</span>
+
+<span class="kn">import</span> <span class="p">(</span>
+	<span class="s">&#34;fmt&#34;</span>
+	<span class="s">&#34;minidb&#34;</span>
+<span class="p">)</span>
+
+<span class="kd">func</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+	<span class="nx">db</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">minidb</span><span class="p">.</span><span class="nf">Open</span><span class="p">(</span><span class="s">&#34;/home/dase/go/src/minidb/testdb&#34;</span><span class="p">)</span>
+
+	<span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+		<span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="nx">err</span><span class="p">)</span>
+	<span class="p">}</span>
+
+	<span class="nx">db</span><span class="p">.</span><span class="nf">Put</span><span class="p">([]</span><span class="nb">byte</span><span class="p">(</span><span class="s">&#34;1&#34;</span><span class="p">),</span> <span class="p">[]</span><span class="nb">byte</span><span class="p">(</span><span class="s">&#34;456&#34;</span><span class="p">))</span>
+	<span class="nx">db</span><span class="p">.</span><span class="nf">Put</span><span class="p">([]</span><span class="nb">byte</span><span class="p">(</span><span class="s">&#34;12&#34;</span><span class="p">),</span> <span class="p">[]</span><span class="nb">byte</span><span class="p">(</span><span class="s">&#34;456&#34;</span><span class="p">))</span>
+	<span class="nx">db</span><span class="p">.</span><span class="nf">Put</span><span class="p">([]</span><span class="nb">byte</span><span class="p">(</span><span class="s">&#34;1234&#34;</span><span class="p">),</span> <span class="p">[]</span><span class="nb">byte</span><span class="p">(</span><span class="s">&#34;456&#34;</span><span class="p">))</span>
+	<span class="nx">db</span><span class="p">.</span><span class="nf">Put</span><span class="p">([]</span><span class="nb">byte</span><span class="p">(</span><span class="s">&#34;12345&#34;</span><span class="p">),</span> <span class="p">[]</span><span class="nb">byte</span><span class="p">(</span><span class="s">&#34;456&#34;</span><span class="p">))</span>
+
+	<span class="nx">db</span><span class="p">.</span><span class="nf">Del</span><span class="p">([]</span><span class="nb">byte</span><span class="p">(</span><span class="s">&#34;12&#34;</span><span class="p">))</span>
+	<span class="nx">db</span><span class="p">.</span><span class="nf">Put</span><span class="p">([]</span><span class="nb">byte</span><span class="p">(</span><span class="s">&#34;12&#34;</span><span class="p">),</span> <span class="p">[]</span><span class="nb">byte</span><span class="p">(</span><span class="s">&#34;4561&#34;</span><span class="p">))</span>
+	<span class="nx">db</span><span class="p">.</span><span class="nf">Put</span><span class="p">([]</span><span class="nb">byte</span><span class="p">(</span><span class="s">&#34;12&#34;</span><span class="p">),</span> <span class="p">[]</span><span class="nb">byte</span><span class="p">(</span><span class="s">&#34;4562&#34;</span><span class="p">))</span>
+	<span class="nx">db</span><span class="p">.</span><span class="nf">Put</span><span class="p">([]</span><span class="nb">byte</span><span class="p">(</span><span class="s">&#34;12&#34;</span><span class="p">),</span> <span class="p">[]</span><span class="nb">byte</span><span class="p">(</span><span class="s">&#34;4563&#34;</span><span class="p">))</span>
+	<span class="nx">db</span><span class="p">.</span><span class="nf">Put</span><span class="p">([]</span><span class="nb">byte</span><span class="p">(</span><span class="s">&#34;12&#34;</span><span class="p">),</span> <span class="p">[]</span><span class="nb">byte</span><span class="p">(</span><span class="s">&#34;4564&#34;</span><span class="p">))</span>
+
+	<span class="nx">err</span> <span class="p">=</span> <span class="nx">db</span><span class="p">.</span><span class="nf">Merge</span><span class="p">()</span>
+	<span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>
+		<span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="s">&#34;merge err: &#34;</span><span class="p">,</span> <span class="nx">err</span><span class="p">)</span>
+	<span class="p">}</span>
+	<span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="nx">db</span><span class="p">.</span><span class="nf">Get</span><span class="p">([]</span><span class="nb">byte</span><span class="p">(</span><span class="s">&#34;12&#34;</span><span class="p">)))</span>
+	<span class="k">return</span>
+<span class="p">}</span>
+
+</code></pre></div>
     
 	</div>
   <footer class="article-footer clearfix">
