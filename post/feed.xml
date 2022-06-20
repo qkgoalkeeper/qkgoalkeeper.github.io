@@ -6,7 +6,16 @@
     <description>Recent content in Posts on qkgoalkeeper&#39;s blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
-    <lastBuildDate>Sun, 19 Jun 2022 07:55:19 +0800</lastBuildDate><atom:link href="https://qkgoalkeeper.github.io/post/feed.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 20 Jun 2022 07:55:19 +0800</lastBuildDate><atom:link href="https://qkgoalkeeper.github.io/post/feed.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>LeetCode每日练习：715. Range 模块</title>
+      <link>https://qkgoalkeeper.github.io/post/leetcode%E6%AF%8F%E6%97%A5%E7%BB%83%E4%B9%A0715.-range-%E6%A8%A1%E5%9D%97/</link>
+      <pubDate>Mon, 20 Jun 2022 07:55:19 +0800</pubDate>
+      
+      <guid>https://qkgoalkeeper.github.io/post/leetcode%E6%AF%8F%E6%97%A5%E7%BB%83%E4%B9%A0715.-range-%E6%A8%A1%E5%9D%97/</guid>
+      <description>一.715. Range 模块 1.题干及思路 Range模块是跟踪数字范围的模块。设计一个数据结构来跟踪表示为 半开区间 的范围并查询它们。 半开区间 [left, right) 表示所</description>
+    </item>
+    
     <item>
       <title>LeetCode每日练习：508. 出现次数最多的子树元素和</title>
       <link>https://qkgoalkeeper.github.io/post/leetcode%E6%AF%8F%E6%97%A5%E7%BB%83%E4%B9%A0508.-%E5%87%BA%E7%8E%B0%E6%AC%A1%E6%95%B0%E6%9C%80%E5%A4%9A%E7%9A%84%E5%AD%90%E6%A0%91%E5%85%83%E7%B4%A0%E5%92%8C/</link>
