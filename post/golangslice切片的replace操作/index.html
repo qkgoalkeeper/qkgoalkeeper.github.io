@@ -2,13 +2,13 @@
 <html lang="zh-CN">
 <head>
   <meta charset="UTF-8">
-  <title>LeetCode每日练习：剑指 Offer 39. 数组中出现次数超过一半的数字 - qkgoalkeeper&#39;s blog</title>
+  <title>golang：slice切片的replace操作 - qkgoalkeeper&#39;s blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=3, minimum-scale=1">
   
-  <meta name="description" content="一.剑指 Offer 39. 数组中出现次数超过一半的数字 1.题干及思路 数组中有一个数字出现的次数超过数组长度的一半，请找出这个数字。 你可以假设数组是非空的，">
+  <meta name="description" content="一.golang：slice切片的replace操作 上次介绍了slice切片的插入等操作，在做LeetCode1108. IP 地址无效化时发现g">
   
-  <meta itemprop="name" content="LeetCode每日练习：剑指 Offer 39. 数组中出现次数超过一半的数字 - qkgoalkeeper&#39;s blog">
-  <meta itemprop="description" content="一.剑指 Offer 39. 数组中出现次数超过一半的数字 1.题干及思路 数组中有一个数字出现的次数超过数组长度的一半，请找出这个数字。 你可以假设数组是非空的，">
+  <meta itemprop="name" content="golang：slice切片的replace操作 - qkgoalkeeper&#39;s blog">
+  <meta itemprop="description" content="一.golang：slice切片的replace操作 上次介绍了slice切片的插入等操作，在做LeetCode1108. IP 地址无效化时发现g">
   <meta itemprop="image" content="https://qkgoalkeeper.github.io/img/author.jpg">
   
   
@@ -74,7 +74,7 @@
 	<article itemprop="articleBody">
     <header class="article-info clearfix">
   <h1 itemprop="name">
-      <a href="https://qkgoalkeeper.github.io/post/leetcode%E6%AF%8F%E6%97%A5%E7%BB%83%E4%B9%A0%E5%89%91%E6%8C%87-offer-39.-%E6%95%B0%E7%BB%84%E4%B8%AD%E5%87%BA%E7%8E%B0%E6%AC%A1%E6%95%B0%E8%B6%85%E8%BF%87%E4%B8%80%E5%8D%8A%E7%9A%84%E6%95%B0%E5%AD%97/" title="LeetCode每日练习：剑指 Offer 39. 数组中出现次数超过一半的数字" itemprop="url">LeetCode每日练习：剑指 Offer 39. 数组中出现次数超过一半的数字</a>
+      <a href="https://qkgoalkeeper.github.io/post/golangslice%E5%88%87%E7%89%87%E7%9A%84replace%E6%93%8D%E4%BD%9C/" title="golang：slice切片的replace操作" itemprop="url">golang：slice切片的replace操作</a>
   </h1>
   <p class="article-author">By
     
@@ -82,7 +82,7 @@
     
   </p>
   <p class="article-time">
-    <time datetime="2022-01-23 10:55:19 &#43;0800 CST" itemprop="datePublished">2022年01月23日</time>
+    <time datetime="2022-06-21 07:55:19 &#43;0800 CST" itemprop="datePublished">2022年06月21日</time>
   </p>
 </header>
 
@@ -92,45 +92,75 @@
 			<strong class="toc-title">文章目录</strong>
       <nav id="TableOfContents">
   <ul>
-    <li><a href="#1题干及思路">1.题干及思路</a></li>
-    <li><a href="#2c实现">2.C++实现</a></li>
+    <li><a href="#1replaceall">1.replaceall</a></li>
+    <li><a href="#2replace">2.replace</a></li>
   </ul>
 </nav>
 		</div>
     
-    <h1 id="一剑指-offer-39-数组中出现次数超过一半的数字httpsleetcode-cncomproblemsshu-zu-zhong-chu-xian-ci-shu-chao-guo-yi-ban-de-shu-zi-lcof">一.<a href="https://leetcode-cn.com/problems/shu-zu-zhong-chu-xian-ci-shu-chao-guo-yi-ban-de-shu-zi-lcof/">剑指 Offer 39. 数组中出现次数超过一半的数字</a></h1>
-<h2 id="1题干及思路">1.题干及思路</h2>
-<p>数组中有一个数字出现的次数超过数组长度的一半，请找出这个数字。</p>
-<p>你可以假设数组是非空的，并且给定的数组总是存在多数元素。</p>
-<p><strong>示例 1:</strong></p>
-<pre tabindex="0"><code>输入: [1, 2, 3, 2, 2, 2, 5, 4, 2]
-输出: 2
-</code></pre><p><strong>限制：</strong></p>
-<pre tabindex="0"><code>1 &lt;= 数组长度 &lt;= 50000
-</code></pre><p>注意：本题与主站 169 题相同：https://leetcode-cn.com/problems/majority-element/</p>
-<p>要点：Boyer-Moore 投票算法</p>
-<p>思路：Boyer-Moore 投票算法的应用，可以找到众数</p>
-<h2 id="2c实现">2.C++实现</h2>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="k">class</span> <span class="nc">Solution</span> <span class="p">{</span>
-<span class="k">public</span><span class="o">:</span>
-    <span class="kt">int</span> <span class="n">majorityElement</span><span class="p">(</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;&amp;</span> <span class="n">nums</span><span class="p">)</span> <span class="p">{</span>
-        <span class="kt">int</span> <span class="n">now</span> <span class="o">=</span> <span class="n">nums</span><span class="p">[</span><span class="mi">0</span><span class="p">];</span>
-        <span class="kt">int</span> <span class="n">sum</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
-        <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span><span class="o">=</span><span class="mi">1</span><span class="p">;</span><span class="n">i</span><span class="o">&lt;</span><span class="n">nums</span><span class="p">.</span><span class="n">size</span><span class="p">();</span><span class="n">i</span><span class="o">++</span><span class="p">){</span>
-            <span class="k">if</span><span class="p">(</span><span class="n">nums</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">==</span><span class="n">now</span><span class="p">){</span>
-                <span class="n">sum</span><span class="o">++</span><span class="p">;</span>
-            <span class="p">}</span>
-            <span class="k">else</span><span class="p">{</span>
-                <span class="n">sum</span><span class="o">--</span><span class="p">;</span>
-                <span class="k">if</span><span class="p">(</span><span class="n">sum</span><span class="o">==</span><span class="mi">0</span><span class="p">){</span>
-                    <span class="n">now</span> <span class="o">=</span> <span class="n">nums</span><span class="p">[</span><span class="n">i</span><span class="p">];</span>
-                    <span class="n">sum</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
-                <span class="p">}</span>
-            <span class="p">}</span>
-        <span class="p">}</span>
-        <span class="k">return</span> <span class="n">now</span><span class="p">;</span>
-    <span class="p">}</span>
-<span class="p">};</span>
+    <h1 id="一golangslice切片的replace操作">一.golang：slice切片的replace操作</h1>
+<p>上次介绍了slice切片的插入等操作，在做LeetCode<a href="https://leetcode.cn/problems/defanging-an-ip-address/">1108. IP 地址无效化</a>时发现golang的strings库中自带子串替换可以一行replaceall代码解决问题，本篇来探究一下这个内置replace的源码是如何实现的，在strings.go中</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="c1">// func defangIPaddr(address string) string { 
+</span><span class="c1">//     s := []rune(address)
+</span><span class="c1">//     arr := make([]rune,0)
+</span><span class="c1">//     for i := 0; i &lt; len(s); i++{
+</span><span class="c1">//         if s[i] != &#39;.&#39;{
+</span><span class="c1">//             arr = append(arr, s[i])
+</span><span class="c1">//         }else{
+</span><span class="c1">//             arr = append(arr,[]rune(&#34;[.]&#34;)...)
+</span><span class="c1">//         }
+</span><span class="c1">//     }   
+</span><span class="c1">//     res := string(arr)
+</span><span class="c1">//     return res
+</span><span class="c1"></span>
+<span class="c1">// }
+</span><span class="c1"></span>
+<span class="c1">//自带api
+</span><span class="c1"></span><span class="kd">func</span> <span class="nf">defangIPaddr</span><span class="p">(</span><span class="nx">address</span> <span class="kt">string</span><span class="p">)</span> <span class="kt">string</span> <span class="p">{</span>
+	<span class="k">return</span> <span class="nx">strings</span><span class="p">.</span><span class="nf">ReplaceAll</span><span class="p">(</span><span class="nx">address</span><span class="p">,</span> <span class="s">&#34;.&#34;</span><span class="p">,</span> <span class="s">&#34;[.]&#34;</span><span class="p">)</span>
+
+<span class="p">}</span>
+</code></pre></div><h2 id="1replaceall">1.replaceall</h2>
+<p>replaceall本质调用replace，各个参数是目标字符串，需替换的old字符串，需要改成的new字符串，次数（负数表示全部个数）</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="kd">func</span> <span class="nf">ReplaceAll</span><span class="p">(</span><span class="nx">s</span><span class="p">,</span> <span class="nx">old</span><span class="p">,</span> <span class="nx">new</span> <span class="kt">string</span><span class="p">)</span> <span class="kt">string</span> <span class="p">{</span>
+	<span class="k">return</span> <span class="nf">Replace</span><span class="p">(</span><span class="nx">s</span><span class="p">,</span> <span class="nx">old</span><span class="p">,</span> <span class="nx">new</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+<span class="p">}</span>
+
+</code></pre></div><h2 id="2replace">2.replace</h2>
+<p>前面是特殊判断，Grow 会增加缓冲区builder的容量，Grow(n) 保证 n 个字节的空间。修改字符串的主要代码是16行到31行，对于每个找到的old字符串，当old不为空时，index找到当前位置后的第一个old出现位置，将s[start:j]与new拼接，因此本质上是新创建了一个缓存区b然后一点点拼接而成，因此这个replace需要缓存空间</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="kd">func</span> <span class="nf">Replace</span><span class="p">(</span><span class="nx">s</span><span class="p">,</span> <span class="nx">old</span><span class="p">,</span> <span class="nx">new</span> <span class="kt">string</span><span class="p">,</span> <span class="nx">n</span> <span class="kt">int</span><span class="p">)</span> <span class="kt">string</span> <span class="p">{</span>
+	<span class="k">if</span> <span class="nx">old</span> <span class="o">==</span> <span class="nx">new</span> <span class="o">||</span> <span class="nx">n</span> <span class="o">==</span> <span class="mi">0</span> <span class="p">{</span>
+		<span class="k">return</span> <span class="nx">s</span> <span class="c1">// avoid allocation
+</span><span class="c1"></span>	<span class="p">}</span>
+
+	<span class="c1">// Compute number of replacements.
+</span><span class="c1"></span>	<span class="k">if</span> <span class="nx">m</span> <span class="o">:=</span> <span class="nf">Count</span><span class="p">(</span><span class="nx">s</span><span class="p">,</span> <span class="nx">old</span><span class="p">);</span> <span class="nx">m</span> <span class="o">==</span> <span class="mi">0</span> <span class="p">{</span>
+		<span class="k">return</span> <span class="nx">s</span> <span class="c1">// avoid allocation
+</span><span class="c1"></span>	<span class="p">}</span> <span class="k">else</span> <span class="k">if</span> <span class="nx">n</span> <span class="p">&lt;</span> <span class="mi">0</span> <span class="o">||</span> <span class="nx">m</span> <span class="p">&lt;</span> <span class="nx">n</span> <span class="p">{</span>
+		<span class="nx">n</span> <span class="p">=</span> <span class="nx">m</span>
+	<span class="p">}</span>
+
+	<span class="c1">// Apply replacements to buffer.
+</span><span class="c1"></span>	<span class="kd">var</span> <span class="nx">b</span> <span class="nx">Builder</span>
+	<span class="nx">b</span><span class="p">.</span><span class="nf">Grow</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="nx">s</span><span class="p">)</span> <span class="o">+</span> <span class="nx">n</span><span class="o">*</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="nx">new</span><span class="p">)</span><span class="o">-</span><span class="nb">len</span><span class="p">(</span><span class="nx">old</span><span class="p">)))</span>
+	<span class="nx">start</span> <span class="o">:=</span> <span class="mi">0</span>
+	<span class="k">for</span> <span class="nx">i</span> <span class="o">:=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="p">&lt;</span> <span class="nx">n</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span> <span class="p">{</span>
+		<span class="nx">j</span> <span class="o">:=</span> <span class="nx">start</span>
+		<span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="nx">old</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span> <span class="p">{</span>
+			<span class="k">if</span> <span class="nx">i</span> <span class="p">&gt;</span> <span class="mi">0</span> <span class="p">{</span>
+				<span class="nx">_</span><span class="p">,</span> <span class="nx">wid</span> <span class="o">:=</span> <span class="nx">utf8</span><span class="p">.</span><span class="nf">DecodeRuneInString</span><span class="p">(</span><span class="nx">s</span><span class="p">[</span><span class="nx">start</span><span class="p">:])</span>
+				<span class="nx">j</span> <span class="o">+=</span> <span class="nx">wid</span>
+			<span class="p">}</span>
+		<span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+			<span class="nx">j</span> <span class="o">+=</span> <span class="nf">Index</span><span class="p">(</span><span class="nx">s</span><span class="p">[</span><span class="nx">start</span><span class="p">:],</span> <span class="nx">old</span><span class="p">)</span>
+		<span class="p">}</span>
+		<span class="nx">b</span><span class="p">.</span><span class="nf">WriteString</span><span class="p">(</span><span class="nx">s</span><span class="p">[</span><span class="nx">start</span><span class="p">:</span><span class="nx">j</span><span class="p">])</span>
+		<span class="nx">b</span><span class="p">.</span><span class="nf">WriteString</span><span class="p">(</span><span class="nx">new</span><span class="p">)</span>
+		<span class="nx">start</span> <span class="p">=</span> <span class="nx">j</span> <span class="o">+</span> <span class="nb">len</span><span class="p">(</span><span class="nx">old</span><span class="p">)</span>
+	<span class="p">}</span>
+	<span class="nx">b</span><span class="p">.</span><span class="nf">WriteString</span><span class="p">(</span><span class="nx">s</span><span class="p">[</span><span class="nx">start</span><span class="p">:])</span>
+	<span class="k">return</span> <span class="nx">b</span><span class="p">.</span><span class="nf">String</span><span class="p">()</span>
+<span class="p">}</span>
 </code></pre></div>
     
 	</div>
@@ -140,9 +170,7 @@
 <div class="article-tags">
   <span></span>
   
-  <a href="https://qkgoalkeeper.github.io/tags/leetcode">LeetCode</a>
-  
-  <a href="https://qkgoalkeeper.github.io/tags/c&#43;&#43;">C&#43;&#43;</a>
+  <a href="https://qkgoalkeeper.github.io/tags/golang%E8%AF%AD%E6%B3%95">golang语法</a>
   
 </div>
 
@@ -153,14 +181,14 @@
 <div class="article-categories">
   <span></span>
   
-  <a class="article-category-link" href="https://qkgoalkeeper.github.io/categories/%E5%A4%A7%E5%9B%9Bleetcode%E7%AE%97%E6%B3%95%E5%88%B7%E9%A2%98">大四LeetCode算法刷题</a>
+  <a class="article-category-link" href="https://qkgoalkeeper.github.io/categories/golang">golang</a>
   
 </div>
 
 
 
   <div class="article-share" id="share">
-    <div data-url="https://qkgoalkeeper.github.io/post/leetcode%E6%AF%8F%E6%97%A5%E7%BB%83%E4%B9%A0%E5%89%91%E6%8C%87-offer-39.-%E6%95%B0%E7%BB%84%E4%B8%AD%E5%87%BA%E7%8E%B0%E6%AC%A1%E6%95%B0%E8%B6%85%E8%BF%87%E4%B8%80%E5%8D%8A%E7%9A%84%E6%95%B0%E5%AD%97/" data-title="LeetCode每日练习：剑指 Offer 39. 数组中出现次数超过一半的数字" data-tsina="5852167252" class="share clearfix">
+    <div data-url="https://qkgoalkeeper.github.io/post/golangslice%E5%88%87%E7%89%87%E7%9A%84replace%E6%93%8D%E4%BD%9C/" data-title="golang：slice切片的replace操作" data-tsina="5852167252" class="share clearfix">
     </div>
   </div>
 </footer>
