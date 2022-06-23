@@ -2,13 +2,13 @@
 <html lang="zh-CN">
 <head>
   <meta charset="UTF-8">
-  <title>LeetCode每日练习：剑指 Offer II 004. 只出现一次的数字  - qkgoalkeeper&#39;s blog</title>
+  <title>LeetCode每日练习：30. 串联所有单词的子串 - qkgoalkeeper&#39;s blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=3, minimum-scale=1">
   
-  <meta name="description" content="一.剑指 Offer II 004. 只出现一次的数字 1.题干及思路 给你一个整数数组 nums ，除某个元素仅出现 一次 外，其余每个元素都恰出现 **三次 。**请你找出并返回那个">
+  <meta name="description" content="一.30. 串联所有单词的子串 1.题干及思路 给定一个字符串 s 和一些 长度相同 的单词 words **。**找出 s 中恰好可以由 words 中所有单词串联形成的子串的起始">
   
-  <meta itemprop="name" content="LeetCode每日练习：剑指 Offer II 004. 只出现一次的数字  - qkgoalkeeper&#39;s blog">
-  <meta itemprop="description" content="一.剑指 Offer II 004. 只出现一次的数字 1.题干及思路 给你一个整数数组 nums ，除某个元素仅出现 一次 外，其余每个元素都恰出现 **三次 。**请你找出并返回那个">
+  <meta itemprop="name" content="LeetCode每日练习：30. 串联所有单词的子串 - qkgoalkeeper&#39;s blog">
+  <meta itemprop="description" content="一.30. 串联所有单词的子串 1.题干及思路 给定一个字符串 s 和一些 长度相同 的单词 words **。**找出 s 中恰好可以由 words 中所有单词串联形成的子串的起始">
   <meta itemprop="image" content="https://qkgoalkeeper.github.io/img/author.jpg">
   
   
@@ -74,7 +74,7 @@
 	<article itemprop="articleBody">
     <header class="article-info clearfix">
   <h1 itemprop="name">
-      <a href="https://qkgoalkeeper.github.io/post/leetcode%E6%AF%8F%E6%97%A5%E7%BB%83%E4%B9%A0%E5%89%91%E6%8C%87-offer-ii-004.-%E5%8F%AA%E5%87%BA%E7%8E%B0%E4%B8%80%E6%AC%A1%E7%9A%84%E6%95%B0%E5%AD%97/" title="LeetCode每日练习：剑指 Offer II 004. 只出现一次的数字 " itemprop="url">LeetCode每日练习：剑指 Offer II 004. 只出现一次的数字 </a>
+      <a href="https://qkgoalkeeper.github.io/post/leetcode%E6%AF%8F%E6%97%A5%E7%BB%83%E4%B9%A030.-%E4%B8%B2%E8%81%94%E6%89%80%E6%9C%89%E5%8D%95%E8%AF%8D%E7%9A%84%E5%AD%90%E4%B8%B2/" title="LeetCode每日练习：30. 串联所有单词的子串" itemprop="url">LeetCode每日练习：30. 串联所有单词的子串</a>
   </h1>
   <p class="article-author">By
     
@@ -82,7 +82,7 @@
     
   </p>
   <p class="article-time">
-    <time datetime="2022-02-05 10:55:19 &#43;0800 CST" itemprop="datePublished">2022年02月05日</time>
+    <time datetime="2022-06-23 07:55:19 &#43;0800 CST" itemprop="datePublished">2022年06月23日</time>
   </p>
 </header>
 
@@ -93,53 +93,73 @@
       <nav id="TableOfContents">
   <ul>
     <li><a href="#1题干及思路">1.题干及思路</a></li>
-    <li><a href="#2c实现">2.C++实现</a></li>
+    <li><a href="#2golang实现">2.golang实现</a></li>
   </ul>
 </nav>
 		</div>
     
-    <h1 id="一剑指-offer-ii-004-只出现一次的数字-httpsleetcode-cncomproblemswgki4k">一.<a href="https://leetcode-cn.com/problems/WGki4K/">剑指 Offer II 004. 只出现一次的数字 </a></h1>
+    <h1 id="一30-串联所有单词的子串httpsleetcodecnproblemssubstring-with-concatenation-of-all-words">一.<a href="https://leetcode.cn/problems/substring-with-concatenation-of-all-words/">30. 串联所有单词的子串</a></h1>
 <h2 id="1题干及思路">1.题干及思路</h2>
-<p>给你一个整数数组 <code>nums</code> ，除某个元素仅出现 <strong>一次</strong> 外，其余每个元素都恰出现 **三次 。**请你找出并返回那个只出现了一次的元素。</p>
+<p>给定一个字符串 <code>s</code> 和一些 <strong>长度相同</strong> 的单词 <code>words</code> **。**找出 <code>s</code> 中恰好可以由 <code>words</code> 中所有单词串联形成的子串的起始位置。</p>
+<p>注意子串要与 <code>words</code> 中的单词完全匹配，<strong>中间不能有其他字符</strong> ，但不需要考虑 <code>words</code> 中单词串联的顺序。</p>
 <p><strong>示例 1：</strong></p>
-<pre tabindex="0"><code>输入：nums = [2,2,3,2]
-输出：3
+<pre tabindex="0"><code>输入：s = &quot;barfoothefoobarman&quot;, words = [&quot;foo&quot;,&quot;bar&quot;]
+输出：[0,9]
+解释：
+从索引 0 和 9 开始的子串分别是 &quot;barfoo&quot; 和 &quot;foobar&quot; 。
+输出的顺序不重要, [9,0] 也是有效答案。
 </code></pre><p><strong>示例 2：</strong></p>
-<pre tabindex="0"><code>输入：nums = [0,1,0,1,0,1,100]
-输出：100
+<pre tabindex="0"><code>输入：s = &quot;wordgoodgoodgoodbestword&quot;, words = [&quot;word&quot;,&quot;good&quot;,&quot;best&quot;,&quot;word&quot;]
+输出：[]
+</code></pre><p><strong>示例 3：</strong></p>
+<pre tabindex="0"><code>输入：s = &quot;barfoofoobarthefoobarman&quot;, words = [&quot;bar&quot;,&quot;foo&quot;,&quot;the&quot;]
+输出：[6,9,12]
 </code></pre><p><strong>提示：</strong></p>
 <ul>
-<li><code>1 &lt;= nums.length &lt;= 3 * 104</code></li>
-<li><code>-231 &lt;= nums[i] &lt;= 231 - 1</code></li>
-<li><code>nums</code> 中，除某个元素仅出现 <strong>一次</strong> 外，其余每个元素都恰出现 <strong>三次</strong></li>
+<li><code>1 &lt;= s.length &lt;= 104</code></li>
+<li><code>s</code> 由小写英文字母组成</li>
+<li><code>1 &lt;= words.length &lt;= 5000</code></li>
+<li><code>1 &lt;= words[i].length &lt;= 30</code></li>
+<li><code>words[i]</code> 由小写英文字母组成</li>
 </ul>
-<p>**进阶：**你的算法应该具有线性时间复杂度。 你可以不使用额外空间来实现吗？</p>
-<p>注意：本题与主站 137 题相同：https://leetcode-cn.com/problems/single-number-ii/</p>
-<p>要点：位运算</p>
-<p>思路：用一个32位vector，每个数对应二进制位在该vector中加1，最后遍历一遍vector如果%3==1则说明是那剩余一个数的位数之一</p>
-<h2 id="2c实现">2.C++实现</h2>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="k">class</span> <span class="nc">Solution</span> <span class="p">{</span>
-<span class="k">public</span><span class="o">:</span>
-    <span class="kt">int</span> <span class="n">singleNumber</span><span class="p">(</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;&amp;</span> <span class="n">nums</span><span class="p">)</span> <span class="p">{</span>
-        <span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">tmp</span><span class="p">(</span><span class="mi">32</span><span class="p">,</span><span class="mi">0</span><span class="p">);</span>
-        <span class="kt">int</span> <span class="n">answer</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
-        <span class="k">for</span><span class="p">(</span><span class="k">auto</span> <span class="nl">x</span><span class="p">:</span><span class="n">nums</span><span class="p">){</span>
-            <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span><span class="n">i</span><span class="o">&lt;</span><span class="mi">32</span><span class="p">;</span><span class="n">i</span><span class="o">++</span><span class="p">){</span>
-                <span class="k">if</span><span class="p">((</span><span class="n">x</span><span class="o">&amp;</span><span class="mi">1</span><span class="p">)</span><span class="o">==</span><span class="mi">1</span><span class="p">)</span> <span class="n">tmp</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">++</span><span class="p">;</span>
-                <span class="n">x</span><span class="o">&gt;&gt;=</span><span class="mi">1</span><span class="p">;</span>
+<p>要点：滑动窗口</p>
+<p>思路：用哈希表记录单词的数量，第一层遍历确定字符串开始的位置i（其实只要遍历0,1，&hellip;n（n为单词长度）），遍历内采用滑动窗口每次移动一个单词然后判断是否哈希表值平衡</p>
+<h2 id="2golang实现">2.golang实现</h2>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="n">func</span> <span class="nf">findSubstring</span><span class="p">(</span><span class="n">s</span> <span class="n">string</span><span class="p">,</span> <span class="n">words</span> <span class="p">[]</span><span class="n">string</span><span class="p">)</span> <span class="p">(</span><span class="n">ans</span> <span class="p">[]</span><span class="kt">int</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">ls</span><span class="p">,</span> <span class="n">m</span><span class="p">,</span> <span class="nl">n</span> <span class="p">:</span><span class="o">=</span> <span class="n">len</span><span class="p">(</span><span class="n">s</span><span class="p">),</span> <span class="n">len</span><span class="p">(</span><span class="n">words</span><span class="p">),</span> <span class="n">len</span><span class="p">(</span><span class="n">words</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+    <span class="k">for</span> <span class="nl">i</span> <span class="p">:</span><span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">n</span> <span class="o">&amp;&amp;</span> <span class="n">i</span><span class="o">+</span><span class="n">m</span><span class="o">*</span><span class="n">n</span> <span class="o">&lt;=</span> <span class="n">ls</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span> <span class="p">{</span>
+        <span class="nl">differ</span> <span class="p">:</span><span class="o">=</span> <span class="n">map</span><span class="p">[</span><span class="n">string</span><span class="p">]</span><span class="kt">int</span><span class="p">{}</span>
+        <span class="k">for</span> <span class="nl">j</span> <span class="p">:</span><span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">j</span> <span class="o">&lt;</span> <span class="n">m</span><span class="p">;</span> <span class="n">j</span><span class="o">++</span> <span class="p">{</span>
+            <span class="n">differ</span><span class="p">[</span><span class="n">s</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="n">j</span><span class="o">*</span><span class="nl">n</span><span class="p">:</span><span class="n">i</span><span class="o">+</span><span class="p">(</span><span class="n">j</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span><span class="o">*</span><span class="n">n</span><span class="p">]]</span><span class="o">++</span> <span class="c1">//循环内哈希表每个单词++
+</span><span class="c1"></span>        <span class="p">}</span>
+        <span class="k">for</span> <span class="n">_</span><span class="p">,</span> <span class="nl">word</span> <span class="p">:</span><span class="o">=</span> <span class="n">range</span> <span class="n">words</span> <span class="p">{</span> <span class="c1">//需要对比的words中每个word哈希表--
+</span><span class="c1"></span>            <span class="n">differ</span><span class="p">[</span><span class="n">word</span><span class="p">]</span><span class="o">--</span>
+            <span class="k">if</span> <span class="n">differ</span><span class="p">[</span><span class="n">word</span><span class="p">]</span> <span class="o">==</span> <span class="mi">0</span> <span class="p">{</span>
+                <span class="k">delete</span><span class="p">(</span><span class="n">differ</span><span class="p">,</span> <span class="n">word</span><span class="p">)</span>
             <span class="p">}</span>
         <span class="p">}</span>
-
-        <span class="kt">int</span> <span class="n">mul</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
-        <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span><span class="n">i</span><span class="o">&lt;</span><span class="mi">32</span><span class="p">;</span><span class="n">i</span><span class="o">++</span><span class="p">){</span>
-            <span class="k">if</span><span class="p">(</span><span class="n">tmp</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">%</span><span class="mi">3</span><span class="o">==</span><span class="mi">1</span><span class="p">){</span>
-                <span class="n">answer</span><span class="o">+=</span><span class="n">mul</span><span class="p">;</span>
+        <span class="k">for</span> <span class="nl">start</span> <span class="p">:</span><span class="o">=</span> <span class="n">i</span><span class="p">;</span> <span class="n">start</span> <span class="o">&lt;</span> <span class="n">ls</span><span class="o">-</span><span class="n">m</span><span class="o">*</span><span class="n">n</span><span class="o">+</span><span class="mi">1</span><span class="p">;</span> <span class="n">start</span> <span class="o">+=</span> <span class="n">n</span> <span class="p">{</span> <span class="c1">//i确定时一个一个单词滑动窗口减少重复判断
+</span><span class="c1"></span>            <span class="k">if</span> <span class="n">start</span> <span class="o">!=</span> <span class="n">i</span> <span class="p">{</span>
+                <span class="nl">word</span> <span class="p">:</span><span class="o">=</span> <span class="n">s</span><span class="p">[</span><span class="n">start</span><span class="o">+</span><span class="p">(</span><span class="n">m</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">*</span><span class="nl">n</span> <span class="p">:</span> <span class="n">start</span><span class="o">+</span><span class="n">m</span><span class="o">*</span><span class="n">n</span><span class="p">]</span>
+                <span class="n">differ</span><span class="p">[</span><span class="n">word</span><span class="p">]</span><span class="o">++</span>
+                <span class="k">if</span> <span class="n">differ</span><span class="p">[</span><span class="n">word</span><span class="p">]</span> <span class="o">==</span> <span class="mi">0</span> <span class="p">{</span>
+                    <span class="k">delete</span><span class="p">(</span><span class="n">differ</span><span class="p">,</span> <span class="n">word</span><span class="p">)</span>
+                <span class="p">}</span>
+                <span class="n">word</span> <span class="o">=</span> <span class="n">s</span><span class="p">[</span><span class="n">start</span><span class="o">-</span><span class="nl">n</span> <span class="p">:</span> <span class="n">start</span><span class="p">]</span>
+                <span class="n">differ</span><span class="p">[</span><span class="n">word</span><span class="p">]</span><span class="o">--</span>
+                <span class="k">if</span> <span class="n">differ</span><span class="p">[</span><span class="n">word</span><span class="p">]</span> <span class="o">==</span> <span class="mi">0</span> <span class="p">{</span>
+                    <span class="k">delete</span><span class="p">(</span><span class="n">differ</span><span class="p">,</span> <span class="n">word</span><span class="p">)</span>
+                <span class="p">}</span>
             <span class="p">}</span>
-            <span class="k">if</span><span class="p">(</span><span class="n">i</span><span class="o">&lt;</span><span class="mi">31</span><span class="p">)</span> <span class="n">mul</span><span class="o">&lt;&lt;=</span><span class="mi">1</span><span class="p">;</span>
+            <span class="k">if</span> <span class="n">len</span><span class="p">(</span><span class="n">differ</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span> <span class="p">{</span>
+                <span class="n">ans</span> <span class="o">=</span> <span class="n">append</span><span class="p">(</span><span class="n">ans</span><span class="p">,</span> <span class="n">start</span><span class="p">)</span>
+            <span class="p">}</span>
         <span class="p">}</span>
-        <span class="k">return</span> <span class="n">answer</span><span class="p">;</span>
     <span class="p">}</span>
-<span class="p">};</span>
+    <span class="k">return</span>
+<span class="p">}</span>
+
+
 
 </code></pre></div>
     
@@ -152,7 +172,9 @@
   
   <a href="https://qkgoalkeeper.github.io/tags/leetcode">LeetCode</a>
   
-  <a href="https://qkgoalkeeper.github.io/tags/c&#43;&#43;">C&#43;&#43;</a>
+  <a href="https://qkgoalkeeper.github.io/tags/golang">golang</a>
+  
+  <a href="https://qkgoalkeeper.github.io/tags/%E6%BB%91%E5%8A%A8%E7%AA%97%E5%8F%A3">滑动窗口</a>
   
 </div>
 
@@ -163,14 +185,14 @@
 <div class="article-categories">
   <span></span>
   
-  <a class="article-category-link" href="https://qkgoalkeeper.github.io/categories/%E5%A4%A7%E5%9B%9Bleetcode%E7%AE%97%E6%B3%95%E5%88%B7%E9%A2%98">大四LeetCode算法刷题</a>
+  <a class="article-category-link" href="https://qkgoalkeeper.github.io/categories/leetcode%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98">LeetCode每日一题</a>
   
 </div>
 
 
 
   <div class="article-share" id="share">
-    <div data-url="https://qkgoalkeeper.github.io/post/leetcode%E6%AF%8F%E6%97%A5%E7%BB%83%E4%B9%A0%E5%89%91%E6%8C%87-offer-ii-004.-%E5%8F%AA%E5%87%BA%E7%8E%B0%E4%B8%80%E6%AC%A1%E7%9A%84%E6%95%B0%E5%AD%97/" data-title="LeetCode每日练习：剑指 Offer II 004. 只出现一次的数字 " data-tsina="5852167252" class="share clearfix">
+    <div data-url="https://qkgoalkeeper.github.io/post/leetcode%E6%AF%8F%E6%97%A5%E7%BB%83%E4%B9%A030.-%E4%B8%B2%E8%81%94%E6%89%80%E6%9C%89%E5%8D%95%E8%AF%8D%E7%9A%84%E5%AD%90%E4%B8%B2/" data-title="LeetCode每日练习：30. 串联所有单词的子串" data-tsina="5852167252" class="share clearfix">
     </div>
   </div>
 </footer>
