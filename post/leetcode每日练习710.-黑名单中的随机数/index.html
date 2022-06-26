@@ -2,13 +2,13 @@
 <html lang="zh-CN">
 <head>
   <meta charset="UTF-8">
-  <title>LeetCode每日练习：剑指 Offer 55 - II. 平衡二叉树 - qkgoalkeeper&#39;s blog</title>
+  <title>LeetCode每日练习：710. 黑名单中的随机数 - qkgoalkeeper&#39;s blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=3, minimum-scale=1">
   
-  <meta name="description" content="一.剑指 Offer 55 - II. 平衡二叉树 1.题干及思路 输入一棵二叉树的根节点，判断该树是不是平衡二叉树。如果某二叉树中任意节点的左右子树的深度相差不超过1">
+  <meta name="description" content="一.710. 黑名单中的随机数 1.题干及思路 给定一个整数 n 和一个 无重复 黑名单整数数组 blacklist 。设计一种算法，从 [0, n - 1] 范围内的任意整数中选取一个 未加">
   
-  <meta itemprop="name" content="LeetCode每日练习：剑指 Offer 55 - II. 平衡二叉树 - qkgoalkeeper&#39;s blog">
-  <meta itemprop="description" content="一.剑指 Offer 55 - II. 平衡二叉树 1.题干及思路 输入一棵二叉树的根节点，判断该树是不是平衡二叉树。如果某二叉树中任意节点的左右子树的深度相差不超过1">
+  <meta itemprop="name" content="LeetCode每日练习：710. 黑名单中的随机数 - qkgoalkeeper&#39;s blog">
+  <meta itemprop="description" content="一.710. 黑名单中的随机数 1.题干及思路 给定一个整数 n 和一个 无重复 黑名单整数数组 blacklist 。设计一种算法，从 [0, n - 1] 范围内的任意整数中选取一个 未加">
   <meta itemprop="image" content="https://qkgoalkeeper.github.io/img/author.jpg">
   
   
@@ -74,7 +74,7 @@
 	<article itemprop="articleBody">
     <header class="article-info clearfix">
   <h1 itemprop="name">
-      <a href="https://qkgoalkeeper.github.io/post/leetcode%E6%AF%8F%E6%97%A5%E7%BB%83%E4%B9%A0%E5%89%91%E6%8C%87-offer-55-ii.-%E5%B9%B3%E8%A1%A1%E4%BA%8C%E5%8F%89%E6%A0%91/" title="LeetCode每日练习：剑指 Offer 55 - II. 平衡二叉树" itemprop="url">LeetCode每日练习：剑指 Offer 55 - II. 平衡二叉树</a>
+      <a href="https://qkgoalkeeper.github.io/post/leetcode%E6%AF%8F%E6%97%A5%E7%BB%83%E4%B9%A0710.-%E9%BB%91%E5%90%8D%E5%8D%95%E4%B8%AD%E7%9A%84%E9%9A%8F%E6%9C%BA%E6%95%B0/" title="LeetCode每日练习：710. 黑名单中的随机数" itemprop="url">LeetCode每日练习：710. 黑名单中的随机数</a>
   </h1>
   <p class="article-author">By
     
@@ -82,7 +82,7 @@
     
   </p>
   <p class="article-time">
-    <time datetime="2022-02-02 10:55:19 &#43;0800 CST" itemprop="datePublished">2022年02月02日</time>
+    <time datetime="2022-06-26 07:55:19 &#43;0800 CST" itemprop="datePublished">2022年06月26日</time>
   </p>
 </header>
 
@@ -93,69 +93,91 @@
       <nav id="TableOfContents">
   <ul>
     <li><a href="#1题干及思路">1.题干及思路</a></li>
-    <li><a href="#2c实现">2.C++实现</a></li>
+    <li><a href="#2golang实现">2.golang实现</a></li>
   </ul>
 </nav>
 		</div>
     
-    <h1 id="一剑指-offer-55---ii-平衡二叉树httpsleetcode-cncomproblemsping-heng-er-cha-shu-lcof">一.<a href="https://leetcode-cn.com/problems/ping-heng-er-cha-shu-lcof/">剑指 Offer 55 - II. 平衡二叉树</a></h1>
+    <h1 id="一710-黑名单中的随机数httpsleetcodecnproblemsrandom-pick-with-blacklist">一.<a href="https://leetcode.cn/problems/random-pick-with-blacklist/">710. 黑名单中的随机数</a></h1>
 <h2 id="1题干及思路">1.题干及思路</h2>
-<p>输入一棵二叉树的根节点，判断该树是不是平衡二叉树。如果某二叉树中任意节点的左右子树的深度相差不超过1，那么它就是一棵平衡二叉树。</p>
-<p><strong>示例 1:</strong></p>
-<p>给定二叉树 <code>[3,9,20,null,null,15,7]</code></p>
-<pre tabindex="0"><code>    3
-   / \
-  9  20
-    /  \
-   15   7
-</code></pre><p>返回 <code>true</code> 。</p>
-<p><strong>示例 2:</strong></p>
-<p>给定二叉树 <code>[1,2,2,3,3,null,null,4,4]</code></p>
-<pre tabindex="0"><code>       1
-      / \
-     2   2
-    / \
-   3   3
-  / \
- 4   4
-</code></pre><p>返回 <code>false</code> 。</p>
-<p><strong>限制：</strong></p>
+<p>给定一个整数 <code>n</code> 和一个 <strong>无重复</strong> 黑名单整数数组 <code>blacklist</code> 。设计一种算法，从 <code>[0, n - 1]</code> 范围内的任意整数中选取一个 <strong>未加入</strong> 黑名单 <code>blacklist</code> 的整数。任何在上述范围内且不在黑名单 <code>blacklist</code> 中的整数都应该有 <strong>同等的可能性</strong> 被返回。</p>
+<p>优化你的算法，使它最小化调用语言 <strong>内置</strong> 随机函数的次数。</p>
+<p>实现 <code>Solution</code> 类:</p>
 <ul>
-<li><code>0 &lt;= 树的结点个数 &lt;= 10000</code></li>
+<li><code>Solution(int n, int[] blacklist)</code> 初始化整数 <code>n</code> 和被加入黑名单 <code>blacklist</code> 的整数</li>
+<li><code>int pick()</code> 返回一个范围为 <code>[0, n - 1]</code> 且不在黑名单 <code>blacklist</code> 中的随机整数</li>
 </ul>
-<p>注意：本题与主站 110 题相同：https://leetcode-cn.com/problems/balanced-binary-tree/</p>
-<p>要点：树</p>
-<p>思路：左树高和右树高之差为1即为平衡二叉树</p>
-<h2 id="2c实现">2.C++实现</h2>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="cm">/**
-</span><span class="cm"> * Definition for a binary tree node.
-</span><span class="cm"> * struct TreeNode {
-</span><span class="cm"> *     int val;
-</span><span class="cm"> *     TreeNode *left;
-</span><span class="cm"> *     TreeNode *right;
-</span><span class="cm"> *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
-</span><span class="cm"> * };
+<p><strong>示例 1：</strong></p>
+<pre tabindex="0"><code>输入
+[&quot;Solution&quot;, &quot;pick&quot;, &quot;pick&quot;, &quot;pick&quot;, &quot;pick&quot;, &quot;pick&quot;, &quot;pick&quot;, &quot;pick&quot;]
+[[7, [2, 3, 5]], [], [], [], [], [], [], []]
+输出
+[null, 0, 4, 1, 6, 1, 0, 4]
+
+解释
+Solution solution = new Solution(7, [2, 3, 5]);
+solution.pick(); // 返回0，任何[0,1,4,6]的整数都可以。注意，对于每一个pick的调用，
+                 // 0、1、4和6的返回概率必须相等(即概率为1/4)。
+solution.pick(); // 返回 4
+solution.pick(); // 返回 1
+solution.pick(); // 返回 6
+solution.pick(); // 返回 1
+solution.pick(); // 返回 0
+solution.pick(); // 返回 4
+</code></pre><p><strong>提示:</strong></p>
+<ul>
+<li><code>1 &lt;= n &lt;= 109</code></li>
+<li><code>0 &lt;= blacklist.length &lt;= min(105, n - 1)</code></li>
+<li><code>0 &lt;= blacklist[i] &lt; n</code></li>
+<li><code>blacklist</code> 中所有值都 <strong>不同</strong></li>
+<li><code>pick</code> 最多被调用 <code>2 * 104</code> 次</li>
+</ul>
+<p>要点：随机数</p>
+<p>思路：有几种方法，第一种是拒绝采样，如果随机到黑名单再次随机但是黑名单较多时效率低，第二种方法是将黑名单作为节点，记录除了黑名单的数字线段的前缀和，在0-（n-len(黑名单)）长度中随机取数再用二分法判断在哪两个黑名单节点中。第三种方法比较巧妙，不妨让所有黑名单map映射到末尾然后在0-（n-len(黑名单)）长度中取数字，如果黑名单本身在末尾则自然不会被取到，而前面的每个黑名单对应末尾（n-len(黑名单)+1，n）中的一个数</p>
+<h2 id="2golang实现">2.golang实现</h2>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="kd">type</span> <span class="nx">Solution</span> <span class="kd">struct</span> <span class="p">{</span>
+	<span class="nx">b2w</span>   <span class="kd">map</span><span class="p">[</span><span class="kt">int</span><span class="p">]</span><span class="kt">int</span>
+	<span class="nx">bound</span> <span class="kt">int</span>
+<span class="p">}</span>
+
+<span class="kd">func</span> <span class="nf">Constructor</span><span class="p">(</span><span class="nx">n</span> <span class="kt">int</span><span class="p">,</span> <span class="nx">blacklist</span> <span class="p">[]</span><span class="kt">int</span><span class="p">)</span> <span class="nx">Solution</span> <span class="p">{</span>
+	<span class="nx">m</span> <span class="o">:=</span> <span class="nb">len</span><span class="p">(</span><span class="nx">blacklist</span><span class="p">)</span>
+	<span class="nx">bound</span> <span class="o">:=</span> <span class="nx">n</span> <span class="o">-</span> <span class="nx">m</span>
+	<span class="nx">black</span> <span class="o">:=</span> <span class="kd">map</span><span class="p">[</span><span class="kt">int</span><span class="p">]</span><span class="kt">bool</span><span class="p">{}</span>
+	<span class="k">for</span> <span class="nx">_</span><span class="p">,</span> <span class="nx">b</span> <span class="o">:=</span> <span class="k">range</span> <span class="nx">blacklist</span> <span class="p">{</span>
+		<span class="k">if</span> <span class="nx">b</span> <span class="o">&gt;=</span> <span class="nx">bound</span> <span class="p">{</span>
+			<span class="nx">black</span><span class="p">[</span><span class="nx">b</span><span class="p">]</span> <span class="p">=</span> <span class="kc">true</span>
+		<span class="p">}</span>
+	<span class="p">}</span>
+
+	<span class="nx">b2w</span> <span class="o">:=</span> <span class="nb">make</span><span class="p">(</span><span class="kd">map</span><span class="p">[</span><span class="kt">int</span><span class="p">]</span><span class="kt">int</span><span class="p">,</span> <span class="nx">m</span><span class="o">-</span><span class="nb">len</span><span class="p">(</span><span class="nx">black</span><span class="p">))</span>
+	<span class="nx">w</span> <span class="o">:=</span> <span class="nx">bound</span>
+	<span class="k">for</span> <span class="nx">_</span><span class="p">,</span> <span class="nx">b</span> <span class="o">:=</span> <span class="k">range</span> <span class="nx">blacklist</span> <span class="p">{</span>
+		<span class="k">if</span> <span class="nx">b</span> <span class="p">&lt;</span> <span class="nx">bound</span> <span class="p">{</span>
+			<span class="k">for</span> <span class="nx">black</span><span class="p">[</span><span class="nx">w</span><span class="p">]</span> <span class="p">{</span>
+				<span class="nx">w</span><span class="o">++</span>
+			<span class="p">}</span>
+			<span class="nx">b2w</span><span class="p">[</span><span class="nx">b</span><span class="p">]</span> <span class="p">=</span> <span class="nx">w</span>
+			<span class="nx">w</span><span class="o">++</span>
+		<span class="p">}</span>
+	<span class="p">}</span>
+	<span class="k">return</span> <span class="nx">Solution</span><span class="p">{</span><span class="nx">b2w</span><span class="p">,</span> <span class="nx">bound</span><span class="p">}</span>
+<span class="p">}</span>
+
+<span class="kd">func</span> <span class="p">(</span><span class="nx">s</span> <span class="o">*</span><span class="nx">Solution</span><span class="p">)</span> <span class="nf">Pick</span><span class="p">()</span> <span class="kt">int</span> <span class="p">{</span>
+	<span class="nx">x</span> <span class="o">:=</span> <span class="nx">rand</span><span class="p">.</span><span class="nf">Intn</span><span class="p">(</span><span class="nx">s</span><span class="p">.</span><span class="nx">bound</span><span class="p">)</span>
+	<span class="k">if</span> <span class="nx">s</span><span class="p">.</span><span class="nx">b2w</span><span class="p">[</span><span class="nx">x</span><span class="p">]</span> <span class="p">&gt;</span> <span class="mi">0</span> <span class="p">{</span>
+		<span class="k">return</span> <span class="nx">s</span><span class="p">.</span><span class="nx">b2w</span><span class="p">[</span><span class="nx">x</span><span class="p">]</span>
+	<span class="p">}</span>
+	<span class="k">return</span> <span class="nx">x</span>
+<span class="p">}</span>
+
+
+<span class="cm">/**
+</span><span class="cm"> * Your Solution object will be instantiated and called as such:
+</span><span class="cm"> * obj := Constructor(n, blacklist);
+</span><span class="cm"> * param_1 := obj.Pick();
 </span><span class="cm"> */</span>
-<span class="k">class</span> <span class="nc">Solution</span> <span class="p">{</span>
-<span class="k">public</span><span class="o">:</span>
-    <span class="kt">int</span> <span class="n">height</span><span class="p">(</span><span class="n">TreeNode</span><span class="o">*</span> <span class="n">root</span><span class="p">)</span> <span class="p">{</span>
-        <span class="k">if</span> <span class="p">(</span><span class="n">root</span> <span class="o">==</span> <span class="nb">NULL</span><span class="p">)</span> <span class="p">{</span>
-            <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
-        <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
-            <span class="k">return</span> <span class="nf">max</span><span class="p">(</span><span class="n">height</span><span class="p">(</span><span class="n">root</span><span class="o">-&gt;</span><span class="n">left</span><span class="p">),</span> <span class="n">height</span><span class="p">(</span><span class="n">root</span><span class="o">-&gt;</span><span class="n">right</span><span class="p">))</span> <span class="o">+</span> <span class="mi">1</span><span class="p">;</span>
-        <span class="p">}</span>
-    <span class="p">}</span>
-
-    <span class="kt">bool</span> <span class="nf">isBalanced</span><span class="p">(</span><span class="n">TreeNode</span><span class="o">*</span> <span class="n">root</span><span class="p">)</span> <span class="p">{</span>
-        <span class="k">if</span> <span class="p">(</span><span class="n">root</span> <span class="o">==</span> <span class="nb">NULL</span><span class="p">)</span> <span class="p">{</span>
-            <span class="k">return</span> <span class="nb">true</span><span class="p">;</span>
-        <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
-            <span class="k">return</span> <span class="n">abs</span><span class="p">(</span><span class="n">height</span><span class="p">(</span><span class="n">root</span><span class="o">-&gt;</span><span class="n">left</span><span class="p">)</span> <span class="o">-</span> <span class="n">height</span><span class="p">(</span><span class="n">root</span><span class="o">-&gt;</span><span class="n">right</span><span class="p">))</span> <span class="o">&lt;=</span> <span class="mi">1</span> <span class="o">&amp;&amp;</span> <span class="n">isBalanced</span><span class="p">(</span><span class="n">root</span><span class="o">-&gt;</span><span class="n">left</span><span class="p">)</span> <span class="o">&amp;&amp;</span> <span class="n">isBalanced</span><span class="p">(</span><span class="n">root</span><span class="o">-&gt;</span><span class="n">right</span><span class="p">);</span>
-        <span class="p">}</span>
-    <span class="p">}</span>
-<span class="p">};</span>
-
-
 </code></pre></div>
     
 	</div>
@@ -167,7 +189,9 @@
   
   <a href="https://qkgoalkeeper.github.io/tags/leetcode">LeetCode</a>
   
-  <a href="https://qkgoalkeeper.github.io/tags/c&#43;&#43;">C&#43;&#43;</a>
+  <a href="https://qkgoalkeeper.github.io/tags/golang">golang</a>
+  
+  <a href="https://qkgoalkeeper.github.io/tags/%E9%9A%8F%E6%9C%BA%E6%95%B0">随机数</a>
   
 </div>
 
@@ -178,14 +202,14 @@
 <div class="article-categories">
   <span></span>
   
-  <a class="article-category-link" href="https://qkgoalkeeper.github.io/categories/%E5%A4%A7%E5%9B%9Bleetcode%E7%AE%97%E6%B3%95%E5%88%B7%E9%A2%98">大四LeetCode算法刷题</a>
+  <a class="article-category-link" href="https://qkgoalkeeper.github.io/categories/leetcode%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98">LeetCode每日一题</a>
   
 </div>
 
 
 
   <div class="article-share" id="share">
-    <div data-url="https://qkgoalkeeper.github.io/post/leetcode%E6%AF%8F%E6%97%A5%E7%BB%83%E4%B9%A0%E5%89%91%E6%8C%87-offer-55-ii.-%E5%B9%B3%E8%A1%A1%E4%BA%8C%E5%8F%89%E6%A0%91/" data-title="LeetCode每日练习：剑指 Offer 55 - II. 平衡二叉树" data-tsina="5852167252" class="share clearfix">
+    <div data-url="https://qkgoalkeeper.github.io/post/leetcode%E6%AF%8F%E6%97%A5%E7%BB%83%E4%B9%A0710.-%E9%BB%91%E5%90%8D%E5%8D%95%E4%B8%AD%E7%9A%84%E9%9A%8F%E6%9C%BA%E6%95%B0/" data-title="LeetCode每日练习：710. 黑名单中的随机数" data-tsina="5852167252" class="share clearfix">
     </div>
   </div>
 </footer>
