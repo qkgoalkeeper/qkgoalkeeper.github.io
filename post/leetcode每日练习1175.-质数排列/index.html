@@ -2,13 +2,13 @@
 <html lang="zh-CN">
 <head>
   <meta charset="UTF-8">
-  <title>LeetCode每日练习：剑指 Offer 05. 替换空格 - qkgoalkeeper&#39;s blog</title>
+  <title>LeetCode每日练习：1175. 质数排列 - qkgoalkeeper&#39;s blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=3, minimum-scale=1">
   
-  <meta name="description" content="一.剑指 Offer 05. 替换空格 1.题干及思路 请实现一个函数，把字符串 s 中的每个空格替换成&quot;%20&quot;。 示例 1： 输入：s = &quot;We are happy.&quot; 输出：">
+  <meta name="description" content="一.1175. 质数排列 1.题干及思路 请你帮忙给从 1 到 n 的数设计排列方案，使得所有的「质数」都应该被放在「质数索引」（索引从 1 开始）上；你需要">
   
-  <meta itemprop="name" content="LeetCode每日练习：剑指 Offer 05. 替换空格 - qkgoalkeeper&#39;s blog">
-  <meta itemprop="description" content="一.剑指 Offer 05. 替换空格 1.题干及思路 请实现一个函数，把字符串 s 中的每个空格替换成&quot;%20&quot;。 示例 1： 输入：s = &quot;We are happy.&quot; 输出：">
+  <meta itemprop="name" content="LeetCode每日练习：1175. 质数排列 - qkgoalkeeper&#39;s blog">
+  <meta itemprop="description" content="一.1175. 质数排列 1.题干及思路 请你帮忙给从 1 到 n 的数设计排列方案，使得所有的「质数」都应该被放在「质数索引」（索引从 1 开始）上；你需要">
   <meta itemprop="image" content="https://qkgoalkeeper.github.io/img/author.jpg">
   
   
@@ -74,7 +74,7 @@
 	<article itemprop="articleBody">
     <header class="article-info clearfix">
   <h1 itemprop="name">
-      <a href="https://qkgoalkeeper.github.io/post/leetcode%E6%AF%8F%E6%97%A5%E7%BB%83%E4%B9%A0%E5%89%91%E6%8C%87-offer-05.-%E6%9B%BF%E6%8D%A2%E7%A9%BA%E6%A0%BC/" title="LeetCode每日练习：剑指 Offer 05. 替换空格" itemprop="url">LeetCode每日练习：剑指 Offer 05. 替换空格</a>
+      <a href="https://qkgoalkeeper.github.io/post/leetcode%E6%AF%8F%E6%97%A5%E7%BB%83%E4%B9%A01175.-%E8%B4%A8%E6%95%B0%E6%8E%92%E5%88%97/" title="LeetCode每日练习：1175. 质数排列" itemprop="url">LeetCode每日练习：1175. 质数排列</a>
   </h1>
   <p class="article-author">By
     
@@ -82,7 +82,7 @@
     
   </p>
   <p class="article-time">
-    <time datetime="2022-01-12 10:55:19 &#43;0800 CST" itemprop="datePublished">2022年01月12日</time>
+    <time datetime="2022-06-30 07:55:19 &#43;0800 CST" itemprop="datePublished">2022年06月30日</time>
   </p>
 </header>
 
@@ -93,38 +93,58 @@
       <nav id="TableOfContents">
   <ul>
     <li><a href="#1题干及思路">1.题干及思路</a></li>
-    <li><a href="#2c实现">2.C++实现</a></li>
+    <li><a href="#2golang实现">2.golang实现</a></li>
   </ul>
 </nav>
 		</div>
     
-    <h1 id="一剑指-offer-05-替换空格httpsleetcode-cncomproblemsti-huan-kong-ge-lcof">一.<a href="https://leetcode-cn.com/problems/ti-huan-kong-ge-lcof/">剑指 Offer 05. 替换空格</a></h1>
+    <h1 id="一1175-质数排列httpsleetcodecnproblemsprime-arrangements">一.<a href="https://leetcode.cn/problems/prime-arrangements/">1175. 质数排列</a></h1>
 <h2 id="1题干及思路">1.题干及思路</h2>
-<p>请实现一个函数，把字符串 <code>s</code> 中的每个空格替换成&quot;%20&quot;。</p>
+<p>请你帮忙给从 <code>1</code> 到 <code>n</code> 的数设计排列方案，使得所有的「质数」都应该被放在「质数索引」（索引从 1 开始）上；你需要返回可能的方案总数。</p>
+<p>让我们一起来回顾一下「质数」：质数一定是大于 1 的，并且不能用两个小于它的正整数的乘积来表示。</p>
+<p>由于答案可能会很大，所以请你返回答案 <strong>模 mod <code>10^9 + 7</code></strong> 之后的结果即可。</p>
 <p><strong>示例 1：</strong></p>
-<pre tabindex="0"><code>输入：s = &quot;We are happy.&quot;
-输出：&quot;We%20are%20happy.&quot;
-</code></pre><p><strong>限制：</strong></p>
-<pre tabindex="0"><code>0 &lt;= s 的长度 &lt;= 10000
-</code></pre><p>要点：模拟</p>
-<p>思路：空格替换即可</p>
-<h2 id="2c实现">2.C++实现</h2>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="k">class</span> <span class="nc">Solution</span> <span class="p">{</span>
-<span class="k">public</span><span class="o">:</span>
-    <span class="n">string</span> <span class="n">replaceSpace</span><span class="p">(</span><span class="n">string</span> <span class="n">s</span><span class="p">)</span> <span class="p">{</span>
-        <span class="n">string</span> <span class="n">answer</span> <span class="o">=</span> <span class="s">&#34;&#34;</span><span class="p">;</span>
-        <span class="k">for</span><span class="p">(</span><span class="k">auto</span> <span class="o">&amp;</span><span class="nl">x</span><span class="p">:</span><span class="n">s</span><span class="p">){</span>
-            <span class="k">if</span><span class="p">(</span><span class="n">x</span><span class="o">==</span><span class="sc">&#39; &#39;</span><span class="p">){</span>
-                <span class="n">answer</span><span class="o">+=</span><span class="s">&#34;%20&#34;</span><span class="p">;</span>
-            <span class="p">}</span>
-            <span class="k">else</span><span class="p">{</span>
-                <span class="n">answer</span><span class="o">+=</span><span class="n">x</span><span class="p">;</span>
-            <span class="p">}</span>
-        <span class="p">}</span>
-        <span class="k">return</span> <span class="n">answer</span><span class="p">;</span>
+<pre tabindex="0"><code>输入：n = 5
+输出：12
+解释：举个例子，[1,2,5,4,3] 是一个有效的排列，但 [5,2,3,4,1] 不是，因为在第二种情况里质数 5 被错误地放在索引为 1 的位置上。
+</code></pre><p><strong>示例 2：</strong></p>
+<pre tabindex="0"><code>输入：n = 100
+输出：682289015
+</code></pre><p><strong>提示：</strong></p>
+<ul>
+<li><code>1 &lt;= n &lt;= 100</code></li>
+</ul>
+<p>要点：数学</p>
+<p>思路：数学题，先找有几个质数，再用全排列公式（质数位置全排列）*（非质数位置全排列）最后mod 1e9+7，这里有两个常用函数isPrime和factorial，由于范围只有1-100所以也可以打表更快</p>
+<h2 id="2golang实现">2.golang实现</h2>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="kd">const</span> <span class="nx">mod</span> <span class="kt">int</span> <span class="p">=</span> <span class="mf">1e9</span> <span class="o">+</span> <span class="mi">7</span>
 
+<span class="kd">func</span> <span class="nf">numPrimeArrangements</span><span class="p">(</span><span class="nx">n</span> <span class="kt">int</span><span class="p">)</span> <span class="kt">int</span> <span class="p">{</span>
+    <span class="nx">numPrimes</span> <span class="o">:=</span> <span class="mi">0</span>
+    <span class="k">for</span> <span class="nx">i</span> <span class="o">:=</span> <span class="mi">2</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;=</span> <span class="nx">n</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span> <span class="p">{</span>
+        <span class="k">if</span> <span class="nf">isPrime</span><span class="p">(</span><span class="nx">i</span><span class="p">)</span> <span class="p">{</span>
+            <span class="nx">numPrimes</span><span class="o">++</span>
+        <span class="p">}</span>
     <span class="p">}</span>
-<span class="p">};</span>
+    <span class="k">return</span> <span class="nf">factorial</span><span class="p">(</span><span class="nx">numPrimes</span><span class="p">)</span> <span class="o">*</span> <span class="nf">factorial</span><span class="p">(</span><span class="nx">n</span><span class="o">-</span><span class="nx">numPrimes</span><span class="p">)</span> <span class="o">%</span> <span class="nx">mod</span>
+<span class="p">}</span>
+
+<span class="kd">func</span> <span class="nf">isPrime</span><span class="p">(</span><span class="nx">n</span> <span class="kt">int</span><span class="p">)</span> <span class="kt">bool</span> <span class="p">{</span>
+    <span class="k">for</span> <span class="nx">i</span> <span class="o">:=</span> <span class="mi">2</span><span class="p">;</span> <span class="nx">i</span><span class="o">*</span><span class="nx">i</span> <span class="o">&lt;=</span> <span class="nx">n</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span> <span class="p">{</span>
+        <span class="k">if</span> <span class="nx">n</span><span class="o">%</span><span class="nx">i</span> <span class="o">==</span> <span class="mi">0</span> <span class="p">{</span>
+            <span class="k">return</span> <span class="kc">false</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="kc">true</span>
+<span class="p">}</span>
+
+<span class="kd">func</span> <span class="nf">factorial</span><span class="p">(</span><span class="nx">n</span> <span class="kt">int</span><span class="p">)</span> <span class="kt">int</span> <span class="p">{</span>
+    <span class="nx">f</span> <span class="o">:=</span> <span class="mi">1</span>
+    <span class="k">for</span> <span class="nx">i</span> <span class="o">:=</span> <span class="mi">1</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;=</span> <span class="nx">n</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span> <span class="p">{</span>
+        <span class="nx">f</span> <span class="p">=</span> <span class="nx">f</span> <span class="o">*</span> <span class="nx">i</span> <span class="o">%</span> <span class="nx">mod</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="nx">f</span>
+<span class="p">}</span>
 
 </code></pre></div>
     
@@ -137,7 +157,9 @@
   
   <a href="https://qkgoalkeeper.github.io/tags/leetcode">LeetCode</a>
   
-  <a href="https://qkgoalkeeper.github.io/tags/c&#43;&#43;">C&#43;&#43;</a>
+  <a href="https://qkgoalkeeper.github.io/tags/golang">golang</a>
+  
+  <a href="https://qkgoalkeeper.github.io/tags/%E6%95%B0%E5%AD%A6">数学</a>
   
 </div>
 
@@ -148,14 +170,14 @@
 <div class="article-categories">
   <span></span>
   
-  <a class="article-category-link" href="https://qkgoalkeeper.github.io/categories/%E5%A4%A7%E5%9B%9Bleetcode%E7%AE%97%E6%B3%95%E5%88%B7%E9%A2%98">大四LeetCode算法刷题</a>
+  <a class="article-category-link" href="https://qkgoalkeeper.github.io/categories/leetcode%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98">LeetCode每日一题</a>
   
 </div>
 
 
 
   <div class="article-share" id="share">
-    <div data-url="https://qkgoalkeeper.github.io/post/leetcode%E6%AF%8F%E6%97%A5%E7%BB%83%E4%B9%A0%E5%89%91%E6%8C%87-offer-05.-%E6%9B%BF%E6%8D%A2%E7%A9%BA%E6%A0%BC/" data-title="LeetCode每日练习：剑指 Offer 05. 替换空格" data-tsina="5852167252" class="share clearfix">
+    <div data-url="https://qkgoalkeeper.github.io/post/leetcode%E6%AF%8F%E6%97%A5%E7%BB%83%E4%B9%A01175.-%E8%B4%A8%E6%95%B0%E6%8E%92%E5%88%97/" data-title="LeetCode每日练习：1175. 质数排列" data-tsina="5852167252" class="share clearfix">
     </div>
   </div>
 </footer>
