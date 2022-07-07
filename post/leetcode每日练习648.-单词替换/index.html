@@ -2,13 +2,13 @@
 <html lang="zh-CN">
 <head>
   <meta charset="UTF-8">
-  <title>LeetCode算法基础第7天：深度优先搜索&amp;广度优先搜索 - qkgoalkeeper&#39;s blog</title>
+  <title>LeetCode每日练习：648. 单词替换 - qkgoalkeeper&#39;s blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=3, minimum-scale=1">
   
-  <meta name="description" content="一.117. 填充每个节点的下一个右侧节点指针 II 1.题干及思路 给定一个二叉树 struct Node { int val; Node *left; Node *right; Node *next; } 填充它的每个 next 指针，让这个指针指向其下一个">
+  <meta name="description" content="一.648. 单词替换 1.题干及思路 在英语中，我们有一个叫做 词根(root) 的概念，可以词根后面添加其他一些词组成另一个较长的单词——我们称这">
   
-  <meta itemprop="name" content="LeetCode算法基础第7天：深度优先搜索&amp;广度优先搜索 - qkgoalkeeper&#39;s blog">
-  <meta itemprop="description" content="一.117. 填充每个节点的下一个右侧节点指针 II 1.题干及思路 给定一个二叉树 struct Node { int val; Node *left; Node *right; Node *next; } 填充它的每个 next 指针，让这个指针指向其下一个">
+  <meta itemprop="name" content="LeetCode每日练习：648. 单词替换 - qkgoalkeeper&#39;s blog">
+  <meta itemprop="description" content="一.648. 单词替换 1.题干及思路 在英语中，我们有一个叫做 词根(root) 的概念，可以词根后面添加其他一些词组成另一个较长的单词——我们称这">
   <meta itemprop="image" content="https://qkgoalkeeper.github.io/img/author.jpg">
   
   
@@ -74,7 +74,7 @@
 	<article itemprop="articleBody">
     <header class="article-info clearfix">
   <h1 itemprop="name">
-      <a href="https://qkgoalkeeper.github.io/post/leetcode%E7%AE%97%E6%B3%95%E5%9F%BA%E7%A1%80%E7%AC%AC7%E5%A4%A9%E6%B7%B1%E5%BA%A6%E4%BC%98%E5%85%88%E6%90%9C%E7%B4%A2%E5%B9%BF%E5%BA%A6%E4%BC%98%E5%85%88%E6%90%9C%E7%B4%A2/" title="LeetCode算法基础第7天：深度优先搜索&amp;广度优先搜索" itemprop="url">LeetCode算法基础第7天：深度优先搜索&amp;广度优先搜索</a>
+      <a href="https://qkgoalkeeper.github.io/post/leetcode%E6%AF%8F%E6%97%A5%E7%BB%83%E4%B9%A0648.-%E5%8D%95%E8%AF%8D%E6%9B%BF%E6%8D%A2/" title="LeetCode每日练习：648. 单词替换" itemprop="url">LeetCode每日练习：648. 单词替换</a>
   </h1>
   <p class="article-author">By
     
@@ -82,7 +82,7 @@
     
   </p>
   <p class="article-time">
-    <time datetime="2021-10-16 10:55:19 &#43;0800 CST" itemprop="datePublished">2021年10月16日</time>
+    <time datetime="2022-07-07 07:55:19 &#43;0800 CST" itemprop="datePublished">2022年07月07日</time>
   </p>
 </header>
 
@@ -93,179 +93,93 @@
       <nav id="TableOfContents">
   <ul>
     <li><a href="#1题干及思路">1.题干及思路</a></li>
-  </ul>
-
-  <ul>
-    <li><a href="#1题干及思路-1">1.题干及思路</a></li>
     <li><a href="#2c实现">2.C++实现</a></li>
   </ul>
 </nav>
 		</div>
     
-    <h1 id="一117-填充每个节点的下一个右侧节点指针-iihttpsleetcode-cncomproblemspopulating-next-right-pointers-in-each-node-ii">一.<a href="https://leetcode-cn.com/problems/populating-next-right-pointers-in-each-node-ii/">117. 填充每个节点的下一个右侧节点指针 II</a></h1>
+    <h1 id="一648-单词替换httpsleetcodecnproblemsreplace-words">一.<a href="https://leetcode.cn/problems/replace-words/">648. 单词替换</a></h1>
 <h2 id="1题干及思路">1.题干及思路</h2>
-<p>给定一个二叉树</p>
-<p>struct Node {
-int val;
-Node *left;
-Node *right;
-Node *next;
-}
-填充它的每个 next 指针，让这个指针指向其下一个右侧节点。如果找不到下一个右侧节点，则将 next 指针设置为 NULL。</p>
-<p>初始状态下，所有 next 指针都被设置为 NULL。</p>
-<p>进阶：</p>
-<p>你只能使用常量级额外空间。
-使用递归解题也符合要求，本题中递归程序占用的栈空间不算做额外的空间复杂度。</p>
-<p>示例：</p>
-<p>输入：root = [1,2,3,4,5,null,7]
-输出：[1,#,2,3,#,4,5,7,#]
-解释：给定二叉树如图 A 所示，你的函数应该填充它的每个 next 指针，以指向其下一个右侧节点，如图 B 所示。序列化输出按层序遍历顺序（由 next 指针连接），'#' 表示每层的末尾。</p>
-<p>提示：</p>
-<p>树中的节点数小于 6000
--100 &lt;= node.val &lt;= 100</p>
-<p>来源：力扣（LeetCode）
-链接：https://leetcode-cn.com/problems/populating-next-right-pointers-in-each-node-ii
-著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。</p>
-<p>要点：bfs</p>
-<p>思路：bfs一层层读取，对每一层的节点设置next</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="cm">/*
-</span><span class="cm">// Definition for a Node.
-</span><span class="cm">class Node {
-</span><span class="cm">public:
-</span><span class="cm">    int val;
-</span><span class="cm">    Node* left;
-</span><span class="cm">    Node* right;
-</span><span class="cm">    Node* next;
-</span><span class="cm">
-</span><span class="cm">    Node() : val(0), left(NULL), right(NULL), next(NULL) {}
-</span><span class="cm">
-</span><span class="cm">    Node(int _val) : val(_val), left(NULL), right(NULL), next(NULL) {}
-</span><span class="cm">
-</span><span class="cm">    Node(int _val, Node* _left, Node* _right, Node* _next)
-</span><span class="cm">        : val(_val), left(_left), right(_right), next(_next) {}
-</span><span class="cm">};
-</span><span class="cm">*/</span>
-
-<span class="k">class</span> <span class="nc">Solution</span> <span class="p">{</span>
-<span class="k">public</span><span class="o">:</span>
-    <span class="n">Node</span><span class="o">*</span> <span class="n">connect</span><span class="p">(</span><span class="n">Node</span><span class="o">*</span> <span class="n">root</span><span class="p">)</span> <span class="p">{</span>
-        <span class="n">queue</span><span class="o">&lt;</span><span class="n">Node</span><span class="o">*&gt;</span> <span class="n">queue1</span><span class="o">=</span><span class="n">queue</span><span class="o">&lt;</span><span class="n">Node</span><span class="o">*&gt;</span><span class="p">();</span>
-        <span class="k">if</span><span class="p">(</span><span class="n">root</span><span class="o">==</span><span class="k">nullptr</span><span class="p">)</span> <span class="k">return</span> <span class="n">root</span><span class="p">;</span>
-        <span class="n">queue1</span><span class="p">.</span><span class="n">push</span><span class="p">(</span><span class="n">root</span><span class="p">);</span>
-        <span class="k">while</span><span class="p">(</span><span class="n">queue1</span><span class="p">.</span><span class="n">size</span><span class="p">()</span><span class="o">&gt;</span><span class="mi">0</span><span class="p">){</span>
-            <span class="kt">int</span> <span class="n">levelNum</span> <span class="o">=</span> <span class="n">queue1</span><span class="p">.</span><span class="n">size</span><span class="p">();</span>
-            <span class="n">Node</span><span class="o">*</span> <span class="n">first</span> <span class="o">=</span> <span class="n">queue1</span><span class="p">.</span><span class="n">front</span><span class="p">();</span>
-            <span class="n">queue1</span><span class="p">.</span><span class="n">pop</span><span class="p">();</span>
-            <span class="n">levelNum</span><span class="o">--</span><span class="p">;</span>
-            <span class="k">if</span><span class="p">(</span><span class="n">first</span><span class="o">-&gt;</span><span class="n">left</span><span class="o">!=</span><span class="k">nullptr</span><span class="p">){</span>
-                <span class="n">queue1</span><span class="p">.</span><span class="n">push</span><span class="p">(</span><span class="n">first</span><span class="o">-&gt;</span><span class="n">left</span><span class="p">);</span>
-            <span class="p">}</span>
-            <span class="k">if</span><span class="p">(</span><span class="n">first</span><span class="o">-&gt;</span><span class="n">right</span><span class="o">!=</span><span class="k">nullptr</span><span class="p">){</span>
-                <span class="n">queue1</span><span class="p">.</span><span class="n">push</span><span class="p">(</span><span class="n">first</span><span class="o">-&gt;</span><span class="n">right</span><span class="p">);</span>
-            <span class="p">}</span>
-
-            <span class="k">while</span><span class="p">(</span><span class="n">levelNum</span><span class="o">&gt;</span><span class="mi">0</span><span class="p">){</span>
-                <span class="n">Node</span><span class="o">*</span> <span class="n">second</span> <span class="o">=</span> <span class="n">queue1</span><span class="p">.</span><span class="n">front</span><span class="p">();</span>
-                <span class="n">queue1</span><span class="p">.</span><span class="n">pop</span><span class="p">();</span>
-                <span class="n">levelNum</span><span class="o">--</span><span class="p">;</span>
-                <span class="k">if</span><span class="p">(</span><span class="n">second</span><span class="o">-&gt;</span><span class="n">left</span><span class="o">!=</span><span class="k">nullptr</span><span class="p">){</span>
-                    <span class="n">queue1</span><span class="p">.</span><span class="n">push</span><span class="p">(</span><span class="n">second</span><span class="o">-&gt;</span><span class="n">left</span><span class="p">);</span>
-                <span class="p">}</span>
-                <span class="k">if</span><span class="p">(</span><span class="n">second</span><span class="o">-&gt;</span><span class="n">right</span><span class="o">!=</span><span class="k">nullptr</span><span class="p">){</span>
-                    <span class="n">queue1</span><span class="p">.</span><span class="n">push</span><span class="p">(</span><span class="n">second</span><span class="o">-&gt;</span><span class="n">right</span><span class="p">);</span>
-                <span class="p">}</span>
-                <span class="n">first</span><span class="o">-&gt;</span><span class="n">next</span><span class="o">=</span><span class="n">second</span><span class="p">;</span>
-                <span class="n">first</span> <span class="o">=</span> <span class="n">second</span><span class="p">;</span>
-            <span class="p">}</span>
-        <span class="p">}</span>
-        <span class="k">return</span> <span class="n">root</span><span class="p">;</span>
-        
-    <span class="p">}</span>
-<span class="p">};</span>
-</code></pre></div><h1 id="二572-另一棵树的子树httpsleetcode-cncomproblemssubtree-of-another-tree">二.<a href="https://leetcode-cn.com/problems/subtree-of-another-tree/">572. 另一棵树的子树</a></h1>
-<h2 id="1题干及思路-1">1.题干及思路</h2>
-<p>给你两棵二叉树 root 和 subRoot 。检验 root 中是否包含和 subRoot 具有相同结构和节点值的子树。如果存在，返回 true ；否则，返回 false 。</p>
-<p>二叉树 tree 的一棵子树包括 tree 的某个节点和这个节点的所有后代节点。tree 也可以看做它自身的一棵子树。</p>
-<p>示例 1：</p>
-<p>输入：root = [3,4,5,1,2], subRoot = [4,1,2]
-输出：true
-示例 2：</p>
-<p>输入：root = [3,4,5,1,2,null,null,null,null,0], subRoot = [4,1,2]
-输出：false</p>
-<p>提示：</p>
-<p>root 树上的节点数量范围是 [1, 2000]
-subRoot 树上的节点数量范围是 [1, 1000]
--104 &lt;= root.val &lt;= 104
--104 &lt;= subRoot.val &lt;= 104</p>
-<p>来源：力扣（LeetCode）
-链接：https://leetcode-cn.com/problems/subtree-of-another-tree
-著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。</p>
-<p>要点：dfs</p>
-<p>思路：写一个比较两个树是否相同的check函数，然后dfs一个个节点进行check</p>
+<p>在英语中，我们有一个叫做 <code>词根</code>(root) 的概念，可以词根<strong>后面</strong>添加其他一些词组成另一个较长的单词——我们称这个词为 <code>继承词</code>(successor)。例如，词根<code>an</code>，跟随着单词 <code>other</code>(其他)，可以形成新的单词 <code>another</code>(另一个)。</p>
+<p>现在，给定一个由许多<strong>词根</strong>组成的词典 <code>dictionary</code> 和一个用空格分隔单词形成的句子 <code>sentence</code>。你需要将句子中的所有<strong>继承词</strong>用<strong>词根</strong>替换掉。如果<strong>继承词</strong>有许多可以形成它的<strong>词根</strong>，则用<strong>最短</strong>的词根替换它。</p>
+<p>你需要输出替换之后的句子。</p>
+<p><strong>示例 1：</strong></p>
+<pre tabindex="0"><code>输入：dictionary = [&quot;cat&quot;,&quot;bat&quot;,&quot;rat&quot;], sentence = &quot;the cattle was rattled by the battery&quot;
+输出：&quot;the cat was rat by the bat&quot;
+</code></pre><p><strong>示例 2：</strong></p>
+<pre tabindex="0"><code>输入：dictionary = [&quot;a&quot;,&quot;b&quot;,&quot;c&quot;], sentence = &quot;aadsfasf absbs bbab cadsfafs&quot;
+输出：&quot;a a b c&quot;
+</code></pre><p><strong>提示：</strong></p>
+<ul>
+<li><code>1 &lt;= dictionary.length &lt;= 1000</code></li>
+<li><code>1 &lt;= dictionary[i].length &lt;= 100</code></li>
+<li><code>dictionary[i]</code> 仅由小写字母组成。</li>
+<li><code>1 &lt;= sentence.length &lt;= 10^6</code></li>
+<li><code>sentence</code> 仅由小写字母和空格组成。</li>
+<li><code>sentence</code> 中单词的总量在范围 <code>[1, 1000]</code> 内。</li>
+<li><code>sentence</code> 中每个单词的长度在范围 <code>[1, 1000]</code> 内。</li>
+<li><code>sentence</code> 中单词之间由一个空格隔开。</li>
+<li><code>sentence</code> 没有前导或尾随空格。</li>
+</ul>
+<p>要点：字符串</p>
+<p>思路：模拟判断，先自定义排序前缀从小长度到大长度，再用split函数分离sentence再对于每个单词判断是否可简化成前缀加入最后结果</p>
 <h2 id="2c实现">2.C++实现</h2>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="cm">/**
-</span><span class="cm"> * Definition for a binary tree node.
-</span><span class="cm"> * struct TreeNode {
-</span><span class="cm"> *     int val;
-</span><span class="cm"> *     TreeNode *left;
-</span><span class="cm"> *     TreeNode *right;
-</span><span class="cm"> *     TreeNode() : val(0), left(nullptr), right(nullptr) {}
-</span><span class="cm"> *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
-</span><span class="cm"> *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
-</span><span class="cm"> * };
-</span><span class="cm"> */</span>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="cp">#include</span> <span class="cpf">&lt;iostream&gt;</span><span class="cp">
+</span><span class="cp">#include</span> <span class="cpf">&lt;vector&gt;</span><span class="cp">
+</span><span class="cp">#include</span> <span class="cpf">&lt;algorithm&gt;</span><span class="cp">
+</span><span class="cp">#include</span> <span class="cpf">&lt;sstream&gt;</span><span class="cp">
+</span><span class="cp">#include</span> <span class="cpf">&lt;string&gt;</span><span class="cp">
+</span><span class="cp"></span><span class="k">using</span> <span class="k">namespace</span> <span class="n">std</span><span class="p">;</span>
+
 <span class="k">class</span> <span class="nc">Solution</span> <span class="p">{</span>
 <span class="k">public</span><span class="o">:</span>
-    <span class="kt">bool</span> <span class="n">check</span><span class="p">(</span><span class="n">TreeNode</span><span class="o">*</span> <span class="n">node1</span><span class="p">,</span><span class="n">TreeNode</span><span class="o">*</span> <span class="n">node2</span><span class="p">){</span>
-        <span class="k">if</span><span class="p">(</span><span class="n">node1</span><span class="o">&amp;&amp;!</span><span class="n">node2</span><span class="p">)</span> <span class="k">return</span> <span class="nb">false</span><span class="p">;</span>
-        <span class="k">else</span> <span class="nf">if</span><span class="p">(</span><span class="o">!</span><span class="n">node1</span><span class="o">&amp;&amp;!</span><span class="n">node2</span><span class="p">)</span> <span class="k">return</span> <span class="nb">true</span><span class="p">;</span>
-        <span class="k">else</span> <span class="nf">if</span><span class="p">(</span><span class="o">!</span><span class="n">node1</span><span class="o">&amp;&amp;</span><span class="n">node2</span><span class="p">)</span> <span class="k">return</span> <span class="nb">false</span><span class="p">;</span>
-        <span class="k">else</span><span class="p">{</span>
-            <span class="k">return</span> <span class="n">node1</span><span class="o">-&gt;</span><span class="n">val</span><span class="o">==</span><span class="n">node2</span><span class="o">-&gt;</span><span class="n">val</span><span class="o">&amp;&amp;</span><span class="n">check</span><span class="p">(</span><span class="n">node1</span><span class="o">-&gt;</span><span class="n">left</span><span class="p">,</span><span class="n">node2</span><span class="o">-&gt;</span><span class="n">left</span><span class="p">)</span><span class="o">&amp;&amp;</span><span class="n">check</span><span class="p">(</span><span class="n">node1</span><span class="o">-&gt;</span><span class="n">right</span><span class="p">,</span><span class="n">node2</span><span class="o">-&gt;</span><span class="n">right</span><span class="p">);</span>
+    <span class="k">static</span> <span class="kt">bool</span> <span class="n">compare</span><span class="p">(</span><span class="n">string</span> <span class="n">a</span><span class="p">,</span><span class="n">string</span> <span class="n">b</span><span class="p">){</span>
+        <span class="k">return</span> <span class="n">a</span><span class="p">.</span><span class="n">size</span><span class="p">()</span><span class="o">&lt;</span><span class="n">b</span><span class="p">.</span><span class="n">size</span><span class="p">();</span>
+    <span class="p">}</span>
+
+    <span class="k">static</span> <span class="kt">void</span> <span class="nf">stringSplit</span><span class="p">(</span><span class="n">string</span> <span class="n">str</span><span class="p">,</span> <span class="k">const</span> <span class="kt">char</span> <span class="n">split</span><span class="p">,</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">string</span><span class="o">&gt;&amp;</span> <span class="n">res</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="n">istringstream</span> <span class="n">iss</span><span class="p">(</span><span class="n">str</span><span class="p">);</span>	<span class="c1">// 输入流
+</span><span class="c1"></span>        <span class="n">string</span> <span class="n">token</span><span class="p">;</span>			<span class="c1">// 接收缓冲区
+</span><span class="c1"></span>        <span class="k">while</span> <span class="p">(</span><span class="n">getline</span><span class="p">(</span><span class="n">iss</span><span class="p">,</span> <span class="n">token</span><span class="p">,</span> <span class="n">split</span><span class="p">))</span>	<span class="c1">// 以split为分隔符
+</span><span class="c1"></span>        <span class="p">{</span>
+            <span class="n">res</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">token</span><span class="p">);</span>
         <span class="p">}</span>
     <span class="p">}</span>
 
-    <span class="kt">bool</span> <span class="nf">dfs</span><span class="p">(</span><span class="n">TreeNode</span><span class="o">*</span> <span class="n">root</span><span class="p">,</span> <span class="n">TreeNode</span><span class="o">*</span> <span class="n">subRoot</span><span class="p">){</span>
-        <span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="n">root</span><span class="p">)</span> <span class="k">return</span> <span class="nb">false</span><span class="p">;</span>
-        <span class="kt">bool</span> <span class="n">answer</span> <span class="o">=</span> <span class="n">check</span><span class="p">(</span><span class="n">root</span><span class="p">,</span><span class="n">subRoot</span><span class="p">)</span><span class="o">||</span><span class="n">dfs</span><span class="p">(</span><span class="n">root</span><span class="o">-&gt;</span><span class="n">left</span><span class="p">,</span><span class="n">subRoot</span><span class="p">)</span><span class="o">||</span><span class="n">dfs</span><span class="p">(</span><span class="n">root</span><span class="o">-&gt;</span><span class="n">right</span><span class="p">,</span><span class="n">subRoot</span><span class="p">);</span>
-        <span class="k">return</span> <span class="n">answer</span><span class="p">;</span>
-    <span class="p">}</span>
 
+    <span class="n">string</span> <span class="nf">replaceWords</span><span class="p">(</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">string</span><span class="o">&gt;&amp;</span> <span class="n">dictionary</span><span class="p">,</span> <span class="n">string</span> <span class="n">sentence</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">sort</span><span class="p">(</span><span class="n">dictionary</span><span class="p">.</span><span class="n">begin</span><span class="p">(),</span><span class="n">dictionary</span><span class="p">.</span><span class="n">end</span><span class="p">(),</span> <span class="n">compare</span><span class="p">);</span>
+        <span class="n">string</span> <span class="n">answer</span> <span class="o">=</span> <span class="s">&#34;&#34;</span><span class="p">;</span>
 
-    <span class="kt">bool</span> <span class="nf">isSubtree</span><span class="p">(</span><span class="n">TreeNode</span><span class="o">*</span> <span class="n">root</span><span class="p">,</span> <span class="n">TreeNode</span><span class="o">*</span> <span class="n">subRoot</span><span class="p">)</span> <span class="p">{</span>
-        <span class="kt">bool</span> <span class="n">ans</span> <span class="o">=</span> <span class="n">dfs</span><span class="p">(</span><span class="n">root</span><span class="p">,</span><span class="n">subRoot</span><span class="p">);</span>
-        <span class="k">return</span> <span class="n">ans</span><span class="p">;</span>
-
-    <span class="p">}</span>
-<span class="p">};</span><span class="k">class</span> <span class="nc">Solution</span> <span class="p">{</span>
-<span class="k">public</span><span class="o">:</span>
-    <span class="kt">int</span> <span class="n">answer</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
-    <span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">isVisited</span><span class="p">;</span>
-    <span class="kt">void</span> <span class="nf">dfs</span><span class="p">(</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;&gt;&amp;</span> <span class="n">isConnected</span><span class="p">,</span> <span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;&amp;</span> <span class="n">isVisited</span><span class="p">,</span> <span class="kt">int</span> <span class="n">provinces</span><span class="p">,</span> <span class="kt">int</span> <span class="n">i</span><span class="p">)</span> <span class="p">{</span>
-        <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">j</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">j</span> <span class="o">&lt;</span> <span class="n">provinces</span><span class="p">;</span> <span class="n">j</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
-            <span class="k">if</span> <span class="p">(</span><span class="n">isConnected</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">]</span> <span class="o">==</span> <span class="mi">1</span> <span class="o">&amp;&amp;</span> <span class="o">!</span><span class="n">isVisited</span><span class="p">[</span><span class="n">j</span><span class="p">])</span> <span class="p">{</span>
-                <span class="n">isVisited</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
-                <span class="n">dfs</span><span class="p">(</span><span class="n">isConnected</span><span class="p">,</span> <span class="n">isVisited</span><span class="p">,</span> <span class="n">provinces</span><span class="p">,</span> <span class="n">j</span><span class="p">);</span>
+        <span class="n">vector</span><span class="o">&lt;</span><span class="n">string</span><span class="o">&gt;</span> <span class="n">words</span><span class="p">;</span>
+        <span class="n">stringSplit</span><span class="p">(</span><span class="n">sentence</span><span class="p">,</span><span class="sc">&#39; &#39;</span><span class="p">,</span><span class="n">words</span><span class="p">);</span>
+        <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span><span class="n">i</span><span class="o">&lt;</span><span class="n">words</span><span class="p">.</span><span class="n">size</span><span class="p">();</span><span class="n">i</span><span class="o">++</span><span class="p">){</span>
+            <span class="kt">bool</span> <span class="n">find</span> <span class="o">=</span> <span class="nb">false</span><span class="p">;</span>
+            <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">j</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span><span class="n">j</span><span class="o">&lt;</span><span class="n">dictionary</span><span class="p">.</span><span class="n">size</span><span class="p">();</span><span class="n">j</span><span class="o">++</span><span class="p">){</span>
+                <span class="k">if</span><span class="p">(</span><span class="n">words</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">size</span><span class="p">()</span><span class="o">&lt;</span><span class="n">dictionary</span><span class="p">[</span><span class="n">j</span><span class="p">].</span><span class="n">size</span><span class="p">()){</span>
+                    <span class="k">break</span><span class="p">;</span>
+                <span class="p">}</span>
+                <span class="k">if</span><span class="p">(</span><span class="n">dictionary</span><span class="p">[</span><span class="n">j</span><span class="p">]</span><span class="o">==</span><span class="n">words</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">substr</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="n">dictionary</span><span class="p">[</span><span class="n">j</span><span class="p">].</span><span class="n">size</span><span class="p">())){</span>
+                    <span class="n">find</span> <span class="o">=</span> <span class="nb">true</span><span class="p">;</span>
+                    <span class="n">answer</span><span class="o">+=</span><span class="n">dictionary</span><span class="p">[</span><span class="n">j</span><span class="p">];</span>
+                    <span class="k">if</span><span class="p">(</span><span class="n">i</span><span class="o">!=</span><span class="n">words</span><span class="p">.</span><span class="n">size</span><span class="p">()</span><span class="o">-</span><span class="mi">1</span><span class="p">){</span>
+                        <span class="n">answer</span><span class="o">+=</span><span class="s">&#34; &#34;</span><span class="p">;</span>
+                    <span class="p">}</span>
+                    <span class="k">break</span><span class="p">;</span>
+                <span class="p">}</span>
             <span class="p">}</span>
-        <span class="p">}</span>
-    <span class="p">}</span>
-
-    <span class="kt">int</span> <span class="nf">findCircleNum</span><span class="p">(</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;&gt;&amp;</span> <span class="n">isConnected</span><span class="p">)</span> <span class="p">{</span>
-        <span class="kt">int</span> <span class="n">provinces</span> <span class="o">=</span> <span class="n">isConnected</span><span class="p">.</span><span class="n">size</span><span class="p">();</span>
-        <span class="n">isVisited</span> <span class="o">=</span> <span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="p">(</span><span class="n">provinces</span><span class="p">);</span>
-        
-
-        <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">provinces</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
-            <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">isVisited</span><span class="p">[</span><span class="n">i</span><span class="p">])</span> <span class="p">{</span>
-                <span class="n">dfs</span><span class="p">(</span><span class="n">isConnected</span><span class="p">,</span> <span class="n">isVisited</span><span class="p">,</span> <span class="n">provinces</span><span class="p">,</span> <span class="n">i</span><span class="p">);</span>
-                <span class="n">answer</span><span class="o">++</span><span class="p">;</span>
+            <span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="n">find</span><span class="p">){</span>
+                <span class="n">answer</span><span class="o">+=</span><span class="n">words</span><span class="p">[</span><span class="n">i</span><span class="p">];</span>
+                <span class="k">if</span><span class="p">(</span><span class="n">i</span><span class="o">!=</span><span class="n">words</span><span class="p">.</span><span class="n">size</span><span class="p">()</span><span class="o">-</span><span class="mi">1</span><span class="p">){</span>
+                    <span class="n">answer</span><span class="o">+=</span><span class="s">&#34; &#34;</span><span class="p">;</span>
+                <span class="p">}</span>
             <span class="p">}</span>
+
         <span class="p">}</span>
         <span class="k">return</span> <span class="n">answer</span><span class="p">;</span>
     <span class="p">}</span>
 <span class="p">};</span>
-
-
 
 </code></pre></div>
     
@@ -280,6 +194,8 @@ subRoot 树上的节点数量范围是 [1, 1000]
   
   <a href="https://qkgoalkeeper.github.io/tags/c&#43;&#43;">C&#43;&#43;</a>
   
+  <a href="https://qkgoalkeeper.github.io/tags/%E5%AD%97%E7%AC%A6%E4%B8%B2">字符串</a>
+  
 </div>
 
 
@@ -289,14 +205,14 @@ subRoot 树上的节点数量范围是 [1, 1000]
 <div class="article-categories">
   <span></span>
   
-  <a class="article-category-link" href="https://qkgoalkeeper.github.io/categories/%E5%A4%A7%E5%9B%9Bleetcode%E7%AE%97%E6%B3%95%E5%88%B7%E9%A2%98">大四LeetCode算法刷题</a>
+  <a class="article-category-link" href="https://qkgoalkeeper.github.io/categories/leetcode%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98">LeetCode每日一题</a>
   
 </div>
 
 
 
   <div class="article-share" id="share">
-    <div data-url="https://qkgoalkeeper.github.io/post/leetcode%E7%AE%97%E6%B3%95%E5%9F%BA%E7%A1%80%E7%AC%AC7%E5%A4%A9%E6%B7%B1%E5%BA%A6%E4%BC%98%E5%85%88%E6%90%9C%E7%B4%A2%E5%B9%BF%E5%BA%A6%E4%BC%98%E5%85%88%E6%90%9C%E7%B4%A2/" data-title="LeetCode算法基础第7天：深度优先搜索&amp;广度优先搜索" data-tsina="5852167252" class="share clearfix">
+    <div data-url="https://qkgoalkeeper.github.io/post/leetcode%E6%AF%8F%E6%97%A5%E7%BB%83%E4%B9%A0648.-%E5%8D%95%E8%AF%8D%E6%9B%BF%E6%8D%A2/" data-title="LeetCode每日练习：648. 单词替换" data-tsina="5852167252" class="share clearfix">
     </div>
   </div>
 </footer>
