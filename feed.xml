@@ -6,7 +6,16 @@
     <description>Recent content on qkgoalkeeper&#39;s blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
-    <lastBuildDate>Thu, 07 Jul 2022 07:55:19 +0800</lastBuildDate><atom:link href="https://qkgoalkeeper.github.io/feed.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Fri, 08 Jul 2022 07:55:19 +0800</lastBuildDate><atom:link href="https://qkgoalkeeper.github.io/feed.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Python：ethereum-etl源码解读（一）export_blocks_and_transactions</title>
+      <link>https://qkgoalkeeper.github.io/post/pythonethereum-etl%E6%BA%90%E7%A0%81%E8%A7%A3%E8%AF%BB%E4%B8%80/</link>
+      <pubDate>Fri, 08 Jul 2022 07:55:19 +0800</pubDate>
+      
+      <guid>https://qkgoalkeeper.github.io/post/pythonethereum-etl%E6%BA%90%E7%A0%81%E8%A7%A3%E8%AF%BB%E4%B8%80/</guid>
+      <description>一.ethereum-etl介绍及用法 1.ethereum-etl介绍 ethereum-etl是一个Python脚本用于查询以太坊数据，可将</description>
+    </item>
+    
     <item>
       <title>LeetCode每日练习：648. 单词替换</title>
       <link>https://qkgoalkeeper.github.io/post/leetcode%E6%AF%8F%E6%97%A5%E7%BB%83%E4%B9%A0648.-%E5%8D%95%E8%AF%8D%E6%9B%BF%E6%8D%A2/</link>

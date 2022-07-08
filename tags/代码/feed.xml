@@ -6,7 +6,16 @@
     <description>Recent content in 代码 on qkgoalkeeper&#39;s blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
-    <lastBuildDate>Mon, 06 Jun 2022 07:55:19 +0800</lastBuildDate><atom:link href="https://qkgoalkeeper.github.io/tags/%E4%BB%A3%E7%A0%81/feed.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Fri, 08 Jul 2022 07:55:19 +0800</lastBuildDate><atom:link href="https://qkgoalkeeper.github.io/tags/%E4%BB%A3%E7%A0%81/feed.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Python：ethereum-etl源码解读（一）export_blocks_and_transactions</title>
+      <link>https://qkgoalkeeper.github.io/post/pythonethereum-etl%E6%BA%90%E7%A0%81%E8%A7%A3%E8%AF%BB%E4%B8%80/</link>
+      <pubDate>Fri, 08 Jul 2022 07:55:19 +0800</pubDate>
+      
+      <guid>https://qkgoalkeeper.github.io/post/pythonethereum-etl%E6%BA%90%E7%A0%81%E8%A7%A3%E8%AF%BB%E4%B8%80/</guid>
+      <description>一.ethereum-etl介绍及用法 1.ethereum-etl介绍 ethereum-etl是一个Python脚本用于查询以太坊数据，可将</description>
+    </item>
+    
     <item>
       <title>golang：minidb源码解读</title>
       <link>https://qkgoalkeeper.github.io/post/golangminidb%E6%BA%90%E7%A0%81%E8%A7%A3%E8%AF%BB/</link>
