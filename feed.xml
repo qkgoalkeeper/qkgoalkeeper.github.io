@@ -13,7 +13,7 @@
       <pubDate>Fri, 08 Jul 2022 07:55:19 +0800</pubDate>
       
       <guid>https://qkgoalkeeper.github.io/post/pythonethereum-etl%E6%BA%90%E7%A0%81%E8%A7%A3%E8%AF%BB%E4%B8%80/</guid>
-      <description>一.ethereum-etl介绍及用法 1.ethereum-etl介绍 ethereum-etl是一个Python脚本用于查询以太坊数据，可将</description>
+      <description>本文是ethereum-etl源码解读系列的第一篇，以获取blocks和transactions为例子介绍ethereum etl如何运作 一.</description>
     </item>
     
     <item>

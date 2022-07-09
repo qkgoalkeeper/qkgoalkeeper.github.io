@@ -5,10 +5,10 @@
   <title>Python：ethereum-etl源码解读（一）export_blocks_and_transactions - qkgoalkeeper&#39;s blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=3, minimum-scale=1">
   
-  <meta name="description" content="一.ethereum-etl介绍及用法 1.ethereum-etl介绍 ethereum-etl是一个Python脚本用于查询以太坊数据，可将">
+  <meta name="description" content="本文是ethereum-etl源码解读系列的第一篇，以获取blocks和transactions为例子介绍ethereum etl如何运作 一.">
   
   <meta itemprop="name" content="Python：ethereum-etl源码解读（一）export_blocks_and_transactions - qkgoalkeeper&#39;s blog">
-  <meta itemprop="description" content="一.ethereum-etl介绍及用法 1.ethereum-etl介绍 ethereum-etl是一个Python脚本用于查询以太坊数据，可将">
+  <meta itemprop="description" content="本文是ethereum-etl源码解读系列的第一篇，以获取blocks和transactions为例子介绍ethereum etl如何运作 一.">
   <meta itemprop="image" content="https://qkgoalkeeper.github.io/img/author.jpg">
   
   
@@ -92,29 +92,35 @@
 			<strong class="toc-title">文章目录</strong>
       <nav id="TableOfContents">
   <ul>
-    <li><a href="#1ethereum-etl介绍">1.ethereum-etl介绍</a></li>
-    <li><a href="#2ethereum-etl使用">2.ethereum-etl使用</a></li>
+    <li><a href="#11-ethereum-etl介绍">1.1 ethereum-etl介绍</a></li>
+    <li><a href="#12-ethereum-etl使用">1.2 ethereum-etl使用</a></li>
   </ul>
 
   <ul>
-    <li><a href="#1export_blocks_and_transactionspy">1.export_blocks_and_transactions.py</a></li>
-    <li><a href="#2export_blocks_jobpy">2.export_blocks_job.py</a></li>
+    <li><a href="#21-主要部分">2.1 主要部分</a>
+      <ul>
+        <li><a href="#211-export_blocks_and_transactionspy">2.1.1 export_blocks_and_transactions.py</a></li>
+        <li><a href="#212-export_blocks_jobpy">2.1.2 export_blocks_job.py</a></li>
+        <li><a href="#213--batch_work_executorpy">2.1.3  batch_work_executor.py</a></li>
+      </ul>
+    </li>
+    <li><a href="#22-其他重要代码">2.2 其他重要代码</a></li>
   </ul>
 </nav>
 		</div>
     
-    <h1 id="一ethereum-etl介绍及用法">一.ethereum-etl介绍及用法</h1>
-<h2 id="1ethereum-etl介绍">1.ethereum-etl介绍</h2>
+    <p>本文是ethereum-etl源码解读系列的第一篇，以获取blocks和transactions为例子介绍ethereum etl如何运作</p>
+<h1 id="一ethereum-etl介绍及用法">一.ethereum-etl介绍及用法</h1>
+<h2 id="11-ethereum-etl介绍">1.1 ethereum-etl介绍</h2>
 <p>ethereum-etl是一个Python脚本用于查询以太坊数据，可将以太坊区块链数据导出到 CSV 文件或json文件中，著名的google bigquery的public数据集中的以太坊数据便是每天使用该脚本更新</p>
-<h2 id="2ethereum-etl使用">2.ethereum-etl使用</h2>
+<h2 id="12-ethereum-etl使用">1.2 ethereum-etl使用</h2>
 <p>ethereum-etl的使用方法见https://ethereum-etl.readthedocs.io/en/latest/commands/，大致就是需要一个infura节点（用公用的或者自己在https://infura.io/申请），随后根据不同的命令获取块号范围内的数据</p>
 <h1 id="二export_blocks_and_transactions源码解读">二.export_blocks_and_transactions源码解读</h1>
-<h2 id="1export_blocks_and_transactionspy">1.export_blocks_and_transactions.py</h2>
-<p>todo</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-Python" data-lang="Python"><span class="k">def</span> <span class="nf">export_blocks_and_transactions</span><span class="p">(</span><span class="n">start_block</span><span class="p">,</span> <span class="n">end_block</span><span class="p">,</span> <span class="n">batch_size</span><span class="p">,</span> <span class="n">provider_uri</span><span class="p">,</span> <span class="n">max_workers</span><span class="p">,</span> <span class="n">blocks_output</span><span class="p">,</span>
-                                   <span class="n">transactions_output</span><span class="p">,</span> <span class="n">chain</span><span class="o">=</span><span class="s1">&#39;ethereum&#39;</span><span class="p">):</span>
+<h2 id="21-主要部分">2.1 主要部分</h2>
+<h3 id="211-export_blocks_and_transactionspy">2.1.1 export_blocks_and_transactions.py</h3>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="k">def</span> <span class="nf">export_blocks_and_transactions</span><span class="p">(</span><span class="n">start_block</span><span class="p">,</span> <span class="n">end_block</span><span class="p">,</span> <span class="n">batch_size</span><span class="p">,</span> <span class="n">provider_uri</span><span class="p">,</span> <span class="n">max_workers</span><span class="p">,</span> <span class="n">blocks_output</span><span class="p">,</span><span class="n">transactions_output</span><span class="p">,</span> <span class="n">chain</span><span class="o">=</span><span class="s1">&#39;ethereum&#39;</span><span class="p">):</span>
     <span class="s2">&#34;&#34;&#34;Exports blocks and transactions.&#34;&#34;&#34;</span>
-    <span class="n">provider_uri</span> <span class="o">=</span> <span class="n">check_classic_provider_uri</span><span class="p">(</span><span class="n">chain</span><span class="p">,</span> <span class="n">provider_uri</span><span class="p">)</span>
+    <span class="n">provider_uri</span> <span class="o">=</span> <span class="n">check_classic_provider_uri</span><span class="p">(</span><span class="n">chain</span><span class="p">,</span> <span class="n">provider_uri</span><span class="p">)</span> <span class="o">//</span><span class="n">判断是否合法节点</span>
     <span class="k">if</span> <span class="n">blocks_output</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">transactions_output</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
         <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;Either --blocks-output or --transactions-output options must be provided&#39;</span><span class="p">)</span>
 
@@ -129,8 +135,12 @@
         <span class="n">export_transactions</span><span class="o">=</span><span class="n">transactions_output</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">)</span>
     <span class="n">job</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
 
-</code></pre></div><h2 id="2export_blocks_jobpy">2.export_blocks_job.py</h2>
-<p>todo</p>
+</code></pre></div><p>export_blocks_and_transactions是获取block和transactions的主体函数，作用是导出以太坊链上start到end所有块的信息，并输出块信息blocks_output和交易信息transactions_output到csv或json文件</p>
+<p>命令行的信息会传入到这个export_blocks_and_transactions中，包括start_block, end_block, batch_size, provider_uri, max_workers, blocks_output,transactions_output。主要的是开始结束的块号start_block, end_block，数据来源（一般用infura的节点）provider_uri，输出的文件名（e.g. block.csv trans.csv）blocks_output和transactions_output，剩下的batch_size和max_worker是用于项目的batch批处理和多线程job有默认值的不用太过关心。</p>
+<p>provider_uri = check_classic_provider_uri(chain, provider_uri)判断是否合法节点</p>
+<p>如果是合法节点则启动一个job，将前面的参数传入ExportBlocksJob类中，其中batch_web3_provider是web3连接到的以太坊节点的一个代理对象</p>
+<p>随后job.run()运行该任务，具体任务由下面的export_blocks_job.py完成</p>
+<h3 id="212-export_blocks_jobpy">2.1.2 export_blocks_job.py</h3>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-Python" data-lang="Python">
 <span class="c1"># Exports blocks and transactions</span>
 <span class="k">class</span> <span class="nc">ExportBlocksJob</span><span class="p">(</span><span class="n">BaseJob</span><span class="p">):</span>
@@ -192,7 +202,15 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">batch_work_executor</span><span class="o">.</span><span class="n">shutdown</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">item_exporter</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
 
-</code></pre></div>
+</code></pre></div><p>item_exporter 设置挖掘匹配的字段，以及存储文件，transaction_mapper 实现transaction对象和json的转换解析，block_mapper 实现block和json之间的转换</p>
+<p>ExportBlocksJob获取了参数后，生成一个batch_work_executor 构造批处理的执行类，当执行1.1中的job.run()时会执行ExportBlocksJob的_start方法和_export方法，_export中batch_work_executor执行execute，这个具体见下面2.1.3的BatchWorkExecutor，其中传入的_export_batch批次获取以太坊的块内容以及交易信息后进行一系列处理json的步骤</p>
+<h3 id="213--batch_work_executorpy">2.1.3  batch_work_executor.py</h3>
+<p>todo</p>
+<h2 id="22-其他重要代码">2.2 其他重要代码</h2>
+<p>todo</p>
+<h1 id="3总结">3.总结</h1>
+<p>export_blocks_and_transactions方法调用时先校验数据，然后创建ExportBlocksJob对象封装一个任务，通过BatchWorkExecutor来执行，整个任务是批处理且多线程的，获取数据的来源是以太坊infura节点的rpc api，获取后的格式是json，再对json进行解析后存入csv</p>
+
     
 	</div>
   <footer class="article-footer clearfix">
