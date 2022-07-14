@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>rust on qkgoalkeeper&#39;s blog</title>
+    <link>https://qkgoalkeeper.github.io/categories/rust/</link>
+    <description>Recent content in rust on qkgoalkeeper&#39;s blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-CN</language>
+    <lastBuildDate>Thu, 14 Jul 2022 08:55:19 +0800</lastBuildDate><atom:link href="https://qkgoalkeeper.github.io/categories/rust/feed.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>rust：the_rust_book（2）写个猜数字游戏</title>
+      <link>https://qkgoalkeeper.github.io/post/rustthe_rust_book2%E5%86%99%E4%B8%AA%E7%8C%9C%E6%95%B0%E5%AD%97%E6%B8%B8%E6%88%8F/</link>
+      <pubDate>Thu, 14 Jul 2022 08:55:19 +0800</pubDate>
+      
+      <guid>https://qkgoalkeeper.github.io/post/rustthe_rust_book2%E5%86%99%E4%B8%AA%E7%8C%9C%E6%95%B0%E5%AD%97%E6%B8%B8%E6%88%8F/</guid>
+      <description>一.本章任务 让我们一起动手完成一个项目，来快速上手 Rust！本章将介绍 Rust 中一些常用概念，并通过真实的程序来展示如何运用它们。你将会学到 let</description>
+    </item>
+    
+    <item>
+      <title>rust：the_rust_book（1）入门指南</title>
+      <link>https://qkgoalkeeper.github.io/post/rustthe_rust_book1%E5%85%A5%E9%97%A8%E6%8C%87%E5%8D%97/</link>
+      <pubDate>Thu, 14 Jul 2022 07:55:19 +0800</pubDate>
+      
+      <guid>https://qkgoalkeeper.github.io/post/rustthe_rust_book1%E5%85%A5%E9%97%A8%E6%8C%87%E5%8D%97/</guid>
+      <description>一.本章任务 在 Linux、macOS 和 Windows 上安装 Rust 编写一个打印 Hello, world! 的程序 使用 Rust 的包管理器和构建系统 cargo 二.在 Linux、macOS 和 Windows 上安装 Rust 这</description>
+    </item>
+    
+  </channel>
+</rss>
