@@ -2,13 +2,13 @@
 <html lang="zh-CN">
 <head>
   <meta charset="UTF-8">
-  <title>LeetCode每日练习：剑指 Offer 47. 礼物的最大价值 - qkgoalkeeper&#39;s blog</title>
+  <title>ethereum-etl表的schema - qkgoalkeeper&#39;s blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=3, minimum-scale=1">
   
-  <meta name="description" content="一.剑指 Offer 47. 礼物的最大价值 1.题干及思路 在一个 m*n 的棋盘的每一格都放有一个礼物，每个礼物都有一定的价值（价值大于 0）。你可以从棋盘的左上角开始">
+  <meta name="description" content="一.ethereum-etl各个表的字段含义 注：由于大多数表本质上是从节点json rpc的api请求JSON-RPC methods - Infura Docs获取数据，">
   
-  <meta itemprop="name" content="LeetCode每日练习：剑指 Offer 47. 礼物的最大价值 - qkgoalkeeper&#39;s blog">
-  <meta itemprop="description" content="一.剑指 Offer 47. 礼物的最大价值 1.题干及思路 在一个 m*n 的棋盘的每一格都放有一个礼物，每个礼物都有一定的价值（价值大于 0）。你可以从棋盘的左上角开始">
+  <meta itemprop="name" content="ethereum-etl表的schema - qkgoalkeeper&#39;s blog">
+  <meta itemprop="description" content="一.ethereum-etl各个表的字段含义 注：由于大多数表本质上是从节点json rpc的api请求JSON-RPC methods - Infura Docs获取数据，">
   <meta itemprop="image" content="https://qkgoalkeeper.github.io/img/author.jpg">
   
   
@@ -74,7 +74,7 @@
 	<article itemprop="articleBody">
     <header class="article-info clearfix">
   <h1 itemprop="name">
-      <a href="https://qkgoalkeeper.github.io/post/leetcode%E6%AF%8F%E6%97%A5%E7%BB%83%E4%B9%A0%E5%89%91%E6%8C%87-offer-47.-%E7%A4%BC%E7%89%A9%E7%9A%84%E6%9C%80%E5%A4%A7%E4%BB%B7%E5%80%BC/" title="LeetCode每日练习：剑指 Offer 47. 礼物的最大价值" itemprop="url">LeetCode每日练习：剑指 Offer 47. 礼物的最大价值</a>
+      <a href="https://qkgoalkeeper.github.io/post/ethereum-etl%E8%A1%A8%E7%9A%84schema/" title="ethereum-etl表的schema" itemprop="url">ethereum-etl表的schema</a>
   </h1>
   <p class="article-author">By
     
@@ -82,7 +82,7 @@
     
   </p>
   <p class="article-time">
-    <time datetime="2022-01-28 10:55:19 &#43;0800 CST" itemprop="datePublished">2022年01月28日</time>
+    <time datetime="2022-07-15 07:55:19 &#43;0800 CST" itemprop="datePublished">2022年07月15日</time>
   </p>
 </header>
 
@@ -92,58 +92,565 @@
 			<strong class="toc-title">文章目录</strong>
       <nav id="TableOfContents">
   <ul>
-    <li><a href="#1题干及思路">1.题干及思路</a></li>
-    <li><a href="#2c实现">2.C++实现</a></li>
+    <li><a href="#1blockscsv">1.blocks.csv</a></li>
+    <li><a href="#2transactionscsv">2.transactions.csv</a></li>
+    <li><a href="#3token_transferscsv">3.token_transfers.csv</a></li>
+    <li><a href="#4receiptscsv">4.receipts.csv</a></li>
+    <li><a href="#5logscsv">5.logs.csv</a></li>
+    <li><a href="#6contractscsv">6.contracts.csv</a></li>
+    <li><a href="#7tokenscsv">7.tokens.csv</a></li>
+    <li><a href="#8tracescsv">8.traces.csv</a></li>
   </ul>
 </nav>
 		</div>
     
-    <h1 id="一剑指-offer-47-礼物的最大价值httpsleetcode-cncomproblemsli-wu-de-zui-da-jie-zhi-lcof">一.<a href="https://leetcode-cn.com/problems/li-wu-de-zui-da-jie-zhi-lcof/">剑指 Offer 47. 礼物的最大价值</a></h1>
-<h2 id="1题干及思路">1.题干及思路</h2>
-<p>在一个 m*n 的棋盘的每一格都放有一个礼物，每个礼物都有一定的价值（价值大于 0）。你可以从棋盘的左上角开始拿格子里的礼物，并每次向右或者向下移动一格、直到到达棋盘的右下角。给定一个棋盘及其上面的礼物的价值，请计算你最多能拿到多少价值的礼物？</p>
-<p><strong>示例 1:</strong></p>
-<pre tabindex="0"><code>输入: 
-[
-  [1,3,1],
-  [1,5,1],
-  [4,2,1]
-]
-输出: 12
-解释: 路径 1→3→5→2→1 可以拿到最多价值的礼物
-</code></pre><p>提示：</p>
-<ul>
-<li><code>0 &lt; grid.length &lt;= 200</code></li>
-<li><code>0 &lt; grid[0].length &lt;= 200</code></li>
-</ul>
-<p>要点：动态规划</p>
-<p>思路：二维动态规划，dp[m][n]=max(dp[m-1][n],dp[m][n-1])+grid[m][n];</p>
-<h2 id="2c实现">2.C++实现</h2>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="k">class</span> <span class="nc">Solution</span> <span class="p">{</span>
-<span class="k">public</span><span class="o">:</span>
-    <span class="kt">int</span> <span class="n">maxValue</span><span class="p">(</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;&gt;&amp;</span> <span class="n">grid</span><span class="p">)</span> <span class="p">{</span>
-        <span class="kt">int</span> <span class="n">xlen</span> <span class="o">=</span> <span class="n">grid</span><span class="p">.</span><span class="n">size</span><span class="p">();</span>
-        <span class="kt">int</span> <span class="n">ylen</span> <span class="o">=</span> <span class="n">grid</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="n">size</span><span class="p">();</span>
-        <span class="n">vector</span><span class="o">&lt;</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;&gt;</span> <span class="n">dp</span><span class="p">(</span><span class="n">xlen</span><span class="p">,</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="p">(</span><span class="n">ylen</span><span class="p">));</span>
-        <span class="kt">int</span> <span class="n">temp</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
-        <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span><span class="n">i</span><span class="o">&lt;</span><span class="n">ylen</span><span class="p">;</span><span class="n">i</span><span class="o">++</span><span class="p">){</span>
-            <span class="n">dp</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="n">i</span><span class="p">]</span><span class="o">=</span><span class="n">temp</span><span class="o">+</span><span class="n">grid</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="n">i</span><span class="p">];</span>
-            <span class="n">temp</span><span class="o">+=</span><span class="n">grid</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="n">i</span><span class="p">];</span>
-        <span class="p">}</span> 
-        <span class="n">temp</span> <span class="o">=</span> <span class="n">grid</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">];</span>
-        <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">j</span><span class="o">=</span><span class="mi">1</span><span class="p">;</span><span class="n">j</span><span class="o">&lt;</span><span class="n">xlen</span><span class="p">;</span><span class="n">j</span><span class="o">++</span><span class="p">){</span>
-            <span class="n">dp</span><span class="p">[</span><span class="n">j</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span><span class="o">=</span><span class="n">temp</span><span class="o">+</span><span class="n">grid</span><span class="p">[</span><span class="n">j</span><span class="p">][</span><span class="mi">0</span><span class="p">];</span>
-            <span class="n">temp</span><span class="o">+=</span><span class="n">grid</span><span class="p">[</span><span class="n">j</span><span class="p">][</span><span class="mi">0</span><span class="p">];</span>
-        <span class="p">}</span>
-        <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">m</span><span class="o">=</span><span class="mi">1</span><span class="p">;</span><span class="n">m</span><span class="o">&lt;</span><span class="n">xlen</span><span class="p">;</span><span class="n">m</span><span class="o">++</span><span class="p">){</span>
-            <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">n</span><span class="o">=</span><span class="mi">1</span><span class="p">;</span><span class="n">n</span><span class="o">&lt;</span><span class="n">ylen</span><span class="p">;</span><span class="n">n</span><span class="o">++</span><span class="p">){</span>
-                <span class="n">dp</span><span class="p">[</span><span class="n">m</span><span class="p">][</span><span class="n">n</span><span class="p">]</span><span class="o">=</span><span class="n">max</span><span class="p">(</span><span class="n">dp</span><span class="p">[</span><span class="n">m</span><span class="o">-</span><span class="mi">1</span><span class="p">][</span><span class="n">n</span><span class="p">],</span><span class="n">dp</span><span class="p">[</span><span class="n">m</span><span class="p">][</span><span class="n">n</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span><span class="o">+</span><span class="n">grid</span><span class="p">[</span><span class="n">m</span><span class="p">][</span><span class="n">n</span><span class="p">];</span>
-            <span class="p">}</span>
-        <span class="p">}</span>
-        <span class="k">return</span> <span class="n">dp</span><span class="p">[</span><span class="n">xlen</span><span class="o">-</span><span class="mi">1</span><span class="p">][</span><span class="n">ylen</span><span class="o">-</span><span class="mi">1</span><span class="p">];</span>
+    <h1 id="一ethereum-etl各个表的字段含义">一.ethereum-etl各个表的字段含义</h1>
+<p>注：由于大多数表本质上是从节点json rpc的api请求<a href="https://docs.infura.io/infura/networks/ethereum/json-rpc-methods">JSON-RPC methods - Infura Docs</a>获取数据，所以大多数字段含义基本和节点的rpc那边的字段含义一致（有些是EIP1559新加的，还有些字段是ethereum etl自己加的比如block.csv的transaction_count就是它对transactions列表算了下len，还有个trace表好像是parity当中的）</p>
+<p>P.S 有的不确定怎么翻译保留了英文</p>
+<h2 id="1blockscsv">1.blocks.csv</h2>
+<table>
+<thead>
+<tr>
+<th>Column</th>
+<th>Type</th>
+<th>字段含义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>number</td>
+<td>bigint</td>
+<td>区块编号</td>
+</tr>
+<tr>
+<td>hash</td>
+<td>hex_string</td>
+<td>区块哈希</td>
+</tr>
+<tr>
+<td>parent_hash</td>
+<td>hex_string</td>
+<td>父区块哈希</td>
+</tr>
+<tr>
+<td>nonce</td>
+<td>hex_string</td>
+<td>POW哈希</td>
+</tr>
+<tr>
+<td>sha3_uncles</td>
+<td>hex_string</td>
+<td>区块中叔伯数据的sha3哈希</td>
+</tr>
+<tr>
+<td>logs_bloom</td>
+<td>hex_string</td>
+<td>区块日志的布隆过滤器</td>
+</tr>
+<tr>
+<td>transactions_root</td>
+<td>hex_string</td>
+<td>区块交易树根</td>
+</tr>
+<tr>
+<td>state_root</td>
+<td>hex_string</td>
+<td>区块状态树根</td>
+</tr>
+<tr>
+<td>receipts_root</td>
+<td>hex_string</td>
+<td>区块收据树根</td>
+</tr>
+<tr>
+<td>miner</td>
+<td>address</td>
+<td>挖矿奖励收益矿工地址</td>
+</tr>
+<tr>
+<td>difficulty</td>
+<td>numeric</td>
+<td>区块难度</td>
+</tr>
+<tr>
+<td>total_difficulty</td>
+<td>numeric</td>
+<td>区块链总难度</td>
+</tr>
+<tr>
+<td>size</td>
+<td>bigint</td>
+<td>区块字节数</td>
+</tr>
+<tr>
+<td>extra_data</td>
+<td>hex_string</td>
+<td>区块额外数据</td>
+</tr>
+<tr>
+<td>gas_limit</td>
+<td>bigint</td>
+<td>区块gas上限</td>
+</tr>
+<tr>
+<td>gas_used</td>
+<td>bigint</td>
+<td>区块使用的gas总量</td>
+</tr>
+<tr>
+<td>timestamp</td>
+<td>bigint</td>
+<td>区块时间戳</td>
+</tr>
+<tr>
+<td>transaction_count</td>
+<td>bigint</td>
+<td>包含交易数目</td>
+</tr>
+<tr>
+<td>base_fee_per_gas</td>
+<td>bigint</td>
+<td>每gas基本费用</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h2 id="2transactionscsv">2.transactions.csv</h2>
+<table>
+<thead>
+<tr>
+<th>Column</th>
+<th>Type</th>
+<th>字段含义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>hash</td>
+<td>hex_string</td>
+<td>交易哈希</td>
+</tr>
+<tr>
+<td>nonce</td>
+<td>bigint</td>
+<td>前序交易数量</td>
+</tr>
+<tr>
+<td>block_hash</td>
+<td>hex_string</td>
+<td>区块哈希</td>
+</tr>
+<tr>
+<td>block_number</td>
+<td>bigint</td>
+<td>区块编号</td>
+</tr>
+<tr>
+<td>transaction_index</td>
+<td>bigint</td>
+<td>交易序号</td>
+</tr>
+<tr>
+<td>from_address</td>
+<td>address</td>
+<td>交易发起地址</td>
+</tr>
+<tr>
+<td>to_address</td>
+<td>address</td>
+<td>交易目标地址</td>
+</tr>
+<tr>
+<td>value</td>
+<td>numeric</td>
+<td>交易金额，单位：wei</td>
+</tr>
+<tr>
+<td>gas</td>
+<td>bigint</td>
+<td>交易量上限</td>
+</tr>
+<tr>
+<td>gas_price</td>
+<td>bigint</td>
+<td>交易设定的gas价格，单位：wei</td>
+</tr>
+<tr>
+<td>input</td>
+<td>hex_string</td>
+<td>交易附加数据</td>
+</tr>
+<tr>
+<td>block_timestamp</td>
+<td>bigint</td>
+<td>块时间戳</td>
+</tr>
+<tr>
+<td>max_fee_per_gas</td>
+<td>bigint</td>
+<td>最高费用</td>
+</tr>
+<tr>
+<td>max_priority_fee_per_gas</td>
+<td>bigint</td>
+<td>最高优先费用</td>
+</tr>
+<tr>
+<td>transaction_type</td>
+<td>bigint</td>
+<td>交易类型</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h2 id="3token_transferscsv">3.token_transfers.csv</h2>
+<table>
+<thead>
+<tr>
+<th>Column</th>
+<th>Type</th>
+<th>字段含义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>token_address</td>
+<td>address</td>
+<td>ERC20 代币地址</td>
+</tr>
+<tr>
+<td>from_address</td>
+<td>address</td>
+<td>交易发起地址</td>
+</tr>
+<tr>
+<td>to_address</td>
+<td>address</td>
+<td>交易目标地址</td>
+</tr>
+<tr>
+<td>value</td>
+<td>numeric</td>
+<td>转移的代币数量（Amount of tokens transferred (ERC20) / id of the token transferred (ERC721). Use safe_cast for casting to NUMERIC or FLOAT64）</td>
+</tr>
+<tr>
+<td>transaction_hash</td>
+<td>hex_string</td>
+<td>交易哈希</td>
+</tr>
+<tr>
+<td>log_index</td>
+<td>bigint</td>
+<td>日志在区块内的索引</td>
+</tr>
+<tr>
+<td>block_number</td>
+<td>bigint</td>
+<td>区块编号</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h2 id="4receiptscsv">4.receipts.csv</h2>
+<table>
+<thead>
+<tr>
+<th>Column</th>
+<th>Type</th>
+<th>字段含义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>transaction_hash</td>
+<td>hex_string</td>
+<td>交易哈希</td>
+</tr>
+<tr>
+<td>transaction_index</td>
+<td>bigint</td>
+<td>交易在区块内的序号</td>
+</tr>
+<tr>
+<td>block_hash</td>
+<td>hex_string</td>
+<td>区块哈希</td>
+</tr>
+<tr>
+<td>block_number</td>
+<td>bigint</td>
+<td>区块编号</td>
+</tr>
+<tr>
+<td>cumulative_gas_used</td>
+<td>bigint</td>
+<td>该交易执行时区块gas总用量</td>
+</tr>
+<tr>
+<td>gas_used</td>
+<td>bigint</td>
+<td>该交易的gas用量</td>
+</tr>
+<tr>
+<td>contract_address</td>
+<td>address</td>
+<td>合约地址</td>
+</tr>
+<tr>
+<td>root</td>
+<td>hex_string</td>
+<td>32 bytes of post-transaction stateroot (pre Byzantium)</td>
+</tr>
+<tr>
+<td>status</td>
+<td>bigint</td>
+<td>返回成功（1）或者失败（0）</td>
+</tr>
+<tr>
+<td>effective_gas_price</td>
+<td>bigint</td>
+<td>the actual value per gas deducted from the sender&rsquo;s account. Before <a href="">EIP-1559</a>, equal to the gas price.</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h2 id="5logscsv">5.logs.csv</h2>
+<table>
+<thead>
+<tr>
+<th>Column</th>
+<th>Type</th>
+<th>字段含义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>log_index</td>
+<td>bigint</td>
+<td>日志在区块内的索引</td>
+</tr>
+<tr>
+<td>transaction_hash</td>
+<td>hex_string</td>
+<td>产生日志的交易哈希</td>
+</tr>
+<tr>
+<td>transaction_index</td>
+<td>bigint</td>
+<td>产生日志的交易索引</td>
+</tr>
+<tr>
+<td>block_hash</td>
+<td>hex_string</td>
+<td>日志所在区块的哈希</td>
+</tr>
+<tr>
+<td>block_number</td>
+<td>bigint</td>
+<td>日志所在区块号</td>
+</tr>
+<tr>
+<td>address</td>
+<td>address</td>
+<td>产生日志的源地址</td>
+</tr>
+<tr>
+<td>data</td>
+<td>hex_string</td>
+<td>日志的非索引参数</td>
+</tr>
+<tr>
+<td>topics</td>
+<td>string</td>
+<td>日志的主题数组</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h2 id="6contractscsv">6.contracts.csv</h2>
+<table>
+<thead>
+<tr>
+<th>Column</th>
+<th>Type</th>
+<th>字段含义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>address</td>
+<td>address</td>
+<td>合约地址</td>
+</tr>
+<tr>
+<td>bytecode</td>
+<td>hex_string</td>
+<td>合约字节码</td>
+</tr>
+<tr>
+<td>function_sighashes</td>
+<td>string</td>
+<td>函数签名哈希</td>
+</tr>
+<tr>
+<td>is_erc20</td>
+<td>boolean</td>
+<td>是否erc20</td>
+</tr>
+<tr>
+<td>is_erc721</td>
+<td>boolean</td>
+<td>是否erc721</td>
+</tr>
+<tr>
+<td>block_number</td>
+<td>bigint</td>
+<td>区块编号</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h2 id="7tokenscsv">7.tokens.csv</h2>
+<table>
+<thead>
+<tr>
+<th>Column</th>
+<th>Type</th>
+<th>字段含义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>address</td>
+<td>address</td>
+<td>ERC20 代币地址</td>
+</tr>
+<tr>
+<td>symbol</td>
+<td>string</td>
+<td>ERC20 代币符号</td>
+</tr>
+<tr>
+<td>name</td>
+<td>string</td>
+<td>ERC20 代币名字</td>
+</tr>
+<tr>
+<td>decimals</td>
+<td>bigint</td>
+<td>代币支持几位小数点后几位</td>
+</tr>
+<tr>
+<td>total_supply</td>
+<td>numeric</td>
+<td>发行代币的总量</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h2 id="8tracescsv">8.traces.csv</h2>
+<table>
+<thead>
+<tr>
+<th>Column</th>
+<th>Type</th>
+<th>字段含义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>block_number</td>
+<td>bigint</td>
+<td>区块编号</td>
+</tr>
+<tr>
+<td>transaction_hash</td>
+<td>hex_string</td>
+<td>交易哈希</td>
+</tr>
+<tr>
+<td>transaction_index</td>
+<td>bigint</td>
+<td>交易序号</td>
+</tr>
+<tr>
+<td>from_address</td>
+<td>address</td>
+<td>交易发起地址Address of the sender, null when trace_type is genesis or reward</td>
+</tr>
+<tr>
+<td>to_address</td>
+<td>address</td>
+<td>交易目标地址Address of the receiver if trace_type is call, address of new contract or null if trace_type is create, beneficiary address if trace_type is suicide, miner address if trace_type is reward, shareholder address if trace_type is genesis, WithdrawDAO address if trace_type is daofork</td>
+</tr>
+<tr>
+<td>value</td>
+<td>numeric</td>
+<td>交易转账数量</td>
+</tr>
+<tr>
+<td>input</td>
+<td>hex_string</td>
+<td>交易附加数据</td>
+</tr>
+<tr>
+<td>output</td>
+<td>hex_string</td>
+<td>The output of the message call, bytecode of contract when trace_type is create</td>
+</tr>
+<tr>
+<td>trace_type</td>
+<td>string</td>
+<td>One of call, create, suicide, reward, genesis, daofork</td>
+</tr>
+<tr>
+<td>call_type</td>
+<td>string</td>
+<td>One of call, callcode, delegatecall, staticcall</td>
+</tr>
+<tr>
+<td>reward_type</td>
+<td>string</td>
+<td>One of block, uncle</td>
+</tr>
+<tr>
+<td>gas</td>
+<td>bigint</td>
+<td>交易量上限</td>
+</tr>
+<tr>
+<td>gas_used</td>
+<td>bigint</td>
+<td>交易的gas用量</td>
+</tr>
+<tr>
+<td>subtraces</td>
+<td>bigint</td>
+<td>Number of subtraces</td>
+</tr>
+<tr>
+<td>trace_address</td>
+<td>string</td>
+<td>Comma separated list of trace address in call tree</td>
+</tr>
+<tr>
+<td>error</td>
+<td>string</td>
+<td>是否出错Error if message call failed. This field doesn&rsquo;t contain top-level trace errors.</td>
+</tr>
+<tr>
+<td>status</td>
+<td>bigint</td>
+<td>状态Either 1 (success) or 0 (failure, due to any operation that can cause the call itself or any top-level call to revert)</td>
+</tr>
+<tr>
+<td>trace_id</td>
+<td>string</td>
+<td>trace的id</td>
+</tr>
+</tbody>
+</table>
 
-    <span class="p">}</span>
-<span class="p">};</span>
-</code></pre></div>
     
 	</div>
   <footer class="article-footer clearfix">
@@ -152,11 +659,7 @@
 <div class="article-tags">
   <span></span>
   
-  <a href="https://qkgoalkeeper.github.io/tags/leetcode">LeetCode</a>
-  
-  <a href="https://qkgoalkeeper.github.io/tags/c&#43;&#43;">C&#43;&#43;</a>
-  
-  <a href="https://qkgoalkeeper.github.io/tags/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92">动态规划</a>
+  <a href="https://qkgoalkeeper.github.io/tags/%E5%8C%BA%E5%9D%97%E9%93%BE">区块链</a>
   
 </div>
 
@@ -167,14 +670,14 @@
 <div class="article-categories">
   <span></span>
   
-  <a class="article-category-link" href="https://qkgoalkeeper.github.io/categories/%E5%A4%A7%E5%9B%9Bleetcode%E7%AE%97%E6%B3%95%E5%88%B7%E9%A2%98">大四LeetCode算法刷题</a>
+  <a class="article-category-link" href="https://qkgoalkeeper.github.io/categories/%E5%8C%BA%E5%9D%97%E9%93%BE">区块链</a>
   
 </div>
 
 
 
   <div class="article-share" id="share">
-    <div data-url="https://qkgoalkeeper.github.io/post/leetcode%E6%AF%8F%E6%97%A5%E7%BB%83%E4%B9%A0%E5%89%91%E6%8C%87-offer-47.-%E7%A4%BC%E7%89%A9%E7%9A%84%E6%9C%80%E5%A4%A7%E4%BB%B7%E5%80%BC/" data-title="LeetCode每日练习：剑指 Offer 47. 礼物的最大价值" data-tsina="5852167252" class="share clearfix">
+    <div data-url="https://qkgoalkeeper.github.io/post/ethereum-etl%E8%A1%A8%E7%9A%84schema/" data-title="ethereum-etl表的schema" data-tsina="5852167252" class="share clearfix">
     </div>
   </div>
 </footer>

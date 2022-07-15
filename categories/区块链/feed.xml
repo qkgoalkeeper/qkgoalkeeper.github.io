@@ -6,7 +6,16 @@
     <description>Recent content in 区块链 on qkgoalkeeper&#39;s blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
-    <lastBuildDate>Sun, 10 Jul 2022 07:55:19 +0800</lastBuildDate><atom:link href="https://qkgoalkeeper.github.io/categories/%E5%8C%BA%E5%9D%97%E9%93%BE/feed.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Fri, 15 Jul 2022 07:55:19 +0800</lastBuildDate><atom:link href="https://qkgoalkeeper.github.io/categories/%E5%8C%BA%E5%9D%97%E9%93%BE/feed.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>ethereum-etl表的schema</title>
+      <link>https://qkgoalkeeper.github.io/post/ethereum-etl%E8%A1%A8%E7%9A%84schema/</link>
+      <pubDate>Fri, 15 Jul 2022 07:55:19 +0800</pubDate>
+      
+      <guid>https://qkgoalkeeper.github.io/post/ethereum-etl%E8%A1%A8%E7%9A%84schema/</guid>
+      <description>一.ethereum-etl各个表的字段含义 注：由于大多数表本质上是从节点json rpc的api请求JSON-RPC methods - Infura Docs获取数据，</description>
+    </item>
+    
     <item>
       <title>Python：ethereum-etl源码解读（一）export_blocks_and_transactions</title>
       <link>https://qkgoalkeeper.github.io/post/pythonethereum-etl%E6%BA%90%E7%A0%81%E8%A7%A3%E8%AF%BB%E4%B8%80/</link>

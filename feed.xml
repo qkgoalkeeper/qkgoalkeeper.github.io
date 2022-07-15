@@ -6,7 +6,16 @@
     <description>Recent content on qkgoalkeeper&#39;s blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
-    <lastBuildDate>Thu, 14 Jul 2022 08:55:19 +0800</lastBuildDate><atom:link href="https://qkgoalkeeper.github.io/feed.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Fri, 15 Jul 2022 07:55:19 +0800</lastBuildDate><atom:link href="https://qkgoalkeeper.github.io/feed.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>ethereum-etl表的schema</title>
+      <link>https://qkgoalkeeper.github.io/post/ethereum-etl%E8%A1%A8%E7%9A%84schema/</link>
+      <pubDate>Fri, 15 Jul 2022 07:55:19 +0800</pubDate>
+      
+      <guid>https://qkgoalkeeper.github.io/post/ethereum-etl%E8%A1%A8%E7%9A%84schema/</guid>
+      <description>一.ethereum-etl各个表的字段含义 注：由于大多数表本质上是从节点json rpc的api请求JSON-RPC methods - Infura Docs获取数据，</description>
+    </item>
+    
     <item>
       <title>rust：the_rust_book（2）写个猜数字游戏</title>
       <link>https://qkgoalkeeper.github.io/post/rustthe_rust_book2%E5%86%99%E4%B8%AA%E7%8C%9C%E6%95%B0%E5%AD%97%E6%B8%B8%E6%88%8F/</link>
