@@ -2,13 +2,13 @@
 <html lang="zh-CN">
 <head>
   <meta charset="UTF-8">
-  <title>rust：the_rust_book（1）入门指南 - qkgoalkeeper&#39;s blog</title>
+  <title>rust：the_rust_book（3）常见编程概念 - qkgoalkeeper&#39;s blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=3, minimum-scale=1">
   
-  <meta name="description" content="一.本章任务 在 Linux、macOS 和 Windows 上安装 Rust 编写一个打印 Hello, world! 的程序 使用 Rust 的包管理器和构建系统 cargo 二.在 Linux、macOS 和 Windows 上安装 Rust 这">
+  <meta name="description" content="一.本章任务 本章介绍一些几乎所有编程语言都有的概念，以及它们在 Rust 中是如何工作的。很多编程语言的核心概念都是共通的，本章中展示的概念都不是 Rust 所">
   
-  <meta itemprop="name" content="rust：the_rust_book（1）入门指南 - qkgoalkeeper&#39;s blog">
-  <meta itemprop="description" content="一.本章任务 在 Linux、macOS 和 Windows 上安装 Rust 编写一个打印 Hello, world! 的程序 使用 Rust 的包管理器和构建系统 cargo 二.在 Linux、macOS 和 Windows 上安装 Rust 这">
+  <meta itemprop="name" content="rust：the_rust_book（3）常见编程概念 - qkgoalkeeper&#39;s blog">
+  <meta itemprop="description" content="一.本章任务 本章介绍一些几乎所有编程语言都有的概念，以及它们在 Rust 中是如何工作的。很多编程语言的核心概念都是共通的，本章中展示的概念都不是 Rust 所">
   <meta itemprop="image" content="https://qkgoalkeeper.github.io/img/author.jpg">
   
   
@@ -74,7 +74,7 @@
 	<article itemprop="articleBody">
     <header class="article-info clearfix">
   <h1 itemprop="name">
-      <a href="https://qkgoalkeeper.github.io/post/rustthe_rust_book1%E5%85%A5%E9%97%A8%E6%8C%87%E5%8D%97/" title="rust：the_rust_book（1）入门指南" itemprop="url">rust：the_rust_book（1）入门指南</a>
+      <a href="https://qkgoalkeeper.github.io/post/rustthe_rust_book3%E5%B8%B8%E8%A7%81%E7%BC%96%E7%A8%8B%E6%A6%82%E5%BF%B5/" title="rust：the_rust_book（3）常见编程概念" itemprop="url">rust：the_rust_book（3）常见编程概念</a>
   </h1>
   <p class="article-author">By
     
@@ -82,7 +82,7 @@
     
   </p>
   <p class="article-time">
-    <time datetime="2022-07-14 07:55:19 &#43;0800 CST" itemprop="datePublished">2022年07月14日</time>
+    <time datetime="2022-07-16 07:55:19 &#43;0800 CST" itemprop="datePublished">2022年07月16日</time>
   </p>
 </header>
 
@@ -95,57 +95,162 @@
     
     <h1 id="一本章任务">一.本章任务</h1>
 <ul>
-<li>在 Linux、macOS 和 Windows 上安装 Rust</li>
-<li>编写一个打印 <code>Hello, world!</code> 的程序</li>
-<li>使用 Rust 的包管理器和构建系统 <code>cargo</code></li>
+<li>
+<p>本章介绍一些几乎所有编程语言都有的概念，以及它们在 Rust 中是如何工作的。很多编程语言的核心概念都是共通的，本章中展示的概念都不是 Rust 所特有的，不过我们会在 Rust 上下文中讨论它们，并解释使用这些概念的惯例。</p>
+<p>具体来说，我们将会学习变量、基本类型、函数、注释和控制流。每一个 Rust 程序中都会用到这些基础知识，提早学习这些概念会让你在起步时就打下坚实的基础。</p>
+</li>
 </ul>
-<h1 id="二在-linuxmacos-和-windows-上安装-rust">二.在 Linux、macOS 和 Windows 上安装 Rust</h1>
-<p>这里是在Ubuntu环境安装的步骤</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell">sudo apt update
-sudo apt install curl
-<span class="nb">export</span> <span class="nv">RUSTUP_DIST_SERVER</span><span class="o">=</span>https://mirrors.ustc.edu.cn/rust-static
-<span class="nb">export</span> <span class="nv">RUSTUP_UPDATE_ROOT</span><span class="o">=</span>https://mirrors.ustc.edu.cn/rust-static/rustup
-curl --proto <span class="s1">&#39;=https&#39;</span> --tlsv1.2 -sSf https://sh.rustup.rs <span class="p">|</span> sh
-<span class="nb">source</span> <span class="nv">$HOME</span>/.cargo/env
- 
-//安装依赖包
-sudo apt install -y openssl libssl-dev libudev-dev cmake llvm clang musl-tools build-essential
- 
-//设置软链接
-sudo ln -s /usr/bin/g++ /usr/bin/musl-g++
- 
-//添加target
-rustup target add x86_64-unknown-linux-musl
-</code></pre></div><h1 id="三编写一个打印-hello-world-的程序">三.编写一个打印 <code>Hello, world!</code> 的程序</h1>
-<p>先写个main.rs文件</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-rust" data-lang="rust"><span class="k">fn</span> <span class="nf">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w">
-</span><span class="w">    </span><span class="fm">println!</span><span class="p">(</span><span class="s">&#34;Hello, world!&#34;</span><span class="p">);</span><span class="w">
+<h1 id="二常见编程概念">二.常见编程概念</h1>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-rust" data-lang="rust"><span class="w">
+</span><span class="w"></span><span class="k">fn</span> <span class="nf">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span><span class="w">    </span><span class="c1">//3.1变量与可变性========================================================
+</span><span class="c1"></span><span class="w">    </span><span class="c1">//可变
+</span><span class="c1"></span><span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="k">mut</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">5</span><span class="p">;</span><span class="w">
+</span><span class="w">    </span><span class="fm">println!</span><span class="p">(</span><span class="s">&#34;The value of x is: {x}&#34;</span><span class="p">);</span><span class="w">
+</span><span class="w">    </span><span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">6</span><span class="p">;</span><span class="w">
+</span><span class="w">    </span><span class="fm">println!</span><span class="p">(</span><span class="s">&#34;The value of x is: {x}&#34;</span><span class="p">);</span><span class="w">
+</span><span class="w">
+</span><span class="w">
+</span><span class="w">    </span><span class="c1">//静态类型
+</span><span class="c1"></span><span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="n">guess</span>: <span class="kt">u32</span> <span class="o">=</span><span class="w"> </span><span class="s">&#34;42&#34;</span><span class="p">.</span><span class="n">parse</span><span class="p">().</span><span class="n">expect</span><span class="p">(</span><span class="s">&#34;Not a number!&#34;</span><span class="p">);</span><span class="w">
+</span><span class="w">    </span><span class="fm">println!</span><span class="p">(</span><span class="s">&#34;{}&#34;</span><span class="p">,</span><span class="n">guess</span><span class="p">);</span><span class="w">
+</span><span class="w">
+</span><span class="w">    </span><span class="c1">//常量
+</span><span class="c1"></span><span class="w">    </span><span class="k">const</span><span class="w"> </span><span class="n">THREE_HOURS_IN_SECONDS</span>: <span class="kt">u32</span> <span class="o">=</span><span class="w"> </span><span class="mi">60</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mi">60</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mi">3</span><span class="p">;</span><span class="w">
+</span><span class="w">    </span><span class="fm">println!</span><span class="p">(</span><span class="s">&#34;{}&#34;</span><span class="p">,</span><span class="n">THREE_HOURS_IN_SECONDS</span><span class="p">);</span><span class="w">
+</span><span class="w">
+</span><span class="w">    </span><span class="c1">//隐藏
+</span><span class="c1"></span><span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="n">spaces</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&#34;   &#34;</span><span class="p">;</span><span class="w">
+</span><span class="w">    </span><span class="fm">println!</span><span class="p">(</span><span class="s">&#34;{}&#34;</span><span class="p">,</span><span class="n">spaces</span><span class="p">);</span><span class="w">
+</span><span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="n">spaces</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">spaces</span><span class="p">.</span><span class="n">len</span><span class="p">();</span><span class="w">
+</span><span class="w">    </span><span class="fm">println!</span><span class="p">(</span><span class="s">&#34;{}&#34;</span><span class="p">,</span><span class="n">spaces</span><span class="p">);</span><span class="w">
+</span><span class="w">
+</span><span class="w">    </span><span class="c1">//3.2数据类型========================================================
+</span><span class="c1"></span><span class="w">    </span><span class="c1">//浮点型
+</span><span class="c1"></span><span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">2.0</span><span class="p">;</span><span class="w"> </span><span class="c1">// f64
+</span><span class="c1"></span><span class="w">    </span><span class="fm">println!</span><span class="p">(</span><span class="s">&#34;{}&#34;</span><span class="p">,</span><span class="n">x</span><span class="p">);</span><span class="w">
+</span><span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="n">y</span>: <span class="kt">f32</span> <span class="o">=</span><span class="w"> </span><span class="mf">3.0</span><span class="p">;</span><span class="w"> </span><span class="c1">// f32
+</span><span class="c1"></span><span class="w">    </span><span class="fm">println!</span><span class="p">(</span><span class="s">&#34;{}&#34;</span><span class="p">,</span><span class="n">y</span><span class="p">);</span><span class="w">
+</span><span class="w">
+</span><span class="w">
+</span><span class="w">    </span><span class="c1">//数值运算
+</span><span class="c1"></span><span class="w">    </span><span class="c1">// addition
+</span><span class="c1"></span><span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="n">sum</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">5</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">10</span><span class="p">;</span><span class="w">
+</span><span class="w">    </span><span class="fm">println!</span><span class="p">(</span><span class="s">&#34;{}&#34;</span><span class="p">,</span><span class="n">sum</span><span class="p">);</span><span class="w">
+</span><span class="w">    </span><span class="c1">// subtraction
+</span><span class="c1"></span><span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="n">difference</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">95.5</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mf">4.3</span><span class="p">;</span><span class="w">
+</span><span class="w">    </span><span class="fm">println!</span><span class="p">(</span><span class="s">&#34;{}&#34;</span><span class="p">,</span><span class="n">difference</span><span class="p">);</span><span class="w">
+</span><span class="w">    </span><span class="c1">// multiplication
+</span><span class="c1"></span><span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="n">product</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">4</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mi">30</span><span class="p">;</span><span class="w">
+</span><span class="w">    </span><span class="fm">println!</span><span class="p">(</span><span class="s">&#34;{}&#34;</span><span class="p">,</span><span class="n">product</span><span class="p">);</span><span class="w">
+</span><span class="w">    </span><span class="c1">// division
+</span><span class="c1"></span><span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="n">quotient</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">56.7</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="mf">32.2</span><span class="p">;</span><span class="w">
+</span><span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="n">floored</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">2</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="mi">3</span><span class="p">;</span><span class="w"> </span><span class="c1">// Results in 0
+</span><span class="c1"></span><span class="w">    </span><span class="fm">println!</span><span class="p">(</span><span class="s">&#34;{}&#34;</span><span class="p">,</span><span class="n">quotient</span><span class="p">);</span><span class="w">
+</span><span class="w">    </span><span class="fm">println!</span><span class="p">(</span><span class="s">&#34;{}&#34;</span><span class="p">,</span><span class="n">floored</span><span class="p">);</span><span class="w">
+</span><span class="w">    </span><span class="c1">// remainder
+</span><span class="c1"></span><span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="n">remainder</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">43</span><span class="w"> </span><span class="o">%</span><span class="w"> </span><span class="mi">5</span><span class="p">;</span><span class="w">
+</span><span class="w">    </span><span class="fm">println!</span><span class="p">(</span><span class="s">&#34;{}&#34;</span><span class="p">,</span><span class="n">remainder</span><span class="p">);</span><span class="w">
+</span><span class="w">
+</span><span class="w">    </span><span class="c1">//3.3函数========================================================
+</span><span class="c1"></span><span class="w">    </span><span class="n">another_function</span><span class="p">();</span><span class="w">
+</span><span class="w">
+</span><span class="w">    </span><span class="c1">//参数
+</span><span class="c1"></span><span class="w">    </span><span class="n">print_labeled_measurement</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span><span class="sc">&#39;r&#39;</span><span class="p">);</span><span class="w">
+</span><span class="w">    </span><span class="c1">//表达式
+</span><span class="c1"></span><span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="n">y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span><span class="w">        </span><span class="kd">let</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">3</span><span class="p">;</span><span class="w">
+</span><span class="w">        </span><span class="n">x</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="w">
+</span><span class="w">    </span><span class="p">};</span><span class="w">
+</span><span class="w">
+</span><span class="w">    </span><span class="fm">println!</span><span class="p">(</span><span class="s">&#34;The value of y is: {}&#34;</span><span class="p">,</span><span class="n">y</span><span class="p">);</span><span class="w">
+</span><span class="w">
+</span><span class="w">    </span><span class="c1">//返回值
+</span><span class="c1"></span><span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">plus_one</span><span class="p">(</span><span class="mi">5</span><span class="p">);</span><span class="w">
+</span><span class="w">    </span><span class="fm">println!</span><span class="p">(</span><span class="s">&#34;The value of x is: {}&#34;</span><span class="p">,</span><span class="n">x</span><span class="p">);</span><span class="w">
+</span><span class="w">
+</span><span class="w">    </span><span class="c1">//3.4注释========================================================
+</span><span class="c1"></span><span class="w">    </span><span class="c1">// I’m feeling lucky today
+</span><span class="c1"></span><span class="w">
+</span><span class="w">    </span><span class="c1">//3.5控制流========================================================
+</span><span class="c1"></span><span class="w">    </span><span class="c1">//if
+</span><span class="c1"></span><span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="n">number</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">6</span><span class="p">;</span><span class="w">
+</span><span class="w">
+</span><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="n">number</span><span class="w"> </span><span class="o">%</span><span class="w"> </span><span class="mi">4</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span><span class="w">        </span><span class="fm">println!</span><span class="p">(</span><span class="s">&#34;number is divisible by 4&#34;</span><span class="p">);</span><span class="w">
+</span><span class="w">    </span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="n">number</span><span class="w"> </span><span class="o">%</span><span class="w"> </span><span class="mi">3</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span><span class="w">        </span><span class="fm">println!</span><span class="p">(</span><span class="s">&#34;number is divisible by 3&#34;</span><span class="p">);</span><span class="w">
+</span><span class="w">    </span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="n">number</span><span class="w"> </span><span class="o">%</span><span class="w"> </span><span class="mi">2</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span><span class="w">        </span><span class="fm">println!</span><span class="p">(</span><span class="s">&#34;number is divisible by 2&#34;</span><span class="p">);</span><span class="w">
+</span><span class="w">    </span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span><span class="w">        </span><span class="fm">println!</span><span class="p">(</span><span class="s">&#34;number is not divisible by 4, 3, or 2&#34;</span><span class="p">);</span><span class="w">
+</span><span class="w">    </span><span class="p">}</span><span class="w">
+</span><span class="w">
+</span><span class="w">    </span><span class="c1">//let 中if
+</span><span class="c1"></span><span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="n">condition</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">true</span><span class="p">;</span><span class="w">
+</span><span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="n">number</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="n">condition</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="mi">5</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="mi">6</span><span class="w"> </span><span class="p">};</span><span class="w">
+</span><span class="w">    </span><span class="fm">println!</span><span class="p">(</span><span class="s">&#34;The value of number is: {}&#34;</span><span class="p">,</span><span class="n">number</span><span class="p">);</span><span class="w">
+</span><span class="w">
+</span><span class="w">    </span><span class="c1">//loop
+</span><span class="c1"></span><span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="k">mut</span><span class="w"> </span><span class="n">count</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w">
+</span><span class="w">    </span><span class="o">&#39;</span><span class="na">counting_up</span>: <span class="nc">loop</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span><span class="w">        </span><span class="fm">println!</span><span class="p">(</span><span class="s">&#34;count = {count}&#34;</span><span class="p">);</span><span class="w">
+</span><span class="w">        </span><span class="kd">let</span><span class="w"> </span><span class="k">mut</span><span class="w"> </span><span class="n">remaining</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">10</span><span class="p">;</span><span class="w">
+</span><span class="w">
+</span><span class="w">        </span><span class="k">loop</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span><span class="w">            </span><span class="fm">println!</span><span class="p">(</span><span class="s">&#34;remaining = {remaining}&#34;</span><span class="p">);</span><span class="w">
+</span><span class="w">            </span><span class="k">if</span><span class="w"> </span><span class="n">remaining</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">9</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span><span class="w">                </span><span class="k">break</span><span class="p">;</span><span class="w">
+</span><span class="w">            </span><span class="p">}</span><span class="w">
+</span><span class="w">            </span><span class="k">if</span><span class="w"> </span><span class="n">count</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">2</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span><span class="w">                </span><span class="k">break</span><span class="w"> </span><span class="nl">&#39;counting_up</span><span class="p">;</span><span class="w">
+</span><span class="w">            </span><span class="p">}</span><span class="w">
+</span><span class="w">            </span><span class="n">remaining</span><span class="w"> </span><span class="o">-=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span><span class="w">
+</span><span class="w">        </span><span class="p">}</span><span class="w">
+</span><span class="w">
+</span><span class="w">        </span><span class="n">count</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span><span class="w">
+</span><span class="w">    </span><span class="p">}</span><span class="w">
+</span><span class="w">    </span><span class="fm">println!</span><span class="p">(</span><span class="s">&#34;End count = {count}&#34;</span><span class="p">);</span><span class="w">
+</span><span class="w">
+</span><span class="w">
+</span><span class="w">    </span><span class="c1">//while
+</span><span class="c1"></span><span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="k">mut</span><span class="w"> </span><span class="n">number</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">3</span><span class="p">;</span><span class="w">
+</span><span class="w">
+</span><span class="w">    </span><span class="k">while</span><span class="w"> </span><span class="n">number</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span><span class="w">        </span><span class="fm">println!</span><span class="p">(</span><span class="s">&#34;{number}!&#34;</span><span class="p">);</span><span class="w">
+</span><span class="w">
+</span><span class="w">        </span><span class="n">number</span><span class="w"> </span><span class="o">-=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span><span class="w">
+</span><span class="w">    </span><span class="p">}</span><span class="w">
+</span><span class="w">
+</span><span class="w">    </span><span class="fm">println!</span><span class="p">(</span><span class="s">&#34;LIFTOFF!!!&#34;</span><span class="p">);</span><span class="w">
+</span><span class="w">
+</span><span class="w">
+</span><span class="w">    </span><span class="c1">//for
+</span><span class="c1"></span><span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span><span class="mi">10</span><span class="p">,</span><span class="w"> </span><span class="mi">20</span><span class="p">,</span><span class="w"> </span><span class="mi">30</span><span class="p">,</span><span class="w"> </span><span class="mi">40</span><span class="p">,</span><span class="w"> </span><span class="mi">50</span><span class="p">];</span><span class="w">
+</span><span class="w">
+</span><span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="n">element</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span><span class="w">        </span><span class="fm">println!</span><span class="p">(</span><span class="s">&#34;the value is: {element}&#34;</span><span class="p">);</span><span class="w">
+</span><span class="w">    </span><span class="p">}</span><span class="w">
+</span><span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="n">number</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="p">(</span><span class="mi">1</span><span class="o">..</span><span class="mi">4</span><span class="p">).</span><span class="n">rev</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span><span class="w">        </span><span class="fm">println!</span><span class="p">(</span><span class="s">&#34;{number}!&#34;</span><span class="p">);</span><span class="w">
+</span><span class="w">    </span><span class="p">}</span><span class="w">
+</span><span class="w">    </span><span class="fm">println!</span><span class="p">(</span><span class="s">&#34;LIFTOFF!!!&#34;</span><span class="p">);</span><span class="w">
+</span><span class="w">
+</span><span class="w">
 </span><span class="w"></span><span class="p">}</span><span class="w">
-</span></code></pre></div><p>编译并运行</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell">$ rustc main.rs
-$ ./main
-Hello, world!
-</code></pre></div><h1 id="四使用-rust-的包管理器和构建系统-cargo">四.使用 Rust 的包管理器和构建系统 <code>cargo</code></h1>
-<p>创建项目</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell">$ cargo new hello_cargo
-$ <span class="nb">cd</span> hello_cargo
-</code></pre></div><p>进入<em>hello_cargo</em> 目录并列出文件。将会看到 Cargo 生成了两个文件和一个目录：一个 <em>Cargo.toml</em> 文件，一个 <em>src</em> 目录，以及位于 <em>src</em> 目录中的 <em>main.rs</em> 文件</p>
-<p>在有<em>Cargo.toml</em> 的目录下运行cargo build，再运行./target/debug/hello_cargo运行程序</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell">$ cargo build
-   Compiling hello_cargo v0.1.0 <span class="o">(</span>file:///projects/hello_cargo<span class="o">)</span>
-    Finished dev <span class="o">[</span>unoptimized + debuginfo<span class="o">]</span> target<span class="o">(</span>s<span class="o">)</span> in 2.85 secs
-</code></pre></div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell">$ ./target/debug/hello_cargo <span class="c1"># 或者在 Windows 下为 .\target\debug\hello_cargo.exe</span>
-Hello, world!
-</code></pre></div><p>或者直接运行cargo run等同于执行了上面两步</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell">$ cargo run
-    Finished dev <span class="o">[</span>unoptimized + debuginfo<span class="o">]</span> target<span class="o">(</span>s<span class="o">)</span> in 0.0 secs
-     Running <span class="sb">`</span>target/debug/hello_cargo<span class="sb">`</span>
-Hello, world!
-</code></pre></div><p>对于GitHub上面的项目，一般进入其源码文件夹执行cargo build</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell">$ git clone example.org/someproject
-$ <span class="nb">cd</span> someproject
-$ cargo build
-</code></pre></div>
+</span><span class="w">
+</span><span class="w"></span><span class="k">fn</span> <span class="nf">another_function</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span><span class="w">    </span><span class="fm">println!</span><span class="p">(</span><span class="s">&#34;Another function.&#34;</span><span class="p">);</span><span class="w">
+</span><span class="w"></span><span class="p">}</span><span class="w">
+</span><span class="w"></span><span class="k">fn</span> <span class="nf">print_labeled_measurement</span><span class="p">(</span><span class="n">value</span>: <span class="kt">i32</span><span class="p">,</span><span class="w"> </span><span class="n">unit_label</span>: <span class="kt">char</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span><span class="w">    </span><span class="fm">println!</span><span class="p">(</span><span class="s">&#34;The measurement is: {value}{unit_label}&#34;</span><span class="p">);</span><span class="w">
+</span><span class="w"></span><span class="p">}</span><span class="w">
+</span><span class="w">
+</span><span class="w"></span><span class="k">fn</span> <span class="nf">plus_one</span><span class="p">(</span><span class="n">x</span>: <span class="kt">i32</span><span class="p">)</span><span class="w"> </span>-&gt; <span class="kt">i32</span> <span class="p">{</span><span class="w">
+</span><span class="w">    </span><span class="c1">//return x+1;
+</span><span class="c1"></span><span class="w">    </span><span class="n">x</span><span class="o">+</span><span class="mi">1</span><span class="w">
+</span><span class="w"></span><span class="p">}</span><span class="w">
+</span></code></pre></div>
     
 	</div>
   <footer class="article-footer clearfix">
@@ -172,7 +277,7 @@ $ cargo build
 
 
   <div class="article-share" id="share">
-    <div data-url="https://qkgoalkeeper.github.io/post/rustthe_rust_book1%E5%85%A5%E9%97%A8%E6%8C%87%E5%8D%97/" data-title="rust：the_rust_book（1）入门指南" data-tsina="5852167252" class="share clearfix">
+    <div data-url="https://qkgoalkeeper.github.io/post/rustthe_rust_book3%E5%B8%B8%E8%A7%81%E7%BC%96%E7%A8%8B%E6%A6%82%E5%BF%B5/" data-title="rust：the_rust_book（3）常见编程概念" data-tsina="5852167252" class="share clearfix">
     </div>
   </div>
 </footer>

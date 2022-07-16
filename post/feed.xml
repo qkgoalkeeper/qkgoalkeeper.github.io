@@ -6,7 +6,16 @@
     <description>Recent content in Posts on qkgoalkeeper&#39;s blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
-    <lastBuildDate>Fri, 15 Jul 2022 07:55:19 +0800</lastBuildDate><atom:link href="https://qkgoalkeeper.github.io/post/feed.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sat, 16 Jul 2022 07:55:19 +0800</lastBuildDate><atom:link href="https://qkgoalkeeper.github.io/post/feed.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>rust：the_rust_book（3）常见编程概念</title>
+      <link>https://qkgoalkeeper.github.io/post/rustthe_rust_book3%E5%B8%B8%E8%A7%81%E7%BC%96%E7%A8%8B%E6%A6%82%E5%BF%B5/</link>
+      <pubDate>Sat, 16 Jul 2022 07:55:19 +0800</pubDate>
+      
+      <guid>https://qkgoalkeeper.github.io/post/rustthe_rust_book3%E5%B8%B8%E8%A7%81%E7%BC%96%E7%A8%8B%E6%A6%82%E5%BF%B5/</guid>
+      <description>一.本章任务 本章介绍一些几乎所有编程语言都有的概念，以及它们在 Rust 中是如何工作的。很多编程语言的核心概念都是共通的，本章中展示的概念都不是 Rust 所</description>
+    </item>
+    
     <item>
       <title>ethereum-etl表的schema</title>
       <link>https://qkgoalkeeper.github.io/post/ethereum-etl%E8%A1%A8%E7%9A%84schema/</link>
