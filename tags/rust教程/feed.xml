@@ -6,7 +6,16 @@
     <description>Recent content in rust教程 on qkgoalkeeper&#39;s blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
-    <lastBuildDate>Sat, 16 Jul 2022 07:55:19 +0800</lastBuildDate><atom:link href="https://qkgoalkeeper.github.io/tags/rust%E6%95%99%E7%A8%8B/feed.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 17 Jul 2022 07:55:19 +0800</lastBuildDate><atom:link href="https://qkgoalkeeper.github.io/tags/rust%E6%95%99%E7%A8%8B/feed.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>rust：the_rust_book（4）认识所有权</title>
+      <link>https://qkgoalkeeper.github.io/post/rustthe_rust_book4%E8%AE%A4%E8%AF%86%E6%89%80%E6%9C%89%E6%9D%83/</link>
+      <pubDate>Sun, 17 Jul 2022 07:55:19 +0800</pubDate>
+      
+      <guid>https://qkgoalkeeper.github.io/post/rustthe_rust_book4%E8%AE%A4%E8%AF%86%E6%89%80%E6%9C%89%E6%9D%83/</guid>
+      <description>一.本章任务 所有权（系统）是 Rust 最为与众不同的特性，对语言的其他部分有着深刻含义。它让 Rust 无需垃圾回收（garbage collector）即可保</description>
+    </item>
+    
     <item>
       <title>rust：the_rust_book（3）常见编程概念</title>
       <link>https://qkgoalkeeper.github.io/post/rustthe_rust_book3%E5%B8%B8%E8%A7%81%E7%BC%96%E7%A8%8B%E6%A6%82%E5%BF%B5/</link>
