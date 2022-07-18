@@ -6,7 +6,16 @@
     <description>Recent content in rust on qkgoalkeeper&#39;s blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
-    <lastBuildDate>Sun, 17 Jul 2022 07:55:19 +0800</lastBuildDate><atom:link href="https://qkgoalkeeper.github.io/categories/rust/feed.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 18 Jul 2022 07:55:19 +0800</lastBuildDate><atom:link href="https://qkgoalkeeper.github.io/categories/rust/feed.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>rust：the_rust_book（5） 使用结构体来组织相关联的数据</title>
+      <link>https://qkgoalkeeper.github.io/post/rustthe_rust_book5-%E4%BD%BF%E7%94%A8%E7%BB%93%E6%9E%84%E4%BD%93%E6%9D%A5%E7%BB%84%E7%BB%87%E7%9B%B8%E5%85%B3%E8%81%94%E7%9A%84%E6%95%B0%E6%8D%AE/</link>
+      <pubDate>Mon, 18 Jul 2022 07:55:19 +0800</pubDate>
+      
+      <guid>https://qkgoalkeeper.github.io/post/rustthe_rust_book5-%E4%BD%BF%E7%94%A8%E7%BB%93%E6%9E%84%E4%BD%93%E6%9D%A5%E7%BB%84%E7%BB%87%E7%9B%B8%E5%85%B3%E8%81%94%E7%9A%84%E6%95%B0%E6%8D%AE/</guid>
+      <description>一.本章任务 struct，或者 structure，是一个自定义数据类型，允许你包装和命名多个相关的值，从而形成一个有意义的组合。如果你熟悉一</description>
+    </item>
+    
     <item>
       <title>rust：the_rust_book（4）认识所有权</title>
       <link>https://qkgoalkeeper.github.io/post/rustthe_rust_book4%E8%AE%A4%E8%AF%86%E6%89%80%E6%9C%89%E6%9D%83/</link>
