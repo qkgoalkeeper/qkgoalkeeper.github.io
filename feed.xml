@@ -6,7 +6,16 @@
     <description>Recent content on qkgoalkeeper&#39;s blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
-    <lastBuildDate>Tue, 19 Jul 2022 07:55:19 +0800</lastBuildDate><atom:link href="https://qkgoalkeeper.github.io/feed.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Thu, 21 Jul 2022 07:55:19 +0800</lastBuildDate><atom:link href="https://qkgoalkeeper.github.io/feed.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>graphnode本地ganache运行教程</title>
+      <link>https://qkgoalkeeper.github.io/post/graphnode%E6%9C%AC%E5%9C%B0ganache%E8%BF%90%E8%A1%8C%E6%95%99%E7%A8%8B/</link>
+      <pubDate>Thu, 21 Jul 2022 07:55:19 +0800</pubDate>
+      
+      <guid>https://qkgoalkeeper.github.io/post/graphnode%E6%9C%AC%E5%9C%B0ganache%E8%BF%90%E8%A1%8C%E6%95%99%E7%A8%8B/</guid>
+      <description>一.环境准备 操作系统：Ubuntu20.04 rust：version 1.62.0 https://www.rust-lang.org/en-US/install.html go: version 1.18.2 yarn: version 1.22.19 ipfs ：安装见 https://docs.ipfs.io/install/ PostgreSQL ：安装见PostgreSQL: Downloads 二.实验步</description>
+    </item>
+    
     <item>
       <title>rust：the_rust_book（6）枚举和模式匹配</title>
       <link>https://qkgoalkeeper.github.io/post/rustthe_rust_book6%E6%9E%9A%E4%B8%BE%E5%92%8C%E6%A8%A1%E5%BC%8F%E5%8C%B9%E9%85%8D/</link>
