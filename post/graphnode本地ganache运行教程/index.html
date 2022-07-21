@@ -90,7 +90,17 @@
     
 		<div class="toc-article">
 			<strong class="toc-title">文章目录</strong>
-      <nav id="TableOfContents"></nav>
+      <nav id="TableOfContents">
+  <ul>
+    <li><a href="#1启动ganache">1.启动ganache</a></li>
+    <li><a href="#2启动ipfs">2.启动ipfs</a></li>
+    <li><a href="#3postgresql创建数据库">3.postgresql创建数据库</a></li>
+    <li><a href="#4运行graphnode">4.运行graphnode</a></li>
+    <li><a href="#5部署一个subgraph">5.部署一个subgraph</a></li>
+    <li><a href="#6部署合约调用合约">6.部署合约调用合约</a></li>
+    <li><a href="#7浏览器访问graphiql">7.浏览器访问graphIQL</a></li>
+  </ul>
+</nav>
 		</div>
     
     <h1 id="一环境准备">一.环境准备</h1>
@@ -101,38 +111,38 @@
 <p>ipfs ：安装见 <a href="https://docs.ipfs.io/install/">https://docs.ipfs.io/install/</a></p>
 <p>PostgreSQL ：安装见<a href="https://www.postgresql.org/download/">PostgreSQL: Downloads</a></p>
 <h1 id="二实验步骤">二.实验步骤</h1>
-<p>1.启动ganache</p>
-<p><img src="%5Cimg%5Cgraphnode%5Cganache.png" alt=""></p>
-<p>2.启动ipfs</p>
+<h2 id="1启动ganache">1.启动ganache</h2>
+<p><img src="/img/graphnode/ganache.png" alt=""></p>
+<h2 id="2启动ipfs">2.启动ipfs</h2>
 <p>第一次使用先命令行执行 <strong>ipfs init</strong></p>
 <p>随后命令行执行 <strong>ipfs daemon</strong></p>
-<p><img src="img/graphnode/ipfs.png" alt=""></p>
-<p>3.postgresql创建数据库</p>
+<p><img src="/img/graphnode/ipfs.png" alt=""></p>
+<h2 id="3postgresql创建数据库">3.postgresql创建数据库</h2>
 <p>在postgresql中创建角色，用该角色创建一个名为‘graphnode’的数据库</p>
-<p><img src="img/graphnode/psql.png" alt=""></p>
-<p>4.运行graphnode</p>
+<p><img src="/img/graphnode/psql.png" alt=""></p>
+<h2 id="4运行graphnode">4.运行graphnode</h2>
 <p>先git clone <a href="https://github.com/graphprotocol/graph-node">https://github.com/graphprotocol/graph-node</a>到本地，进入graphnode文件夹内执行<strong>cargo build</strong>编译</p>
 <p>再运行以下代码运行graphnode（注意ganache的端口以及postgresql的账号密码数据库名称改成自己的）</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell">cargo run -p graph-node --release --   --postgres-url postgresql://dase:dase@localhost:5432/graphnode   --ethereum-rpc mainnet:http://127.0.0.1:7545   --ipfs 127.0.0.1:5001   --debug
 
 
-</code></pre></div><p><img src="img/graphnode/graphnode.png" alt=""></p>
-<p>5.部署一个subgraph</p>
+</code></pre></div><p><img src="/img/graphnode/graphnode.png" alt=""></p>
+<h2 id="5部署一个subgraph">5.部署一个subgraph</h2>
 <p>以官方例子https://github.com/graphprotocol/example-subgraph为例</p>
 <p>git clone下来进入文件夹，运行 <strong>yarn</strong> 和 <strong>yarn codegen</strong></p>
-<p><img src="img/graphnode/subgraph1.png" alt=""></p>
+<p><img src="/img/graphnode/subgraph1.png" alt=""></p>
 <p>再运行 <strong>yarn create-local</strong>和 <strong>yarn deploy-local</strong>，可以看到graphnode那边也会显示</p>
-<p><img src="img/graphnode/subgraph2.png" alt=""></p>
-<p>6.部署合约调用合约</p>
-<p>部署了子图到graphnode后，我们尝试往ganache上部署合约执行合约，同样在example-subgraph文件夹下，命令行运行 <strong>truffle compile</strong>和<strong>truffle migrate</strong>部署智能合约并调用，ganache可以看到含有event的合约被部署和调用</p>
-<p><img src="img/graphnode/truffle1.png" alt=""></p>
-<p><img src="img/graphnode/truffle2.png" alt=""></p>
-<p><img src="img/graphnode/truffle3.png" alt=""></p>
-<p>7.浏览器访问graphIQL</p>
+<p><img src="/img/graphnode/subgraph2.png" alt=""></p>
+<h2 id="6部署合约调用合约">6.部署合约调用合约</h2>
+<p>部署了子图到graphnode后，我们尝试往ganache上部署合约执行合约(这里注意看truff.js中的端口号是否和ganache一致为7545)，同样在example-subgraph文件夹下，命令行运行 <strong>truffle compile</strong>和<strong>truffle migrate</strong>部署智能合约并调用，ganache可以看到含有event的合约被部署和调用</p>
+<p><img src="/img/graphnode/truffle1.png" alt=""></p>
+<p><img src="/img/graphnode/truffle2.png" alt=""></p>
+<p><img src="/img/graphnode/truffle3.png" alt=""></p>
+<h2 id="7浏览器访问graphiql">7.浏览器访问graphIQL</h2>
 <p>第五步yarn deploy-local运行后会跳出一个查询的网址，http://127.0.0.1:8000/subgraphs/name/example/graphql，点进去后可以进行查询</p>
-<p><img src="img/graphnode/graphiql.png" alt=""></p>
+<p><img src="/img/graphnode/graphiql.png" alt=""></p>
 <p>这里有点问题，明明调用了智能合约graphnode获取了blocks但是没有触发candidate trigger导致这些event没有存到数据库中，查询的时候也是null值，不知道是部署时的问题还是查询的方式不对，这个问题待后续解决。</p>
-<p><img src="img/graphnode/graphiql2.png" alt=""></p>
+<p><img src="/img/graphnode/graphiql2.png" alt=""></p>
 
     
 	</div>
