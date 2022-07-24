@@ -6,7 +6,16 @@
     <description>Recent content in rust on qkgoalkeeper&#39;s blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
-    <lastBuildDate>Tue, 19 Jul 2022 07:55:19 +0800</lastBuildDate><atom:link href="https://qkgoalkeeper.github.io/categories/rust/feed.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 24 Jul 2022 07:55:19 +0800</lastBuildDate><atom:link href="https://qkgoalkeeper.github.io/categories/rust/feed.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>rust：the_rust_book（7）使用包、Crate 和模块管理不断增长的项目</title>
+      <link>https://qkgoalkeeper.github.io/post/rustthe_rust_book7%E4%BD%BF%E7%94%A8%E5%8C%85crate-%E5%92%8C%E6%A8%A1%E5%9D%97%E7%AE%A1%E7%90%86%E4%B8%8D%E6%96%AD%E5%A2%9E%E9%95%BF%E7%9A%84%E9%A1%B9%E7%9B%AE/</link>
+      <pubDate>Sun, 24 Jul 2022 07:55:19 +0800</pubDate>
+      
+      <guid>https://qkgoalkeeper.github.io/post/rustthe_rust_book7%E4%BD%BF%E7%94%A8%E5%8C%85crate-%E5%92%8C%E6%A8%A1%E5%9D%97%E7%AE%A1%E7%90%86%E4%B8%8D%E6%96%AD%E5%A2%9E%E9%95%BF%E7%9A%84%E9%A1%B9%E7%9B%AE/</guid>
+      <description>一.本章任务 到目前为止，我们编写的程序都在一个文件的一个模块中。伴随着项目的增长，你可以通过将代码分解为多个模块和多个文件来组织代码。一个包</description>
+    </item>
+    
     <item>
       <title>rust：the_rust_book（6）枚举和模式匹配</title>
       <link>https://qkgoalkeeper.github.io/post/rustthe_rust_book6%E6%9E%9A%E4%B8%BE%E5%92%8C%E6%A8%A1%E5%BC%8F%E5%8C%B9%E9%85%8D/</link>
