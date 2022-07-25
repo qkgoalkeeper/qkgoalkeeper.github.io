@@ -6,7 +6,16 @@
     <description>Recent content in Posts on qkgoalkeeper&#39;s blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
-    <lastBuildDate>Sun, 24 Jul 2022 07:55:19 +0800</lastBuildDate><atom:link href="https://qkgoalkeeper.github.io/post/feed.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 25 Jul 2022 07:55:19 +0800</lastBuildDate><atom:link href="https://qkgoalkeeper.github.io/post/feed.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>rust：the_rust_book（8）常见集合</title>
+      <link>https://qkgoalkeeper.github.io/post/rustthe_rust_book8%E5%B8%B8%E8%A7%81%E9%9B%86%E5%90%88/</link>
+      <pubDate>Mon, 25 Jul 2022 07:55:19 +0800</pubDate>
+      
+      <guid>https://qkgoalkeeper.github.io/post/rustthe_rust_book8%E5%B8%B8%E8%A7%81%E9%9B%86%E5%90%88/</guid>
+      <description>一.本章任务 Rust 标准库中包含一系列被称为 集合（collections）的非常有用的数据结构。大部分其他数据类型都代表一个特定的值，不过集合可以</description>
+    </item>
+    
     <item>
       <title>rust：the_rust_book（7）使用包、Crate 和模块管理不断增长的项目</title>
       <link>https://qkgoalkeeper.github.io/post/rustthe_rust_book7%E4%BD%BF%E7%94%A8%E5%8C%85crate-%E5%92%8C%E6%A8%A1%E5%9D%97%E7%AE%A1%E7%90%86%E4%B8%8D%E6%96%AD%E5%A2%9E%E9%95%BF%E7%9A%84%E9%A1%B9%E7%9B%AE/</link>
