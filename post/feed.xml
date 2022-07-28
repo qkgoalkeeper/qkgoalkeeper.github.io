@@ -6,7 +6,16 @@
     <description>Recent content in Posts on qkgoalkeeper&#39;s blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
-    <lastBuildDate>Mon, 25 Jul 2022 07:55:19 +0800</lastBuildDate><atom:link href="https://qkgoalkeeper.github.io/post/feed.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Thu, 28 Jul 2022 07:55:19 +0800</lastBuildDate><atom:link href="https://qkgoalkeeper.github.io/post/feed.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>rust：the_rust_book（9）错误处理</title>
+      <link>https://qkgoalkeeper.github.io/post/rustthe_rust_book9%E9%94%99%E8%AF%AF%E5%A4%84%E7%90%86/</link>
+      <pubDate>Thu, 28 Jul 2022 07:55:19 +0800</pubDate>
+      
+      <guid>https://qkgoalkeeper.github.io/post/rustthe_rust_book9%E9%94%99%E8%AF%AF%E5%A4%84%E7%90%86/</guid>
+      <description>一.本章任务 错误是软件中不可否认的事实，所以 Rust 有一些处理出错情况的特性。在许多情况下，Rust 要求你承认错误的可能性，并在你的代码编译前采取</description>
+    </item>
+    
     <item>
       <title>rust：the_rust_book（8）常见集合</title>
       <link>https://qkgoalkeeper.github.io/post/rustthe_rust_book8%E5%B8%B8%E8%A7%81%E9%9B%86%E5%90%88/</link>
