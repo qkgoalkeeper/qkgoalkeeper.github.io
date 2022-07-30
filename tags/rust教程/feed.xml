@@ -6,7 +6,16 @@
     <description>Recent content in rust教程 on qkgoalkeeper&#39;s blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
-    <lastBuildDate>Thu, 28 Jul 2022 07:55:19 +0800</lastBuildDate><atom:link href="https://qkgoalkeeper.github.io/tags/rust%E6%95%99%E7%A8%8B/feed.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sat, 30 Jul 2022 07:55:19 +0800</lastBuildDate><atom:link href="https://qkgoalkeeper.github.io/tags/rust%E6%95%99%E7%A8%8B/feed.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>rust：the_rust_book（10）泛型、Trait 和生命周期</title>
+      <link>https://qkgoalkeeper.github.io/post/rustthe_rust_book10%E6%B3%9B%E5%9E%8Btrait-%E5%92%8C%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F/</link>
+      <pubDate>Sat, 30 Jul 2022 07:55:19 +0800</pubDate>
+      
+      <guid>https://qkgoalkeeper.github.io/post/rustthe_rust_book10%E6%B3%9B%E5%9E%8Btrait-%E5%92%8C%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F/</guid>
+      <description>一.本章任务 每一个编程语言都有高效处理重复概念的工具。在 Rust 中其工具之一就是 泛型（generics）。泛型是具体类型或其他属性的抽象替代。我们</description>
+    </item>
+    
     <item>
       <title>rust：the_rust_book（9）错误处理</title>
       <link>https://qkgoalkeeper.github.io/post/rustthe_rust_book9%E9%94%99%E8%AF%AF%E5%A4%84%E7%90%86/</link>
