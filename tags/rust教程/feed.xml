@@ -6,7 +6,16 @@
     <description>Recent content in rust教程 on qkgoalkeeper&#39;s blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
-    <lastBuildDate>Sat, 30 Jul 2022 07:55:19 +0800</lastBuildDate><atom:link href="https://qkgoalkeeper.github.io/tags/rust%E6%95%99%E7%A8%8B/feed.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 31 Jul 2022 07:55:19 +0800</lastBuildDate><atom:link href="https://qkgoalkeeper.github.io/tags/rust%E6%95%99%E7%A8%8B/feed.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>rust：the_rust_book（11）编写自动化测试</title>
+      <link>https://qkgoalkeeper.github.io/post/rustthe_rust_book11%E7%BC%96%E5%86%99%E8%87%AA%E5%8A%A8%E5%8C%96%E6%B5%8B%E8%AF%95/</link>
+      <pubDate>Sun, 31 Jul 2022 07:55:19 +0800</pubDate>
+      
+      <guid>https://qkgoalkeeper.github.io/post/rustthe_rust_book11%E7%BC%96%E5%86%99%E8%87%AA%E5%8A%A8%E5%8C%96%E6%B5%8B%E8%AF%95/</guid>
+      <description>一.本章任务 程序的正确性意味着代码如我们期望的那样运行。Rust 是一个相当注重正确性的编程语言，不过正确性是一个难以证明的复杂主题。Rust</description>
+    </item>
+    
     <item>
       <title>rust：the_rust_book（10）泛型、Trait 和生命周期</title>
       <link>https://qkgoalkeeper.github.io/post/rustthe_rust_book10%E6%B3%9B%E5%9E%8Btrait-%E5%92%8C%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F/</link>
