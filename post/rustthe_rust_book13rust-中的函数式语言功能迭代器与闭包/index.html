@@ -1,0 +1,1424 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <title>rust：the_rust_book（13）Rust 中的函数式语言功能：迭代器与闭包 - qkgoalkeeper&#39;s blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=3, minimum-scale=1">
+  
+  <meta name="description" content="一.本章任务 Rust 的设计灵感来源于很多现存的语言和技术。其中一个显著的影响就是 函数式编程（functional programming）。函数式编">
+  
+  <meta itemprop="name" content="rust：the_rust_book（13）Rust 中的函数式语言功能：迭代器与闭包 - qkgoalkeeper&#39;s blog">
+  <meta itemprop="description" content="一.本章任务 Rust 的设计灵感来源于很多现存的语言和技术。其中一个显著的影响就是 函数式编程（functional programming）。函数式编">
+  <meta itemprop="image" content="https://qkgoalkeeper.github.io/img/author.jpg">
+  
+  
+  <meta name="twitter:description" content="">
+  
+  <link rel="shortcut icon" href="https://qkgoalkeeper.github.io/img/favicon.ico"/>
+  <link rel="apple-touch-icon" href="https://qkgoalkeeper.github.io/apple-touch-icon.png" />
+  <link rel="apple-touch-icon-precomposed" href="https://qkgoalkeeper.github.io/apple-touch-icon.png" />
+  <link rel="stylesheet" href="https://qkgoalkeeper.github.io/highlight/styles/github.css">
+  <script src="https://qkgoalkeeper.github.io/highlight/highlight.pack.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script>
+  
+  <link rel="stylesheet" href="https://qkgoalkeeper.github.io/font/hack/css/hack.min.css">
+  <link rel="stylesheet" href="https://qkgoalkeeper.github.io/css/style.css">
+  
+  
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-175507250-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-175507250-1');
+</script>
+  
+
+</head>
+
+<body>
+  <header>
+    <div>
+  <div id="imglogo">
+    <a href="https://qkgoalkeeper.github.io/"><img src='https://qkgoalkeeper.github.io/img/logo.svg' alt="qkgoalkeeper&#39;s blog" title="qkgoalkeeper&#39;s blog"/></a>
+  </div>
+  <div id="textlogo">
+    <h1 class="site-name"><a href="https://qkgoalkeeper.github.io/" title="qkgoalkeeper&#39;s blog">qkgoalkeeper&#39;s blog</a></h1>
+    <h2 class="blog-motto">ECNU数据学院在读</h2>
+  </div>
+  <div class="navbar"><a class="navbutton navmobile" href="#" title="menu"></a></div>
+  <nav class="animated">
+    <ul>
+      
+      
+      <li><a href="/">首页</a></li>
+      
+      <li><a href="/about">关于</a></li>
+      
+      
+      <li>
+        <form class="search" method="get" action="https://www.google.com/search">
+          <div>
+            <input type="text" id="search" name="q" placeholder='Search'>
+          </div>
+        </form>
+      </li>
+    </ul>
+  </nav>
+</div>
+
+  </header>
+  <div id="container">
+    <div id="main" class="post" itemscope itemprop="blogPost">
+	<article itemprop="articleBody">
+    <header class="article-info clearfix">
+  <h1 itemprop="name">
+      <a href="https://qkgoalkeeper.github.io/post/rustthe_rust_book13rust-%E4%B8%AD%E7%9A%84%E5%87%BD%E6%95%B0%E5%BC%8F%E8%AF%AD%E8%A8%80%E5%8A%9F%E8%83%BD%E8%BF%AD%E4%BB%A3%E5%99%A8%E4%B8%8E%E9%97%AD%E5%8C%85/" title="rust：the_rust_book（13）Rust 中的函数式语言功能：迭代器与闭包" itemprop="url">rust：the_rust_book（13）Rust 中的函数式语言功能：迭代器与闭包</a>
+  </h1>
+  <p class="article-author">By
+    
+      <a href="https://qkgoalkeeper.github.io/" title="qk">qk</a>
+    
+  </p>
+  <p class="article-time">
+    <time datetime="2022-08-12 07:55:19 &#43;0800 CST" itemprop="datePublished">2022年08月12日</time>
+  </p>
+</header>
+
+	<div class="article-content">
+    
+		<div class="toc-article">
+			<strong class="toc-title">文章目录</strong>
+      <nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#使用闭包创建行为的抽象httpskaiserygithubiotrpl-zh-cnch13-01-closureshtml使用闭包创建行为的抽象"><a href="https://kaisery.github.io/trpl-zh-cn/ch13-01-closures.html#%E4%BD%BF%E7%94%A8%E9%97%AD%E5%8C%85%E5%88%9B%E5%BB%BA%E8%A1%8C%E4%B8%BA%E7%9A%84%E6%8A%BD%E8%B1%A1">使用闭包创建行为的抽象</a></a></li>
+        <li><a href="#闭包类型推断和注解httpskaiserygithubiotrpl-zh-cnch13-01-closureshtml闭包类型推断和注解"><a href="https://kaisery.github.io/trpl-zh-cn/ch13-01-closures.html#%E9%97%AD%E5%8C%85%E7%B1%BB%E5%9E%8B%E6%8E%A8%E6%96%AD%E5%92%8C%E6%B3%A8%E8%A7%A3">闭包类型推断和注解</a></a></li>
+        <li><a href="#使用带有泛型和-fn-trait-的闭包httpskaiserygithubiotrpl-zh-cnch13-01-closureshtml使用带有泛型和-fn-trait-的闭包"><a href="https://kaisery.github.io/trpl-zh-cn/ch13-01-closures.html#%E4%BD%BF%E7%94%A8%E5%B8%A6%E6%9C%89%E6%B3%9B%E5%9E%8B%E5%92%8C-fn-trait-%E7%9A%84%E9%97%AD%E5%8C%85">使用带有泛型和 <code>Fn</code> trait 的闭包</a></a></li>
+        <li><a href="#cacher-实现的限制httpskaiserygithubiotrpl-zh-cnch13-01-closureshtmlcacher-实现的限制"><a href="https://kaisery.github.io/trpl-zh-cn/ch13-01-closures.html#cacher-%E5%AE%9E%E7%8E%B0%E7%9A%84%E9%99%90%E5%88%B6"><code>Cacher</code> 实现的限制</a></a></li>
+        <li><a href="#闭包会捕获其环境httpskaiserygithubiotrpl-zh-cnch13-01-closureshtml闭包会捕获其环境"><a href="https://kaisery.github.io/trpl-zh-cn/ch13-01-closures.html#%E9%97%AD%E5%8C%85%E4%BC%9A%E6%8D%95%E8%8E%B7%E5%85%B6%E7%8E%AF%E5%A2%83">闭包会捕获其环境</a></a></li>
+      </ul>
+    </li>
+  </ul>
+
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#iterator-trait-和-next-方法httpskaiserygithubiotrpl-zh-cnch13-02-iteratorshtmliterator-trait-和-next-方法"><a href="https://kaisery.github.io/trpl-zh-cn/ch13-02-iterators.html#iterator-trait-%E5%92%8C-next-%E6%96%B9%E6%B3%95"><code>Iterator</code> trait 和 <code>next</code> 方法</a></a></li>
+        <li><a href="#消费迭代器的方法httpskaiserygithubiotrpl-zh-cnch13-02-iteratorshtml消费迭代器的方法"><a href="https://kaisery.github.io/trpl-zh-cn/ch13-02-iterators.html#%E6%B6%88%E8%B4%B9%E8%BF%AD%E4%BB%A3%E5%99%A8%E7%9A%84%E6%96%B9%E6%B3%95">消费迭代器的方法</a></a></li>
+        <li><a href="#产生其他迭代器的方法httpskaiserygithubiotrpl-zh-cnch13-02-iteratorshtml产生其他迭代器的方法"><a href="https://kaisery.github.io/trpl-zh-cn/ch13-02-iterators.html#%E4%BA%A7%E7%94%9F%E5%85%B6%E4%BB%96%E8%BF%AD%E4%BB%A3%E5%99%A8%E7%9A%84%E6%96%B9%E6%B3%95">产生其他迭代器的方法</a></a></li>
+        <li><a href="#使用闭包获取环境httpskaiserygithubiotrpl-zh-cnch13-02-iteratorshtml使用闭包获取环境"><a href="https://kaisery.github.io/trpl-zh-cn/ch13-02-iterators.html#%E4%BD%BF%E7%94%A8%E9%97%AD%E5%8C%85%E8%8E%B7%E5%8F%96%E7%8E%AF%E5%A2%83">使用闭包获取环境</a></a></li>
+        <li><a href="#实现-iterator-trait-来创建自定义迭代器httpskaiserygithubiotrpl-zh-cnch13-02-iteratorshtml实现-iterator-trait-来创建自定义迭代器"><a href="https://kaisery.github.io/trpl-zh-cn/ch13-02-iterators.html#%E5%AE%9E%E7%8E%B0-iterator-trait-%E6%9D%A5%E5%88%9B%E5%BB%BA%E8%87%AA%E5%AE%9A%E4%B9%89%E8%BF%AD%E4%BB%A3%E5%99%A8">实现 <code>Iterator</code> trait 来创建自定义迭代器</a></a></li>
+      </ul>
+    </li>
+  </ul>
+
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#使用迭代器并去掉-clonehttpskaiserygithubiotrpl-zh-cnch13-03-improving-our-io-projecthtml使用迭代器并去掉-clone"><a href="https://kaisery.github.io/trpl-zh-cn/ch13-03-improving-our-io-project.html#%E4%BD%BF%E7%94%A8%E8%BF%AD%E4%BB%A3%E5%99%A8%E5%B9%B6%E5%8E%BB%E6%8E%89-clone">使用迭代器并去掉 <code>clone</code></a></a></li>
+        <li><a href="#使用迭代器适配器来使代码更简明httpskaiserygithubiotrpl-zh-cnch13-03-improving-our-io-projecthtml使用迭代器适配器来使代码更简明"><a href="https://kaisery.github.io/trpl-zh-cn/ch13-03-improving-our-io-project.html#%E4%BD%BF%E7%94%A8%E8%BF%AD%E4%BB%A3%E5%99%A8%E9%80%82%E9%85%8D%E5%99%A8%E6%9D%A5%E4%BD%BF%E4%BB%A3%E7%A0%81%E6%9B%B4%E7%AE%80%E6%98%8E">使用迭代器适配器来使代码更简明</a></a></li>
+      </ul>
+    </li>
+  </ul>
+
+  <ul>
+    <li><a href="#总结httpskaiserygithubiotrpl-zh-cnch13-04-performancehtml总结"><a href="https://kaisery.github.io/trpl-zh-cn/ch13-04-performance.html#%E6%80%BB%E7%BB%93">总结</a></a></li>
+  </ul>
+</nav>
+		</div>
+    
+    <h1 id="一本章任务">一.本章任务</h1>
+<p>Rust 的设计灵感来源于很多现存的语言和技术。其中一个显著的影响就是 <strong>函数式编程</strong>（<em>functional programming</em>）。函数式编程风格通常包含将函数作为参数值或其他函数的返回值、将函数赋值给变量以供之后执行等等。</p>
+<p>本章我们不会讨论函数式编程是或不是什么的问题，而是展示 Rust 的一些在功能上与其他被认为是函数式语言类似的特性。</p>
+<p>更具体的，我们将要涉及：</p>
+<ul>
+<li><strong>闭包</strong>（<em>Closures</em>），一个可以储存在变量里的类似函数的结构</li>
+<li><strong>迭代器</strong>（<em>Iterators</em>），一种处理元素序列的方式</li>
+<li>如何使用这些功能来改进第十二章的 I/O 项目。</li>
+<li>这两个功能的性能。（<strong>剧透警告：</strong> 他们的速度超乎你的想象！）</li>
+</ul>
+<p>还有其它受函数式风格影响的 Rust 功能，比如模式匹配和枚举，这些已经在其他章节中讲到过了。掌握闭包和迭代器则是编写符合语言风格的高性能 Rust 代码的重要一环，所以我们将专门用一整章来讲解他们。</p>
+<h1 id="二闭包可以捕获环境的匿名函数httpskaiserygithubiotrpl-zh-cnch13-01-closureshtml闭包可以捕获环境的匿名函数">二.<a href="https://kaisery.github.io/trpl-zh-cn/ch13-01-closures.html#%E9%97%AD%E5%8C%85%E5%8F%AF%E4%BB%A5%E6%8D%95%E8%8E%B7%E7%8E%AF%E5%A2%83%E7%9A%84%E5%8C%BF%E5%90%8D%E5%87%BD%E6%95%B0">闭包：可以捕获环境的匿名函数</a></h1>
+<p>Rust 的 <strong>闭包</strong>（<em>closures</em>）是可以保存在一个变量中或作为参数传递给其他函数的匿名函数。可以在一个地方创建闭包，然后在不同的上下文中执行闭包运算。不同于函数，闭包允许捕获调用者作用域中的值。我们将展示闭包的这些功能如何复用代码和自定义行为。</p>
+<h3 id="使用闭包创建行为的抽象httpskaiserygithubiotrpl-zh-cnch13-01-closureshtml使用闭包创建行为的抽象"><a href="https://kaisery.github.io/trpl-zh-cn/ch13-01-closures.html#%E4%BD%BF%E7%94%A8%E9%97%AD%E5%8C%85%E5%88%9B%E5%BB%BA%E8%A1%8C%E4%B8%BA%E7%9A%84%E6%8A%BD%E8%B1%A1">使用闭包创建行为的抽象</a></h3>
+<p>让我们来看一个存储稍后要执行的闭包的示例。其间我们会讨论闭包的语法、类型推断和 trait。</p>
+<p>考虑一下这个假定的场景：我们在一个通过 app 生成自定义健身计划的初创企业工作。其后端使用 Rust 编写，而生成健身计划的算法需要考虑很多不同的因素，比如用户的年龄、身体质量指数（Body Mass Index）、用户喜好、最近的健身活动和用户指定的强度系数。本例中实际的算法并不重要，重要的是这个计算只花费几秒钟。我们只希望在需要时调用算法，并且只希望调用一次，这样就不会让用户等得太久。</p>
+<p>这里将通过调用 <code>simulated_expensive_calculation</code> 函数来模拟调用假定的算法，如示例 13-1 所示，它会打印出 <code>calculating slowly...</code>，等待两秒，并接着返回传递给它的数字：</p>
+<p>文件名: src/main.rs</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-rust" data-lang="rust"><span class="k">use</span><span class="w"> </span><span class="n">std</span>::<span class="n">thread</span><span class="p">;</span><span class="w">
+</span><span class="w"></span><span class="k">use</span><span class="w"> </span><span class="n">std</span>::<span class="n">time</span>::<span class="n">Duration</span><span class="p">;</span><span class="w">
+</span><span class="w">
+</span><span class="w"></span><span class="k">fn</span> <span class="nf">simulated_expensive_calculation</span><span class="p">(</span><span class="n">intensity</span>: <span class="kt">u32</span><span class="p">)</span><span class="w"> </span>-&gt; <span class="kt">u32</span> <span class="p">{</span><span class="w">
+</span><span class="w">    </span><span class="fm">println!</span><span class="p">(</span><span class="s">&#34;calculating slowly...&#34;</span><span class="p">);</span><span class="w">
+</span><span class="w">    </span><span class="n">thread</span>::<span class="n">sleep</span><span class="p">(</span><span class="n">Duration</span>::<span class="n">from_secs</span><span class="p">(</span><span class="mi">2</span><span class="p">));</span><span class="w">
+</span><span class="w">    </span><span class="n">intensity</span><span class="w">
+</span><span class="w"></span><span class="p">}</span><span class="w">
+</span></code></pre></div><p>示例 13-1：一个用来代替假定计算的函数，它大约会执行两秒钟</p>
+<p>接下来，<code>main</code> 函数中将会包含本例的健身 app 中的重要部分。这代表当用户请求健身计划时 app 会调用的代码。因为与 app 前端的交互与闭包的使用并不相关，所以我们将硬编码代表程序输入的值并打印输出。</p>
+<p>所需的输入有这些：</p>
+<ul>
+<li>一个来自用户的 intensity 数字，请求健身计划时指定，它代表用户喜好低强度还是高强度健身。</li>
+<li>一个随机数，其会在健身计划中生成变化。</li>
+</ul>
+<p>程序的输出将会是建议的锻炼计划。示例 13-2 展示了我们将要使用的 <code>main</code> 函数：</p>
+<p>文件名: src/main.rs</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-rust" data-lang="rust"><span class="k">fn</span> <span class="nf">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span><span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="n">simulated_user_specified_value</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">10</span><span class="p">;</span><span class="w">
+</span><span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="n">simulated_random_number</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">7</span><span class="p">;</span><span class="w">
+</span><span class="w">
+</span><span class="w">    </span><span class="n">generate_workout</span><span class="p">(</span><span class="n">simulated_user_specified_value</span><span class="p">,</span><span class="w"> </span><span class="n">simulated_random_number</span><span class="p">);</span><span class="w">
+</span><span class="w"></span><span class="p">}</span><span class="w">
+</span></code></pre></div><p>示例 13-2：<code>main</code> 函数包含了用于 <code>generate_workout</code> 函数的模拟用户输入和模拟随机数输入</p>
+<p>出于简单考虑这里硬编码了 <code>simulated_user_specified_value</code> 变量的值为 10 和 <code>simulated_random_number</code> 变量的值为 7；一个实际的程序会从 app 前端获取强度系数并使用 <code>rand</code> crate 来生成随机数，正如第二章的猜猜看游戏所做的那样。<code>main</code> 函数使用模拟的输入值调用 <code>generate_workout</code> 函数：</p>
+<p>现在有了执行上下文，让我们编写算法。示例 13-3 中的 <code>generate_workout</code> 函数包含本例中我们最关心的 app 业务逻辑。本例中余下的代码修改都将在这个函数中进行：</p>
+<p>文件名: src/main.rs</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-rust" data-lang="rust"><span class="k">fn</span> <span class="nf">generate_workout</span><span class="p">(</span><span class="n">intensity</span>: <span class="kt">u32</span><span class="p">,</span><span class="w"> </span><span class="n">random_number</span>: <span class="kt">u32</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="n">intensity</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="mi">25</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span><span class="w">        </span><span class="fm">println!</span><span class="p">(</span><span class="w">
+</span><span class="w">            </span><span class="s">&#34;Today, do {} pushups!&#34;</span><span class="p">,</span><span class="w">
+</span><span class="w">            </span><span class="n">simulated_expensive_calculation</span><span class="p">(</span><span class="n">intensity</span><span class="p">)</span><span class="w">
+</span><span class="w">        </span><span class="p">);</span><span class="w">
+</span><span class="w">        </span><span class="fm">println!</span><span class="p">(</span><span class="w">
+</span><span class="w">            </span><span class="s">&#34;Next, do {} situps!&#34;</span><span class="p">,</span><span class="w">
+</span><span class="w">            </span><span class="n">simulated_expensive_calculation</span><span class="p">(</span><span class="n">intensity</span><span class="p">)</span><span class="w">
+</span><span class="w">        </span><span class="p">);</span><span class="w">
+</span><span class="w">    </span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span><span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="n">random_number</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">3</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span><span class="w">            </span><span class="fm">println!</span><span class="p">(</span><span class="s">&#34;Take a break today! Remember to stay hydrated!&#34;</span><span class="p">);</span><span class="w">
+</span><span class="w">        </span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span><span class="w">            </span><span class="fm">println!</span><span class="p">(</span><span class="w">
+</span><span class="w">                </span><span class="s">&#34;Today, run for {} minutes!&#34;</span><span class="p">,</span><span class="w">
+</span><span class="w">                </span><span class="n">simulated_expensive_calculation</span><span class="p">(</span><span class="n">intensity</span><span class="p">)</span><span class="w">
+</span><span class="w">            </span><span class="p">);</span><span class="w">
+</span><span class="w">        </span><span class="p">}</span><span class="w">
+</span><span class="w">    </span><span class="p">}</span><span class="w">
+</span><span class="w"></span><span class="p">}</span><span class="w">
+</span></code></pre></div><p>示例 13-3：程序的业务逻辑，它根据输入并调用 <code>simulated_expensive_calculation</code> 函数来打印出健身计划</p>
+<p>示例 13-3 中的代码有多处调用了慢计算函数 <code>simulated_expensive_calculation</code> 。第一个 <code>if</code> 块调用了 <code>simulated_expensive_calculation</code> 两次， <code>else</code> 中的 <code>if</code> 没有调用它，而第二个 <code>else</code> 中的代码调用了它一次。</p>
+<p><code>generate_workout</code> 函数的期望行为是首先检查用户需要低强度（由小于 25 的系数表示）锻炼还是高强度（25 或以上）锻炼。</p>
+<p>低强度锻炼计划会根据由 <code>simulated_expensive_calculation</code> 函数所模拟的复杂算法建议一定数量的俯卧撑和仰卧起坐。</p>
+<p>如果用户需要高强度锻炼，这里有一些额外的逻辑：如果 app 生成的随机数刚好是 3，app 相反会建议用户稍做休息并补充水分。如果不是，则用户会从复杂算法中得到数分钟跑步的高强度锻炼计划。</p>
+<p>现在这份代码能够应对我们的需求了，但数据科学部门的同学告知我们将来会对调用 <code>simulated_expensive_calculation</code> 的方式做出一些改变。为了在要做这些改动的时候简化更新步骤，我们将重构代码来让它只调用 <code>simulated_expensive_calculation</code> 一次。同时还希望去掉目前多余的连续两次函数调用，并不希望在计算过程中增加任何其他此函数的调用。也就是说，我们不希望在完全无需其结果的情况调用函数，不过仍然希望只调用函数一次。</p>
+<h4 id="使用函数重构httpskaiserygithubiotrpl-zh-cnch13-01-closureshtml使用函数重构"><a href="https://kaisery.github.io/trpl-zh-cn/ch13-01-closures.html#%E4%BD%BF%E7%94%A8%E5%87%BD%E6%95%B0%E9%87%8D%E6%9E%84">使用函数重构</a></h4>
+<p>有多种方法可以重构此程序。我们首先尝试的是将重复的 <code>simulated_expensive_calculation</code> 函数调用提取到一个变量中，如示例 13-4 所示：</p>
+<p>文件名: src/main.rs</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-rust" data-lang="rust"><span class="k">fn</span> <span class="nf">generate_workout</span><span class="p">(</span><span class="n">intensity</span>: <span class="kt">u32</span><span class="p">,</span><span class="w"> </span><span class="n">random_number</span>: <span class="kt">u32</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span><span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="n">expensive_result</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">simulated_expensive_calculation</span><span class="p">(</span><span class="n">intensity</span><span class="p">);</span><span class="w">
+</span><span class="w">
+</span><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="n">intensity</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="mi">25</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span><span class="w">        </span><span class="fm">println!</span><span class="p">(</span><span class="s">&#34;Today, do {} pushups!&#34;</span><span class="p">,</span><span class="w"> </span><span class="n">expensive_result</span><span class="p">);</span><span class="w">
+</span><span class="w">        </span><span class="fm">println!</span><span class="p">(</span><span class="s">&#34;Next, do {} situps!&#34;</span><span class="p">,</span><span class="w"> </span><span class="n">expensive_result</span><span class="p">);</span><span class="w">
+</span><span class="w">    </span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span><span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="n">random_number</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">3</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span><span class="w">            </span><span class="fm">println!</span><span class="p">(</span><span class="s">&#34;Take a break today! Remember to stay hydrated!&#34;</span><span class="p">);</span><span class="w">
+</span><span class="w">        </span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span><span class="w">            </span><span class="fm">println!</span><span class="p">(</span><span class="s">&#34;Today, run for {} minutes!&#34;</span><span class="p">,</span><span class="w"> </span><span class="n">expensive_result</span><span class="p">);</span><span class="w">
+</span><span class="w">        </span><span class="p">}</span><span class="w">
+</span><span class="w">    </span><span class="p">}</span><span class="w">
+</span><span class="w"></span><span class="p">}</span><span class="w">
+</span></code></pre></div><p>示例 13-4：将 <code>simulated_expensive_calculation</code> 调用提取到一个位置，并将结果储存在变量 <code>expensive_result</code> 中</p>
+<p>这个修改统一了 <code>simulated_expensive_calculation</code> 调用并解决了第一个 <code>if</code> 块中不必要的两次调用函数的问题。不幸的是，现在所有的情况下都需要调用函数并等待结果，包括那个完全不需要这一结果的内部 <code>if</code> 块。</p>
+<p>我们希望在 <code>generate_workout</code> 中只引用 <code>simulated_expensive_calculation</code> 一次，并推迟复杂计算的执行直到我们确实需要结果的时候。这正是闭包的用武之地！</p>
+<h4 id="重构使用闭包储存代码httpskaiserygithubiotrpl-zh-cnch13-01-closureshtml重构使用闭包储存代码"><a href="https://kaisery.github.io/trpl-zh-cn/ch13-01-closures.html#%E9%87%8D%E6%9E%84%E4%BD%BF%E7%94%A8%E9%97%AD%E5%8C%85%E5%82%A8%E5%AD%98%E4%BB%A3%E7%A0%81">重构使用闭包储存代码</a></h4>
+<p>不同于总是在 <code>if</code> 块之前调用 <code>simulated_expensive_calculation</code> 函数并储存其结果，我们可以定义一个闭包并将其储存在变量中，如示例 13-5 所示。实际上可以选择将整个 <code>simulated_expensive_calculation</code> 函数体移动到这里引入的闭包中：</p>
+<p>文件名: src/main.rs</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-rust" data-lang="rust"><span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="n">expensive_closure</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">|</span><span class="n">num</span><span class="o">|</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span><span class="w">        </span><span class="fm">println!</span><span class="p">(</span><span class="s">&#34;calculating slowly...&#34;</span><span class="p">);</span><span class="w">
+</span><span class="w">        </span><span class="n">thread</span>::<span class="n">sleep</span><span class="p">(</span><span class="n">Duration</span>::<span class="n">from_secs</span><span class="p">(</span><span class="mi">2</span><span class="p">));</span><span class="w">
+</span><span class="w">        </span><span class="n">num</span><span class="w">
+</span><span class="w">    </span><span class="p">};</span><span class="w">
+</span></code></pre></div><p>示例 13-5：定义一个闭包并储存到变量 <code>expensive_closure</code> 中</p>
+<p>闭包定义是 <code>expensive_closure</code> 赋值的 <code>=</code> 之后的部分。闭包的定义以一对竖线（<code>|</code>）开始，在竖线中指定闭包的参数；之所以选择这个语法是因为它与 Smalltalk 和 Ruby 的闭包定义类似。这个闭包有一个参数 <code>num</code>；如果有多于一个参数，可以使用逗号分隔，比如 <code>|param1, param2|</code>。</p>
+<p>参数之后是存放闭包体的大括号 —— 如果闭包体只有一行则大括号是可以省略的。大括号之后闭包的结尾，需要用于 <code>let</code> 语句的分号。因为闭包体的最后一行没有分号（正如函数体一样），所以闭包体（<code>num</code>）最后一行的返回值作为调用闭包时的返回值 。</p>
+<p>注意这个 <code>let</code> 语句意味着 <code>expensive_closure</code> 包含一个匿名函数的 <strong>定义</strong>，不是调用匿名函数的 <strong>返回值</strong>。回忆一下使用闭包的原因是我们需要在一个位置定义代码，储存代码，并在之后的位置实际调用它；期望调用的代码现在储存在 <code>expensive_closure</code> 中。</p>
+<p>定义了闭包之后，可以改变 <code>if</code> 块中的代码来调用闭包以执行代码并获取结果值。调用闭包类似于调用函数；指定存放闭包定义的变量名并后跟包含期望使用的参数的括号，如示例 13-6 所示：</p>
+<p>文件名: src/main.rs</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-rust" data-lang="rust"><span class="k">fn</span> <span class="nf">generate_workout</span><span class="p">(</span><span class="n">intensity</span>: <span class="kt">u32</span><span class="p">,</span><span class="w"> </span><span class="n">random_number</span>: <span class="kt">u32</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span><span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="n">expensive_closure</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">|</span><span class="n">num</span><span class="o">|</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span><span class="w">        </span><span class="fm">println!</span><span class="p">(</span><span class="s">&#34;calculating slowly...&#34;</span><span class="p">);</span><span class="w">
+</span><span class="w">        </span><span class="n">thread</span>::<span class="n">sleep</span><span class="p">(</span><span class="n">Duration</span>::<span class="n">from_secs</span><span class="p">(</span><span class="mi">2</span><span class="p">));</span><span class="w">
+</span><span class="w">        </span><span class="n">num</span><span class="w">
+</span><span class="w">    </span><span class="p">};</span><span class="w">
+</span><span class="w">
+</span><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="n">intensity</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="mi">25</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span><span class="w">        </span><span class="fm">println!</span><span class="p">(</span><span class="s">&#34;Today, do {} pushups!&#34;</span><span class="p">,</span><span class="w"> </span><span class="n">expensive_closure</span><span class="p">(</span><span class="n">intensity</span><span class="p">));</span><span class="w">
+</span><span class="w">        </span><span class="fm">println!</span><span class="p">(</span><span class="s">&#34;Next, do {} situps!&#34;</span><span class="p">,</span><span class="w"> </span><span class="n">expensive_closure</span><span class="p">(</span><span class="n">intensity</span><span class="p">));</span><span class="w">
+</span><span class="w">    </span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span><span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="n">random_number</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">3</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span><span class="w">            </span><span class="fm">println!</span><span class="p">(</span><span class="s">&#34;Take a break today! Remember to stay hydrated!&#34;</span><span class="p">);</span><span class="w">
+</span><span class="w">        </span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span><span class="w">            </span><span class="fm">println!</span><span class="p">(</span><span class="w">
+</span><span class="w">                </span><span class="s">&#34;Today, run for {} minutes!&#34;</span><span class="p">,</span><span class="w">
+</span><span class="w">                </span><span class="n">expensive_closure</span><span class="p">(</span><span class="n">intensity</span><span class="p">)</span><span class="w">
+</span><span class="w">            </span><span class="p">);</span><span class="w">
+</span><span class="w">        </span><span class="p">}</span><span class="w">
+</span><span class="w">    </span><span class="p">}</span><span class="w">
+</span><span class="w"></span><span class="p">}</span><span class="w">
+</span></code></pre></div><p>示例 13-6：调用定义的 <code>expensive_closure</code></p>
+<p>现在如何执行复杂计算只被定义了一次，并只会在需要结果的时候执行该代码。</p>
+<p>然而，我们又重新引入了示例 13-3 中的问题：仍然在第一个 <code>if</code> 块中调用了闭包两次，这调用了慢计算代码两次而使得用户需要多等待一倍的时间。可以通过在 <code>if</code> 块中创建一个本地变量存放闭包调用的结果来解决这个问题，不过闭包可以提供另外一种解决方案。我们稍后会讨论这个方案，不过目前让我们首先讨论一下为何闭包定义中和所涉及的 trait 中没有类型注解。</p>
+<h3 id="闭包类型推断和注解httpskaiserygithubiotrpl-zh-cnch13-01-closureshtml闭包类型推断和注解"><a href="https://kaisery.github.io/trpl-zh-cn/ch13-01-closures.html#%E9%97%AD%E5%8C%85%E7%B1%BB%E5%9E%8B%E6%8E%A8%E6%96%AD%E5%92%8C%E6%B3%A8%E8%A7%A3">闭包类型推断和注解</a></h3>
+<p>闭包不要求像 <code>fn</code> 函数那样在参数和返回值上注明类型。函数中需要类型注解是因为他们是暴露给用户的显式接口的一部分。严格的定义这些接口对于保证所有人都认同函数使用和返回值的类型来说是很重要的。但是闭包并不用于这样暴露在外的接口：他们储存在变量中并被使用，不用命名他们或暴露给库的用户调用。</p>
+<p>闭包通常很短，并只关联于小范围的上下文而非任意情境。在这些有限制的上下文中，编译器能可靠的推断参数和返回值的类型，类似于它是如何能够推断大部分变量的类型一样。</p>
+<p>强制在这些小的匿名函数中注明类型是很恼人的，并且与编译器已知的信息存在大量的重复。</p>
+<p>类似于变量，如果相比严格的必要性你更希望增加明确性并变得更啰嗦，可以选择增加类型注解；为示例 13-5 中定义的闭包标注类型将看起来像示例 13-7 中的定义：</p>
+<p>文件名: src/main.rs</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-rust" data-lang="rust"><span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="n">expensive_closure</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">|</span><span class="n">num</span>: <span class="kt">u32</span><span class="o">|</span><span class="w"> </span>-&gt; <span class="kt">u32</span> <span class="p">{</span><span class="w">
+</span><span class="w">        </span><span class="fm">println!</span><span class="p">(</span><span class="s">&#34;calculating slowly...&#34;</span><span class="p">);</span><span class="w">
+</span><span class="w">        </span><span class="n">thread</span>::<span class="n">sleep</span><span class="p">(</span><span class="n">Duration</span>::<span class="n">from_secs</span><span class="p">(</span><span class="mi">2</span><span class="p">));</span><span class="w">
+</span><span class="w">        </span><span class="n">num</span><span class="w">
+</span><span class="w">    </span><span class="p">};</span><span class="w">
+</span></code></pre></div><p>示例 13-7：为闭包的参数和返回值增加可选的类型注解</p>
+<p>有了类型注解闭包的语法就更类似函数了。如下是一个对其参数加一的函数的定义与拥有相同行为闭包语法的纵向对比。这里增加了一些空格来对齐相应部分。这展示了闭包语法如何类似于函数语法，除了使用竖线而不是括号以及几个可选的语法之外：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-rust" data-lang="rust"><span class="k">fn</span>  <span class="nf">add_one_v1</span><span class="w">   </span><span class="p">(</span><span class="n">x</span>: <span class="kt">u32</span><span class="p">)</span><span class="w"> </span>-&gt; <span class="kt">u32</span> <span class="p">{</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="p">}</span><span class="w">
+</span><span class="w"></span><span class="kd">let</span><span class="w"> </span><span class="n">add_one_v2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">|</span><span class="n">x</span>: <span class="kt">u32</span><span class="o">|</span><span class="w"> </span>-&gt; <span class="kt">u32</span> <span class="p">{</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="p">};</span><span class="w">
+</span><span class="w"></span><span class="kd">let</span><span class="w"> </span><span class="n">add_one_v3</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">|</span><span class="n">x</span><span class="o">|</span><span class="w">             </span><span class="p">{</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="p">};</span><span class="w">
+</span><span class="w"></span><span class="kd">let</span><span class="w"> </span><span class="n">add_one_v4</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">|</span><span class="n">x</span><span class="o">|</span><span class="w">               </span><span class="n">x</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="w">  </span><span class="p">;</span><span class="w">
+</span></code></pre></div><p>第一行展示了一个函数定义，而第二行展示了一个完整标注的闭包定义。第三行闭包定义中省略了类型注解，而第四行去掉了可选的大括号，因为闭包体只有一行。这些都是有效的闭包定义，并在调用时产生相同的行为。调用闭包是 <code>add_one_v3</code> 和 <code>add_one_v4</code> 能够编译的必要条件，因为类型将从其用法中推断出来。</p>
+<p>闭包定义会为每个参数和返回值推断一个具体类型。例如，示例 13-8 中展示了仅仅将参数作为返回值的简短的闭包定义。除了作为示例的目的这个闭包并不是很实用。注意其定义并没有增加任何类型注解：如果尝试调用闭包两次，第一次使用 <code>String</code> 类型作为参数而第二次使用 <code>u32</code>，则会得到一个错误：</p>
+<p>文件名: src/main.rs</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-rust" data-lang="rust"><span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="n">example_closure</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">|</span><span class="n">x</span><span class="o">|</span><span class="w"> </span><span class="n">x</span><span class="p">;</span><span class="w">
+</span><span class="w">
+</span><span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="n">s</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">example_closure</span><span class="p">(</span><span class="nb">String</span>::<span class="n">from</span><span class="p">(</span><span class="s">&#34;hello&#34;</span><span class="p">));</span><span class="w">
+</span><span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="n">n</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">example_closure</span><span class="p">(</span><span class="mi">5</span><span class="p">);</span><span class="w">
+</span></code></pre></div><p>示例 13-8：尝试调用一个被推断为两个不同类型的闭包</p>
+<p>编译器给出如下错误：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-console" data-lang="console"><span class="gp">$ </span>cargo run
+<span class="go">   Compiling closure-example v0.1.0 (file:///projects/closure-example)
+</span><span class="go">error[E0308]: mismatched types
+</span><span class="go"> --&gt; src/main.rs:5:29
+</span><span class="go">  |
+</span><span class="go">5 |     let n = example_closure(5);
+</span><span class="go">  |                             ^- help: try using a conversion method: `.to_string()`
+</span><span class="go">  |                             |
+</span><span class="go">  |                             expected struct `String`, found integer
+</span><span class="go"></span><span class="err">
+</span><span class="err"></span><span class="go">For more information about this error, try `rustc --explain E0308`.
+</span><span class="go">error: could not compile `closure-example` due to previous error
+</span></code></pre></div><p>第一次使用 <code>String</code> 值调用 <code>example_closure</code> 时，编译器推断 <code>x</code> 和此闭包返回值的类型为 <code>String</code>。接着这些类型被锁定进闭包 <code>example_closure</code> 中，如果尝试对同一闭包使用不同类型则会得到类型错误。</p>
+<h3 id="使用带有泛型和-fn-trait-的闭包httpskaiserygithubiotrpl-zh-cnch13-01-closureshtml使用带有泛型和-fn-trait-的闭包"><a href="https://kaisery.github.io/trpl-zh-cn/ch13-01-closures.html#%E4%BD%BF%E7%94%A8%E5%B8%A6%E6%9C%89%E6%B3%9B%E5%9E%8B%E5%92%8C-fn-trait-%E7%9A%84%E9%97%AD%E5%8C%85">使用带有泛型和 <code>Fn</code> trait 的闭包</a></h3>
+<p>回到我们的健身计划生成 app ，在示例 13-6 中的代码仍然把慢计算闭包调用了比所需更多的次数。解决这个问题的一个方法是在全部代码中的每一个需要多个慢计算闭包结果的地方，可以将结果保存进变量以供复用，这样就可以使用变量而不是再次调用闭包。但是这样就会有很多重复的保存结果变量的地方。</p>
+<p>幸运的是，还有另一个可用的方案。可以创建一个存放闭包和调用闭包结果的结构体。该结构体只会在需要结果时执行闭包，并会缓存结果值，这样余下的代码就不必再负责保存结果并可以复用该值。你可能见过这种模式被称 <em>memoization</em> 或 <em>lazy evaluation</em> <em>（惰性求值）</em>。</p>
+<p>为了让结构体存放闭包，我们需要指定闭包的类型，因为结构体定义需要知道其每一个字段的类型。每一个闭包实例有其自己独有的匿名类型：也就是说，即便两个闭包有着相同的签名，他们的类型仍然可以被认为是不同。为了定义使用闭包的结构体、枚举或函数参数，需要像第十章讨论的那样使用泛型和 trait bound。</p>
+<p><code>Fn</code> 系列 trait 由标准库提供。所有的闭包都实现了 trait <code>Fn</code>、<code>FnMut</code> 或 <code>FnOnce</code> 中的一个。在 <a href="https://kaisery.github.io/trpl-zh-cn/ch13-01-closures.html#%E9%97%AD%E5%8C%85%E4%BC%9A%E6%8D%95%E8%8E%B7%E5%85%B6%E7%8E%AF%E5%A2%83">“闭包会捕获其环境”</a> 部分我们会讨论这些 trait 的区别；在这个例子中可以使用 <code>Fn</code> trait。</p>
+<p>为了满足 <code>Fn</code> trait bound 我们增加了代表闭包所必须的参数和返回值类型的类型。在这个例子中，闭包有一个 <code>u32</code> 的参数并返回一个 <code>u32</code>，这样所指定的 trait bound 就是 <code>Fn(u32) -&gt; u32</code>。</p>
+<p>示例 13-9 展示了存放了闭包和一个 Option 结果值的 <code>Cacher</code> 结构体的定义：</p>
+<p>文件名: src/main.rs</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-rust" data-lang="rust"><span class="k">struct</span> <span class="nc">Cacher</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span><span class="w">
+</span><span class="w"></span><span class="k">where</span><span class="w">
+</span><span class="w">    </span><span class="n">T</span>: <span class="nb">Fn</span><span class="p">(</span><span class="kt">u32</span><span class="p">)</span><span class="w"> </span>-&gt; <span class="kt">u32</span><span class="p">,</span><span class="w">
+</span><span class="w"></span><span class="p">{</span><span class="w">
+</span><span class="w">    </span><span class="n">calculation</span>: <span class="nc">T</span><span class="p">,</span><span class="w">
+</span><span class="w">    </span><span class="n">value</span>: <span class="nb">Option</span><span class="o">&lt;</span><span class="kt">u32</span><span class="o">&gt;</span><span class="p">,</span><span class="w">
+</span><span class="w"></span><span class="p">}</span><span class="w">
+</span></code></pre></div><p>示例 13-9：定义一个 <code>Cacher</code> 结构体来在 <code>calculation</code> 中存放闭包并在 <code>value</code> 中存放 Option 值</p>
+<p>结构体 <code>Cacher</code> 有一个泛型 <code>T</code> 的字段 <code>calculation</code>。<code>T</code> 的 trait bound 指定了 <code>T</code> 是一个使用 <code>Fn</code> 的闭包。任何我们希望储存到 <code>Cacher</code> 实例的 <code>calculation</code> 字段的闭包必须有一个 <code>u32</code> 参数（由 <code>Fn</code> 之后的括号的内容指定）并必须返回一个 <code>u32</code>（由 <code>-&gt;</code> 之后的内容）。</p>
+<blockquote>
+<p>注意：函数也都实现了这三个 <code>Fn</code> trait。如果不需要捕获环境中的值，则可以使用实现了 <code>Fn</code> trait 的函数而不是闭包。</p>
+</blockquote>
+<p>字段 <code>value</code> 是 <code>Option&lt;u32&gt;</code> 类型的。在执行闭包之前，<code>value</code> 将是 <code>None</code>。如果使用 <code>Cacher</code> 的代码请求闭包的结果，这时会执行闭包并将结果储存在 <code>value</code> 字段的 <code>Some</code> 成员中。接着如果代码再次请求闭包的结果，这时不再执行闭包，而是会返回存放在 <code>Some</code> 成员中的结果。</p>
+<p>刚才讨论的有关 <code>value</code> 字段逻辑定义于示例 13-10：</p>
+<p>文件名: src/main.rs</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-rust" data-lang="rust"><span class="k">impl</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span><span class="w"> </span><span class="n">Cacher</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span><span class="w">
+</span><span class="w"></span><span class="k">where</span><span class="w">
+</span><span class="w">    </span><span class="n">T</span>: <span class="nb">Fn</span><span class="p">(</span><span class="kt">u32</span><span class="p">)</span><span class="w"> </span>-&gt; <span class="kt">u32</span><span class="p">,</span><span class="w">
+</span><span class="w"></span><span class="p">{</span><span class="w">
+</span><span class="w">    </span><span class="k">fn</span> <span class="nf">new</span><span class="p">(</span><span class="n">calculation</span>: <span class="nc">T</span><span class="p">)</span><span class="w"> </span>-&gt; <span class="nc">Cacher</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span><span class="w">        </span><span class="n">Cacher</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span><span class="w">            </span><span class="n">calculation</span><span class="p">,</span><span class="w">
+</span><span class="w">            </span><span class="n">value</span>: <span class="nb">None</span><span class="p">,</span><span class="w">
+</span><span class="w">        </span><span class="p">}</span><span class="w">
+</span><span class="w">    </span><span class="p">}</span><span class="w">
+</span><span class="w">
+</span><span class="w">    </span><span class="k">fn</span> <span class="nf">value</span><span class="p">(</span><span class="o">&amp;</span><span class="k">mut</span><span class="w"> </span><span class="bp">self</span><span class="p">,</span><span class="w"> </span><span class="n">arg</span>: <span class="kt">u32</span><span class="p">)</span><span class="w"> </span>-&gt; <span class="kt">u32</span> <span class="p">{</span><span class="w">
+</span><span class="w">        </span><span class="k">match</span><span class="w"> </span><span class="bp">self</span><span class="p">.</span><span class="n">value</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span><span class="w">            </span><span class="nb">Some</span><span class="p">(</span><span class="n">v</span><span class="p">)</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">v</span><span class="p">,</span><span class="w">
+</span><span class="w">            </span><span class="nb">None</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span><span class="w">                </span><span class="kd">let</span><span class="w"> </span><span class="n">v</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="bp">self</span><span class="p">.</span><span class="n">calculation</span><span class="p">)(</span><span class="n">arg</span><span class="p">);</span><span class="w">
+</span><span class="w">                </span><span class="bp">self</span><span class="p">.</span><span class="n">value</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">Some</span><span class="p">(</span><span class="n">v</span><span class="p">);</span><span class="w">
+</span><span class="w">                </span><span class="n">v</span><span class="w">
+</span><span class="w">            </span><span class="p">}</span><span class="w">
+</span><span class="w">        </span><span class="p">}</span><span class="w">
+</span><span class="w">    </span><span class="p">}</span><span class="w">
+</span><span class="w"></span><span class="p">}</span><span class="w">
+</span></code></pre></div><p>示例 13-10：<code>Cacher</code> 的缓存逻辑</p>
+<p><code>Cacher</code> 结构体的字段是私有的，因为我们希望 <code>Cacher</code> 管理这些值而不是任由调用代码潜在的直接改变他们。</p>
+<p><code>Cacher::new</code> 函数获取一个泛型参数 <code>T</code>，它定义于 <code>impl</code> 块上下文中并与 <code>Cacher</code> 结构体有着相同的 trait bound。<code>Cacher::new</code> 返回一个在 <code>calculation</code> 字段中存放了指定闭包和在 <code>value</code> 字段中存放了 <code>None</code> 值的 <code>Cacher</code> 实例，因为我们还未执行闭包。</p>
+<p>当调用代码需要闭包的执行结果时，不同于直接调用闭包，它会调用 <code>value</code> 方法。这个方法会检查 <code>self.value</code> 是否已经有了一个 <code>Some</code> 的结果值；如果有，它返回 <code>Some</code> 中的值并不会再次执行闭包。</p>
+<p>如果 <code>self.value</code> 是 <code>None</code>，则会调用 <code>self.calculation</code> 中储存的闭包，将结果保存到 <code>self.value</code> 以便将来使用，并同时返回结果值。</p>
+<p>示例 13-11 展示了如何在示例 13-6 的 <code>generate_workout</code> 函数中利用 <code>Cacher</code> 结构体：</p>
+<p>文件名: src/main.rs</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-rust" data-lang="rust"><span class="k">fn</span> <span class="nf">generate_workout</span><span class="p">(</span><span class="n">intensity</span>: <span class="kt">u32</span><span class="p">,</span><span class="w"> </span><span class="n">random_number</span>: <span class="kt">u32</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span><span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="k">mut</span><span class="w"> </span><span class="n">expensive_result</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Cacher</span>::<span class="n">new</span><span class="p">(</span><span class="o">|</span><span class="n">num</span><span class="o">|</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span><span class="w">        </span><span class="fm">println!</span><span class="p">(</span><span class="s">&#34;calculating slowly...&#34;</span><span class="p">);</span><span class="w">
+</span><span class="w">        </span><span class="n">thread</span>::<span class="n">sleep</span><span class="p">(</span><span class="n">Duration</span>::<span class="n">from_secs</span><span class="p">(</span><span class="mi">2</span><span class="p">));</span><span class="w">
+</span><span class="w">        </span><span class="n">num</span><span class="w">
+</span><span class="w">    </span><span class="p">});</span><span class="w">
+</span><span class="w">
+</span><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="n">intensity</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="mi">25</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span><span class="w">        </span><span class="fm">println!</span><span class="p">(</span><span class="s">&#34;Today, do {} pushups!&#34;</span><span class="p">,</span><span class="w"> </span><span class="n">expensive_result</span><span class="p">.</span><span class="n">value</span><span class="p">(</span><span class="n">intensity</span><span class="p">));</span><span class="w">
+</span><span class="w">        </span><span class="fm">println!</span><span class="p">(</span><span class="s">&#34;Next, do {} situps!&#34;</span><span class="p">,</span><span class="w"> </span><span class="n">expensive_result</span><span class="p">.</span><span class="n">value</span><span class="p">(</span><span class="n">intensity</span><span class="p">));</span><span class="w">
+</span><span class="w">    </span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span><span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="n">random_number</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">3</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span><span class="w">            </span><span class="fm">println!</span><span class="p">(</span><span class="s">&#34;Take a break today! Remember to stay hydrated!&#34;</span><span class="p">);</span><span class="w">
+</span><span class="w">        </span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span><span class="w">            </span><span class="fm">println!</span><span class="p">(</span><span class="w">
+</span><span class="w">                </span><span class="s">&#34;Today, run for {} minutes!&#34;</span><span class="p">,</span><span class="w">
+</span><span class="w">                </span><span class="n">expensive_result</span><span class="p">.</span><span class="n">value</span><span class="p">(</span><span class="n">intensity</span><span class="p">)</span><span class="w">
+</span><span class="w">            </span><span class="p">);</span><span class="w">
+</span><span class="w">        </span><span class="p">}</span><span class="w">
+</span><span class="w">    </span><span class="p">}</span><span class="w">
+</span><span class="w"></span><span class="p">}</span><span class="w">
+</span></code></pre></div><p>示例 13-11：在 <code>generate_workout</code> 函数中利用 <code>Cacher</code> 结构体来抽象出缓存逻辑</p>
+<p>不同于直接将闭包保存进一个变量，我们保存一个新的 <code>Cacher</code> 实例来存放闭包。接着，在每一个需要结果的地方，调用 <code>Cacher</code> 实例的 <code>value</code> 方法。可以调用 <code>value</code> 方法任意多次，或者一次也不调用，而慢计算最多只会运行一次。</p>
+<p>尝试使用示例 13-2 中的 <code>main</code> 函数来运行这段程序，并改变 <code>simulated_user_specified_value</code> 和 <code>simulated_random_number</code> 变量中的值来验证在所有情况下在多个 <code>if</code> 和 <code>else</code> 块中，闭包打印的 <code>calculating slowly...</code> 只会在需要时出现并只会出现一次。<code>Cacher</code> 负责确保不会调用超过所需的慢计算所需的逻辑，这样 <code>generate_workout</code> 就可以专注业务逻辑了。</p>
+<h3 id="cacher-实现的限制httpskaiserygithubiotrpl-zh-cnch13-01-closureshtmlcacher-实现的限制"><a href="https://kaisery.github.io/trpl-zh-cn/ch13-01-closures.html#cacher-%E5%AE%9E%E7%8E%B0%E7%9A%84%E9%99%90%E5%88%B6"><code>Cacher</code> 实现的限制</a></h3>
+<p>值缓存是一种更加广泛的实用行为，我们可能希望在代码中的其他闭包中也使用他们。然而，目前 <code>Cacher</code> 的实现存在两个小问题，这使得在不同上下文中复用变得很困难。</p>
+<p>第一个问题是 <code>Cacher</code> 实例假设对于 <code>value</code> 方法的任何 <code>arg</code> 参数值总是会返回相同的值。也就是说，这个 <code>Cacher</code> 的测试会失败：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-rust" data-lang="rust"><span class="w">    </span><span class="cp">#[test]</span><span class="w">
+</span><span class="w">    </span><span class="k">fn</span> <span class="nf">call_with_different_values</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span><span class="w">        </span><span class="kd">let</span><span class="w"> </span><span class="k">mut</span><span class="w"> </span><span class="n">c</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Cacher</span>::<span class="n">new</span><span class="p">(</span><span class="o">|</span><span class="n">a</span><span class="o">|</span><span class="w"> </span><span class="n">a</span><span class="p">);</span><span class="w">
+</span><span class="w">
+</span><span class="w">        </span><span class="kd">let</span><span class="w"> </span><span class="n">v1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">c</span><span class="p">.</span><span class="n">value</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span><span class="w">
+</span><span class="w">        </span><span class="kd">let</span><span class="w"> </span><span class="n">v2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">c</span><span class="p">.</span><span class="n">value</span><span class="p">(</span><span class="mi">2</span><span class="p">);</span><span class="w">
+</span><span class="w">
+</span><span class="w">        </span><span class="fm">assert_eq!</span><span class="p">(</span><span class="n">v2</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">);</span><span class="w">
+</span><span class="w">    </span><span class="p">}</span><span class="w">
+</span></code></pre></div><p>这个测试使用返回传递给它的值的闭包创建了一个新的 <code>Cacher</code> 实例。使用为 1 的 <code>arg</code> 和为 2 的 <code>arg</code> 调用 <code>Cacher</code> 实例的 <code>value</code> 方法，同时我们期望使用为 2 的 <code>arg</code> 调用 <code>value</code> 会返回 2。</p>
+<p>使用示例 13-9 和示例 13-10 的 <code>Cacher</code> 实现运行测试，它会在 <code>assert_eq!</code> 失败并显示如下信息：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-console" data-lang="console"><span class="gp">$ </span>cargo <span class="nb">test</span>
+<span class="go">   Compiling cacher v0.1.0 (file:///projects/cacher)
+</span><span class="go">    Finished test [unoptimized + debuginfo] target(s) in 0.72s
+</span><span class="go">     Running unittests (target/debug/deps/cacher-074d7c200c000afa)
+</span><span class="go"></span><span class="err">
+</span><span class="err"></span><span class="go">running 1 test
+</span><span class="go">test tests::call_with_different_values ... FAILED
+</span><span class="go"></span><span class="err">
+</span><span class="err"></span><span class="go">failures:
+</span><span class="go"></span><span class="err">
+</span><span class="err"></span><span class="go">---- tests::call_with_different_values stdout ----
+</span><span class="go">thread &#39;main&#39; panicked at &#39;assertion failed: `(left == right)`
+</span><span class="go">  left: `1`,
+</span><span class="go"> right: `2`&#39;, src/lib.rs:43:9
+</span><span class="go">note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+</span><span class="go"></span><span class="err">
+</span><span class="err">
+</span><span class="err"></span><span class="go">failures:
+</span><span class="go">    tests::call_with_different_values
+</span><span class="go"></span><span class="err">
+</span><span class="err"></span><span class="go">test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+</span><span class="go"></span><span class="err">
+</span><span class="err"></span><span class="go">error: test failed, to rerun pass &#39;--lib&#39;
+</span></code></pre></div><p>这里的问题是第一次使用 1 调用 <code>c.value</code>，<code>Cacher</code> 实例将 <code>Some(1)</code> 保存进 <code>self.value</code>。在这之后，无论传递什么值调用 <code>value</code>，它总是会返回 1。</p>
+<p>尝试修改 <code>Cacher</code> 存放一个哈希 map 而不是单独一个值。哈希 map 的 key 将是传递进来的 <code>arg</code> 值，而 value 则是对应 key 调用闭包的结果值。相比之前检查 <code>self.value</code> 直接是 <code>Some</code> 还是 <code>None</code> 值，现在 <code>value</code> 函数会在哈希 map 中寻找 <code>arg</code>，如果找到的话就返回其对应的值。如果不存在，<code>Cacher</code> 会调用闭包并将结果值保存在哈希 map 对应 <code>arg</code> 值的位置。</p>
+<p>当前 <code>Cacher</code> 实现的第二个问题是它的应用被限制为只接受获取一个 <code>u32</code> 值并返回一个 <code>u32</code> 值的闭包。比如说，我们可能需要能够缓存一个获取字符串 slice 并返回 <code>usize</code> 值的闭包的结果。请尝试引入更多泛型参数来增加 <code>Cacher</code> 功能的灵活性。</p>
+<h3 id="闭包会捕获其环境httpskaiserygithubiotrpl-zh-cnch13-01-closureshtml闭包会捕获其环境"><a href="https://kaisery.github.io/trpl-zh-cn/ch13-01-closures.html#%E9%97%AD%E5%8C%85%E4%BC%9A%E6%8D%95%E8%8E%B7%E5%85%B6%E7%8E%AF%E5%A2%83">闭包会捕获其环境</a></h3>
+<p>在健身计划生成器的例子中，我们只将闭包作为内联匿名函数来使用。不过闭包还有另一个函数所没有的功能：他们可以捕获其环境并访问其被定义的作用域的变量。</p>
+<p>示例 13-12 有一个储存在 <code>equal_to_x</code> 变量中闭包的例子，它使用了闭包环境中的变量 <code>x</code>：</p>
+<p>文件名: src/main.rs</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-rust" data-lang="rust"><span class="k">fn</span> <span class="nf">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span><span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">4</span><span class="p">;</span><span class="w">
+</span><span class="w">
+</span><span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="n">equal_to_x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">|</span><span class="n">z</span><span class="o">|</span><span class="w"> </span><span class="n">z</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">x</span><span class="p">;</span><span class="w">
+</span><span class="w">
+</span><span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="n">y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">4</span><span class="p">;</span><span class="w">
+</span><span class="w">
+</span><span class="w">    </span><span class="fm">assert!</span><span class="p">(</span><span class="n">equal_to_x</span><span class="p">(</span><span class="n">y</span><span class="p">));</span><span class="w">
+</span><span class="w"></span><span class="p">}</span><span class="w">
+</span></code></pre></div><p>示例 13-12：一个引用了其周围作用域中变量的闭包示例</p>
+<p>这里，即便 <code>x</code> 并不是 <code>equal_to_x</code> 的一个参数，<code>equal_to_x</code> 闭包也被允许使用变量 <code>x</code>，因为它与 <code>equal_to_x</code> 定义于相同的作用域。</p>
+<p>函数则不能做到同样的事，如果尝试如下例子，它并不能编译：</p>
+<p>文件名: src/main.rs</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-rust" data-lang="rust"><span class="k">fn</span> <span class="nf">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span><span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">4</span><span class="p">;</span><span class="w">
+</span><span class="w">
+</span><span class="w">    </span><span class="k">fn</span> <span class="nf">equal_to_x</span><span class="p">(</span><span class="n">z</span>: <span class="kt">i32</span><span class="p">)</span><span class="w"> </span>-&gt; <span class="kt">bool</span> <span class="p">{</span><span class="w">
+</span><span class="w">        </span><span class="n">z</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">x</span><span class="w">
+</span><span class="w">    </span><span class="p">}</span><span class="w">
+</span><span class="w">
+</span><span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="n">y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">4</span><span class="p">;</span><span class="w">
+</span><span class="w">
+</span><span class="w">    </span><span class="fm">assert!</span><span class="p">(</span><span class="n">equal_to_x</span><span class="p">(</span><span class="n">y</span><span class="p">));</span><span class="w">
+</span><span class="w"></span><span class="p">}</span><span class="w">
+</span></code></pre></div><p>这会得到一个错误：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-console" data-lang="console"><span class="gp">$ </span>cargo run
+<span class="go">   Compiling equal-to-x v0.1.0 (file:///projects/equal-to-x)
+</span><span class="go">error[E0434]: can&#39;t capture dynamic environment in a fn item
+</span><span class="go"> --&gt; src/main.rs:5:14
+</span><span class="go">  |
+</span><span class="go">5 |         z == x
+</span><span class="go">  |              ^
+</span><span class="go">  |
+</span><span class="go">  = help: use the `|| { ... }` closure form instead
+</span><span class="go"></span><span class="err">
+</span><span class="err"></span><span class="go">For more information about this error, try `rustc --explain E0434`.
+</span><span class="go">error: could not compile `equal-to-x` due to previous error
+</span></code></pre></div><p>编译器甚至会提示我们这只能用于闭包！</p>
+<p>当闭包从环境中捕获一个值，闭包会在闭包体中储存这个值以供使用。这会使用内存并产生额外的开销，在更一般的场景中，当我们不需要闭包来捕获环境时，我们不希望产生这些开销。因为函数从未允许捕获环境，定义和使用函数也就从不会有这些额外开销。</p>
+<p>闭包可以通过三种方式捕获其环境，他们直接对应函数的三种获取参数的方式：获取所有权，可变借用和不可变借用。这三种捕获值的方式被编码为如下三个 <code>Fn</code> trait：</p>
+<ul>
+<li><code>FnOnce</code> 消费从周围作用域捕获的变量，闭包周围的作用域被称为其 <strong>环境</strong>，<em>environment</em>。为了消费捕获到的变量，闭包必须获取其所有权并在定义闭包时将其移动进闭包。其名称的 <code>Once</code> 部分代表了闭包不能多次获取相同变量的所有权的事实，所以它只能被调用一次。</li>
+<li><code>FnMut</code> 获取可变的借用值所以可以改变其环境</li>
+<li><code>Fn</code> 从其环境获取不可变的借用值</li>
+</ul>
+<p>当创建一个闭包时，Rust 根据其如何使用环境中变量来推断我们希望如何引用环境。由于所有闭包都可以被调用至少一次，所以所有闭包都实现了 <code>FnOnce</code> 。那些并没有移动被捕获变量的所有权到闭包内的闭包也实现了 <code>FnMut</code> ，而不需要对被捕获的变量进行可变访问的闭包则也实现了 <code>Fn</code> 。 在示例 13-12 中，<code>equal_to_x</code> 闭包不可变的借用了 <code>x</code>（所以 <code>equal_to_x</code> 具有 <code>Fn</code> trait），因为闭包体只需要读取 <code>x</code> 的值。</p>
+<p>如果你希望强制闭包获取其使用的环境值的所有权，可以在参数列表前使用 <code>move</code> 关键字。这个技巧在将闭包传递给新线程以便将数据移动到新线程中时最为实用。</p>
+<blockquote>
+<p>注意：即使其捕获的值已经被移动了，<code>move</code> 闭包仍需要实现 <code>Fn</code> 或 <code>FnMut</code>。这是因为闭包所实现的 trait 是由闭包所捕获了什么值而不是如何捕获所决定的。而 <code>move</code> 关键字仅代表了后者。</p>
+</blockquote>
+<p>第十六章讨论并发时会展示更多 <code>move</code> 闭包的例子，不过现在这里修改了示例 13-12 中的代码（作为演示），在闭包定义中增加 <code>move</code> 关键字并使用 vector 代替整型，因为整型可以被拷贝而不是移动；注意这些代码还不能编译：</p>
+<p>文件名: src/main.rs</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-rust" data-lang="rust"><span class="k">fn</span> <span class="nf">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span><span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="fm">vec!</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="mi">3</span><span class="p">];</span><span class="w">
+</span><span class="w">
+</span><span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="n">equal_to_x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">move</span><span class="w"> </span><span class="o">|</span><span class="n">z</span><span class="o">|</span><span class="w"> </span><span class="n">z</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">x</span><span class="p">;</span><span class="w">
+</span><span class="w">
+</span><span class="w">    </span><span class="fm">println!</span><span class="p">(</span><span class="s">&#34;can&#39;t use x here: {:?}&#34;</span><span class="p">,</span><span class="w"> </span><span class="n">x</span><span class="p">);</span><span class="w">
+</span><span class="w">
+</span><span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="n">y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="fm">vec!</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="mi">3</span><span class="p">];</span><span class="w">
+</span><span class="w">
+</span><span class="w">    </span><span class="fm">assert!</span><span class="p">(</span><span class="n">equal_to_x</span><span class="p">(</span><span class="n">y</span><span class="p">));</span><span class="w">
+</span><span class="w"></span><span class="p">}</span><span class="w">
+</span></code></pre></div><p>这个例子并不能编译，会产生以下错误：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-console" data-lang="console"><span class="gp">$ </span>cargo run
+<span class="go">   Compiling equal-to-x v0.1.0 (file:///projects/equal-to-x)
+</span><span class="go">error[E0382]: borrow of moved value: `x`
+</span><span class="go"> --&gt; src/main.rs:6:40
+</span><span class="go">  |
+</span><span class="go">2 |     let x = vec![1, 2, 3];
+</span><span class="go">  |         - move occurs because `x` has type `Vec&lt;i32&gt;`, which does not implement the `Copy` trait
+</span><span class="go">3 | 
+</span><span class="go">4 |     let equal_to_x = move |z| z == x;
+</span><span class="go">  |                      --------      - variable moved due to use in closure
+</span><span class="go">  |                      |
+</span><span class="go">  |                      value moved into closure here
+</span><span class="go">5 | 
+</span><span class="go">6 |     println!(&#34;can&#39;t use x here: {:?}&#34;, x);
+</span><span class="go">  |                                        ^ value borrowed here after move
+</span><span class="go"></span><span class="err">
+</span><span class="err"></span><span class="go">For more information about this error, try `rustc --explain E0382`.
+</span><span class="go">error: could not compile `equal-to-x` due to previous error
+</span></code></pre></div><p><code>x</code> 被移动进了闭包，因为闭包使用 <code>move</code> 关键字定义。接着闭包获取了 <code>x</code> 的所有权，同时 <code>main</code> 就不再允许在 <code>println!</code> 语句中使用 <code>x</code> 了。去掉 <code>println!</code> 即可修复问题。</p>
+<p>大部分需要指定一个 <code>Fn</code> 系列 trait bound 的时候，可以从 <code>Fn</code> 开始，而编译器会根据闭包体中的情况告诉你是否需要 <code>FnMut</code> 或 <code>FnOnce</code>。</p>
+<p>为了展示闭包作为函数参数时捕获其环境的作用，让我们继续下一个主题：迭代器。</p>
+<h1 id="三使用迭代器处理元素序列httpskaiserygithubiotrpl-zh-cnch13-02-iteratorshtml使用迭代器处理元素序列">三.<a href="https://kaisery.github.io/trpl-zh-cn/ch13-02-iterators.html#%E4%BD%BF%E7%94%A8%E8%BF%AD%E4%BB%A3%E5%99%A8%E5%A4%84%E7%90%86%E5%85%83%E7%B4%A0%E5%BA%8F%E5%88%97">使用迭代器处理元素序列</a></h1>
+<p>迭代器模式允许你对一个序列的项进行某些处理。<strong>迭代器</strong>（<em>iterator</em>）负责遍历序列中的每一项和决定序列何时结束的逻辑。当使用迭代器时，我们无需重新实现这些逻辑。</p>
+<p>在 Rust 中，迭代器是 <strong>惰性的</strong>（<em>lazy</em>），这意味着在调用方法使用迭代器之前它都不会有效果。例如，示例 13-13 中的代码通过调用定义于 <code>Vec</code> 上的 <code>iter</code> 方法在一个 vector <code>v1</code> 上创建了一个迭代器。这段代码本身没有任何用处：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-rust" data-lang="rust"><span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="n">v1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="fm">vec!</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="mi">3</span><span class="p">];</span><span class="w">
+</span><span class="w">
+</span><span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="n">v1_iter</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">v1</span><span class="p">.</span><span class="n">iter</span><span class="p">();</span><span class="w">
+</span></code></pre></div><p>示例 13-13：创建一个迭代器</p>
+<p>一旦创建迭代器之后，可以选择用多种方式利用它。在第三章的示例 3-5 中，我们使用迭代器和 <code>for</code> 循环在每一个项上执行了一些代码，虽然直到现在为止我们一直没有具体讨论调用 <code>iter</code> 到底具体做了什么。</p>
+<p>示例 13-14 中的例子将迭代器的创建和 <code>for</code> 循环中的使用分开。迭代器被储存在 <code>v1_iter</code> 变量中，而这时没有进行迭代。一旦 <code>for</code> 循环开始使用 <code>v1_iter</code>，接着迭代器中的每一个元素被用于循环的一次迭代，这会打印出其每一个值：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-rust" data-lang="rust"><span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="n">v1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="fm">vec!</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="mi">3</span><span class="p">];</span><span class="w">
+</span><span class="w">
+</span><span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="n">v1_iter</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">v1</span><span class="p">.</span><span class="n">iter</span><span class="p">();</span><span class="w">
+</span><span class="w">
+</span><span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="n">val</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="n">v1_iter</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span><span class="w">        </span><span class="fm">println!</span><span class="p">(</span><span class="s">&#34;Got: {}&#34;</span><span class="p">,</span><span class="w"> </span><span class="n">val</span><span class="p">);</span><span class="w">
+</span><span class="w">    </span><span class="p">}</span><span class="w">
+</span></code></pre></div><p>示例 13-14：在一个 <code>for</code> 循环中使用迭代器</p>
+<p>在标准库中没有提供迭代器的语言中，我们可能会使用一个从 0 开始的索引变量，使用这个变量索引 vector 中的值，并循环增加其值直到达到 vector 的元素数量。</p>
+<p>迭代器为我们处理了所有这些逻辑，这减少了重复代码并消除了潜在的混乱。另外，迭代器的实现方式提供了对多种不同的序列使用相同逻辑的灵活性，而不仅仅是像 vector 这样可索引的数据结构.让我们看看迭代器是如何做到这些的。</p>
+<h3 id="iterator-trait-和-next-方法httpskaiserygithubiotrpl-zh-cnch13-02-iteratorshtmliterator-trait-和-next-方法"><a href="https://kaisery.github.io/trpl-zh-cn/ch13-02-iterators.html#iterator-trait-%E5%92%8C-next-%E6%96%B9%E6%B3%95"><code>Iterator</code> trait 和 <code>next</code> 方法</a></h3>
+<p>迭代器都实现了一个叫做 <code>Iterator</code> 的定义于标准库的 trait。这个 trait 的定义看起来像这样：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-rust" data-lang="rust"><span class="k">pub</span><span class="w"> </span><span class="k">trait</span><span class="w"> </span><span class="nb">Iterator</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span><span class="w">    </span><span class="k">type</span> <span class="nc">Item</span><span class="p">;</span><span class="w">
+</span><span class="w">
+</span><span class="w">    </span><span class="k">fn</span> <span class="nf">next</span><span class="p">(</span><span class="o">&amp;</span><span class="k">mut</span><span class="w"> </span><span class="bp">self</span><span class="p">)</span><span class="w"> </span>-&gt; <span class="nb">Option</span><span class="o">&lt;</span><span class="bp">Self</span>::<span class="n">Item</span><span class="o">&gt;</span><span class="p">;</span><span class="w">
+</span><span class="w">
+</span><span class="w">    </span><span class="c1">// 此处省略了方法的默认实现
+</span><span class="c1"></span><span class="p">}</span><span class="w">
+</span></code></pre></div><p>注意这里有一个我们还未讲到的新语法：<code>type Item</code> 和 <code>Self::Item</code>，他们定义了 trait 的 <strong>关联类型</strong>（<em>associated type</em>）。第十九章会深入讲解关联类型，不过现在只需知道这段代码表明实现 <code>Iterator</code> trait 要求同时定义一个 <code>Item</code> 类型，这个 <code>Item</code> 类型被用作 <code>next</code> 方法的返回值类型。换句话说，<code>Item</code> 类型将是迭代器返回元素的类型。</p>
+<p><code>next</code> 是 <code>Iterator</code> 实现者被要求定义的唯一方法。<code>next</code> 一次返回迭代器中的一个项，封装在 <code>Some</code> 中，当迭代器结束时，它返回 <code>None</code>。</p>
+<p>可以直接调用迭代器的 <code>next</code> 方法；示例 13-15 有一个测试展示了重复调用由 vector 创建的迭代器的 <code>next</code> 方法所得到的值：</p>
+<p>文件名: src/lib.rs</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-rust" data-lang="rust"><span class="w">    </span><span class="cp">#[test]</span><span class="w">
+</span><span class="w">    </span><span class="k">fn</span> <span class="nf">iterator_demonstration</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span><span class="w">        </span><span class="kd">let</span><span class="w"> </span><span class="n">v1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="fm">vec!</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="mi">3</span><span class="p">];</span><span class="w">
+</span><span class="w">
+</span><span class="w">        </span><span class="kd">let</span><span class="w"> </span><span class="k">mut</span><span class="w"> </span><span class="n">v1_iter</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">v1</span><span class="p">.</span><span class="n">iter</span><span class="p">();</span><span class="w">
+</span><span class="w">
+</span><span class="w">        </span><span class="fm">assert_eq!</span><span class="p">(</span><span class="n">v1_iter</span><span class="p">.</span><span class="n">next</span><span class="p">(),</span><span class="w"> </span><span class="nb">Some</span><span class="p">(</span><span class="o">&amp;</span><span class="mi">1</span><span class="p">));</span><span class="w">
+</span><span class="w">        </span><span class="fm">assert_eq!</span><span class="p">(</span><span class="n">v1_iter</span><span class="p">.</span><span class="n">next</span><span class="p">(),</span><span class="w"> </span><span class="nb">Some</span><span class="p">(</span><span class="o">&amp;</span><span class="mi">2</span><span class="p">));</span><span class="w">
+</span><span class="w">        </span><span class="fm">assert_eq!</span><span class="p">(</span><span class="n">v1_iter</span><span class="p">.</span><span class="n">next</span><span class="p">(),</span><span class="w"> </span><span class="nb">Some</span><span class="p">(</span><span class="o">&amp;</span><span class="mi">3</span><span class="p">));</span><span class="w">
+</span><span class="w">        </span><span class="fm">assert_eq!</span><span class="p">(</span><span class="n">v1_iter</span><span class="p">.</span><span class="n">next</span><span class="p">(),</span><span class="w"> </span><span class="nb">None</span><span class="p">);</span><span class="w">
+</span><span class="w">    </span><span class="p">}</span><span class="w">
+</span></code></pre></div><p>示例 13-15：在迭代器上（直接）调用 <code>next</code> 方法</p>
+<p>注意 <code>v1_iter</code> 需要是可变的：在迭代器上调用 <code>next</code> 方法改变了迭代器中用来记录序列位置的状态。换句话说，代码 <strong>消费</strong>（consume）了，或使用了迭代器。每一个 <code>next</code> 调用都会从迭代器中消费一个项。使用 <code>for</code> 循环时无需使 <code>v1_iter</code> 可变因为 <code>for</code> 循环会获取 <code>v1_iter</code> 的所有权并在后台使 <code>v1_iter</code> 可变。</p>
+<p>另外需要注意到从 <code>next</code> 调用中得到的值是 vector 的不可变引用。<code>iter</code> 方法生成一个不可变引用的迭代器。如果我们需要一个获取 <code>v1</code> 所有权并返回拥有所有权的迭代器，则可以调用 <code>into_iter</code> 而不是 <code>iter</code>。类似的，如果我们希望迭代可变引用，则可以调用 <code>iter_mut</code> 而不是 <code>iter</code>。</p>
+<h3 id="消费迭代器的方法httpskaiserygithubiotrpl-zh-cnch13-02-iteratorshtml消费迭代器的方法"><a href="https://kaisery.github.io/trpl-zh-cn/ch13-02-iterators.html#%E6%B6%88%E8%B4%B9%E8%BF%AD%E4%BB%A3%E5%99%A8%E7%9A%84%E6%96%B9%E6%B3%95">消费迭代器的方法</a></h3>
+<p><code>Iterator</code> trait 有一系列不同的由标准库提供默认实现的方法；你可以在 <code>Iterator</code> trait 的标准库 API 文档中找到所有这些方法。一些方法在其定义中调用了 <code>next</code> 方法，这也就是为什么在实现 <code>Iterator</code> trait 时要求实现 <code>next</code> 方法的原因。</p>
+<p>这些调用 <code>next</code> 方法的方法被称为 <strong>消费适配器</strong>（<em>consuming adaptors</em>），因为调用他们会消耗迭代器。一个消费适配器的例子是 <code>sum</code> 方法。这个方法获取迭代器的所有权并反复调用 <code>next</code> 来遍历迭代器，因而会消费迭代器。当其遍历每一个项时，它将每一个项加总到一个总和并在迭代完成时返回总和。示例 13-16 有一个展示 <code>sum</code> 方法使用的测试：</p>
+<p>文件名: src/lib.rs</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-rust" data-lang="rust"><span class="w">    </span><span class="cp">#[test]</span><span class="w">
+</span><span class="w">    </span><span class="k">fn</span> <span class="nf">iterator_sum</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span><span class="w">        </span><span class="kd">let</span><span class="w"> </span><span class="n">v1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="fm">vec!</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="mi">3</span><span class="p">];</span><span class="w">
+</span><span class="w">
+</span><span class="w">        </span><span class="kd">let</span><span class="w"> </span><span class="n">v1_iter</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">v1</span><span class="p">.</span><span class="n">iter</span><span class="p">();</span><span class="w">
+</span><span class="w">
+</span><span class="w">        </span><span class="kd">let</span><span class="w"> </span><span class="n">total</span>: <span class="kt">i32</span> <span class="o">=</span><span class="w"> </span><span class="n">v1_iter</span><span class="p">.</span><span class="n">sum</span><span class="p">();</span><span class="w">
+</span><span class="w">
+</span><span class="w">        </span><span class="fm">assert_eq!</span><span class="p">(</span><span class="n">total</span><span class="p">,</span><span class="w"> </span><span class="mi">6</span><span class="p">);</span><span class="w">
+</span><span class="w">    </span><span class="p">}</span><span class="w">
+</span></code></pre></div><p>示例 13-16：调用 <code>sum</code> 方法获取迭代器所有项的总和</p>
+<p>调用 <code>sum</code> 之后不再允许使用 <code>v1_iter</code> 因为调用 <code>sum</code> 时它会获取迭代器的所有权。</p>
+<h3 id="产生其他迭代器的方法httpskaiserygithubiotrpl-zh-cnch13-02-iteratorshtml产生其他迭代器的方法"><a href="https://kaisery.github.io/trpl-zh-cn/ch13-02-iterators.html#%E4%BA%A7%E7%94%9F%E5%85%B6%E4%BB%96%E8%BF%AD%E4%BB%A3%E5%99%A8%E7%9A%84%E6%96%B9%E6%B3%95">产生其他迭代器的方法</a></h3>
+<p><code>Iterator</code> trait 中定义了另一类方法，被称为 <strong>迭代器适配器</strong>（<em>iterator adaptors</em>），他们允许我们将当前迭代器变为不同类型的迭代器。可以链式调用多个迭代器适配器。不过因为所有的迭代器都是惰性的，必须调用一个消费适配器方法以便获取迭代器适配器调用的结果。</p>
+<p>示例 13-17 展示了一个调用迭代器适配器方法 <code>map</code> 的例子，该 <code>map</code> 方法使用闭包来调用每个元素以生成新的迭代器。 这里的闭包创建了一个新的迭代器，对其中 vector 中的每个元素都被加 1。不过这些代码会产生一个警告：</p>
+<p>文件名: src/main.rs</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-rust" data-lang="rust"><span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="n">v1</span>: <span class="nb">Vec</span><span class="o">&lt;</span><span class="kt">i32</span><span class="o">&gt;</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="fm">vec!</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="mi">3</span><span class="p">];</span><span class="w">
+</span><span class="w">
+</span><span class="w">    </span><span class="n">v1</span><span class="p">.</span><span class="n">iter</span><span class="p">().</span><span class="n">map</span><span class="p">(</span><span class="o">|</span><span class="n">x</span><span class="o">|</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="p">);</span><span class="w">
+</span></code></pre></div><p>示例 13-17：调用迭代器适配器 <code>map</code> 来创建一个新迭代器</p>
+<p>得到的警告是：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-console" data-lang="console"><span class="gp">$ </span>cargo run
+<span class="go">   Compiling iterators v0.1.0 (file:///projects/iterators)
+</span><span class="go">warning: unused `Map` that must be used
+</span><span class="go"> --&gt; src/main.rs:4:5
+</span><span class="go">  |
+</span><span class="go">4 |     v1.iter().map(|x| x + 1);
+</span><span class="go">  |     ^^^^^^^^^^^^^^^^^^^^^^^^^
+</span><span class="go">  |
+</span><span class="go">  = note: `#[warn(unused_must_use)]` on by default
+</span><span class="go">  = note: iterators are lazy and do nothing unless consumed
+</span><span class="go"></span><span class="err">
+</span><span class="err"></span><span class="go">warning: `iterators` (bin &#34;iterators&#34;) generated 1 warning
+</span><span class="go">    Finished dev [unoptimized + debuginfo] target(s) in 0.47s
+</span><span class="go">     Running `target/debug/iterators`
+</span></code></pre></div><p>示例 13-17 中的代码实际上并没有做任何事；所指定的闭包从未被调用过。警告提醒了我们为什么：迭代器适配器是惰性的，而这里我们需要消费迭代器。</p>
+<p>为了修复这个警告并消费迭代器获取有用的结果，我们将使用第十二章示例 12-1 结合 <code>env::args</code> 使用的 <code>collect</code> 方法。这个方法消费迭代器并将结果收集到一个数据结构中。</p>
+<p>在示例 13-18 中，我们将遍历由 <code>map</code> 调用生成的迭代器的结果收集到一个 vector 中，它将会含有原始 vector 中每个元素加 1 的结果：</p>
+<p>文件名: src/main.rs</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-rust" data-lang="rust"><span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="n">v1</span>: <span class="nb">Vec</span><span class="o">&lt;</span><span class="kt">i32</span><span class="o">&gt;</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="fm">vec!</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="mi">3</span><span class="p">];</span><span class="w">
+</span><span class="w">
+</span><span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="n">v2</span>: <span class="nb">Vec</span><span class="o">&lt;</span><span class="n">_</span><span class="o">&gt;</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">v1</span><span class="p">.</span><span class="n">iter</span><span class="p">().</span><span class="n">map</span><span class="p">(</span><span class="o">|</span><span class="n">x</span><span class="o">|</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="p">).</span><span class="n">collect</span><span class="p">();</span><span class="w">
+</span><span class="w">
+</span><span class="w">    </span><span class="fm">assert_eq!</span><span class="p">(</span><span class="n">v2</span><span class="p">,</span><span class="w"> </span><span class="fm">vec!</span><span class="p">[</span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="mi">3</span><span class="p">,</span><span class="w"> </span><span class="mi">4</span><span class="p">]);</span><span class="w">
+</span></code></pre></div><p>示例 13-18：调用 <code>map</code> 方法创建一个新迭代器，接着调用 <code>collect</code> 方法消费新迭代器并创建一个 vector</p>
+<p>因为 <code>map</code> 获取一个闭包，可以指定任何希望在遍历的每个元素上执行的操作。这是一个展示如何使用闭包来自定义行为同时又复用 <code>Iterator</code> trait 提供的迭代行为的绝佳例子。</p>
+<h3 id="使用闭包获取环境httpskaiserygithubiotrpl-zh-cnch13-02-iteratorshtml使用闭包获取环境"><a href="https://kaisery.github.io/trpl-zh-cn/ch13-02-iterators.html#%E4%BD%BF%E7%94%A8%E9%97%AD%E5%8C%85%E8%8E%B7%E5%8F%96%E7%8E%AF%E5%A2%83">使用闭包获取环境</a></h3>
+<p>现在我们介绍了迭代器，让我们展示一个通过使用 <code>filter</code> 迭代器适配器和捕获环境的闭包的常规用例。迭代器的 <code>filter</code> 方法获取一个使用迭代器的每一个项并返回布尔值的闭包。如果闭包返回 <code>true</code>，其值将会包含在 <code>filter</code> 提供的新迭代器中。如果闭包返回 <code>false</code>，其值不会包含在结果迭代器中。</p>
+<p>示例 13-19 展示了使用 <code>filter</code> 和一个捕获环境中变量 <code>shoe_size</code> 的闭包，这样闭包就可以遍历一个 <code>Shoe</code> 结构体集合以便只返回指定大小的鞋子：</p>
+<p>文件名: src/lib.rs</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-rust" data-lang="rust"><span class="cp">#[derive(PartialEq, Debug)]</span><span class="w">
+</span><span class="w"></span><span class="k">struct</span> <span class="nc">Shoe</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span><span class="w">    </span><span class="n">size</span>: <span class="kt">u32</span><span class="p">,</span><span class="w">
+</span><span class="w">    </span><span class="n">style</span>: <span class="nb">String</span><span class="p">,</span><span class="w">
+</span><span class="w"></span><span class="p">}</span><span class="w">
+</span><span class="w">
+</span><span class="w"></span><span class="k">fn</span> <span class="nf">shoes_in_size</span><span class="p">(</span><span class="n">shoes</span>: <span class="nb">Vec</span><span class="o">&lt;</span><span class="n">Shoe</span><span class="o">&gt;</span><span class="p">,</span><span class="w"> </span><span class="n">shoe_size</span>: <span class="kt">u32</span><span class="p">)</span><span class="w"> </span>-&gt; <span class="nb">Vec</span><span class="o">&lt;</span><span class="n">Shoe</span><span class="o">&gt;</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span><span class="w">    </span><span class="n">shoes</span><span class="p">.</span><span class="n">into_iter</span><span class="p">().</span><span class="n">filter</span><span class="p">(</span><span class="o">|</span><span class="n">s</span><span class="o">|</span><span class="w"> </span><span class="n">s</span><span class="p">.</span><span class="n">size</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">shoe_size</span><span class="p">).</span><span class="n">collect</span><span class="p">()</span><span class="w">
+</span><span class="w"></span><span class="p">}</span><span class="w">
+</span><span class="w">
+</span><span class="w"></span><span class="cp">#[cfg(test)]</span><span class="w">
+</span><span class="w"></span><span class="k">mod</span> <span class="nn">tests</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span><span class="w">    </span><span class="k">use</span><span class="w"> </span><span class="k">super</span>::<span class="o">*</span><span class="p">;</span><span class="w">
+</span><span class="w">
+</span><span class="w">    </span><span class="cp">#[test]</span><span class="w">
+</span><span class="w">    </span><span class="k">fn</span> <span class="nf">filters_by_size</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span><span class="w">        </span><span class="kd">let</span><span class="w"> </span><span class="n">shoes</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="fm">vec!</span><span class="p">[</span><span class="w">
+</span><span class="w">            </span><span class="n">Shoe</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span><span class="w">                </span><span class="n">size</span>: <span class="mi">10</span><span class="p">,</span><span class="w">
+</span><span class="w">                </span><span class="n">style</span>: <span class="nb">String</span>::<span class="n">from</span><span class="p">(</span><span class="s">&#34;sneaker&#34;</span><span class="p">),</span><span class="w">
+</span><span class="w">            </span><span class="p">},</span><span class="w">
+</span><span class="w">            </span><span class="n">Shoe</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span><span class="w">                </span><span class="n">size</span>: <span class="mi">13</span><span class="p">,</span><span class="w">
+</span><span class="w">                </span><span class="n">style</span>: <span class="nb">String</span>::<span class="n">from</span><span class="p">(</span><span class="s">&#34;sandal&#34;</span><span class="p">),</span><span class="w">
+</span><span class="w">            </span><span class="p">},</span><span class="w">
+</span><span class="w">            </span><span class="n">Shoe</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span><span class="w">                </span><span class="n">size</span>: <span class="mi">10</span><span class="p">,</span><span class="w">
+</span><span class="w">                </span><span class="n">style</span>: <span class="nb">String</span>::<span class="n">from</span><span class="p">(</span><span class="s">&#34;boot&#34;</span><span class="p">),</span><span class="w">
+</span><span class="w">            </span><span class="p">},</span><span class="w">
+</span><span class="w">        </span><span class="p">];</span><span class="w">
+</span><span class="w">
+</span><span class="w">        </span><span class="kd">let</span><span class="w"> </span><span class="n">in_my_size</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">shoes_in_size</span><span class="p">(</span><span class="n">shoes</span><span class="p">,</span><span class="w"> </span><span class="mi">10</span><span class="p">);</span><span class="w">
+</span><span class="w">
+</span><span class="w">        </span><span class="fm">assert_eq!</span><span class="p">(</span><span class="w">
+</span><span class="w">            </span><span class="n">in_my_size</span><span class="p">,</span><span class="w">
+</span><span class="w">            </span><span class="fm">vec!</span><span class="p">[</span><span class="w">
+</span><span class="w">                </span><span class="n">Shoe</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span><span class="w">                    </span><span class="n">size</span>: <span class="mi">10</span><span class="p">,</span><span class="w">
+</span><span class="w">                    </span><span class="n">style</span>: <span class="nb">String</span>::<span class="n">from</span><span class="p">(</span><span class="s">&#34;sneaker&#34;</span><span class="p">)</span><span class="w">
+</span><span class="w">                </span><span class="p">},</span><span class="w">
+</span><span class="w">                </span><span class="n">Shoe</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span><span class="w">                    </span><span class="n">size</span>: <span class="mi">10</span><span class="p">,</span><span class="w">
+</span><span class="w">                    </span><span class="n">style</span>: <span class="nb">String</span>::<span class="n">from</span><span class="p">(</span><span class="s">&#34;boot&#34;</span><span class="p">)</span><span class="w">
+</span><span class="w">                </span><span class="p">},</span><span class="w">
+</span><span class="w">            </span><span class="p">]</span><span class="w">
+</span><span class="w">        </span><span class="p">);</span><span class="w">
+</span><span class="w">    </span><span class="p">}</span><span class="w">
+</span><span class="w"></span><span class="p">}</span><span class="w">
+</span></code></pre></div><p>示例 13-19：使用 <code>filter</code> 方法和一个捕获 <code>shoe_size</code> 的闭包</p>
+<p><code>shoes_in_my_size</code> 函数获取一个鞋子 vector 的所有权和一个鞋子大小作为参数。它返回一个只包含指定大小鞋子的 vector。</p>
+<p><code>shoes_in_my_size</code> 函数体中调用了 <code>into_iter</code> 来创建一个获取 vector 所有权的迭代器。接着调用 <code>filter</code> 将这个迭代器适配成一个只含有那些闭包返回 <code>true</code> 的元素的新迭代器。</p>
+<p>闭包从环境中捕获了 <code>shoe_size</code> 变量并使用其值与每一只鞋的大小作比较，只保留指定大小的鞋子。最终，调用 <code>collect</code> 将迭代器适配器返回的值收集进一个 vector 并返回。</p>
+<p>这个测试展示当调用 <code>shoes_in_my_size</code> 时，我们只会得到与指定值相同大小的鞋子。</p>
+<h3 id="实现-iterator-trait-来创建自定义迭代器httpskaiserygithubiotrpl-zh-cnch13-02-iteratorshtml实现-iterator-trait-来创建自定义迭代器"><a href="https://kaisery.github.io/trpl-zh-cn/ch13-02-iterators.html#%E5%AE%9E%E7%8E%B0-iterator-trait-%E6%9D%A5%E5%88%9B%E5%BB%BA%E8%87%AA%E5%AE%9A%E4%B9%89%E8%BF%AD%E4%BB%A3%E5%99%A8">实现 <code>Iterator</code> trait 来创建自定义迭代器</a></h3>
+<p>我们已经展示了可以通过在 vector 上调用 <code>iter</code>、<code>into_iter</code> 或 <code>iter_mut</code> 来创建一个迭代器。也可以用标准库中其他的集合类型创建迭代器，比如哈希 map。另外，可以实现 <code>Iterator</code> trait 来创建任何我们希望的迭代器。正如之前提到的，定义中唯一要求提供的方法就是 <code>next</code> 方法。一旦定义了它，就可以使用所有其他由 <code>Iterator</code> trait 提供的拥有默认实现的方法来创建自定义迭代器了！</p>
+<p>作为展示，让我们创建一个只会从 1 数到 5 的迭代器。首先，创建一个结构体来存放一些值，接着实现 <code>Iterator</code> trait 将这个结构体放入迭代器中并在此实现中使用其值。</p>
+<p>示例 13-20 有一个 <code>Counter</code> 结构体定义和一个创建 <code>Counter</code> 实例的关联函数 <code>new</code>：</p>
+<p>文件名: src/lib.rs</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-rust" data-lang="rust"><span class="k">struct</span> <span class="nc">Counter</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span><span class="w">    </span><span class="n">count</span>: <span class="kt">u32</span><span class="p">,</span><span class="w">
+</span><span class="w"></span><span class="p">}</span><span class="w">
+</span><span class="w">
+</span><span class="w"></span><span class="k">impl</span><span class="w"> </span><span class="n">Counter</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span><span class="w">    </span><span class="k">fn</span> <span class="nf">new</span><span class="p">()</span><span class="w"> </span>-&gt; <span class="nc">Counter</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span><span class="w">        </span><span class="n">Counter</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">count</span>: <span class="mi">0</span><span class="w"> </span><span class="p">}</span><span class="w">
+</span><span class="w">    </span><span class="p">}</span><span class="w">
+</span><span class="w"></span><span class="p">}</span><span class="w">
+</span></code></pre></div><p>示例 13-20：定义 <code>Counter</code> 结构体和一个创建 <code>count</code> 初值为 0 的 <code>Counter</code> 实例的 <code>new</code> 函数</p>
+<p><code>Counter</code> 结构体有一个字段 <code>count</code>。这个字段存放一个 <code>u32</code> 值，它会记录处理 1 到 5 的迭代过程中的位置。<code>count</code> 是私有的因为我们希望 <code>Counter</code> 的实现来管理这个值。<code>new</code> 函数通过总是从为 0 的 <code>count</code> 字段开始新实例来确保我们需要的行为。</p>
+<p>接下来将为 <code>Counter</code> 类型实现 <code>Iterator</code> trait，通过定义 <code>next</code> 方法来指定使用迭代器时的行为，如示例 13-21 所示：</p>
+<p>文件名: src/lib.rs</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-rust" data-lang="rust"><span class="k">impl</span><span class="w"> </span><span class="nb">Iterator</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="n">Counter</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span><span class="w">    </span><span class="k">type</span> <span class="nc">Item</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kt">u32</span><span class="p">;</span><span class="w">
+</span><span class="w">
+</span><span class="w">    </span><span class="k">fn</span> <span class="nf">next</span><span class="p">(</span><span class="o">&amp;</span><span class="k">mut</span><span class="w"> </span><span class="bp">self</span><span class="p">)</span><span class="w"> </span>-&gt; <span class="nb">Option</span><span class="o">&lt;</span><span class="bp">Self</span>::<span class="n">Item</span><span class="o">&gt;</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span><span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="bp">self</span><span class="p">.</span><span class="n">count</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="mi">5</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span><span class="w">            </span><span class="bp">self</span><span class="p">.</span><span class="n">count</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span><span class="w">
+</span><span class="w">            </span><span class="nb">Some</span><span class="p">(</span><span class="bp">self</span><span class="p">.</span><span class="n">count</span><span class="p">)</span><span class="w">
+</span><span class="w">        </span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span><span class="w">            </span><span class="nb">None</span><span class="w">
+</span><span class="w">        </span><span class="p">}</span><span class="w">
+</span><span class="w">    </span><span class="p">}</span><span class="w">
+</span><span class="w"></span><span class="p">}</span><span class="w">
+</span></code></pre></div><p>示例 13-21：在 <code>Counter</code> 结构体上实现 <code>Iterator</code> trait</p>
+<p>这里将迭代器的关联类型 <code>Item</code> 设置为 <code>u32</code>，意味着迭代器会返回 <code>u32</code> 值集合。再一次，这里仍无需担心关联类型，第十九章会讲到。</p>
+<p>我们希望迭代器对其内部状态加一，这也就是为何将 <code>count</code> 初始化为 0：我们希望迭代器首先返回 1。如果 <code>count</code> 值小于 6，<code>next</code> 会返回封装在 <code>Some</code> 中的当前值，不过如果 <code>count</code> 大于或等于 6，迭代器会返回 <code>None</code>。</p>
+<h4 id="使用-counter-迭代器的-next-方法httpskaiserygithubiotrpl-zh-cnch13-02-iteratorshtml使用-counter-迭代器的-next-方法"><a href="https://kaisery.github.io/trpl-zh-cn/ch13-02-iterators.html#%E4%BD%BF%E7%94%A8-counter-%E8%BF%AD%E4%BB%A3%E5%99%A8%E7%9A%84-next-%E6%96%B9%E6%B3%95">使用 <code>Counter</code> 迭代器的 <code>next</code> 方法</a></h4>
+<p>一旦实现了 <code>Iterator</code> trait，我们就有了一个迭代器！示例 13-22 展示了一个测试用来演示使用 <code>Counter</code> 结构体的迭代器功能，通过直接调用 <code>next</code> 方法，正如示例 13-15 中从 vector 创建的迭代器那样：</p>
+<p>文件名: src/lib.rs</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-rust" data-lang="rust"><span class="w">    </span><span class="cp">#[test]</span><span class="w">
+</span><span class="w">    </span><span class="k">fn</span> <span class="nf">calling_next_directly</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span><span class="w">        </span><span class="kd">let</span><span class="w"> </span><span class="k">mut</span><span class="w"> </span><span class="n">counter</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Counter</span>::<span class="n">new</span><span class="p">();</span><span class="w">
+</span><span class="w">
+</span><span class="w">        </span><span class="fm">assert_eq!</span><span class="p">(</span><span class="n">counter</span><span class="p">.</span><span class="n">next</span><span class="p">(),</span><span class="w"> </span><span class="nb">Some</span><span class="p">(</span><span class="mi">1</span><span class="p">));</span><span class="w">
+</span><span class="w">        </span><span class="fm">assert_eq!</span><span class="p">(</span><span class="n">counter</span><span class="p">.</span><span class="n">next</span><span class="p">(),</span><span class="w"> </span><span class="nb">Some</span><span class="p">(</span><span class="mi">2</span><span class="p">));</span><span class="w">
+</span><span class="w">        </span><span class="fm">assert_eq!</span><span class="p">(</span><span class="n">counter</span><span class="p">.</span><span class="n">next</span><span class="p">(),</span><span class="w"> </span><span class="nb">Some</span><span class="p">(</span><span class="mi">3</span><span class="p">));</span><span class="w">
+</span><span class="w">        </span><span class="fm">assert_eq!</span><span class="p">(</span><span class="n">counter</span><span class="p">.</span><span class="n">next</span><span class="p">(),</span><span class="w"> </span><span class="nb">Some</span><span class="p">(</span><span class="mi">4</span><span class="p">));</span><span class="w">
+</span><span class="w">        </span><span class="fm">assert_eq!</span><span class="p">(</span><span class="n">counter</span><span class="p">.</span><span class="n">next</span><span class="p">(),</span><span class="w"> </span><span class="nb">Some</span><span class="p">(</span><span class="mi">5</span><span class="p">));</span><span class="w">
+</span><span class="w">        </span><span class="fm">assert_eq!</span><span class="p">(</span><span class="n">counter</span><span class="p">.</span><span class="n">next</span><span class="p">(),</span><span class="w"> </span><span class="nb">None</span><span class="p">);</span><span class="w">
+</span><span class="w">    </span><span class="p">}</span><span class="w">
+</span></code></pre></div><p>示例 13-22：测试 <code>next</code> 方法实现的功能</p>
+<p>这个测试在 <code>counter</code> 变量中新建了一个 <code>Counter</code> 实例并接着反复调用 <code>next</code> 方法，来验证我们实现的行为符合这个迭代器返回从 1 到 5 的值的预期。</p>
+<h4 id="使用自定义迭代器中其他-iterator-trait-方法httpskaiserygithubiotrpl-zh-cnch13-02-iteratorshtml使用自定义迭代器中其他-iterator-trait-方法"><a href="https://kaisery.github.io/trpl-zh-cn/ch13-02-iterators.html#%E4%BD%BF%E7%94%A8%E8%87%AA%E5%AE%9A%E4%B9%89%E8%BF%AD%E4%BB%A3%E5%99%A8%E4%B8%AD%E5%85%B6%E4%BB%96-iterator-trait-%E6%96%B9%E6%B3%95">使用自定义迭代器中其他 <code>Iterator</code> trait 方法</a></h4>
+<p>通过定义 <code>next</code> 方法实现 <code>Iterator</code> trait，我们现在就可以使用任何标准库定义的拥有默认实现的 <code>Iterator</code> trait 方法了，因为他们都使用了 <code>next</code> 方法的功能。</p>
+<p>例如，出于某种原因我们希望获取 <code>Counter</code> 实例产生的值，将这些值与另一个 <code>Counter</code> 实例在省略了第一个值之后产生的值配对，将每一对值相乘，只保留那些可以被三整除的结果，然后将所有保留的结果相加，这可以如示例 13-23 中的测试这样做：</p>
+<p>文件名: src/lib.rs</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-rust" data-lang="rust"><span class="w">    </span><span class="cp">#[test]</span><span class="w">
+</span><span class="w">    </span><span class="k">fn</span> <span class="nf">using_other_iterator_trait_methods</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span><span class="w">        </span><span class="kd">let</span><span class="w"> </span><span class="n">sum</span>: <span class="kt">u32</span> <span class="o">=</span><span class="w"> </span><span class="n">Counter</span>::<span class="n">new</span><span class="p">()</span><span class="w">
+</span><span class="w">            </span><span class="p">.</span><span class="n">zip</span><span class="p">(</span><span class="n">Counter</span>::<span class="n">new</span><span class="p">().</span><span class="n">skip</span><span class="p">(</span><span class="mi">1</span><span class="p">))</span><span class="w">
+</span><span class="w">            </span><span class="p">.</span><span class="n">map</span><span class="p">(</span><span class="o">|</span><span class="p">(</span><span class="n">a</span><span class="p">,</span><span class="w"> </span><span class="n">b</span><span class="p">)</span><span class="o">|</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">b</span><span class="p">)</span><span class="w">
+</span><span class="w">            </span><span class="p">.</span><span class="n">filter</span><span class="p">(</span><span class="o">|</span><span class="n">x</span><span class="o">|</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">%</span><span class="w"> </span><span class="mi">3</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="w">
+</span><span class="w">            </span><span class="p">.</span><span class="n">sum</span><span class="p">();</span><span class="w">
+</span><span class="w">        </span><span class="fm">assert_eq!</span><span class="p">(</span><span class="mi">18</span><span class="p">,</span><span class="w"> </span><span class="n">sum</span><span class="p">);</span><span class="w">
+</span><span class="w">    </span><span class="p">}</span><span class="w">
+</span></code></pre></div><p>示例 13-23：使用自定义的 <code>Counter</code> 迭代器的多种方法</p>
+<p>注意 <code>zip</code> 只产生四对值；理论上第五对值 <code>(5, None)</code> 从未被产生，因为 <code>zip</code> 在任一输入迭代器返回 <code>None</code> 时也返回 <code>None</code>。</p>
+<p>所有这些方法调用都是可能的，因为我们指定了 <code>next</code> 方法如何工作，而标准库则提供了其它调用 <code>next</code> 的方法的默认实现。</p>
+<h1 id="四改进-io-项目httpskaiserygithubiotrpl-zh-cnch13-03-improving-our-io-projecthtml改进-io-项目">四.<a href="https://kaisery.github.io/trpl-zh-cn/ch13-03-improving-our-io-project.html#%E6%94%B9%E8%BF%9B-io-%E9%A1%B9%E7%9B%AE">改进 I/O 项目</a></h1>
+<p>有了这些关于迭代器的新知识，我们可以使用迭代器来改进第十二章中 I/O 项目的实现来使得代码更简洁明了。让我们看看迭代器如何能够改进 <code>Config::new</code> 函数和 <code>search</code> 函数的实现。</p>
+<h3 id="使用迭代器并去掉-clonehttpskaiserygithubiotrpl-zh-cnch13-03-improving-our-io-projecthtml使用迭代器并去掉-clone"><a href="https://kaisery.github.io/trpl-zh-cn/ch13-03-improving-our-io-project.html#%E4%BD%BF%E7%94%A8%E8%BF%AD%E4%BB%A3%E5%99%A8%E5%B9%B6%E5%8E%BB%E6%8E%89-clone">使用迭代器并去掉 <code>clone</code></a></h3>
+<p>在示例 12-6 中，我们增加了一些代码获取一个 <code>String</code> slice 并创建一个 <code>Config</code> 结构体的实例，他们索引 slice 中的值并克隆这些值以便 <code>Config</code> 结构体可以拥有这些值。在示例 13-24 中重现了第十二章结尾示例 12-23 中 <code>Config::new</code> 函数的实现：</p>
+<p>文件名: src/lib.rs</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-rust" data-lang="rust"><span class="k">impl</span><span class="w"> </span><span class="n">Config</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span><span class="w">    </span><span class="k">pub</span><span class="w"> </span><span class="k">fn</span> <span class="nf">new</span><span class="p">(</span><span class="n">args</span>: <span class="kp">&amp;</span><span class="p">[</span><span class="nb">String</span><span class="p">])</span><span class="w"> </span>-&gt; <span class="nb">Result</span><span class="o">&lt;</span><span class="n">Config</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;&#39;</span><span class="nb">static</span><span class="w"> </span><span class="kt">str</span><span class="o">&gt;</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span><span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="n">args</span><span class="p">.</span><span class="n">len</span><span class="p">()</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="mi">3</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span><span class="w">            </span><span class="k">return</span><span class="w"> </span><span class="nb">Err</span><span class="p">(</span><span class="s">&#34;not enough arguments&#34;</span><span class="p">);</span><span class="w">
+</span><span class="w">        </span><span class="p">}</span><span class="w">
+</span><span class="w">
+</span><span class="w">        </span><span class="kd">let</span><span class="w"> </span><span class="n">query</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">args</span><span class="p">[</span><span class="mi">1</span><span class="p">].</span><span class="n">clone</span><span class="p">();</span><span class="w">
+</span><span class="w">        </span><span class="kd">let</span><span class="w"> </span><span class="n">filename</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">args</span><span class="p">[</span><span class="mi">2</span><span class="p">].</span><span class="n">clone</span><span class="p">();</span><span class="w">
+</span><span class="w">
+</span><span class="w">        </span><span class="kd">let</span><span class="w"> </span><span class="n">case_sensitive</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">env</span>::<span class="n">var</span><span class="p">(</span><span class="s">&#34;CASE_INSENSITIVE&#34;</span><span class="p">).</span><span class="n">is_err</span><span class="p">();</span><span class="w">
+</span><span class="w">
+</span><span class="w">        </span><span class="nb">Ok</span><span class="p">(</span><span class="n">Config</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span><span class="w">            </span><span class="n">query</span><span class="p">,</span><span class="w">
+</span><span class="w">            </span><span class="n">filename</span><span class="p">,</span><span class="w">
+</span><span class="w">            </span><span class="n">case_sensitive</span><span class="p">,</span><span class="w">
+</span><span class="w">        </span><span class="p">})</span><span class="w">
+</span><span class="w">    </span><span class="p">}</span><span class="w">
+</span><span class="w"></span><span class="p">}</span><span class="w">
+</span></code></pre></div><p>示例 13-24：重现第十二章结尾的 <code>Config::new</code> 函数</p>
+<p>那时我们说过不必担心低效的 <code>clone</code> 调用了，因为将来可以对他们进行改进。好吧，就是现在！</p>
+<p>起初这里需要 <code>clone</code> 的原因是参数 <code>args</code> 中有一个 <code>String</code> 元素的 slice，而 <code>new</code> 函数并不拥有 <code>args</code>。为了能够返回 <code>Config</code> 实例的所有权，我们需要克隆 <code>Config</code> 中字段 <code>query</code> 和 <code>filename</code> 的值，这样 <code>Config</code> 实例就能拥有这些值。</p>
+<p>在学习了迭代器之后，我们可以将 <code>new</code> 函数改为获取一个有所有权的迭代器作为参数而不是借用 slice。我们将使用迭代器功能之前检查 slice 长度和索引特定位置的代码。这会明确 <code>Config::new</code> 的工作因为迭代器会负责访问这些值。</p>
+<p>一旦 <code>Config::new</code> 获取了迭代器的所有权并不再使用借用的索引操作，就可以将迭代器中的 <code>String</code> 值移动到 <code>Config</code> 中，而不是调用 <code>clone</code> 分配新的空间。</p>
+<h4 id="直接使用-envargs-返回的迭代器httpskaiserygithubiotrpl-zh-cnch13-03-improving-our-io-projecthtml直接使用-envargs-返回的迭代器"><a href="https://kaisery.github.io/trpl-zh-cn/ch13-03-improving-our-io-project.html#%E7%9B%B4%E6%8E%A5%E4%BD%BF%E7%94%A8-envargs-%E8%BF%94%E5%9B%9E%E7%9A%84%E8%BF%AD%E4%BB%A3%E5%99%A8">直接使用 <code>env::args</code> 返回的迭代器</a></h4>
+<p>打开 I/O 项目的 <em>src/main.rs</em> 文件，它看起来应该像这样：</p>
+<p>文件名: src/main.rs</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-rust" data-lang="rust"><span class="k">fn</span> <span class="nf">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span><span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="n">args</span>: <span class="nb">Vec</span><span class="o">&lt;</span><span class="nb">String</span><span class="o">&gt;</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">env</span>::<span class="n">args</span><span class="p">().</span><span class="n">collect</span><span class="p">();</span><span class="w">
+</span><span class="w">
+</span><span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="n">config</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Config</span>::<span class="n">new</span><span class="p">(</span><span class="o">&amp;</span><span class="n">args</span><span class="p">).</span><span class="n">unwrap_or_else</span><span class="p">(</span><span class="o">|</span><span class="n">err</span><span class="o">|</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span><span class="w">        </span><span class="fm">eprintln!</span><span class="p">(</span><span class="s">&#34;Problem parsing arguments: {}&#34;</span><span class="p">,</span><span class="w"> </span><span class="n">err</span><span class="p">);</span><span class="w">
+</span><span class="w">        </span><span class="n">process</span>::<span class="n">exit</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span><span class="w">
+</span><span class="w">    </span><span class="p">});</span><span class="w">
+</span><span class="w">
+</span><span class="w">    </span><span class="c1">// --snip--
+</span><span class="c1"></span><span class="p">}</span><span class="w">
+</span></code></pre></div><p>修改第十二章结尾示例 12-24 中的 <code>main</code> 函数的开头为示例 13-25 中的代码。在更新 <code>Config::new</code> 之前这些代码还不能编译：</p>
+<p>文件名: src/main.rs</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-rust" data-lang="rust"><span class="k">fn</span> <span class="nf">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span><span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="n">config</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Config</span>::<span class="n">new</span><span class="p">(</span><span class="n">env</span>::<span class="n">args</span><span class="p">()).</span><span class="n">unwrap_or_else</span><span class="p">(</span><span class="o">|</span><span class="n">err</span><span class="o">|</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span><span class="w">        </span><span class="fm">eprintln!</span><span class="p">(</span><span class="s">&#34;Problem parsing arguments: {}&#34;</span><span class="p">,</span><span class="w"> </span><span class="n">err</span><span class="p">);</span><span class="w">
+</span><span class="w">        </span><span class="n">process</span>::<span class="n">exit</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span><span class="w">
+</span><span class="w">    </span><span class="p">});</span><span class="w">
+</span><span class="w">
+</span><span class="w">    </span><span class="c1">// --snip--
+</span><span class="c1"></span><span class="p">}</span><span class="w">
+</span></code></pre></div><p>示例 13-25：将 <code>env::args</code> 的返回值传递给 <code>Config::new</code></p>
+<p><code>env::args</code> 函数返回一个迭代器！不同于将迭代器的值收集到一个 vector 中接着传递一个 slice 给 <code>Config::new</code>，现在我们直接将 <code>env::args</code> 返回的迭代器的所有权传递给 <code>Config::new</code>。</p>
+<p>接下来需要更新 <code>Config::new</code> 的定义。在 I/O 项目的 <em>src/lib.rs</em> 中，将 <code>Config::new</code> 的签名改为如示例 13-26 所示。这仍然不能编译因为我们还需更新函数体：</p>
+<p>文件名: src/lib.rs</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-rust" data-lang="rust"><span class="k">impl</span><span class="w"> </span><span class="n">Config</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span><span class="w">    </span><span class="k">pub</span><span class="w"> </span><span class="k">fn</span> <span class="nf">new</span><span class="p">(</span><span class="k">mut</span><span class="w"> </span><span class="n">args</span>: <span class="nc">env</span>::<span class="n">Args</span><span class="p">)</span><span class="w"> </span>-&gt; <span class="nb">Result</span><span class="o">&lt;</span><span class="n">Config</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;&#39;</span><span class="nb">static</span><span class="w"> </span><span class="kt">str</span><span class="o">&gt;</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span><span class="w">        </span><span class="c1">// --snip--
+</span></code></pre></div><p>示例 13-26：以迭代器作为参数更新 <code>Config::new</code> 的签名</p>
+<p><code>env::args</code> 函数的标准库文档显示，它返回的迭代器的类型为 <code>std::env::Args</code>。我们已经更新了 <code>Config :: new</code> 函数的签名，因此参数 <code>args</code> 的类型为 <code>std::env::Args</code> 而不是 <code>&amp;[String]</code>。因为我们拥有 <code>args</code> 的所有权，并且将通过对其进行迭代来改变 <code>args</code> ，所以我们可以将 <code>mut</code> 关键字添加到 <code>args</code> 参数的规范中以使其可变。</p>
+<h4 id="使用-iterator-trait-代替索引httpskaiserygithubiotrpl-zh-cnch13-03-improving-our-io-projecthtml使用-iterator-trait-代替索引"><a href="https://kaisery.github.io/trpl-zh-cn/ch13-03-improving-our-io-project.html#%E4%BD%BF%E7%94%A8-iterator-trait-%E4%BB%A3%E6%9B%BF%E7%B4%A2%E5%BC%95">使用 <code>Iterator</code> trait 代替索引</a></h4>
+<p>接下来，我们将修改 <code>Config::new</code> 的内容。标准库文档还提到 <code>std::env::Args</code> 实现了 <code>Iterator</code> trait，因此我们知道可以对其调用 <code>next</code> 方法！示例 13-27 更新了示例 12-23 中的代码，以使用 <code>next</code> 方法：</p>
+<p>文件名: src/lib.rs</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-rust" data-lang="rust"><span class="k">impl</span><span class="w"> </span><span class="n">Config</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span><span class="w">    </span><span class="k">pub</span><span class="w"> </span><span class="k">fn</span> <span class="nf">new</span><span class="p">(</span><span class="k">mut</span><span class="w"> </span><span class="n">args</span>: <span class="nc">env</span>::<span class="n">Args</span><span class="p">)</span><span class="w"> </span>-&gt; <span class="nb">Result</span><span class="o">&lt;</span><span class="n">Config</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;&#39;</span><span class="nb">static</span><span class="w"> </span><span class="kt">str</span><span class="o">&gt;</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span><span class="w">        </span><span class="n">args</span><span class="p">.</span><span class="n">next</span><span class="p">();</span><span class="w">
+</span><span class="w">
+</span><span class="w">        </span><span class="kd">let</span><span class="w"> </span><span class="n">query</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">match</span><span class="w"> </span><span class="n">args</span><span class="p">.</span><span class="n">next</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span><span class="w">            </span><span class="nb">Some</span><span class="p">(</span><span class="n">arg</span><span class="p">)</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">arg</span><span class="p">,</span><span class="w">
+</span><span class="w">            </span><span class="nb">None</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="nb">Err</span><span class="p">(</span><span class="s">&#34;Didn&#39;t get a query string&#34;</span><span class="p">),</span><span class="w">
+</span><span class="w">        </span><span class="p">};</span><span class="w">
+</span><span class="w">
+</span><span class="w">        </span><span class="kd">let</span><span class="w"> </span><span class="n">filename</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">match</span><span class="w"> </span><span class="n">args</span><span class="p">.</span><span class="n">next</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span><span class="w">            </span><span class="nb">Some</span><span class="p">(</span><span class="n">arg</span><span class="p">)</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">arg</span><span class="p">,</span><span class="w">
+</span><span class="w">            </span><span class="nb">None</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="nb">Err</span><span class="p">(</span><span class="s">&#34;Didn&#39;t get a file name&#34;</span><span class="p">),</span><span class="w">
+</span><span class="w">        </span><span class="p">};</span><span class="w">
+</span><span class="w">
+</span><span class="w">        </span><span class="kd">let</span><span class="w"> </span><span class="n">case_sensitive</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">env</span>::<span class="n">var</span><span class="p">(</span><span class="s">&#34;CASE_INSENSITIVE&#34;</span><span class="p">).</span><span class="n">is_err</span><span class="p">();</span><span class="w">
+</span><span class="w">
+</span><span class="w">        </span><span class="nb">Ok</span><span class="p">(</span><span class="n">Config</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span><span class="w">            </span><span class="n">query</span><span class="p">,</span><span class="w">
+</span><span class="w">            </span><span class="n">filename</span><span class="p">,</span><span class="w">
+</span><span class="w">            </span><span class="n">case_sensitive</span><span class="p">,</span><span class="w">
+</span><span class="w">        </span><span class="p">})</span><span class="w">
+</span><span class="w">    </span><span class="p">}</span><span class="w">
+</span><span class="w"></span><span class="p">}</span><span class="w">
+</span></code></pre></div><p>示例 13-27：修改 <code>Config::new</code> 的函数体来使用迭代器方法</p>
+<p>请记住 <code>env::args</code> 返回值的第一个值是程序的名称。我们希望忽略它并获取下一个值，所以首先调用 <code>next</code> 并不对返回值做任何操作。之后对希望放入 <code>Config</code> 中字段 <code>query</code> 调用 <code>next</code>。如果 <code>next</code> 返回 <code>Some</code>，使用 <code>match</code> 来提取其值。如果它返回 <code>None</code>，则意味着没有提供足够的参数并通过 <code>Err</code> 值提早返回。对 <code>filename</code> 值进行同样的操作。</p>
+<h3 id="使用迭代器适配器来使代码更简明httpskaiserygithubiotrpl-zh-cnch13-03-improving-our-io-projecthtml使用迭代器适配器来使代码更简明"><a href="https://kaisery.github.io/trpl-zh-cn/ch13-03-improving-our-io-project.html#%E4%BD%BF%E7%94%A8%E8%BF%AD%E4%BB%A3%E5%99%A8%E9%80%82%E9%85%8D%E5%99%A8%E6%9D%A5%E4%BD%BF%E4%BB%A3%E7%A0%81%E6%9B%B4%E7%AE%80%E6%98%8E">使用迭代器适配器来使代码更简明</a></h3>
+<p>I/O 项目中其他可以利用迭代器的地方是 <code>search</code> 函数，示例 13-28 中重现了第十二章结尾示例 12-19 中此函数的定义：</p>
+<p>文件名: src/lib.rs</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-rust" data-lang="rust"><span class="k">pub</span><span class="w"> </span><span class="k">fn</span> <span class="nf">search</span><span class="o">&lt;&#39;</span><span class="na">a</span><span class="o">&gt;</span><span class="p">(</span><span class="n">query</span>: <span class="kp">&amp;</span><span class="kt">str</span><span class="p">,</span><span class="w"> </span><span class="n">contents</span>: <span class="kp">&amp;</span><span class="o">&#39;</span><span class="na">a</span> <span class="kt">str</span><span class="p">)</span><span class="w"> </span>-&gt; <span class="nb">Vec</span><span class="o">&lt;&amp;&#39;</span><span class="na">a</span><span class="w"> </span><span class="kt">str</span><span class="o">&gt;</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span><span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="k">mut</span><span class="w"> </span><span class="n">results</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">Vec</span>::<span class="n">new</span><span class="p">();</span><span class="w">
+</span><span class="w">
+</span><span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="n">line</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="n">contents</span><span class="p">.</span><span class="n">lines</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span><span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="n">line</span><span class="p">.</span><span class="n">contains</span><span class="p">(</span><span class="n">query</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span><span class="w">            </span><span class="n">results</span><span class="p">.</span><span class="n">push</span><span class="p">(</span><span class="n">line</span><span class="p">);</span><span class="w">
+</span><span class="w">        </span><span class="p">}</span><span class="w">
+</span><span class="w">    </span><span class="p">}</span><span class="w">
+</span><span class="w">
+</span><span class="w">    </span><span class="n">results</span><span class="w">
+</span><span class="w"></span><span class="p">}</span><span class="w">
+</span></code></pre></div><p>示例 13-28：示例 12-19 中 <code>search</code> 函数的定义</p>
+<p>可以通过使用迭代器适配器方法来编写更简明的代码。这也避免了一个可变的中间 <code>results</code> vector 的使用。函数式编程风格倾向于最小化可变状态的数量来使代码更简洁。去掉可变状态可能会使得将来进行并行搜索的增强变得更容易，因为我们不必管理 <code>results</code> vector 的并发访问。示例 13-29 展示了该变化：</p>
+<p>文件名: src/lib.rs</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-rust" data-lang="rust"><span class="k">pub</span><span class="w"> </span><span class="k">fn</span> <span class="nf">search</span><span class="o">&lt;&#39;</span><span class="na">a</span><span class="o">&gt;</span><span class="p">(</span><span class="n">query</span>: <span class="kp">&amp;</span><span class="kt">str</span><span class="p">,</span><span class="w"> </span><span class="n">contents</span>: <span class="kp">&amp;</span><span class="o">&#39;</span><span class="na">a</span> <span class="kt">str</span><span class="p">)</span><span class="w"> </span>-&gt; <span class="nb">Vec</span><span class="o">&lt;&amp;&#39;</span><span class="na">a</span><span class="w"> </span><span class="kt">str</span><span class="o">&gt;</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span><span class="w">    </span><span class="n">contents</span><span class="w">
+</span><span class="w">        </span><span class="p">.</span><span class="n">lines</span><span class="p">()</span><span class="w">
+</span><span class="w">        </span><span class="p">.</span><span class="n">filter</span><span class="p">(</span><span class="o">|</span><span class="n">line</span><span class="o">|</span><span class="w"> </span><span class="n">line</span><span class="p">.</span><span class="n">contains</span><span class="p">(</span><span class="n">query</span><span class="p">))</span><span class="w">
+</span><span class="w">        </span><span class="p">.</span><span class="n">collect</span><span class="p">()</span><span class="w">
+</span><span class="w"></span><span class="p">}</span><span class="w">
+</span></code></pre></div><p>示例 13-29：在 <code>search</code> 函数实现中使用迭代器适配器</p>
+<p>回忆 <code>search</code> 函数的目的是返回所有 <code>contents</code> 中包含 <code>query</code> 的行。类似于示例 13-19 中的 <code>filter</code> 例子，可以使用 <code>filter</code> 适配器只保留 <code>line.contains(query)</code> 返回 <code>true</code> 的那些行。接着使用 <code>collect</code> 将匹配行收集到另一个 vector 中。这样就容易多了！尝试对 <code>search_case_insensitive</code> 函数做出同样的使用迭代器方法的修改吧。</p>
+<p>接下来的逻辑问题就是在代码中应该选择哪种风格：是使用示例 13-28 中的原始实现还是使用示例 13-29 中使用迭代器的版本？大部分 Rust 程序员倾向于使用迭代器风格。开始这有点难以理解，不过一旦你对不同迭代器的工作方式有了感觉之后，迭代器可能会更容易理解。相比摆弄不同的循环并创建新 vector，（迭代器）代码则更关注循环的目的。这抽象掉那些老生常谈的代码，这样就更容易看清代码所特有的概念，比如迭代器中每个元素必须面对的过滤条件。</p>
+<p>不过这两种实现真的完全等同吗？直觉上的假设是更底层的循环会更快一些。让我们聊聊性能吧。</p>
+<h1 id="五性能对比循环-vs-迭代器httpskaiserygithubiotrpl-zh-cnch13-04-performancehtml性能对比循环-vs-迭代器">五.<a href="https://kaisery.github.io/trpl-zh-cn/ch13-04-performance.html#%E6%80%A7%E8%83%BD%E5%AF%B9%E6%AF%94%E5%BE%AA%E7%8E%AF-vs-%E8%BF%AD%E4%BB%A3%E5%99%A8">性能对比：循环 VS 迭代器</a></h1>
+<p>为了决定使用哪个实现，我们需要知道哪个版本的 <code>search</code> 函数更快一些：是直接使用 <code>for</code> 循环的版本还是使用迭代器的版本。</p>
+<p>我们运行了一个性能测试，通过将阿瑟·柯南·道尔的“福尔摩斯探案集”的全部内容加载进 <code>String</code> 并寻找其中的单词 “the”。如下是 <code>for</code> 循环版本和迭代器版本的 <code>search</code> 函数的性能测试结果：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text">test bench_search_for  ... bench:  19,620,300 ns/iter (+/- 915,700)
+test bench_search_iter ... bench:  19,234,900 ns/iter (+/- 657,200)
+</code></pre></div><p>结果迭代器版本还要稍微快一点！这里我们将不会查看性能测试的代码，我们的目的并不是为了证明他们是完全等同的，而是得出一个怎样比较这两种实现方式性能的基本思路。</p>
+<p>对于一个更全面的性能测试，将会检查不同长度的文本、不同的搜索单词、不同长度的单词和所有其他的可变情况。这里所要表达的是：迭代器，作为一个高级的抽象，被编译成了与手写的底层代码大体一致性能代码。迭代器是 Rust 的 <strong>零成本抽象</strong>（<em>zero-cost abstractions</em>）之一，它意味着抽象并不会引入运行时开销，它与本贾尼·斯特劳斯特卢普（C++ 的设计和实现者）在 “Foundations of C++”（2012） 中所定义的 <strong>零开销</strong>（<em>zero-overhead</em>）如出一辙：</p>
+<blockquote>
+<p>In general, C++ implementations obey the zero-overhead principle: What you don’t use, you don’t pay for. And further: What you do use, you couldn’t hand code any better.</p>
+<ul>
+<li>Bjarne Stroustrup &ldquo;Foundations of C++&rdquo;</li>
+</ul>
+<p>从整体来说，C++ 的实现遵循了零开销原则：你不需要的，无需为他们买单。更有甚者的是：你需要的时候，也不可能找到其他更好的代码了。</p>
+<ul>
+<li>本贾尼·斯特劳斯特卢普 &ldquo;Foundations of C++&rdquo;</li>
+</ul>
+</blockquote>
+<p>作为另一个例子，这里有一些取自于音频解码器的代码。解码算法使用线性预测数学运算（linear prediction mathematical operation）来根据之前样本的线性函数预测将来的值。这些代码使用迭代器链来对作用域中的三个变量进行了某种数学计算：一个叫 <code>buffer</code> 的数据 slice、一个有 12 个元素的数组 <code>coefficients</code>、和一个代表位移位数的 <code>qlp_shift</code>。例子中声明了这些变量但并没有提供任何值；虽然这些代码在其上下文之外没有什么意义，不过仍是一个简明的现实中的例子，来展示 Rust 如何将高级概念转换为底层代码：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-rust" data-lang="rust"><span class="kd">let</span><span class="w"> </span><span class="n">buffer</span>: <span class="kp">&amp;</span><span class="nc">mut</span><span class="w"> </span><span class="p">[</span><span class="kt">i32</span><span class="p">];</span><span class="w">
+</span><span class="w"></span><span class="kd">let</span><span class="w"> </span><span class="n">coefficients</span>: <span class="p">[</span><span class="kt">i64</span><span class="p">;</span><span class="w"> </span><span class="mi">12</span><span class="p">];</span><span class="w">
+</span><span class="w"></span><span class="kd">let</span><span class="w"> </span><span class="n">qlp_shift</span>: <span class="kt">i16</span><span class="p">;</span><span class="w">
+</span><span class="w">
+</span><span class="w"></span><span class="k">for</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="mi">12</span><span class="o">..</span><span class="n">buffer</span><span class="p">.</span><span class="n">len</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span><span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="n">prediction</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">coefficients</span><span class="p">.</span><span class="n">iter</span><span class="p">()</span><span class="w">
+</span><span class="w">                                 </span><span class="p">.</span><span class="n">zip</span><span class="p">(</span><span class="o">&amp;</span><span class="n">buffer</span><span class="p">[</span><span class="n">i</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mi">12</span><span class="o">..</span><span class="n">i</span><span class="p">])</span><span class="w">
+</span><span class="w">                                 </span><span class="p">.</span><span class="n">map</span><span class="p">(</span><span class="o">|</span><span class="p">(</span><span class="o">&amp;</span><span class="n">c</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">s</span><span class="p">)</span><span class="o">|</span><span class="w"> </span><span class="n">c</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">s</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="kt">i64</span><span class="p">)</span><span class="w">
+</span><span class="w">                                 </span><span class="p">.</span><span class="n">sum</span>::<span class="o">&lt;</span><span class="kt">i64</span><span class="o">&gt;</span><span class="p">()</span><span class="w"> </span><span class="o">&gt;&gt;</span><span class="w"> </span><span class="n">qlp_shift</span><span class="p">;</span><span class="w">
+</span><span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="n">delta</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">buffer</span><span class="p">[</span><span class="n">i</span><span class="p">];</span><span class="w">
+</span><span class="w">    </span><span class="n">buffer</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">prediction</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="kt">i32</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">delta</span><span class="p">;</span><span class="w">
+</span><span class="w"></span><span class="p">}</span><span class="w">
+</span></code></pre></div><p>为了计算 <code>prediction</code> 的值，这些代码遍历了 <code>coefficients</code> 中的 12 个值，使用 <code>zip</code> 方法将系数与 <code>buffer</code> 的前 12 个值组合在一起。接着将每一对值相乘，再将所有结果相加，然后将总和右移 <code>qlp_shift</code> 位。</p>
+<p>像音频解码器这样的程序通常最看重计算的性能。这里，我们创建了一个迭代器，使用了两个适配器，接着消费了其值。Rust 代码将会被编译为什么样的汇编代码呢？好吧，在编写本书的这个时候，它被编译成与手写的相同的汇编代码。遍历 <code>coefficients</code> 的值完全用不到循环：Rust 知道这里会迭代 12 次，所以它“展开”（unroll）了循环。展开是一种移除循环控制代码的开销并替换为每个迭代中的重复代码的优化。</p>
+<p>所有的系数都被储存在了寄存器中，这意味着访问他们非常快。这里也没有运行时数组访问边界检查。所有这些 Rust 能够提供的优化使得结果代码极为高效。现在知道这些了，请放心大胆的使用迭代器和闭包吧！他们使得代码看起来更高级，但并不为此引入运行时性能损失。</p>
+<h2 id="总结httpskaiserygithubiotrpl-zh-cnch13-04-performancehtml总结"><a href="https://kaisery.github.io/trpl-zh-cn/ch13-04-performance.html#%E6%80%BB%E7%BB%93">总结</a></h2>
+<p>闭包和迭代器是 Rust 受函数式编程语言观念所启发的功能。他们对 Rust 以底层的性能来明确的表达高级概念的能力有很大贡献。闭包和迭代器的实现达到了不影响运行时性能的程度。这正是 Rust 竭力提供零成本抽象的目标的一部分。</p>
+<p>现在我们改进了我们 I/O 项目的（代码）表现力，让我们看一看更多 <code>cargo</code> 的功能，他们将帮助我们准备好将项目分享给世界。</p>
+
+    
+	</div>
+  <footer class="article-footer clearfix">
+  
+
+<div class="article-tags">
+  <span></span>
+  
+  <a href="https://qkgoalkeeper.github.io/tags/rust%E6%95%99%E7%A8%8B">rust教程</a>
+  
+</div>
+
+
+
+
+
+<div class="article-categories">
+  <span></span>
+  
+  <a class="article-category-link" href="https://qkgoalkeeper.github.io/categories/rust">rust</a>
+  
+</div>
+
+
+
+  <div class="article-share" id="share">
+    <div data-url="https://qkgoalkeeper.github.io/post/rustthe_rust_book13rust-%E4%B8%AD%E7%9A%84%E5%87%BD%E6%95%B0%E5%BC%8F%E8%AF%AD%E8%A8%80%E5%8A%9F%E8%83%BD%E8%BF%AD%E4%BB%A3%E5%99%A8%E4%B8%8E%E9%97%AD%E5%8C%85/" data-title="rust：the_rust_book（13）Rust 中的函数式语言功能：迭代器与闭包" data-tsina="5852167252" class="share clearfix">
+    </div>
+  </div>
+</footer>
+
+	</article>
+  
+
+
+
+</div>
+
+    <div class="openaside"><a class="navbutton" href="#" title="显示侧边栏"></a></div>
+<div id="asidepart">
+<div class="closeaside"><a class="closebutton" href="#" title="隐藏侧边栏"></a></div>
+<aside class="clearfix">
+  
+
+<div class="categorieslist">
+  <p class="asidetitle">分类</p>
+  <ul>
+    
+    <li><a href="https://qkgoalkeeper.github.io/categories/golang" title="golang">golang<sup>6</sup></a></li>
+    
+    <li><a href="https://qkgoalkeeper.github.io/categories/leetcode%e5%91%a8%e8%b5%9b" title="leetcode周赛">leetcode周赛<sup>2</sup></a></li>
+    
+    <li><a href="https://qkgoalkeeper.github.io/categories/leetcode%e6%af%8f%e6%97%a5%e4%b8%80%e9%a2%98" title="leetcode每日一题">leetcode每日一题<sup>24</sup></a></li>
+    
+    <li><a href="https://qkgoalkeeper.github.io/categories/leetcode%e7%ae%80%e5%8d%95%e9%a2%981-100" title="leetcode简单题1-100">leetcode简单题1-100<sup>21</sup></a></li>
+    
+    <li><a href="https://qkgoalkeeper.github.io/categories/leetcode%e7%ae%80%e5%8d%95%e9%a2%98101-200" title="leetcode简单题101-200">leetcode简单题101-200<sup>25</sup></a></li>
+    
+    <li><a href="https://qkgoalkeeper.github.io/categories/leetcode%e7%ae%80%e5%8d%95%e9%a2%98201-300" title="leetcode简单题201-300">leetcode简单题201-300<sup>24</sup></a></li>
+    
+    <li><a href="https://qkgoalkeeper.github.io/categories/python" title="python">python<sup>1</sup></a></li>
+    
+    <li><a href="https://qkgoalkeeper.github.io/categories/rust" title="rust">rust<sup>13</sup></a></li>
+    
+    <li><a href="https://qkgoalkeeper.github.io/categories/%e4%bb%a5%e5%a4%aa%e5%9d%8a" title="以太坊">以太坊<sup>1</sup></a></li>
+    
+    <li><a href="https://qkgoalkeeper.github.io/categories/%e5%85%b6%e4%bb%96" title="其他">其他<sup>1</sup></a></li>
+    
+    <li><a href="https://qkgoalkeeper.github.io/categories/%e5%8c%ba%e5%9d%97%e9%93%be" title="区块链">区块链<sup>4</sup></a></li>
+    
+    <li><a href="https://qkgoalkeeper.github.io/categories/%e5%8c%ba%e5%9d%97%e9%93%be%e7%9b%b8%e5%85%b3" title="区块链相关">区块链相关<sup>1</sup></a></li>
+    
+    <li><a href="https://qkgoalkeeper.github.io/categories/%e5%a4%a7%e4%b8%89%e4%b8%8a%e6%95%b0%e6%8d%ae%e5%ba%93%e8%af%be%e7%a8%8b" title="大三上数据库课程">大三上数据库课程<sup>1</sup></a></li>
+    
+    <li><a href="https://qkgoalkeeper.github.io/categories/%e5%a4%a7%e4%b8%89%e4%b8%8bweb%e7%bc%96%e7%a8%8b%e8%af%be%e7%a8%8b" title="大三下web编程课程">大三下web编程课程<sup>2</sup></a></li>
+    
+    <li><a href="https://qkgoalkeeper.github.io/categories/%e5%a4%a7%e5%9b%9bleetcode%e7%ae%97%e6%b3%95%e5%88%b7%e9%a2%98" title="大四leetcode算法刷题">大四leetcode算法刷题<sup>300</sup></a></li>
+    
+    <li><a href="https://qkgoalkeeper.github.io/categories/%e6%95%b0%e6%8d%ae%e5%ba%93" title="数据库">数据库<sup>1</sup></a></li>
+    
+    <li><a href="https://qkgoalkeeper.github.io/categories/%e7%8e%8b%e9%81%93%e6%9c%ba%e8%af%95%e6%8c%87%e5%8d%97" title="王道机试指南">王道机试指南<sup>2</sup></a></li>
+    
+    <li><a href="https://qkgoalkeeper.github.io/categories/%e8%ae%ba%e6%96%87%e8%a7%a3%e8%af%bb" title="论文解读">论文解读<sup>2</sup></a></li>
+    
+  </ul>
+</div>
+
+
+
+  
+
+<div class="tagslist">
+	<p class="asidetitle">标签</p>
+		<ul class="clearfix">
+      
+			<li><a href="https://qkgoalkeeper.github.io/tags/bfs" title="bfs">bfs<sup>13</sup></a></li>
+      
+			<li><a href="https://qkgoalkeeper.github.io/tags/c&#43;&#43;" title="c&#43;&#43;">c&#43;&#43;<sup>289</sup></a></li>
+      
+			<li><a href="https://qkgoalkeeper.github.io/tags/dfs" title="dfs">dfs<sup>27</sup></a></li>
+      
+			<li><a href="https://qkgoalkeeper.github.io/tags/golang" title="golang">golang<sup>40</sup></a></li>
+      
+			<li><a href="https://qkgoalkeeper.github.io/tags/golang%e8%af%ad%e6%b3%95" title="golang语法">golang语法<sup>4</sup></a></li>
+      
+			<li><a href="https://qkgoalkeeper.github.io/tags/javascript" title="javascript">javascript<sup>2</sup></a></li>
+      
+			<li><a href="https://qkgoalkeeper.github.io/tags/leetcode" title="leetcode">leetcode<sup>396</sup></a></li>
+      
+			<li><a href="https://qkgoalkeeper.github.io/tags/rust%e6%95%99%e7%a8%8b" title="rust教程">rust教程<sup>13</sup></a></li>
+      
+			<li><a href="https://qkgoalkeeper.github.io/tags/solidity" title="solidity">solidity<sup>1</sup></a></li>
+      
+			<li><a href="https://qkgoalkeeper.github.io/tags/%e4%ba%8c%e5%88%86%e6%b3%95" title="二分法">二分法<sup>8</sup></a></li>
+      
+			<li><a href="https://qkgoalkeeper.github.io/tags/%e4%bb%a3%e7%a0%81" title="代码">代码<sup>3</sup></a></li>
+      
+			<li><a href="https://qkgoalkeeper.github.io/tags/%e4%bc%98%e5%85%88%e9%98%9f%e5%88%97" title="优先队列">优先队列<sup>4</sup></a></li>
+      
+			<li><a href="https://qkgoalkeeper.github.io/tags/%e4%bd%8d%e8%bf%90%e7%ae%97" title="位运算">位运算<sup>5</sup></a></li>
+      
+			<li><a href="https://qkgoalkeeper.github.io/tags/%e5%88%86%e6%b2%bb%e6%b3%95" title="分治法">分治法<sup>3</sup></a></li>
+      
+			<li><a href="https://qkgoalkeeper.github.io/tags/%e5%89%8d%e7%bc%80%e5%92%8c" title="前缀和">前缀和<sup>5</sup></a></li>
+      
+			<li><a href="https://qkgoalkeeper.github.io/tags/%e5%8a%a8%e6%80%81%e8%a7%84%e5%88%92" title="动态规划">动态规划<sup>32</sup></a></li>
+      
+			<li><a href="https://qkgoalkeeper.github.io/tags/%e5%8c%ba%e5%9d%97%e9%93%be" title="区块链">区块链<sup>4</sup></a></li>
+      
+			<li><a href="https://qkgoalkeeper.github.io/tags/%e5%8d%95%e8%b0%83%e9%98%9f%e5%88%97" title="单调队列">单调队列<sup>1</sup></a></li>
+      
+			<li><a href="https://qkgoalkeeper.github.io/tags/%e5%8f%8c%e6%8c%87%e9%92%88" title="双指针">双指针<sup>2</sup></a></li>
+      
+			<li><a href="https://qkgoalkeeper.github.io/tags/%e5%93%88%e5%b8%8c%e8%a1%a8" title="哈希表">哈希表<sup>7</sup></a></li>
+      
+			<li><a href="https://qkgoalkeeper.github.io/tags/%e5%a0%86" title="堆">堆<sup>3</sup></a></li>
+      
+			<li><a href="https://qkgoalkeeper.github.io/tags/%e5%ad%97%e5%85%b8%e6%a0%91" title="字典树">字典树<sup>6</sup></a></li>
+      
+			<li><a href="https://qkgoalkeeper.github.io/tags/%e5%ad%97%e7%ac%a6%e4%b8%b2" title="字符串">字符串<sup>4</sup></a></li>
+      
+			<li><a href="https://qkgoalkeeper.github.io/tags/%e5%b9%b6%e6%9f%a5%e9%9b%86" title="并查集">并查集<sup>5</sup></a></li>
+      
+			<li><a href="https://qkgoalkeeper.github.io/tags/%e5%ba%8f%e5%88%97%e5%8c%96" title="序列化">序列化<sup>1</sup></a></li>
+      
+			<li><a href="https://qkgoalkeeper.github.io/tags/%e6%8b%93%e6%89%91%e6%8e%92%e5%ba%8f" title="拓扑排序">拓扑排序<sup>3</sup></a></li>
+      
+			<li><a href="https://qkgoalkeeper.github.io/tags/%e6%8e%92%e5%88%97" title="排列">排列<sup>1</sup></a></li>
+      
+			<li><a href="https://qkgoalkeeper.github.io/tags/%e6%8e%92%e5%ba%8f" title="排序">排序<sup>2</sup></a></li>
+      
+			<li><a href="https://qkgoalkeeper.github.io/tags/%e6%95%b0%e5%ad%a6" title="数学">数学<sup>5</sup></a></li>
+      
+			<li><a href="https://qkgoalkeeper.github.io/tags/%e6%95%b0%e6%8d%ae%e5%ba%93" title="数据库">数据库<sup>1</sup></a></li>
+      
+			<li><a href="https://qkgoalkeeper.github.io/tags/%e6%95%b0%e7%bb%84" title="数组">数组<sup>2</sup></a></li>
+      
+			<li><a href="https://qkgoalkeeper.github.io/tags/%e6%a0%88" title="栈">栈<sup>8</sup></a></li>
+      
+			<li><a href="https://qkgoalkeeper.github.io/tags/%e6%a0%91" title="树">树<sup>25</sup></a></li>
+      
+			<li><a href="https://qkgoalkeeper.github.io/tags/%e6%ba%90%e7%a0%81%e7%bc%96%e8%af%91" title="源码编译">源码编译<sup>1</sup></a></li>
+      
+			<li><a href="https://qkgoalkeeper.github.io/tags/%e6%bb%91%e5%8a%a8%e7%aa%97%e5%8f%a3" title="滑动窗口">滑动窗口<sup>10</sup></a></li>
+      
+			<li><a href="https://qkgoalkeeper.github.io/tags/%e7%8e%8b%e9%81%93%e6%9c%ba%e8%af%95%e6%8c%87%e5%8d%97" title="王道机试指南">王道机试指南<sup>2</sup></a></li>
+      
+			<li><a href="https://qkgoalkeeper.github.io/tags/%e7%ba%bf%e6%ae%b5%e6%a0%91" title="线段树">线段树<sup>1</sup></a></li>
+      
+			<li><a href="https://qkgoalkeeper.github.io/tags/%e7%bc%93%e5%ad%98" title="缓存">缓存<sup>2</sup></a></li>
+      
+			<li><a href="https://qkgoalkeeper.github.io/tags/%e8%ae%ba%e6%96%87%e8%a7%a3%e8%af%bb" title="论文解读">论文解读<sup>2</sup></a></li>
+      
+			<li><a href="https://qkgoalkeeper.github.io/tags/%e8%b4%aa%e5%bf%83" title="贪心">贪心<sup>1</sup></a></li>
+      
+			<li><a href="https://qkgoalkeeper.github.io/tags/%e8%b4%aa%e5%bf%83%e6%b3%95" title="贪心法">贪心法<sup>1</sup></a></li>
+      
+			<li><a href="https://qkgoalkeeper.github.io/tags/%e9%93%be%e8%a1%a8" title="链表">链表<sup>10</sup></a></li>
+      
+			<li><a href="https://qkgoalkeeper.github.io/tags/%e9%98%9f%e5%88%97" title="队列">队列<sup>2</sup></a></li>
+      
+			<li><a href="https://qkgoalkeeper.github.io/tags/%e9%9a%8f%e6%9c%ba%e6%95%b0" title="随机数">随机数<sup>3</sup></a></li>
+      
+		</ul>
+</div>
+
+
+
+  
+  <div class="archiveslist">
+    <p class="asidetitle">归档</p>
+    <ul class="archive-list">
+      
+      
+      <li class="archive-list-item">
+        <a class="archive-list-link" href="https://qkgoalkeeper.github.io/post/#2022-08">2022年08月</a><span class="archive-list-count">2</span>
+      </li>
+      
+      
+      <li class="archive-list-item">
+        <a class="archive-list-link" href="https://qkgoalkeeper.github.io/post/#2022-07">2022年07月</a><span class="archive-list-count">22</span>
+      </li>
+      
+      
+      <li class="archive-list-item">
+        <a class="archive-list-link" href="https://qkgoalkeeper.github.io/post/#2022-06">2022年06月</a><span class="archive-list-count">26</span>
+      </li>
+      
+      
+      <li class="archive-list-item">
+        <a class="archive-list-link" href="https://qkgoalkeeper.github.io/post/#2022-05">2022年05月</a><span class="archive-list-count">14</span>
+      </li>
+      
+      
+      <li class="archive-list-item">
+        <a class="archive-list-link" href="https://qkgoalkeeper.github.io/post/#2022-04">2022年04月</a><span class="archive-list-count">24</span>
+      </li>
+      
+      
+      <li class="archive-list-item">
+        <a class="archive-list-link" href="https://qkgoalkeeper.github.io/post/#2022-03">2022年03月</a><span class="archive-list-count">32</span>
+      </li>
+      
+      
+      <li class="archive-list-item">
+        <a class="archive-list-link" href="https://qkgoalkeeper.github.io/post/#2022-02">2022年02月</a><span class="archive-list-count">61</span>
+      </li>
+      
+      
+      <li class="archive-list-item">
+        <a class="archive-list-link" href="https://qkgoalkeeper.github.io/post/#2022-01">2022年01月</a><span class="archive-list-count">77</span>
+      </li>
+      
+      
+      <li class="archive-list-item">
+        <a class="archive-list-link" href="https://qkgoalkeeper.github.io/post/#2021-12">2021年12月</a><span class="archive-list-count">31</span>
+      </li>
+      
+      
+      <li class="archive-list-item">
+        <a class="archive-list-link" href="https://qkgoalkeeper.github.io/post/#2021-11">2021年11月</a><span class="archive-list-count">30</span>
+      </li>
+      
+      
+      <li class="archive-list-item">
+        <a class="archive-list-link" href="https://qkgoalkeeper.github.io/post/#2021-10">2021年10月</a><span class="archive-list-count">31</span>
+      </li>
+      
+      
+      <li class="archive-list-item">
+        <a class="archive-list-link" href="https://qkgoalkeeper.github.io/post/#2021-09">2021年09月</a><span class="archive-list-count">5</span>
+      </li>
+      
+      
+      <li class="archive-list-item">
+        <a class="archive-list-link" href="https://qkgoalkeeper.github.io/post/#2021-06">2021年06月</a><span class="archive-list-count">1</span>
+      </li>
+      
+      
+      <li class="archive-list-item">
+        <a class="archive-list-link" href="https://qkgoalkeeper.github.io/post/#2021-04">2021年04月</a><span class="archive-list-count">1</span>
+      </li>
+      
+      
+      <li class="archive-list-item">
+        <a class="archive-list-link" href="https://qkgoalkeeper.github.io/post/#2020-11">2020年11月</a><span class="archive-list-count">1</span>
+      </li>
+      
+      
+      <li class="archive-list-item">
+        <a class="archive-list-link" href="https://qkgoalkeeper.github.io/post/#2020-08">2020年08月</a><span class="archive-list-count">70</span>
+      </li>
+      
+    </ul>
+
+  </div>
+
+
+  
+
+<div class="tagcloudlist">
+  <p class="asidetitle">标签云</p>
+  <div class="tagcloudlist clearfix">
+    
+    <a href="https://qkgoalkeeper.github.io/tags/bfs" style="font-size: 12px;">bfs</a>
+    
+    <a href="https://qkgoalkeeper.github.io/tags/c&#43;&#43;" style="font-size: 12px;">c&#43;&#43;</a>
+    
+    <a href="https://qkgoalkeeper.github.io/tags/dfs" style="font-size: 12px;">dfs</a>
+    
+    <a href="https://qkgoalkeeper.github.io/tags/golang" style="font-size: 12px;">golang</a>
+    
+    <a href="https://qkgoalkeeper.github.io/tags/golang%e8%af%ad%e6%b3%95" style="font-size: 12px;">golang语法</a>
+    
+    <a href="https://qkgoalkeeper.github.io/tags/javascript" style="font-size: 12px;">javascript</a>
+    
+    <a href="https://qkgoalkeeper.github.io/tags/leetcode" style="font-size: 12px;">leetcode</a>
+    
+    <a href="https://qkgoalkeeper.github.io/tags/rust%e6%95%99%e7%a8%8b" style="font-size: 12px;">rust教程</a>
+    
+    <a href="https://qkgoalkeeper.github.io/tags/solidity" style="font-size: 12px;">solidity</a>
+    
+    <a href="https://qkgoalkeeper.github.io/tags/%e4%ba%8c%e5%88%86%e6%b3%95" style="font-size: 12px;">二分法</a>
+    
+    <a href="https://qkgoalkeeper.github.io/tags/%e4%bb%a3%e7%a0%81" style="font-size: 12px;">代码</a>
+    
+    <a href="https://qkgoalkeeper.github.io/tags/%e4%bc%98%e5%85%88%e9%98%9f%e5%88%97" style="font-size: 12px;">优先队列</a>
+    
+    <a href="https://qkgoalkeeper.github.io/tags/%e4%bd%8d%e8%bf%90%e7%ae%97" style="font-size: 12px;">位运算</a>
+    
+    <a href="https://qkgoalkeeper.github.io/tags/%e5%88%86%e6%b2%bb%e6%b3%95" style="font-size: 12px;">分治法</a>
+    
+    <a href="https://qkgoalkeeper.github.io/tags/%e5%89%8d%e7%bc%80%e5%92%8c" style="font-size: 12px;">前缀和</a>
+    
+    <a href="https://qkgoalkeeper.github.io/tags/%e5%8a%a8%e6%80%81%e8%a7%84%e5%88%92" style="font-size: 12px;">动态规划</a>
+    
+    <a href="https://qkgoalkeeper.github.io/tags/%e5%8c%ba%e5%9d%97%e9%93%be" style="font-size: 12px;">区块链</a>
+    
+    <a href="https://qkgoalkeeper.github.io/tags/%e5%8d%95%e8%b0%83%e9%98%9f%e5%88%97" style="font-size: 12px;">单调队列</a>
+    
+    <a href="https://qkgoalkeeper.github.io/tags/%e5%8f%8c%e6%8c%87%e9%92%88" style="font-size: 12px;">双指针</a>
+    
+    <a href="https://qkgoalkeeper.github.io/tags/%e5%93%88%e5%b8%8c%e8%a1%a8" style="font-size: 12px;">哈希表</a>
+    
+    <a href="https://qkgoalkeeper.github.io/tags/%e5%a0%86" style="font-size: 12px;">堆</a>
+    
+    <a href="https://qkgoalkeeper.github.io/tags/%e5%ad%97%e5%85%b8%e6%a0%91" style="font-size: 12px;">字典树</a>
+    
+    <a href="https://qkgoalkeeper.github.io/tags/%e5%ad%97%e7%ac%a6%e4%b8%b2" style="font-size: 12px;">字符串</a>
+    
+    <a href="https://qkgoalkeeper.github.io/tags/%e5%b9%b6%e6%9f%a5%e9%9b%86" style="font-size: 12px;">并查集</a>
+    
+    <a href="https://qkgoalkeeper.github.io/tags/%e5%ba%8f%e5%88%97%e5%8c%96" style="font-size: 12px;">序列化</a>
+    
+    <a href="https://qkgoalkeeper.github.io/tags/%e6%8b%93%e6%89%91%e6%8e%92%e5%ba%8f" style="font-size: 12px;">拓扑排序</a>
+    
+    <a href="https://qkgoalkeeper.github.io/tags/%e6%8e%92%e5%88%97" style="font-size: 12px;">排列</a>
+    
+    <a href="https://qkgoalkeeper.github.io/tags/%e6%8e%92%e5%ba%8f" style="font-size: 12px;">排序</a>
+    
+    <a href="https://qkgoalkeeper.github.io/tags/%e6%95%b0%e5%ad%a6" style="font-size: 12px;">数学</a>
+    
+    <a href="https://qkgoalkeeper.github.io/tags/%e6%95%b0%e6%8d%ae%e5%ba%93" style="font-size: 12px;">数据库</a>
+    
+    <a href="https://qkgoalkeeper.github.io/tags/%e6%95%b0%e7%bb%84" style="font-size: 12px;">数组</a>
+    
+    <a href="https://qkgoalkeeper.github.io/tags/%e6%a0%88" style="font-size: 12px;">栈</a>
+    
+    <a href="https://qkgoalkeeper.github.io/tags/%e6%a0%91" style="font-size: 12px;">树</a>
+    
+    <a href="https://qkgoalkeeper.github.io/tags/%e6%ba%90%e7%a0%81%e7%bc%96%e8%af%91" style="font-size: 12px;">源码编译</a>
+    
+    <a href="https://qkgoalkeeper.github.io/tags/%e6%bb%91%e5%8a%a8%e7%aa%97%e5%8f%a3" style="font-size: 12px;">滑动窗口</a>
+    
+    <a href="https://qkgoalkeeper.github.io/tags/%e7%8e%8b%e9%81%93%e6%9c%ba%e8%af%95%e6%8c%87%e5%8d%97" style="font-size: 12px;">王道机试指南</a>
+    
+    <a href="https://qkgoalkeeper.github.io/tags/%e7%ba%bf%e6%ae%b5%e6%a0%91" style="font-size: 12px;">线段树</a>
+    
+    <a href="https://qkgoalkeeper.github.io/tags/%e7%bc%93%e5%ad%98" style="font-size: 12px;">缓存</a>
+    
+    <a href="https://qkgoalkeeper.github.io/tags/%e8%ae%ba%e6%96%87%e8%a7%a3%e8%af%bb" style="font-size: 12px;">论文解读</a>
+    
+    <a href="https://qkgoalkeeper.github.io/tags/%e8%b4%aa%e5%bf%83" style="font-size: 12px;">贪心</a>
+    
+    <a href="https://qkgoalkeeper.github.io/tags/%e8%b4%aa%e5%bf%83%e6%b3%95" style="font-size: 12px;">贪心法</a>
+    
+    <a href="https://qkgoalkeeper.github.io/tags/%e9%93%be%e8%a1%a8" style="font-size: 12px;">链表</a>
+    
+    <a href="https://qkgoalkeeper.github.io/tags/%e9%98%9f%e5%88%97" style="font-size: 12px;">队列</a>
+    
+    <a href="https://qkgoalkeeper.github.io/tags/%e9%9a%8f%e6%9c%ba%e6%95%b0" style="font-size: 12px;">随机数</a>
+    
+  </div>
+</div>
+
+
+
+  
+
+</aside>
+</div>
+
+  </div>
+  <footer><div id="footer" >
+  <div class="line">
+    <span></span>
+    
+    <div style='background:no-repeat url("https://qkgoalkeeper.github.io/img/author.jpg") left top;-webkit-background-size:6.875em 6.875em;-moz-background-size:6.875em 6.875em;background-size:6.875em 6.875em;' class="author" ></div>
+  </div>
+  <section class="info">
+    <p>ECNU数据学院在读 <br/> 知乎主页 :https://www.zhihu.com/people/hao-lai-wu-shou-men-yuan <br/>QQ :1421812601</p>
+  </section>
+  <div class="social-font clearfix">
+    <a href='http://weibo.com/qkgoalkeeper' target="_blank" title="weibo"></a>
+    <a href='https://twitter.com/coderzh' target="_blank" title="twitter"></a>
+    <a href='https://github.com/qkgoalkeeper' target="_blank" title="github"></a>
+    <a href='https://www.facebook.com/coderzh' target="_blank" title="facebook"></a>
+    <a href='https://www.linkedin.com/coderzh' target="_blank" title="linkedin"></a>
+  </div>
+  <p class="copyright">Powered by <a href="http://gohugo.io" target="_blank" title="hugo">hugo</a> and Theme by <a href="https://github.com/coderzh/hugo-pacman-theme" target="_blank" title="hugo-pacman-theme">hugo-pacman-theme</a> © 2022
+    
+    <a href="https://qkgoalkeeper.github.io/" title="qkgoalkeeper&#39;s blog">qkgoalkeeper&#39;s blog</a>
+    
+  </p>
+</div>
+</footer>
+  <script src="https://qkgoalkeeper.github.io/js/jquery-2.1.0.min.js"></script>
+<script type="text/javascript">
+done = false;
+$(document).ready(function(){
+  $('.navbar').click(function(){
+    $('header nav').toggleClass('shownav');
+  });
+  var myWidth = 0;
+  function getSize(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+  };
+  var m = $('#main'),
+      a = $('#asidepart'),
+      c = $('.closeaside'),
+      o = $('.openaside');
+  $(window).resize(function(){
+    getSize();
+    if (myWidth >= 1024) {
+      $('header nav').removeClass('shownav');
+    }else
+    {
+      m.removeClass('moveMain');
+      a.css('display', 'block').removeClass('fadeOut');
+      o.css('display', 'none');
+    }
+  });
+  c.click(function(){
+    a.addClass('fadeOut').css('display', 'none');
+    o.css('display', 'block').addClass('fadeIn');
+    m.addClass('moveMain');
+  });
+  o.click(function(){
+    o.css('display', 'none').removeClass('beforeFadeIn');
+    a.css('display', 'block').removeClass('fadeOut').addClass('fadeIn');
+    m.removeClass('moveMain');
+  });
+  $(window).scroll(function(){
+    o.css("top",Math.max(80,260-$(this).scrollTop()));
+  });
+  $('form.search').on('submit', function (event) {
+    if (false === done) {
+      event.preventDefault();
+      var orgVal = $(this).find('#search').val();
+      $(this).find('#search').val('site:https:\/\/qkgoalkeeper.github.io\/ ' + orgVal);
+      done = true;
+      $(this).submit();
+    }
+  });
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){
+  var ai = $('.article-content>iframe'),
+      ae = $('.article-content>embed'),
+      t  = $('#toc'),
+      h  = $('article h2')
+      ah = $('article h2'),
+      ta = $('#toc.toc-aside'),
+      o  = $('.openaside'),
+      c  = $('.closeaside');
+  if(ai.length>0){
+    ai.wrap('<div class="video-container" />');
+  };
+  if(ae.length>0){
+   ae.wrap('<div class="video-container" />');
+  };
+  if(ah.length==0){
+    t.css('display','none');
+  }else{
+    c.click(function(){
+      ta.css('display', 'block').addClass('fadeIn');
+    });
+    o.click(function(){
+      ta.css('display', 'none');
+    });
+    $(window).scroll(function(){
+      ta.css("top",Math.max(140,320-$(this).scrollTop()));
+    });
+  };
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){
+  var $this = $('.share'),
+      url = $this.attr('data-url'),
+      encodedUrl = encodeURIComponent(url),
+      title = $this.attr('data-title'),
+      tsina = $this.attr('data-tsina');
+  var html = [
+  '<a href="#" class="overlay" id="qrcode"></a>',
+  '<div class="qrcode clearfix"><span>扫描二维码分享到微信朋友圈</span><a class="qrclose" href="#share"></a><strong>Loading...Please wait</strong><img id="qrcode-pic" data-src="http://b.bshare.cn/barCode?site=weixin&url=' + encodedUrl + '"/></div>',
+  '<a href="#textlogo" class="article-back-to-top" title="Top"></a>',
+  '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+  '<a href="#qrcode" class="article-share-qrcode" title="QRcode"></a>',
+  '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+  '<a href="http://service.weibo.com/share/share.php?title='+title+'&url='+encodedUrl +'&ralateUid='+ tsina +'&searchPic=true&style=number' +'" class="article-share-weibo" target="_blank" title="Weibo"></a>',
+  '<span title="Share to"></span>'
+  ].join('');
+  $this.append(html);
+  $('.article-share-qrcode').click(function(){
+    var imgSrc = $('#qrcode-pic').attr('data-src');
+    $('#qrcode-pic').attr('src', imgSrc);
+    $('#qrcode-pic').load(function(){
+        $('.qrcode strong').text(' ');
+    });
+  });
+});
+</script>
+
+
+<link rel="stylesheet" href="https://qkgoalkeeper.github.io/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="https://qkgoalkeeper.github.io/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){
+  $('.article-content').each(function(i){
+    $(this).find('img').each(function(){
+      if ($(this).parent().hasClass('fancybox')) return;
+      var alt = this.alt;
+      if (alt) $(this).after('<span class="caption">' + alt + '</span>');
+      $(this).wrap('<a href="' + this.src + '" title="' + alt + '" class="fancybox"></a>');
+    });
+    $(this).find('.fancybox').each(function(){
+      $(this).attr('rel', 'article' + i);
+    });
+  });
+  if($.fancybox){
+    $('.fancybox').fancybox();
+  }
+});
+</script>
+
+
+
+
+</body>
+</html>
