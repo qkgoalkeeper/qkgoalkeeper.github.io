@@ -6,7 +6,16 @@
     <description>Recent content on qkgoalkeeper&#39;s blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
-    <lastBuildDate>Fri, 12 Aug 2022 07:55:19 +0800</lastBuildDate><atom:link href="https://qkgoalkeeper.github.io/feed.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sat, 13 Aug 2022 07:55:19 +0800</lastBuildDate><atom:link href="https://qkgoalkeeper.github.io/feed.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>rust：the_rust_book（14）进一步认识 Cargo 和 Crates.io</title>
+      <link>https://qkgoalkeeper.github.io/post/rustthe_rust_book14%E8%BF%9B%E4%B8%80%E6%AD%A5%E8%AE%A4%E8%AF%86-cargo-%E5%92%8C-crates.io/</link>
+      <pubDate>Sat, 13 Aug 2022 07:55:19 +0800</pubDate>
+      
+      <guid>https://qkgoalkeeper.github.io/post/rustthe_rust_book14%E8%BF%9B%E4%B8%80%E6%AD%A5%E8%AE%A4%E8%AF%86-cargo-%E5%92%8C-crates.io/</guid>
+      <description>一.本章任务 目前为止我们只使用过 Cargo 构建、运行和测试代码这些最基本的功能，不过它还可以做到更多。本章会讨论 Cargo 其他一些更为高级的功能，我们将展示</description>
+    </item>
+    
     <item>
       <title>rust：the_rust_book（13）Rust 中的函数式语言功能：迭代器与闭包</title>
       <link>https://qkgoalkeeper.github.io/post/rustthe_rust_book13rust-%E4%B8%AD%E7%9A%84%E5%87%BD%E6%95%B0%E5%BC%8F%E8%AF%AD%E8%A8%80%E5%8A%9F%E8%83%BD%E8%BF%AD%E4%BB%A3%E5%99%A8%E4%B8%8E%E9%97%AD%E5%8C%85/</link>

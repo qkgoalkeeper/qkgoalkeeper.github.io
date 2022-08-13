@@ -1,0 +1,1103 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <title>rust：the_rust_book（14）进一步认识 Cargo 和 Crates.io - qkgoalkeeper&#39;s blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=3, minimum-scale=1">
+  
+  <meta name="description" content="一.本章任务 目前为止我们只使用过 Cargo 构建、运行和测试代码这些最基本的功能，不过它还可以做到更多。本章会讨论 Cargo 其他一些更为高级的功能，我们将展示">
+  
+  <meta itemprop="name" content="rust：the_rust_book（14）进一步认识 Cargo 和 Crates.io - qkgoalkeeper&#39;s blog">
+  <meta itemprop="description" content="一.本章任务 目前为止我们只使用过 Cargo 构建、运行和测试代码这些最基本的功能，不过它还可以做到更多。本章会讨论 Cargo 其他一些更为高级的功能，我们将展示">
+  <meta itemprop="image" content="https://qkgoalkeeper.github.io/img/author.jpg">
+  
+  
+  <meta name="twitter:description" content="">
+  
+  <link rel="shortcut icon" href="https://qkgoalkeeper.github.io/img/favicon.ico"/>
+  <link rel="apple-touch-icon" href="https://qkgoalkeeper.github.io/apple-touch-icon.png" />
+  <link rel="apple-touch-icon-precomposed" href="https://qkgoalkeeper.github.io/apple-touch-icon.png" />
+  <link rel="stylesheet" href="https://qkgoalkeeper.github.io/highlight/styles/github.css">
+  <script src="https://qkgoalkeeper.github.io/highlight/highlight.pack.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script>
+  
+  <link rel="stylesheet" href="https://qkgoalkeeper.github.io/font/hack/css/hack.min.css">
+  <link rel="stylesheet" href="https://qkgoalkeeper.github.io/css/style.css">
+  
+  
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-175507250-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-175507250-1');
+</script>
+  
+
+</head>
+
+<body>
+  <header>
+    <div>
+  <div id="imglogo">
+    <a href="https://qkgoalkeeper.github.io/"><img src='https://qkgoalkeeper.github.io/img/logo.svg' alt="qkgoalkeeper&#39;s blog" title="qkgoalkeeper&#39;s blog"/></a>
+  </div>
+  <div id="textlogo">
+    <h1 class="site-name"><a href="https://qkgoalkeeper.github.io/" title="qkgoalkeeper&#39;s blog">qkgoalkeeper&#39;s blog</a></h1>
+    <h2 class="blog-motto">ECNU数据学院在读</h2>
+  </div>
+  <div class="navbar"><a class="navbutton navmobile" href="#" title="menu"></a></div>
+  <nav class="animated">
+    <ul>
+      
+      
+      <li><a href="/">首页</a></li>
+      
+      <li><a href="/about">关于</a></li>
+      
+      
+      <li>
+        <form class="search" method="get" action="https://www.google.com/search">
+          <div>
+            <input type="text" id="search" name="q" placeholder='Search'>
+          </div>
+        </form>
+      </li>
+    </ul>
+  </nav>
+</div>
+
+  </header>
+  <div id="container">
+    <div id="main" class="post" itemscope itemprop="blogPost">
+	<article itemprop="articleBody">
+    <header class="article-info clearfix">
+  <h1 itemprop="name">
+      <a href="https://qkgoalkeeper.github.io/post/rustthe_rust_book14%E8%BF%9B%E4%B8%80%E6%AD%A5%E8%AE%A4%E8%AF%86-cargo-%E5%92%8C-crates.io/" title="rust：the_rust_book（14）进一步认识 Cargo 和 Crates.io" itemprop="url">rust：the_rust_book（14）进一步认识 Cargo 和 Crates.io</a>
+  </h1>
+  <p class="article-author">By
+    
+      <a href="https://qkgoalkeeper.github.io/" title="qk">qk</a>
+    
+  </p>
+  <p class="article-time">
+    <time datetime="2022-08-13 07:55:19 &#43;0800 CST" itemprop="datePublished">2022年08月13日</time>
+  </p>
+</header>
+
+	<div class="article-content">
+    
+		<div class="toc-article">
+			<strong class="toc-title">文章目录</strong>
+      <nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#编写有用的文档注释httpskaiserygithubiotrpl-zh-cnch14-02-publishing-to-crates-iohtml编写有用的文档注释"><a href="https://kaisery.github.io/trpl-zh-cn/ch14-02-publishing-to-crates-io.html#%E7%BC%96%E5%86%99%E6%9C%89%E7%94%A8%E7%9A%84%E6%96%87%E6%A1%A3%E6%B3%A8%E9%87%8A">编写有用的文档注释</a></a></li>
+        <li><a href="#使用-pub-use-导出合适的公有-apihttpskaiserygithubiotrpl-zh-cnch14-02-publishing-to-crates-iohtml使用-pub-use-导出合适的公有-api"><a href="https://kaisery.github.io/trpl-zh-cn/ch14-02-publishing-to-crates-io.html#%E4%BD%BF%E7%94%A8-pub-use-%E5%AF%BC%E5%87%BA%E5%90%88%E9%80%82%E7%9A%84%E5%85%AC%E6%9C%89-api">使用 <code>pub use</code> 导出合适的公有 API</a></a></li>
+        <li><a href="#创建-cratesio-账号httpskaiserygithubiotrpl-zh-cnch14-02-publishing-to-crates-iohtml创建-cratesio-账号"><a href="https://kaisery.github.io/trpl-zh-cn/ch14-02-publishing-to-crates-io.html#%E5%88%9B%E5%BB%BA-cratesio-%E8%B4%A6%E5%8F%B7">创建 Crates.io 账号</a></a></li>
+        <li><a href="#发布新-crate-之前httpskaiserygithubiotrpl-zh-cnch14-02-publishing-to-crates-iohtml发布新-crate-之前"><a href="https://kaisery.github.io/trpl-zh-cn/ch14-02-publishing-to-crates-io.html#%E5%8F%91%E5%B8%83%E6%96%B0-crate-%E4%B9%8B%E5%89%8D">发布新 crate 之前</a></a></li>
+        <li><a href="#发布到-cratesiohttpskaiserygithubiotrpl-zh-cnch14-02-publishing-to-crates-iohtml发布到-cratesio"><a href="https://kaisery.github.io/trpl-zh-cn/ch14-02-publishing-to-crates-io.html#%E5%8F%91%E5%B8%83%E5%88%B0-cratesio">发布到 Crates.io</a></a></li>
+        <li><a href="#发布现存-crate-的新版本httpskaiserygithubiotrpl-zh-cnch14-02-publishing-to-crates-iohtml发布现存-crate-的新版本"><a href="https://kaisery.github.io/trpl-zh-cn/ch14-02-publishing-to-crates-io.html#%E5%8F%91%E5%B8%83%E7%8E%B0%E5%AD%98-crate-%E7%9A%84%E6%96%B0%E7%89%88%E6%9C%AC">发布现存 crate 的新版本</a></a></li>
+        <li><a href="#使用-cargo-yank-从-cratesio-撤回版本httpskaiserygithubiotrpl-zh-cnch14-02-publishing-to-crates-iohtml使用-cargo-yank-从-cratesio-撤回版本"><a href="https://kaisery.github.io/trpl-zh-cn/ch14-02-publishing-to-crates-io.html#%E4%BD%BF%E7%94%A8-cargo-yank-%E4%BB%8E-cratesio-%E6%92%A4%E5%9B%9E%E7%89%88%E6%9C%AC">使用 <code>cargo yank</code> 从 Crates.io 撤回版本</a></a></li>
+      </ul>
+    </li>
+  </ul>
+
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#创建工作空间httpskaiserygithubiotrpl-zh-cnch14-03-cargo-workspaceshtml创建工作空间"><a href="https://kaisery.github.io/trpl-zh-cn/ch14-03-cargo-workspaces.html#%E5%88%9B%E5%BB%BA%E5%B7%A5%E4%BD%9C%E7%A9%BA%E9%97%B4">创建工作空间</a></a></li>
+        <li><a href="#在工作空间中创建第二个包httpskaiserygithubiotrpl-zh-cnch14-03-cargo-workspaceshtml在工作空间中创建第二个包"><a href="https://kaisery.github.io/trpl-zh-cn/ch14-03-cargo-workspaces.html#%E5%9C%A8%E5%B7%A5%E4%BD%9C%E7%A9%BA%E9%97%B4%E4%B8%AD%E5%88%9B%E5%BB%BA%E7%AC%AC%E4%BA%8C%E4%B8%AA%E5%8C%85">在工作空间中创建第二个包</a></a></li>
+      </ul>
+    </li>
+  </ul>
+
+  <ul>
+    <li><a href="#总结httpskaiserygithubiotrpl-zh-cnch14-05-extending-cargohtml总结"><a href="https://kaisery.github.io/trpl-zh-cn/ch14-05-extending-cargo.html#%E6%80%BB%E7%BB%93">总结</a></a></li>
+  </ul>
+</nav>
+		</div>
+    
+    <h1 id="一本章任务">一.本章任务</h1>
+<p>目前为止我们只使用过 Cargo 构建、运行和测试代码这些最基本的功能，不过它还可以做到更多。本章会讨论 Cargo 其他一些更为高级的功能，我们将展示如何：</p>
+<ul>
+<li>使用发布配置来自定义构建</li>
+<li>将库发布到 <a href="https://crates.io/">crates.io</a></li>
+<li>使用工作空间来组织更大的项目</li>
+<li>从 <a href="https://crates.io/">crates.io</a> 安装二进制文件</li>
+<li>使用自定义的命令来扩展 Cargo</li>
+</ul>
+<p>Cargo 的功能不止本章所介绍的，关于其全部功能的详尽解释，请查看 <a href="http://doc.rust-lang.org/cargo/">文档</a></p>
+<h1 id="二采用发布配置自定义构建httpskaiserygithubiotrpl-zh-cnch14-01-release-profileshtml采用发布配置自定义构建">二.<a href="https://kaisery.github.io/trpl-zh-cn/ch14-01-release-profiles.html#%E9%87%87%E7%94%A8%E5%8F%91%E5%B8%83%E9%85%8D%E7%BD%AE%E8%87%AA%E5%AE%9A%E4%B9%89%E6%9E%84%E5%BB%BA">采用发布配置自定义构建</a></h1>
+<p>在 Rust 中 <strong>发布配置</strong>（<em>release profiles</em>）是预定义的、可定制的带有不同选项的配置，他们允许程序员更灵活地控制代码编译的多种选项。每一个配置都彼此相互独立。</p>
+<p>Cargo 有两个主要的配置：运行 <code>cargo build</code> 时采用的 <code>dev</code> 配置和运行 <code>cargo build --release</code> 的 <code>release</code> 配置。<code>dev</code> 配置被定义为开发时的好的默认配置，<code>release</code> 配置则有着良好的发布构建的默认配置。</p>
+<p>这些配置名称可能很眼熟，因为它们出现在构建的输出中：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-console" data-lang="console"><span class="gp">$ </span>cargo build
+<span class="go">    Finished dev [unoptimized + debuginfo] target(s) in 0.0s
+</span><span class="go"></span><span class="gp">$ </span>cargo build --release
+<span class="go">    Finished release [optimized] target(s) in 0.0s
+</span></code></pre></div><p>构建输出中的 <code>dev</code> 和 <code>release</code> 表明编译器在使用不同的配置。</p>
+<p>当项目的 <em>Cargo.toml</em> 文件中没有任何 <code>[profile.*]</code> 部分的时候，Cargo 会对每一个配置都采用默认设置。通过增加任何希望定制的配置对应的 <code>[profile.*]</code> 部分，我们可以选择覆盖任意默认设置的子集。例如，如下是 <code>dev</code> 和 <code>release</code> 配置的 <code>opt-level</code> 设置的默认值：</p>
+<p>文件名: Cargo.toml</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-toml" data-lang="toml"><span class="p">[</span><span class="nx">profile</span><span class="p">.</span><span class="nx">dev</span><span class="p">]</span>
+<span class="nx">opt-level</span> <span class="p">=</span> <span class="mi">0</span>
+
+<span class="p">[</span><span class="nx">profile</span><span class="p">.</span><span class="nx">release</span><span class="p">]</span>
+<span class="nx">opt-level</span> <span class="p">=</span> <span class="mi">3</span>
+</code></pre></div><p><code>opt-level</code> 设置控制 Rust 会对代码进行何种程度的优化。这个配置的值从 0 到 3。越高的优化级别需要更多的时间编译，所以如果你在进行开发并经常编译，可能会希望在牺牲一些代码性能的情况下编译得快一些。这就是为什么 <code>dev</code> 的 <code>opt-level</code> 默认为 <code>0</code>。当你准备发布时，花费更多时间在编译上则更好。只需要在发布模式编译一次，而编译出来的程序则会运行很多次，所以发布模式用更长的编译时间换取运行更快的代码。这正是为什么 <code>release</code> 配置的 <code>opt-level</code> 默认为 <code>3</code>。</p>
+<p>我们可以选择通过在 <em>Cargo.toml</em> 增加不同的值来覆盖任何默认设置。比如，如果我们想要在开发配置中使用级别 1 的优化，则可以在 <em>Cargo.toml</em> 中增加这两行：</p>
+<p>文件名: Cargo.toml</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-toml" data-lang="toml"><span class="p">[</span><span class="nx">profile</span><span class="p">.</span><span class="nx">dev</span><span class="p">]</span>
+<span class="nx">opt-level</span> <span class="p">=</span> <span class="mi">1</span>
+</code></pre></div><p>这会覆盖默认的设置 <code>0</code>。现在运行 <code>cargo build</code> 时，Cargo 将会使用 <code>dev</code> 的默认配置加上定制的 <code>opt-level</code>。因为 <code>opt-level</code> 设置为 <code>1</code>，Cargo 会比默认进行更多的优化，但是没有发布构建那么多。</p>
+<p>对于每个配置的设置和其默认值的完整列表，请查看 <a href="https://doc.rust-lang.org/cargo/reference/profiles.html">Cargo 的文档</a>。</p>
+<h1 id="三将-crate-发布到-cratesiohttpskaiserygithubiotrpl-zh-cnch14-02-publishing-to-crates-iohtml将-crate-发布到-cratesio">三.<a href="https://kaisery.github.io/trpl-zh-cn/ch14-02-publishing-to-crates-io.html#%E5%B0%86-crate-%E5%8F%91%E5%B8%83%E5%88%B0-cratesio">将 crate 发布到 Crates.io</a></h1>
+<p>我们曾经在项目中使用 <a href="https://crates.io/">crates.io</a> 上的包作为依赖，不过你也可以通过发布自己的包来向他人分享代码。<a href="https://crates.io/">crates.io</a> 用来分发包的源代码，所以它主要托管开源代码。</p>
+<p>Rust 和 Cargo 有一些帮助他人更方便找到和使用你发布的包的功能。我们将介绍一些这样的功能，接着讲到如何发布一个包。</p>
+<h3 id="编写有用的文档注释httpskaiserygithubiotrpl-zh-cnch14-02-publishing-to-crates-iohtml编写有用的文档注释"><a href="https://kaisery.github.io/trpl-zh-cn/ch14-02-publishing-to-crates-io.html#%E7%BC%96%E5%86%99%E6%9C%89%E7%94%A8%E7%9A%84%E6%96%87%E6%A1%A3%E6%B3%A8%E9%87%8A">编写有用的文档注释</a></h3>
+<p>准确的包文档有助于其他用户理解如何以及何时使用他们，所以花一些时间编写文档是值得的。第三章中我们讨论了如何使用两斜杠 <code>//</code> 注释 Rust 代码。Rust 也有特定的用于文档的注释类型，通常被称为 <strong>文档注释</strong>（<em>documentation comments</em>），他们会生成 HTML 文档。这些 HTML 展示公有 API 文档注释的内容，他们意在让对库感兴趣的程序员理解如何 <strong>使用</strong> 这个 crate，而不是它是如何被 <strong>实现</strong> 的。</p>
+<p>文档注释使用三斜杠 <code>///</code> 而不是两斜杆以支持 Markdown 注解来格式化文本。文档注释就位于需要文档的项的之前。示例 14-1 展示了一个 <code>my_crate</code> crate 中 <code>add_one</code> 函数的文档注释，</p>
+<p>文件名: src/lib.rs</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-rust" data-lang="rust"><span class="sd">/// Adds one to the number given.
+</span><span class="sd">///
+</span><span class="sd">/// # Examples
+</span><span class="sd">///
+</span><span class="sd">/// ```
+</span><span class="sd">/// let arg = 5;
+</span><span class="sd">/// let answer = my_crate::add_one(arg);
+</span><span class="sd">///
+</span><span class="sd">/// assert_eq!(6, answer);
+</span><span class="sd">/// ```
+</span><span class="sd"></span><span class="k">pub</span><span class="w"> </span><span class="k">fn</span> <span class="nf">add_one</span><span class="p">(</span><span class="n">x</span>: <span class="kt">i32</span><span class="p">)</span><span class="w"> </span>-&gt; <span class="kt">i32</span> <span class="p">{</span><span class="w">
+</span><span class="w">    </span><span class="n">x</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="w">
+</span><span class="w"></span><span class="p">}</span><span class="w">
+</span></code></pre></div><p>示例 14-1：一个函数的文档注释</p>
+<p>这里，我们提供了一个 <code>add_one</code> 函数工作的描述，接着开始了一个标题为 <code>Examples</code> 的部分，和展示如何使用 <code>add_one</code> 函数的代码。可以运行 <code>cargo doc</code> 来生成这个文档注释的 HTML 文档。这个命令运行由 Rust 分发的工具 <code>rustdoc</code> 并将生成的 HTML 文档放入 <em>target/doc</em> 目录。</p>
+<p>为了方便起见，运行 <code>cargo doc --open</code> 会构建当前 crate 文档（同时还有所有 crate 依赖的文档）的 HTML 并在浏览器中打开。导航到 <code>add_one</code> 函数将会发现文档注释的文本是如何渲染的，如图 14-1 所示：</p>
+<p><img src="https://kaisery.github.io/trpl-zh-cn/img/trpl14-01.png" alt="my_crate 的 add_one 函数所渲染的文档注释 HTML"></p>
+<p>图 14-1：<code>add_one</code> 函数的文档注释 HTML</p>
+<h4 id="常用文档注释部分httpskaiserygithubiotrpl-zh-cnch14-02-publishing-to-crates-iohtml常用文档注释部分"><a href="https://kaisery.github.io/trpl-zh-cn/ch14-02-publishing-to-crates-io.html#%E5%B8%B8%E7%94%A8%E6%96%87%E6%A1%A3%E6%B3%A8%E9%87%8A%E9%83%A8%E5%88%86">常用（文档注释）部分</a></h4>
+<p>示例 14-1 中使用了 <code># Examples</code> Markdown 标题在 HTML 中创建了一个以 “Examples” 为标题的部分。其他一些 crate 作者经常在文档注释中使用的部分有：</p>
+<ul>
+<li><strong>Panics</strong>：这个函数可能会 <code>panic!</code> 的场景。并不希望程序崩溃的函数调用者应该确保他们不会在这些情况下调用此函数。</li>
+<li><strong>Errors</strong>：如果这个函数返回 <code>Result</code>，此部分描述可能会出现何种错误以及什么情况会造成这些错误，这有助于调用者编写代码来采用不同的方式处理不同的错误。</li>
+<li><strong>Safety</strong>：如果这个函数使用 <code>unsafe</code> 代码（这会在第十九章讨论），这一部分应该会涉及到期望函数调用者支持的确保 <code>unsafe</code> 块中代码正常工作的不变条件（invariants）。</li>
+</ul>
+<p>大部分文档注释不需要所有这些部分，不过这是一个提醒你检查调用你代码的人有兴趣了解的内容的列表。</p>
+<h4 id="文档注释作为测试httpskaiserygithubiotrpl-zh-cnch14-02-publishing-to-crates-iohtml文档注释作为测试"><a href="https://kaisery.github.io/trpl-zh-cn/ch14-02-publishing-to-crates-io.html#%E6%96%87%E6%A1%A3%E6%B3%A8%E9%87%8A%E4%BD%9C%E4%B8%BA%E6%B5%8B%E8%AF%95">文档注释作为测试</a></h4>
+<p>在文档注释中增加示例代码块是一个清楚的表明如何使用库的方法，这么做还有一个额外的好处：<code>cargo test</code> 也会像测试那样运行文档中的示例代码！没有什么比有例子的文档更好的了，但最糟糕的莫过于写完文档后改动了代码，而导致例子不能正常工作。尝试 <code>cargo test</code> 运行像示例 14-1 中 <code>add_one</code> 函数的文档；应该在测试结果中看到像这样的部分：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text">   Doc-tests my_crate
+
+running 1 test
+test src/lib.rs - add_one (line 5) ... ok
+
+test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.27s
+</code></pre></div><p>现在尝试改变函数或例子来使例子中的 <code>assert_eq!</code> 产生 panic。再次运行 <code>cargo test</code>，你将会看到文档测试捕获到了例子与代码不再同步！</p>
+<h4 id="注释包含项的结构httpskaiserygithubiotrpl-zh-cnch14-02-publishing-to-crates-iohtml注释包含项的结构"><a href="https://kaisery.github.io/trpl-zh-cn/ch14-02-publishing-to-crates-io.html#%E6%B3%A8%E9%87%8A%E5%8C%85%E5%90%AB%E9%A1%B9%E7%9A%84%E7%BB%93%E6%9E%84">注释包含项的结构</a></h4>
+<p>还有另一种风格的文档注释，<code>//!</code>，这为包含注释的项，而不是位于注释之后的项增加文档。这通常用于 crate 根文件（通常是 <em>src/lib.rs</em>）或模块的根文件为 crate 或模块整体提供文档。</p>
+<p>作为一个例子，如果我们希望增加描述包含 <code>add_one</code> 函数的 <code>my_crate</code> crate 目的的文档，可以在 <em>src/lib.rs</em> 开头增加以 <code>//!</code> 开头的注释，如示例 14-2 所示：</p>
+<p>文件名: src/lib.rs</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-rust" data-lang="rust"><span class="sd">//! # My Crate
+</span><span class="sd">//!
+</span><span class="sd">//! `my_crate` is a collection of utilities to make performing certain
+</span><span class="sd">//! calculations more convenient.
+</span><span class="sd"></span><span class="w">
+</span><span class="w"></span><span class="sd">/// Adds one to the number given.
+</span><span class="sd"></span><span class="c1">// --snip--
+</span></code></pre></div><p>示例 14-2：<code>my_crate</code> crate 整体的文档</p>
+<p>注意 <code>//!</code> 的最后一行之后没有任何代码。因为他们以 <code>//!</code> 开头而不是 <code>///</code>，这是属于包含此注释的项而不是注释之后项的文档。在这个情况中，包含这个注释的项是 <em>src/lib.rs</em> 文件，也就是 crate 根文件。这些注释描述了整个 crate。</p>
+<p>如果运行 <code>cargo doc --open</code>，将会发现这些注释显示在 <code>my_crate</code> 文档的首页，位于 crate 中公有项列表之上，如图 14-2 所示：</p>
+<p><img src="https://kaisery.github.io/trpl-zh-cn/img/trpl14-02.png" alt="crate 整体注释所渲染的 HTML 文档"></p>
+<p>图 14-2：包含 <code>my_crate</code> 整体描述的注释所渲染的文档</p>
+<p>位于项之中的文档注释对于描述 crate 和模块特别有用。使用他们描述其容器整体的目的来帮助 crate 用户理解你的代码组织。</p>
+<h3 id="使用-pub-use-导出合适的公有-apihttpskaiserygithubiotrpl-zh-cnch14-02-publishing-to-crates-iohtml使用-pub-use-导出合适的公有-api"><a href="https://kaisery.github.io/trpl-zh-cn/ch14-02-publishing-to-crates-io.html#%E4%BD%BF%E7%94%A8-pub-use-%E5%AF%BC%E5%87%BA%E5%90%88%E9%80%82%E7%9A%84%E5%85%AC%E6%9C%89-api">使用 <code>pub use</code> 导出合适的公有 API</a></h3>
+<p>第七章介绍了如何使用 <code>mod</code> 关键字来将代码组织进模块中，如何使用 <code>pub</code> 关键字将项变为公有，和如何使用 <code>use</code> 关键字将项引入作用域。然而你开发时候使用的文件架构可能并不方便用户。你的结构可能是一个包含多个层级的分层结构，不过这对于用户来说并不方便。这是因为想要使用被定义在很深层级中的类型的人可能很难发现这些类型的存在。他们也可能会厌烦要使用 <code>use my_crate::some_module::another_module::UsefulType;</code> 而不是 <code>use my_crate::UsefulType;</code> 来使用类型。</p>
+<p>公有 API 的结构是你发布 crate 时主要需要考虑的。crate 用户没有你那么熟悉其结构，并且如果模块层级过大他们可能会难以找到所需的部分。</p>
+<p>好消息是，即使文件结构对于用户来说 <strong>不是</strong> 很方便，你也无需重新安排内部组织：你可以选择使用 <code>pub use</code> 重导出（re-export）项来使公有结构不同于私有结构。重导出获取位于一个位置的公有项并将其公开到另一个位置，好像它就定义在这个新位置一样。</p>
+<p>例如，假设我们创建了一个描述美术信息的库 <code>art</code>。这个库中包含了一个有两个枚举 <code>PrimaryColor</code> 和 <code>SecondaryColor</code> 的模块 <code>kinds</code>，以及一个包含函数 <code>mix</code> 的模块 <code>utils</code>，如示例 14-3 所示：</p>
+<p>文件名: src/lib.rs</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-rust" data-lang="rust"><span class="sd">//! # Art
+</span><span class="sd">//!
+</span><span class="sd">//! A library for modeling artistic concepts.
+</span><span class="sd"></span><span class="w">
+</span><span class="w"></span><span class="k">pub</span><span class="w"> </span><span class="k">mod</span> <span class="nn">kinds</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span><span class="w">    </span><span class="sd">/// The primary colors according to the RYB color model.
+</span><span class="sd"></span><span class="w">    </span><span class="k">pub</span><span class="w"> </span><span class="k">enum</span> <span class="nc">PrimaryColor</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span><span class="w">        </span><span class="n">Red</span><span class="p">,</span><span class="w">
+</span><span class="w">        </span><span class="n">Yellow</span><span class="p">,</span><span class="w">
+</span><span class="w">        </span><span class="n">Blue</span><span class="p">,</span><span class="w">
+</span><span class="w">    </span><span class="p">}</span><span class="w">
+</span><span class="w">
+</span><span class="w">    </span><span class="sd">/// The secondary colors according to the RYB color model.
+</span><span class="sd"></span><span class="w">    </span><span class="k">pub</span><span class="w"> </span><span class="k">enum</span> <span class="nc">SecondaryColor</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span><span class="w">        </span><span class="n">Orange</span><span class="p">,</span><span class="w">
+</span><span class="w">        </span><span class="n">Green</span><span class="p">,</span><span class="w">
+</span><span class="w">        </span><span class="n">Purple</span><span class="p">,</span><span class="w">
+</span><span class="w">    </span><span class="p">}</span><span class="w">
+</span><span class="w"></span><span class="p">}</span><span class="w">
+</span><span class="w">
+</span><span class="w"></span><span class="k">pub</span><span class="w"> </span><span class="k">mod</span> <span class="nn">utils</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span><span class="w">    </span><span class="k">use</span><span class="w"> </span><span class="k">crate</span>::<span class="n">kinds</span>::<span class="o">*</span><span class="p">;</span><span class="w">
+</span><span class="w">
+</span><span class="w">    </span><span class="sd">/// Combines two primary colors in equal amounts to create
+</span><span class="sd"></span><span class="w">    </span><span class="sd">/// a secondary color.
+</span><span class="sd"></span><span class="w">    </span><span class="k">pub</span><span class="w"> </span><span class="k">fn</span> <span class="nf">mix</span><span class="p">(</span><span class="n">c1</span>: <span class="nc">PrimaryColor</span><span class="p">,</span><span class="w"> </span><span class="n">c2</span>: <span class="nc">PrimaryColor</span><span class="p">)</span><span class="w"> </span>-&gt; <span class="nc">SecondaryColor</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span><span class="w">        </span><span class="c1">// --snip--
+</span><span class="c1"></span><span class="w">    </span><span class="p">}</span><span class="w">
+</span><span class="w"></span><span class="p">}</span><span class="w">
+</span></code></pre></div><p>示例 14-3：一个库 <code>art</code> 其组织包含 <code>kinds</code> 和 <code>utils</code> 模块</p>
+<p><code>cargo doc</code> 所生成的 crate 文档首页如图 14-3 所示：</p>
+<p><img src="https://kaisery.github.io/trpl-zh-cn/img/trpl14-03.png" alt="包含 kinds 和 utils 模块的 art"></p>
+<p>图 14-3：包含 <code>kinds</code> 和 <code>utils</code> 模块的库 <code>art</code> 的文档首页</p>
+<p>注意 <code>PrimaryColor</code> 和 <code>SecondaryColor</code> 类型、以及 <code>mix</code> 函数都没有在首页中列出。我们必须点击 <code>kinds</code> 或 <code>utils</code> 才能看到他们。</p>
+<p>另一个依赖这个库的 crate 需要 <code>use</code> 语句来导入 <code>art</code> 中的项，这包含指定其当前定义的模块结构。示例 14-4 展示了一个使用 <code>art</code> crate 中 <code>PrimaryColor</code> 和 <code>mix</code> 项的 crate 的例子：</p>
+<p>文件名: src/main.rs</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-rust" data-lang="rust"><span class="k">use</span><span class="w"> </span><span class="n">art</span>::<span class="n">kinds</span>::<span class="n">PrimaryColor</span><span class="p">;</span><span class="w">
+</span><span class="w"></span><span class="k">use</span><span class="w"> </span><span class="n">art</span>::<span class="n">utils</span>::<span class="n">mix</span><span class="p">;</span><span class="w">
+</span><span class="w">
+</span><span class="w"></span><span class="k">fn</span> <span class="nf">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span><span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="n">red</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">PrimaryColor</span>::<span class="n">Red</span><span class="p">;</span><span class="w">
+</span><span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="n">yellow</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">PrimaryColor</span>::<span class="n">Yellow</span><span class="p">;</span><span class="w">
+</span><span class="w">    </span><span class="n">mix</span><span class="p">(</span><span class="n">red</span><span class="p">,</span><span class="w"> </span><span class="n">yellow</span><span class="p">);</span><span class="w">
+</span><span class="w"></span><span class="p">}</span><span class="w">
+</span></code></pre></div><p>示例 14-4：一个通过导出内部结构使用 <code>art</code> crate 中项的 crate</p>
+<p>示例 14-4 中使用 <code>art</code> crate 代码的作者不得不搞清楚 <code>PrimaryColor</code> 位于 <code>kinds</code> 模块而 <code>mix</code> 位于 <code>utils</code> 模块。<code>art</code> crate 的模块结构相比使用它的开发者来说对编写它的开发者更有意义。其内部的 <code>kinds</code> 模块和 <code>utils</code> 模块的组织结构并没有对尝试理解如何使用它的人提供任何有价值的信息。<code>art</code> crate 的模块结构因不得不搞清楚所需的内容在何处和必须在 <code>use</code> 语句中指定模块名称而显得混乱和不便。</p>
+<p>为了从公有 API 中去掉 crate 的内部组织，我们可以采用示例 14-3 中的 <code>art</code> crate 并增加 <code>pub use</code> 语句来重导出项到顶层结构，如示例 14-5 所示：</p>
+<p>文件名: src/lib.rs</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-rust" data-lang="rust"><span class="sd">//! # Art
+</span><span class="sd">//!
+</span><span class="sd">//! A library for modeling artistic concepts.
+</span><span class="sd"></span><span class="w">
+</span><span class="w"></span><span class="k">pub</span><span class="w"> </span><span class="k">use</span><span class="w"> </span><span class="bp">self</span>::<span class="n">kinds</span>::<span class="n">PrimaryColor</span><span class="p">;</span><span class="w">
+</span><span class="w"></span><span class="k">pub</span><span class="w"> </span><span class="k">use</span><span class="w"> </span><span class="bp">self</span>::<span class="n">kinds</span>::<span class="n">SecondaryColor</span><span class="p">;</span><span class="w">
+</span><span class="w"></span><span class="k">pub</span><span class="w"> </span><span class="k">use</span><span class="w"> </span><span class="bp">self</span>::<span class="n">utils</span>::<span class="n">mix</span><span class="p">;</span><span class="w">
+</span><span class="w">
+</span><span class="w"></span><span class="k">pub</span><span class="w"> </span><span class="k">mod</span> <span class="nn">kinds</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span><span class="w">    </span><span class="c1">// --snip--
+</span><span class="c1"></span><span class="p">}</span><span class="w">
+</span><span class="w">
+</span><span class="w"></span><span class="k">pub</span><span class="w"> </span><span class="k">mod</span> <span class="nn">utils</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span><span class="w">    </span><span class="c1">// --snip--
+</span><span class="c1"></span><span class="p">}</span><span class="w">
+</span></code></pre></div><p>示例 14-5：增加 <code>pub use</code> 语句重导出项</p>
+<p>现在此 crate 由 <code>cargo doc</code> 生成的 API 文档会在首页列出重导出的项以及其链接，如图 14-4 所示，这使得 <code>PrimaryColor</code> 和 <code>SecondaryColor</code> 类型和 <code>mix</code> 函数更易于查找。</p>
+<p><img src="https://kaisery.github.io/trpl-zh-cn/img/trpl14-04.png" alt="Rendered documentation for the art crate with the re-exports on the front page"></p>
+<p>图 14-10：<code>art</code> 文档的首页，这里列出了重导出的项</p>
+<p><code>art</code> crate 的用户仍然可以看见和选择使用示例 14-4 中的内部结构，或者可以使用示例 14-5 中更为方便的结构，如示例 14-6 所示：</p>
+<p>文件名: src/main.rs</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-rust" data-lang="rust"><span class="k">use</span><span class="w"> </span><span class="n">art</span>::<span class="n">mix</span><span class="p">;</span><span class="w">
+</span><span class="w"></span><span class="k">use</span><span class="w"> </span><span class="n">art</span>::<span class="n">PrimaryColor</span><span class="p">;</span><span class="w">
+</span><span class="w">
+</span><span class="w"></span><span class="k">fn</span> <span class="nf">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span><span class="w">    </span><span class="c1">// --snip--
+</span><span class="c1"></span><span class="p">}</span><span class="w">
+</span></code></pre></div><p>示例 14-6：一个使用 <code>art</code> crate 中重导出项的程序</p>
+<p>对于有很多嵌套模块的情况，使用 <code>pub use</code> 将类型重导出到顶级结构对于使用 crate 的人来说将会是大为不同的体验。</p>
+<p>创建一个有用的公有 API 结构更像是一门艺术而非科学，你可以反复检视他们来找出最适合用户的 API。<code>pub use</code> 提供了解耦组织 crate 内部结构和与终端用户体现的灵活性。观察一些你所安装的 crate 的代码来看看其内部结构是否不同于公有 API。</p>
+<h3 id="创建-cratesio-账号httpskaiserygithubiotrpl-zh-cnch14-02-publishing-to-crates-iohtml创建-cratesio-账号"><a href="https://kaisery.github.io/trpl-zh-cn/ch14-02-publishing-to-crates-io.html#%E5%88%9B%E5%BB%BA-cratesio-%E8%B4%A6%E5%8F%B7">创建 Crates.io 账号</a></h3>
+<p>在你可以发布任何 crate 之前，需要在 <a href="https://crates.io/">crates.io</a> 上注册账号并获取一个 API token。为此，访问位于 <a href="https://crates.io/">crates.io</a> 的首页并使用 GitHub 账号登陆。（目前 GitHub 账号是必须的，不过将来该网站可能会支持其他创建账号的方法）一旦登陆之后，查看位于 <a href="https://crates.io/me/">https://crates.io/me/</a> 的账户设置页面并获取 API token。接着使用该 API token 运行 <code>cargo login</code> 命令，像这样：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-console" data-lang="console"><span class="gp">$ </span>cargo login abcdefghijklmnopqrstuvwxyz012345
+</code></pre></div><p>这个命令会通知 Cargo 你的 API token 并将其储存在本地的 <em>~/.cargo/credentials</em> 文件中。注意这个 token 是一个 <strong>秘密</strong>（<strong>secret</strong>）且不应该与其他人共享。如果因为任何原因与他人共享了这个信息，应该立即到 <a href="https://crates.io/">crates.io</a> 重新生成这个 token。</p>
+<h3 id="发布新-crate-之前httpskaiserygithubiotrpl-zh-cnch14-02-publishing-to-crates-iohtml发布新-crate-之前"><a href="https://kaisery.github.io/trpl-zh-cn/ch14-02-publishing-to-crates-io.html#%E5%8F%91%E5%B8%83%E6%96%B0-crate-%E4%B9%8B%E5%89%8D">发布新 crate 之前</a></h3>
+<p>有了账号之后，比如说你已经有一个希望发布的 crate。在发布之前，你需要在 crate 的 <em>Cargo.toml</em> 文件的 <code>[package]</code> 部分增加一些本 crate 的元信息（metadata）。</p>
+<p>首先 crate 需要一个唯一的名称。虽然在本地开发 crate 时，可以使用任何你喜欢的名称。不过 <a href="https://crates.io/">crates.io</a> 上的 crate 名称遵守先到先得的分配原则。一旦某个 crate 名称被使用，其他人就不能再发布这个名称的 crate 了。请在网站上搜索你希望使用的名称来找出它是否已被使用。如果没有，修改 <em>Cargo.toml</em> 中 <code>[package]</code> 里的名称为你希望用于发布的名称，像这样：</p>
+<p>文件名: Cargo.toml</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-toml" data-lang="toml"><span class="p">[</span><span class="nx">package</span><span class="p">]</span>
+<span class="nx">name</span> <span class="p">=</span> <span class="s2">&#34;guessing_game&#34;</span>
+</code></pre></div><p>即使你选择了一个唯一的名称，如果此时尝试运行 <code>cargo publish</code> 发布该 crate 的话，会得到一个警告接着是一个错误：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-console" data-lang="console"><span class="gp">$ </span>cargo publish
+<span class="go">    Updating crates.io index
+</span><span class="go">warning: manifest has no description, license, license-file, documentation, homepage or repository.
+</span><span class="go">See https://doc.rust-lang.org/cargo/reference/manifest.html#package-metadata for more info.
+</span><span class="go">--snip--
+</span><span class="go">error: failed to publish to registry at https://crates.io
+</span><span class="go"></span><span class="err">
+</span><span class="err"></span><span class="go">Caused by:
+</span><span class="go">  the remote server responded with an error: missing or empty metadata fields: description, license. Please see https://doc.rust-lang.org/cargo/reference/manifest.html for how to upload metadata
+</span></code></pre></div><p>这是因为我们缺少一些关键信息：关于该 crate 用途的描述和用户可能在何种条款下使用该 crate 的 license。为了修正这个错误，需要在 <em>Cargo.toml</em> 中引入这些信息。</p>
+<p>描述通常是一两句话，因为它会出现在 crate 的搜索结果中和 crate 页面里。对于 <code>license</code> 字段，你需要一个 <strong>license 标识符值</strong>（<em>license identifier value</em>）。<a href="http://spdx.org/licenses/">Linux 基金会的 Software Package Data Exchange (SPDX)</a> 列出了可以使用的标识符。例如，为了指定 crate 使用 MIT License，增加 <code>MIT</code> 标识符：</p>
+<p>文件名: Cargo.toml</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-toml" data-lang="toml"><span class="p">[</span><span class="nx">package</span><span class="p">]</span>
+<span class="nx">name</span> <span class="p">=</span> <span class="s2">&#34;guessing_game&#34;</span>
+<span class="nx">license</span> <span class="p">=</span> <span class="s2">&#34;MIT&#34;</span>
+</code></pre></div><p>如果你希望使用不存在于 SPDX 的 license，则需要将 license 文本放入一个文件，将该文件包含进项目中，接着使用 <code>license-file</code> 来指定文件名而不是使用 <code>license</code> 字段。</p>
+<p>关于项目所适用的 license 指导超出了本书的范畴。很多 Rust 社区成员选择与 Rust 自身相同的 license，这是一个双许可的 <code>MIT OR Apache-2.0</code>。这个实践展示了也可以通过 <code>OR</code> 分隔为项目指定多个 license 标识符。</p>
+<p>那么，有了唯一的名称、版本号、由 <code>cargo new</code> 新建项目时增加的作者信息、描述和所选择的 license，已经准备好发布的项目的 <em>Cargo.toml</em> 文件可能看起来像这样：</p>
+<p>文件名: Cargo.toml</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-toml" data-lang="toml"><span class="p">[</span><span class="nx">package</span><span class="p">]</span>
+<span class="nx">name</span> <span class="p">=</span> <span class="s2">&#34;guessing_game&#34;</span>
+<span class="nx">version</span> <span class="p">=</span> <span class="s2">&#34;0.1.0&#34;</span>
+<span class="nx">edition</span> <span class="p">=</span> <span class="s2">&#34;2021&#34;</span>
+<span class="nx">description</span> <span class="p">=</span> <span class="s2">&#34;A fun game where you guess what number the computer has chosen.&#34;</span>
+<span class="nx">license</span> <span class="p">=</span> <span class="s2">&#34;MIT OR Apache-2.0&#34;</span>
+
+<span class="p">[</span><span class="nx">dependencies</span><span class="p">]</span>
+</code></pre></div><p><a href="http://doc.rust-lang.org/cargo/">Cargo 的文档</a> 描述了其他可以指定的元信息，他们可以帮助你的 crate 更容易被发现和使用！</p>
+<h3 id="发布到-cratesiohttpskaiserygithubiotrpl-zh-cnch14-02-publishing-to-crates-iohtml发布到-cratesio"><a href="https://kaisery.github.io/trpl-zh-cn/ch14-02-publishing-to-crates-io.html#%E5%8F%91%E5%B8%83%E5%88%B0-cratesio">发布到 Crates.io</a></h3>
+<p>现在我们创建了一个账号，保存了 API token，为 crate 选择了一个名字，并指定了所需的元数据，你已经准备好发布了！发布 crate 会上传特定版本的 crate 到 <a href="https://crates.io/">crates.io</a> 以供他人使用。</p>
+<p>发布 crate 时请多加小心，因为发布是 <strong>永久性的</strong>（<em>permanent</em>）。对应版本不可能被覆盖，其代码也不可能被删除。<a href="https://crates.io/">crates.io</a> 的一个主要目标是作为一个存储代码的永久文档服务器，这样所有依赖 <a href="https://crates.io/">crates.io</a> 中的 crate 的项目都能一直正常工作。而允许删除版本没办法达成这个目标。然而，可以被发布的版本号却没有限制。</p>
+<p>再次运行 <code>cargo publish</code> 命令。这次它应该会成功：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-console" data-lang="console"><span class="gp">$ </span>cargo publish
+<span class="go">    Updating crates.io index
+</span><span class="go">   Packaging guessing_game v0.1.0 (file:///projects/guessing_game)
+</span><span class="go">   Verifying guessing_game v0.1.0 (file:///projects/guessing_game)
+</span><span class="go">   Compiling guessing_game v0.1.0
+</span><span class="go">(file:///projects/guessing_game/target/package/guessing_game-0.1.0)
+</span><span class="go">    Finished dev [unoptimized + debuginfo] target(s) in 0.19s
+</span><span class="go">   Uploading guessing_game v0.1.0 (file:///projects/guessing_game)
+</span></code></pre></div><p>恭喜！你现在向 Rust 社区分享了代码，而且任何人都可以轻松的将你的 crate 加入他们项目的依赖。</p>
+<h3 id="发布现存-crate-的新版本httpskaiserygithubiotrpl-zh-cnch14-02-publishing-to-crates-iohtml发布现存-crate-的新版本"><a href="https://kaisery.github.io/trpl-zh-cn/ch14-02-publishing-to-crates-io.html#%E5%8F%91%E5%B8%83%E7%8E%B0%E5%AD%98-crate-%E7%9A%84%E6%96%B0%E7%89%88%E6%9C%AC">发布现存 crate 的新版本</a></h3>
+<p>当你修改了 crate 并准备好发布新版本时，改变 <em>Cargo.toml</em> 中 <code>version</code> 所指定的值。请使用 <a href="http://semver.org/">语义化版本规则</a> 来根据修改的类型决定下一个版本号。接着运行 <code>cargo publish</code> 来上传新版本。</p>
+<h3 id="使用-cargo-yank-从-cratesio-撤回版本httpskaiserygithubiotrpl-zh-cnch14-02-publishing-to-crates-iohtml使用-cargo-yank-从-cratesio-撤回版本"><a href="https://kaisery.github.io/trpl-zh-cn/ch14-02-publishing-to-crates-io.html#%E4%BD%BF%E7%94%A8-cargo-yank-%E4%BB%8E-cratesio-%E6%92%A4%E5%9B%9E%E7%89%88%E6%9C%AC">使用 <code>cargo yank</code> 从 Crates.io 撤回版本</a></h3>
+<p>虽然你不能删除之前版本的 crate，但是可以阻止任何将来的项目将他们加入到依赖中。这在某个版本因为这样或那样的原因被破坏的情况很有用。对于这种情况，Cargo 支持 <strong>撤回</strong>（<em>yanking</em>）某个版本。</p>
+<p>撤回某个版本会阻止新项目开始依赖此版本，不过所有现存此依赖的项目仍然能够下载和依赖这个版本。从本质上说，撤回意味着所有带有 <em>Cargo.lock</em> 的项目的依赖不会被破坏，同时任何新生成的 <em>Cargo.lock</em> 将不能使用被撤回的版本。</p>
+<p>为了撤回一个 crate，运行 <code>cargo yank</code> 并指定希望撤回的版本：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-console" data-lang="console"><span class="gp">$ </span>cargo yank --vers 1.0.1
+</code></pre></div><p>也可以撤销撤回操作，并允许项目可以再次开始依赖某个版本，通过在命令上增加 <code>--undo</code>：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-console" data-lang="console"><span class="gp">$ </span>cargo yank --vers 1.0.1 --undo
+</code></pre></div><p>撤回 <strong>并没有</strong> 删除任何代码。举例来说，撤回功能并不意在删除不小心上传的秘密信息。如果出现了这种情况，请立即重新设置这些秘密信息。</p>
+<h1 id="四cargo-工作空间httpskaiserygithubiotrpl-zh-cnch14-03-cargo-workspaceshtmlcargo-工作空间">四.<a href="https://kaisery.github.io/trpl-zh-cn/ch14-03-cargo-workspaces.html#cargo-%E5%B7%A5%E4%BD%9C%E7%A9%BA%E9%97%B4">Cargo 工作空间</a></h1>
+<h3 id="创建工作空间httpskaiserygithubiotrpl-zh-cnch14-03-cargo-workspaceshtml创建工作空间"><a href="https://kaisery.github.io/trpl-zh-cn/ch14-03-cargo-workspaces.html#%E5%88%9B%E5%BB%BA%E5%B7%A5%E4%BD%9C%E7%A9%BA%E9%97%B4">创建工作空间</a></h3>
+<p><strong>工作空间</strong> 是一系列共享同样的 <em>Cargo.lock</em> 和输出目录的包。让我们使用工作空间创建一个项目 —— 这里采用常见的代码以便可以关注工作空间的结构。有多种组织工作空间的方式；我们将展示一个常用方法。我们的工作空间有一个二进制项目和两个库。二进制项目会提供主要功能，并会依赖另两个库。一个库会提供 <code>add_one</code> 方法而第二个会提供 <code>add_two</code> 方法。这三个 crate 将会是相同工作空间的一部分。让我们以新建工作空间目录开始：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-console" data-lang="console"><span class="gp">$ </span>mkdir add
+<span class="gp">$ </span><span class="nb">cd</span> add
+</code></pre></div><p>接着在 <em>add</em> 目录中，创建 <em>Cargo.toml</em> 文件。这个 <em>Cargo.toml</em> 文件配置了整个工作空间。它不会包含 <code>[package]</code> 或其他我们在 <em>Cargo.toml</em> 中见过的元信息。相反，它以 <code>[workspace]</code> 部分作为开始，并通过指定 <em>adder</em> 的路径来为工作空间增加成员，如下会加入二进制 crate：</p>
+<p>文件名: Cargo.toml</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-toml" data-lang="toml"><span class="p">[</span><span class="nx">workspace</span><span class="p">]</span>
+
+<span class="nx">members</span> <span class="p">=</span> <span class="p">[</span>
+    <span class="s2">&#34;adder&#34;</span><span class="p">,</span>
+<span class="p">]</span>
+</code></pre></div><p>接下来，在 <em>add</em> 目录运行 <code>cargo new</code> 新建 <code>adder</code> 二进制 crate：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-console" data-lang="console"><span class="gp">$ </span>cargo new adder
+<span class="go">     Created binary (application) `adder` package
+</span></code></pre></div><p>到此为止，可以运行 <code>cargo build</code> 来构建工作空间。<em>add</em> 目录中的文件应该看起来像这样：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text">├── Cargo.lock
+├── Cargo.toml
+├── adder
+│   ├── Cargo.toml
+│   └── src
+│       └── main.rs
+└── target
+</code></pre></div><p>工作空间在顶级目录有一个 <em>target</em> 目录；<code>adder</code> 并没有自己的 <em>target</em> 目录。即使进入 <em>adder</em> 目录运行 <code>cargo build</code>，构建结果也位于 <em>add/target</em> 而不是 <em>add/adder/target</em>。工作空间中的 crate 之间相互依赖。如果每个 crate 有其自己的 <em>target</em> 目录，为了在自己的 <em>target</em> 目录中生成构建结果，工作空间中的每一个 crate 都不得不相互重新编译其他 crate。通过共享一个 <em>target</em> 目录，工作空间可以避免其他 crate 多余的重复构建。</p>
+<h3 id="在工作空间中创建第二个包httpskaiserygithubiotrpl-zh-cnch14-03-cargo-workspaceshtml在工作空间中创建第二个包"><a href="https://kaisery.github.io/trpl-zh-cn/ch14-03-cargo-workspaces.html#%E5%9C%A8%E5%B7%A5%E4%BD%9C%E7%A9%BA%E9%97%B4%E4%B8%AD%E5%88%9B%E5%BB%BA%E7%AC%AC%E4%BA%8C%E4%B8%AA%E5%8C%85">在工作空间中创建第二个包</a></h3>
+<p>接下来，让我们在工作空间中指定另一个成员 crate。这个 crate 位于 <em>add-one</em> 目录中，所以修改顶级 <em>Cargo.toml</em> 为也包含 <em>add-one</em> 路径：</p>
+<p>文件名: Cargo.toml</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-toml" data-lang="toml"><span class="p">[</span><span class="nx">workspace</span><span class="p">]</span>
+
+<span class="nx">members</span> <span class="p">=</span> <span class="p">[</span>
+    <span class="s2">&#34;adder&#34;</span><span class="p">,</span>
+    <span class="s2">&#34;add_one&#34;</span><span class="p">,</span>
+<span class="p">]</span>
+</code></pre></div><p>接着新生成一个叫做 <code>add-one</code> 的库：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-console" data-lang="console"><span class="gp">$ </span>cargo new add_one --lib
+<span class="go">     Created library `add_one` package
+</span></code></pre></div><p>现在 <em>add</em> 目录应该有如下目录和文件：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text">├── Cargo.lock
+├── Cargo.toml
+├── add_one
+│   ├── Cargo.toml
+│   └── src
+│       └── lib.rs
+├── adder
+│   ├── Cargo.toml
+│   └── src
+│       └── main.rs
+└── target
+</code></pre></div><p>在 <em>add-one/src/lib.rs</em> 文件中，增加一个 <code>add_one</code> 函数：</p>
+<p>文件名: add-one/src/lib.rs</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-rust" data-lang="rust"><span class="k">pub</span><span class="w"> </span><span class="k">fn</span> <span class="nf">add_one</span><span class="p">(</span><span class="n">x</span>: <span class="kt">i32</span><span class="p">)</span><span class="w"> </span>-&gt; <span class="kt">i32</span> <span class="p">{</span><span class="w">
+</span><span class="w">    </span><span class="n">x</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="w">
+</span><span class="w"></span><span class="p">}</span><span class="w">
+</span></code></pre></div><p>现在工作空间中有了一个库 crate，让 <code>adder</code> 依赖库 crate <code>add-one</code>。首先需要在 <em>adder/Cargo.toml</em> 文件中增加 <code>add-one</code> 作为路径依赖：</p>
+<p>文件名: adder/Cargo.toml</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-toml" data-lang="toml"><span class="p">[</span><span class="nx">dependencies</span><span class="p">]</span>
+<span class="nx">add_one</span> <span class="p">=</span> <span class="p">{</span> <span class="nx">path</span> <span class="p">=</span> <span class="s2">&#34;../add_one&#34;</span> <span class="p">}</span>
+</code></pre></div><p>cargo并不假定工作空间中的Crates会相互依赖，所以需要明确表明工作空间中 crate 的依赖关系。</p>
+<p>接下来，在 <code>adder</code> crate 中使用 <code>add-one</code> crate 的函数 <code>add_one</code>。打开 <em>adder/src/main.rs</em> 在顶部增加一行 <code>use</code> 将新 <code>add-one</code> 库 crate 引入作用域。接着修改 <code>main</code> 函数来调用 <code>add_one</code> 函数，如示例 14-7 所示。</p>
+<p>文件名: adder/src/main.rs</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-rust" data-lang="rust"><span class="k">use</span><span class="w"> </span><span class="n">add_one</span><span class="p">;</span><span class="w">
+</span><span class="w">
+</span><span class="w"></span><span class="k">fn</span> <span class="nf">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span><span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="n">num</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">10</span><span class="p">;</span><span class="w">
+</span><span class="w">    </span><span class="fm">println!</span><span class="p">(</span><span class="w">
+</span><span class="w">        </span><span class="s">&#34;Hello, world! {} plus one is {}!&#34;</span><span class="p">,</span><span class="w">
+</span><span class="w">        </span><span class="n">num</span><span class="p">,</span><span class="w">
+</span><span class="w">        </span><span class="n">add_one</span>::<span class="n">add_one</span><span class="p">(</span><span class="n">num</span><span class="p">)</span><span class="w">
+</span><span class="w">    </span><span class="p">);</span><span class="w">
+</span><span class="w"></span><span class="p">}</span><span class="w">
+</span></code></pre></div><p>示例 14-7：在 <code>adder</code> crate 中使用 <code>add-one</code> 库 crate</p>
+<p>在 <em>add</em> 目录中运行 <code>cargo build</code> 来构建工作空间！</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-console" data-lang="console"><span class="gp">$ </span>cargo build
+<span class="go">   Compiling add_one v0.1.0 (file:///projects/add/add_one)
+</span><span class="go">   Compiling adder v0.1.0 (file:///projects/add/adder)
+</span><span class="go">    Finished dev [unoptimized + debuginfo] target(s) in 0.68s
+</span></code></pre></div><p>为了在顶层 <em>add</em> 目录运行二进制 crate，可以通过 <code>-p</code> 参数和包名称来运行 <code>cargo run</code> 指定工作空间中我们希望使用的包：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-console" data-lang="console"><span class="gp">$ </span>cargo run -p adder
+<span class="go">    Finished dev [unoptimized + debuginfo] target(s) in 0.0s
+</span><span class="go">     Running `target/debug/adder`
+</span><span class="go">Hello, world! 10 plus one is 11!
+</span></code></pre></div><p>这会运行 <em>adder/src/main.rs</em> 中的代码，其依赖 <code>add-one</code> crate</p>
+<h4 id="在工作空间中依赖外部包httpskaiserygithubiotrpl-zh-cnch14-03-cargo-workspaceshtml在工作空间中依赖外部包"><a href="https://kaisery.github.io/trpl-zh-cn/ch14-03-cargo-workspaces.html#%E5%9C%A8%E5%B7%A5%E4%BD%9C%E7%A9%BA%E9%97%B4%E4%B8%AD%E4%BE%9D%E8%B5%96%E5%A4%96%E9%83%A8%E5%8C%85">在工作空间中依赖外部包</a></h4>
+<p>还需注意的是工作空间只在根目录有一个 <em>Cargo.lock</em>，而不是在每一个 crate 目录都有 <em>Cargo.lock</em>。这确保了所有的 crate 都使用完全相同版本的依赖。如果在 <em>Cargo.toml</em> 和 <em>add-one/Cargo.toml</em> 中都增加 <code>rand</code> crate，则 Cargo 会将其都解析为同一版本并记录到唯一的 <em>Cargo.lock</em> 中。使得工作空间中的所有 crate 都使用相同的依赖意味着其中的 crate 都是相互兼容的。让我们在 <em>add-one/Cargo.toml</em> 中的 <code>[dependencies]</code> 部分增加 <code>rand</code> crate 以便能够在 <code>add-one</code> crate 中使用 <code>rand</code> crate：</p>
+<p>文件名: add-one/Cargo.toml</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-toml" data-lang="toml"><span class="p">[</span><span class="nx">dependencies</span><span class="p">]</span>
+<span class="nx">rand</span> <span class="p">=</span> <span class="s2">&#34;0.8.3&#34;</span>
+</code></pre></div><p>现在就可以在 <em>add-one/src/lib.rs</em> 中增加 <code>use rand;</code> 了，接着在 <em>add</em> 目录运行 <code>cargo build</code> 构建整个工作空间就会引入并编译 <code>rand</code> crate：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-console" data-lang="console"><span class="gp">$ </span>cargo build
+<span class="go">    Updating crates.io index
+</span><span class="go">  Downloaded rand v0.8.3
+</span><span class="go">   --snip--
+</span><span class="go">   Compiling rand v0.8.3
+</span><span class="go">   Compiling add_one v0.1.0 (file:///projects/add/add_one)
+</span><span class="go">warning: unused import: `rand`
+</span><span class="go"> --&gt; add_one/src/lib.rs:1:5
+</span><span class="go">  |
+</span><span class="go">1 | use rand;
+</span><span class="go">  |     ^^^^
+</span><span class="go">  |
+</span><span class="go">  = note: `#[warn(unused_imports)]` on by default
+</span><span class="go"></span><span class="err">
+</span><span class="err"></span><span class="go">warning: 1 warning emitted
+</span><span class="go"></span><span class="err">
+</span><span class="err"></span><span class="go">   Compiling adder v0.1.0 (file:///projects/add/adder)
+</span><span class="go">    Finished dev [unoptimized + debuginfo] target(s) in 10.18s
+</span></code></pre></div><p>现在顶级的 <em>Cargo.lock</em> 包含了 <code>add-one</code> 的 <code>rand</code> 依赖的信息。然而，即使 <code>rand</code> 被用于工作空间的某处，也不能在其他 crate 中使用它，除非也在他们的 <em>Cargo.toml</em> 中加入 <code>rand</code>。例如，如果在顶级的 <code>adder</code> crate 的 <em>adder/src/main.rs</em> 中增加 <code>use rand;</code>，会得到一个错误：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-console" data-lang="console"><span class="gp">$ </span>cargo build
+<span class="go">  --snip--
+</span><span class="go">   Compiling adder v0.1.0 (file:///projects/add/adder)
+</span><span class="go">error[E0432]: unresolved import `rand`
+</span><span class="go"> --&gt; adder/src/main.rs:2:5
+</span><span class="go">  |
+</span><span class="go">2 | use rand;
+</span><span class="go">  |     ^^^^ no external crate `rand`
+</span></code></pre></div><p>为了修复这个错误，修改顶级 <code>adder</code> crate 的 <em>Cargo.toml</em> 来表明 <code>rand</code> 也是这个 crate 的依赖。构建 <code>adder</code> crate 会将 <code>rand</code> 加入到 <em>Cargo.lock</em> 中 <code>adder</code> 的依赖列表中，但是这并不会下载 <code>rand</code> 的额外拷贝。Cargo 确保了工作空间中任何使用 <code>rand</code> 的 crate 都采用相同的版本。在整个工作空间中使用相同版本的 <code>rand</code> 节省了空间，因为这样就无需多个拷贝并确保了工作空间中的 crate 将是相互兼容的。</p>
+<h4 id="为工作空间增加测试httpskaiserygithubiotrpl-zh-cnch14-03-cargo-workspaceshtml为工作空间增加测试"><a href="https://kaisery.github.io/trpl-zh-cn/ch14-03-cargo-workspaces.html#%E4%B8%BA%E5%B7%A5%E4%BD%9C%E7%A9%BA%E9%97%B4%E5%A2%9E%E5%8A%A0%E6%B5%8B%E8%AF%95">为工作空间增加测试</a></h4>
+<p>作为另一个提升，让我们为 <code>add_one</code> crate 中的 <code>add_one::add_one</code> 函数增加一个测试：</p>
+<p>文件名: add-one/src/lib.rs</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-rust" data-lang="rust"><span class="k">pub</span><span class="w"> </span><span class="k">fn</span> <span class="nf">add_one</span><span class="p">(</span><span class="n">x</span>: <span class="kt">i32</span><span class="p">)</span><span class="w"> </span>-&gt; <span class="kt">i32</span> <span class="p">{</span><span class="w">
+</span><span class="w">    </span><span class="n">x</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="w">
+</span><span class="w"></span><span class="p">}</span><span class="w">
+</span><span class="w">
+</span><span class="w"></span><span class="cp">#[cfg(test)]</span><span class="w">
+</span><span class="w"></span><span class="k">mod</span> <span class="nn">tests</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span><span class="w">    </span><span class="k">use</span><span class="w"> </span><span class="k">super</span>::<span class="o">*</span><span class="p">;</span><span class="w">
+</span><span class="w">
+</span><span class="w">    </span><span class="cp">#[test]</span><span class="w">
+</span><span class="w">    </span><span class="k">fn</span> <span class="nf">it_works</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span><span class="w">        </span><span class="fm">assert_eq!</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span><span class="w"> </span><span class="n">add_one</span><span class="p">(</span><span class="mi">2</span><span class="p">));</span><span class="w">
+</span><span class="w">    </span><span class="p">}</span><span class="w">
+</span><span class="w"></span><span class="p">}</span><span class="w">
+</span></code></pre></div><p>在顶级 <em>add</em> 目录运行 <code>cargo test</code>：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-console" data-lang="console"><span class="gp">$ </span>cargo <span class="nb">test</span>
+<span class="go">   Compiling add_one v0.1.0 (file:///projects/add/add_one)
+</span><span class="go">   Compiling adder v0.1.0 (file:///projects/add/adder)
+</span><span class="go">    Finished test [unoptimized + debuginfo] target(s) in 0.27s
+</span><span class="go">     Running target/debug/deps/add_one-f0253159197f7841
+</span><span class="go"></span><span class="err">
+</span><span class="err"></span><span class="go">running 1 test
+</span><span class="go">test tests::it_works ... ok
+</span><span class="go"></span><span class="err">
+</span><span class="err"></span><span class="go">test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+</span><span class="go"></span><span class="err">
+</span><span class="err"></span><span class="go">     Running target/debug/deps/adder-49979ff40686fa8e
+</span><span class="go"></span><span class="err">
+</span><span class="err"></span><span class="go">running 0 tests
+</span><span class="go"></span><span class="err">
+</span><span class="err"></span><span class="go">test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+</span><span class="go"></span><span class="err">
+</span><span class="err"></span><span class="go">   Doc-tests add_one
+</span><span class="go"></span><span class="err">
+</span><span class="err"></span><span class="go">running 0 tests
+</span><span class="go"></span><span class="err">
+</span><span class="err"></span><span class="go">test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+</span></code></pre></div><p>输出的第一部分显示 <code>add-one</code> crate 的 <code>it_works</code> 测试通过了。下一个部分显示 <code>adder</code> crate 中找到了 0 个测试，最后一部分显示 <code>add-one</code> crate 中有 0 个文档测试。在像这样的工作空间结构中运行 <code>cargo test</code> 会运行工作空间中所有 crate 的测试。</p>
+<p>也可以选择运行工作空间中特定 crate 的测试，通过在根目录使用 <code>-p</code> 参数并指定希望测试的 crate 名称：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-console" data-lang="console"><span class="gp">$ </span>cargo <span class="nb">test</span> -p add_one
+<span class="go">    Finished test [unoptimized + debuginfo] target(s) in 0.00s
+</span><span class="go">     Running target/debug/deps/add_one-b3235fea9a156f74
+</span><span class="go"></span><span class="err">
+</span><span class="err"></span><span class="go">running 1 test
+</span><span class="go">test tests::it_works ... ok
+</span><span class="go"></span><span class="err">
+</span><span class="err"></span><span class="go">test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+</span><span class="go"></span><span class="err">
+</span><span class="err"></span><span class="go">   Doc-tests add_one
+</span><span class="go"></span><span class="err">
+</span><span class="err"></span><span class="go">running 0 tests
+</span><span class="go"></span><span class="err">
+</span><span class="err"></span><span class="go">test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+</span></code></pre></div><p>输出显示了 <code>cargo test</code> 只运行了 <code>add-one</code> crate 的测试而没有运行 <code>adder</code> crate 的测试。</p>
+<p>如果你选择向 <a href="https://crates.io/">crates.io</a>发布工作空间中的 crate，每一个工作空间中的 crate 需要单独发布。<code>cargo publish</code> 命令并没有 <code>--all</code> 或者 <code>-p</code> 参数，所以必须进入每一个 crate 的目录并运行 <code>cargo publish</code> 来发布工作空间中的每一个 crate。</p>
+<p>现在尝试以类似 <code>add-one</code> crate 的方式向工作空间增加 <code>add_two</code> crate 来作为更多的练习！</p>
+<p>随着项目增长，考虑使用工作空间：每一个更小的组件比一大块代码要容易理解。如果它们经常需要同时被修改的话，将 crate 保持在工作空间中更易于协调他们的改变。</p>
+<h1 id="五使用-cargo-install-从-cratesio-安装二进制文件httpskaiserygithubiotrpl-zh-cnch14-04-installing-binarieshtml使用-cargo-install-从-cratesio-安装二进制文件">五.<a href="https://kaisery.github.io/trpl-zh-cn/ch14-04-installing-binaries.html#%E4%BD%BF%E7%94%A8-cargo-install-%E4%BB%8E-cratesio-%E5%AE%89%E8%A3%85%E4%BA%8C%E8%BF%9B%E5%88%B6%E6%96%87%E4%BB%B6">使用 <code>cargo install</code> 从 Crates.io 安装二进制文件</a></h1>
+<p><code>cargo install</code> 命令用于在本地安装和使用二进制 crate。它并不打算替换系统中的包；它意在作为一个方便 Rust 开发者们安装其他人已经在 <a href="https://crates.io/">crates.io</a> 上共享的工具的手段。只有拥有二进制目标文件的包能够被安装。<strong>二进制目标</strong> 文件是在 crate 有 <em>src/main.rs</em> 或者其他指定为二进制文件时所创建的可执行程序，这不同于自身不能执行但适合包含在其他程序中的库目标文件。通常 crate 的 <em>README</em> 文件中有该 crate 是库、二进制目标还是两者都是的信息。</p>
+<p>所有来自 <code>cargo install</code> 的二进制文件都安装到 Rust 安装根目录的 <em>bin</em> 文件夹中。如果你使用 <em>rustup.rs</em> 安装的 Rust 且没有自定义任何配置，这将是 <code>$HOME/.cargo/bin</code>。确保将这个目录添加到 <code>$PATH</code> 环境变量中就能够运行通过 <code>cargo install</code> 安装的程序了。</p>
+<p>例如，第十二章提到的叫做 <code>ripgrep</code> 的用于搜索文件的 <code>grep</code> 的 Rust 实现。如果想要安装 <code>ripgrep</code>，可以运行如下：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-console" data-lang="console"><span class="gp">$ </span>cargo install ripgrep
+<span class="go">    Updating crates.io index
+</span><span class="go">  Downloaded ripgrep v11.0.2
+</span><span class="go">  Downloaded 1 crate (243.3 KB) in 0.88s
+</span><span class="go">  Installing ripgrep v11.0.2
+</span><span class="go">--snip--
+</span><span class="go">   Compiling ripgrep v11.0.2
+</span><span class="go">    Finished release [optimized + debuginfo] target(s) in 3m 10s
+</span><span class="go">  Installing ~/.cargo/bin/rg
+</span><span class="go">   Installed package `ripgrep v11.0.2` (executable `rg`)
+</span></code></pre></div><p>最后一行输出展示了安装的二进制文件的位置和名称，在这里 <code>ripgrep</code> 被命名为 <code>rg</code>。只要你像上面提到的那样将安装目录加入 <code>$PATH</code>，就可以运行 <code>rg --help</code> 并开始使用一个更快更 Rust 的工具来搜索文件了！</p>
+<h1 id="六cargo-自定义扩展命令httpskaiserygithubiotrpl-zh-cnch14-05-extending-cargohtmlcargo-自定义扩展命令">六.<a href="https://kaisery.github.io/trpl-zh-cn/ch14-05-extending-cargo.html#cargo-%E8%87%AA%E5%AE%9A%E4%B9%89%E6%89%A9%E5%B1%95%E5%91%BD%E4%BB%A4">Cargo 自定义扩展命令</a></h1>
+<p>Cargo 的设计使得开发者可以通过新的子命令来对 Cargo 进行扩展，而无需修改 Cargo 本身。如果 <code>$PATH</code> 中有类似 <code>cargo-something</code> 的二进制文件，就可以通过 <code>cargo something</code> 来像 Cargo 子命令一样运行它。像这样的自定义命令也可以运行 <code>cargo --list</code> 来展示出来。能够通过 <code>cargo install</code> 向 Cargo 安装扩展并可以如内建 Cargo 工具那样运行他们是 Cargo 设计上的一个非常方便的优点！</p>
+<h2 id="总结httpskaiserygithubiotrpl-zh-cnch14-05-extending-cargohtml总结"><a href="https://kaisery.github.io/trpl-zh-cn/ch14-05-extending-cargo.html#%E6%80%BB%E7%BB%93">总结</a></h2>
+<p>通过 Cargo 和 <a href="https://crates.io/">crates.io</a> 来分享代码是使得 Rust 生态环境可以用于许多不同的任务的重要组成部分。Rust 的标准库是小而稳定的，不过 crate 易于分享和使用，并采用一个不同语言自身的时间线来提供改进。不要羞于在 <a href="https://crates.io/">crates.io</a> 上共享对你有用的代码；因为它很有可能对别人也很有用！</p>
+
+    
+	</div>
+  <footer class="article-footer clearfix">
+  
+
+<div class="article-tags">
+  <span></span>
+  
+  <a href="https://qkgoalkeeper.github.io/tags/rust%E6%95%99%E7%A8%8B">rust教程</a>
+  
+</div>
+
+
+
+
+
+<div class="article-categories">
+  <span></span>
+  
+  <a class="article-category-link" href="https://qkgoalkeeper.github.io/categories/rust">rust</a>
+  
+</div>
+
+
+
+  <div class="article-share" id="share">
+    <div data-url="https://qkgoalkeeper.github.io/post/rustthe_rust_book14%E8%BF%9B%E4%B8%80%E6%AD%A5%E8%AE%A4%E8%AF%86-cargo-%E5%92%8C-crates.io/" data-title="rust：the_rust_book（14）进一步认识 Cargo 和 Crates.io" data-tsina="5852167252" class="share clearfix">
+    </div>
+  </div>
+</footer>
+
+	</article>
+  
+
+
+
+</div>
+
+    <div class="openaside"><a class="navbutton" href="#" title="显示侧边栏"></a></div>
+<div id="asidepart">
+<div class="closeaside"><a class="closebutton" href="#" title="隐藏侧边栏"></a></div>
+<aside class="clearfix">
+  
+
+<div class="categorieslist">
+  <p class="asidetitle">分类</p>
+  <ul>
+    
+    <li><a href="https://qkgoalkeeper.github.io/categories/golang" title="golang">golang<sup>6</sup></a></li>
+    
+    <li><a href="https://qkgoalkeeper.github.io/categories/leetcode%e5%91%a8%e8%b5%9b" title="leetcode周赛">leetcode周赛<sup>2</sup></a></li>
+    
+    <li><a href="https://qkgoalkeeper.github.io/categories/leetcode%e6%af%8f%e6%97%a5%e4%b8%80%e9%a2%98" title="leetcode每日一题">leetcode每日一题<sup>24</sup></a></li>
+    
+    <li><a href="https://qkgoalkeeper.github.io/categories/leetcode%e7%ae%80%e5%8d%95%e9%a2%981-100" title="leetcode简单题1-100">leetcode简单题1-100<sup>21</sup></a></li>
+    
+    <li><a href="https://qkgoalkeeper.github.io/categories/leetcode%e7%ae%80%e5%8d%95%e9%a2%98101-200" title="leetcode简单题101-200">leetcode简单题101-200<sup>25</sup></a></li>
+    
+    <li><a href="https://qkgoalkeeper.github.io/categories/leetcode%e7%ae%80%e5%8d%95%e9%a2%98201-300" title="leetcode简单题201-300">leetcode简单题201-300<sup>24</sup></a></li>
+    
+    <li><a href="https://qkgoalkeeper.github.io/categories/python" title="python">python<sup>1</sup></a></li>
+    
+    <li><a href="https://qkgoalkeeper.github.io/categories/rust" title="rust">rust<sup>14</sup></a></li>
+    
+    <li><a href="https://qkgoalkeeper.github.io/categories/%e4%bb%a5%e5%a4%aa%e5%9d%8a" title="以太坊">以太坊<sup>1</sup></a></li>
+    
+    <li><a href="https://qkgoalkeeper.github.io/categories/%e5%85%b6%e4%bb%96" title="其他">其他<sup>1</sup></a></li>
+    
+    <li><a href="https://qkgoalkeeper.github.io/categories/%e5%8c%ba%e5%9d%97%e9%93%be" title="区块链">区块链<sup>4</sup></a></li>
+    
+    <li><a href="https://qkgoalkeeper.github.io/categories/%e5%8c%ba%e5%9d%97%e9%93%be%e7%9b%b8%e5%85%b3" title="区块链相关">区块链相关<sup>1</sup></a></li>
+    
+    <li><a href="https://qkgoalkeeper.github.io/categories/%e5%a4%a7%e4%b8%89%e4%b8%8a%e6%95%b0%e6%8d%ae%e5%ba%93%e8%af%be%e7%a8%8b" title="大三上数据库课程">大三上数据库课程<sup>1</sup></a></li>
+    
+    <li><a href="https://qkgoalkeeper.github.io/categories/%e5%a4%a7%e4%b8%89%e4%b8%8bweb%e7%bc%96%e7%a8%8b%e8%af%be%e7%a8%8b" title="大三下web编程课程">大三下web编程课程<sup>2</sup></a></li>
+    
+    <li><a href="https://qkgoalkeeper.github.io/categories/%e5%a4%a7%e5%9b%9bleetcode%e7%ae%97%e6%b3%95%e5%88%b7%e9%a2%98" title="大四leetcode算法刷题">大四leetcode算法刷题<sup>300</sup></a></li>
+    
+    <li><a href="https://qkgoalkeeper.github.io/categories/%e6%95%b0%e6%8d%ae%e5%ba%93" title="数据库">数据库<sup>1</sup></a></li>
+    
+    <li><a href="https://qkgoalkeeper.github.io/categories/%e7%8e%8b%e9%81%93%e6%9c%ba%e8%af%95%e6%8c%87%e5%8d%97" title="王道机试指南">王道机试指南<sup>2</sup></a></li>
+    
+    <li><a href="https://qkgoalkeeper.github.io/categories/%e8%ae%ba%e6%96%87%e8%a7%a3%e8%af%bb" title="论文解读">论文解读<sup>2</sup></a></li>
+    
+  </ul>
+</div>
+
+
+
+  
+
+<div class="tagslist">
+	<p class="asidetitle">标签</p>
+		<ul class="clearfix">
+      
+			<li><a href="https://qkgoalkeeper.github.io/tags/bfs" title="bfs">bfs<sup>13</sup></a></li>
+      
+			<li><a href="https://qkgoalkeeper.github.io/tags/c&#43;&#43;" title="c&#43;&#43;">c&#43;&#43;<sup>289</sup></a></li>
+      
+			<li><a href="https://qkgoalkeeper.github.io/tags/dfs" title="dfs">dfs<sup>27</sup></a></li>
+      
+			<li><a href="https://qkgoalkeeper.github.io/tags/golang" title="golang">golang<sup>40</sup></a></li>
+      
+			<li><a href="https://qkgoalkeeper.github.io/tags/golang%e8%af%ad%e6%b3%95" title="golang语法">golang语法<sup>4</sup></a></li>
+      
+			<li><a href="https://qkgoalkeeper.github.io/tags/javascript" title="javascript">javascript<sup>2</sup></a></li>
+      
+			<li><a href="https://qkgoalkeeper.github.io/tags/leetcode" title="leetcode">leetcode<sup>396</sup></a></li>
+      
+			<li><a href="https://qkgoalkeeper.github.io/tags/rust%e6%95%99%e7%a8%8b" title="rust教程">rust教程<sup>14</sup></a></li>
+      
+			<li><a href="https://qkgoalkeeper.github.io/tags/solidity" title="solidity">solidity<sup>1</sup></a></li>
+      
+			<li><a href="https://qkgoalkeeper.github.io/tags/%e4%ba%8c%e5%88%86%e6%b3%95" title="二分法">二分法<sup>8</sup></a></li>
+      
+			<li><a href="https://qkgoalkeeper.github.io/tags/%e4%bb%a3%e7%a0%81" title="代码">代码<sup>3</sup></a></li>
+      
+			<li><a href="https://qkgoalkeeper.github.io/tags/%e4%bc%98%e5%85%88%e9%98%9f%e5%88%97" title="优先队列">优先队列<sup>4</sup></a></li>
+      
+			<li><a href="https://qkgoalkeeper.github.io/tags/%e4%bd%8d%e8%bf%90%e7%ae%97" title="位运算">位运算<sup>5</sup></a></li>
+      
+			<li><a href="https://qkgoalkeeper.github.io/tags/%e5%88%86%e6%b2%bb%e6%b3%95" title="分治法">分治法<sup>3</sup></a></li>
+      
+			<li><a href="https://qkgoalkeeper.github.io/tags/%e5%89%8d%e7%bc%80%e5%92%8c" title="前缀和">前缀和<sup>5</sup></a></li>
+      
+			<li><a href="https://qkgoalkeeper.github.io/tags/%e5%8a%a8%e6%80%81%e8%a7%84%e5%88%92" title="动态规划">动态规划<sup>32</sup></a></li>
+      
+			<li><a href="https://qkgoalkeeper.github.io/tags/%e5%8c%ba%e5%9d%97%e9%93%be" title="区块链">区块链<sup>4</sup></a></li>
+      
+			<li><a href="https://qkgoalkeeper.github.io/tags/%e5%8d%95%e8%b0%83%e9%98%9f%e5%88%97" title="单调队列">单调队列<sup>1</sup></a></li>
+      
+			<li><a href="https://qkgoalkeeper.github.io/tags/%e5%8f%8c%e6%8c%87%e9%92%88" title="双指针">双指针<sup>2</sup></a></li>
+      
+			<li><a href="https://qkgoalkeeper.github.io/tags/%e5%93%88%e5%b8%8c%e8%a1%a8" title="哈希表">哈希表<sup>7</sup></a></li>
+      
+			<li><a href="https://qkgoalkeeper.github.io/tags/%e5%a0%86" title="堆">堆<sup>3</sup></a></li>
+      
+			<li><a href="https://qkgoalkeeper.github.io/tags/%e5%ad%97%e5%85%b8%e6%a0%91" title="字典树">字典树<sup>6</sup></a></li>
+      
+			<li><a href="https://qkgoalkeeper.github.io/tags/%e5%ad%97%e7%ac%a6%e4%b8%b2" title="字符串">字符串<sup>4</sup></a></li>
+      
+			<li><a href="https://qkgoalkeeper.github.io/tags/%e5%b9%b6%e6%9f%a5%e9%9b%86" title="并查集">并查集<sup>5</sup></a></li>
+      
+			<li><a href="https://qkgoalkeeper.github.io/tags/%e5%ba%8f%e5%88%97%e5%8c%96" title="序列化">序列化<sup>1</sup></a></li>
+      
+			<li><a href="https://qkgoalkeeper.github.io/tags/%e6%8b%93%e6%89%91%e6%8e%92%e5%ba%8f" title="拓扑排序">拓扑排序<sup>3</sup></a></li>
+      
+			<li><a href="https://qkgoalkeeper.github.io/tags/%e6%8e%92%e5%88%97" title="排列">排列<sup>1</sup></a></li>
+      
+			<li><a href="https://qkgoalkeeper.github.io/tags/%e6%8e%92%e5%ba%8f" title="排序">排序<sup>2</sup></a></li>
+      
+			<li><a href="https://qkgoalkeeper.github.io/tags/%e6%95%b0%e5%ad%a6" title="数学">数学<sup>5</sup></a></li>
+      
+			<li><a href="https://qkgoalkeeper.github.io/tags/%e6%95%b0%e6%8d%ae%e5%ba%93" title="数据库">数据库<sup>1</sup></a></li>
+      
+			<li><a href="https://qkgoalkeeper.github.io/tags/%e6%95%b0%e7%bb%84" title="数组">数组<sup>2</sup></a></li>
+      
+			<li><a href="https://qkgoalkeeper.github.io/tags/%e6%a0%88" title="栈">栈<sup>8</sup></a></li>
+      
+			<li><a href="https://qkgoalkeeper.github.io/tags/%e6%a0%91" title="树">树<sup>25</sup></a></li>
+      
+			<li><a href="https://qkgoalkeeper.github.io/tags/%e6%ba%90%e7%a0%81%e7%bc%96%e8%af%91" title="源码编译">源码编译<sup>1</sup></a></li>
+      
+			<li><a href="https://qkgoalkeeper.github.io/tags/%e6%bb%91%e5%8a%a8%e7%aa%97%e5%8f%a3" title="滑动窗口">滑动窗口<sup>10</sup></a></li>
+      
+			<li><a href="https://qkgoalkeeper.github.io/tags/%e7%8e%8b%e9%81%93%e6%9c%ba%e8%af%95%e6%8c%87%e5%8d%97" title="王道机试指南">王道机试指南<sup>2</sup></a></li>
+      
+			<li><a href="https://qkgoalkeeper.github.io/tags/%e7%ba%bf%e6%ae%b5%e6%a0%91" title="线段树">线段树<sup>1</sup></a></li>
+      
+			<li><a href="https://qkgoalkeeper.github.io/tags/%e7%bc%93%e5%ad%98" title="缓存">缓存<sup>2</sup></a></li>
+      
+			<li><a href="https://qkgoalkeeper.github.io/tags/%e8%ae%ba%e6%96%87%e8%a7%a3%e8%af%bb" title="论文解读">论文解读<sup>2</sup></a></li>
+      
+			<li><a href="https://qkgoalkeeper.github.io/tags/%e8%b4%aa%e5%bf%83" title="贪心">贪心<sup>1</sup></a></li>
+      
+			<li><a href="https://qkgoalkeeper.github.io/tags/%e8%b4%aa%e5%bf%83%e6%b3%95" title="贪心法">贪心法<sup>1</sup></a></li>
+      
+			<li><a href="https://qkgoalkeeper.github.io/tags/%e9%93%be%e8%a1%a8" title="链表">链表<sup>10</sup></a></li>
+      
+			<li><a href="https://qkgoalkeeper.github.io/tags/%e9%98%9f%e5%88%97" title="队列">队列<sup>2</sup></a></li>
+      
+			<li><a href="https://qkgoalkeeper.github.io/tags/%e9%9a%8f%e6%9c%ba%e6%95%b0" title="随机数">随机数<sup>3</sup></a></li>
+      
+		</ul>
+</div>
+
+
+
+  
+  <div class="archiveslist">
+    <p class="asidetitle">归档</p>
+    <ul class="archive-list">
+      
+      
+      <li class="archive-list-item">
+        <a class="archive-list-link" href="https://qkgoalkeeper.github.io/post/#2022-08">2022年08月</a><span class="archive-list-count">3</span>
+      </li>
+      
+      
+      <li class="archive-list-item">
+        <a class="archive-list-link" href="https://qkgoalkeeper.github.io/post/#2022-07">2022年07月</a><span class="archive-list-count">22</span>
+      </li>
+      
+      
+      <li class="archive-list-item">
+        <a class="archive-list-link" href="https://qkgoalkeeper.github.io/post/#2022-06">2022年06月</a><span class="archive-list-count">26</span>
+      </li>
+      
+      
+      <li class="archive-list-item">
+        <a class="archive-list-link" href="https://qkgoalkeeper.github.io/post/#2022-05">2022年05月</a><span class="archive-list-count">14</span>
+      </li>
+      
+      
+      <li class="archive-list-item">
+        <a class="archive-list-link" href="https://qkgoalkeeper.github.io/post/#2022-04">2022年04月</a><span class="archive-list-count">24</span>
+      </li>
+      
+      
+      <li class="archive-list-item">
+        <a class="archive-list-link" href="https://qkgoalkeeper.github.io/post/#2022-03">2022年03月</a><span class="archive-list-count">32</span>
+      </li>
+      
+      
+      <li class="archive-list-item">
+        <a class="archive-list-link" href="https://qkgoalkeeper.github.io/post/#2022-02">2022年02月</a><span class="archive-list-count">61</span>
+      </li>
+      
+      
+      <li class="archive-list-item">
+        <a class="archive-list-link" href="https://qkgoalkeeper.github.io/post/#2022-01">2022年01月</a><span class="archive-list-count">77</span>
+      </li>
+      
+      
+      <li class="archive-list-item">
+        <a class="archive-list-link" href="https://qkgoalkeeper.github.io/post/#2021-12">2021年12月</a><span class="archive-list-count">31</span>
+      </li>
+      
+      
+      <li class="archive-list-item">
+        <a class="archive-list-link" href="https://qkgoalkeeper.github.io/post/#2021-11">2021年11月</a><span class="archive-list-count">30</span>
+      </li>
+      
+      
+      <li class="archive-list-item">
+        <a class="archive-list-link" href="https://qkgoalkeeper.github.io/post/#2021-10">2021年10月</a><span class="archive-list-count">31</span>
+      </li>
+      
+      
+      <li class="archive-list-item">
+        <a class="archive-list-link" href="https://qkgoalkeeper.github.io/post/#2021-09">2021年09月</a><span class="archive-list-count">5</span>
+      </li>
+      
+      
+      <li class="archive-list-item">
+        <a class="archive-list-link" href="https://qkgoalkeeper.github.io/post/#2021-06">2021年06月</a><span class="archive-list-count">1</span>
+      </li>
+      
+      
+      <li class="archive-list-item">
+        <a class="archive-list-link" href="https://qkgoalkeeper.github.io/post/#2021-04">2021年04月</a><span class="archive-list-count">1</span>
+      </li>
+      
+      
+      <li class="archive-list-item">
+        <a class="archive-list-link" href="https://qkgoalkeeper.github.io/post/#2020-11">2020年11月</a><span class="archive-list-count">1</span>
+      </li>
+      
+      
+      <li class="archive-list-item">
+        <a class="archive-list-link" href="https://qkgoalkeeper.github.io/post/#2020-08">2020年08月</a><span class="archive-list-count">70</span>
+      </li>
+      
+    </ul>
+
+  </div>
+
+
+  
+
+<div class="tagcloudlist">
+  <p class="asidetitle">标签云</p>
+  <div class="tagcloudlist clearfix">
+    
+    <a href="https://qkgoalkeeper.github.io/tags/bfs" style="font-size: 12px;">bfs</a>
+    
+    <a href="https://qkgoalkeeper.github.io/tags/c&#43;&#43;" style="font-size: 12px;">c&#43;&#43;</a>
+    
+    <a href="https://qkgoalkeeper.github.io/tags/dfs" style="font-size: 12px;">dfs</a>
+    
+    <a href="https://qkgoalkeeper.github.io/tags/golang" style="font-size: 12px;">golang</a>
+    
+    <a href="https://qkgoalkeeper.github.io/tags/golang%e8%af%ad%e6%b3%95" style="font-size: 12px;">golang语法</a>
+    
+    <a href="https://qkgoalkeeper.github.io/tags/javascript" style="font-size: 12px;">javascript</a>
+    
+    <a href="https://qkgoalkeeper.github.io/tags/leetcode" style="font-size: 12px;">leetcode</a>
+    
+    <a href="https://qkgoalkeeper.github.io/tags/rust%e6%95%99%e7%a8%8b" style="font-size: 12px;">rust教程</a>
+    
+    <a href="https://qkgoalkeeper.github.io/tags/solidity" style="font-size: 12px;">solidity</a>
+    
+    <a href="https://qkgoalkeeper.github.io/tags/%e4%ba%8c%e5%88%86%e6%b3%95" style="font-size: 12px;">二分法</a>
+    
+    <a href="https://qkgoalkeeper.github.io/tags/%e4%bb%a3%e7%a0%81" style="font-size: 12px;">代码</a>
+    
+    <a href="https://qkgoalkeeper.github.io/tags/%e4%bc%98%e5%85%88%e9%98%9f%e5%88%97" style="font-size: 12px;">优先队列</a>
+    
+    <a href="https://qkgoalkeeper.github.io/tags/%e4%bd%8d%e8%bf%90%e7%ae%97" style="font-size: 12px;">位运算</a>
+    
+    <a href="https://qkgoalkeeper.github.io/tags/%e5%88%86%e6%b2%bb%e6%b3%95" style="font-size: 12px;">分治法</a>
+    
+    <a href="https://qkgoalkeeper.github.io/tags/%e5%89%8d%e7%bc%80%e5%92%8c" style="font-size: 12px;">前缀和</a>
+    
+    <a href="https://qkgoalkeeper.github.io/tags/%e5%8a%a8%e6%80%81%e8%a7%84%e5%88%92" style="font-size: 12px;">动态规划</a>
+    
+    <a href="https://qkgoalkeeper.github.io/tags/%e5%8c%ba%e5%9d%97%e9%93%be" style="font-size: 12px;">区块链</a>
+    
+    <a href="https://qkgoalkeeper.github.io/tags/%e5%8d%95%e8%b0%83%e9%98%9f%e5%88%97" style="font-size: 12px;">单调队列</a>
+    
+    <a href="https://qkgoalkeeper.github.io/tags/%e5%8f%8c%e6%8c%87%e9%92%88" style="font-size: 12px;">双指针</a>
+    
+    <a href="https://qkgoalkeeper.github.io/tags/%e5%93%88%e5%b8%8c%e8%a1%a8" style="font-size: 12px;">哈希表</a>
+    
+    <a href="https://qkgoalkeeper.github.io/tags/%e5%a0%86" style="font-size: 12px;">堆</a>
+    
+    <a href="https://qkgoalkeeper.github.io/tags/%e5%ad%97%e5%85%b8%e6%a0%91" style="font-size: 12px;">字典树</a>
+    
+    <a href="https://qkgoalkeeper.github.io/tags/%e5%ad%97%e7%ac%a6%e4%b8%b2" style="font-size: 12px;">字符串</a>
+    
+    <a href="https://qkgoalkeeper.github.io/tags/%e5%b9%b6%e6%9f%a5%e9%9b%86" style="font-size: 12px;">并查集</a>
+    
+    <a href="https://qkgoalkeeper.github.io/tags/%e5%ba%8f%e5%88%97%e5%8c%96" style="font-size: 12px;">序列化</a>
+    
+    <a href="https://qkgoalkeeper.github.io/tags/%e6%8b%93%e6%89%91%e6%8e%92%e5%ba%8f" style="font-size: 12px;">拓扑排序</a>
+    
+    <a href="https://qkgoalkeeper.github.io/tags/%e6%8e%92%e5%88%97" style="font-size: 12px;">排列</a>
+    
+    <a href="https://qkgoalkeeper.github.io/tags/%e6%8e%92%e5%ba%8f" style="font-size: 12px;">排序</a>
+    
+    <a href="https://qkgoalkeeper.github.io/tags/%e6%95%b0%e5%ad%a6" style="font-size: 12px;">数学</a>
+    
+    <a href="https://qkgoalkeeper.github.io/tags/%e6%95%b0%e6%8d%ae%e5%ba%93" style="font-size: 12px;">数据库</a>
+    
+    <a href="https://qkgoalkeeper.github.io/tags/%e6%95%b0%e7%bb%84" style="font-size: 12px;">数组</a>
+    
+    <a href="https://qkgoalkeeper.github.io/tags/%e6%a0%88" style="font-size: 12px;">栈</a>
+    
+    <a href="https://qkgoalkeeper.github.io/tags/%e6%a0%91" style="font-size: 12px;">树</a>
+    
+    <a href="https://qkgoalkeeper.github.io/tags/%e6%ba%90%e7%a0%81%e7%bc%96%e8%af%91" style="font-size: 12px;">源码编译</a>
+    
+    <a href="https://qkgoalkeeper.github.io/tags/%e6%bb%91%e5%8a%a8%e7%aa%97%e5%8f%a3" style="font-size: 12px;">滑动窗口</a>
+    
+    <a href="https://qkgoalkeeper.github.io/tags/%e7%8e%8b%e9%81%93%e6%9c%ba%e8%af%95%e6%8c%87%e5%8d%97" style="font-size: 12px;">王道机试指南</a>
+    
+    <a href="https://qkgoalkeeper.github.io/tags/%e7%ba%bf%e6%ae%b5%e6%a0%91" style="font-size: 12px;">线段树</a>
+    
+    <a href="https://qkgoalkeeper.github.io/tags/%e7%bc%93%e5%ad%98" style="font-size: 12px;">缓存</a>
+    
+    <a href="https://qkgoalkeeper.github.io/tags/%e8%ae%ba%e6%96%87%e8%a7%a3%e8%af%bb" style="font-size: 12px;">论文解读</a>
+    
+    <a href="https://qkgoalkeeper.github.io/tags/%e8%b4%aa%e5%bf%83" style="font-size: 12px;">贪心</a>
+    
+    <a href="https://qkgoalkeeper.github.io/tags/%e8%b4%aa%e5%bf%83%e6%b3%95" style="font-size: 12px;">贪心法</a>
+    
+    <a href="https://qkgoalkeeper.github.io/tags/%e9%93%be%e8%a1%a8" style="font-size: 12px;">链表</a>
+    
+    <a href="https://qkgoalkeeper.github.io/tags/%e9%98%9f%e5%88%97" style="font-size: 12px;">队列</a>
+    
+    <a href="https://qkgoalkeeper.github.io/tags/%e9%9a%8f%e6%9c%ba%e6%95%b0" style="font-size: 12px;">随机数</a>
+    
+  </div>
+</div>
+
+
+
+  
+
+</aside>
+</div>
+
+  </div>
+  <footer><div id="footer" >
+  <div class="line">
+    <span></span>
+    
+    <div style='background:no-repeat url("https://qkgoalkeeper.github.io/img/author.jpg") left top;-webkit-background-size:6.875em 6.875em;-moz-background-size:6.875em 6.875em;background-size:6.875em 6.875em;' class="author" ></div>
+  </div>
+  <section class="info">
+    <p>ECNU数据学院在读 <br/> 知乎主页 :https://www.zhihu.com/people/hao-lai-wu-shou-men-yuan <br/>QQ :1421812601</p>
+  </section>
+  <div class="social-font clearfix">
+    <a href='http://weibo.com/qkgoalkeeper' target="_blank" title="weibo"></a>
+    <a href='https://twitter.com/coderzh' target="_blank" title="twitter"></a>
+    <a href='https://github.com/qkgoalkeeper' target="_blank" title="github"></a>
+    <a href='https://www.facebook.com/coderzh' target="_blank" title="facebook"></a>
+    <a href='https://www.linkedin.com/coderzh' target="_blank" title="linkedin"></a>
+  </div>
+  <p class="copyright">Powered by <a href="http://gohugo.io" target="_blank" title="hugo">hugo</a> and Theme by <a href="https://github.com/coderzh/hugo-pacman-theme" target="_blank" title="hugo-pacman-theme">hugo-pacman-theme</a> © 2022
+    
+    <a href="https://qkgoalkeeper.github.io/" title="qkgoalkeeper&#39;s blog">qkgoalkeeper&#39;s blog</a>
+    
+  </p>
+</div>
+</footer>
+  <script src="https://qkgoalkeeper.github.io/js/jquery-2.1.0.min.js"></script>
+<script type="text/javascript">
+done = false;
+$(document).ready(function(){
+  $('.navbar').click(function(){
+    $('header nav').toggleClass('shownav');
+  });
+  var myWidth = 0;
+  function getSize(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+  };
+  var m = $('#main'),
+      a = $('#asidepart'),
+      c = $('.closeaside'),
+      o = $('.openaside');
+  $(window).resize(function(){
+    getSize();
+    if (myWidth >= 1024) {
+      $('header nav').removeClass('shownav');
+    }else
+    {
+      m.removeClass('moveMain');
+      a.css('display', 'block').removeClass('fadeOut');
+      o.css('display', 'none');
+    }
+  });
+  c.click(function(){
+    a.addClass('fadeOut').css('display', 'none');
+    o.css('display', 'block').addClass('fadeIn');
+    m.addClass('moveMain');
+  });
+  o.click(function(){
+    o.css('display', 'none').removeClass('beforeFadeIn');
+    a.css('display', 'block').removeClass('fadeOut').addClass('fadeIn');
+    m.removeClass('moveMain');
+  });
+  $(window).scroll(function(){
+    o.css("top",Math.max(80,260-$(this).scrollTop()));
+  });
+  $('form.search').on('submit', function (event) {
+    if (false === done) {
+      event.preventDefault();
+      var orgVal = $(this).find('#search').val();
+      $(this).find('#search').val('site:https:\/\/qkgoalkeeper.github.io\/ ' + orgVal);
+      done = true;
+      $(this).submit();
+    }
+  });
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){
+  var ai = $('.article-content>iframe'),
+      ae = $('.article-content>embed'),
+      t  = $('#toc'),
+      h  = $('article h2')
+      ah = $('article h2'),
+      ta = $('#toc.toc-aside'),
+      o  = $('.openaside'),
+      c  = $('.closeaside');
+  if(ai.length>0){
+    ai.wrap('<div class="video-container" />');
+  };
+  if(ae.length>0){
+   ae.wrap('<div class="video-container" />');
+  };
+  if(ah.length==0){
+    t.css('display','none');
+  }else{
+    c.click(function(){
+      ta.css('display', 'block').addClass('fadeIn');
+    });
+    o.click(function(){
+      ta.css('display', 'none');
+    });
+    $(window).scroll(function(){
+      ta.css("top",Math.max(140,320-$(this).scrollTop()));
+    });
+  };
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){
+  var $this = $('.share'),
+      url = $this.attr('data-url'),
+      encodedUrl = encodeURIComponent(url),
+      title = $this.attr('data-title'),
+      tsina = $this.attr('data-tsina');
+  var html = [
+  '<a href="#" class="overlay" id="qrcode"></a>',
+  '<div class="qrcode clearfix"><span>扫描二维码分享到微信朋友圈</span><a class="qrclose" href="#share"></a><strong>Loading...Please wait</strong><img id="qrcode-pic" data-src="http://b.bshare.cn/barCode?site=weixin&url=' + encodedUrl + '"/></div>',
+  '<a href="#textlogo" class="article-back-to-top" title="Top"></a>',
+  '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+  '<a href="#qrcode" class="article-share-qrcode" title="QRcode"></a>',
+  '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+  '<a href="http://service.weibo.com/share/share.php?title='+title+'&url='+encodedUrl +'&ralateUid='+ tsina +'&searchPic=true&style=number' +'" class="article-share-weibo" target="_blank" title="Weibo"></a>',
+  '<span title="Share to"></span>'
+  ].join('');
+  $this.append(html);
+  $('.article-share-qrcode').click(function(){
+    var imgSrc = $('#qrcode-pic').attr('data-src');
+    $('#qrcode-pic').attr('src', imgSrc);
+    $('#qrcode-pic').load(function(){
+        $('.qrcode strong').text(' ');
+    });
+  });
+});
+</script>
+
+
+<link rel="stylesheet" href="https://qkgoalkeeper.github.io/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="https://qkgoalkeeper.github.io/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){
+  $('.article-content').each(function(i){
+    $(this).find('img').each(function(){
+      if ($(this).parent().hasClass('fancybox')) return;
+      var alt = this.alt;
+      if (alt) $(this).after('<span class="caption">' + alt + '</span>');
+      $(this).wrap('<a href="' + this.src + '" title="' + alt + '" class="fancybox"></a>');
+    });
+    $(this).find('.fancybox').each(function(){
+      $(this).attr('rel', 'article' + i);
+    });
+  });
+  if($.fancybox){
+    $('.fancybox').fancybox();
+  }
+});
+</script>
+
+
+
+
+</body>
+</html>
