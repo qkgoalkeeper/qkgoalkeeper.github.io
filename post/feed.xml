@@ -6,7 +6,16 @@
     <description>Recent content in Posts on qkgoalkeeper&#39;s blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
-    <lastBuildDate>Sat, 13 Aug 2022 07:55:19 +0800</lastBuildDate><atom:link href="https://qkgoalkeeper.github.io/post/feed.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 14 Aug 2022 07:55:19 +0800</lastBuildDate><atom:link href="https://qkgoalkeeper.github.io/post/feed.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>rust：the_rust_book（15）智能指针</title>
+      <link>https://qkgoalkeeper.github.io/post/rustthe_rust_book15%E6%99%BA%E8%83%BD%E6%8C%87%E9%92%88/</link>
+      <pubDate>Sun, 14 Aug 2022 07:55:19 +0800</pubDate>
+      
+      <guid>https://qkgoalkeeper.github.io/post/rustthe_rust_book15%E6%99%BA%E8%83%BD%E6%8C%87%E9%92%88/</guid>
+      <description>一.本章任务 指针 （pointer）是一个包含内存地址的变量的通用概念。这个地址引用，或 “指向”（points at）一些其他数据。Rust 中最</description>
+    </item>
+    
     <item>
       <title>rust：the_rust_book（14）进一步认识 Cargo 和 Crates.io</title>
       <link>https://qkgoalkeeper.github.io/post/rustthe_rust_book14%E8%BF%9B%E4%B8%80%E6%AD%A5%E8%AE%A4%E8%AF%86-cargo-%E5%92%8C-crates.io/</link>
