@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>栈 on qkgoalkeeper&#39;s blog</title>
+    <link>https://qkgoalkeeper.github.io/tags/%E6%A0%88/</link>
+    <description>Recent content in 栈 on qkgoalkeeper&#39;s blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-CN</language>
+    <lastBuildDate>Sat, 26 Feb 2022 07:55:19 +0800</lastBuildDate><atom:link href="https://qkgoalkeeper.github.io/tags/%E6%A0%88/feed.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>LeetCode每日练习：剑指 Offer II 039. 直方图最大矩形面积</title>
+      <link>https://qkgoalkeeper.github.io/post/leetcode%E6%AF%8F%E6%97%A5%E7%BB%83%E4%B9%A0%E5%89%91%E6%8C%87-offer-ii-039.-%E7%9B%B4%E6%96%B9%E5%9B%BE%E6%9C%80%E5%A4%A7%E7%9F%A9%E5%BD%A2%E9%9D%A2%E7%A7%AF/</link>
+      <pubDate>Sat, 26 Feb 2022 07:55:19 +0800</pubDate>
+      
+      <guid>https://qkgoalkeeper.github.io/post/leetcode%E6%AF%8F%E6%97%A5%E7%BB%83%E4%B9%A0%E5%89%91%E6%8C%87-offer-ii-039.-%E7%9B%B4%E6%96%B9%E5%9B%BE%E6%9C%80%E5%A4%A7%E7%9F%A9%E5%BD%A2%E9%9D%A2%E7%A7%AF/</guid>
+      <description>一.剑指 Offer II 039. 直方图最大矩形面积 1.题干及思路 给定非负整数数组 heights ，数组中的数字用来表示柱状图中各个柱子的高度。每个柱子彼此相邻，且宽度为 1 。</description>
+    </item>
+    
+    <item>
+      <title>LeetCode每日练习：剑指 Offer II 040. 矩阵中最大的矩形</title>
+      <link>https://qkgoalkeeper.github.io/post/leetcode%E6%AF%8F%E6%97%A5%E7%BB%83%E4%B9%A0%E5%89%91%E6%8C%87-offer-ii-040.-%E7%9F%A9%E9%98%B5%E4%B8%AD%E6%9C%80%E5%A4%A7%E7%9A%84%E7%9F%A9%E5%BD%A2/</link>
+      <pubDate>Sat, 26 Feb 2022 07:55:19 +0800</pubDate>
+      
+      <guid>https://qkgoalkeeper.github.io/post/leetcode%E6%AF%8F%E6%97%A5%E7%BB%83%E4%B9%A0%E5%89%91%E6%8C%87-offer-ii-040.-%E7%9F%A9%E9%98%B5%E4%B8%AD%E6%9C%80%E5%A4%A7%E7%9A%84%E7%9F%A9%E5%BD%A2/</guid>
+      <description>一.剑指 Offer II 040. 矩阵中最大的矩形 1.题干及思路 给定一个由 0 和 1 组成的矩阵 matrix ，找出只包含 1 的最大矩形，并返回其面积。 **注意：**此题 matrix 输入格式</description>
+    </item>
+    
+    <item>
+      <title>LeetCode每日练习：剑指 Offer II 038. 每日温度</title>
+      <link>https://qkgoalkeeper.github.io/post/leetcode%E6%AF%8F%E6%97%A5%E7%BB%83%E4%B9%A0%E5%89%91%E6%8C%87-offer-ii-038.-%E6%AF%8F%E6%97%A5%E6%B8%A9%E5%BA%A6/</link>
+      <pubDate>Fri, 25 Feb 2022 08:55:19 +0800</pubDate>
+      
+      <guid>https://qkgoalkeeper.github.io/post/leetcode%E6%AF%8F%E6%97%A5%E7%BB%83%E4%B9%A0%E5%89%91%E6%8C%87-offer-ii-038.-%E6%AF%8F%E6%97%A5%E6%B8%A9%E5%BA%A6/</guid>
+      <description>一.剑指 Offer II 038. 每日温度 1.题干及思路 请根据每日 气温 列表 temperatures ，重新生成一个列表，要求其对应位置的输出为：要想观测到更高的气温，至少需要等待的天数</description>
+    </item>
+    
+    <item>
+      <title>LeetCode每日练习：剑指 Offer II 037. 小行星碰撞</title>
+      <link>https://qkgoalkeeper.github.io/post/leetcode%E6%AF%8F%E6%97%A5%E7%BB%83%E4%B9%A0%E5%89%91%E6%8C%87-offer-ii-037.-%E5%B0%8F%E8%A1%8C%E6%98%9F%E7%A2%B0%E6%92%9E/</link>
+      <pubDate>Fri, 25 Feb 2022 07:55:19 +0800</pubDate>
+      
+      <guid>https://qkgoalkeeper.github.io/post/leetcode%E6%AF%8F%E6%97%A5%E7%BB%83%E4%B9%A0%E5%89%91%E6%8C%87-offer-ii-037.-%E5%B0%8F%E8%A1%8C%E6%98%9F%E7%A2%B0%E6%92%9E/</guid>
+      <description>一.剑指 Offer II 037. 小行星碰撞 1.题干及思路 给定一个整数数组 asteroids，表示在同一行的小行星。 对于数组中的每一个元素，其绝对值表示小行星的</description>
+    </item>
+    
+    <item>
+      <title>LeetCode每日练习：剑指 Offer II 036. 后缀表达式</title>
+      <link>https://qkgoalkeeper.github.io/post/leetcode%E6%AF%8F%E6%97%A5%E7%BB%83%E4%B9%A0%E5%89%91%E6%8C%87-offer-ii-036.-%E5%90%8E%E7%BC%80%E8%A1%A8%E8%BE%BE%E5%BC%8F/</link>
+      <pubDate>Thu, 24 Feb 2022 08:55:19 +0800</pubDate>
+      
+      <guid>https://qkgoalkeeper.github.io/post/leetcode%E6%AF%8F%E6%97%A5%E7%BB%83%E4%B9%A0%E5%89%91%E6%8C%87-offer-ii-036.-%E5%90%8E%E7%BC%80%E8%A1%A8%E8%BE%BE%E5%BC%8F/</guid>
+      <description>一.剑指 Offer II 036. 后缀表达式 1.题干及思路 根据逆波兰表示法，求该后缀表达式的计算结果。 有效的算符包括 +、-、*、/ 。每个运算对象可以是整数，也可</description>
+    </item>
+    
+    <item>
+      <title>LeetCode每日练习：剑指 Offer 31. 栈的压入、弹出序列</title>
+      <link>https://qkgoalkeeper.github.io/post/leetcode%E6%AF%8F%E6%97%A5%E7%BB%83%E4%B9%A0%E5%89%91%E6%8C%87-offer-31.-%E6%A0%88%E7%9A%84%E5%8E%8B%E5%85%A5%E5%BC%B9%E5%87%BA%E5%BA%8F%E5%88%97/</link>
+      <pubDate>Fri, 21 Jan 2022 10:55:19 +0800</pubDate>
+      
+      <guid>https://qkgoalkeeper.github.io/post/leetcode%E6%AF%8F%E6%97%A5%E7%BB%83%E4%B9%A0%E5%89%91%E6%8C%87-offer-31.-%E6%A0%88%E7%9A%84%E5%8E%8B%E5%85%A5%E5%BC%B9%E5%87%BA%E5%BA%8F%E5%88%97/</guid>
+      <description>一.剑指 Offer 31. 栈的压入、弹出序列 1.题干及思路 输入两个整数序列，第一个序列表示栈的压入顺序，请判断第二个序列是否为该栈的弹出顺序。假设压入栈的</description>
+    </item>
+    
+    <item>
+      <title>LeetCode每日一题：739. 每日温度</title>
+      <link>https://qkgoalkeeper.github.io/post/leetcode%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98739.-%E6%AF%8F%E6%97%A5%E6%B8%A9%E5%BA%A6/</link>
+      <pubDate>Sat, 08 Jan 2022 10:55:19 +0800</pubDate>
+      
+      <guid>https://qkgoalkeeper.github.io/post/leetcode%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98739.-%E6%AF%8F%E6%97%A5%E6%B8%A9%E5%BA%A6/</guid>
+      <description>一.739. 每日温度 1.题干及思路 请根据每日 气温 列表 temperatures ，请计算在每一天需要等几天才会有更高的温度。如果气温在这之后都不会升高，请在该位置用 0</description>
+    </item>
+    
+    <item>
+      <title>LeetCode每日一题：394. 字符串解码</title>
+      <link>https://qkgoalkeeper.github.io/post/leetcode%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98394.-%E5%AD%97%E7%AC%A6%E4%B8%B2%E8%A7%A3%E7%A0%81/</link>
+      <pubDate>Thu, 30 Dec 2021 10:55:19 +0800</pubDate>
+      
+      <guid>https://qkgoalkeeper.github.io/post/leetcode%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98394.-%E5%AD%97%E7%AC%A6%E4%B8%B2%E8%A7%A3%E7%A0%81/</guid>
+      <description>一.394. 字符串解码 1.题干及思路 给定一个经过编码的字符串，返回它解码后的字符串。 编码规则为: k[encoded_string]，表示其中</description>
+    </item>
+    
+  </channel>
+</rss>

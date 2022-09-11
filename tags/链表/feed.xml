@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>链表 on qkgoalkeeper&#39;s blog</title>
+    <link>https://qkgoalkeeper.github.io/tags/%E9%93%BE%E8%A1%A8/</link>
+    <description>Recent content in 链表 on qkgoalkeeper&#39;s blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-CN</language>
+    <lastBuildDate>Sun, 03 Apr 2022 09:55:19 +0800</lastBuildDate><atom:link href="https://qkgoalkeeper.github.io/tags/%E9%93%BE%E8%A1%A8/feed.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>LeetCode每日练习：剑指 Offer II 078. 合并排序链表</title>
+      <link>https://qkgoalkeeper.github.io/post/leetcode%E6%AF%8F%E6%97%A5%E7%BB%83%E4%B9%A0%E5%89%91%E6%8C%87-offer-ii-078.-%E5%90%88%E5%B9%B6%E6%8E%92%E5%BA%8F%E9%93%BE%E8%A1%A8/</link>
+      <pubDate>Sun, 03 Apr 2022 09:55:19 +0800</pubDate>
+      
+      <guid>https://qkgoalkeeper.github.io/post/leetcode%E6%AF%8F%E6%97%A5%E7%BB%83%E4%B9%A0%E5%89%91%E6%8C%87-offer-ii-078.-%E5%90%88%E5%B9%B6%E6%8E%92%E5%BA%8F%E9%93%BE%E8%A1%A8/</guid>
+      <description>一.剑指 Offer II 078. 合并排序链表 1.题干及思路 给定一个链表数组，每个链表都已经按升序排列。 请将所有链表合并到一个升序链表中，返回合并后的链表。 示例</description>
+    </item>
+    
+    <item>
+      <title>LeetCode每日练习：剑指 Offer II 077. 链表排序</title>
+      <link>https://qkgoalkeeper.github.io/post/leetcode%E6%AF%8F%E6%97%A5%E7%BB%83%E4%B9%A0%E5%89%91%E6%8C%87-offer-ii-077.-%E9%93%BE%E8%A1%A8%E6%8E%92%E5%BA%8F/</link>
+      <pubDate>Sat, 02 Apr 2022 09:55:19 +0800</pubDate>
+      
+      <guid>https://qkgoalkeeper.github.io/post/leetcode%E6%AF%8F%E6%97%A5%E7%BB%83%E4%B9%A0%E5%89%91%E6%8C%87-offer-ii-077.-%E9%93%BE%E8%A1%A8%E6%8E%92%E5%BA%8F/</guid>
+      <description>一.剑指 Offer II 077. 链表排序 1.题干及思路 给定链表的头结点 head ，请将其按 升序 排列并返回 排序后的链表 。 示例 1： 输入：head = [4,2,1,3] 输出：[1,2,3,4</description>
+    </item>
+    
+    <item>
+      <title>LeetCode每日练习：剑指 Offer II 028. 展平多级双向链表</title>
+      <link>https://qkgoalkeeper.github.io/post/leetcode%E6%AF%8F%E6%97%A5%E7%BB%83%E4%B9%A0%E5%89%91%E6%8C%87-offer-ii-028.-%E5%B1%95%E5%B9%B3%E5%A4%9A%E7%BA%A7%E5%8F%8C%E5%90%91%E9%93%BE%E8%A1%A8/</link>
+      <pubDate>Sun, 20 Feb 2022 08:55:19 +0800</pubDate>
+      
+      <guid>https://qkgoalkeeper.github.io/post/leetcode%E6%AF%8F%E6%97%A5%E7%BB%83%E4%B9%A0%E5%89%91%E6%8C%87-offer-ii-028.-%E5%B1%95%E5%B9%B3%E5%A4%9A%E7%BA%A7%E5%8F%8C%E5%90%91%E9%93%BE%E8%A1%A8/</guid>
+      <description>一.剑指 Offer II 028. 展平多级双向链表 1.题干及思路 多级双向链表中，除了指向下一个节点和前一个节点指针之外，它还有一个子链表指针，可能指向单独的双向</description>
+    </item>
+    
+    <item>
+      <title>LeetCode每日练习：剑指 Offer II 029. 排序的循环链表</title>
+      <link>https://qkgoalkeeper.github.io/post/leetcode%E6%AF%8F%E6%97%A5%E7%BB%83%E4%B9%A0%E5%89%91%E6%8C%87-offer-ii-029.-%E6%8E%92%E5%BA%8F%E7%9A%84%E5%BE%AA%E7%8E%AF%E9%93%BE%E8%A1%A8/</link>
+      <pubDate>Sun, 20 Feb 2022 08:55:19 +0800</pubDate>
+      
+      <guid>https://qkgoalkeeper.github.io/post/leetcode%E6%AF%8F%E6%97%A5%E7%BB%83%E4%B9%A0%E5%89%91%E6%8C%87-offer-ii-029.-%E6%8E%92%E5%BA%8F%E7%9A%84%E5%BE%AA%E7%8E%AF%E9%93%BE%E8%A1%A8/</guid>
+      <description>一.剑指 Offer II 029. 排序的循环链表 1.题干及思路 给定循环单调非递减列表中的一个点，写一个函数向这个列表中插入一个新元素 insertVal ，使这个列表仍然是循环升序</description>
+    </item>
+    
+    <item>
+      <title>LeetCode每日练习：剑指 Offer II 026. 重排链表</title>
+      <link>https://qkgoalkeeper.github.io/post/leetcode%E6%AF%8F%E6%97%A5%E7%BB%83%E4%B9%A0%E5%89%91%E6%8C%87-offer-ii-026.-%E9%87%8D%E6%8E%92%E9%93%BE%E8%A1%A8/</link>
+      <pubDate>Sat, 19 Feb 2022 08:55:19 +0800</pubDate>
+      
+      <guid>https://qkgoalkeeper.github.io/post/leetcode%E6%AF%8F%E6%97%A5%E7%BB%83%E4%B9%A0%E5%89%91%E6%8C%87-offer-ii-026.-%E9%87%8D%E6%8E%92%E9%93%BE%E8%A1%A8/</guid>
+      <description>一.剑指 Offer II 026. 重排链表 1.题干及思路 给定一个单链表 L 的头节点 head ，单链表 L 表示为： L0 → L1 → … → Ln-1 → Ln 请将其重新排列后变为： L0 → Ln → L1 → Ln-1 → L2 →</description>
+    </item>
+    
+    <item>
+      <title>LeetCode每日练习：剑指 Offer II 025. 链表中的两数相加</title>
+      <link>https://qkgoalkeeper.github.io/post/leetcode%E6%AF%8F%E6%97%A5%E7%BB%83%E4%B9%A0%E5%89%91%E6%8C%87-offer-ii-025.-%E9%93%BE%E8%A1%A8%E4%B8%AD%E7%9A%84%E4%B8%A4%E6%95%B0%E7%9B%B8%E5%8A%A0/</link>
+      <pubDate>Fri, 18 Feb 2022 08:55:19 +0800</pubDate>
+      
+      <guid>https://qkgoalkeeper.github.io/post/leetcode%E6%AF%8F%E6%97%A5%E7%BB%83%E4%B9%A0%E5%89%91%E6%8C%87-offer-ii-025.-%E9%93%BE%E8%A1%A8%E4%B8%AD%E7%9A%84%E4%B8%A4%E6%95%B0%E7%9B%B8%E5%8A%A0/</guid>
+      <description>一.剑指 Offer II 025. 链表中的两数相加 1.题干及思路 给定两个 非空链表 l1和 l2 来代表两个非负整数。数字最高位位于链表开始位置。它们的每个节点只存储一位</description>
+    </item>
+    
+    <item>
+      <title>LeetCode每日练习：剑指 Offer II 022. 链表中环的入口节点</title>
+      <link>https://qkgoalkeeper.github.io/post/leetcode%E6%AF%8F%E6%97%A5%E7%BB%83%E4%B9%A0%E5%89%91%E6%8C%87-offer-ii-022.-%E9%93%BE%E8%A1%A8%E4%B8%AD%E7%8E%AF%E7%9A%84%E5%85%A5%E5%8F%A3%E8%8A%82%E7%82%B9/</link>
+      <pubDate>Thu, 17 Feb 2022 08:55:19 +0800</pubDate>
+      
+      <guid>https://qkgoalkeeper.github.io/post/leetcode%E6%AF%8F%E6%97%A5%E7%BB%83%E4%B9%A0%E5%89%91%E6%8C%87-offer-ii-022.-%E9%93%BE%E8%A1%A8%E4%B8%AD%E7%8E%AF%E7%9A%84%E5%85%A5%E5%8F%A3%E8%8A%82%E7%82%B9/</guid>
+      <description>一.剑指 Offer II 022. 链表中环的入口节点 1.题干及思路 给定一个链表，返回链表开始入环的第一个节点。 从链表的头节点开始沿着 next 指针进入环的第一个节点为环</description>
+    </item>
+    
+    <item>
+      <title>LeetCode每日练习：剑指 Offer II 021. 删除链表的倒数第 n 个结点</title>
+      <link>https://qkgoalkeeper.github.io/post/leetcode%E6%AF%8F%E6%97%A5%E7%BB%83%E4%B9%A0%E5%89%91%E6%8C%87-offer-ii-021.-%E5%88%A0%E9%99%A4%E9%93%BE%E8%A1%A8%E7%9A%84%E5%80%92%E6%95%B0%E7%AC%AC-n-%E4%B8%AA%E7%BB%93%E7%82%B9/</link>
+      <pubDate>Wed, 16 Feb 2022 08:55:19 +0800</pubDate>
+      
+      <guid>https://qkgoalkeeper.github.io/post/leetcode%E6%AF%8F%E6%97%A5%E7%BB%83%E4%B9%A0%E5%89%91%E6%8C%87-offer-ii-021.-%E5%88%A0%E9%99%A4%E9%93%BE%E8%A1%A8%E7%9A%84%E5%80%92%E6%95%B0%E7%AC%AC-n-%E4%B8%AA%E7%BB%93%E7%82%B9/</guid>
+      <description>一.剑指 Offer II 021. 删除链表的倒数第 n 个结点 1.题干及思路 给定一个链表，删除链表的倒数第 n 个结点，并且返回链表的头结点。 示例 1： 输入：head = [1,2,3,4,5],</description>
+    </item>
+    
+    <item>
+      <title>LeetCode每日一题：148. 排序链表</title>
+      <link>https://qkgoalkeeper.github.io/post/leetcode%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98148.-%E6%8E%92%E5%BA%8F%E9%93%BE%E8%A1%A8/</link>
+      <pubDate>Sat, 18 Dec 2021 10:55:19 +0800</pubDate>
+      
+      <guid>https://qkgoalkeeper.github.io/post/leetcode%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98148.-%E6%8E%92%E5%BA%8F%E9%93%BE%E8%A1%A8/</guid>
+      <description>一.148. 排序链表 1.题干及思路 给你链表的头结点 head ，请将其按 升序 排列并返回 排序后的链表 。 进阶： 你可以在 O(n log n) 时间复杂度和常数级空间复杂度下</description>
+    </item>
+    
+    <item>
+      <title>LeetCode每日一题：146. LRU 缓存机制</title>
+      <link>https://qkgoalkeeper.github.io/post/leetcode%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98146.-lru-%E7%BC%93%E5%AD%98%E6%9C%BA%E5%88%B6/</link>
+      <pubDate>Fri, 17 Dec 2021 10:55:19 +0800</pubDate>
+      
+      <guid>https://qkgoalkeeper.github.io/post/leetcode%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98146.-lru-%E7%BC%93%E5%AD%98%E6%9C%BA%E5%88%B6/</guid>
+      <description>一.146. LRU 缓存机制 1.题干及思路 运用你所掌握的数据结构，设计和实现一个 LRU (最近最少使用) 缓存机制 。 实现 LRUCache 类： LRUCache(int capacity) 以正整数作为容量 capacity 初始化</description>
+    </item>
+    
+  </channel>
+</rss>

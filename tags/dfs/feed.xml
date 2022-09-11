@@ -1,0 +1,254 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>dfs on qkgoalkeeper&#39;s blog</title>
+    <link>https://qkgoalkeeper.github.io/tags/dfs/</link>
+    <description>Recent content in dfs on qkgoalkeeper&#39;s blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-CN</language>
+    <lastBuildDate>Wed, 18 May 2022 07:55:19 +0800</lastBuildDate><atom:link href="https://qkgoalkeeper.github.io/tags/dfs/feed.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>LeetCode每日练习：剑指 Offer II 112. 最长递增路径</title>
+      <link>https://qkgoalkeeper.github.io/post/leetcode%E6%AF%8F%E6%97%A5%E7%BB%83%E4%B9%A0%E5%89%91%E6%8C%87-offer-ii-112.-%E6%9C%80%E9%95%BF%E9%80%92%E5%A2%9E%E8%B7%AF%E5%BE%84/</link>
+      <pubDate>Wed, 18 May 2022 07:55:19 +0800</pubDate>
+      
+      <guid>https://qkgoalkeeper.github.io/post/leetcode%E6%AF%8F%E6%97%A5%E7%BB%83%E4%B9%A0%E5%89%91%E6%8C%87-offer-ii-112.-%E6%9C%80%E9%95%BF%E9%80%92%E5%A2%9E%E8%B7%AF%E5%BE%84/</guid>
+      <description>一.剑指 Offer II 112. 最长递增路径 1.题干及思路 给定一个 m x n 整数矩阵 matrix ，找出其中 最长递增路径 的长度。 对于每个单元格，你可以往上，下，左，右四个方向</description>
+    </item>
+    
+    <item>
+      <title>LeetCode每日练习：剑指 Offer II 111. 计算除法</title>
+      <link>https://qkgoalkeeper.github.io/post/leetcode%E6%AF%8F%E6%97%A5%E7%BB%83%E4%B9%A0%E5%89%91%E6%8C%87-offer-ii-111.-%E8%AE%A1%E7%AE%97%E9%99%A4%E6%B3%95/</link>
+      <pubDate>Mon, 16 May 2022 07:55:19 +0800</pubDate>
+      
+      <guid>https://qkgoalkeeper.github.io/post/leetcode%E6%AF%8F%E6%97%A5%E7%BB%83%E4%B9%A0%E5%89%91%E6%8C%87-offer-ii-111.-%E8%AE%A1%E7%AE%97%E9%99%A4%E6%B3%95/</guid>
+      <description>一.剑指 Offer II 111. 计算除法 1.题干及思路 给定一个变量对数组 equations 和一个实数值数组 values 作为已知条件，其中 equations[i] = [Ai, Bi] 和 values[i] 共同表示等式 Ai / Bi = values[i] 。每个 Ai 或 Bi 是</description>
+    </item>
+    
+    <item>
+      <title>LeetCode每日练习：剑指 Offer II 110. 所有路径</title>
+      <link>https://qkgoalkeeper.github.io/post/leetcode%E6%AF%8F%E6%97%A5%E7%BB%83%E4%B9%A0%E5%89%91%E6%8C%87-offer-ii-110.-%E6%89%80%E6%9C%89%E8%B7%AF%E5%BE%84/</link>
+      <pubDate>Sat, 14 May 2022 07:55:19 +0800</pubDate>
+      
+      <guid>https://qkgoalkeeper.github.io/post/leetcode%E6%AF%8F%E6%97%A5%E7%BB%83%E4%B9%A0%E5%89%91%E6%8C%87-offer-ii-110.-%E6%89%80%E6%9C%89%E8%B7%AF%E5%BE%84/</guid>
+      <description>一.剑指 Offer II 110. 所有路径 1.题干及思路 给定一个有 n 个节点的有向无环图，用二维数组 graph 表示，请找到所有从 0 到 n-1 的路径并输出（不要求按顺序）。 graph 的第</description>
+    </item>
+    
+    <item>
+      <title>LeetCode每日练习：剑指 Offer II 105. 岛屿的最大面积</title>
+      <link>https://qkgoalkeeper.github.io/post/leetcode%E6%AF%8F%E6%97%A5%E7%BB%83%E4%B9%A0%E5%89%91%E6%8C%87-offer-ii-105.-%E5%B2%9B%E5%B1%BF%E7%9A%84%E6%9C%80%E5%A4%A7%E9%9D%A2%E7%A7%AF/</link>
+      <pubDate>Tue, 26 Apr 2022 07:55:19 +0800</pubDate>
+      
+      <guid>https://qkgoalkeeper.github.io/post/leetcode%E6%AF%8F%E6%97%A5%E7%BB%83%E4%B9%A0%E5%89%91%E6%8C%87-offer-ii-105.-%E5%B2%9B%E5%B1%BF%E7%9A%84%E6%9C%80%E5%A4%A7%E9%9D%A2%E7%A7%AF/</guid>
+      <description>一.剑指 Offer II 105. 岛屿的最大面积 1.题干及思路 给定一个由 0 和 1 组成的非空二维数组 grid ，用来表示海洋岛屿地图。 一个 岛屿 是由一些相邻的 1 (代表土地) 构</description>
+    </item>
+    
+    <item>
+      <title>LeetCode每日练习：剑指 Offer II 102. 加减的目标值</title>
+      <link>https://qkgoalkeeper.github.io/post/leetcode%E6%AF%8F%E6%97%A5%E7%BB%83%E4%B9%A0%E5%89%91%E6%8C%87-offer-ii-102.-%E5%8A%A0%E5%87%8F%E7%9A%84%E7%9B%AE%E6%A0%87%E5%80%BC/</link>
+      <pubDate>Thu, 21 Apr 2022 07:55:19 +0800</pubDate>
+      
+      <guid>https://qkgoalkeeper.github.io/post/leetcode%E6%AF%8F%E6%97%A5%E7%BB%83%E4%B9%A0%E5%89%91%E6%8C%87-offer-ii-102.-%E5%8A%A0%E5%87%8F%E7%9A%84%E7%9B%AE%E6%A0%87%E5%80%BC/</guid>
+      <description>一.剑指 Offer II 102. 加减的目标值 1.题干及思路 给定一个正整数数组 nums 和一个整数 target 。 向数组中的每个整数前添加 &#39;+&#39; 或 &#39;-&#39; ，然后串联起所有整数，可以构造一个 表</description>
+    </item>
+    
+    <item>
+      <title>LeetCode每日练习：剑指 Offer II 080. 含有 k 个元素的组合</title>
+      <link>https://qkgoalkeeper.github.io/post/leetcode%E6%AF%8F%E6%97%A5%E7%BB%83%E4%B9%A0%E5%89%91%E6%8C%87-offer-ii-080.-%E5%90%AB%E6%9C%89-k-%E4%B8%AA%E5%85%83%E7%B4%A0%E7%9A%84%E7%BB%84%E5%90%88/</link>
+      <pubDate>Tue, 05 Apr 2022 09:55:19 +0800</pubDate>
+      
+      <guid>https://qkgoalkeeper.github.io/post/leetcode%E6%AF%8F%E6%97%A5%E7%BB%83%E4%B9%A0%E5%89%91%E6%8C%87-offer-ii-080.-%E5%90%AB%E6%9C%89-k-%E4%B8%AA%E5%85%83%E7%B4%A0%E7%9A%84%E7%BB%84%E5%90%88/</guid>
+      <description>一.剑指 Offer II 080. 含有 k 个元素的组合 1.题干及思路 给定两个整数 n 和 k，返回 1 ... n 中所有可能的 k 个数的组合。 示例 1: 输入: n = 4, k = 2 输出: [ [2,4], [3,4], [2,3],</description>
+    </item>
+    
+    <item>
+      <title>LeetCode每日练习：剑指 Offer II 079. 所有子集</title>
+      <link>https://qkgoalkeeper.github.io/post/leetcode%E6%AF%8F%E6%97%A5%E7%BB%83%E4%B9%A0%E5%89%91%E6%8C%87-offer-ii-079.-%E6%89%80%E6%9C%89%E5%AD%90%E9%9B%86/</link>
+      <pubDate>Mon, 04 Apr 2022 09:55:19 +0800</pubDate>
+      
+      <guid>https://qkgoalkeeper.github.io/post/leetcode%E6%AF%8F%E6%97%A5%E7%BB%83%E4%B9%A0%E5%89%91%E6%8C%87-offer-ii-079.-%E6%89%80%E6%9C%89%E5%AD%90%E9%9B%86/</guid>
+      <description>一.剑指 Offer II 079. 所有子集 1.题干及思路 给定一个整数数组 nums ，数组中的元素 互不相同 。返回该数组所有可能的子集（幂集）。 解集 不能 包含重复的子集。你可</description>
+    </item>
+    
+    <item>
+      <title>LeetCode每日练习：剑指 Offer II 056. 二叉搜索树中两个节点之和</title>
+      <link>https://qkgoalkeeper.github.io/post/leetcode%E6%AF%8F%E6%97%A5%E7%BB%83%E4%B9%A0%E5%89%91%E6%8C%87-offer-ii-056.-%E4%BA%8C%E5%8F%89%E6%90%9C%E7%B4%A2%E6%A0%91%E4%B8%AD%E4%B8%A4%E4%B8%AA%E8%8A%82%E7%82%B9%E4%B9%8B%E5%92%8C/</link>
+      <pubDate>Wed, 09 Mar 2022 09:55:19 +0800</pubDate>
+      
+      <guid>https://qkgoalkeeper.github.io/post/leetcode%E6%AF%8F%E6%97%A5%E7%BB%83%E4%B9%A0%E5%89%91%E6%8C%87-offer-ii-056.-%E4%BA%8C%E5%8F%89%E6%90%9C%E7%B4%A2%E6%A0%91%E4%B8%AD%E4%B8%A4%E4%B8%AA%E8%8A%82%E7%82%B9%E4%B9%8B%E5%92%8C/</guid>
+      <description>一.剑指 Offer II 056. 二叉搜索树中两个节点之和 1.题干及思路 给定一个二叉搜索树的 根节点 root 和一个整数 k , 请判断该二叉搜索树中是否存在两个节点它们的值之</description>
+    </item>
+    
+    <item>
+      <title>LeetCode每日练习：剑指 Offer II 055. 二叉搜索树迭代器</title>
+      <link>https://qkgoalkeeper.github.io/post/leetcode%E6%AF%8F%E6%97%A5%E7%BB%83%E4%B9%A0%E5%89%91%E6%8C%87-offer-ii-055.-%E4%BA%8C%E5%8F%89%E6%90%9C%E7%B4%A2%E6%A0%91%E8%BF%AD%E4%BB%A3%E5%99%A8/</link>
+      <pubDate>Tue, 08 Mar 2022 09:55:19 +0800</pubDate>
+      
+      <guid>https://qkgoalkeeper.github.io/post/leetcode%E6%AF%8F%E6%97%A5%E7%BB%83%E4%B9%A0%E5%89%91%E6%8C%87-offer-ii-055.-%E4%BA%8C%E5%8F%89%E6%90%9C%E7%B4%A2%E6%A0%91%E8%BF%AD%E4%BB%A3%E5%99%A8/</guid>
+      <description>一.剑指 Offer II 055. 二叉搜索树迭代器 1.题干及思路 实现一个二叉搜索树迭代器类BSTIterator ，表示一个按中序遍历二叉搜索树（BST）的迭代器</description>
+    </item>
+    
+    <item>
+      <title>LeetCode每日练习：剑指 Offer II 054. 所有大于等于节点的值之和</title>
+      <link>https://qkgoalkeeper.github.io/post/leetcode%E6%AF%8F%E6%97%A5%E7%BB%83%E4%B9%A0%E5%89%91%E6%8C%87-offer-ii-054.-%E6%89%80%E6%9C%89%E5%A4%A7%E4%BA%8E%E7%AD%89%E4%BA%8E%E8%8A%82%E7%82%B9%E7%9A%84%E5%80%BC%E4%B9%8B%E5%92%8C/</link>
+      <pubDate>Mon, 07 Mar 2022 09:55:19 +0800</pubDate>
+      
+      <guid>https://qkgoalkeeper.github.io/post/leetcode%E6%AF%8F%E6%97%A5%E7%BB%83%E4%B9%A0%E5%89%91%E6%8C%87-offer-ii-054.-%E6%89%80%E6%9C%89%E5%A4%A7%E4%BA%8E%E7%AD%89%E4%BA%8E%E8%8A%82%E7%82%B9%E7%9A%84%E5%80%BC%E4%B9%8B%E5%92%8C/</guid>
+      <description>一.剑指 Offer II 054. 所有大于等于节点的值之和 1.题干及思路 给定一个二叉搜索树，请将它的每个节点的值替换成树中大于或者等于该节点值的所有节点值之和。</description>
+    </item>
+    
+    <item>
+      <title>LeetCode每日练习：剑指 Offer II 053. 二叉搜索树中的中序后继</title>
+      <link>https://qkgoalkeeper.github.io/post/leetcode%E6%AF%8F%E6%97%A5%E7%BB%83%E4%B9%A0%E5%89%91%E6%8C%87-offer-ii-053.-%E4%BA%8C%E5%8F%89%E6%90%9C%E7%B4%A2%E6%A0%91%E4%B8%AD%E7%9A%84%E4%B8%AD%E5%BA%8F%E5%90%8E%E7%BB%A7/</link>
+      <pubDate>Sun, 06 Mar 2022 09:55:19 +0800</pubDate>
+      
+      <guid>https://qkgoalkeeper.github.io/post/leetcode%E6%AF%8F%E6%97%A5%E7%BB%83%E4%B9%A0%E5%89%91%E6%8C%87-offer-ii-053.-%E4%BA%8C%E5%8F%89%E6%90%9C%E7%B4%A2%E6%A0%91%E4%B8%AD%E7%9A%84%E4%B8%AD%E5%BA%8F%E5%90%8E%E7%BB%A7/</guid>
+      <description>一.剑指 Offer II 053. 二叉搜索树中的中序后继 1.题干及思路 给定一棵二叉搜索树和其中的一个节点 p ，找到该节点在树中的中序后继。如果节点没有中序后继，请</description>
+    </item>
+    
+    <item>
+      <title>LeetCode每日练习：剑指 Offer II 051. 节点之和最大的路径</title>
+      <link>https://qkgoalkeeper.github.io/post/leetcode%E6%AF%8F%E6%97%A5%E7%BB%83%E4%B9%A0%E5%89%91%E6%8C%87-offer-ii-051.-%E8%8A%82%E7%82%B9%E4%B9%8B%E5%92%8C%E6%9C%80%E5%A4%A7%E7%9A%84%E8%B7%AF%E5%BE%84/</link>
+      <pubDate>Fri, 04 Mar 2022 09:55:19 +0800</pubDate>
+      
+      <guid>https://qkgoalkeeper.github.io/post/leetcode%E6%AF%8F%E6%97%A5%E7%BB%83%E4%B9%A0%E5%89%91%E6%8C%87-offer-ii-051.-%E8%8A%82%E7%82%B9%E4%B9%8B%E5%92%8C%E6%9C%80%E5%A4%A7%E7%9A%84%E8%B7%AF%E5%BE%84/</guid>
+      <description>一.剑指 Offer II 051. 节点之和最大的路径 1.题干及思路 路径 被定义为一条从树中任意节点出发，沿父节点-子节点连接，达到任意节点的序列。同一个节点在一条</description>
+    </item>
+    
+    <item>
+      <title>LeetCode每日练习：剑指 Offer II 050. 向下的路径节点之和</title>
+      <link>https://qkgoalkeeper.github.io/post/leetcode%E6%AF%8F%E6%97%A5%E7%BB%83%E4%B9%A0%E5%89%91%E6%8C%87-offer-ii-050.-%E5%90%91%E4%B8%8B%E7%9A%84%E8%B7%AF%E5%BE%84%E8%8A%82%E7%82%B9%E4%B9%8B%E5%92%8C/</link>
+      <pubDate>Thu, 03 Mar 2022 09:55:19 +0800</pubDate>
+      
+      <guid>https://qkgoalkeeper.github.io/post/leetcode%E6%AF%8F%E6%97%A5%E7%BB%83%E4%B9%A0%E5%89%91%E6%8C%87-offer-ii-050.-%E5%90%91%E4%B8%8B%E7%9A%84%E8%B7%AF%E5%BE%84%E8%8A%82%E7%82%B9%E4%B9%8B%E5%92%8C/</guid>
+      <description>一.剑指 Offer II 050. 向下的路径节点之和 1.题干及思路 给定一个二叉树的根节点 root ，和一个整数 targetSum ，求该二叉树里节点值之和等于 targetSum 的 路径 的数目。 路径 不需要从</description>
+    </item>
+    
+    <item>
+      <title>LeetCode每日练习：剑指 Offer II 049. 从根节点到叶节点的路径数字之和</title>
+      <link>https://qkgoalkeeper.github.io/post/leetcode%E6%AF%8F%E6%97%A5%E7%BB%83%E4%B9%A0%E5%89%91%E6%8C%87-offer-ii-049.-%E4%BB%8E%E6%A0%B9%E8%8A%82%E7%82%B9%E5%88%B0%E5%8F%B6%E8%8A%82%E7%82%B9%E7%9A%84%E8%B7%AF%E5%BE%84%E6%95%B0%E5%AD%97%E4%B9%8B%E5%92%8C/</link>
+      <pubDate>Thu, 03 Mar 2022 08:55:19 +0800</pubDate>
+      
+      <guid>https://qkgoalkeeper.github.io/post/leetcode%E6%AF%8F%E6%97%A5%E7%BB%83%E4%B9%A0%E5%89%91%E6%8C%87-offer-ii-049.-%E4%BB%8E%E6%A0%B9%E8%8A%82%E7%82%B9%E5%88%B0%E5%8F%B6%E8%8A%82%E7%82%B9%E7%9A%84%E8%B7%AF%E5%BE%84%E6%95%B0%E5%AD%97%E4%B9%8B%E5%92%8C/</guid>
+      <description>一.剑指 Offer II 049. 从根节点到叶节点的路径数字之和 1.题干及思路 给定一个二叉树的根节点 root ，树中每个节点都存放有一个 0 到 9 之间的数字。 每条从根节点到</description>
+    </item>
+    
+    <item>
+      <title>LeetCode每日练习：剑指 Offer II 048. 序列化与反序列化二叉树</title>
+      <link>https://qkgoalkeeper.github.io/post/leetcode%E6%AF%8F%E6%97%A5%E7%BB%83%E4%B9%A0%E5%89%91%E6%8C%87-offer-ii-048.-%E5%BA%8F%E5%88%97%E5%8C%96%E4%B8%8E%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E4%BA%8C%E5%8F%89%E6%A0%91/</link>
+      <pubDate>Thu, 03 Mar 2022 07:55:19 +0800</pubDate>
+      
+      <guid>https://qkgoalkeeper.github.io/post/leetcode%E6%AF%8F%E6%97%A5%E7%BB%83%E4%B9%A0%E5%89%91%E6%8C%87-offer-ii-048.-%E5%BA%8F%E5%88%97%E5%8C%96%E4%B8%8E%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E4%BA%8C%E5%8F%89%E6%A0%91/</guid>
+      <description>一.剑指 Offer II 048. 序列化与反序列化二叉树 1.题干及思路 序列化是将一个数据结构或者对象转换为连续的比特位的操作，进而可以将转换后的数据存储在一个文</description>
+    </item>
+    
+    <item>
+      <title>LeetCode每日练习：剑指 Offer II 047. 二叉树剪枝</title>
+      <link>https://qkgoalkeeper.github.io/post/leetcode%E6%AF%8F%E6%97%A5%E7%BB%83%E4%B9%A0%E5%89%91%E6%8C%87-offer-ii-047.-%E4%BA%8C%E5%8F%89%E6%A0%91%E5%89%AA%E6%9E%9D/</link>
+      <pubDate>Wed, 02 Mar 2022 09:55:19 +0800</pubDate>
+      
+      <guid>https://qkgoalkeeper.github.io/post/leetcode%E6%AF%8F%E6%97%A5%E7%BB%83%E4%B9%A0%E5%89%91%E6%8C%87-offer-ii-047.-%E4%BA%8C%E5%8F%89%E6%A0%91%E5%89%AA%E6%9E%9D/</guid>
+      <description>一.剑指 Offer II 047. 二叉树剪枝 1.题干及思路 给定一个二叉树 根节点 root ，树的每个节点的值要么是 0，要么是 1。请剪除该二叉树中所有节点的值为 0 的子树。 节</description>
+    </item>
+    
+    <item>
+      <title>LeetCode每日练习：剑指 Offer II 086. 分割回文子字符串</title>
+      <link>https://qkgoalkeeper.github.io/post/leetcode%E6%AF%8F%E6%97%A5%E7%BB%83%E4%B9%A0%E5%89%91%E6%8C%87-offer-ii-086.-%E5%88%86%E5%89%B2%E5%9B%9E%E6%96%87%E5%AD%90%E5%AD%97%E7%AC%A6%E4%B8%B2/</link>
+      <pubDate>Tue, 08 Feb 2022 10:55:19 +0800</pubDate>
+      
+      <guid>https://qkgoalkeeper.github.io/post/leetcode%E6%AF%8F%E6%97%A5%E7%BB%83%E4%B9%A0%E5%89%91%E6%8C%87-offer-ii-086.-%E5%88%86%E5%89%B2%E5%9B%9E%E6%96%87%E5%AD%90%E5%AD%97%E7%AC%A6%E4%B8%B2/</guid>
+      <description>一.剑指 Offer II 086. 分割回文子字符串 1.题干及思路 给定一个字符串 s ，请将 s 分割成一些子串，使每个子串都是 回文串 ，返回 s 所有可能的分割方案。 回文串 是</description>
+    </item>
+    
+    <item>
+      <title>LeetCode每日练习：剑指 Offer II 087. 复原 IP </title>
+      <link>https://qkgoalkeeper.github.io/post/leetcode%E6%AF%8F%E6%97%A5%E7%BB%83%E4%B9%A0%E5%89%91%E6%8C%87-offer-ii-087.-%E5%A4%8D%E5%8E%9F-ip/</link>
+      <pubDate>Tue, 08 Feb 2022 10:55:19 +0800</pubDate>
+      
+      <guid>https://qkgoalkeeper.github.io/post/leetcode%E6%AF%8F%E6%97%A5%E7%BB%83%E4%B9%A0%E5%89%91%E6%8C%87-offer-ii-087.-%E5%A4%8D%E5%8E%9F-ip/</guid>
+      <description>一.剑指 Offer II 087. 复原 IP 1.题干及思路 给定一个只包含数字的字符串 s ，用以表示一个 IP 地址，返回所有可能从 s 获得的 有效 IP 地址 。你可以按任何顺序返回答</description>
+    </item>
+    
+    <item>
+      <title>LeetCode每日练习：剑指 Offer II 085. 生成匹配的括号 </title>
+      <link>https://qkgoalkeeper.github.io/post/leetcode%E6%AF%8F%E6%97%A5%E7%BB%83%E4%B9%A0%E5%89%91%E6%8C%87-offer-ii-085.-%E7%94%9F%E6%88%90%E5%8C%B9%E9%85%8D%E7%9A%84%E6%8B%AC%E5%8F%B7/</link>
+      <pubDate>Mon, 07 Feb 2022 10:55:19 +0800</pubDate>
+      
+      <guid>https://qkgoalkeeper.github.io/post/leetcode%E6%AF%8F%E6%97%A5%E7%BB%83%E4%B9%A0%E5%89%91%E6%8C%87-offer-ii-085.-%E7%94%9F%E6%88%90%E5%8C%B9%E9%85%8D%E7%9A%84%E6%8B%AC%E5%8F%B7/</guid>
+      <description>一.剑指 Offer II 085. 生成匹配的括号 1.题干及思路 正整数 n 代表生成括号的对数，请设计一个函数，用于能够生成所有可能的并且 有效的 括号组合。 示例 1： 输入</description>
+    </item>
+    
+    <item>
+      <title>LeetCode每日练习：剑指 Offer II 083. 没有重复元素集合的全排列 </title>
+      <link>https://qkgoalkeeper.github.io/post/leetcode%E6%AF%8F%E6%97%A5%E7%BB%83%E4%B9%A0%E5%89%91%E6%8C%87-offer-ii-083.-%E6%B2%A1%E6%9C%89%E9%87%8D%E5%A4%8D%E5%85%83%E7%B4%A0%E9%9B%86%E5%90%88%E7%9A%84%E5%85%A8%E6%8E%92%E5%88%97/</link>
+      <pubDate>Sun, 06 Feb 2022 10:55:19 +0800</pubDate>
+      
+      <guid>https://qkgoalkeeper.github.io/post/leetcode%E6%AF%8F%E6%97%A5%E7%BB%83%E4%B9%A0%E5%89%91%E6%8C%87-offer-ii-083.-%E6%B2%A1%E6%9C%89%E9%87%8D%E5%A4%8D%E5%85%83%E7%B4%A0%E9%9B%86%E5%90%88%E7%9A%84%E5%85%A8%E6%8E%92%E5%88%97/</guid>
+      <description>一.剑指 Offer II 083. 没有重复元素集合的全排列 1.题干及思路 给定一个不含重复数字的整数数组 nums ，返回其 所有可能的全排列 。可以 按任意顺序 返回答案。 示例 1</description>
+    </item>
+    
+    <item>
+      <title>LeetCode每日练习：剑指 Offer II 084. 含有重复元素集合的全排列  </title>
+      <link>https://qkgoalkeeper.github.io/post/leetcode%E6%AF%8F%E6%97%A5%E7%BB%83%E4%B9%A0%E5%89%91%E6%8C%87-offer-ii-084.-%E5%90%AB%E6%9C%89%E9%87%8D%E5%A4%8D%E5%85%83%E7%B4%A0%E9%9B%86%E5%90%88%E7%9A%84%E5%85%A8%E6%8E%92%E5%88%97/</link>
+      <pubDate>Sun, 06 Feb 2022 10:55:19 +0800</pubDate>
+      
+      <guid>https://qkgoalkeeper.github.io/post/leetcode%E6%AF%8F%E6%97%A5%E7%BB%83%E4%B9%A0%E5%89%91%E6%8C%87-offer-ii-084.-%E5%90%AB%E6%9C%89%E9%87%8D%E5%A4%8D%E5%85%83%E7%B4%A0%E9%9B%86%E5%90%88%E7%9A%84%E5%85%A8%E6%8E%92%E5%88%97/</guid>
+      <description>一.剑指 Offer II 084. 含有重复元素集合的全排列 1.题干及思路 给定一个可包含重复数字的整数集合 nums ，按任意顺序 返回它所有不重复的全排列。 示例 1： 输入：n</description>
+    </item>
+    
+    <item>
+      <title>LeetCode每日练习：剑指 Offer II 082. 含有重复元素集合的组合</title>
+      <link>https://qkgoalkeeper.github.io/post/leetcode%E6%AF%8F%E6%97%A5%E7%BB%83%E4%B9%A0%E5%89%91%E6%8C%87-offer-ii-082.-%E5%90%AB%E6%9C%89%E9%87%8D%E5%A4%8D%E5%85%83%E7%B4%A0%E9%9B%86%E5%90%88%E7%9A%84%E7%BB%84%E5%90%88/</link>
+      <pubDate>Sat, 05 Feb 2022 10:55:19 +0800</pubDate>
+      
+      <guid>https://qkgoalkeeper.github.io/post/leetcode%E6%AF%8F%E6%97%A5%E7%BB%83%E4%B9%A0%E5%89%91%E6%8C%87-offer-ii-082.-%E5%90%AB%E6%9C%89%E9%87%8D%E5%A4%8D%E5%85%83%E7%B4%A0%E9%9B%86%E5%90%88%E7%9A%84%E7%BB%84%E5%90%88/</guid>
+      <description>一.剑指 Offer II 082. 含有重复元素集合的组合 1.题干及思路 给定一个可能有重复数字的整数数组 candidates 和一个目标数 target ，找出 candidates 中所有可以使数字和为 target 的组合。 candidates 中</description>
+    </item>
+    
+    <item>
+      <title>LeetCode每日练习：剑指 Offer II 081. 允许重复选择元素的组合</title>
+      <link>https://qkgoalkeeper.github.io/post/leetcode%E6%AF%8F%E6%97%A5%E7%BB%83%E4%B9%A0%E5%89%91%E6%8C%87-offer-ii-081.-%E5%85%81%E8%AE%B8%E9%87%8D%E5%A4%8D%E9%80%89%E6%8B%A9%E5%85%83%E7%B4%A0%E7%9A%84%E7%BB%84%E5%90%88/</link>
+      <pubDate>Fri, 04 Feb 2022 10:55:19 +0800</pubDate>
+      
+      <guid>https://qkgoalkeeper.github.io/post/leetcode%E6%AF%8F%E6%97%A5%E7%BB%83%E4%B9%A0%E5%89%91%E6%8C%87-offer-ii-081.-%E5%85%81%E8%AE%B8%E9%87%8D%E5%A4%8D%E9%80%89%E6%8B%A9%E5%85%83%E7%B4%A0%E7%9A%84%E7%BB%84%E5%90%88/</guid>
+      <description>一.剑指 Offer II 081. 允许重复选择元素的组合 1.题干及思路 给定一个无重复元素的正整数数组 candidates 和一个正整数 target ，找出 candidates 中所有可以使数字和为目标数 target 的唯一组</description>
+    </item>
+    
+    <item>
+      <title>LeetCode每日练习：剑指 Offer 36. 二叉搜索树与双向链表</title>
+      <link>https://qkgoalkeeper.github.io/post/leetcode%E6%AF%8F%E6%97%A5%E7%BB%83%E4%B9%A0%E5%89%91%E6%8C%87-offer-36.-%E4%BA%8C%E5%8F%89%E6%90%9C%E7%B4%A2%E6%A0%91%E4%B8%8E%E5%8F%8C%E5%90%91%E9%93%BE%E8%A1%A8/</link>
+      <pubDate>Thu, 20 Jan 2022 10:55:19 +0800</pubDate>
+      
+      <guid>https://qkgoalkeeper.github.io/post/leetcode%E6%AF%8F%E6%97%A5%E7%BB%83%E4%B9%A0%E5%89%91%E6%8C%87-offer-36.-%E4%BA%8C%E5%8F%89%E6%90%9C%E7%B4%A2%E6%A0%91%E4%B8%8E%E5%8F%8C%E5%90%91%E9%93%BE%E8%A1%A8/</guid>
+      <description>一.剑指 Offer 36. 二叉搜索树与双向链表 1.题干及思路 输入一棵二叉搜索树，将该二叉搜索树转换成一个排序的循环双向链表。要求不能创建任何新的节点，只能</description>
+    </item>
+    
+    <item>
+      <title>LeetCode每日练习：剑指 Offer 12. 矩阵中的路径</title>
+      <link>https://qkgoalkeeper.github.io/post/leetcode%E6%AF%8F%E6%97%A5%E7%BB%83%E4%B9%A0%E5%89%91%E6%8C%87-offer-12.-%E7%9F%A9%E9%98%B5%E4%B8%AD%E7%9A%84%E8%B7%AF%E5%BE%84/</link>
+      <pubDate>Wed, 12 Jan 2022 10:55:19 +0800</pubDate>
+      
+      <guid>https://qkgoalkeeper.github.io/post/leetcode%E6%AF%8F%E6%97%A5%E7%BB%83%E4%B9%A0%E5%89%91%E6%8C%87-offer-12.-%E7%9F%A9%E9%98%B5%E4%B8%AD%E7%9A%84%E8%B7%AF%E5%BE%84/</guid>
+      <description>一.剑指 Offer 12. 矩阵中的路径 1.题干及思路 给定一个 m x n 二维字符网格 board 和一个字符串单词 word 。如果 word 存在于网格中，返回 true ；否则，返回 false 。 单词必须按照</description>
+    </item>
+    
+    <item>
+      <title>LeetCode每日练习：剑指 Offer 13. 机器人的运动范围</title>
+      <link>https://qkgoalkeeper.github.io/post/leetcode%E6%AF%8F%E6%97%A5%E7%BB%83%E4%B9%A0%E5%89%91%E6%8C%87-offer-13.-%E6%9C%BA%E5%99%A8%E4%BA%BA%E7%9A%84%E8%BF%90%E5%8A%A8%E8%8C%83%E5%9B%B4/</link>
+      <pubDate>Wed, 12 Jan 2022 10:55:19 +0800</pubDate>
+      
+      <guid>https://qkgoalkeeper.github.io/post/leetcode%E6%AF%8F%E6%97%A5%E7%BB%83%E4%B9%A0%E5%89%91%E6%8C%87-offer-13.-%E6%9C%BA%E5%99%A8%E4%BA%BA%E7%9A%84%E8%BF%90%E5%8A%A8%E8%8C%83%E5%9B%B4/</guid>
+      <description>一.剑指 Offer 13. 机器人的运动范围 1.题干及思路 地上有一个m行n列的方格，从坐标 [0,0] 到坐标 [m-1,n-1] 。一个机器人从坐标 [0, 0] 的格子开始移动，它每次可以向左、右</description>
+    </item>
+    
+    <item>
+      <title>LeetCode每日一题：494. 目标和</title>
+      <link>https://qkgoalkeeper.github.io/post/leetcode%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98494.-%E7%9B%AE%E6%A0%87%E5%92%8C/</link>
+      <pubDate>Tue, 04 Jan 2022 10:55:19 +0800</pubDate>
+      
+      <guid>https://qkgoalkeeper.github.io/post/leetcode%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98494.-%E7%9B%AE%E6%A0%87%E5%92%8C/</guid>
+      <description>一.494. 目标和 1.题干及思路 给你一个整数数组 nums 和一个整数 target 。 向数组中的每个整数前添加 &#39;+&#39; 或 &#39;-&#39; ，然后串联起所有整数，可以构造一个 表达式 ： 例如</description>
+    </item>
+    
+  </channel>
+</rss>

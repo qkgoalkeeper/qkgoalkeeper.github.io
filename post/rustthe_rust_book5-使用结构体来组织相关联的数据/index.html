@@ -1,0 +1,904 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <title>rust：the_rust_book（5） 使用结构体来组织相关联的数据 - qkgoalkeeper&#39;s blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=3, minimum-scale=1">
+  
+  <meta name="description" content="一.本章任务 struct，或者 structure，是一个自定义数据类型，允许你包装和命名多个相关的值，从而形成一个有意义的组合。如果你熟悉一">
+  
+  <meta itemprop="name" content="rust：the_rust_book（5） 使用结构体来组织相关联的数据 - qkgoalkeeper&#39;s blog">
+  <meta itemprop="description" content="一.本章任务 struct，或者 structure，是一个自定义数据类型，允许你包装和命名多个相关的值，从而形成一个有意义的组合。如果你熟悉一">
+  <meta itemprop="image" content="https://qkgoalkeeper.github.io/img/author.jpg">
+  
+  
+  <meta name="twitter:description" content="">
+  
+  <link rel="shortcut icon" href="https://qkgoalkeeper.github.io/img/favicon.ico"/>
+  <link rel="apple-touch-icon" href="https://qkgoalkeeper.github.io/apple-touch-icon.png" />
+  <link rel="apple-touch-icon-precomposed" href="https://qkgoalkeeper.github.io/apple-touch-icon.png" />
+  <link rel="stylesheet" href="https://qkgoalkeeper.github.io/highlight/styles/github.css">
+  <script src="https://qkgoalkeeper.github.io/highlight/highlight.pack.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script>
+  
+  <link rel="stylesheet" href="https://qkgoalkeeper.github.io/font/hack/css/hack.min.css">
+  <link rel="stylesheet" href="https://qkgoalkeeper.github.io/css/style.css">
+  
+  
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-175507250-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-175507250-1');
+</script>
+  
+
+</head>
+
+<body>
+  <header>
+    <div>
+  <div id="imglogo">
+    <a href="https://qkgoalkeeper.github.io/"><img src='https://qkgoalkeeper.github.io/img/logo.svg' alt="qkgoalkeeper&#39;s blog" title="qkgoalkeeper&#39;s blog"/></a>
+  </div>
+  <div id="textlogo">
+    <h1 class="site-name"><a href="https://qkgoalkeeper.github.io/" title="qkgoalkeeper&#39;s blog">qkgoalkeeper&#39;s blog</a></h1>
+    <h2 class="blog-motto">ECNU数据学院在读</h2>
+  </div>
+  <div class="navbar"><a class="navbutton navmobile" href="#" title="menu"></a></div>
+  <nav class="animated">
+    <ul>
+      
+      
+      <li><a href="/">首页</a></li>
+      
+      <li><a href="/about">关于</a></li>
+      
+      
+      <li>
+        <form class="search" method="get" action="https://www.google.com/search">
+          <div>
+            <input type="text" id="search" name="q" placeholder='Search'>
+          </div>
+        </form>
+      </li>
+    </ul>
+  </nav>
+</div>
+
+  </header>
+  <div id="container">
+    <div id="main" class="post" itemscope itemprop="blogPost">
+	<article itemprop="articleBody">
+    <header class="article-info clearfix">
+  <h1 itemprop="name">
+      <a href="https://qkgoalkeeper.github.io/post/rustthe_rust_book5-%E4%BD%BF%E7%94%A8%E7%BB%93%E6%9E%84%E4%BD%93%E6%9D%A5%E7%BB%84%E7%BB%87%E7%9B%B8%E5%85%B3%E8%81%94%E7%9A%84%E6%95%B0%E6%8D%AE/" title="rust：the_rust_book（5） 使用结构体来组织相关联的数据" itemprop="url">rust：the_rust_book（5） 使用结构体来组织相关联的数据</a>
+  </h1>
+  <p class="article-author">By
+    
+      <a href="https://qkgoalkeeper.github.io/" title="qk">qk</a>
+    
+  </p>
+  <p class="article-time">
+    <time datetime="2022-07-18 07:55:19 &#43;0800 CST" itemprop="datePublished">2022年07月18日</time>
+  </p>
+</header>
+
+	<div class="article-content">
+    
+		<div class="toc-article">
+			<strong class="toc-title">文章目录</strong>
+      <nav id="TableOfContents"></nav>
+		</div>
+    
+    <h1 id="一本章任务">一.本章任务</h1>
+<ul>
+<li><em>struct</em>，或者 <em>structure</em>，是一个自定义数据类型，允许你包装和命名多个相关的值，从而形成一个有意义的组合。如果你熟悉一门面向对象语言，<em>struct</em> 就像对象中的数据属性。在本章中，我们会对元组和结构体进行比较和对比。还将演示如何定义和实例化结构体，并讨论如何定义关联函数，特别是被称为 <em>方法</em> 的那种关联函数，以指定与结构体类型相关的行为。你可以在程序中基于结构体和枚举（<em>enum</em>）（在第六章介绍）创建新类型，以充分利用 Rust 的编译时类型检查。</li>
+</ul>
+<h1 id="二定义并实例化结构体httpskaiserygithubiotrpl-zh-cnch05-01-defining-structshtml定义并实例化结构体">二.<a href="https://kaisery.github.io/trpl-zh-cn/ch05-01-defining-structs.html#%E5%AE%9A%E4%B9%89%E5%B9%B6%E5%AE%9E%E4%BE%8B%E5%8C%96%E7%BB%93%E6%9E%84%E4%BD%93">定义并实例化结构体</a></h1>
+<p>结构体的定义与实例化，注意可变是对于整个结构体来说的，不能使得结构体内一项可变，以下代码通过let mut创造一个可变的结构体对象进行修改</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-rust" data-lang="rust"><span class="k">struct</span> <span class="nc">User</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span><span class="w">    </span><span class="n">active</span>: <span class="kt">bool</span><span class="p">,</span><span class="w">
+</span><span class="w">    </span><span class="n">username</span>: <span class="nb">String</span><span class="p">,</span><span class="w">
+</span><span class="w">    </span><span class="n">email</span>: <span class="nb">String</span><span class="p">,</span><span class="w">
+</span><span class="w">    </span><span class="n">sign_in_count</span>: <span class="kt">u64</span><span class="p">,</span><span class="w">
+</span><span class="w"></span><span class="p">}</span><span class="w">
+</span><span class="w">
+</span><span class="w"></span><span class="k">fn</span> <span class="nf">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span><span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="k">mut</span><span class="w"> </span><span class="n">user1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">User</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span><span class="w">        </span><span class="n">email</span>: <span class="nb">String</span>::<span class="n">from</span><span class="p">(</span><span class="s">&#34;someone@example.com&#34;</span><span class="p">),</span><span class="w">
+</span><span class="w">        </span><span class="n">username</span>: <span class="nb">String</span>::<span class="n">from</span><span class="p">(</span><span class="s">&#34;someusername123&#34;</span><span class="p">),</span><span class="w">
+</span><span class="w">        </span><span class="n">active</span>: <span class="nc">true</span><span class="p">,</span><span class="w">
+</span><span class="w">        </span><span class="n">sign_in_count</span>: <span class="mi">1</span><span class="p">,</span><span class="w">
+</span><span class="w">    </span><span class="p">};</span><span class="w">
+</span><span class="w">
+</span><span class="w">    </span><span class="n">user1</span><span class="p">.</span><span class="n">email</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">String</span>::<span class="n">from</span><span class="p">(</span><span class="s">&#34;anotheremail@example.com&#34;</span><span class="p">);</span><span class="w">
+</span><span class="w"></span><span class="p">}</span><span class="w">
+</span></code></pre></div><p>使用字段初始化简写语法，rust建议我们在build struct时使用的临时变量名与字段名一样，这样比较规范创建时也省力（就是说不用email:email而是直接email）</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-rust" data-lang="rust"><span class="k">struct</span> <span class="nc">User</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span><span class="w">    </span><span class="n">active</span>: <span class="kt">bool</span><span class="p">,</span><span class="w">
+</span><span class="w">    </span><span class="n">username</span>: <span class="nb">String</span><span class="p">,</span><span class="w">
+</span><span class="w">    </span><span class="n">email</span>: <span class="nb">String</span><span class="p">,</span><span class="w">
+</span><span class="w">    </span><span class="n">sign_in_count</span>: <span class="kt">u64</span><span class="p">,</span><span class="w">
+</span><span class="w"></span><span class="p">}</span><span class="w">
+</span><span class="w">
+</span><span class="w"></span><span class="k">fn</span> <span class="nf">build_user</span><span class="p">(</span><span class="n">email</span>: <span class="nb">String</span><span class="p">,</span><span class="w"> </span><span class="n">username</span>: <span class="nb">String</span><span class="p">)</span><span class="w"> </span>-&gt; <span class="nc">User</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span><span class="w">    </span><span class="n">User</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span><span class="w">        </span><span class="n">email</span><span class="p">,</span><span class="w">
+</span><span class="w">        </span><span class="n">username</span><span class="p">,</span><span class="w">
+</span><span class="w">        </span><span class="n">active</span>: <span class="nc">true</span><span class="p">,</span><span class="w">
+</span><span class="w">        </span><span class="n">sign_in_count</span>: <span class="mi">1</span><span class="p">,</span><span class="w">
+</span><span class="w">    </span><span class="p">}</span><span class="w">
+</span><span class="w"></span><span class="p">}</span><span class="w">
+</span><span class="w">
+</span><span class="w"></span><span class="k">fn</span> <span class="nf">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span><span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="n">user1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">build_user</span><span class="p">(</span><span class="w">
+</span><span class="w">        </span><span class="nb">String</span>::<span class="n">from</span><span class="p">(</span><span class="s">&#34;someone@example.com&#34;</span><span class="p">),</span><span class="w">
+</span><span class="w">        </span><span class="nb">String</span>::<span class="n">from</span><span class="p">(</span><span class="s">&#34;someusername123&#34;</span><span class="p">),</span><span class="w">
+</span><span class="w">    </span><span class="p">);</span><span class="w">
+</span><span class="w"></span><span class="p">}</span><span class="w">
+</span></code></pre></div><p>使用旧实例的大部分值但改变其部分值来创建一个新的结构体实例通常是很有用的。这可以通过 <strong>结构体更新语法</strong>（<em>struct update syntax</em>）实现。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-rust" data-lang="rust"><span class="k">struct</span> <span class="nc">User</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span><span class="w">    </span><span class="n">active</span>: <span class="kt">bool</span><span class="p">,</span><span class="w">
+</span><span class="w">    </span><span class="n">username</span>: <span class="nb">String</span><span class="p">,</span><span class="w">
+</span><span class="w">    </span><span class="n">email</span>: <span class="nb">String</span><span class="p">,</span><span class="w">
+</span><span class="w">    </span><span class="n">sign_in_count</span>: <span class="kt">u64</span><span class="p">,</span><span class="w">
+</span><span class="w"></span><span class="p">}</span><span class="w">
+</span><span class="w">
+</span><span class="w"></span><span class="k">fn</span> <span class="nf">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span><span class="w">    </span><span class="c1">// --snip--
+</span><span class="c1"></span><span class="w">
+</span><span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="n">user1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">User</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span><span class="w">        </span><span class="n">email</span>: <span class="nb">String</span>::<span class="n">from</span><span class="p">(</span><span class="s">&#34;someone@example.com&#34;</span><span class="p">),</span><span class="w">
+</span><span class="w">        </span><span class="n">username</span>: <span class="nb">String</span>::<span class="n">from</span><span class="p">(</span><span class="s">&#34;someusername123&#34;</span><span class="p">),</span><span class="w">
+</span><span class="w">        </span><span class="n">active</span>: <span class="nc">true</span><span class="p">,</span><span class="w">
+</span><span class="w">        </span><span class="n">sign_in_count</span>: <span class="mi">1</span><span class="p">,</span><span class="w">
+</span><span class="w">    </span><span class="p">};</span><span class="w">
+</span><span class="w">
+</span><span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="n">user2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">User</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span><span class="w">        </span><span class="n">active</span>: <span class="nc">user1</span><span class="p">.</span><span class="n">active</span><span class="p">,</span><span class="w">
+</span><span class="w">        </span><span class="n">username</span>: <span class="nc">user1</span><span class="p">.</span><span class="n">username</span><span class="p">,</span><span class="w">
+</span><span class="w">        </span><span class="n">email</span>: <span class="nb">String</span>::<span class="n">from</span><span class="p">(</span><span class="s">&#34;another@example.com&#34;</span><span class="p">),</span><span class="w">
+</span><span class="w">        </span><span class="n">sign_in_count</span>: <span class="nc">user1</span><span class="p">.</span><span class="n">sign_in_count</span><span class="p">,</span><span class="w">
+</span><span class="w">    </span><span class="p">};</span><span class="w">
+</span><span class="w"></span><span class="p">}</span><span class="w">
+</span><span class="w">
+</span></code></pre></div><p>使用结构体更新语法，我们可以通过更少的代码来达到相同的效果，如示例 5-7 所示。<code>..</code> 语法指定了剩余未显式设置值的字段应有与给定实例对应字段相同的值。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-rust" data-lang="rust"><span class="k">struct</span> <span class="nc">User</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span><span class="w">    </span><span class="n">active</span>: <span class="kt">bool</span><span class="p">,</span><span class="w">
+</span><span class="w">    </span><span class="n">username</span>: <span class="nb">String</span><span class="p">,</span><span class="w">
+</span><span class="w">    </span><span class="n">email</span>: <span class="nb">String</span><span class="p">,</span><span class="w">
+</span><span class="w">    </span><span class="n">sign_in_count</span>: <span class="kt">u64</span><span class="p">,</span><span class="w">
+</span><span class="w"></span><span class="p">}</span><span class="w">
+</span><span class="w">
+</span><span class="w"></span><span class="k">fn</span> <span class="nf">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span><span class="w">    </span><span class="c1">// --snip--
+</span><span class="c1"></span><span class="w">
+</span><span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="n">user1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">User</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span><span class="w">        </span><span class="n">email</span>: <span class="nb">String</span>::<span class="n">from</span><span class="p">(</span><span class="s">&#34;someone@example.com&#34;</span><span class="p">),</span><span class="w">
+</span><span class="w">        </span><span class="n">username</span>: <span class="nb">String</span>::<span class="n">from</span><span class="p">(</span><span class="s">&#34;someusername123&#34;</span><span class="p">),</span><span class="w">
+</span><span class="w">        </span><span class="n">active</span>: <span class="nc">true</span><span class="p">,</span><span class="w">
+</span><span class="w">        </span><span class="n">sign_in_count</span>: <span class="mi">1</span><span class="p">,</span><span class="w">
+</span><span class="w">    </span><span class="p">};</span><span class="w">
+</span><span class="w">
+</span><span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="n">user2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">User</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span><span class="w">        </span><span class="n">email</span>: <span class="nb">String</span>::<span class="n">from</span><span class="p">(</span><span class="s">&#34;another@example.com&#34;</span><span class="p">),</span><span class="w">
+</span><span class="w">        </span><span class="o">..</span><span class="n">user1</span><span class="w">
+</span><span class="w">    </span><span class="p">};</span><span class="w">
+</span><span class="w"></span><span class="p">}</span><span class="w">
+</span><span class="w">
+</span></code></pre></div><p>也可以定义与元组（在第三章讨论过）类似的结构体，称为 <strong>元组结构体</strong>（<em>tuple structs</em>）。元组结构体有着结构体名称提供的含义，但没有具体的字段名，只有字段的类型。当你想给整个元组取一个名字，并使元组成为与其他元组不同的类型时，元组结构体是很有用的，这时像常规结构体那样为每个字段命名就显得多余和形式化了。这在表示坐标以及表示颜色rgb方面很方便</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-rust" data-lang="rust"><span class="k">struct</span> <span class="nc">Color</span><span class="p">(</span><span class="kt">i32</span><span class="p">,</span><span class="w"> </span><span class="kt">i32</span><span class="p">,</span><span class="w"> </span><span class="kt">i32</span><span class="p">);</span><span class="w">
+</span><span class="w"></span><span class="k">struct</span> <span class="nc">Point</span><span class="p">(</span><span class="kt">i32</span><span class="p">,</span><span class="w"> </span><span class="kt">i32</span><span class="p">,</span><span class="w"> </span><span class="kt">i32</span><span class="p">);</span><span class="w">
+</span><span class="w">
+</span><span class="w"></span><span class="k">fn</span> <span class="nf">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span><span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="n">black</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Color</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">);</span><span class="w">
+</span><span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="n">origin</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Point</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">);</span><span class="w">
+</span><span class="w"></span><span class="p">}</span><span class="w">
+</span><span class="w">
+</span></code></pre></div><p>我们也可以定义一个没有任何字段的结构体！它们被称为 <strong>类单元结构体</strong>（<em>unit-like structs</em>）因为它们类似于 <code>()</code>，即<a href="https://kaisery.github.io/trpl-zh-cn/ch03-02-data-types.html#%E5%85%83%E7%BB%84%E7%B1%BB%E5%9E%8B">“元组类型”</a>一节中提到的 unit 类型。类单元结构体常常在你想要在某个类型上实现 trait 但不需要在类型中存储数据的时候发挥作用。我们将在第十章介绍 trait。下面是一个声明和实例化一个名为 <code>AlwaysEqual</code> 的 unit 结构的例子。（大概就是rust的类？和golang差不多）</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-rust" data-lang="rust"><span class="k">struct</span> <span class="nc">AlwaysEqual</span><span class="p">;</span><span class="w">
+</span><span class="w">
+</span><span class="w"></span><span class="k">fn</span> <span class="nf">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span><span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="n">subject</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">AlwaysEqual</span><span class="p">;</span><span class="w">
+</span><span class="w"></span><span class="p">}</span><span class="w">
+</span><span class="w">
+</span></code></pre></div><p>在示例中的 <code>User</code> 结构体的定义中，我们使用了自身拥有所有权的 <code>String</code> 类型而不是 <code>&amp;str</code> 字符串 slice 类型。这是一个有意而为之的选择，因为我们想要这个结构体拥有它所有的数据，为此只要整个结构体是有效的话其数据也是有效的。</p>
+<p>可以使结构体存储被其他对象拥有的数据的引用，不过这么做的话需要用上 <strong>生命周期</strong>（<em>lifetimes</em>），这是一个第十章会讨论的 Rust 功能。生命周期确保结构体引用的数据有效性跟结构体本身保持一致。如果你尝试在结构体中存储一个引用而不指定生命周期将是无效的</p>
+<h1 id="三一个使用结构体的示例程序httpskaiserygithubiotrpl-zh-cnch05-02-example-structshtml">三.<a href="https://kaisery.github.io/trpl-zh-cn/ch05-02-example-structs.html">一个使用结构体的示例程序</a></h1>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-rust" data-lang="rust"><span class="k">struct</span> <span class="nc">Rectangle</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span><span class="w">    </span><span class="n">width</span>: <span class="kt">u32</span><span class="p">,</span><span class="w">
+</span><span class="w">    </span><span class="n">height</span>: <span class="kt">u32</span><span class="p">,</span><span class="w">
+</span><span class="w"></span><span class="p">}</span><span class="w">
+</span><span class="w">
+</span><span class="w"></span><span class="k">fn</span> <span class="nf">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span><span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="n">rect1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Rectangle</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span><span class="w">        </span><span class="n">width</span>: <span class="mi">30</span><span class="p">,</span><span class="w">
+</span><span class="w">        </span><span class="n">height</span>: <span class="mi">50</span><span class="p">,</span><span class="w">
+</span><span class="w">    </span><span class="p">};</span><span class="w">
+</span><span class="w">
+</span><span class="w">    </span><span class="fm">println!</span><span class="p">(</span><span class="w">
+</span><span class="w">        </span><span class="s">&#34;The area of the rectangle is {} square pixels.&#34;</span><span class="p">,</span><span class="w">
+</span><span class="w">        </span><span class="n">area</span><span class="p">(</span><span class="o">&amp;</span><span class="n">rect1</span><span class="p">)</span><span class="w">
+</span><span class="w">    </span><span class="p">);</span><span class="w">
+</span><span class="w"></span><span class="p">}</span><span class="w">
+</span><span class="w">
+</span><span class="w"></span><span class="k">fn</span> <span class="nf">area</span><span class="p">(</span><span class="n">rectangle</span>: <span class="kp">&amp;</span><span class="nc">Rectangle</span><span class="p">)</span><span class="w"> </span>-&gt; <span class="kt">u32</span> <span class="p">{</span><span class="w">
+</span><span class="w">    </span><span class="n">rectangle</span><span class="p">.</span><span class="n">width</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">rectangle</span><span class="p">.</span><span class="n">height</span><span class="w">
+</span><span class="w"></span><span class="p">}</span><span class="w">
+</span></code></pre></div><p>Q：如何打印结构体？</p>
+<p><code>println!</code> 宏能处理很多类型的格式，不过，<code>{}</code> 默认告诉 <code>println!</code> 使用被称为 <code>Display</code> 的格式：意在提供给直接终端用户查看的输出。目前为止见过的基本类型都默认实现了 <code>Display</code>，因为它就是向用户展示 <code>1</code> 或其他任何基本类型的唯一方式。不过对于结构体，<code>println!</code> 应该用来输出的格式是不明确的，因为这有更多显示的可能性：是否需要逗号？需要打印出大括号吗？所有字段都应该显示吗？由于这种不确定性，Rust 不会尝试猜测我们的意图，所以结构体并没有提供一个 <code>Display</code> 实现来使用 <code>println!</code> 与 <code>{}</code> 占位符。</p>
+<p>现在 <code>println!</code> 宏调用看起来像 <code>println!(&quot;rect1 is {:?}&quot;, rect1);</code> 这样。在 <code>{}</code> 中加入 <code>:?</code> 指示符告诉 <code>println!</code> 我们想要使用叫做 <code>Debug</code> 的输出格式。<code>Debug</code> 是一个 trait，它允许我们以一种对开发者有帮助的方式打印结构体，以便当我们调试代码时能看到它的值。我们必须为结构体显式选择这个功能。为此，在结构体定义之前加上外部属性 <code>#[derive(Debug)]</code></p>
+<p>可以使用 <code>{:#?}</code> 替换 <code>println!</code> 字符串中的 <code>{:?}</code></p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-rust" data-lang="rust"><span class="cp">#[derive(Debug)]</span><span class="w">
+</span><span class="w"></span><span class="k">struct</span> <span class="nc">Rectangle</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span><span class="w">    </span><span class="n">width</span>: <span class="kt">u32</span><span class="p">,</span><span class="w">
+</span><span class="w">    </span><span class="n">height</span>: <span class="kt">u32</span><span class="p">,</span><span class="w">
+</span><span class="w"></span><span class="p">}</span><span class="w">
+</span><span class="w">
+</span><span class="w"></span><span class="k">fn</span> <span class="nf">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span><span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="n">rect1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Rectangle</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span><span class="w">        </span><span class="n">width</span>: <span class="mi">30</span><span class="p">,</span><span class="w">
+</span><span class="w">        </span><span class="n">height</span>: <span class="mi">50</span><span class="p">,</span><span class="w">
+</span><span class="w">    </span><span class="p">};</span><span class="w">
+</span><span class="w">
+</span><span class="w">    </span><span class="fm">println!</span><span class="p">(</span><span class="s">&#34;rect1 is {:?}&#34;</span><span class="p">,</span><span class="w"> </span><span class="n">rect1</span><span class="p">);</span><span class="w">
+</span><span class="w"></span><span class="p">}</span><span class="w">
+</span><span class="w">
+</span></code></pre></div><p>另一种使用 <code>Debug</code> 格式打印数值的方法是使用 <a href="https://doc.rust-lang.org/std/macro.dbg.html"><code>dbg!</code> 宏</a>。<code>dbg!</code> 宏接收一个表达式的所有权，打印出代码中调用 dbg! 宏时所在的文件和行号，以及该表达式的结果值，并返回该值的所有权。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-rust" data-lang="rust"><span class="cp">#[derive(Debug)]</span><span class="w">
+</span><span class="w"></span><span class="k">struct</span> <span class="nc">Rectangle</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span><span class="w">    </span><span class="n">width</span>: <span class="kt">u32</span><span class="p">,</span><span class="w">
+</span><span class="w">    </span><span class="n">height</span>: <span class="kt">u32</span><span class="p">,</span><span class="w">
+</span><span class="w"></span><span class="p">}</span><span class="w">
+</span><span class="w">
+</span><span class="w"></span><span class="k">fn</span> <span class="nf">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span><span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="n">scale</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">2</span><span class="p">;</span><span class="w">
+</span><span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="n">rect1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Rectangle</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span><span class="w">        </span><span class="n">width</span>: <span class="nc">dbg</span><span class="o">!</span><span class="p">(</span><span class="mi">30</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">scale</span><span class="p">),</span><span class="w">
+</span><span class="w">        </span><span class="n">height</span>: <span class="mi">50</span><span class="p">,</span><span class="w">
+</span><span class="w">    </span><span class="p">};</span><span class="w">
+</span><span class="w">
+</span><span class="w">    </span><span class="fm">dbg!</span><span class="p">(</span><span class="o">&amp;</span><span class="n">rect1</span><span class="p">);</span><span class="w">
+</span><span class="w"></span><span class="p">}</span><span class="w">
+</span></code></pre></div><h1 id="四方法语法httpskaiserygithubiotrpl-zh-cnch05-03-method-syntaxhtml">四.<a href="https://kaisery.github.io/trpl-zh-cn/ch05-03-method-syntax.html">方法语法</a></h1>
+<p><strong>方法</strong>（method）与函数类似：它们使用 <code>fn</code> 关键字和名称声明，可以拥有参数和返回值，同时包含在某处调用该方法时会执行的代码。不过方法与函数是不同的，因为它们在结构体的上下文中被定义（或者是枚举或 trait 对象的上下文，将分别在第六章和第十七章讲解），并且它们第一个参数总是 <code>self</code>，它代表调用该方法的结构体实例。（有点像golang）</p>
+<pre tabindex="0"><code>#[derive(Debug)]
+struct Rectangle {
+    width: u32,
+    height: u32,
+}
+
+impl Rectangle {
+    fn area(&amp;self) -&gt; u32 {
+        self.width * self.height
+    }
+}
+
+fn main() {
+    let rect1 = Rectangle {
+        width: 30,
+        height: 50,
+    };
+
+    println!(
+        &quot;The area of the rectangle is {} square pixels.&quot;,
+        rect1.area()
+    );
+}
+</code></pre><p>Q：方法的运算符</p>
+<p>在 C/C++ 语言中，有两个不同的运算符来调用方法：<code>.</code> 直接在对象上调用方法，而 <code>-&gt;</code> 在一个对象的指针上调用方法，这时需要先解引用（dereference）指针。换句话说，如果 <code>object</code> 是一个指针，那么 <code>object-&gt;something()</code> 就像 <code>(*object).something()</code> 一样。</p>
+<p>Rust 并没有一个与 <code>-&gt;</code> 等效的运算符；相反，Rust 有一个叫 <strong>自动引用和解引用</strong>（<em>automatic referencing and dereferencing</em>）的功能。方法调用是 Rust 中少数几个拥有这种行为的地方。</p>
+<p>它是这样工作的：当使用 <code>object.something()</code> 调用方法时，Rust 会自动为 <code>object</code> 添加 <code>&amp;</code>、<code>&amp;mut</code> 或 <code>*</code> 以便使 <code>object</code> 与方法签名匹配。也就是说，这些代码是等价的：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-rust" data-lang="rust"><span class="n">p1</span><span class="p">.</span><span class="n">distance</span><span class="p">(</span><span class="o">&amp;</span><span class="n">p2</span><span class="p">);</span><span class="w">
+</span><span class="w"></span><span class="p">(</span><span class="o">&amp;</span><span class="n">p1</span><span class="p">).</span><span class="n">distance</span><span class="p">(</span><span class="o">&amp;</span><span class="n">p2</span><span class="p">);</span><span class="w">
+</span></code></pre></div><p>第一行看起来简洁的多。这种自动引用的行为之所以有效，是因为方法有一个明确的接收者———— <code>self</code> 的类型。在给出接收者和方法名的前提下，Rust 可以明确地计算出方法是仅仅读取（<code>&amp;self</code>），做出修改（<code>&amp;mut self</code>）或者是获取所有权（<code>self</code>）。事实上，Rust 对方法接收者的隐式借用让所有权在实践中更友好。</p>
+<p>还可以定义包含多个对象的方法</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-rust" data-lang="rust"><span class="cp">#[derive(Debug)]</span><span class="w">
+</span><span class="w"></span><span class="k">struct</span> <span class="nc">Rectangle</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span><span class="w">    </span><span class="n">width</span>: <span class="kt">u32</span><span class="p">,</span><span class="w">
+</span><span class="w">    </span><span class="n">height</span>: <span class="kt">u32</span><span class="p">,</span><span class="w">
+</span><span class="w"></span><span class="p">}</span><span class="w">
+</span><span class="w">
+</span><span class="w"></span><span class="k">impl</span><span class="w"> </span><span class="n">Rectangle</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span><span class="w">    </span><span class="k">fn</span> <span class="nf">area</span><span class="p">(</span><span class="o">&amp;</span><span class="bp">self</span><span class="p">)</span><span class="w"> </span>-&gt; <span class="kt">u32</span> <span class="p">{</span><span class="w">
+</span><span class="w">        </span><span class="bp">self</span><span class="p">.</span><span class="n">width</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="bp">self</span><span class="p">.</span><span class="n">height</span><span class="w">
+</span><span class="w">    </span><span class="p">}</span><span class="w">
+</span><span class="w">
+</span><span class="w">    </span><span class="k">fn</span> <span class="nf">can_hold</span><span class="p">(</span><span class="o">&amp;</span><span class="bp">self</span><span class="p">,</span><span class="w"> </span><span class="n">other</span>: <span class="kp">&amp;</span><span class="nc">Rectangle</span><span class="p">)</span><span class="w"> </span>-&gt; <span class="kt">bool</span> <span class="p">{</span><span class="w">
+</span><span class="w">        </span><span class="bp">self</span><span class="p">.</span><span class="n">width</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="n">other</span><span class="p">.</span><span class="n">width</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="bp">self</span><span class="p">.</span><span class="n">height</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="n">other</span><span class="p">.</span><span class="n">height</span><span class="w">
+</span><span class="w">    </span><span class="p">}</span><span class="w">
+</span><span class="w"></span><span class="p">}</span><span class="w">
+</span><span class="w">
+</span><span class="w"></span><span class="k">fn</span> <span class="nf">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span><span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="n">rect1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Rectangle</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span><span class="w">        </span><span class="n">width</span>: <span class="mi">30</span><span class="p">,</span><span class="w">
+</span><span class="w">        </span><span class="n">height</span>: <span class="mi">50</span><span class="p">,</span><span class="w">
+</span><span class="w">    </span><span class="p">};</span><span class="w">
+</span><span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="n">rect2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Rectangle</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span><span class="w">        </span><span class="n">width</span>: <span class="mi">10</span><span class="p">,</span><span class="w">
+</span><span class="w">        </span><span class="n">height</span>: <span class="mi">40</span><span class="p">,</span><span class="w">
+</span><span class="w">    </span><span class="p">};</span><span class="w">
+</span><span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="n">rect3</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Rectangle</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span><span class="w">        </span><span class="n">width</span>: <span class="mi">60</span><span class="p">,</span><span class="w">
+</span><span class="w">        </span><span class="n">height</span>: <span class="mi">45</span><span class="p">,</span><span class="w">
+</span><span class="w">    </span><span class="p">};</span><span class="w">
+</span><span class="w">
+</span><span class="w">    </span><span class="fm">println!</span><span class="p">(</span><span class="s">&#34;Can rect1 hold rect2? {}&#34;</span><span class="p">,</span><span class="w"> </span><span class="n">rect1</span><span class="p">.</span><span class="n">can_hold</span><span class="p">(</span><span class="o">&amp;</span><span class="n">rect2</span><span class="p">));</span><span class="w">
+</span><span class="w">    </span><span class="fm">println!</span><span class="p">(</span><span class="s">&#34;Can rect1 hold rect3? {}&#34;</span><span class="p">,</span><span class="w"> </span><span class="n">rect1</span><span class="p">.</span><span class="n">can_hold</span><span class="p">(</span><span class="o">&amp;</span><span class="n">rect3</span><span class="p">));</span><span class="w">
+</span><span class="w"></span><span class="p">}</span><span class="w">
+</span></code></pre></div><p>关联函数
+所有在 impl 块中定义的函数被称为 关联函数（associated functions），因为它们与 impl 后面命名的类型相关。我们可以定义不以 self 为第一参数的关联函数（因此不是方法），因为它们并不作用于一个结构体的实例。我们已经使用了一个这样的函数：在 String 类型上定义的 String::from 函数。</p>
+<p>不是方法的关联函数经常被用作返回一个结构体新实例的构造函数，例如我们可以提供一个关联函数，它接受一个维度参数并且同时作为宽和高，这样可以更轻松的创建一个正方形 Rectangle 而不必指定两次同样的值：可以更轻松的创建一个正方形 <code>Rectangle</code> 而不必指定两次同样的值：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-rust" data-lang="rust"><span class="cp">#[derive(Debug)]</span><span class="w">
+</span><span class="w"></span><span class="k">struct</span> <span class="nc">Rectangle</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span><span class="w">    </span><span class="n">width</span>: <span class="kt">u32</span><span class="p">,</span><span class="w">
+</span><span class="w">    </span><span class="n">height</span>: <span class="kt">u32</span><span class="p">,</span><span class="w">
+</span><span class="w"></span><span class="p">}</span><span class="w">
+</span><span class="w">
+</span><span class="w"></span><span class="k">impl</span><span class="w"> </span><span class="n">Rectangle</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span><span class="w">    </span><span class="k">fn</span> <span class="nf">square</span><span class="p">(</span><span class="n">size</span>: <span class="kt">u32</span><span class="p">)</span><span class="w"> </span>-&gt; <span class="nc">Rectangle</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span><span class="w">        </span><span class="n">Rectangle</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span><span class="w">            </span><span class="n">width</span>: <span class="nc">size</span><span class="p">,</span><span class="w">
+</span><span class="w">            </span><span class="n">height</span>: <span class="nc">size</span><span class="p">,</span><span class="w">
+</span><span class="w">        </span><span class="p">}</span><span class="w">
+</span><span class="w">    </span><span class="p">}</span><span class="w">
+</span><span class="w"></span><span class="p">}</span><span class="w">
+</span><span class="w">
+</span><span class="w"></span><span class="k">fn</span> <span class="nf">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span><span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="n">sq</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Rectangle</span>::<span class="n">square</span><span class="p">(</span><span class="mi">3</span><span class="p">);</span><span class="w">
+</span><span class="w"></span><span class="p">}</span><span class="w">
+</span></code></pre></div><p>总结</p>
+<p>结构体让你可以创建出在你的领域中有意义的自定义类型。通过结构体，我们可以将相关联的数据片段联系起来并命名它们，这样可以使得代码更加清晰。在 <code>impl</code> 块中，你可以定义与你的类型相关联的函数，而方法是一种相关联的函数，让你指定结构体的实例所具有的行为。</p>
+<p>但结构体并不是创建自定义类型的唯一方法：让我们转向 Rust 的枚举功能，为你的工具箱再添一个工具。</p>
+
+    
+	</div>
+  <footer class="article-footer clearfix">
+  
+
+<div class="article-tags">
+  <span></span>
+  
+  <a href="https://qkgoalkeeper.github.io/tags/rust%E6%95%99%E7%A8%8B">rust教程</a>
+  
+</div>
+
+
+
+
+
+<div class="article-categories">
+  <span></span>
+  
+  <a class="article-category-link" href="https://qkgoalkeeper.github.io/categories/rust">rust</a>
+  
+</div>
+
+
+
+  <div class="article-share" id="share">
+    <div data-url="https://qkgoalkeeper.github.io/post/rustthe_rust_book5-%E4%BD%BF%E7%94%A8%E7%BB%93%E6%9E%84%E4%BD%93%E6%9D%A5%E7%BB%84%E7%BB%87%E7%9B%B8%E5%85%B3%E8%81%94%E7%9A%84%E6%95%B0%E6%8D%AE/" data-title="rust：the_rust_book（5） 使用结构体来组织相关联的数据" data-tsina="5852167252" class="share clearfix">
+    </div>
+  </div>
+</footer>
+
+	</article>
+  
+
+
+
+</div>
+
+    <div class="openaside"><a class="navbutton" href="#" title="显示侧边栏"></a></div>
+<div id="asidepart">
+<div class="closeaside"><a class="closebutton" href="#" title="隐藏侧边栏"></a></div>
+<aside class="clearfix">
+  
+
+<div class="categorieslist">
+  <p class="asidetitle">分类</p>
+  <ul>
+    
+    <li><a href="https://qkgoalkeeper.github.io/categories/golang" title="golang">golang<sup>6</sup></a></li>
+    
+    <li><a href="https://qkgoalkeeper.github.io/categories/leetcode%e5%91%a8%e8%b5%9b" title="leetcode周赛">leetcode周赛<sup>2</sup></a></li>
+    
+    <li><a href="https://qkgoalkeeper.github.io/categories/leetcode%e6%af%8f%e6%97%a5%e4%b8%80%e9%a2%98" title="leetcode每日一题">leetcode每日一题<sup>24</sup></a></li>
+    
+    <li><a href="https://qkgoalkeeper.github.io/categories/leetcode%e7%ae%80%e5%8d%95%e9%a2%981-100" title="leetcode简单题1-100">leetcode简单题1-100<sup>21</sup></a></li>
+    
+    <li><a href="https://qkgoalkeeper.github.io/categories/leetcode%e7%ae%80%e5%8d%95%e9%a2%98101-200" title="leetcode简单题101-200">leetcode简单题101-200<sup>25</sup></a></li>
+    
+    <li><a href="https://qkgoalkeeper.github.io/categories/leetcode%e7%ae%80%e5%8d%95%e9%a2%98201-300" title="leetcode简单题201-300">leetcode简单题201-300<sup>24</sup></a></li>
+    
+    <li><a href="https://qkgoalkeeper.github.io/categories/python" title="python">python<sup>1</sup></a></li>
+    
+    <li><a href="https://qkgoalkeeper.github.io/categories/rust" title="rust">rust<sup>16</sup></a></li>
+    
+    <li><a href="https://qkgoalkeeper.github.io/categories/%e4%bb%a5%e5%a4%aa%e5%9d%8a" title="以太坊">以太坊<sup>1</sup></a></li>
+    
+    <li><a href="https://qkgoalkeeper.github.io/categories/%e5%85%b6%e4%bb%96" title="其他">其他<sup>1</sup></a></li>
+    
+    <li><a href="https://qkgoalkeeper.github.io/categories/%e5%8c%ba%e5%9d%97%e9%93%be" title="区块链">区块链<sup>4</sup></a></li>
+    
+    <li><a href="https://qkgoalkeeper.github.io/categories/%e5%8c%ba%e5%9d%97%e9%93%be%e7%9b%b8%e5%85%b3" title="区块链相关">区块链相关<sup>1</sup></a></li>
+    
+    <li><a href="https://qkgoalkeeper.github.io/categories/%e5%a4%a7%e4%b8%89%e4%b8%8a%e6%95%b0%e6%8d%ae%e5%ba%93%e8%af%be%e7%a8%8b" title="大三上数据库课程">大三上数据库课程<sup>1</sup></a></li>
+    
+    <li><a href="https://qkgoalkeeper.github.io/categories/%e5%a4%a7%e4%b8%89%e4%b8%8bweb%e7%bc%96%e7%a8%8b%e8%af%be%e7%a8%8b" title="大三下web编程课程">大三下web编程课程<sup>2</sup></a></li>
+    
+    <li><a href="https://qkgoalkeeper.github.io/categories/%e5%a4%a7%e5%9b%9bleetcode%e7%ae%97%e6%b3%95%e5%88%b7%e9%a2%98" title="大四leetcode算法刷题">大四leetcode算法刷题<sup>300</sup></a></li>
+    
+    <li><a href="https://qkgoalkeeper.github.io/categories/%e6%95%b0%e6%8d%ae%e5%ba%93" title="数据库">数据库<sup>1</sup></a></li>
+    
+    <li><a href="https://qkgoalkeeper.github.io/categories/%e7%8e%8b%e9%81%93%e6%9c%ba%e8%af%95%e6%8c%87%e5%8d%97" title="王道机试指南">王道机试指南<sup>2</sup></a></li>
+    
+    <li><a href="https://qkgoalkeeper.github.io/categories/%e8%ae%ba%e6%96%87%e8%a7%a3%e8%af%bb" title="论文解读">论文解读<sup>2</sup></a></li>
+    
+  </ul>
+</div>
+
+
+
+  
+
+<div class="tagslist">
+	<p class="asidetitle">标签</p>
+		<ul class="clearfix">
+      
+			<li><a href="https://qkgoalkeeper.github.io/tags/bfs" title="bfs">bfs<sup>13</sup></a></li>
+      
+			<li><a href="https://qkgoalkeeper.github.io/tags/c&#43;&#43;" title="c&#43;&#43;">c&#43;&#43;<sup>289</sup></a></li>
+      
+			<li><a href="https://qkgoalkeeper.github.io/tags/dfs" title="dfs">dfs<sup>27</sup></a></li>
+      
+			<li><a href="https://qkgoalkeeper.github.io/tags/golang" title="golang">golang<sup>40</sup></a></li>
+      
+			<li><a href="https://qkgoalkeeper.github.io/tags/golang%e8%af%ad%e6%b3%95" title="golang语法">golang语法<sup>4</sup></a></li>
+      
+			<li><a href="https://qkgoalkeeper.github.io/tags/javascript" title="javascript">javascript<sup>2</sup></a></li>
+      
+			<li><a href="https://qkgoalkeeper.github.io/tags/leetcode" title="leetcode">leetcode<sup>396</sup></a></li>
+      
+			<li><a href="https://qkgoalkeeper.github.io/tags/rust%e6%95%99%e7%a8%8b" title="rust教程">rust教程<sup>16</sup></a></li>
+      
+			<li><a href="https://qkgoalkeeper.github.io/tags/solidity" title="solidity">solidity<sup>1</sup></a></li>
+      
+			<li><a href="https://qkgoalkeeper.github.io/tags/%e4%ba%8c%e5%88%86%e6%b3%95" title="二分法">二分法<sup>8</sup></a></li>
+      
+			<li><a href="https://qkgoalkeeper.github.io/tags/%e4%bb%a3%e7%a0%81" title="代码">代码<sup>3</sup></a></li>
+      
+			<li><a href="https://qkgoalkeeper.github.io/tags/%e4%bc%98%e5%85%88%e9%98%9f%e5%88%97" title="优先队列">优先队列<sup>4</sup></a></li>
+      
+			<li><a href="https://qkgoalkeeper.github.io/tags/%e4%bd%8d%e8%bf%90%e7%ae%97" title="位运算">位运算<sup>5</sup></a></li>
+      
+			<li><a href="https://qkgoalkeeper.github.io/tags/%e5%88%86%e6%b2%bb%e6%b3%95" title="分治法">分治法<sup>3</sup></a></li>
+      
+			<li><a href="https://qkgoalkeeper.github.io/tags/%e5%89%8d%e7%bc%80%e5%92%8c" title="前缀和">前缀和<sup>5</sup></a></li>
+      
+			<li><a href="https://qkgoalkeeper.github.io/tags/%e5%8a%a8%e6%80%81%e8%a7%84%e5%88%92" title="动态规划">动态规划<sup>32</sup></a></li>
+      
+			<li><a href="https://qkgoalkeeper.github.io/tags/%e5%8c%ba%e5%9d%97%e9%93%be" title="区块链">区块链<sup>4</sup></a></li>
+      
+			<li><a href="https://qkgoalkeeper.github.io/tags/%e5%8d%95%e8%b0%83%e9%98%9f%e5%88%97" title="单调队列">单调队列<sup>1</sup></a></li>
+      
+			<li><a href="https://qkgoalkeeper.github.io/tags/%e5%8f%8c%e6%8c%87%e9%92%88" title="双指针">双指针<sup>2</sup></a></li>
+      
+			<li><a href="https://qkgoalkeeper.github.io/tags/%e5%93%88%e5%b8%8c%e8%a1%a8" title="哈希表">哈希表<sup>7</sup></a></li>
+      
+			<li><a href="https://qkgoalkeeper.github.io/tags/%e5%a0%86" title="堆">堆<sup>3</sup></a></li>
+      
+			<li><a href="https://qkgoalkeeper.github.io/tags/%e5%ad%97%e5%85%b8%e6%a0%91" title="字典树">字典树<sup>6</sup></a></li>
+      
+			<li><a href="https://qkgoalkeeper.github.io/tags/%e5%ad%97%e7%ac%a6%e4%b8%b2" title="字符串">字符串<sup>4</sup></a></li>
+      
+			<li><a href="https://qkgoalkeeper.github.io/tags/%e5%b9%b6%e6%9f%a5%e9%9b%86" title="并查集">并查集<sup>5</sup></a></li>
+      
+			<li><a href="https://qkgoalkeeper.github.io/tags/%e5%ba%8f%e5%88%97%e5%8c%96" title="序列化">序列化<sup>1</sup></a></li>
+      
+			<li><a href="https://qkgoalkeeper.github.io/tags/%e6%8b%93%e6%89%91%e6%8e%92%e5%ba%8f" title="拓扑排序">拓扑排序<sup>3</sup></a></li>
+      
+			<li><a href="https://qkgoalkeeper.github.io/tags/%e6%8e%92%e5%88%97" title="排列">排列<sup>1</sup></a></li>
+      
+			<li><a href="https://qkgoalkeeper.github.io/tags/%e6%8e%92%e5%ba%8f" title="排序">排序<sup>2</sup></a></li>
+      
+			<li><a href="https://qkgoalkeeper.github.io/tags/%e6%95%b0%e5%ad%a6" title="数学">数学<sup>5</sup></a></li>
+      
+			<li><a href="https://qkgoalkeeper.github.io/tags/%e6%95%b0%e6%8d%ae%e5%ba%93" title="数据库">数据库<sup>1</sup></a></li>
+      
+			<li><a href="https://qkgoalkeeper.github.io/tags/%e6%95%b0%e7%bb%84" title="数组">数组<sup>2</sup></a></li>
+      
+			<li><a href="https://qkgoalkeeper.github.io/tags/%e6%a0%88" title="栈">栈<sup>8</sup></a></li>
+      
+			<li><a href="https://qkgoalkeeper.github.io/tags/%e6%a0%91" title="树">树<sup>25</sup></a></li>
+      
+			<li><a href="https://qkgoalkeeper.github.io/tags/%e6%ba%90%e7%a0%81%e7%bc%96%e8%af%91" title="源码编译">源码编译<sup>1</sup></a></li>
+      
+			<li><a href="https://qkgoalkeeper.github.io/tags/%e6%bb%91%e5%8a%a8%e7%aa%97%e5%8f%a3" title="滑动窗口">滑动窗口<sup>10</sup></a></li>
+      
+			<li><a href="https://qkgoalkeeper.github.io/tags/%e7%8e%8b%e9%81%93%e6%9c%ba%e8%af%95%e6%8c%87%e5%8d%97" title="王道机试指南">王道机试指南<sup>2</sup></a></li>
+      
+			<li><a href="https://qkgoalkeeper.github.io/tags/%e7%ba%bf%e6%ae%b5%e6%a0%91" title="线段树">线段树<sup>1</sup></a></li>
+      
+			<li><a href="https://qkgoalkeeper.github.io/tags/%e7%bc%93%e5%ad%98" title="缓存">缓存<sup>2</sup></a></li>
+      
+			<li><a href="https://qkgoalkeeper.github.io/tags/%e8%ae%ba%e6%96%87%e8%a7%a3%e8%af%bb" title="论文解读">论文解读<sup>2</sup></a></li>
+      
+			<li><a href="https://qkgoalkeeper.github.io/tags/%e8%b4%aa%e5%bf%83" title="贪心">贪心<sup>1</sup></a></li>
+      
+			<li><a href="https://qkgoalkeeper.github.io/tags/%e8%b4%aa%e5%bf%83%e6%b3%95" title="贪心法">贪心法<sup>1</sup></a></li>
+      
+			<li><a href="https://qkgoalkeeper.github.io/tags/%e9%93%be%e8%a1%a8" title="链表">链表<sup>10</sup></a></li>
+      
+			<li><a href="https://qkgoalkeeper.github.io/tags/%e9%98%9f%e5%88%97" title="队列">队列<sup>2</sup></a></li>
+      
+			<li><a href="https://qkgoalkeeper.github.io/tags/%e9%9a%8f%e6%9c%ba%e6%95%b0" title="随机数">随机数<sup>3</sup></a></li>
+      
+		</ul>
+</div>
+
+
+
+  
+  <div class="archiveslist">
+    <p class="asidetitle">归档</p>
+    <ul class="archive-list">
+      
+      
+      <li class="archive-list-item">
+        <a class="archive-list-link" href="https://qkgoalkeeper.github.io/post/#2022-08">2022年08月</a><span class="archive-list-count">5</span>
+      </li>
+      
+      
+      <li class="archive-list-item">
+        <a class="archive-list-link" href="https://qkgoalkeeper.github.io/post/#2022-07">2022年07月</a><span class="archive-list-count">22</span>
+      </li>
+      
+      
+      <li class="archive-list-item">
+        <a class="archive-list-link" href="https://qkgoalkeeper.github.io/post/#2022-06">2022年06月</a><span class="archive-list-count">26</span>
+      </li>
+      
+      
+      <li class="archive-list-item">
+        <a class="archive-list-link" href="https://qkgoalkeeper.github.io/post/#2022-05">2022年05月</a><span class="archive-list-count">14</span>
+      </li>
+      
+      
+      <li class="archive-list-item">
+        <a class="archive-list-link" href="https://qkgoalkeeper.github.io/post/#2022-04">2022年04月</a><span class="archive-list-count">24</span>
+      </li>
+      
+      
+      <li class="archive-list-item">
+        <a class="archive-list-link" href="https://qkgoalkeeper.github.io/post/#2022-03">2022年03月</a><span class="archive-list-count">32</span>
+      </li>
+      
+      
+      <li class="archive-list-item">
+        <a class="archive-list-link" href="https://qkgoalkeeper.github.io/post/#2022-02">2022年02月</a><span class="archive-list-count">61</span>
+      </li>
+      
+      
+      <li class="archive-list-item">
+        <a class="archive-list-link" href="https://qkgoalkeeper.github.io/post/#2022-01">2022年01月</a><span class="archive-list-count">77</span>
+      </li>
+      
+      
+      <li class="archive-list-item">
+        <a class="archive-list-link" href="https://qkgoalkeeper.github.io/post/#2021-12">2021年12月</a><span class="archive-list-count">31</span>
+      </li>
+      
+      
+      <li class="archive-list-item">
+        <a class="archive-list-link" href="https://qkgoalkeeper.github.io/post/#2021-11">2021年11月</a><span class="archive-list-count">30</span>
+      </li>
+      
+      
+      <li class="archive-list-item">
+        <a class="archive-list-link" href="https://qkgoalkeeper.github.io/post/#2021-10">2021年10月</a><span class="archive-list-count">31</span>
+      </li>
+      
+      
+      <li class="archive-list-item">
+        <a class="archive-list-link" href="https://qkgoalkeeper.github.io/post/#2021-09">2021年09月</a><span class="archive-list-count">5</span>
+      </li>
+      
+      
+      <li class="archive-list-item">
+        <a class="archive-list-link" href="https://qkgoalkeeper.github.io/post/#2021-06">2021年06月</a><span class="archive-list-count">1</span>
+      </li>
+      
+      
+      <li class="archive-list-item">
+        <a class="archive-list-link" href="https://qkgoalkeeper.github.io/post/#2021-04">2021年04月</a><span class="archive-list-count">1</span>
+      </li>
+      
+      
+      <li class="archive-list-item">
+        <a class="archive-list-link" href="https://qkgoalkeeper.github.io/post/#2020-11">2020年11月</a><span class="archive-list-count">1</span>
+      </li>
+      
+      
+      <li class="archive-list-item">
+        <a class="archive-list-link" href="https://qkgoalkeeper.github.io/post/#2020-08">2020年08月</a><span class="archive-list-count">70</span>
+      </li>
+      
+    </ul>
+
+  </div>
+
+
+  
+
+<div class="tagcloudlist">
+  <p class="asidetitle">标签云</p>
+  <div class="tagcloudlist clearfix">
+    
+    <a href="https://qkgoalkeeper.github.io/tags/bfs" style="font-size: 12px;">bfs</a>
+    
+    <a href="https://qkgoalkeeper.github.io/tags/c&#43;&#43;" style="font-size: 12px;">c&#43;&#43;</a>
+    
+    <a href="https://qkgoalkeeper.github.io/tags/dfs" style="font-size: 12px;">dfs</a>
+    
+    <a href="https://qkgoalkeeper.github.io/tags/golang" style="font-size: 12px;">golang</a>
+    
+    <a href="https://qkgoalkeeper.github.io/tags/golang%e8%af%ad%e6%b3%95" style="font-size: 12px;">golang语法</a>
+    
+    <a href="https://qkgoalkeeper.github.io/tags/javascript" style="font-size: 12px;">javascript</a>
+    
+    <a href="https://qkgoalkeeper.github.io/tags/leetcode" style="font-size: 12px;">leetcode</a>
+    
+    <a href="https://qkgoalkeeper.github.io/tags/rust%e6%95%99%e7%a8%8b" style="font-size: 12px;">rust教程</a>
+    
+    <a href="https://qkgoalkeeper.github.io/tags/solidity" style="font-size: 12px;">solidity</a>
+    
+    <a href="https://qkgoalkeeper.github.io/tags/%e4%ba%8c%e5%88%86%e6%b3%95" style="font-size: 12px;">二分法</a>
+    
+    <a href="https://qkgoalkeeper.github.io/tags/%e4%bb%a3%e7%a0%81" style="font-size: 12px;">代码</a>
+    
+    <a href="https://qkgoalkeeper.github.io/tags/%e4%bc%98%e5%85%88%e9%98%9f%e5%88%97" style="font-size: 12px;">优先队列</a>
+    
+    <a href="https://qkgoalkeeper.github.io/tags/%e4%bd%8d%e8%bf%90%e7%ae%97" style="font-size: 12px;">位运算</a>
+    
+    <a href="https://qkgoalkeeper.github.io/tags/%e5%88%86%e6%b2%bb%e6%b3%95" style="font-size: 12px;">分治法</a>
+    
+    <a href="https://qkgoalkeeper.github.io/tags/%e5%89%8d%e7%bc%80%e5%92%8c" style="font-size: 12px;">前缀和</a>
+    
+    <a href="https://qkgoalkeeper.github.io/tags/%e5%8a%a8%e6%80%81%e8%a7%84%e5%88%92" style="font-size: 12px;">动态规划</a>
+    
+    <a href="https://qkgoalkeeper.github.io/tags/%e5%8c%ba%e5%9d%97%e9%93%be" style="font-size: 12px;">区块链</a>
+    
+    <a href="https://qkgoalkeeper.github.io/tags/%e5%8d%95%e8%b0%83%e9%98%9f%e5%88%97" style="font-size: 12px;">单调队列</a>
+    
+    <a href="https://qkgoalkeeper.github.io/tags/%e5%8f%8c%e6%8c%87%e9%92%88" style="font-size: 12px;">双指针</a>
+    
+    <a href="https://qkgoalkeeper.github.io/tags/%e5%93%88%e5%b8%8c%e8%a1%a8" style="font-size: 12px;">哈希表</a>
+    
+    <a href="https://qkgoalkeeper.github.io/tags/%e5%a0%86" style="font-size: 12px;">堆</a>
+    
+    <a href="https://qkgoalkeeper.github.io/tags/%e5%ad%97%e5%85%b8%e6%a0%91" style="font-size: 12px;">字典树</a>
+    
+    <a href="https://qkgoalkeeper.github.io/tags/%e5%ad%97%e7%ac%a6%e4%b8%b2" style="font-size: 12px;">字符串</a>
+    
+    <a href="https://qkgoalkeeper.github.io/tags/%e5%b9%b6%e6%9f%a5%e9%9b%86" style="font-size: 12px;">并查集</a>
+    
+    <a href="https://qkgoalkeeper.github.io/tags/%e5%ba%8f%e5%88%97%e5%8c%96" style="font-size: 12px;">序列化</a>
+    
+    <a href="https://qkgoalkeeper.github.io/tags/%e6%8b%93%e6%89%91%e6%8e%92%e5%ba%8f" style="font-size: 12px;">拓扑排序</a>
+    
+    <a href="https://qkgoalkeeper.github.io/tags/%e6%8e%92%e5%88%97" style="font-size: 12px;">排列</a>
+    
+    <a href="https://qkgoalkeeper.github.io/tags/%e6%8e%92%e5%ba%8f" style="font-size: 12px;">排序</a>
+    
+    <a href="https://qkgoalkeeper.github.io/tags/%e6%95%b0%e5%ad%a6" style="font-size: 12px;">数学</a>
+    
+    <a href="https://qkgoalkeeper.github.io/tags/%e6%95%b0%e6%8d%ae%e5%ba%93" style="font-size: 12px;">数据库</a>
+    
+    <a href="https://qkgoalkeeper.github.io/tags/%e6%95%b0%e7%bb%84" style="font-size: 12px;">数组</a>
+    
+    <a href="https://qkgoalkeeper.github.io/tags/%e6%a0%88" style="font-size: 12px;">栈</a>
+    
+    <a href="https://qkgoalkeeper.github.io/tags/%e6%a0%91" style="font-size: 12px;">树</a>
+    
+    <a href="https://qkgoalkeeper.github.io/tags/%e6%ba%90%e7%a0%81%e7%bc%96%e8%af%91" style="font-size: 12px;">源码编译</a>
+    
+    <a href="https://qkgoalkeeper.github.io/tags/%e6%bb%91%e5%8a%a8%e7%aa%97%e5%8f%a3" style="font-size: 12px;">滑动窗口</a>
+    
+    <a href="https://qkgoalkeeper.github.io/tags/%e7%8e%8b%e9%81%93%e6%9c%ba%e8%af%95%e6%8c%87%e5%8d%97" style="font-size: 12px;">王道机试指南</a>
+    
+    <a href="https://qkgoalkeeper.github.io/tags/%e7%ba%bf%e6%ae%b5%e6%a0%91" style="font-size: 12px;">线段树</a>
+    
+    <a href="https://qkgoalkeeper.github.io/tags/%e7%bc%93%e5%ad%98" style="font-size: 12px;">缓存</a>
+    
+    <a href="https://qkgoalkeeper.github.io/tags/%e8%ae%ba%e6%96%87%e8%a7%a3%e8%af%bb" style="font-size: 12px;">论文解读</a>
+    
+    <a href="https://qkgoalkeeper.github.io/tags/%e8%b4%aa%e5%bf%83" style="font-size: 12px;">贪心</a>
+    
+    <a href="https://qkgoalkeeper.github.io/tags/%e8%b4%aa%e5%bf%83%e6%b3%95" style="font-size: 12px;">贪心法</a>
+    
+    <a href="https://qkgoalkeeper.github.io/tags/%e9%93%be%e8%a1%a8" style="font-size: 12px;">链表</a>
+    
+    <a href="https://qkgoalkeeper.github.io/tags/%e9%98%9f%e5%88%97" style="font-size: 12px;">队列</a>
+    
+    <a href="https://qkgoalkeeper.github.io/tags/%e9%9a%8f%e6%9c%ba%e6%95%b0" style="font-size: 12px;">随机数</a>
+    
+  </div>
+</div>
+
+
+
+  
+
+</aside>
+</div>
+
+  </div>
+  <footer><div id="footer" >
+  <div class="line">
+    <span></span>
+    
+    <div style='background:no-repeat url("https://qkgoalkeeper.github.io/img/author.jpg") left top;-webkit-background-size:6.875em 6.875em;-moz-background-size:6.875em 6.875em;background-size:6.875em 6.875em;' class="author" ></div>
+  </div>
+  <section class="info">
+    <p>ECNU数据学院在读 <br/> 知乎主页 :https://www.zhihu.com/people/hao-lai-wu-shou-men-yuan <br/>QQ :1421812601</p>
+  </section>
+  <div class="social-font clearfix">
+    <a href='http://weibo.com/qkgoalkeeper' target="_blank" title="weibo"></a>
+    <a href='https://twitter.com/coderzh' target="_blank" title="twitter"></a>
+    <a href='https://github.com/qkgoalkeeper' target="_blank" title="github"></a>
+    <a href='https://www.facebook.com/coderzh' target="_blank" title="facebook"></a>
+    <a href='https://www.linkedin.com/coderzh' target="_blank" title="linkedin"></a>
+  </div>
+  <p class="copyright">Powered by <a href="http://gohugo.io" target="_blank" title="hugo">hugo</a> and Theme by <a href="https://github.com/coderzh/hugo-pacman-theme" target="_blank" title="hugo-pacman-theme">hugo-pacman-theme</a> © 2022
+    
+    <a href="https://qkgoalkeeper.github.io/" title="qkgoalkeeper&#39;s blog">qkgoalkeeper&#39;s blog</a>
+    
+  </p>
+</div>
+</footer>
+  <script src="https://qkgoalkeeper.github.io/js/jquery-2.1.0.min.js"></script>
+<script type="text/javascript">
+done = false;
+$(document).ready(function(){
+  $('.navbar').click(function(){
+    $('header nav').toggleClass('shownav');
+  });
+  var myWidth = 0;
+  function getSize(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+  };
+  var m = $('#main'),
+      a = $('#asidepart'),
+      c = $('.closeaside'),
+      o = $('.openaside');
+  $(window).resize(function(){
+    getSize();
+    if (myWidth >= 1024) {
+      $('header nav').removeClass('shownav');
+    }else
+    {
+      m.removeClass('moveMain');
+      a.css('display', 'block').removeClass('fadeOut');
+      o.css('display', 'none');
+    }
+  });
+  c.click(function(){
+    a.addClass('fadeOut').css('display', 'none');
+    o.css('display', 'block').addClass('fadeIn');
+    m.addClass('moveMain');
+  });
+  o.click(function(){
+    o.css('display', 'none').removeClass('beforeFadeIn');
+    a.css('display', 'block').removeClass('fadeOut').addClass('fadeIn');
+    m.removeClass('moveMain');
+  });
+  $(window).scroll(function(){
+    o.css("top",Math.max(80,260-$(this).scrollTop()));
+  });
+  $('form.search').on('submit', function (event) {
+    if (false === done) {
+      event.preventDefault();
+      var orgVal = $(this).find('#search').val();
+      $(this).find('#search').val('site:https:\/\/qkgoalkeeper.github.io\/ ' + orgVal);
+      done = true;
+      $(this).submit();
+    }
+  });
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){
+  var ai = $('.article-content>iframe'),
+      ae = $('.article-content>embed'),
+      t  = $('#toc'),
+      h  = $('article h2')
+      ah = $('article h2'),
+      ta = $('#toc.toc-aside'),
+      o  = $('.openaside'),
+      c  = $('.closeaside');
+  if(ai.length>0){
+    ai.wrap('<div class="video-container" />');
+  };
+  if(ae.length>0){
+   ae.wrap('<div class="video-container" />');
+  };
+  if(ah.length==0){
+    t.css('display','none');
+  }else{
+    c.click(function(){
+      ta.css('display', 'block').addClass('fadeIn');
+    });
+    o.click(function(){
+      ta.css('display', 'none');
+    });
+    $(window).scroll(function(){
+      ta.css("top",Math.max(140,320-$(this).scrollTop()));
+    });
+  };
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){
+  var $this = $('.share'),
+      url = $this.attr('data-url'),
+      encodedUrl = encodeURIComponent(url),
+      title = $this.attr('data-title'),
+      tsina = $this.attr('data-tsina');
+  var html = [
+  '<a href="#" class="overlay" id="qrcode"></a>',
+  '<div class="qrcode clearfix"><span>扫描二维码分享到微信朋友圈</span><a class="qrclose" href="#share"></a><strong>Loading...Please wait</strong><img id="qrcode-pic" data-src="http://b.bshare.cn/barCode?site=weixin&url=' + encodedUrl + '"/></div>',
+  '<a href="#textlogo" class="article-back-to-top" title="Top"></a>',
+  '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+  '<a href="#qrcode" class="article-share-qrcode" title="QRcode"></a>',
+  '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+  '<a href="http://service.weibo.com/share/share.php?title='+title+'&url='+encodedUrl +'&ralateUid='+ tsina +'&searchPic=true&style=number' +'" class="article-share-weibo" target="_blank" title="Weibo"></a>',
+  '<span title="Share to"></span>'
+  ].join('');
+  $this.append(html);
+  $('.article-share-qrcode').click(function(){
+    var imgSrc = $('#qrcode-pic').attr('data-src');
+    $('#qrcode-pic').attr('src', imgSrc);
+    $('#qrcode-pic').load(function(){
+        $('.qrcode strong').text(' ');
+    });
+  });
+});
+</script>
+
+
+<link rel="stylesheet" href="https://qkgoalkeeper.github.io/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="https://qkgoalkeeper.github.io/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){
+  $('.article-content').each(function(i){
+    $(this).find('img').each(function(){
+      if ($(this).parent().hasClass('fancybox')) return;
+      var alt = this.alt;
+      if (alt) $(this).after('<span class="caption">' + alt + '</span>');
+      $(this).wrap('<a href="' + this.src + '" title="' + alt + '" class="fancybox"></a>');
+    });
+    $(this).find('.fancybox').each(function(){
+      $(this).attr('rel', 'article' + i);
+    });
+  });
+  if($.fancybox){
+    $('.fancybox').fancybox();
+  }
+});
+</script>
+
+
+
+
+</body>
+</html>

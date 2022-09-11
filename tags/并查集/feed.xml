@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>并查集 on qkgoalkeeper&#39;s blog</title>
+    <link>https://qkgoalkeeper.github.io/tags/%E5%B9%B6%E6%9F%A5%E9%9B%86/</link>
+    <description>Recent content in 并查集 on qkgoalkeeper&#39;s blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-CN</language>
+    <lastBuildDate>Thu, 02 Jun 2022 07:55:19 +0800</lastBuildDate><atom:link href="https://qkgoalkeeper.github.io/tags/%E5%B9%B6%E6%9F%A5%E9%9B%86/feed.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>LeetCode每日练习：剑指 Offer II 119. 最长连续序列</title>
+      <link>https://qkgoalkeeper.github.io/post/leetcode%E6%AF%8F%E6%97%A5%E7%BB%83%E4%B9%A0%E5%89%91%E6%8C%87-offer-ii-119.-%E6%9C%80%E9%95%BF%E8%BF%9E%E7%BB%AD%E5%BA%8F%E5%88%97/</link>
+      <pubDate>Thu, 02 Jun 2022 07:55:19 +0800</pubDate>
+      
+      <guid>https://qkgoalkeeper.github.io/post/leetcode%E6%AF%8F%E6%97%A5%E7%BB%83%E4%B9%A0%E5%89%91%E6%8C%87-offer-ii-119.-%E6%9C%80%E9%95%BF%E8%BF%9E%E7%BB%AD%E5%BA%8F%E5%88%97/</guid>
+      <description>一.剑指 Offer II 119. 最长连续序列 1.题干及思路 给定一个未排序的整数数组 nums ，找出数字连续的最长序列（不要求序列元素在原数组中连续）的长度。 示例 1： 输</description>
+    </item>
+    
+    <item>
+      <title>LeetCode每日练习：剑指 Offer II 117. 相似的字符串</title>
+      <link>https://qkgoalkeeper.github.io/post/leetcode%E6%AF%8F%E6%97%A5%E7%BB%83%E4%B9%A0%E5%89%91%E6%8C%87-offer-ii-118.-%E5%A4%9A%E4%BD%99%E7%9A%84%E8%BE%B9/</link>
+      <pubDate>Tue, 31 May 2022 07:55:19 +0800</pubDate>
+      
+      <guid>https://qkgoalkeeper.github.io/post/leetcode%E6%AF%8F%E6%97%A5%E7%BB%83%E4%B9%A0%E5%89%91%E6%8C%87-offer-ii-118.-%E5%A4%9A%E4%BD%99%E7%9A%84%E8%BE%B9/</guid>
+      <description>一.剑指 Offer II 118. 多余的边 1.题干及思路 树可以看成是一个连通且 无环 的 无向 图。 给定往一棵 n 个节点 (节点值 1～n) 的树中添加一条边后的图。添加的边的</description>
+    </item>
+    
+    <item>
+      <title>LeetCode每日练习：剑指 Offer II 117. 相似的字符串</title>
+      <link>https://qkgoalkeeper.github.io/post/leetcode%E6%AF%8F%E6%97%A5%E7%BB%83%E4%B9%A0%E5%89%91%E6%8C%87-offer-ii-117.-%E7%9B%B8%E4%BC%BC%E7%9A%84%E5%AD%97%E7%AC%A6%E4%B8%B2/</link>
+      <pubDate>Sun, 29 May 2022 07:55:19 +0800</pubDate>
+      
+      <guid>https://qkgoalkeeper.github.io/post/leetcode%E6%AF%8F%E6%97%A5%E7%BB%83%E4%B9%A0%E5%89%91%E6%8C%87-offer-ii-117.-%E7%9B%B8%E4%BC%BC%E7%9A%84%E5%AD%97%E7%AC%A6%E4%B8%B2/</guid>
+      <description>一.剑指 Offer II 117. 相似的字符串 1.题干及思路 如果交换字符串 X 中的两个不同位置的字母，使得它和字符串 Y 相等，那么称 X 和 Y 两个字符串相似。如果这两个</description>
+    </item>
+    
+    <item>
+      <title>LeetCode每日一题：399. 除法求值</title>
+      <link>https://qkgoalkeeper.github.io/post/leetcode%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98399.-%E9%99%A4%E6%B3%95%E6%B1%82%E5%80%BC/</link>
+      <pubDate>Fri, 31 Dec 2021 10:55:19 +0800</pubDate>
+      
+      <guid>https://qkgoalkeeper.github.io/post/leetcode%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98399.-%E9%99%A4%E6%B3%95%E6%B1%82%E5%80%BC/</guid>
+      <description>一.399. 除法求值 1.题干及思路 给你一个变量对数组 equations 和一个实数值数组 values 作为已知条件，其中 equations[i] = [Ai, Bi] 和 values[i] 共同表示等式 Ai / Bi = values[i] 。每个 Ai 或 Bi 是一</description>
+    </item>
+    
+    <item>
+      <title>LeetCode每日一题：128. 最长连续序列</title>
+      <link>https://qkgoalkeeper.github.io/post/leetcode%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98128.-%E6%9C%80%E9%95%BF%E8%BF%9E%E7%BB%AD%E5%BA%8F%E5%88%97/</link>
+      <pubDate>Thu, 16 Dec 2021 10:55:19 +0800</pubDate>
+      
+      <guid>https://qkgoalkeeper.github.io/post/leetcode%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98128.-%E6%9C%80%E9%95%BF%E8%BF%9E%E7%BB%AD%E5%BA%8F%E5%88%97/</guid>
+      <description>一.128. 最长连续序列 1.题干及思路 给定一个未排序的整数数组 nums ，找出数字连续的最长序列（不要求序列元素在原数组中连续）的长度。 请你设计并实</description>
+    </item>
+    
+  </channel>
+</rss>

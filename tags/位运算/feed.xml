@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>位运算 on qkgoalkeeper&#39;s blog</title>
+    <link>https://qkgoalkeeper.github.io/tags/%E4%BD%8D%E8%BF%90%E7%AE%97/</link>
+    <description>Recent content in 位运算 on qkgoalkeeper&#39;s blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-CN</language>
+    <lastBuildDate>Sun, 30 Jan 2022 10:55:19 +0800</lastBuildDate><atom:link href="https://qkgoalkeeper.github.io/tags/%E4%BD%8D%E8%BF%90%E7%AE%97/feed.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>LeetCode每日练习：剑指 Offer 65. 不用加减乘除做加法</title>
+      <link>https://qkgoalkeeper.github.io/post/leetcode%E6%AF%8F%E6%97%A5%E7%BB%83%E4%B9%A0%E5%89%91%E6%8C%87-offer-65.-%E4%B8%8D%E7%94%A8%E5%8A%A0%E5%87%8F%E4%B9%98%E9%99%A4%E5%81%9A%E5%8A%A0%E6%B3%95/</link>
+      <pubDate>Sun, 30 Jan 2022 10:55:19 +0800</pubDate>
+      
+      <guid>https://qkgoalkeeper.github.io/post/leetcode%E6%AF%8F%E6%97%A5%E7%BB%83%E4%B9%A0%E5%89%91%E6%8C%87-offer-65.-%E4%B8%8D%E7%94%A8%E5%8A%A0%E5%87%8F%E4%B9%98%E9%99%A4%E5%81%9A%E5%8A%A0%E6%B3%95/</guid>
+      <description>一.剑指 Offer 65. 不用加减乘除做加法 1.题干及思路 写一个函数，求两个整数之和，要求在函数体内不得使用 “+”、“-”、“*”、“/” 四则运算符号。 示</description>
+    </item>
+    
+    <item>
+      <title>LeetCode每日练习：剑指 Offer 56 - I. 数组中数字出现的次数</title>
+      <link>https://qkgoalkeeper.github.io/post/leetcode%E6%AF%8F%E6%97%A5%E7%BB%83%E4%B9%A0%E5%89%91%E6%8C%87-offer-56-i.-%E6%95%B0%E7%BB%84%E4%B8%AD%E6%95%B0%E5%AD%97%E5%87%BA%E7%8E%B0%E7%9A%84%E6%AC%A1%E6%95%B0/</link>
+      <pubDate>Tue, 25 Jan 2022 10:55:19 +0800</pubDate>
+      
+      <guid>https://qkgoalkeeper.github.io/post/leetcode%E6%AF%8F%E6%97%A5%E7%BB%83%E4%B9%A0%E5%89%91%E6%8C%87-offer-56-i.-%E6%95%B0%E7%BB%84%E4%B8%AD%E6%95%B0%E5%AD%97%E5%87%BA%E7%8E%B0%E7%9A%84%E6%AC%A1%E6%95%B0/</guid>
+      <description>一.剑指 Offer 56 - I. 数组中数字出现的次数 1.题干及思路 一个整型数组 nums 里除两个数字之外，其他数字都出现了两次。请写程序找出这两个只出现一次的数字。</description>
+    </item>
+    
+    <item>
+      <title>LeetCode每日一题：461. 汉明距离</title>
+      <link>https://qkgoalkeeper.github.io/post/leetcode%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98461.-%E6%B1%89%E6%98%8E%E8%B7%9D%E7%A6%BB/</link>
+      <pubDate>Mon, 03 Jan 2022 10:55:19 +0800</pubDate>
+      
+      <guid>https://qkgoalkeeper.github.io/post/leetcode%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98461.-%E6%B1%89%E6%98%8E%E8%B7%9D%E7%A6%BB/</guid>
+      <description>一.461. 汉明距离 1.题干及思路 两个整数之间的 汉明距离 指的是这两个数字对应二进制位不同的位置的数目。 给你两个整数 x 和 y，计算并返回它们之间</description>
+    </item>
+    
+    <item>
+      <title>LeetCode每日一题：338. 比特位计数</title>
+      <link>https://qkgoalkeeper.github.io/post/leetcode%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98338.-%E6%AF%94%E7%89%B9%E4%BD%8D%E8%AE%A1%E6%95%B0/</link>
+      <pubDate>Wed, 29 Dec 2021 10:55:19 +0800</pubDate>
+      
+      <guid>https://qkgoalkeeper.github.io/post/leetcode%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98338.-%E6%AF%94%E7%89%B9%E4%BD%8D%E8%AE%A1%E6%95%B0/</guid>
+      <description>一.338. 比特位计数 1.题干及思路 给你一个整数 n ，对于 0 &amp;lt;= i &amp;lt;= n 中的每个 i ，计算其二进制表示中 1 的个数 ，返回一个长度为 n + 1 的数组 ans 作为答</description>
+    </item>
+    
+    <item>
+      <title>LeetCode每日一题：287. 寻找重复数</title>
+      <link>https://qkgoalkeeper.github.io/post/leetcode%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98287.-%E5%AF%BB%E6%89%BE%E9%87%8D%E5%A4%8D%E6%95%B0/</link>
+      <pubDate>Fri, 24 Dec 2021 10:55:19 +0800</pubDate>
+      
+      <guid>https://qkgoalkeeper.github.io/post/leetcode%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98287.-%E5%AF%BB%E6%89%BE%E9%87%8D%E5%A4%8D%E6%95%B0/</guid>
+      <description>一.287. 寻找重复数 1.题干及思路 287. 寻找重复数 难度中等1506 给定一个包含 n + 1 个整数的数组 nums ，其数字都在 1 到 n 之间（包括 1 和 n），可知至</description>
+    </item>
+    
+  </channel>
+</rss>

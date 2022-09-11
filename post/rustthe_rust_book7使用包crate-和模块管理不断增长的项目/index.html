@@ -1,0 +1,1026 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <title>rust：the_rust_book（7）使用包、Crate 和模块管理不断增长的项目 - qkgoalkeeper&#39;s blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=3, minimum-scale=1">
+  
+  <meta name="description" content="一.本章任务 到目前为止，我们编写的程序都在一个文件的一个模块中。伴随着项目的增长，你可以通过将代码分解为多个模块和多个文件来组织代码。一个包">
+  
+  <meta itemprop="name" content="rust：the_rust_book（7）使用包、Crate 和模块管理不断增长的项目 - qkgoalkeeper&#39;s blog">
+  <meta itemprop="description" content="一.本章任务 到目前为止，我们编写的程序都在一个文件的一个模块中。伴随着项目的增长，你可以通过将代码分解为多个模块和多个文件来组织代码。一个包">
+  <meta itemprop="image" content="https://qkgoalkeeper.github.io/img/author.jpg">
+  
+  
+  <meta name="twitter:description" content="">
+  
+  <link rel="shortcut icon" href="https://qkgoalkeeper.github.io/img/favicon.ico"/>
+  <link rel="apple-touch-icon" href="https://qkgoalkeeper.github.io/apple-touch-icon.png" />
+  <link rel="apple-touch-icon-precomposed" href="https://qkgoalkeeper.github.io/apple-touch-icon.png" />
+  <link rel="stylesheet" href="https://qkgoalkeeper.github.io/highlight/styles/github.css">
+  <script src="https://qkgoalkeeper.github.io/highlight/highlight.pack.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script>
+  
+  <link rel="stylesheet" href="https://qkgoalkeeper.github.io/font/hack/css/hack.min.css">
+  <link rel="stylesheet" href="https://qkgoalkeeper.github.io/css/style.css">
+  
+  
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-175507250-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-175507250-1');
+</script>
+  
+
+</head>
+
+<body>
+  <header>
+    <div>
+  <div id="imglogo">
+    <a href="https://qkgoalkeeper.github.io/"><img src='https://qkgoalkeeper.github.io/img/logo.svg' alt="qkgoalkeeper&#39;s blog" title="qkgoalkeeper&#39;s blog"/></a>
+  </div>
+  <div id="textlogo">
+    <h1 class="site-name"><a href="https://qkgoalkeeper.github.io/" title="qkgoalkeeper&#39;s blog">qkgoalkeeper&#39;s blog</a></h1>
+    <h2 class="blog-motto">ECNU数据学院在读</h2>
+  </div>
+  <div class="navbar"><a class="navbutton navmobile" href="#" title="menu"></a></div>
+  <nav class="animated">
+    <ul>
+      
+      
+      <li><a href="/">首页</a></li>
+      
+      <li><a href="/about">关于</a></li>
+      
+      
+      <li>
+        <form class="search" method="get" action="https://www.google.com/search">
+          <div>
+            <input type="text" id="search" name="q" placeholder='Search'>
+          </div>
+        </form>
+      </li>
+    </ul>
+  </nav>
+</div>
+
+  </header>
+  <div id="container">
+    <div id="main" class="post" itemscope itemprop="blogPost">
+	<article itemprop="articleBody">
+    <header class="article-info clearfix">
+  <h1 itemprop="name">
+      <a href="https://qkgoalkeeper.github.io/post/rustthe_rust_book7%E4%BD%BF%E7%94%A8%E5%8C%85crate-%E5%92%8C%E6%A8%A1%E5%9D%97%E7%AE%A1%E7%90%86%E4%B8%8D%E6%96%AD%E5%A2%9E%E9%95%BF%E7%9A%84%E9%A1%B9%E7%9B%AE/" title="rust：the_rust_book（7）使用包、Crate 和模块管理不断增长的项目" itemprop="url">rust：the_rust_book（7）使用包、Crate 和模块管理不断增长的项目</a>
+  </h1>
+  <p class="article-author">By
+    
+      <a href="https://qkgoalkeeper.github.io/" title="qk">qk</a>
+    
+  </p>
+  <p class="article-time">
+    <time datetime="2022-07-24 07:55:19 &#43;0800 CST" itemprop="datePublished">2022年07月24日</time>
+  </p>
+</header>
+
+	<div class="article-content">
+    
+		<div class="toc-article">
+			<strong class="toc-title">文章目录</strong>
+      <nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#使用-pub-关键字暴露路径httpskaiserygithubiotrpl-zh-cnch07-03-paths-for-referring-to-an-item-in-the-module-treehtml使用-pub-关键字暴露路径"><a href="https://kaisery.github.io/trpl-zh-cn/ch07-03-paths-for-referring-to-an-item-in-the-module-tree.html#%E4%BD%BF%E7%94%A8-pub-%E5%85%B3%E9%94%AE%E5%AD%97%E6%9A%B4%E9%9C%B2%E8%B7%AF%E5%BE%84">使用 <code>pub</code> 关键字暴露路径</a></a></li>
+        <li><a href="#使用-super-起始的相对路径httpskaiserygithubiotrpl-zh-cnch07-03-paths-for-referring-to-an-item-in-the-module-treehtml使用-super-起始的相对路径"><a href="https://kaisery.github.io/trpl-zh-cn/ch07-03-paths-for-referring-to-an-item-in-the-module-tree.html#%E4%BD%BF%E7%94%A8-super-%E8%B5%B7%E5%A7%8B%E7%9A%84%E7%9B%B8%E5%AF%B9%E8%B7%AF%E5%BE%84">使用 <code>super</code> 起始的相对路径</a></a></li>
+        <li><a href="#创建公有的结构体和枚举httpskaiserygithubiotrpl-zh-cnch07-03-paths-for-referring-to-an-item-in-the-module-treehtml创建公有的结构体和枚举"><a href="https://kaisery.github.io/trpl-zh-cn/ch07-03-paths-for-referring-to-an-item-in-the-module-tree.html#%E5%88%9B%E5%BB%BA%E5%85%AC%E6%9C%89%E7%9A%84%E7%BB%93%E6%9E%84%E4%BD%93%E5%92%8C%E6%9E%9A%E4%B8%BE">创建公有的结构体和枚举</a></a></li>
+      </ul>
+    </li>
+  </ul>
+
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#创建惯用的-use-路径httpskaiserygithubiotrpl-zh-cnch07-04-bringing-paths-into-scope-with-the-use-keywordhtml创建惯用的-use-路径"><a href="https://kaisery.github.io/trpl-zh-cn/ch07-04-bringing-paths-into-scope-with-the-use-keyword.html#%E5%88%9B%E5%BB%BA%E6%83%AF%E7%94%A8%E7%9A%84-use-%E8%B7%AF%E5%BE%84">创建惯用的 <code>use</code> 路径</a></a></li>
+        <li><a href="#使用-as-关键字提供新的名称httpskaiserygithubiotrpl-zh-cnch07-04-bringing-paths-into-scope-with-the-use-keywordhtml使用-as-关键字提供新的名称"><a href="https://kaisery.github.io/trpl-zh-cn/ch07-04-bringing-paths-into-scope-with-the-use-keyword.html#%E4%BD%BF%E7%94%A8-as-%E5%85%B3%E9%94%AE%E5%AD%97%E6%8F%90%E4%BE%9B%E6%96%B0%E7%9A%84%E5%90%8D%E7%A7%B0">使用 <code>as</code> 关键字提供新的名称</a></a></li>
+        <li><a href="#使用-pub-use-重导出名称httpskaiserygithubiotrpl-zh-cnch07-04-bringing-paths-into-scope-with-the-use-keywordhtml使用-pub-use-重导出名称"><a href="https://kaisery.github.io/trpl-zh-cn/ch07-04-bringing-paths-into-scope-with-the-use-keyword.html#%E4%BD%BF%E7%94%A8-pub-use-%E9%87%8D%E5%AF%BC%E5%87%BA%E5%90%8D%E7%A7%B0">使用 <code>pub use</code> 重导出名称</a></a></li>
+        <li><a href="#使用外部包httpskaiserygithubiotrpl-zh-cnch07-04-bringing-paths-into-scope-with-the-use-keywordhtml使用外部包"><a href="https://kaisery.github.io/trpl-zh-cn/ch07-04-bringing-paths-into-scope-with-the-use-keyword.html#%E4%BD%BF%E7%94%A8%E5%A4%96%E9%83%A8%E5%8C%85">使用外部包</a></a></li>
+        <li><a href="#嵌套路径来消除大量的-use-行httpskaiserygithubiotrpl-zh-cnch07-04-bringing-paths-into-scope-with-the-use-keywordhtml嵌套路径来消除大量的-use-行"><a href="https://kaisery.github.io/trpl-zh-cn/ch07-04-bringing-paths-into-scope-with-the-use-keyword.html#%E5%B5%8C%E5%A5%97%E8%B7%AF%E5%BE%84%E6%9D%A5%E6%B6%88%E9%99%A4%E5%A4%A7%E9%87%8F%E7%9A%84-use-%E8%A1%8C">嵌套路径来消除大量的 <code>use</code> 行</a></a></li>
+        <li><a href="#通过-glob-运算符将所有的公有定义引入作用域httpskaiserygithubiotrpl-zh-cnch07-04-bringing-paths-into-scope-with-the-use-keywordhtml通过-glob-运算符将所有的公有定义引入作用域"><a href="https://kaisery.github.io/trpl-zh-cn/ch07-04-bringing-paths-into-scope-with-the-use-keyword.html#%E9%80%9A%E8%BF%87-glob-%E8%BF%90%E7%AE%97%E7%AC%A6%E5%B0%86%E6%89%80%E6%9C%89%E7%9A%84%E5%85%AC%E6%9C%89%E5%AE%9A%E4%B9%89%E5%BC%95%E5%85%A5%E4%BD%9C%E7%94%A8%E5%9F%9F">通过 glob 运算符将所有的公有定义引入作用域</a></a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+		</div>
+    
+    <h1 id="一本章任务">一.本章任务</h1>
+<ul>
+<li>
+<p>到目前为止，我们编写的程序都在一个文件的一个模块中。伴随着项目的增长，你可以通过将代码分解为多个模块和多个文件来组织代码。一个包可以包含多个二进制 crate 项和一个可选的 crate 库。伴随着包的增长，你可以将包中的部分代码提取出来，做成独立的 crate，这些 crate 则作为外部依赖项。本章将会涵盖所有这些概念。对于一个由一系列相互关联的包组合而成的超大型项目，Cargo 提供了 “工作空间” 这一功能，我们将在第十四章的 <a href="https://kaisery.github.io/trpl-zh-cn/ch14-03-cargo-workspaces.html">“Cargo Workspaces”</a> 对此进行讲解。</p>
+<p>除了对功能进行分组以外，封装实现细节可以使你更高级地重用代码：你实现了一个操作后，其他的代码可以通过该代码的公共接口来进行调用，而不需要知道它是如何实现的。你在编写代码时可以定义哪些部分是其他代码可以使用的公共部分，以及哪些部分是你有权更改实现细节的私有部分。这是另一种减少你在脑海中记住项目内容数量的方法。</p>
+<p>这里有一个需要说明的概念 “作用域（scope）”：代码所在的嵌套上下文有一组定义为 “in scope” 的名称。当阅读、编写和编译代码时，程序员和编译器需要知道特定位置的特定名称是否引用了变量、函数、结构体、枚举、模块、常量或者其他有意义的项。你可以创建作用域，以及改变哪些名称在作用域内还是作用域外。同一个作用域内不能拥有两个相同名称的项；可以使用一些工具来解决名称冲突。</p>
+<p>Rust 有许多功能可以让你管理代码的组织，包括哪些内容可以被公开，哪些内容作为私有部分，以及程序每个作用域中的名字。这些功能。这有时被称为 “模块系统（the module system）”，包括：</p>
+<ul>
+<li><strong>包</strong>（<em>Packages</em>）： Cargo 的一个功能，它允许你构建、测试和分享 crate。</li>
+<li><strong>Crates</strong> ：一个模块的树形结构，它形成了库或二进制项目。</li>
+<li><strong>模块</strong>（<em>Modules</em>）和 <strong>use</strong>： 允许你控制作用域和路径的私有性。</li>
+<li><strong>路径</strong>（<em>path</em>）：一个命名例如结构体、函数或模块等项的方式</li>
+</ul>
+<p>本章将会涵盖所有这些概念，讨论它们如何交互，并说明如何使用它们来管理作用域。到最后，你会对模块系统有深入的了解，并且能够像专业人士一样使用作用域！</p>
+</li>
+</ul>
+<h1 id="二包和-cratehttpskaiserygithubiotrpl-zh-cnch07-01-packages-and-crateshtml包和-crate">二.<a href="https://kaisery.github.io/trpl-zh-cn/ch07-01-packages-and-crates.html#%E5%8C%85%E5%92%8C-crate">包和 Crate</a></h1>
+<p>让我们来看看创建包的时候会发生什么。首先，我们输入命令 <code>cargo new</code>：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell">$ cargo new my-project
+     Created binary <span class="o">(</span>application<span class="o">)</span> <span class="sb">`</span>my-project<span class="sb">`</span> package
+$ ls my-project
+Cargo.toml
+src
+$ ls my-project/src
+main.rs
+</code></pre></div><p>当我们输入了这条命令，Cargo 会给我们的包创建一个 <em>Cargo.toml</em> 文件。查看 <em>Cargo.toml</em> 的内容，会发现并没有提到 <em>src/main.rs</em>，因为 Cargo 遵循的一个约定：<em>src/main.rs</em> 就是一个与包同名的二进制 crate 的 crate 根。同样的，Cargo 知道如果包目录中包含 <em>src/lib.rs</em>，则包带有与其同名的库 crate，且 <em>src/lib.rs</em> 是 crate 根。crate 根文件将由 Cargo 传递给 <code>rustc</code> 来实际构建库或者二进制项目。</p>
+<h1 id="三定义模块来控制作用域与私有性httpskaiserygithubiotrpl-zh-cnch07-02-defining-modules-to-control-scope-and-privacyhtml定义模块来控制作用域与私有性">三.<a href="https://kaisery.github.io/trpl-zh-cn/ch07-02-defining-modules-to-control-scope-and-privacy.html#%E5%AE%9A%E4%B9%89%E6%A8%A1%E5%9D%97%E6%9D%A5%E6%8E%A7%E5%88%B6%E4%BD%9C%E7%94%A8%E5%9F%9F%E4%B8%8E%E7%A7%81%E6%9C%89%E6%80%A7">定义模块来控制作用域与私有性</a></h1>
+<p>在本节，我们将讨论模块和其它一些关于模块系统的部分，如允许你命名项的 <em>路径</em>（<em>paths</em>）；用来将路径引入作用域的 <code>use</code> 关键字；以及使项变为公有的 <code>pub</code> 关键字。我们还将讨论 <code>as</code> 关键字、外部包和 glob 运算符。现在，让我们把注意力放在模块上！</p>
+<p><em>模块</em> 让我们可以将一个 crate 中的代码进行分组，以提高可读性与重用性。模块还可以控制项的 <em>私有性</em>，即项是可以被外部代码使用的（<em>public</em>），还是作为一个内部实现的内容，不能被外部代码使用（<em>private</em>）。</p>
+<p>在餐饮业，餐馆中会有一些地方被称之为 <em>前台</em>（<em>front of house</em>），还有另外一些地方被称之为 <em>后台</em>（<em>back of house</em>）。前台是招待顾客的地方，在这里，店主可以为顾客安排座位，服务员接受顾客下单和付款，调酒师会制作饮品。后台则是由厨师工作的厨房，洗碗工的工作地点，以及经理做行政工作的地方组成。</p>
+<p>我们可以将函数放置到嵌套的模块中，来使我们的 crate 结构与实际的餐厅结构相同。通过执行 <code>cargo new --lib restaurant</code>，来创建一个新的名为 <code>restaurant</code> 的库。然后将示例 7-1 中所罗列出来的代码放入 <em>src/lib.rs</em> 中，来定义一些模块和函数。</p>
+<p>文件名: src/lib.rs</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-rust" data-lang="rust"><span class="k">mod</span> <span class="nn">front_of_house</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span><span class="w">    </span><span class="k">mod</span> <span class="nn">hosting</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span><span class="w">        </span><span class="k">fn</span> <span class="nf">add_to_waitlist</span><span class="p">()</span><span class="w"> </span><span class="p">{}</span><span class="w">
+</span><span class="w">
+</span><span class="w">        </span><span class="k">fn</span> <span class="nf">seat_at_table</span><span class="p">()</span><span class="w"> </span><span class="p">{}</span><span class="w">
+</span><span class="w">    </span><span class="p">}</span><span class="w">
+</span><span class="w">
+</span><span class="w">    </span><span class="k">mod</span> <span class="nn">serving</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span><span class="w">        </span><span class="k">fn</span> <span class="nf">take_order</span><span class="p">()</span><span class="w"> </span><span class="p">{}</span><span class="w">
+</span><span class="w">
+</span><span class="w">        </span><span class="k">fn</span> <span class="nf">serve_order</span><span class="p">()</span><span class="w"> </span><span class="p">{}</span><span class="w">
+</span><span class="w">
+</span><span class="w">        </span><span class="k">fn</span> <span class="nf">take_payment</span><span class="p">()</span><span class="w"> </span><span class="p">{}</span><span class="w">
+</span><span class="w">    </span><span class="p">}</span><span class="w">
+</span><span class="w"></span><span class="p">}</span><span class="w">
+</span></code></pre></div><p>示例 7-1：一个包含了其他内置了函数的模块的 <code>front_of_house</code> 模块</p>
+<p>我们定义一个模块，是以 <code>mod</code> 关键字为起始，然后指定模块的名字（本例中叫做 <code>front_of_house</code>），并且用花括号包围模块的主体。在模块内，我们还可以定义其他的模块，就像本例中的 <code>hosting</code> 和 <code>serving</code> 模块。模块还可以保存一些定义的其他项，比如结构体、枚举、常量、特性、或者函数。</p>
+<p>通过使用模块，我们可以将相关的定义分组到一起，并指出他们为什么相关。程序员可以通过使用这段代码，更加容易地找到他们想要的定义，因为他们可以基于分组来对代码进行导航，而不需要阅读所有的定义。程序员向这段代码中添加一个新的功能时，他们也会知道代码应该放置在何处，可以保持程序的组织性。</p>
+<p>在前面我们提到了，<code>src/main.rs</code> 和 <code>src/lib.rs</code> 叫做 crate 根。之所以这样叫它们是因为这两个文件的内容都分别在 crate 模块结构的根组成了一个名为 <code>crate</code> 的模块，该结构被称为 <em>模块树</em>（<em>module tree</em>）。</p>
+<p>示例 7-2 展示了示例 7-1 中的模块树的结构。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text">crate
+ └── front_of_house
+     ├── hosting
+     │   ├── add_to_waitlist
+     │   └── seat_at_table
+     └── serving
+         ├── take_order
+         ├── serve_order
+         └── take_payment
+</code></pre></div><p>示例 7-2: 示例 7-1 中代码的模块树</p>
+<p>这个树展示了一些模块是如何被嵌入到另一个模块的（例如，<code>hosting</code> 嵌套在 <code>front_of_house</code> 中）。这个树还展示了一些模块是互为 <em>兄弟</em>（<em>siblings</em>） 的，这意味着它们定义在同一模块中（<code>hosting</code> 和 <code>serving</code> 被一起定义在 <code>front_of_house</code> 中）。继续沿用家庭关系的比喻，如果一个模块 A 被包含在模块 B 中，我们将模块 A 称为模块 B 的 <em>子</em>（<em>child</em>），模块 B 则是模块 A 的 <em>父</em>（<em>parent</em>）。注意，整个模块树都植根于名为 <code>crate</code> 的隐式模块下。</p>
+<p>这个模块树可能会令你想起电脑上文件系统的目录树；这是一个非常恰当的类比！就像文件系统的目录，你可以使用模块来组织你的代码。并且，就像目录中的文件，我们需要一种方法来找到模块。</p>
+<h1 id="四引用模块项目的路径httpskaiserygithubiotrpl-zh-cnch07-03-paths-for-referring-to-an-item-in-the-module-treehtml引用模块项目的路径">四.<a href="https://kaisery.github.io/trpl-zh-cn/ch07-03-paths-for-referring-to-an-item-in-the-module-tree.html#%E5%BC%95%E7%94%A8%E6%A8%A1%E5%9D%97%E9%A1%B9%E7%9B%AE%E7%9A%84%E8%B7%AF%E5%BE%84">引用模块项目的路径</a></h1>
+<p>来看一下 Rust 如何在模块树中找到一个项的位置，我们使用路径的方式，就像在文件系统使用路径一样。如果我们想要调用一个函数，我们需要知道它的路径。</p>
+<p>路径有两种形式：</p>
+<ul>
+<li><strong>绝对路径</strong>（<em>absolute path</em>）从 crate 根开始，以 crate 名或者字面值 <code>crate</code> 开头。</li>
+<li><strong>相对路径</strong>（<em>relative path</em>）从当前模块开始，以 <code>self</code>、<code>super</code> 或当前模块的标识符开头。</li>
+</ul>
+<p>绝对路径和相对路径都后跟一个或多个由双冒号（<code>::</code>）分割的标识符。</p>
+<p>让我们回到示例 7-1。我们如何调用 <code>add_to_waitlist</code> 函数？还是同样的问题，<code>add_to_waitlist</code> 函数的路径是什么？在示例 7-3 中，我们通过删除一些模块和函数，稍微简化了一下我们的代码。我们在 crate 根定义了一个新函数 <code>eat_at_restaurant</code>，并在其中展示调用 <code>add_to_waitlist</code> 函数的两种方法。<code>eat_at_restaurant</code> 函数是我们 crate 库的一个公共 API，所以我们使用 <code>pub</code> 关键字来标记它。在 <a href="https://kaisery.github.io/trpl-zh-cn/ch07-03-paths-for-referring-to-an-item-in-the-module-tree.html#%E4%BD%BF%E7%94%A8-pub-%E5%85%B3%E9%94%AE%E5%AD%97%E6%9A%B4%E9%9C%B2%E8%B7%AF%E5%BE%84">“使用<code>pub</code>关键字暴露路径”</a> 一节，我们将详细介绍 <code>pub</code>。注意，这个例子无法编译通过，我们稍后会解释原因。</p>
+<p>文件名: src/lib.rs</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-rust" data-lang="rust"><span class="k">mod</span> <span class="nn">front_of_house</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span><span class="w">    </span><span class="k">mod</span> <span class="nn">hosting</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span><span class="w">        </span><span class="k">fn</span> <span class="nf">add_to_waitlist</span><span class="p">()</span><span class="w"> </span><span class="p">{}</span><span class="w">
+</span><span class="w">    </span><span class="p">}</span><span class="w">
+</span><span class="w"></span><span class="p">}</span><span class="w">
+</span><span class="w">
+</span><span class="w"></span><span class="k">pub</span><span class="w"> </span><span class="k">fn</span> <span class="nf">eat_at_restaurant</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span><span class="w">    </span><span class="c1">// 绝对路径
+</span><span class="c1"></span><span class="w">    </span><span class="k">crate</span>::<span class="n">front_of_house</span>::<span class="n">hosting</span>::<span class="n">add_to_waitlist</span><span class="p">();</span><span class="w">
+</span><span class="w">
+</span><span class="w">    </span><span class="c1">// 相对路径
+</span><span class="c1"></span><span class="w">    </span><span class="n">front_of_house</span>::<span class="n">hosting</span>::<span class="n">add_to_waitlist</span><span class="p">();</span><span class="w">
+</span><span class="w"></span><span class="p">}</span><span class="w">
+</span></code></pre></div><p>示例 7-3: 使用绝对路径和相对路径来调用 <code>add_to_waitlist</code> 函数</p>
+<p>错误信息说 <code>hosting</code> 模块是私有的而且add_to_waitlist` 函数是私有的。Rust 中默认所有项（函数、方法、结构体、枚举、模块和常量）都是私有的。父模块中的项不能使用子模块中的私有项，但是子模块中的项可以使用他们父模块中的项。</p>
+<h3 id="使用-pub-关键字暴露路径httpskaiserygithubiotrpl-zh-cnch07-03-paths-for-referring-to-an-item-in-the-module-treehtml使用-pub-关键字暴露路径"><a href="https://kaisery.github.io/trpl-zh-cn/ch07-03-paths-for-referring-to-an-item-in-the-module-tree.html#%E4%BD%BF%E7%94%A8-pub-%E5%85%B3%E9%94%AE%E5%AD%97%E6%9A%B4%E9%9C%B2%E8%B7%AF%E5%BE%84">使用 <code>pub</code> 关键字暴露路径</a></h3>
+<p>pub关键词代表public，在hosting前加pub，继续将 <code>pub</code> 关键字放置在 <code>add_to_waitlist</code> 函数的定义之前，使其变成公有。</p>
+<p>文件名: src/lib.rs</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-rust" data-lang="rust"><span class="k">mod</span> <span class="nn">front_of_house</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span><span class="w">    </span><span class="k">pub</span><span class="w"> </span><span class="k">mod</span> <span class="nn">hosting</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span><span class="w">        </span><span class="k">pub</span><span class="w"> </span><span class="k">fn</span> <span class="nf">add_to_waitlist</span><span class="p">()</span><span class="w"> </span><span class="p">{}</span><span class="w">
+</span><span class="w">    </span><span class="p">}</span><span class="w">
+</span><span class="w"></span><span class="p">}</span><span class="w">
+</span><span class="w">
+</span><span class="w"></span><span class="k">pub</span><span class="w"> </span><span class="k">fn</span> <span class="nf">eat_at_restaurant</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span><span class="w">    </span><span class="c1">// 绝对路径
+</span><span class="c1"></span><span class="w">    </span><span class="k">crate</span>::<span class="n">front_of_house</span>::<span class="n">hosting</span>::<span class="n">add_to_waitlist</span><span class="p">();</span><span class="w">
+</span><span class="w">
+</span><span class="w">    </span><span class="c1">// 相对路径
+</span><span class="c1"></span><span class="w">    </span><span class="n">front_of_house</span>::<span class="n">hosting</span>::<span class="n">add_to_waitlist</span><span class="p">();</span><span class="w">
+</span><span class="w"></span><span class="p">}</span><span class="w">
+</span></code></pre></div><p>示例 7-7: 为 <code>mod hosting</code> 和 <code>fn add_to_waitlist</code> 添加 <code>pub</code> 关键字使他们可以在 <code>eat_at_restaurant</code> 函数中被调用</p>
+<p>现在代码可以编译通过了！让我们看看绝对路径和相对路径，并根据私有性规则，再检查一下为什么增加 <code>pub</code> 关键字使得我们可以在 <code>add_to_waitlist</code> 中调用这些路径。</p>
+<p>在绝对路径，我们从 <code>crate</code>，也就是 crate 根开始。然后 crate 根中定义了 <code>front_of_house</code> 模块。<code>front_of_house</code> 模块不是公有的，不过因为 <code>eat_at_restaurant</code> 函数与 <code>front_of_house</code> 定义于同一模块中（即，<code>eat_at_restaurant</code> 和 <code>front_of_house</code> 是兄弟），我们可以从 <code>eat_at_restaurant</code> 中引用 <code>front_of_house</code>。接下来是使用 <code>pub</code> 标记的 <code>hosting</code> 模块。我们可以访问 <code>hosting</code> 的父模块，所以可以访问 <code>hosting</code>。最后，<code>add_to_waitlist</code> 函数被标记为 <code>pub</code> ，我们可以访问其父模块，所以这个函数调用是有效的！</p>
+<p>在相对路径，其逻辑与绝对路径相同，除了第一步：不同于从 crate 根开始，路径从 <code>front_of_house</code> 开始。<code>front_of_house</code> 模块与 <code>eat_at_restaurant</code> 定义于同一模块，所以从 <code>eat_at_restaurant</code> 中开始定义的该模块相对路径是有效的。接下来因为 <code>hosting</code> 和 <code>add_to_waitlist</code> 被标记为 <code>pub</code>，路径其余的部分也是有效的，因此函数调用也是有效的！</p>
+<h3 id="使用-super-起始的相对路径httpskaiserygithubiotrpl-zh-cnch07-03-paths-for-referring-to-an-item-in-the-module-treehtml使用-super-起始的相对路径"><a href="https://kaisery.github.io/trpl-zh-cn/ch07-03-paths-for-referring-to-an-item-in-the-module-tree.html#%E4%BD%BF%E7%94%A8-super-%E8%B5%B7%E5%A7%8B%E7%9A%84%E7%9B%B8%E5%AF%B9%E8%B7%AF%E5%BE%84">使用 <code>super</code> 起始的相对路径</a></h3>
+<p>我们还可以使用 <code>super</code> 开头来构建从父模块开始的相对路径。这么做类似于文件系统中以 <code>..</code> 开头的语法。我们为什么要这样做呢？</p>
+<p>考虑一下示例 7-8 中的代码，它模拟了厨师更正了一个错误订单，并亲自将其提供给客户的情况。<code>fix_incorrect_order</code> 函数通过指定的 <code>super</code> 起始的 <code>serve_order</code> 路径，来调用 <code>serve_order</code> 函数：</p>
+<p>文件名: src/lib.rs</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-rust" data-lang="rust"><span class="k">fn</span> <span class="nf">serve_order</span><span class="p">()</span><span class="w"> </span><span class="p">{}</span><span class="w">
+</span><span class="w">
+</span><span class="w"></span><span class="k">mod</span> <span class="nn">back_of_house</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span><span class="w">    </span><span class="k">fn</span> <span class="nf">fix_incorrect_order</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span><span class="w">        </span><span class="n">cook_order</span><span class="p">();</span><span class="w">
+</span><span class="w">        </span><span class="k">super</span>::<span class="n">serve_order</span><span class="p">();</span><span class="w">
+</span><span class="w">    </span><span class="p">}</span><span class="w">
+</span><span class="w">
+</span><span class="w">    </span><span class="k">fn</span> <span class="nf">cook_order</span><span class="p">()</span><span class="w"> </span><span class="p">{}</span><span class="w">
+</span><span class="w"></span><span class="p">}</span><span class="w">
+</span></code></pre></div><p>示例 7-8: 使用以 <code>super</code> 开头的相对路径从父目录开始调用函数</p>
+<p><code>fix_incorrect_order</code> 函数在 <code>back_of_house</code> 模块中，所以我们可以使用 <code>super</code> 进入 <code>back_of_house</code> 父模块，也就是本例中的 <code>crate</code> 根。在这里，我们可以找到 <code>serve_order</code>。成功！我们认为 <code>back_of_house</code> 模块和 <code>serve_order</code> 函数之间可能具有某种关联关系，并且，如果我们要重新组织这个 crate 的模块树，需要一起移动它们。因此，我们使用 <code>super</code>，这样一来，如果这些代码被移动到了其他模块，我们只需要更新很少的代码。</p>
+<h3 id="创建公有的结构体和枚举httpskaiserygithubiotrpl-zh-cnch07-03-paths-for-referring-to-an-item-in-the-module-treehtml创建公有的结构体和枚举"><a href="https://kaisery.github.io/trpl-zh-cn/ch07-03-paths-for-referring-to-an-item-in-the-module-tree.html#%E5%88%9B%E5%BB%BA%E5%85%AC%E6%9C%89%E7%9A%84%E7%BB%93%E6%9E%84%E4%BD%93%E5%92%8C%E6%9E%9A%E4%B8%BE">创建公有的结构体和枚举</a></h3>
+<p>我们还可以使用 <code>pub</code> 来设计公有的结构体和枚举，不过有一些额外的细节需要注意。如果我们在一个结构体定义的前面使用了 <code>pub</code> ，这个结构体会变成公有的，但是这个结构体的字段仍然是私有的。我们可以根据情况决定每个字段是否公有。在示例 7-9 中，我们定义了一个公有结构体 <code>back_of_house:Breakfast</code>，其中有一个公有字段 <code>toast</code> 和私有字段 <code>seasonal_fruit</code>。这个例子模拟的情况是，在一家餐馆中，顾客可以选择随餐附赠的面包类型，但是厨师会根据季节和库存情况来决定随餐搭配的水果。餐馆可用的水果变化是很快的，所以顾客不能选择水果，甚至无法看到他们将会得到什么水果。</p>
+<p>文件名: src/lib.rs</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-rust" data-lang="rust"><span class="k">mod</span> <span class="nn">back_of_house</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span><span class="w">    </span><span class="k">pub</span><span class="w"> </span><span class="k">struct</span> <span class="nc">Breakfast</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span><span class="w">        </span><span class="k">pub</span><span class="w"> </span><span class="n">toast</span>: <span class="nb">String</span><span class="p">,</span><span class="w">
+</span><span class="w">        </span><span class="n">seasonal_fruit</span>: <span class="nb">String</span><span class="p">,</span><span class="w">
+</span><span class="w">    </span><span class="p">}</span><span class="w">
+</span><span class="w">
+</span><span class="w">    </span><span class="k">impl</span><span class="w"> </span><span class="n">Breakfast</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span><span class="w">        </span><span class="k">pub</span><span class="w"> </span><span class="k">fn</span> <span class="nf">summer</span><span class="p">(</span><span class="n">toast</span>: <span class="kp">&amp;</span><span class="kt">str</span><span class="p">)</span><span class="w"> </span>-&gt; <span class="nc">Breakfast</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span><span class="w">            </span><span class="n">Breakfast</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span><span class="w">                </span><span class="n">toast</span>: <span class="nb">String</span>::<span class="n">from</span><span class="p">(</span><span class="n">toast</span><span class="p">),</span><span class="w">
+</span><span class="w">                </span><span class="n">seasonal_fruit</span>: <span class="nb">String</span>::<span class="n">from</span><span class="p">(</span><span class="s">&#34;peaches&#34;</span><span class="p">),</span><span class="w">
+</span><span class="w">            </span><span class="p">}</span><span class="w">
+</span><span class="w">        </span><span class="p">}</span><span class="w">
+</span><span class="w">    </span><span class="p">}</span><span class="w">
+</span><span class="w"></span><span class="p">}</span><span class="w">
+</span><span class="w">
+</span><span class="w"></span><span class="k">pub</span><span class="w"> </span><span class="k">fn</span> <span class="nf">eat_at_restaurant</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span><span class="w">    </span><span class="c1">// 在夏天订购一个黑麦土司作为早餐
+</span><span class="c1"></span><span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="k">mut</span><span class="w"> </span><span class="n">meal</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">back_of_house</span>::<span class="n">Breakfast</span>::<span class="n">summer</span><span class="p">(</span><span class="s">&#34;Rye&#34;</span><span class="p">);</span><span class="w">
+</span><span class="w">    </span><span class="c1">// 改变主意更换想要面包的类型
+</span><span class="c1"></span><span class="w">    </span><span class="n">meal</span><span class="p">.</span><span class="n">toast</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">String</span>::<span class="n">from</span><span class="p">(</span><span class="s">&#34;Wheat&#34;</span><span class="p">);</span><span class="w">
+</span><span class="w">    </span><span class="fm">println!</span><span class="p">(</span><span class="s">&#34;I&#39;d like {} toast please&#34;</span><span class="p">,</span><span class="w"> </span><span class="n">meal</span><span class="p">.</span><span class="n">toast</span><span class="p">);</span><span class="w">
+</span><span class="w">
+</span><span class="w">    </span><span class="c1">// 如果取消下一行的注释代码不能编译；
+</span><span class="c1"></span><span class="w">    </span><span class="c1">// 不允许查看或修改早餐附带的季节水果
+</span><span class="c1"></span><span class="w">    </span><span class="c1">// meal.seasonal_fruit = String::from(&#34;blueberries&#34;);
+</span><span class="c1"></span><span class="p">}</span><span class="w">
+</span></code></pre></div><p>示例 7-9: 带有公有和私有字段的结构体</p>
+<p>因为 <code>back_of_house::Breakfast</code> 结构体的 <code>toast</code> 字段是公有的，所以我们可以在 <code>eat_at_restaurant</code> 中使用点号来随意的读写 <code>toast</code> 字段。注意，我们不能在 <code>eat_at_restaurant</code> 中使用 <code>seasonal_fruit</code> 字段，因为 <code>seasonal_fruit</code> 是私有的。尝试去除那一行修改 <code>seasonal_fruit</code> 字段值的代码的注释，看看你会得到什么错误！</p>
+<p>还请注意一点，因为 <code>back_of_house::Breakfast</code> 具有私有字段，所以这个结构体需要提供一个公共的关联函数来构造 <code>Breakfast</code> 的实例(这里我们命名为 <code>summer</code>)。如果 <code>Breakfast</code> 没有这样的函数，我们将无法在 <code>eat_at_restaurant</code> 中创建 <code>Breakfast</code> 实例，因为我们不能在 <code>eat_at_restaurant</code> 中设置私有字段 <code>seasonal_fruit</code> 的值。</p>
+<p>与之相反，如果我们将枚举设为公有，则它的所有成员都将变为公有。我们只需要在 <code>enum</code> 关键字前面加上 <code>pub</code>，就像示例 7-10 展示的那样。</p>
+<p>文件名: src/lib.rs</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-rust" data-lang="rust"><span class="k">mod</span> <span class="nn">back_of_house</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span><span class="w">    </span><span class="k">pub</span><span class="w"> </span><span class="k">enum</span> <span class="nc">Appetizer</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span><span class="w">        </span><span class="n">Soup</span><span class="p">,</span><span class="w">
+</span><span class="w">        </span><span class="n">Salad</span><span class="p">,</span><span class="w">
+</span><span class="w">    </span><span class="p">}</span><span class="w">
+</span><span class="w"></span><span class="p">}</span><span class="w">
+</span><span class="w">
+</span><span class="w"></span><span class="k">pub</span><span class="w"> </span><span class="k">fn</span> <span class="nf">eat_at_restaurant</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span><span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="n">order1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">back_of_house</span>::<span class="n">Appetizer</span>::<span class="n">Soup</span><span class="p">;</span><span class="w">
+</span><span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="n">order2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">back_of_house</span>::<span class="n">Appetizer</span>::<span class="n">Salad</span><span class="p">;</span><span class="w">
+</span><span class="w"></span><span class="p">}</span><span class="w">
+</span></code></pre></div><p>示例 7-10: 设计公有枚举，使其所有成员公有</p>
+<p>因为我们创建了名为 <code>Appetizer</code> 的公有枚举，所以我们可以在 <code>eat_at_restaurant</code> 中使用 <code>Soup</code> 和 <code>Salad</code> 成员。如果枚举成员不是公有的，那么枚举会显得用处不大；给枚举的所有成员挨个添加 <code>pub</code> 是很令人恼火的，因此枚举成员默认就是公有的。结构体通常使用时，不必将它们的字段公有化，因此结构体遵循常规，内容全部是私有的，除非使用 <code>pub</code> 关键字。</p>
+<p>还有一种使用 <code>pub</code> 的场景我们还没有涉及到，那就是我们最后要讲的模块功能：<code>use</code> 关键字。我们将先单独介绍 <code>use</code>，然后展示如何结合使用 <code>pub</code> 和 <code>use</code>。</p>
+<h1 id="五使用-use-关键字将路径引入作用域httpskaiserygithubiotrpl-zh-cnch07-04-bringing-paths-into-scope-with-the-use-keywordhtml使用-use-关键字将路径引入作用域">五.<a href="https://kaisery.github.io/trpl-zh-cn/ch07-04-bringing-paths-into-scope-with-the-use-keyword.html#%E4%BD%BF%E7%94%A8-use-%E5%85%B3%E9%94%AE%E5%AD%97%E5%B0%86%E8%B7%AF%E5%BE%84%E5%BC%95%E5%85%A5%E4%BD%9C%E7%94%A8%E5%9F%9F">使用 <code>use</code> 关键字将路径引入作用域</a></h1>
+<p>到目前为止，似乎我们编写的用于调用函数的路径都很冗长且重复，并不方便。例如，示例 7-7 中，无论我们选择 <code>add_to_waitlist</code> 函数的绝对路径还是相对路径，每次我们想要调用 <code>add_to_waitlist</code> 时，都必须指定<code>front_of_house</code> 和 <code>hosting</code>。幸运的是，有一种方法可以简化这个过程。我们可以使用 <code>use</code> 关键字将路径一次性引入作用域，然后调用该路径中的项，就如同它们是本地项一样。</p>
+<p>在示例 7-11 中，我们将 <code>crate::front_of_house::hosting</code> 模块引入了 <code>eat_at_restaurant</code> 函数的作用域，而我们只需要指定 <code>hosting::add_to_waitlist</code> 即可在 <code>eat_at_restaurant</code> 中调用 <code>add_to_waitlist</code> 函数。</p>
+<p>文件名: src/lib.rs</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-rust" data-lang="rust"><span class="k">mod</span> <span class="nn">front_of_house</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span><span class="w">    </span><span class="k">pub</span><span class="w"> </span><span class="k">mod</span> <span class="nn">hosting</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span><span class="w">        </span><span class="k">pub</span><span class="w"> </span><span class="k">fn</span> <span class="nf">add_to_waitlist</span><span class="p">()</span><span class="w"> </span><span class="p">{}</span><span class="w">
+</span><span class="w">    </span><span class="p">}</span><span class="w">
+</span><span class="w"></span><span class="p">}</span><span class="w">
+</span><span class="w">
+</span><span class="w"></span><span class="k">use</span><span class="w"> </span><span class="k">crate</span>::<span class="n">front_of_house</span>::<span class="n">hosting</span><span class="p">;</span><span class="w">
+</span><span class="w">
+</span><span class="w"></span><span class="k">pub</span><span class="w"> </span><span class="k">fn</span> <span class="nf">eat_at_restaurant</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span><span class="w">    </span><span class="n">hosting</span>::<span class="n">add_to_waitlist</span><span class="p">();</span><span class="w">
+</span><span class="w">    </span><span class="n">hosting</span>::<span class="n">add_to_waitlist</span><span class="p">();</span><span class="w">
+</span><span class="w">    </span><span class="n">hosting</span>::<span class="n">add_to_waitlist</span><span class="p">();</span><span class="w">
+</span><span class="w"></span><span class="p">}</span><span class="w">
+</span></code></pre></div><p>示例 7-11: 使用 <code>use</code> 将模块引入作用域</p>
+<p>在作用域中增加 <code>use</code> 和路径类似于在文件系统中创建软连接（符号连接，symbolic link）。通过在 crate 根增加 <code>use crate::front_of_house::hosting</code>，现在 <code>hosting</code> 在作用域中就是有效的名称了，如同 <code>hosting</code> 模块被定义于 crate 根一样。通过 <code>use</code> 引入作用域的路径也会检查私有性，同其它路径一样。</p>
+<p>你还可以使用 <code>use</code> 和相对路径来将一个项引入作用域。示例 7-12 展示了如何指定相对路径来取得与示例 7-11 中一样的行为。</p>
+<p>文件名: src/lib.rs</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-rust" data-lang="rust"><span class="k">mod</span> <span class="nn">front_of_house</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span><span class="w">    </span><span class="k">pub</span><span class="w"> </span><span class="k">mod</span> <span class="nn">hosting</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span><span class="w">        </span><span class="k">pub</span><span class="w"> </span><span class="k">fn</span> <span class="nf">add_to_waitlist</span><span class="p">()</span><span class="w"> </span><span class="p">{}</span><span class="w">
+</span><span class="w">    </span><span class="p">}</span><span class="w">
+</span><span class="w"></span><span class="p">}</span><span class="w">
+</span><span class="w">
+</span><span class="w"></span><span class="k">use</span><span class="w"> </span><span class="bp">self</span>::<span class="n">front_of_house</span>::<span class="n">hosting</span><span class="p">;</span><span class="w">
+</span><span class="w">
+</span><span class="w"></span><span class="k">pub</span><span class="w"> </span><span class="k">fn</span> <span class="nf">eat_at_restaurant</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span><span class="w">    </span><span class="n">hosting</span>::<span class="n">add_to_waitlist</span><span class="p">();</span><span class="w">
+</span><span class="w">    </span><span class="n">hosting</span>::<span class="n">add_to_waitlist</span><span class="p">();</span><span class="w">
+</span><span class="w">    </span><span class="n">hosting</span>::<span class="n">add_to_waitlist</span><span class="p">();</span><span class="w">
+</span><span class="w"></span><span class="p">}</span><span class="w">
+</span></code></pre></div><p>示例 7-12: 使用 <code>use</code> 和相对路径将模块引入作用域</p>
+<h3 id="创建惯用的-use-路径httpskaiserygithubiotrpl-zh-cnch07-04-bringing-paths-into-scope-with-the-use-keywordhtml创建惯用的-use-路径"><a href="https://kaisery.github.io/trpl-zh-cn/ch07-04-bringing-paths-into-scope-with-the-use-keyword.html#%E5%88%9B%E5%BB%BA%E6%83%AF%E7%94%A8%E7%9A%84-use-%E8%B7%AF%E5%BE%84">创建惯用的 <code>use</code> 路径</a></h3>
+<p>在示例 7-11 中，你可能会比较疑惑，为什么我们是指定 <code>use crate::front_of_house::hosting</code> ，然后在 <code>eat_at_restaurant</code> 中调用 <code>hosting::add_to_waitlist</code> ，而不是通过指定一直到 <code>add_to_waitlist</code> 函数的 <code>use</code> 路径来得到相同的结果，如示例 7-13 所示。</p>
+<p>文件名: src/lib.rs</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-rust" data-lang="rust"><span class="k">mod</span> <span class="nn">front_of_house</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span><span class="w">    </span><span class="k">pub</span><span class="w"> </span><span class="k">mod</span> <span class="nn">hosting</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span><span class="w">        </span><span class="k">pub</span><span class="w"> </span><span class="k">fn</span> <span class="nf">add_to_waitlist</span><span class="p">()</span><span class="w"> </span><span class="p">{}</span><span class="w">
+</span><span class="w">    </span><span class="p">}</span><span class="w">
+</span><span class="w"></span><span class="p">}</span><span class="w">
+</span><span class="w">
+</span><span class="w"></span><span class="k">use</span><span class="w"> </span><span class="k">crate</span>::<span class="n">front_of_house</span>::<span class="n">hosting</span>::<span class="n">add_to_waitlist</span><span class="p">;</span><span class="w">
+</span><span class="w">
+</span><span class="w"></span><span class="k">pub</span><span class="w"> </span><span class="k">fn</span> <span class="nf">eat_at_restaurant</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span><span class="w">    </span><span class="n">add_to_waitlist</span><span class="p">();</span><span class="w">
+</span><span class="w">    </span><span class="n">add_to_waitlist</span><span class="p">();</span><span class="w">
+</span><span class="w">    </span><span class="n">add_to_waitlist</span><span class="p">();</span><span class="w">
+</span><span class="w"></span><span class="p">}</span><span class="w">
+</span></code></pre></div><p>示例 7-13: 使用 <code>use</code> 将 <code>add_to_waitlist</code> 函数引入作用域，这并不符合习惯</p>
+<p>虽然示例 7-11 和 7-13 都完成了相同的任务，但示例 7-11 是使用 <code>use</code> 将函数引入作用域的习惯用法。要想使用 <code>use</code> 将函数的父模块引入作用域，我们必须在调用函数时指定父模块，这样可以清晰地表明函数不是在本地定义的，同时使完整路径的重复度最小化。示例 7-13 中的代码不清楚 <code>add_to_waitlist</code> 是在哪里被定义的。</p>
+<p>另一方面，使用 <code>use</code> 引入结构体、枚举和其他项时，习惯是指定它们的完整路径。示例 7-14 展示了将 <code>HashMap</code> 结构体引入二进制 crate 作用域的习惯用法。</p>
+<p>文件名: src/main.rs</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-rust" data-lang="rust"><span class="k">use</span><span class="w"> </span><span class="n">std</span>::<span class="n">collections</span>::<span class="n">HashMap</span><span class="p">;</span><span class="w">
+</span><span class="w">
+</span><span class="w"></span><span class="k">fn</span> <span class="nf">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span><span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="k">mut</span><span class="w"> </span><span class="n">map</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">HashMap</span>::<span class="n">new</span><span class="p">();</span><span class="w">
+</span><span class="w">    </span><span class="n">map</span><span class="p">.</span><span class="n">insert</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">);</span><span class="w">
+</span><span class="w"></span><span class="p">}</span><span class="w">
+</span></code></pre></div><p>示例 7-14: 将 <code>HashMap</code> 引入作用域的习惯用法</p>
+<p>这种习惯用法背后没有什么硬性要求：它只是一种惯例，人们已经习惯了以这种方式阅读和编写 Rust 代码。</p>
+<p>这个习惯用法有一个例外，那就是我们想使用 <code>use</code> 语句将两个具有相同名称的项带入作用域，因为 Rust 不允许这样做。示例 7-15 展示了如何将两个具有相同名称但不同父模块的 <code>Result</code> 类型引入作用域，以及如何引用它们。</p>
+<p>文件名: src/lib.rs</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-rust" data-lang="rust"><span class="k">use</span><span class="w"> </span><span class="n">std</span>::<span class="n">fmt</span><span class="p">;</span><span class="w">
+</span><span class="w"></span><span class="k">use</span><span class="w"> </span><span class="n">std</span>::<span class="n">io</span><span class="p">;</span><span class="w">
+</span><span class="w">
+</span><span class="w"></span><span class="k">fn</span> <span class="nf">function1</span><span class="p">()</span><span class="w"> </span>-&gt; <span class="nc">fmt</span>::<span class="nb">Result</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span><span class="w">    </span><span class="c1">// --snip--
+</span><span class="c1"></span><span class="p">}</span><span class="w">
+</span><span class="w">
+</span><span class="w"></span><span class="k">fn</span> <span class="nf">function2</span><span class="p">()</span><span class="w"> </span>-&gt; <span class="nc">io</span>::<span class="nb">Result</span><span class="o">&lt;</span><span class="p">()</span><span class="o">&gt;</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span><span class="w">    </span><span class="c1">// --snip--
+</span><span class="c1"></span><span class="p">}</span><span class="w">
+</span></code></pre></div><p>示例 7-15: 使用父模块将两个具有相同名称的类型引入同一作用域</p>
+<p>如你所见，使用父模块可以区分这两个 <code>Result</code> 类型。如果我们是指定 <code>use std::fmt::Result</code> 和 <code>use std::io::Result</code>，我们将在同一作用域拥有了两个 <code>Result</code> 类型，当我们使用 <code>Result</code> 时，Rust 则不知道我们要用的是哪个。</p>
+<h3 id="使用-as-关键字提供新的名称httpskaiserygithubiotrpl-zh-cnch07-04-bringing-paths-into-scope-with-the-use-keywordhtml使用-as-关键字提供新的名称"><a href="https://kaisery.github.io/trpl-zh-cn/ch07-04-bringing-paths-into-scope-with-the-use-keyword.html#%E4%BD%BF%E7%94%A8-as-%E5%85%B3%E9%94%AE%E5%AD%97%E6%8F%90%E4%BE%9B%E6%96%B0%E7%9A%84%E5%90%8D%E7%A7%B0">使用 <code>as</code> 关键字提供新的名称</a></h3>
+<p>使用 <code>use</code> 将两个同名类型引入同一作用域这个问题还有另一个解决办法：在这个类型的路径后面，我们使用 <code>as</code> 指定一个新的本地名称或者别名。示例 7-16 展示了另一个编写示例 7-15 中代码的方法，通过 <code>as</code> 重命名其中一个 <code>Result</code> 类型。</p>
+<p>文件名: src/lib.rs</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-rust" data-lang="rust"><span class="k">use</span><span class="w"> </span><span class="n">std</span>::<span class="n">fmt</span>::<span class="nb">Result</span><span class="p">;</span><span class="w">
+</span><span class="w"></span><span class="k">use</span><span class="w"> </span><span class="n">std</span>::<span class="n">io</span>::<span class="nb">Result</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">IoResult</span><span class="p">;</span><span class="w">
+</span><span class="w">
+</span><span class="w"></span><span class="k">fn</span> <span class="nf">function1</span><span class="p">()</span><span class="w"> </span>-&gt; <span class="nb">Result</span> <span class="p">{</span><span class="w">
+</span><span class="w">    </span><span class="c1">// --snip--
+</span><span class="c1"></span><span class="p">}</span><span class="w">
+</span><span class="w">
+</span><span class="w"></span><span class="k">fn</span> <span class="nf">function2</span><span class="p">()</span><span class="w"> </span>-&gt; <span class="nc">IoResult</span><span class="o">&lt;</span><span class="p">()</span><span class="o">&gt;</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span><span class="w">    </span><span class="c1">// --snip--
+</span><span class="c1"></span><span class="p">}</span><span class="w">
+</span></code></pre></div><p>示例 7-16: 使用 <code>as</code> 关键字重命名引入作用域的类型</p>
+<p>在第二个 <code>use</code> 语句中，我们选择 <code>IoResult</code> 作为 <code>std::io::Result</code> 的新名称，它与从 <code>std::fmt</code> 引入作用域的 <code>Result</code> 并不冲突。示例 7-15 和示例 7-16 都是惯用的，如何选择都取决于你!</p>
+<h3 id="使用-pub-use-重导出名称httpskaiserygithubiotrpl-zh-cnch07-04-bringing-paths-into-scope-with-the-use-keywordhtml使用-pub-use-重导出名称"><a href="https://kaisery.github.io/trpl-zh-cn/ch07-04-bringing-paths-into-scope-with-the-use-keyword.html#%E4%BD%BF%E7%94%A8-pub-use-%E9%87%8D%E5%AF%BC%E5%87%BA%E5%90%8D%E7%A7%B0">使用 <code>pub use</code> 重导出名称</a></h3>
+<p>使用 <code>use</code> 关键字，将某个名称导入当前作用域后，这个名称在此作用域中就可以使用了，但它对此作用域之外还是私有的。如果想让其他人调用我们的代码时，也能够正常使用这个名称，就好像它本来就在当前作用域一样，那我们可以将 <code>pub</code> 和 <code>use</code> 合起来使用。这种技术被称为 “<em>重导出</em>（<em>re-exporting</em>）”：我们不仅将一个名称导入了当前作用域，还允许别人把它导入他们自己的作用域。</p>
+<p>示例 7-17 将示例 7-11 根模块中的 <code>use</code> 改为 <code>pub use</code> 。</p>
+<p>文件名: src/lib.rs</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-rust" data-lang="rust"><span class="k">mod</span> <span class="nn">front_of_house</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span><span class="w">    </span><span class="k">pub</span><span class="w"> </span><span class="k">mod</span> <span class="nn">hosting</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span><span class="w">        </span><span class="k">pub</span><span class="w"> </span><span class="k">fn</span> <span class="nf">add_to_waitlist</span><span class="p">()</span><span class="w"> </span><span class="p">{}</span><span class="w">
+</span><span class="w">    </span><span class="p">}</span><span class="w">
+</span><span class="w"></span><span class="p">}</span><span class="w">
+</span><span class="w">
+</span><span class="w"></span><span class="k">pub</span><span class="w"> </span><span class="k">use</span><span class="w"> </span><span class="k">crate</span>::<span class="n">front_of_house</span>::<span class="n">hosting</span><span class="p">;</span><span class="w">
+</span><span class="w">
+</span><span class="w"></span><span class="k">pub</span><span class="w"> </span><span class="k">fn</span> <span class="nf">eat_at_restaurant</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span><span class="w">    </span><span class="n">hosting</span>::<span class="n">add_to_waitlist</span><span class="p">();</span><span class="w">
+</span><span class="w">    </span><span class="n">hosting</span>::<span class="n">add_to_waitlist</span><span class="p">();</span><span class="w">
+</span><span class="w">    </span><span class="n">hosting</span>::<span class="n">add_to_waitlist</span><span class="p">();</span><span class="w">
+</span><span class="w"></span><span class="p">}</span><span class="w">
+</span></code></pre></div><p>示例 7-17: 通过 <code>pub use</code> 使名称可从新作用域中被导入至任何代码</p>
+<p>通过 <code>pub use</code>，外部代码现在可以通过新路径 <code>hosting::add_to_waitlist</code> 来调用 <code>add_to_waitlist</code> 函数。如果没有指定 <code>pub use</code>，<code>eat_at_restaurant</code> 函数可以在其作用域中调用 <code>hosting::add_to_waitlist</code>，但外部代码则不允许使用这个新路径。</p>
+<p>当你代码的内部结构与调用你代码的程序员所想象的结构不同时，重导出会很有用。例如，在这个餐馆的比喻中，经营餐馆的人会想到“前台”和“后台”。但顾客在光顾一家餐馆时，可能不会以这些术语来考虑餐馆的各个部分。使用 <code>pub use</code>，我们可以使用一种结构编写代码，却将不同的结构形式暴露出来。这样做使我们的库井井有条，也使开发这个库的程序员和调用这个库的程序员都更加方便。</p>
+<h3 id="使用外部包httpskaiserygithubiotrpl-zh-cnch07-04-bringing-paths-into-scope-with-the-use-keywordhtml使用外部包"><a href="https://kaisery.github.io/trpl-zh-cn/ch07-04-bringing-paths-into-scope-with-the-use-keyword.html#%E4%BD%BF%E7%94%A8%E5%A4%96%E9%83%A8%E5%8C%85">使用外部包</a></h3>
+<p>在第二章中我们编写了一个猜猜看游戏。那个项目使用了一个外部包，<code>rand</code>，来生成随机数。为了在项目中使用 <code>rand</code>，在 <em>Cargo.toml</em> 中加入了如下行：</p>
+<p>文件名: Cargo.toml</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-toml" data-lang="toml"><span class="nx">rand</span> <span class="p">=</span> <span class="s2">&#34;0.8.3&#34;</span>
+</code></pre></div><p>在 <em>Cargo.toml</em> 中加入 <code>rand</code> 依赖告诉了 Cargo 要从 <a href="https://crates.io/">crates.io</a> 下载 <code>rand</code> 和其依赖，并使其可在项目代码中使用。</p>
+<p>接着，为了将 <code>rand</code> 定义引入项目包的作用域，我们加入一行 <code>use</code> 起始的包名，它以 <code>rand</code> 包名开头并列出了需要引入作用域的项。回忆一下第二章的 “生成一个随机数” 部分，我们曾将 <code>Rng</code> trait 引入作用域并调用了 <code>rand::thread_rng</code> 函数：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-rust" data-lang="rust"><span class="k">use</span><span class="w"> </span><span class="n">rand</span>::<span class="n">Rng</span><span class="p">;</span><span class="w">
+</span><span class="w">
+</span><span class="w"></span><span class="k">fn</span> <span class="nf">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span><span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="n">secret_number</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">rand</span>::<span class="n">thread_rng</span><span class="p">().</span><span class="n">gen_range</span><span class="p">(</span><span class="mi">1</span><span class="o">..=</span><span class="mi">100</span><span class="p">);</span><span class="w">
+</span><span class="w"></span><span class="p">}</span><span class="w">
+</span></code></pre></div><p><a href="https://crates.io/">crates.io</a> 上有很多 Rust 社区成员发布的包，将其引入你自己的项目都需要一道相同的步骤：在 <em>Cargo.toml</em> 列出它们并通过 <code>use</code> 将其中定义的项引入项目包的作用域中。</p>
+<p>注意标准库（<code>std</code>）对于你的包来说也是外部 crate。因为标准库随 Rust 语言一同分发，无需修改 <em>Cargo.toml</em> 来引入 <code>std</code>，不过需要通过 <code>use</code> 将标准库中定义的项引入项目包的作用域中来引用它们，比如我们使用的 <code>HashMap</code>：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-rust" data-lang="rust"><span class="k">use</span><span class="w"> </span><span class="n">std</span>::<span class="n">collections</span>::<span class="n">HashMap</span><span class="p">;</span><span class="w">
+</span></code></pre></div><p>这是一个以标准库 crate 名 <code>std</code> 开头的绝对路径。</p>
+<h3 id="嵌套路径来消除大量的-use-行httpskaiserygithubiotrpl-zh-cnch07-04-bringing-paths-into-scope-with-the-use-keywordhtml嵌套路径来消除大量的-use-行"><a href="https://kaisery.github.io/trpl-zh-cn/ch07-04-bringing-paths-into-scope-with-the-use-keyword.html#%E5%B5%8C%E5%A5%97%E8%B7%AF%E5%BE%84%E6%9D%A5%E6%B6%88%E9%99%A4%E5%A4%A7%E9%87%8F%E7%9A%84-use-%E8%A1%8C">嵌套路径来消除大量的 <code>use</code> 行</a></h3>
+<p>当需要引入很多定义于相同包或相同模块的项时，为每一项单独列出一行会占用源码很大的空间。例如猜猜看章节示例 2-4 中有两行 <code>use</code> 语句都从 <code>std</code> 引入项到作用域：</p>
+<p>文件名: src/main.rs</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-rust" data-lang="rust"><span class="c1">// --snip--
+</span><span class="c1"></span><span class="k">use</span><span class="w"> </span><span class="n">std</span>::<span class="n">cmp</span>::<span class="n">Ordering</span><span class="p">;</span><span class="w">
+</span><span class="w"></span><span class="k">use</span><span class="w"> </span><span class="n">std</span>::<span class="n">io</span><span class="p">;</span><span class="w">
+</span><span class="w"></span><span class="c1">// --snip--
+</span></code></pre></div><p>相反，我们可以使用嵌套路径将相同的项在一行中引入作用域。这么做需要指定路径的相同部分，接着是两个冒号，接着是大括号中的各自不同的路径部分，如示例 7-18 所示。</p>
+<p>文件名: src/main.rs</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-rust" data-lang="rust"><span class="c1">// --snip--
+</span><span class="c1"></span><span class="k">use</span><span class="w"> </span><span class="n">std</span>::<span class="p">{</span><span class="n">cmp</span>::<span class="n">Ordering</span><span class="p">,</span><span class="w"> </span><span class="n">io</span><span class="p">};</span><span class="w">
+</span><span class="w"></span><span class="c1">// --snip--
+</span></code></pre></div><p>示例 7-18: 指定嵌套的路径在一行中将多个带有相同前缀的项引入作用域</p>
+<p>在较大的程序中，使用嵌套路径从相同包或模块中引入很多项，可以显著减少所需的独立 <code>use</code> 语句的数量！</p>
+<p>我们可以在路径的任何层级使用嵌套路径，这在组合两个共享子路径的 <code>use</code> 语句时非常有用。例如，示例 7-19 中展示了两个 <code>use</code> 语句：一个将 <code>std::io</code> 引入作用域，另一个将 <code>std::io::Write</code> 引入作用域：</p>
+<p>文件名: src/lib.rs</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-rust" data-lang="rust"><span class="k">use</span><span class="w"> </span><span class="n">std</span>::<span class="n">io</span><span class="p">;</span><span class="w">
+</span><span class="w"></span><span class="k">use</span><span class="w"> </span><span class="n">std</span>::<span class="n">io</span>::<span class="n">Write</span><span class="p">;</span><span class="w">
+</span></code></pre></div><p>示例 7-19: 通过两行 <code>use</code> 语句引入两个路径，其中一个是另一个的子路径</p>
+<p>两个路径的相同部分是 <code>std::io</code>，这正是第一个路径。为了在一行 <code>use</code> 语句中引入这两个路径，可以在嵌套路径中使用 <code>self</code>，如示例 7-20 所示。</p>
+<p>文件名: src/lib.rs</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-rust" data-lang="rust"><span class="k">use</span><span class="w"> </span><span class="n">std</span>::<span class="n">io</span>::<span class="p">{</span><span class="bp">self</span><span class="p">,</span><span class="w"> </span><span class="n">Write</span><span class="p">};</span><span class="w">
+</span></code></pre></div><p>示例 7-20: 将示例 7-19 中部分重复的路径合并为一个 <code>use</code> 语句</p>
+<p>这一行便将 <code>std::io</code> 和 <code>std::io::Write</code> 同时引入作用域。</p>
+<h3 id="通过-glob-运算符将所有的公有定义引入作用域httpskaiserygithubiotrpl-zh-cnch07-04-bringing-paths-into-scope-with-the-use-keywordhtml通过-glob-运算符将所有的公有定义引入作用域"><a href="https://kaisery.github.io/trpl-zh-cn/ch07-04-bringing-paths-into-scope-with-the-use-keyword.html#%E9%80%9A%E8%BF%87-glob-%E8%BF%90%E7%AE%97%E7%AC%A6%E5%B0%86%E6%89%80%E6%9C%89%E7%9A%84%E5%85%AC%E6%9C%89%E5%AE%9A%E4%B9%89%E5%BC%95%E5%85%A5%E4%BD%9C%E7%94%A8%E5%9F%9F">通过 glob 运算符将所有的公有定义引入作用域</a></h3>
+<p>如果希望将一个路径下 <strong>所有</strong> 公有项引入作用域，可以指定路径后跟 <code>*</code>，glob 运算符：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-rust" data-lang="rust"><span class="k">use</span><span class="w"> </span><span class="n">std</span>::<span class="n">collections</span>::<span class="o">*</span><span class="p">;</span><span class="w">
+</span></code></pre></div><p>这个 <code>use</code> 语句将 <code>std::collections</code> 中定义的所有公有项引入当前作用域。使用 glob 运算符时请多加小心！Glob 会使得我们难以推导作用域中有什么名称和它们是在何处定义的。</p>
+<h1 id="六将模块拆分成多个文件httpskaiserygithubiotrpl-zh-cnch07-05-separating-modules-into-different-fileshtml将模块拆分成多个文件">六.<a href="https://kaisery.github.io/trpl-zh-cn/ch07-05-separating-modules-into-different-files.html#%E5%B0%86%E6%A8%A1%E5%9D%97%E6%8B%86%E5%88%86%E6%88%90%E5%A4%9A%E4%B8%AA%E6%96%87%E4%BB%B6">将模块拆分成多个文件</a></h1>
+<p>到目前为止，本章所有的例子都在一个文件中定义多个模块。当模块变得更大时，你可能想要将它们的定义移动到单独的文件中，从而使代码更容易阅读。</p>
+<p>例如，我们从示例 7-17 开始，将 <code>front_of_house</code> 模块移动到属于它自己的文件 <em>src/front_of_house.rs</em> 中，通过改变 crate 根文件，使其包含示例 7-21 所示的代码。在这个例子中，crate 根文件是 <em>src/lib.rs</em>，这也同样适用于以 <em>src/main.rs</em> 为 crate 根文件的二进制 crate 项。</p>
+<p>文件名: src/lib.rs</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-rust" data-lang="rust"><span class="k">mod</span> <span class="nn">front_of_house</span><span class="p">;</span><span class="w">
+</span><span class="w">
+</span><span class="w"></span><span class="k">pub</span><span class="w"> </span><span class="k">use</span><span class="w"> </span><span class="k">crate</span>::<span class="n">front_of_house</span>::<span class="n">hosting</span><span class="p">;</span><span class="w">
+</span><span class="w">
+</span><span class="w"></span><span class="k">pub</span><span class="w"> </span><span class="k">fn</span> <span class="nf">eat_at_restaurant</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span><span class="w">    </span><span class="n">hosting</span>::<span class="n">add_to_waitlist</span><span class="p">();</span><span class="w">
+</span><span class="w">    </span><span class="n">hosting</span>::<span class="n">add_to_waitlist</span><span class="p">();</span><span class="w">
+</span><span class="w">    </span><span class="n">hosting</span>::<span class="n">add_to_waitlist</span><span class="p">();</span><span class="w">
+</span><span class="w"></span><span class="p">}</span><span class="w">
+</span></code></pre></div><p>示例 7-21: 声明 <code>front_of_house</code> 模块，其内容将位于 <em>src/front_of_house.rs</em></p>
+<p><em>src/front_of_house.rs</em> 会获取 <code>front_of_house</code> 模块的定义内容，如示例 7-22 所示。</p>
+<p>文件名: src/front_of_house.rs</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-rust" data-lang="rust"><span class="k">pub</span><span class="w"> </span><span class="k">mod</span> <span class="nn">hosting</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span><span class="w">    </span><span class="k">pub</span><span class="w"> </span><span class="k">fn</span> <span class="nf">add_to_waitlist</span><span class="p">()</span><span class="w"> </span><span class="p">{}</span><span class="w">
+</span><span class="w"></span><span class="p">}</span><span class="w">
+</span></code></pre></div><p>示例 7-22: 在 <em>src/front_of_house.rs</em> 中定义 <code>front_of_house</code> 模块</p>
+<p>在 <code>mod front_of_house</code> 后使用分号，而不是代码块，这将告诉 Rust 在另一个与模块同名的文件中加载模块的内容。继续重构我们例子，将 <code>hosting</code> 模块也提取到其自己的文件中，仅对 <em>src/front_of_house.rs</em> 包含 <code>hosting</code> 模块的声明进行修改：</p>
+<p>文件名: src/front_of_house.rs</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-rust" data-lang="rust"><span class="k">pub</span><span class="w"> </span><span class="k">mod</span> <span class="nn">hosting</span><span class="p">;</span><span class="w">
+</span></code></pre></div><p>接着我们创建一个 <em>src/front_of_house</em> 目录和一个包含 <code>hosting</code> 模块定义的 <em>src/front_of_house/hosting.rs</em> 文件：</p>
+<p>文件名: src/front_of_house/hosting.rs</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-rust" data-lang="rust"><span class="k">pub</span><span class="w"> </span><span class="k">fn</span> <span class="nf">add_to_waitlist</span><span class="p">()</span><span class="w"> </span><span class="p">{}</span><span class="w">
+</span></code></pre></div><p>模块树依然保持相同，<code>eat_at_restaurant</code> 中的函数调用也无需修改继续保持有效，即便其定义存在于不同的文件中。这个技巧让你可以在模块代码增长时，将它们移动到新文件中。</p>
+<p>注意，<em>src/lib.rs</em> 中的 <code>pub use crate::front_of_house::hosting</code> 语句是没有改变的，在文件作为 crate 的一部分而编译时，<code>use</code> 不会有任何影响。<code>mod</code> 关键字声明了模块，Rust 会在与模块同名的文件中查找模块的代码。</p>
+<p>总结</p>
+<p>Rust 提供了将包分成多个 crate，将 crate 分成模块，以及通过指定绝对或相对路径从一个模块引用另一个模块中定义的项的方式。你可以通过使用 <code>use</code> 语句将路径引入作用域，这样在多次使用时可以使用更短的路径。模块定义的代码默认是私有的，不过可以选择增加 <code>pub</code> 关键字使其定义变为公有。</p>
+
+    
+	</div>
+  <footer class="article-footer clearfix">
+  
+
+<div class="article-tags">
+  <span></span>
+  
+  <a href="https://qkgoalkeeper.github.io/tags/rust%E6%95%99%E7%A8%8B">rust教程</a>
+  
+</div>
+
+
+
+
+
+<div class="article-categories">
+  <span></span>
+  
+  <a class="article-category-link" href="https://qkgoalkeeper.github.io/categories/rust">rust</a>
+  
+</div>
+
+
+
+  <div class="article-share" id="share">
+    <div data-url="https://qkgoalkeeper.github.io/post/rustthe_rust_book7%E4%BD%BF%E7%94%A8%E5%8C%85crate-%E5%92%8C%E6%A8%A1%E5%9D%97%E7%AE%A1%E7%90%86%E4%B8%8D%E6%96%AD%E5%A2%9E%E9%95%BF%E7%9A%84%E9%A1%B9%E7%9B%AE/" data-title="rust：the_rust_book（7）使用包、Crate 和模块管理不断增长的项目" data-tsina="5852167252" class="share clearfix">
+    </div>
+  </div>
+</footer>
+
+	</article>
+  
+
+
+
+</div>
+
+    <div class="openaside"><a class="navbutton" href="#" title="显示侧边栏"></a></div>
+<div id="asidepart">
+<div class="closeaside"><a class="closebutton" href="#" title="隐藏侧边栏"></a></div>
+<aside class="clearfix">
+  
+
+<div class="categorieslist">
+  <p class="asidetitle">分类</p>
+  <ul>
+    
+    <li><a href="https://qkgoalkeeper.github.io/categories/golang" title="golang">golang<sup>6</sup></a></li>
+    
+    <li><a href="https://qkgoalkeeper.github.io/categories/leetcode%e5%91%a8%e8%b5%9b" title="leetcode周赛">leetcode周赛<sup>2</sup></a></li>
+    
+    <li><a href="https://qkgoalkeeper.github.io/categories/leetcode%e6%af%8f%e6%97%a5%e4%b8%80%e9%a2%98" title="leetcode每日一题">leetcode每日一题<sup>24</sup></a></li>
+    
+    <li><a href="https://qkgoalkeeper.github.io/categories/leetcode%e7%ae%80%e5%8d%95%e9%a2%981-100" title="leetcode简单题1-100">leetcode简单题1-100<sup>21</sup></a></li>
+    
+    <li><a href="https://qkgoalkeeper.github.io/categories/leetcode%e7%ae%80%e5%8d%95%e9%a2%98101-200" title="leetcode简单题101-200">leetcode简单题101-200<sup>25</sup></a></li>
+    
+    <li><a href="https://qkgoalkeeper.github.io/categories/leetcode%e7%ae%80%e5%8d%95%e9%a2%98201-300" title="leetcode简单题201-300">leetcode简单题201-300<sup>24</sup></a></li>
+    
+    <li><a href="https://qkgoalkeeper.github.io/categories/python" title="python">python<sup>1</sup></a></li>
+    
+    <li><a href="https://qkgoalkeeper.github.io/categories/rust" title="rust">rust<sup>16</sup></a></li>
+    
+    <li><a href="https://qkgoalkeeper.github.io/categories/%e4%bb%a5%e5%a4%aa%e5%9d%8a" title="以太坊">以太坊<sup>1</sup></a></li>
+    
+    <li><a href="https://qkgoalkeeper.github.io/categories/%e5%85%b6%e4%bb%96" title="其他">其他<sup>1</sup></a></li>
+    
+    <li><a href="https://qkgoalkeeper.github.io/categories/%e5%8c%ba%e5%9d%97%e9%93%be" title="区块链">区块链<sup>4</sup></a></li>
+    
+    <li><a href="https://qkgoalkeeper.github.io/categories/%e5%8c%ba%e5%9d%97%e9%93%be%e7%9b%b8%e5%85%b3" title="区块链相关">区块链相关<sup>1</sup></a></li>
+    
+    <li><a href="https://qkgoalkeeper.github.io/categories/%e5%a4%a7%e4%b8%89%e4%b8%8a%e6%95%b0%e6%8d%ae%e5%ba%93%e8%af%be%e7%a8%8b" title="大三上数据库课程">大三上数据库课程<sup>1</sup></a></li>
+    
+    <li><a href="https://qkgoalkeeper.github.io/categories/%e5%a4%a7%e4%b8%89%e4%b8%8bweb%e7%bc%96%e7%a8%8b%e8%af%be%e7%a8%8b" title="大三下web编程课程">大三下web编程课程<sup>2</sup></a></li>
+    
+    <li><a href="https://qkgoalkeeper.github.io/categories/%e5%a4%a7%e5%9b%9bleetcode%e7%ae%97%e6%b3%95%e5%88%b7%e9%a2%98" title="大四leetcode算法刷题">大四leetcode算法刷题<sup>300</sup></a></li>
+    
+    <li><a href="https://qkgoalkeeper.github.io/categories/%e6%95%b0%e6%8d%ae%e5%ba%93" title="数据库">数据库<sup>1</sup></a></li>
+    
+    <li><a href="https://qkgoalkeeper.github.io/categories/%e7%8e%8b%e9%81%93%e6%9c%ba%e8%af%95%e6%8c%87%e5%8d%97" title="王道机试指南">王道机试指南<sup>2</sup></a></li>
+    
+    <li><a href="https://qkgoalkeeper.github.io/categories/%e8%ae%ba%e6%96%87%e8%a7%a3%e8%af%bb" title="论文解读">论文解读<sup>2</sup></a></li>
+    
+  </ul>
+</div>
+
+
+
+  
+
+<div class="tagslist">
+	<p class="asidetitle">标签</p>
+		<ul class="clearfix">
+      
+			<li><a href="https://qkgoalkeeper.github.io/tags/bfs" title="bfs">bfs<sup>13</sup></a></li>
+      
+			<li><a href="https://qkgoalkeeper.github.io/tags/c&#43;&#43;" title="c&#43;&#43;">c&#43;&#43;<sup>289</sup></a></li>
+      
+			<li><a href="https://qkgoalkeeper.github.io/tags/dfs" title="dfs">dfs<sup>27</sup></a></li>
+      
+			<li><a href="https://qkgoalkeeper.github.io/tags/golang" title="golang">golang<sup>40</sup></a></li>
+      
+			<li><a href="https://qkgoalkeeper.github.io/tags/golang%e8%af%ad%e6%b3%95" title="golang语法">golang语法<sup>4</sup></a></li>
+      
+			<li><a href="https://qkgoalkeeper.github.io/tags/javascript" title="javascript">javascript<sup>2</sup></a></li>
+      
+			<li><a href="https://qkgoalkeeper.github.io/tags/leetcode" title="leetcode">leetcode<sup>396</sup></a></li>
+      
+			<li><a href="https://qkgoalkeeper.github.io/tags/rust%e6%95%99%e7%a8%8b" title="rust教程">rust教程<sup>16</sup></a></li>
+      
+			<li><a href="https://qkgoalkeeper.github.io/tags/solidity" title="solidity">solidity<sup>1</sup></a></li>
+      
+			<li><a href="https://qkgoalkeeper.github.io/tags/%e4%ba%8c%e5%88%86%e6%b3%95" title="二分法">二分法<sup>8</sup></a></li>
+      
+			<li><a href="https://qkgoalkeeper.github.io/tags/%e4%bb%a3%e7%a0%81" title="代码">代码<sup>3</sup></a></li>
+      
+			<li><a href="https://qkgoalkeeper.github.io/tags/%e4%bc%98%e5%85%88%e9%98%9f%e5%88%97" title="优先队列">优先队列<sup>4</sup></a></li>
+      
+			<li><a href="https://qkgoalkeeper.github.io/tags/%e4%bd%8d%e8%bf%90%e7%ae%97" title="位运算">位运算<sup>5</sup></a></li>
+      
+			<li><a href="https://qkgoalkeeper.github.io/tags/%e5%88%86%e6%b2%bb%e6%b3%95" title="分治法">分治法<sup>3</sup></a></li>
+      
+			<li><a href="https://qkgoalkeeper.github.io/tags/%e5%89%8d%e7%bc%80%e5%92%8c" title="前缀和">前缀和<sup>5</sup></a></li>
+      
+			<li><a href="https://qkgoalkeeper.github.io/tags/%e5%8a%a8%e6%80%81%e8%a7%84%e5%88%92" title="动态规划">动态规划<sup>32</sup></a></li>
+      
+			<li><a href="https://qkgoalkeeper.github.io/tags/%e5%8c%ba%e5%9d%97%e9%93%be" title="区块链">区块链<sup>4</sup></a></li>
+      
+			<li><a href="https://qkgoalkeeper.github.io/tags/%e5%8d%95%e8%b0%83%e9%98%9f%e5%88%97" title="单调队列">单调队列<sup>1</sup></a></li>
+      
+			<li><a href="https://qkgoalkeeper.github.io/tags/%e5%8f%8c%e6%8c%87%e9%92%88" title="双指针">双指针<sup>2</sup></a></li>
+      
+			<li><a href="https://qkgoalkeeper.github.io/tags/%e5%93%88%e5%b8%8c%e8%a1%a8" title="哈希表">哈希表<sup>7</sup></a></li>
+      
+			<li><a href="https://qkgoalkeeper.github.io/tags/%e5%a0%86" title="堆">堆<sup>3</sup></a></li>
+      
+			<li><a href="https://qkgoalkeeper.github.io/tags/%e5%ad%97%e5%85%b8%e6%a0%91" title="字典树">字典树<sup>6</sup></a></li>
+      
+			<li><a href="https://qkgoalkeeper.github.io/tags/%e5%ad%97%e7%ac%a6%e4%b8%b2" title="字符串">字符串<sup>4</sup></a></li>
+      
+			<li><a href="https://qkgoalkeeper.github.io/tags/%e5%b9%b6%e6%9f%a5%e9%9b%86" title="并查集">并查集<sup>5</sup></a></li>
+      
+			<li><a href="https://qkgoalkeeper.github.io/tags/%e5%ba%8f%e5%88%97%e5%8c%96" title="序列化">序列化<sup>1</sup></a></li>
+      
+			<li><a href="https://qkgoalkeeper.github.io/tags/%e6%8b%93%e6%89%91%e6%8e%92%e5%ba%8f" title="拓扑排序">拓扑排序<sup>3</sup></a></li>
+      
+			<li><a href="https://qkgoalkeeper.github.io/tags/%e6%8e%92%e5%88%97" title="排列">排列<sup>1</sup></a></li>
+      
+			<li><a href="https://qkgoalkeeper.github.io/tags/%e6%8e%92%e5%ba%8f" title="排序">排序<sup>2</sup></a></li>
+      
+			<li><a href="https://qkgoalkeeper.github.io/tags/%e6%95%b0%e5%ad%a6" title="数学">数学<sup>5</sup></a></li>
+      
+			<li><a href="https://qkgoalkeeper.github.io/tags/%e6%95%b0%e6%8d%ae%e5%ba%93" title="数据库">数据库<sup>1</sup></a></li>
+      
+			<li><a href="https://qkgoalkeeper.github.io/tags/%e6%95%b0%e7%bb%84" title="数组">数组<sup>2</sup></a></li>
+      
+			<li><a href="https://qkgoalkeeper.github.io/tags/%e6%a0%88" title="栈">栈<sup>8</sup></a></li>
+      
+			<li><a href="https://qkgoalkeeper.github.io/tags/%e6%a0%91" title="树">树<sup>25</sup></a></li>
+      
+			<li><a href="https://qkgoalkeeper.github.io/tags/%e6%ba%90%e7%a0%81%e7%bc%96%e8%af%91" title="源码编译">源码编译<sup>1</sup></a></li>
+      
+			<li><a href="https://qkgoalkeeper.github.io/tags/%e6%bb%91%e5%8a%a8%e7%aa%97%e5%8f%a3" title="滑动窗口">滑动窗口<sup>10</sup></a></li>
+      
+			<li><a href="https://qkgoalkeeper.github.io/tags/%e7%8e%8b%e9%81%93%e6%9c%ba%e8%af%95%e6%8c%87%e5%8d%97" title="王道机试指南">王道机试指南<sup>2</sup></a></li>
+      
+			<li><a href="https://qkgoalkeeper.github.io/tags/%e7%ba%bf%e6%ae%b5%e6%a0%91" title="线段树">线段树<sup>1</sup></a></li>
+      
+			<li><a href="https://qkgoalkeeper.github.io/tags/%e7%bc%93%e5%ad%98" title="缓存">缓存<sup>2</sup></a></li>
+      
+			<li><a href="https://qkgoalkeeper.github.io/tags/%e8%ae%ba%e6%96%87%e8%a7%a3%e8%af%bb" title="论文解读">论文解读<sup>2</sup></a></li>
+      
+			<li><a href="https://qkgoalkeeper.github.io/tags/%e8%b4%aa%e5%bf%83" title="贪心">贪心<sup>1</sup></a></li>
+      
+			<li><a href="https://qkgoalkeeper.github.io/tags/%e8%b4%aa%e5%bf%83%e6%b3%95" title="贪心法">贪心法<sup>1</sup></a></li>
+      
+			<li><a href="https://qkgoalkeeper.github.io/tags/%e9%93%be%e8%a1%a8" title="链表">链表<sup>10</sup></a></li>
+      
+			<li><a href="https://qkgoalkeeper.github.io/tags/%e9%98%9f%e5%88%97" title="队列">队列<sup>2</sup></a></li>
+      
+			<li><a href="https://qkgoalkeeper.github.io/tags/%e9%9a%8f%e6%9c%ba%e6%95%b0" title="随机数">随机数<sup>3</sup></a></li>
+      
+		</ul>
+</div>
+
+
+
+  
+  <div class="archiveslist">
+    <p class="asidetitle">归档</p>
+    <ul class="archive-list">
+      
+      
+      <li class="archive-list-item">
+        <a class="archive-list-link" href="https://qkgoalkeeper.github.io/post/#2022-08">2022年08月</a><span class="archive-list-count">5</span>
+      </li>
+      
+      
+      <li class="archive-list-item">
+        <a class="archive-list-link" href="https://qkgoalkeeper.github.io/post/#2022-07">2022年07月</a><span class="archive-list-count">22</span>
+      </li>
+      
+      
+      <li class="archive-list-item">
+        <a class="archive-list-link" href="https://qkgoalkeeper.github.io/post/#2022-06">2022年06月</a><span class="archive-list-count">26</span>
+      </li>
+      
+      
+      <li class="archive-list-item">
+        <a class="archive-list-link" href="https://qkgoalkeeper.github.io/post/#2022-05">2022年05月</a><span class="archive-list-count">14</span>
+      </li>
+      
+      
+      <li class="archive-list-item">
+        <a class="archive-list-link" href="https://qkgoalkeeper.github.io/post/#2022-04">2022年04月</a><span class="archive-list-count">24</span>
+      </li>
+      
+      
+      <li class="archive-list-item">
+        <a class="archive-list-link" href="https://qkgoalkeeper.github.io/post/#2022-03">2022年03月</a><span class="archive-list-count">32</span>
+      </li>
+      
+      
+      <li class="archive-list-item">
+        <a class="archive-list-link" href="https://qkgoalkeeper.github.io/post/#2022-02">2022年02月</a><span class="archive-list-count">61</span>
+      </li>
+      
+      
+      <li class="archive-list-item">
+        <a class="archive-list-link" href="https://qkgoalkeeper.github.io/post/#2022-01">2022年01月</a><span class="archive-list-count">77</span>
+      </li>
+      
+      
+      <li class="archive-list-item">
+        <a class="archive-list-link" href="https://qkgoalkeeper.github.io/post/#2021-12">2021年12月</a><span class="archive-list-count">31</span>
+      </li>
+      
+      
+      <li class="archive-list-item">
+        <a class="archive-list-link" href="https://qkgoalkeeper.github.io/post/#2021-11">2021年11月</a><span class="archive-list-count">30</span>
+      </li>
+      
+      
+      <li class="archive-list-item">
+        <a class="archive-list-link" href="https://qkgoalkeeper.github.io/post/#2021-10">2021年10月</a><span class="archive-list-count">31</span>
+      </li>
+      
+      
+      <li class="archive-list-item">
+        <a class="archive-list-link" href="https://qkgoalkeeper.github.io/post/#2021-09">2021年09月</a><span class="archive-list-count">5</span>
+      </li>
+      
+      
+      <li class="archive-list-item">
+        <a class="archive-list-link" href="https://qkgoalkeeper.github.io/post/#2021-06">2021年06月</a><span class="archive-list-count">1</span>
+      </li>
+      
+      
+      <li class="archive-list-item">
+        <a class="archive-list-link" href="https://qkgoalkeeper.github.io/post/#2021-04">2021年04月</a><span class="archive-list-count">1</span>
+      </li>
+      
+      
+      <li class="archive-list-item">
+        <a class="archive-list-link" href="https://qkgoalkeeper.github.io/post/#2020-11">2020年11月</a><span class="archive-list-count">1</span>
+      </li>
+      
+      
+      <li class="archive-list-item">
+        <a class="archive-list-link" href="https://qkgoalkeeper.github.io/post/#2020-08">2020年08月</a><span class="archive-list-count">70</span>
+      </li>
+      
+    </ul>
+
+  </div>
+
+
+  
+
+<div class="tagcloudlist">
+  <p class="asidetitle">标签云</p>
+  <div class="tagcloudlist clearfix">
+    
+    <a href="https://qkgoalkeeper.github.io/tags/bfs" style="font-size: 12px;">bfs</a>
+    
+    <a href="https://qkgoalkeeper.github.io/tags/c&#43;&#43;" style="font-size: 12px;">c&#43;&#43;</a>
+    
+    <a href="https://qkgoalkeeper.github.io/tags/dfs" style="font-size: 12px;">dfs</a>
+    
+    <a href="https://qkgoalkeeper.github.io/tags/golang" style="font-size: 12px;">golang</a>
+    
+    <a href="https://qkgoalkeeper.github.io/tags/golang%e8%af%ad%e6%b3%95" style="font-size: 12px;">golang语法</a>
+    
+    <a href="https://qkgoalkeeper.github.io/tags/javascript" style="font-size: 12px;">javascript</a>
+    
+    <a href="https://qkgoalkeeper.github.io/tags/leetcode" style="font-size: 12px;">leetcode</a>
+    
+    <a href="https://qkgoalkeeper.github.io/tags/rust%e6%95%99%e7%a8%8b" style="font-size: 12px;">rust教程</a>
+    
+    <a href="https://qkgoalkeeper.github.io/tags/solidity" style="font-size: 12px;">solidity</a>
+    
+    <a href="https://qkgoalkeeper.github.io/tags/%e4%ba%8c%e5%88%86%e6%b3%95" style="font-size: 12px;">二分法</a>
+    
+    <a href="https://qkgoalkeeper.github.io/tags/%e4%bb%a3%e7%a0%81" style="font-size: 12px;">代码</a>
+    
+    <a href="https://qkgoalkeeper.github.io/tags/%e4%bc%98%e5%85%88%e9%98%9f%e5%88%97" style="font-size: 12px;">优先队列</a>
+    
+    <a href="https://qkgoalkeeper.github.io/tags/%e4%bd%8d%e8%bf%90%e7%ae%97" style="font-size: 12px;">位运算</a>
+    
+    <a href="https://qkgoalkeeper.github.io/tags/%e5%88%86%e6%b2%bb%e6%b3%95" style="font-size: 12px;">分治法</a>
+    
+    <a href="https://qkgoalkeeper.github.io/tags/%e5%89%8d%e7%bc%80%e5%92%8c" style="font-size: 12px;">前缀和</a>
+    
+    <a href="https://qkgoalkeeper.github.io/tags/%e5%8a%a8%e6%80%81%e8%a7%84%e5%88%92" style="font-size: 12px;">动态规划</a>
+    
+    <a href="https://qkgoalkeeper.github.io/tags/%e5%8c%ba%e5%9d%97%e9%93%be" style="font-size: 12px;">区块链</a>
+    
+    <a href="https://qkgoalkeeper.github.io/tags/%e5%8d%95%e8%b0%83%e9%98%9f%e5%88%97" style="font-size: 12px;">单调队列</a>
+    
+    <a href="https://qkgoalkeeper.github.io/tags/%e5%8f%8c%e6%8c%87%e9%92%88" style="font-size: 12px;">双指针</a>
+    
+    <a href="https://qkgoalkeeper.github.io/tags/%e5%93%88%e5%b8%8c%e8%a1%a8" style="font-size: 12px;">哈希表</a>
+    
+    <a href="https://qkgoalkeeper.github.io/tags/%e5%a0%86" style="font-size: 12px;">堆</a>
+    
+    <a href="https://qkgoalkeeper.github.io/tags/%e5%ad%97%e5%85%b8%e6%a0%91" style="font-size: 12px;">字典树</a>
+    
+    <a href="https://qkgoalkeeper.github.io/tags/%e5%ad%97%e7%ac%a6%e4%b8%b2" style="font-size: 12px;">字符串</a>
+    
+    <a href="https://qkgoalkeeper.github.io/tags/%e5%b9%b6%e6%9f%a5%e9%9b%86" style="font-size: 12px;">并查集</a>
+    
+    <a href="https://qkgoalkeeper.github.io/tags/%e5%ba%8f%e5%88%97%e5%8c%96" style="font-size: 12px;">序列化</a>
+    
+    <a href="https://qkgoalkeeper.github.io/tags/%e6%8b%93%e6%89%91%e6%8e%92%e5%ba%8f" style="font-size: 12px;">拓扑排序</a>
+    
+    <a href="https://qkgoalkeeper.github.io/tags/%e6%8e%92%e5%88%97" style="font-size: 12px;">排列</a>
+    
+    <a href="https://qkgoalkeeper.github.io/tags/%e6%8e%92%e5%ba%8f" style="font-size: 12px;">排序</a>
+    
+    <a href="https://qkgoalkeeper.github.io/tags/%e6%95%b0%e5%ad%a6" style="font-size: 12px;">数学</a>
+    
+    <a href="https://qkgoalkeeper.github.io/tags/%e6%95%b0%e6%8d%ae%e5%ba%93" style="font-size: 12px;">数据库</a>
+    
+    <a href="https://qkgoalkeeper.github.io/tags/%e6%95%b0%e7%bb%84" style="font-size: 12px;">数组</a>
+    
+    <a href="https://qkgoalkeeper.github.io/tags/%e6%a0%88" style="font-size: 12px;">栈</a>
+    
+    <a href="https://qkgoalkeeper.github.io/tags/%e6%a0%91" style="font-size: 12px;">树</a>
+    
+    <a href="https://qkgoalkeeper.github.io/tags/%e6%ba%90%e7%a0%81%e7%bc%96%e8%af%91" style="font-size: 12px;">源码编译</a>
+    
+    <a href="https://qkgoalkeeper.github.io/tags/%e6%bb%91%e5%8a%a8%e7%aa%97%e5%8f%a3" style="font-size: 12px;">滑动窗口</a>
+    
+    <a href="https://qkgoalkeeper.github.io/tags/%e7%8e%8b%e9%81%93%e6%9c%ba%e8%af%95%e6%8c%87%e5%8d%97" style="font-size: 12px;">王道机试指南</a>
+    
+    <a href="https://qkgoalkeeper.github.io/tags/%e7%ba%bf%e6%ae%b5%e6%a0%91" style="font-size: 12px;">线段树</a>
+    
+    <a href="https://qkgoalkeeper.github.io/tags/%e7%bc%93%e5%ad%98" style="font-size: 12px;">缓存</a>
+    
+    <a href="https://qkgoalkeeper.github.io/tags/%e8%ae%ba%e6%96%87%e8%a7%a3%e8%af%bb" style="font-size: 12px;">论文解读</a>
+    
+    <a href="https://qkgoalkeeper.github.io/tags/%e8%b4%aa%e5%bf%83" style="font-size: 12px;">贪心</a>
+    
+    <a href="https://qkgoalkeeper.github.io/tags/%e8%b4%aa%e5%bf%83%e6%b3%95" style="font-size: 12px;">贪心法</a>
+    
+    <a href="https://qkgoalkeeper.github.io/tags/%e9%93%be%e8%a1%a8" style="font-size: 12px;">链表</a>
+    
+    <a href="https://qkgoalkeeper.github.io/tags/%e9%98%9f%e5%88%97" style="font-size: 12px;">队列</a>
+    
+    <a href="https://qkgoalkeeper.github.io/tags/%e9%9a%8f%e6%9c%ba%e6%95%b0" style="font-size: 12px;">随机数</a>
+    
+  </div>
+</div>
+
+
+
+  
+
+</aside>
+</div>
+
+  </div>
+  <footer><div id="footer" >
+  <div class="line">
+    <span></span>
+    
+    <div style='background:no-repeat url("https://qkgoalkeeper.github.io/img/author.jpg") left top;-webkit-background-size:6.875em 6.875em;-moz-background-size:6.875em 6.875em;background-size:6.875em 6.875em;' class="author" ></div>
+  </div>
+  <section class="info">
+    <p>ECNU数据学院在读 <br/> 知乎主页 :https://www.zhihu.com/people/hao-lai-wu-shou-men-yuan <br/>QQ :1421812601</p>
+  </section>
+  <div class="social-font clearfix">
+    <a href='http://weibo.com/qkgoalkeeper' target="_blank" title="weibo"></a>
+    <a href='https://twitter.com/coderzh' target="_blank" title="twitter"></a>
+    <a href='https://github.com/qkgoalkeeper' target="_blank" title="github"></a>
+    <a href='https://www.facebook.com/coderzh' target="_blank" title="facebook"></a>
+    <a href='https://www.linkedin.com/coderzh' target="_blank" title="linkedin"></a>
+  </div>
+  <p class="copyright">Powered by <a href="http://gohugo.io" target="_blank" title="hugo">hugo</a> and Theme by <a href="https://github.com/coderzh/hugo-pacman-theme" target="_blank" title="hugo-pacman-theme">hugo-pacman-theme</a> © 2022
+    
+    <a href="https://qkgoalkeeper.github.io/" title="qkgoalkeeper&#39;s blog">qkgoalkeeper&#39;s blog</a>
+    
+  </p>
+</div>
+</footer>
+  <script src="https://qkgoalkeeper.github.io/js/jquery-2.1.0.min.js"></script>
+<script type="text/javascript">
+done = false;
+$(document).ready(function(){
+  $('.navbar').click(function(){
+    $('header nav').toggleClass('shownav');
+  });
+  var myWidth = 0;
+  function getSize(){
+    if( typeof( window.innerWidth ) == 'number' ) {
+      myWidth = window.innerWidth;
+    } else if( document.documentElement && document.documentElement.clientWidth) {
+      myWidth = document.documentElement.clientWidth;
+    };
+  };
+  var m = $('#main'),
+      a = $('#asidepart'),
+      c = $('.closeaside'),
+      o = $('.openaside');
+  $(window).resize(function(){
+    getSize();
+    if (myWidth >= 1024) {
+      $('header nav').removeClass('shownav');
+    }else
+    {
+      m.removeClass('moveMain');
+      a.css('display', 'block').removeClass('fadeOut');
+      o.css('display', 'none');
+    }
+  });
+  c.click(function(){
+    a.addClass('fadeOut').css('display', 'none');
+    o.css('display', 'block').addClass('fadeIn');
+    m.addClass('moveMain');
+  });
+  o.click(function(){
+    o.css('display', 'none').removeClass('beforeFadeIn');
+    a.css('display', 'block').removeClass('fadeOut').addClass('fadeIn');
+    m.removeClass('moveMain');
+  });
+  $(window).scroll(function(){
+    o.css("top",Math.max(80,260-$(this).scrollTop()));
+  });
+  $('form.search').on('submit', function (event) {
+    if (false === done) {
+      event.preventDefault();
+      var orgVal = $(this).find('#search').val();
+      $(this).find('#search').val('site:https:\/\/qkgoalkeeper.github.io\/ ' + orgVal);
+      done = true;
+      $(this).submit();
+    }
+  });
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){
+  var ai = $('.article-content>iframe'),
+      ae = $('.article-content>embed'),
+      t  = $('#toc'),
+      h  = $('article h2')
+      ah = $('article h2'),
+      ta = $('#toc.toc-aside'),
+      o  = $('.openaside'),
+      c  = $('.closeaside');
+  if(ai.length>0){
+    ai.wrap('<div class="video-container" />');
+  };
+  if(ae.length>0){
+   ae.wrap('<div class="video-container" />');
+  };
+  if(ah.length==0){
+    t.css('display','none');
+  }else{
+    c.click(function(){
+      ta.css('display', 'block').addClass('fadeIn');
+    });
+    o.click(function(){
+      ta.css('display', 'none');
+    });
+    $(window).scroll(function(){
+      ta.css("top",Math.max(140,320-$(this).scrollTop()));
+    });
+  };
+});
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){
+  var $this = $('.share'),
+      url = $this.attr('data-url'),
+      encodedUrl = encodeURIComponent(url),
+      title = $this.attr('data-title'),
+      tsina = $this.attr('data-tsina');
+  var html = [
+  '<a href="#" class="overlay" id="qrcode"></a>',
+  '<div class="qrcode clearfix"><span>扫描二维码分享到微信朋友圈</span><a class="qrclose" href="#share"></a><strong>Loading...Please wait</strong><img id="qrcode-pic" data-src="http://b.bshare.cn/barCode?site=weixin&url=' + encodedUrl + '"/></div>',
+  '<a href="#textlogo" class="article-back-to-top" title="Top"></a>',
+  '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="article-share-facebook" target="_blank" title="Facebook"></a>',
+  '<a href="#qrcode" class="article-share-qrcode" title="QRcode"></a>',
+  '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="article-share-twitter" target="_blank" title="Twitter"></a>',
+  '<a href="http://service.weibo.com/share/share.php?title='+title+'&url='+encodedUrl +'&ralateUid='+ tsina +'&searchPic=true&style=number' +'" class="article-share-weibo" target="_blank" title="Weibo"></a>',
+  '<span title="Share to"></span>'
+  ].join('');
+  $this.append(html);
+  $('.article-share-qrcode').click(function(){
+    var imgSrc = $('#qrcode-pic').attr('data-src');
+    $('#qrcode-pic').attr('src', imgSrc);
+    $('#qrcode-pic').load(function(){
+        $('.qrcode strong').text(' ');
+    });
+  });
+});
+</script>
+
+
+<link rel="stylesheet" href="https://qkgoalkeeper.github.io/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="https://qkgoalkeeper.github.io/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){
+  $('.article-content').each(function(i){
+    $(this).find('img').each(function(){
+      if ($(this).parent().hasClass('fancybox')) return;
+      var alt = this.alt;
+      if (alt) $(this).after('<span class="caption">' + alt + '</span>');
+      $(this).wrap('<a href="' + this.src + '" title="' + alt + '" class="fancybox"></a>');
+    });
+    $(this).find('.fancybox').each(function(){
+      $(this).attr('rel', 'article' + i);
+    });
+  });
+  if($.fancybox){
+    $('.fancybox').fancybox();
+  }
+});
+</script>
+
+
+
+
+</body>
+</html>

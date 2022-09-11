@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>数据库 on qkgoalkeeper&#39;s blog</title>
+    <link>https://qkgoalkeeper.github.io/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/</link>
+    <description>Recent content in 数据库 on qkgoalkeeper&#39;s blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-CN</language>
+    <lastBuildDate>Sun, 08 Nov 2020 10:45:44 +0800</lastBuildDate><atom:link href="https://qkgoalkeeper.github.io/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/feed.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>数据库作业——寻宝游戏MongoDB</title>
+      <link>https://qkgoalkeeper.github.io/post/%E6%95%B0%E6%8D%AE%E5%BA%93%E4%BD%9C%E4%B8%9A%E5%AF%BB%E5%AE%9D%E6%B8%B8%E6%88%8Fmongodb/</link>
+      <pubDate>Sun, 08 Nov 2020 10:45:44 +0800</pubDate>
+      
+      <guid>https://qkgoalkeeper.github.io/post/%E6%95%B0%E6%8D%AE%E5%BA%93%E4%BD%9C%E4%B8%9A%E5%AF%BB%E5%AE%9D%E6%B8%B8%E6%88%8Fmongodb/</guid>
+      <description>一.实验目的 1.练习Mongodb操作，学习如何设计数据库 2.练习Python的Flask框架 3.学会用pytest测试 4.学会用定时任务执</description>
+    </item>
+    
+  </channel>
+</rss>

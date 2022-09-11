@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>贪心 on qkgoalkeeper&#39;s blog</title>
+    <link>https://qkgoalkeeper.github.io/tags/%E8%B4%AA%E5%BF%83/</link>
+    <description>Recent content in 贪心 on qkgoalkeeper&#39;s blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-CN</language>
+    <lastBuildDate>Thu, 06 Jan 2022 10:55:19 +0800</lastBuildDate><atom:link href="https://qkgoalkeeper.github.io/tags/%E8%B4%AA%E5%BF%83/feed.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>LeetCode每日一题：621. 任务调度器</title>
+      <link>https://qkgoalkeeper.github.io/post/leetcode%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98621.-%E4%BB%BB%E5%8A%A1%E8%B0%83%E5%BA%A6%E5%99%A8/</link>
+      <pubDate>Thu, 06 Jan 2022 10:55:19 +0800</pubDate>
+      
+      <guid>https://qkgoalkeeper.github.io/post/leetcode%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98621.-%E4%BB%BB%E5%8A%A1%E8%B0%83%E5%BA%A6%E5%99%A8/</guid>
+      <description>一.621. 任务调度器 1.题干及思路 给你一个用字符数组 tasks 表示的 CPU 需要执行的任务列表。其中每个字母表示一种不同种类的任务。任务可以以任意顺序执</description>
+    </item>
+    
+  </channel>
+</rss>
