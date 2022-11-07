@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>源码解读 on qkgoalkeeper&#39;s blog</title>
+    <link>https://qkgoalkeeper.github.io/categories/%E6%BA%90%E7%A0%81%E8%A7%A3%E8%AF%BB/</link>
+    <description>Recent content in 源码解读 on qkgoalkeeper&#39;s blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-CN</language>
+    <lastBuildDate>Mon, 07 Nov 2022 11:55:19 +0800</lastBuildDate><atom:link href="https://qkgoalkeeper.github.io/categories/%E6%BA%90%E7%A0%81%E8%A7%A3%E8%AF%BB/feed.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>RAMBO源码解读</title>
+      <link>https://qkgoalkeeper.github.io/post/rambo%E6%BA%90%E7%A0%81%E8%A7%A3%E8%AF%BB/</link>
+      <pubDate>Mon, 07 Nov 2022 11:55:19 +0800</pubDate>
+      
+      <guid>https://qkgoalkeeper.github.io/post/rambo%E6%BA%90%E7%A0%81%E8%A7%A3%E8%AF%BB/</guid>
+      <description>RAMBO源码解读 一.从main函数的测试分支开始 没有下完整数据包，这里用test分支的toy test文件，用data/ArtfcKmers</description>
+    </item>
+    
+  </channel>
+</rss>

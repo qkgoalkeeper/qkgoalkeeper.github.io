@@ -6,7 +6,16 @@
     <description>Recent content in Posts on qkgoalkeeper&#39;s blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-CN</language>
-    <lastBuildDate>Fri, 19 Aug 2022 07:55:19 +0800</lastBuildDate><atom:link href="https://qkgoalkeeper.github.io/post/feed.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 07 Nov 2022 11:55:19 +0800</lastBuildDate><atom:link href="https://qkgoalkeeper.github.io/post/feed.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>RAMBO源码解读</title>
+      <link>https://qkgoalkeeper.github.io/post/rambo%E6%BA%90%E7%A0%81%E8%A7%A3%E8%AF%BB/</link>
+      <pubDate>Mon, 07 Nov 2022 11:55:19 +0800</pubDate>
+      
+      <guid>https://qkgoalkeeper.github.io/post/rambo%E6%BA%90%E7%A0%81%E8%A7%A3%E8%AF%BB/</guid>
+      <description>RAMBO源码解读 一.从main函数的测试分支开始 没有下完整数据包，这里用test分支的toy test文件，用data/ArtfcKmers</description>
+    </item>
+    
     <item>
       <title>rust：rust-by-example（1）第1-9章</title>
       <link>https://qkgoalkeeper.github.io/post/rustrust-by-example1%E7%AC%AC1-9%E7%AB%A0/</link>
