@@ -1,0 +1,745 @@
+
+
+
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#FFF">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+
+<link rel="icon" type="image/ico" sizes="32x32" href="/images/favicon.ico">
+  <link rel="mask-icon" href="/images/logo.svg" color="">
+  <link rel="manifest" href="/images/manifest.json">
+  <meta name="msapplication-config" content="/images/browserconfig.xml">
+  <meta http-equiv="Cache-Control" content="no-transform">
+  <meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+<link rel="alternate" type="application/rss+xml" title="Qkgoalkeeper's blog" href="https://qkgoalkeeper.github.io/rss.xml" />
+<link rel="alternate" type="application/atom+xml" title="Qkgoalkeeper's blog" href="https://qkgoalkeeper.github.io/atom.xml" />
+<link rel="alternate" type="application/json" title="Qkgoalkeeper's blog" href="https://qkgoalkeeper.github.io/feed.json" />
+
+<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Mulish:300,300italic,400,400italic,700,700italic%7CFredericka%20the%20Great:300,300italic,400,400italic,700,700italic%7CNoto%20Serif%20JP:300,300italic,400,400italic,700,700italic%7CNoto%20Serif%20SC:300,300italic,400,400italic,700,700italic%7CInconsolata:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+
+<link rel="stylesheet" href="/css/app.css?v=0.2.5">
+
+  
+  <meta name="keywords" content="论文" />
+
+
+<link rel="canonical" href="https://qkgoalkeeper.github.io/computer-science/study/paper/RAMBO%E6%BA%90%E7%A0%81%E8%A7%A3%E8%AF%BB/">
+
+
+
+  <title>
+RAMBO源码解读 - 论文源码解读 - 研究生学习 - 计算机科学 |
+Kun Qian = Qkgoalkeeper's blog</title>
+<meta name="generator" content="Hexo 6.3.0"></head>
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div id="loading">
+    <div class="cat">
+      <div class="body"></div>
+      <div class="head">
+        <div class="face"></div>
+      </div>
+      <div class="foot">
+        <div class="tummy-end"></div>
+        <div class="bottom"></div>
+        <div class="legs left"></div>
+        <div class="legs right"></div>
+      </div>
+      <div class="paw">
+        <div class="hands left"></div>
+        <div class="hands right"></div>
+      </div>
+    </div>
+  </div>
+  <div id="container">
+    <header id="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="inner">
+        <div id="brand">
+          <div class="pjax">
+          
+  <h1 itemprop="name headline">RAMBO源码解读
+  </h1>
+  
+<div class="meta">
+  <span class="item" title="创建时间：2022-11-07 11:45:48">
+    <span class="icon">
+      <i class="ic i-calendar"></i>
+    </span>
+    <span class="text">发表于</span>
+    <time itemprop="dateCreated datePublished" datetime="2022-11-07T11:45:48+08:00">2022-11-07</time>
+  </span>
+</div>
+
+
+          </div>
+        </div>
+        <nav id="nav">
+  <div class="inner">
+    <div class="toggle">
+      <div class="lines" aria-label="切换导航栏">
+        <span class="line"></span>
+        <span class="line"></span>
+        <span class="line"></span>
+      </div>
+    </div>
+    <ul class="menu">
+      <li class="item title"><a href="/" rel="start">Kun Qian</a></li>
+    </ul>
+    <ul class="right">
+      <li class="item theme">
+        <i class="ic i-sun"></i>
+      </li>
+      <li class="item search">
+        <i class="ic i-search"></i>
+      </li>
+    </ul>
+  </div>
+</nav>
+
+      </div>
+      <div id="imgs" class="pjax">
+          <img src="https://cdn.jsdelivr.net/gh/qkgoalkeeper/blogImage@main/img/20230403113703.png">
+      </div>
+    </header>
+    <div id="waves">
+      <svg class="waves" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 24 150 28" preserveAspectRatio="none" shape-rendering="auto">
+        <defs>
+          <path id="gentle-wave" d="M-160 44c30 0 58-18 88-18s 58 18 88 18 58-18 88-18 58 18 88 18 v44h-352z" />
+        </defs>
+        <g class="parallax">
+          <use xlink:href="#gentle-wave" x="48" y="0" />
+          <use xlink:href="#gentle-wave" x="48" y="3" />
+          <use xlink:href="#gentle-wave" x="48" y="5" />
+          <use xlink:href="#gentle-wave" x="48" y="7" />
+        </g>
+      </svg>
+    </div>
+    <main>
+      <div class="inner">
+        <div id="main" class="pjax">
+          
+  <div class="article wrap">
+    
+<div class="breadcrumb" itemscope itemtype="https://schema.org/BreadcrumbList">
+<i class="ic i-home"></i>
+<span><a href="/">首页</a></span><i class="ic i-angle-right"></i>
+<span  itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/categories/computer-science/" itemprop="item" rel="index" title="分类于 计算机科学"><span itemprop="name">计算机科学</span></a>
+<meta itemprop="position" content="1" /></span>
+<i class="ic i-angle-right"></i>
+<span  itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/categories/computer-science/study/" itemprop="item" rel="index" title="分类于 研究生学习"><span itemprop="name">研究生学习</span></a>
+<meta itemprop="position" content="2" /></span>
+<i class="ic i-angle-right"></i>
+<span  class="current" itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/categories/computer-science/study/paper/" itemprop="item" rel="index" title="分类于 论文源码解读"><span itemprop="name">论文源码解读</span></a>
+<meta itemprop="position" content="3" /></span>
+</div>
+
+    <article itemscope itemtype="http://schema.org/Article" class="post block" lang="zh-CN">
+  <link itemprop="mainEntityOfPage" href="https://qkgoalkeeper.github.io/computer-science/study/paper/RAMBO%E6%BA%90%E7%A0%81%E8%A7%A3%E8%AF%BB/">
+
+  <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <meta itemprop="image" content="/images/avatar.jpg">
+    <meta itemprop="name" content="Kun Qian">
+    <meta itemprop="description" content=", ">
+  </span>
+
+  <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="Qkgoalkeeper's blog">
+  </span>
+
+  <div class="body md" itemprop="articleBody">
+    
+
+    <h1 id="RAMBO源码解读"><a href="#RAMBO源码解读" class="headerlink" title="RAMBO源码解读"></a><span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL2dhdXJhdjE2Z3VwdGEvUkFNQk9fTVNNVA==">RAMBO源码解读</span></h1><h2 id="一-从main函数的测试分支开始"><a href="#一-从main函数的测试分支开始" class="headerlink" title="一.从main函数的测试分支开始"></a>一.从main函数的测试分支开始</h2><p>没有下完整数据包，这里用test分支的toy test文件，用data&#x2F;ArtfcKmersToy100.txt作为测试数据，主要部分在以下几个函数</p>
+<p>RAMBO myRambo(n_perSet, R_all, B_all, K); 创建Rambo结构</p>
+<p>myRambo.createMetaRambo (K, false); 初始化meta数据</p>
+<p>myRambo.insertion2 (alllines); 插入数据</p>
+<p>myRambo.query(testKeys[i], testKeys[i].size()); 查询数据</p>
+<p>所以要先了解Rambo的数据结构以及相关方法</p>
+<pre><code class="c++">#include &lt;iomanip&gt;
+#include &lt;iostream&gt;
+#include &lt;fstream&gt;
+#include &lt;math.h&gt;
+#include &lt;sstream&gt;
+#include &lt;string&gt;
+#include &lt;string.h&gt;
+#include &lt;algorithm&gt;
+#include &lt;chrono&gt;
+#include &quot;MyBloom.h&quot;
+#include &quot;MurmurHash3.h&quot;
+#include &quot;Rambo_construction.h&quot;
+#include &quot;utils.h&quot;
+#include &quot;constants.h&quot;
+#include &quot;bitArray.h&quot;
+#include &lt;ctime&gt;
+
+using namespace std;
+
+int main()&#123;
+
+//string job(argv[1]);
+
+bool insert  =false;
+bool ser =false;
+bool test = true;
+bool deser = false;
+
+int n_perSet = 1000000000; //cardinality of each set 布隆过滤器的参数
+int R_all = 2;	 //table数量	
+int B_all = 15;  //bfu数组长度
+
+int K = Ki; // total number of sets，这里ki测试集里为100
+
+float fp_ops;
+float ins_time;
+float query_time;
+
+// constructor 创建Rambo
+RAMBO myRambo(n_perSet, R_all, B_all, K);
+
+//  details of RAMBO set partitioning 
+//myRambo.createMetaRambo (K, false);
+cout&lt;&lt;&quot;created meta&quot;&lt;&lt;endl;
+
+//......跳过了真实数据那块的测试    
+//......
+//......
+    
+if(test)&#123;
+    // test RAMBO 获取数据
+    std::vector&lt;string&gt; alllines = readlines(&quot;data/ArtfcKmersToy&quot;+to_string(K)+&quot;.txt&quot;, 0);
+
+    std::vector&lt;string&gt; testKeys;
+    std::vector&lt;int&gt; gt_size;
+    for(uint i=0; i&lt;alllines.size(); i++)&#123;
+          std::vector&lt;string&gt;KeySets =  line2array(alllines[i], &#39;;&#39;);//sets for a key
+          testKeys.push_back(KeySets[0]);
+          gt_size.push_back( line2array(KeySets[1], &#39;,&#39;).size() );
+    &#125;
+    myRambo.createMetaRambo (K, false); //预处理0-99号文件的meta信息
+    // cout&lt;&lt;&quot;load: &quot;&lt;&lt;myRambo.Rambo_array[0]-&gt;m_bits-&gt;getcount();
+    cout&lt;&lt;&quot;total number of queries : &quot;&lt;&lt;testKeys.size()&lt;&lt;endl;
+    myRambo.insertion2 (alllines);
+    cout&lt;&lt;&quot;loaded test keys&quot;&lt;&lt;endl;
+
+    float fp=0;
+    std::ofstream FPtestFile; //结果输出到一个文件，不用管
+    FPtestFile.open(&quot;FPtestFileToy.txt&quot;);
+    std::clock_t t5_cpu = std::clock();
+    chrono::time_point&lt;chrono::high_resolution_clock&gt; t5 = chrono::high_resolution_clock::now();
+
+    for (std::size_t i=0; i&lt;testKeys.size(); i++)&#123;
+            bitArray MemVec = myRambo.query(testKeys[i], testKeys[i].size()); //对1000个testkey进行查询
+            cout&lt;&lt;MemVec.getcount()&lt;&lt;endl;
+            cout&lt;&lt;gt_size[i]&lt;&lt;endl;
+            fp = fp + (MemVec.getcount())*0.1/((K - gt_size[i])*0.1);
+    &#125;
+
+    cout&lt;&lt;&quot;fp rate is: &quot;&lt;&lt;fp/(testKeys.size()); // false positives/(all negatives) 计算假阳性率
+    FPtestFile&lt;&lt;&quot;fp rate is: &quot;&lt;&lt;fp/(testKeys.size()); // false positives/(all negatives)
+
+    fp_ops = fp/(testKeys.size());
+
+    cout&lt;&lt;endl;
+    
+    //计算时间
+    std::clock_t t6_cpu = std::clock();
+    chrono::time_point&lt;chrono::high_resolution_clock&gt; t6 = chrono::high_resolution_clock::now();
+    float QTpt_cpu = 1000.0 * (t6_cpu-t5_cpu)/(CLOCKS_PER_SEC*testKeys.size()); //in ms
+    float QTpt = chrono::duration_cast&lt;chrono::nanoseconds&gt;(t6-t5).count()/(1000000.0*testKeys.size());
+    cout &lt;&lt;&quot;query time wall clock is :&quot; &lt;&lt;QTpt &lt;&lt;&quot;, cpu is :&quot; &lt;&lt;QTpt_cpu&lt;&lt; &quot; milisec\n\n&quot;;
+    FPtestFile&lt;&lt;&quot;query time wall clock is :&quot; &lt;&lt;QTpt &lt;&lt;&quot;, cpu is :&quot; &lt;&lt;QTpt_cpu&lt;&lt; &quot; milisec\n\n&quot;;
+    query_time = QTpt_cpu;
+  &#125;
+    
+return 0;
+&#125;
+</code></pre>
+<h2 id="二-主要代码：Rambo数据结构"><a href="#二-主要代码：Rambo数据结构" class="headerlink" title="二.主要代码：Rambo数据结构"></a>二.主要代码：Rambo数据结构</h2><h3 id="2-1-Rambo-construction-h"><a href="#2-1-Rambo-construction-h" class="headerlink" title="2.1 Rambo_construction.h"></a>2.1 Rambo_construction.h</h3><p>先不看注释的部分，test中只用了初始化函数，以及query和insertion2两个函数，这两个最重要</p>
+<p>类的参数作用见注释部分</p>
+<pre><code class="c++">class RAMBO&#123;
+    public:
+
+        RAMBO(int n, int r1, int b1, int K);
+        std::vector&lt;uint&gt; hashfunc( std::string key, int len);
+        //void insertion (std::string setID, std::vector&lt;std::string&gt; keys);
+        //std::set&lt;int&gt; takeunion(std::set&lt;int&gt; set1, std::set&lt;int&gt; set2);
+        //std::set&lt;int&gt; takeIntrsec(std::set&lt;int&gt;* setArray);
+        //std::vector &lt;std::string&gt; getdata(std::string filenameSet);
+        bitArray query (std::string query_key, int len);//查询一个key对应的集合，集合用bitarray表示
+        void createMetaRambo(int K, bool verbose);//预处理meta数据
+        //void serializeRAMBO(std::string dir);
+        //void deserializeRAMBO(std::vector&lt;std::string&gt; dir);
+        void insertion2 (std::vector&lt;std::string&gt; alllines);//从alllines中提取keys并插入布隆过滤器
+        //bitArray queryseq (std::string query_key, int len);
+        //void insertionRare (std::string setID, std::vector&lt;std::string&gt; keys);
+
+        int R; //table数量
+        int B; //每个table的bfu数量
+        //int n; 
+        float p; //布隆过滤器的false positive rate参数
+        int range; //布隆过滤器的range参数
+        int k; //document总数量
+        //float FPR;
+        BloomFiler** Rambo_array; //布隆过滤器二维数组，就是论文中那个B*R的bfu数组，这里用指针形式表达
+        std::vector&lt;int&gt;* metaRambo; //每个布隆过滤器的元信息，具体指代文件号的集合（这个布隆过滤器对应哪些文件，后面		  取交集什么要用）
+&#125;;
+</code></pre>
+<p>参数名大多和论文图例相吻合：</p>
+<p><img data-src="https://cdn.jsdelivr.net/gh/qkgoalkeeper/blogImage@main/img/rambo1%20(4).png"></p>
+<h3 id="2-2-Rambo-construction-c"><a href="#2-2-Rambo-construction-c" class="headerlink" title="2.2 Rambo_construction.c"></a>2.2 Rambo_construction.c</h3><h4 id="2-2-1-初始化函数"><a href="#2-2-1-初始化函数" class="headerlink" title="2.2.1 初始化函数"></a>2.2.1 初始化函数</h4><p>初始化函数，初始化布隆过滤器二维数组和meta二维数组</p>
+<pre><code class="c++">RAMBO::RAMBO(int n, int r1, int b1, int K)&#123;
+  R = r1;
+  B = b1;
+  K = K;
+
+  //range = ceil(-(n*log(p))/(log(2)*log(2))); //range
+  range = n;
+  k = 3; //布隆过滤器的k参数
+  std::cout &lt;&lt; &quot;range&quot; &lt;&lt;range&lt;&lt; &#39;\n&#39;;
+
+  //k = ceil(-log(p)/log(2)); //number of hash, k is 7 for 0.01
+  Rambo_array = new BloomFiler*[B*R]; //array of pointers
+  metaRambo = new vector&lt;int&gt;[B*R]; //constains set info in it. 初始化meta二维数组
+  for(int b=0; b&lt;B; b++)&#123;
+    for(int r=0; r&lt;R; r++)&#123;
+      Rambo_array[b + B*r] = new BloomFiler(range, p, k);//初始化布隆过滤器二维数组
+    &#125;
+  &#125;
+&#125;
+</code></pre>
+<h4 id="2-2-2-createMetaRambo函数"><a href="#2-2-2-createMetaRambo函数" class="headerlink" title="2.2.2 createMetaRambo函数"></a>2.2.2 createMetaRambo函数</h4><p>提前计算每个布隆过滤器对应的meta数据，这里的meta数据指的是该布隆过滤器对应的文件号集合（比如第一行第一列的布隆过滤器对应集合{64,58}，如果这个过滤器亮了说明key可能在集合{64,58}中，后面有些与运算操作），如它注释所说这是个预先运算操作，这里的K就是文件的总数量（这里测试时用的0-99文件所以是K&#x3D;100）</p>
+<pre><code class="c++">// one time process- a preprocess step
+void RAMBO::createMetaRambo(int K, bool verbose)&#123;
+  for(int i=0;i&lt;K;i++)&#123;
+    vector&lt;uint&gt; hashvals = RAMBO::hashfunc(std::to_string(i), std::to_string(i).size()); // R hashvals, each with max value B
+    for(int r=0; r&lt;R; r++)&#123;
+      metaRambo[hashvals[r] + B*r].push_back(i); //文件号加入对应哈希位置的布隆过滤器对应的vector
+    &#125;
+  &#125;
+
+  //print RAMBO meta deta，这是输出终端debug用的
+  if (verbose)&#123;
+    for(int b=0; b&lt;B; b++)&#123;
+      for(int r=0; r&lt;R; r++)&#123;
+        for (auto it=metaRambo[b + B*r].begin(); it != metaRambo[b + B*r].end(); ++it)
+          &#123;std::cout &lt;&lt; &quot; &quot; &lt;&lt; *it;&#125;
+        &#123;std::cout &lt;&lt; &quot;////&quot;;&#125;
+      &#125;
+      std::cout &lt;&lt; &#39;\n&#39;;
+    &#125;
+  &#125;
+&#125;
+</code></pre>
+<h4 id="2-2-3-insertion2函数"><a href="#2-2-3-insertion2函数" class="headerlink" title="2.2.3 insertion2函数"></a>2.2.3 insertion2函数</h4><p> 插入一个key，具体见注释</p>
+<pre><code class="c++">// given inverted index type arrangement, kmer;files;files;..
+void RAMBO::insertion2 (std::vector&lt;string&gt; alllines)&#123;
+  //make this loop parallel
+  //#pragma omp parallel for
+  for(std::size_t i=0; i&lt;alllines.size(); ++i)&#123;
+    char d = &#39;;&#39;;
+    std::vector&lt;string&gt;KeySets =  line2array(alllines[i], d);//sets for a key
+
+    std::vector&lt;string&gt;KeySet = line2array(KeySets[1], &#39;,&#39;); //分词得到key的文件set，比如key1;64,58这一条到这	  里就变成&#123;64,58&#125;这个vector集合
+    for (uint j = 0; j&lt;KeySet.size(); j++)&#123;//对集合内每个数字号循环
+      vector&lt;uint&gt; hashvals = RAMBO::hashfunc(KeySet[j], KeySet[j].size()); // R hashvals R个哈希函数对应R	     个table
+      for(int r=0; r&lt;R; r++)&#123;
+        //这里给key造个哈希存入布隆过滤器，用于验证key是否存在
+        vector&lt;uint&gt; temp = myhash(KeySets[0].c_str(), KeySets[0].size() , k, r, range);// i is the key
+        Rambo_array[hashvals[r] + B*r]-&gt;insert(temp);
+      &#125;
+    &#125;
+  &#125;
+&#125;
+</code></pre>
+<h4 id="2-2-4-query函数"><a href="#2-2-4-query函数" class="headerlink" title="2.2.4 query函数"></a>2.2.4 query函数</h4><p>查询key出现在哪些文件中，具体见注释</p>
+<pre><code class="c++">bitArray RAMBO::query (string query_key, int len)&#123;
+  // set&lt;int&gt; resUnion[R]; //constains union results in it.
+  bitArray bitarray_K(Ki);//ki默认100表示全集为文件0-99，测试用的数据在这个范围内
+  // bitset&lt;Ki&gt; bitarray_K;
+  // set&lt;int&gt; res;
+  float count=0.0;//计算时间的，不用管
+  vector&lt;uint&gt; check;
+  for(int r=0; r&lt;R; r++)&#123;
+    check = myhash(query_key, len , k, r,range); //hash values correspondign to the keys
+    bitArray bitarray_K1(Ki);
+    // bitset&lt;Ki&gt; bitarray_K1;
+    for(int b=0; b&lt;B; b++)&#123;
+        if (Rambo_array[b + B*r]-&gt;test(check))&#123;//检查改布隆过滤器是否有这个key
+          chrono::time_point&lt;chrono::high_resolution_clock&gt; t5 = chrono::high_resolution_clock::now();
+          for (uint j=0; j&lt;metaRambo[b + B*r].size(); j++)&#123;//从meta中取出文件号在bitarray对应位置取1
+            bitarray_K1.SetBit(metaRambo[b + B*r][j]);
+        &#125;
+        chrono::time_point&lt;chrono::high_resolution_clock&gt; t6 = chrono::high_resolution_clock::now();
+        count+=((t6-t5).count()/1000000000.0);
+      &#125;
+    &#125;
+    if (r ==0)&#123;
+      bitarray_K = bitarray_K1;//第一个table不用求交集
+    &#125;
+    else&#123;
+      bitarray_K.ANDop(bitarray_K1.A); //这一步是一个bitarray的合并，table之间得到的答案求交集
+    &#125;
+  &#125;
+  vector&lt;uint&gt;().swap(check);
+  return bitarray_K;
+&#125;
+</code></pre>
+<h4 id="2-2-5-辅助函数"><a href="#2-2-5-辅助函数" class="headerlink" title="2.2.5 辅助函数"></a>2.2.5 辅助函数</h4><p>hashfunc函数返回r个（r个table）哈希函数的结果（每个结果在0-B之间，对应论文的construct图的箭头）</p>
+<pre><code class="c++">vector&lt;uint&gt; RAMBO:: hashfunc( std::string key, int len)&#123;
+  // int hashvals[k];
+  vector &lt;uint&gt; hashvals; //hashvals的长度等于R(就是重复的数量，论文图上table数)
+  uint op;
+  for (int i=0; i&lt;R; i++)&#123;
+    MurmurHash3_x86_32(key.c_str(), len, 10, &amp;op); //seed i
+    hashvals.push_back(op%B); //经典取余函数，范围为0-(B-1)
+  &#125;
+  return hashvals;
+&#125;
+</code></pre>
+<h2 id="三-其他代码"><a href="#三-其他代码" class="headerlink" title="三.其他代码"></a>三.其他代码</h2><h3 id="3-1-util-h-x2F-cpp"><a href="#3-1-util-h-x2F-cpp" class="headerlink" title="3.1 util.h&#x2F;cpp"></a>3.1 util.h&#x2F;cpp</h3><p>一些常用函数，包括读写的readline函数以及分词的line2array函数</p>
+<h3 id="3-2-bitArray-h-x2F-cpp"><a href="#3-2-bitArray-h-x2F-cpp" class="headerlink" title="3.2 bitArray.h&#x2F;cpp"></a>3.2 bitArray.h&#x2F;cpp</h3><p>包装的bitarray代码，类似std的bitset，作用是生成0和1构成的set，用于记录最后得到的答案，比如最后答案是55和64，则[000000…..10000000…….100000]表示第55和64位为1，用bitset的好处是做与运算求交集时简单</p>
+<h3 id="3-3-MyBloom-h-x2F-cpp"><a href="#3-3-MyBloom-h-x2F-cpp" class="headerlink" title="3.3 MyBloom.h&#x2F;cpp"></a>3.3 MyBloom.h&#x2F;cpp</h3><p>包装的布隆过滤器代码，作用是实现布隆过滤器的创建插入等操作</p>
+<h3 id="3-4-MurmurhHash3-h-x2F-cpp"><a href="#3-4-MurmurhHash3-h-x2F-cpp" class="headerlink" title="3.4 MurmurhHash3.h&#x2F;cpp"></a>3.4 MurmurhHash3.h&#x2F;cpp</h3><p>随机hash函数的生成代码，直接用的现成的包，作用是生成随机哈希</p>
+<h2 id="四-流程总结"><a href="#四-流程总结" class="headerlink" title="四.流程总结"></a>四.流程总结</h2><p>用一个简单例子描述下流程：</p>
+<p>假设key是account账户,num表示块号，格式如 key;num1,num2,num3</p>
+<p>数据如下：</p>
+<p>account1;11,22,44 （表示account1在11、22、44号块出现）</p>
+<p>account2;11,33,55 （表示account2在11、33、55号块出现）</p>
+<p>……</p>
+<h3 id="4-1-初始化Rambo"><a href="#4-1-初始化Rambo" class="headerlink" title="4.1 初始化Rambo"></a>4.1 初始化Rambo</h3><p>假设R &#x3D; 2，B &#x3D; 9（如果参数忘记是什么意思见论文图或者第二部分中的代码注释，这里就是布隆过滤器二维数组是2*9的规模）</p>
+<p><img data-src="https://cdn.jsdelivr.net/gh/qkgoalkeeper/blogImage@main/img/rambo1%20(3).png"></p>
+<h3 id="4-2-预处理块号集合"><a href="#4-2-预处理块号集合" class="headerlink" title="4.2 预处理块号集合"></a>4.2 预处理块号集合</h3><p>假设K&#x3D;5，就总共就只有11,22,33,44,55号块，用一个大小与布隆过滤器数组同样的二维vector数组记录每个布隆过滤器的元信息（一个列表）</p>
+<p>预处理每个块在每个table上的哈希，假设22和33在table1哈希到同一个位置</p>
+<p>预处理的哈希如图，每个方块代表对应布隆过滤器的一个vector列表</p>
+<p>（这个哈希结果这里为了说明乱写的，实际由哈希函数生成）</p>
+<p><img data-src="https://cdn.jsdelivr.net/gh/qkgoalkeeper/blogImage@main/img/rambo1%20(4).png"></p>
+<h3 id="4-3-插入key"><a href="#4-3-插入key" class="headerlink" title="4.3 插入key"></a>4.3 插入key</h3><p>以插入 account1;11,22,44 为例：</p>
+<p>将account1后面对应的数字，以4.2中相同的哈希对应布隆过滤器，在这些布隆过滤器中加入account1这个key的哈希后结果</p>
+<p><img data-src="https://cdn.jsdelivr.net/gh/qkgoalkeeper/blogImage@main/img/rambo1%20(5).png"></p>
+<h3 id="4-4-查找key"><a href="#4-4-查找key" class="headerlink" title="4.4 查找key"></a>4.4 查找key</h3><p>以查找 account1为例，对account1这个key做哈希，对每个table的布隆过滤器顺序查找验证，发现table1的0,2,5和table2的1,3,5号布隆过滤器命中。（就是4.3中插入的那些）</p>
+<p><img data-src="https://cdn.jsdelivr.net/gh/qkgoalkeeper/blogImage@main/img/rambo1%20(6).png"></p>
+<p>对每个table，将选中的布隆过滤器对应的meta数据得到并集，再求每个table这个集合的交集即为答案。</p>
+<p>对于这个例子来说，table1得到[{11},{22,33},{44}]&#x3D;&#x3D;&gt;{11,22,33,44}，table2得到[{11},{22},{44}]==&gt;{11,22,44}。（这些数据对应4.2中的图）</p>
+<p>这里只有两个table，将{11,22,33,44}与{11,22,44}取交集得到答案{11,22,44}。（多个table循环取交集即可，用的bitarray取交集很简单）</p>
+<p>所以account1在11,22,44出现，本做法可能有假阳性但是也可以容忍只要去验证一下就行。</p>
+
+      <div class="tags">
+          <a href="/tags/%E8%AE%BA%E6%96%87/" rel="tag"><i class="ic i-tag"></i> 论文</a>
+      </div>
+  </div>
+
+   <footer>
+
+    <div class="meta">
+  <span class="item">
+    <span class="icon">
+      <i class="ic i-calendar-check"></i>
+    </span>
+    <span class="text">更新于</span>
+    <time title="修改时间：2023-04-03 11:40:21" itemprop="dateModified" datetime="2023-04-03T11:40:21+08:00">2023-04-03</time>
+  </span>
+</div>
+
+      
+
+<div id="copyright">
+<ul>
+  <li class="author">
+    <strong>本文作者： </strong>Kun Qian <i class="ic i-at"><em>@</em></i>Qkgoalkeeper's blog
+  </li>
+  <li class="link">
+    <strong>本文链接：</strong>
+    <a href="https://qkgoalkeeper.github.io/computer-science/study/paper/RAMBO%E6%BA%90%E7%A0%81%E8%A7%A3%E8%AF%BB/" title="RAMBO源码解读">https://qkgoalkeeper.github.io/computer-science/study/paper/RAMBO源码解读/</a>
+  </li>
+  <li class="license">
+    <strong>版权声明： </strong>本站所有文章除特别声明外，均采用 <span class="exturl" data-url="aHR0cHM6Ly9jcmVhdGl2ZWNvbW1vbnMub3JnL2xpY2Vuc2VzL2J5LW5jLXNhLzQuMC9kZWVkLnpo"><i class="ic i-creative-commons"><em>(CC)</em></i>BY-NC-SA</span> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+  </footer>
+
+</article>
+
+  </div>
+  
+
+<div class="post-nav">
+    <div class="item left">
+      
+
+  <a href="/computer-science/leetcode/offer2/LeetCode%E6%AF%8F%E6%97%A5%E7%BB%83%E4%B9%A0%EF%BC%9A%E5%89%91%E6%8C%87%20Offer%20II%20002.%20%E4%BA%8C%E8%BF%9B%E5%88%B6%E5%8A%A0%E6%B3%95/" itemprop="url" rel="prev" data-background-image="https:&#x2F;&#x2F;cdn.jsdelivr.net&#x2F;gh&#x2F;qkgoalkeeper&#x2F;blogImage@main&#x2F;img&#x2F;leetcode.png" title="剑指 Offer II 002. 二进制加法">
+  <span class="type">上一篇</span>
+  <span class="category"><i class="ic i-flag"></i> 剑指offer</span>
+  <h3>剑指 Offer II 002. 二进制加法</h3>
+  </a>
+
+    </div>
+    <div class="item right">
+      
+
+  <a href="/new%20blog%E8%BF%81%E7%A7%BB%E8%AF%B4%E6%98%8E/" itemprop="url" rel="next" data-background-image="https:&#x2F;&#x2F;cdn.jsdelivr.net&#x2F;gh&#x2F;qkgoalkeeper&#x2F;blogImage@main&#x2F;img&#x2F;Splatoon2.jpg" title="新blog迁移记录">
+  <span class="type">下一篇</span>
+  <span class="category"><i class="ic i-flag"></i> 杂谈</span>
+  <h3>新blog迁移记录</h3>
+  </a>
+
+    </div>
+</div>
+
+  
+  <div class="wrap" id="comments"></div>
+
+
+        </div>
+        <div id="sidebar">
+          
+
+<div class="inner">
+
+  <div class="panels">
+    <div class="inner">
+      <div class="contents panel pjax" data-title="文章目录">
+          <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#RAMBO%E6%BA%90%E7%A0%81%E8%A7%A3%E8%AF%BB"><span class="toc-number">1.</span> <span class="toc-text">RAMBO源码解读</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%80-%E4%BB%8Emain%E5%87%BD%E6%95%B0%E7%9A%84%E6%B5%8B%E8%AF%95%E5%88%86%E6%94%AF%E5%BC%80%E5%A7%8B"><span class="toc-number">1.1.</span> <span class="toc-text">一.从main函数的测试分支开始</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%8C-%E4%B8%BB%E8%A6%81%E4%BB%A3%E7%A0%81%EF%BC%9ARambo%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84"><span class="toc-number">1.2.</span> <span class="toc-text">二.主要代码：Rambo数据结构</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#2-1-Rambo-construction-h"><span class="toc-number">1.2.1.</span> <span class="toc-text">2.1 Rambo_construction.h</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-2-Rambo-construction-c"><span class="toc-number">1.2.2.</span> <span class="toc-text">2.2 Rambo_construction.c</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#2-2-1-%E5%88%9D%E5%A7%8B%E5%8C%96%E5%87%BD%E6%95%B0"><span class="toc-number">1.2.2.1.</span> <span class="toc-text">2.2.1 初始化函数</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-2-2-createMetaRambo%E5%87%BD%E6%95%B0"><span class="toc-number">1.2.2.2.</span> <span class="toc-text">2.2.2 createMetaRambo函数</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-2-3-insertion2%E5%87%BD%E6%95%B0"><span class="toc-number">1.2.2.3.</span> <span class="toc-text">2.2.3 insertion2函数</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-2-4-query%E5%87%BD%E6%95%B0"><span class="toc-number">1.2.2.4.</span> <span class="toc-text">2.2.4 query函数</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-2-5-%E8%BE%85%E5%8A%A9%E5%87%BD%E6%95%B0"><span class="toc-number">1.2.2.5.</span> <span class="toc-text">2.2.5 辅助函数</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%89-%E5%85%B6%E4%BB%96%E4%BB%A3%E7%A0%81"><span class="toc-number">1.3.</span> <span class="toc-text">三.其他代码</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#3-1-util-h-x2F-cpp"><span class="toc-number">1.3.1.</span> <span class="toc-text">3.1 util.h&#x2F;cpp</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-2-bitArray-h-x2F-cpp"><span class="toc-number">1.3.2.</span> <span class="toc-text">3.2 bitArray.h&#x2F;cpp</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-3-MyBloom-h-x2F-cpp"><span class="toc-number">1.3.3.</span> <span class="toc-text">3.3 MyBloom.h&#x2F;cpp</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-4-MurmurhHash3-h-x2F-cpp"><span class="toc-number">1.3.4.</span> <span class="toc-text">3.4 MurmurhHash3.h&#x2F;cpp</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9B%9B-%E6%B5%81%E7%A8%8B%E6%80%BB%E7%BB%93"><span class="toc-number">1.4.</span> <span class="toc-text">四.流程总结</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#4-1-%E5%88%9D%E5%A7%8B%E5%8C%96Rambo"><span class="toc-number">1.4.1.</span> <span class="toc-text">4.1 初始化Rambo</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-2-%E9%A2%84%E5%A4%84%E7%90%86%E5%9D%97%E5%8F%B7%E9%9B%86%E5%90%88"><span class="toc-number">1.4.2.</span> <span class="toc-text">4.2 预处理块号集合</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-3-%E6%8F%92%E5%85%A5key"><span class="toc-number">1.4.3.</span> <span class="toc-text">4.3 插入key</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-4-%E6%9F%A5%E6%89%BEkey"><span class="toc-number">1.4.4.</span> <span class="toc-text">4.4 查找key</span></a></li></ol></li></ol></li></ol>
+      </div>
+      <div class="related panel pjax" data-title="系列文章">
+        <ul>
+          <li class="active"><a href="/computer-science/study/paper/RAMBO%E6%BA%90%E7%A0%81%E8%A7%A3%E8%AF%BB/" rel="bookmark" title="RAMBO源码解读">RAMBO源码解读</a></li>
+        </ul>
+      </div>
+      <div class="overview panel" data-title="站点概览">
+        <div class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <img class="image" itemprop="image" alt="Kun Qian"
+      data-src="/images/avatar.jpg">
+  <p class="name" itemprop="name">Kun Qian</p>
+  <div class="description" itemprop="description"></div>
+</div>
+
+<nav class="state">
+    <div class="item posts">
+      <a href="/archives/">
+        <span class="count">5</span>
+        <span class="name">文章</span>
+      </a>
+    </div>
+    <div class="item categories">
+      <a href="/categories/">
+        <span class="count">6</span>
+        <span class="name">分类</span>
+      </a>
+    </div>
+    <div class="item tags">
+      <a href="/tags/">
+        <span class="count">6</span>
+        <span class="name">标签</span>
+      </a>
+    </div>
+</nav>
+
+<div class="social">
+      <span class="exturl item github" data-url="aHR0cHM6Ly9naXRodWIuY29tL3FrZ29hbGtlZXBlcg==" title="https:&#x2F;&#x2F;github.com&#x2F;qkgoalkeeper"><i class="ic i-github"></i></span>
+      <span class="exturl item zhihu" data-url="aHR0cHM6Ly93d3cuemhpaHUuY29tL3Blb3BsZS9oYW8tbGFpLXd1LXNob3UtbWVuLXl1YW4=" title="https:&#x2F;&#x2F;www.zhihu.com&#x2F;people&#x2F;hao-lai-wu-shou-men-yuan"><i class="ic i-zhihu"></i></span>
+      <span class="exturl item music" data-url="aHR0cHM6Ly9tdXNpYy4xNjMuY29tLyMvdXNlci9ob21lP2lkPTM5MjU2NzE4Nw==" title="https:&#x2F;&#x2F;music.163.com&#x2F;#&#x2F;user&#x2F;home?id&#x3D;392567187"><i class="ic i-cloud-music"></i></span>
+      <a href="/about/" title="&#x2F;about&#x2F;" class="item about"><i class="ic i-address-card"></i></a>
+</div>
+
+<ul class="menu">
+  
+    
+  <li class="item">
+    <a href="/" rel="section"><i class="ic i-home"></i>首页</a>
+  </li>
+
+    
+  <li class="item">
+    <a href="/about/" rel="section"><i class="ic i-user"></i>关于</a>
+  </li>
+
+        
+  <li class="item dropdown">
+      <a href="javascript:void(0);"><i class="ic i-feather"></i>文章</a>
+    <ul class="submenu">
+
+        
+  <li class="item">
+    <a href="/archives/" rel="section"><i class="ic i-list-alt"></i>归档</a>
+  </li>
+
+        
+  <li class="item">
+    <a href="/categories/" rel="section"><i class="ic i-th"></i>分类</a>
+  </li>
+
+        
+  <li class="item">
+    <a href="/tags/" rel="section"><i class="ic i-tags"></i>标签</a>
+  </li>
+
+  </ul>
+    
+  <li class="item">
+    <a href="/friends/" rel="section"><i class="ic i-heart"></i>友達</a>
+  </li>
+
+
+</ul>
+
+      </div>
+    </div>
+  </div>
+
+  <ul id="quick">
+    <li class="prev pjax">
+        <a href="/computer-science/leetcode/offer2/LeetCode%E6%AF%8F%E6%97%A5%E7%BB%83%E4%B9%A0%EF%BC%9A%E5%89%91%E6%8C%87%20Offer%20II%20002.%20%E4%BA%8C%E8%BF%9B%E5%88%B6%E5%8A%A0%E6%B3%95/" rel="prev" title="上一篇"><i class="ic i-chevron-left"></i></a>
+    </li>
+    <li class="up"><i class="ic i-arrow-up"></i></li>
+    <li class="down"><i class="ic i-arrow-down"></i></li>
+    <li class="next pjax">
+        <a href="/new%20blog%E8%BF%81%E7%A7%BB%E8%AF%B4%E6%98%8E/" rel="next" title="下一篇"><i class="ic i-chevron-right"></i></a>
+    </li>
+    <li class="percent"></li>
+  </ul>
+</div>
+
+
+        </div>
+        <div class="dimmer"></div>
+      </div>
+    </main>
+    <footer id="footer">
+      <div class="inner">
+        <div class="widgets">
+          
+<div class="rpost pjax">
+  <h2>随机文章</h2>
+  <ul>
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/computer-science/" title="分类于 计算机科学">计算机科学</a>
+<i class="ic i-angle-right"></i>
+<a href="/categories/computer-science/study/" title="分类于 研究生学习">研究生学习</a>
+<i class="ic i-angle-right"></i>
+<a href="/categories/computer-science/study/paper/" title="分类于 论文源码解读">论文源码解读</a>
+</div>
+
+    <span><a href="/computer-science/study/paper/RAMBO%E6%BA%90%E7%A0%81%E8%A7%A3%E8%AF%BB/" title="RAMBO源码解读">RAMBO源码解读</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/computer-science/" title="分类于 计算机科学">计算机科学</a>
+<i class="ic i-angle-right"></i>
+<a href="/categories/computer-science/leetcode/" title="分类于 Leetcode">Leetcode</a>
+<i class="ic i-angle-right"></i>
+<a href="/categories/computer-science/leetcode/offer2/" title="分类于 剑指offer">剑指offer</a>
+</div>
+
+    <span><a href="/computer-science/leetcode/offer2/LeetCode%E6%AF%8F%E6%97%A5%E7%BB%83%E4%B9%A0%EF%BC%9A%E5%89%91%E6%8C%87%20Offer%20II%20002.%20%E4%BA%8C%E8%BF%9B%E5%88%B6%E5%8A%A0%E6%B3%95/" title="剑指 Offer II 002. 二进制加法">剑指 Offer II 002. 二进制加法</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/%E6%9D%82%E8%B0%88/" title="分类于 杂谈">杂谈</a>
+</div>
+
+    <span><a href="/new%20blog%E8%BF%81%E7%A7%BB%E8%AF%B4%E6%98%8E/" title="新blog迁移记录">新blog迁移记录</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/computer-science/" title="分类于 计算机科学">计算机科学</a>
+<i class="ic i-angle-right"></i>
+<a href="/categories/computer-science/leetcode/" title="分类于 Leetcode">Leetcode</a>
+<i class="ic i-angle-right"></i>
+<a href="/categories/computer-science/leetcode/offer2/" title="分类于 剑指offer">剑指offer</a>
+</div>
+
+    <span><a href="/computer-science/leetcode/offer2/LeetCode%E6%AF%8F%E6%97%A5%E7%BB%83%E4%B9%A0%EF%BC%9A%E5%89%91%E6%8C%87%20Offer%20II%20001.%20%E6%95%B4%E6%95%B0%E9%99%A4%E6%B3%95/" title="剑指 Offer II 001. 整数除法">剑指 Offer II 001. 整数除法</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/computer-science/" title="分类于 计算机科学">计算机科学</a>
+<i class="ic i-angle-right"></i>
+<a href="/categories/computer-science/leetcode/" title="分类于 Leetcode">Leetcode</a>
+<i class="ic i-angle-right"></i>
+<a href="/categories/computer-science/leetcode/offer2/" title="分类于 剑指offer">剑指offer</a>
+</div>
+
+    <span><a href="/computer-science/leetcode/offer2/LeetCode%E6%AF%8F%E6%97%A5%E7%BB%83%E4%B9%A0%EF%BC%9A%E5%89%91%E6%8C%87%20Offer%20II%20003.%20%E5%89%8D%20n%20%E4%B8%AA%E6%95%B0%E5%AD%97%E4%BA%8C%E8%BF%9B%E5%88%B6%E4%B8%AD%201%20%E7%9A%84%E4%B8%AA%E6%95%B0/" title="剑指 Offer II 003. 前 n 个数字二进制中 1 的个数">剑指 Offer II 003. 前 n 个数字二进制中 1 的个数</a></span>
+  </li>
+
+  </ul>
+</div>
+
+        </div>
+        <div class="status">
+  <div class="copyright">
+    
+    &copy; 2020 – 
+    <span itemprop="copyrightYear">2023</span>
+    <span class="with-love">
+      <i class="ic i-sakura rotate"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">Kun Qian @ Kun Qian</span>
+  </div>
+  <div class="powered-by">
+    基于 <span class="exturl" data-url="aHR0cHM6Ly9oZXhvLmlv">Hexo</span> & Theme.<span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL2FtZWhpbWUvaGV4by10aGVtZS1zaG9rYQ==">Shoka</span>
+  </div>
+</div>
+
+      </div>
+    </footer>
+  </div>
+<script data-config type="text/javascript">
+  var LOCAL = {
+    path: 'computer-science/study/paper/RAMBO源码解读/',
+    favicon: {
+      show: "qkgoalkeeper's blog",
+      hide: "qkgoalkeeper's blog"
+    },
+    search : {
+      placeholder: "文章搜索",
+      empty: "关于 「 ${query} 」，什么也没搜到",
+      stats: "${time} ms 内找到 ${hits} 条结果"
+    },
+    valine: true,fancybox: true,
+    copyright: '复制成功，转载请遵守 <i class="ic i-creative-commons"></i>BY-NC-SA 协议。',
+    ignores : [
+      function(uri) {
+        return uri.includes('#');
+      },
+      function(uri) {
+        return new RegExp(LOCAL.path+"$").test(uri);
+      }
+    ]
+  };
+</script>
+
+<script src="https://cdn.polyfill.io/v2/polyfill.js"></script>
+
+<script src="//cdn.jsdelivr.net/combine/npm/pace-js@1.0.2/pace.min.js,npm/pjax@0.2.8/pjax.min.js,npm/whatwg-fetch@3.4.0/dist/fetch.umd.min.js,npm/animejs@3.2.0/lib/anime.min.js,npm/algoliasearch@4/dist/algoliasearch-lite.umd.js,npm/instantsearch.js@4/dist/instantsearch.production.min.js,npm/lozad@1/dist/lozad.min.js,npm/quicklink@2/dist/quicklink.umd.js"></script>
+
+<script src="/js/app.js?v=0.2.5"></script>
+
+
+
+
+</body>
+</html>

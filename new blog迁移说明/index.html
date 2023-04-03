@@ -105,9 +105,9 @@ Kun Qian = Qkgoalkeeper's blog</title>
       </div>
       <div id="imgs" class="pjax">
         <ul>
-          <li class="item" data-background-image="https://cdn.jsdelivr.net/gh/qkgoalkeeper/blogImage@main/img/Splatoon1.jpg"></li>
-          <li class="item" data-background-image="https://cdn.jsdelivr.net/gh/qkgoalkeeper/blogImage@main/img/Kirby1.jpg"></li>
-          <li class="item" data-background-image="https://cdn.jsdelivr.net/gh/qkgoalkeeper/blogImage@main/img/SuperMarioMaker2.jpg"></li>
+          <li class="item" data-background-image="https://cdn.jsdelivr.net/gh/qkgoalkeeper/blogImage@main/img/Miel%20KARi%20%20%20Xenoblade%202%20World%20Tree%20background%20I%20made%20without.png"></li>
+          <li class="item" data-background-image="https://cdn.jsdelivr.net/gh/qkgoalkeeper/blogImage@main/img/High_resolution_wallpaper_background_ID_77700116165.jpg"></li>
+          <li class="item" data-background-image="https://cdn.jsdelivr.net/gh/qkgoalkeeper/blogImage@main/img/Kirby3.jpg"></li>
           <li class="item" data-background-image="https://cdn.jsdelivr.net/gh/qkgoalkeeper/blogImage@main/img/FireEmblem4.jpg"></li>
           <li class="item" data-background-image="https://cdn.jsdelivr.net/gh/qkgoalkeeper/blogImage@main/img/XenobladeChronicles4.jpg"></li>
           <li class="item" data-background-image="https://cdn.jsdelivr.net/gh/qkgoalkeeper/blogImage@main/img/Splatoon2.jpg"></li>
@@ -162,26 +162,33 @@ Kun Qian = Qkgoalkeeper's blog</title>
 <p><img data-src="https://cdn.jsdelivr.net/gh/qkgoalkeeper/blogImage@main/img/oldblog1.png"></p>
 <p>这几周工作比较忙拖到了四月初做这个作业，但因为之前hugo和hexo都接触过有些基础，而且可以使用模板，所以一两天调试一下也能与不错的完成度，最后大致结果如下，比之前观赏度高多了。</p>
 <p><img data-src="https://cdn.jsdelivr.net/gh/qkgoalkeeper/blogImage@main/img/20230402215134.png"></p>
-<h2 id="为什么选择-Hexo与Shoka模板"><a href="#为什么选择-Hexo与Shoka模板" class="headerlink" title="为什么选择 Hexo与Shoka模板?"></a>为什么选择 Hexo与Shoka模板?</h2><ol>
+<h3 id="为什么选择-Hexo与Shoka模板"><a href="#为什么选择-Hexo与Shoka模板" class="headerlink" title="为什么选择 Hexo与Shoka模板?"></a>为什么选择 Hexo与Shoka模板?</h3><ol>
 <li>hexo之前用过，而且只需要nodejs就行npm来管理依赖很方便，本地有现有环境，而Jekyll 的话要ruby没有装，感觉以后也用不到ruby，hugo的话虽然也有现成环境但是找不到好看的</li>
 <li>Shoka是一个较全的也较好看的模板，支持音乐和图片的自定义，功能丰富还支持一堆插件，它的归档和分类做的很到位<span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL2FtZWhpbWUvaGV4by10aGVtZS1zaG9rYQ==">amehime&#x2F;hexo-theme-shoka: Just For https://shoka.lostyu.me/ (github.com)</span></li>
 <li>Shoka的文档也很丰富，每个组件的用途都有介绍<span class="exturl" data-url="aHR0cHM6Ly9zaG9rYS5sb3N0eXUubWUvY29tcHV0ZXItc2NpZW5jZS9ub3RlL3RoZW1lLXNob2thLWRvYy8=">Hexo 主题 Shoka &amp; multi-markdown-it 渲染器使用说明 - Theme Shoka Documentation - 二进制杂谈 - 计算机科学 | Yume Shoka &#x3D; 優萌初華 &#x3D; 有夢書架 (lostyu.me)</span></li>
 <li>Shoka能切换两种模式，右上角切换光与暗</li>
 </ol>
-<h2 id="二-迁移要点及功能设计"><a href="#二-迁移要点及功能设计" class="headerlink" title="二.迁移要点及功能设计"></a>二.迁移要点及功能设计</h2><p>1.图床建立</p>
-<p>之前用hugo时没用图床链接，而是把所有图片放到source里传上去，这个历史遗留问题就导致GitHub更新时很麻烦速度慢，管理图片也很麻烦，这次迁移将所有图片改为图床链接的形式，GitHub本身可以作为图床，这里给两个GitHub+PicGo的免费图床教程：</p>
+<h2 id="二-迁移要点及功能设计"><a href="#二-迁移要点及功能设计" class="headerlink" title="二.迁移要点及功能设计"></a>二.迁移要点及功能设计</h2><h3 id="图床建立"><a href="#图床建立" class="headerlink" title="图床建立"></a>图床建立</h3><p>之前用hugo时没用图床链接，而是把所有图片放到source里传上去，这个历史遗留问题就导致GitHub更新时很麻烦速度慢，管理图片也很麻烦，这次迁移将所有图片改为图床链接的形式，GitHub本身可以作为图床，这里给两个GitHub+PicGo的免费图床教程：</p>
 <p><span class="exturl" data-url="aHR0cHM6Ly96aHVhbmxhbi56aGlodS5jb20vcC80ODkyMzY3Njk=">使用Github+picGo搭建图床，保姆级教程来了 - 知乎 (zhihu.com)</span></p>
 <p><span class="exturl" data-url="aHR0cHM6Ly96aHVhbmxhbi56aGlodS5jb20vcC8zNTA1OTgzNTE=">GitHub+picGo+CDN搭建免费图床 - 知乎 (zhihu.com)</span></p>
 <p>注意可如文章中一样使用CDN链接而不是GitHub的raw链接，否则图片较多加载较慢</p>
-<p>2.模板修改</p>
-<p>hexo各个模板类似，修改_config.yml文件，以及模板中的另一个模板_config.yml文件，像这个shoka模板的那个文档有对这两个文件的分析，这里也是建议选star数比较多的社区较活跃的模板</p>
-<p>3.功能设计&#x2F;页面设计</p>
-<p>文章通过归档和分类模块进行管理</p>
+<h3 id="模板修改"><a href="#模板修改" class="headerlink" title="模板修改"></a>模板修改</h3><p>hexo各个模板类似，修改_config.yml文件，以及模板中的另一个模板_config.yml文件，像这个shoka模板的那个文档有对这两个文件的分析，这里也是建议选star数比较多的社区较活跃的模板</p>
+<h3 id="功能设计-x2F-页面设计"><a href="#功能设计-x2F-页面设计" class="headerlink" title="功能设计&#x2F;页面设计"></a>功能设计&#x2F;页面设计</h3><p>文章通过归档和分类模块进行管理</p>
 <p>提供了别的社交软件的链接</p>
 <p>友链模块用来互关，有意向互相加好友的GitHub联系我即可，或者qq：1421812601加我</p>
 <p>音乐模块连接了网易云</p>
 <p>搜索模块使用algolia <span class="exturl" data-url="aHR0cHM6Ly93d3cuYWxnb2xpYS5jb20v">https://www.algolia.com/</span></p>
-<h2 id="三-后续安排"><a href="#三-后续安排" class="headerlink" title="三.后续安排"></a>三.后续安排</h2><p>后续主要就是把之前的文章重新归档分类，老博客这两年也写了上百篇文章，有些比较水有些感觉还有些价值，把有用的搬运到这个新博客上。最后感谢王老师和助教老师的教导，这次作业使人受益匪浅。</p>
+<h2 id="三-踩坑过程"><a href="#三-踩坑过程" class="headerlink" title="三.踩坑过程"></a>三.踩坑过程</h2><p>虽然一天不到就建完了新博客，大多数问题看文档即可解决，但过程中还是踩了一些坑，这里列举一下：</p>
+<p>1.需要装一些插件，有些插件一开始没装会影响某些功能，插件这里每个模板的需求依赖都不一样，所以要仔细看看作者的readme和官方文档，比如shoka中需要一下这些插件：</p>
+<ul>
+<li><span class="exturl" data-url="aHR0cHM6Ly93d3cubnBtanMuY29tL3BhY2thZ2UvaGV4by1yZW5kZXJlci1tdWx0aS1tYXJrZG93bi1pdA==">hexo-renderer-multi-markdown-it</span></li>
+<li><span class="exturl" data-url="aHR0cHM6Ly93d3cubnBtanMuY29tL3BhY2thZ2UvaGV4by1hdXRvcHJlZml4ZXI=">hexo-autoprefixer</span></li>
+<li><span class="exturl" data-url="aHR0cHM6Ly93d3cubnBtanMuY29tL3BhY2thZ2UvaGV4by1hbGdvbGlhc2VhcmNo">hexo-algoliasearch</span></li>
+<li><span class="exturl" data-url="aHR0cHM6Ly93d3cubnBtanMuY29tL3BhY2thZ2UvaGV4by1zeW1ib2xzLWNvdW50LXRpbWU=">hexo-symbols-count-time</span></li>
+<li><span class="exturl" data-url="aHR0cHM6Ly93d3cubnBtanMuY29tL3BhY2thZ2UvaGV4by1mZWVk">hexo-feed</span></li>
+</ul>
+<p>2.特别注意上面第三个<span class="exturl" data-url="aHR0cHM6Ly93d3cubnBtanMuY29tL3BhY2thZ2UvaGV4by1hbGdvbGlhc2VhcmNo">hexo-algoliasearch</span>不要错装成 hexo-algolia这个npm包，npm中有很多名字类似的包，一开始装错成后面这个导致搜索功能出了问题</p>
+<h2 id="四-后续安排"><a href="#四-后续安排" class="headerlink" title="四.后续安排"></a>四.后续安排</h2><p>后续主要就是把之前的文章重新归档分类，老博客这两年也写了上百篇文章，有些比较水有些感觉还有些价值，把有用的搬运到这个新博客上。最后感谢王老师和助教老师的教导，这次作业使人受益匪浅，使得搁置多年的博客翻新计划重新提上了日程。</p>
 
       <div class="tags">
           <a href="/tags/blog/" rel="tag"><i class="ic i-tag"></i> blog</a>
@@ -197,7 +204,7 @@ Kun Qian = Qkgoalkeeper's blog</title>
       <i class="ic i-calendar-check"></i>
     </span>
     <span class="text">更新于</span>
-    <time title="修改时间：2023-04-02 23:01:32" itemprop="dateModified" datetime="2023-04-02T23:01:32+08:00">2023-04-02</time>
+    <time title="修改时间：2023-04-03 11:26:54" itemprop="dateModified" datetime="2023-04-03T11:26:54+08:00">2023-04-03</time>
   </span>
 </div>
 
@@ -229,10 +236,10 @@ Kun Qian = Qkgoalkeeper's blog</title>
     <div class="item left">
       
 
-  <a href="/computer-science/leetcode/offer2/LeetCode%E6%AF%8F%E6%97%A5%E7%BB%83%E4%B9%A0%EF%BC%9A%E5%89%91%E6%8C%87%20Offer%20II%20002.%20%E4%BA%8C%E8%BF%9B%E5%88%B6%E5%8A%A0%E6%B3%95/" itemprop="url" rel="prev" data-background-image="https:&#x2F;&#x2F;cdn.jsdelivr.net&#x2F;gh&#x2F;qkgoalkeeper&#x2F;blogImage@main&#x2F;img&#x2F;leetcode.png" title="剑指 Offer II 002. 二进制加法">
+  <a href="/computer-science/study/paper/RAMBO%E6%BA%90%E7%A0%81%E8%A7%A3%E8%AF%BB/" itemprop="url" rel="prev" data-background-image="https:&#x2F;&#x2F;cdn.jsdelivr.net&#x2F;gh&#x2F;qkgoalkeeper&#x2F;blogImage@main&#x2F;img&#x2F;20230403113703.png" title="RAMBO源码解读">
   <span class="type">上一篇</span>
-  <span class="category"><i class="ic i-flag"></i> 剑指offer</span>
-  <h3>剑指 Offer II 002. 二进制加法</h3>
+  <span class="category"><i class="ic i-flag"></i> 论文源码解读</span>
+  <h3>RAMBO源码解读</h3>
   </a>
 
     </div>
@@ -253,7 +260,7 @@ Kun Qian = Qkgoalkeeper's blog</title>
   <div class="panels">
     <div class="inner">
       <div class="contents panel pjax" data-title="文章目录">
-          <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%8D%9A%E5%AE%A2%E8%BF%81%E7%A7%BB%E8%AE%B0%E5%BD%95"><span class="toc-number">1.</span> <span class="toc-text">博客迁移记录</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%80-%E5%89%8D%E8%A8%80"><span class="toc-number">1.1.</span> <span class="toc-text">一.前言</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E4%B8%8D%E7%9B%B4%E6%8E%A5%E6%8A%8A%E5%8E%9F%E6%9D%A5%E7%9A%84%E5%8D%9A%E5%AE%A2%E9%93%BE%E6%8E%A5%E6%94%BE%E4%B8%8A%EF%BC%9F"><span class="toc-number">1.1.1.</span> <span class="toc-text">为什么不直接把原来的博客链接放上？</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E9%80%89%E6%8B%A9-Hexo%E4%B8%8EShoka%E6%A8%A1%E6%9D%BF"><span class="toc-number">1.2.</span> <span class="toc-text">为什么选择 Hexo与Shoka模板?</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%8C-%E8%BF%81%E7%A7%BB%E8%A6%81%E7%82%B9%E5%8F%8A%E5%8A%9F%E8%83%BD%E8%AE%BE%E8%AE%A1"><span class="toc-number">1.3.</span> <span class="toc-text">二.迁移要点及功能设计</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%89-%E5%90%8E%E7%BB%AD%E5%AE%89%E6%8E%92"><span class="toc-number">1.4.</span> <span class="toc-text">三.后续安排</span></a></li></ol></li></ol>
+          <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%8D%9A%E5%AE%A2%E8%BF%81%E7%A7%BB%E8%AE%B0%E5%BD%95"><span class="toc-number">1.</span> <span class="toc-text">博客迁移记录</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%80-%E5%89%8D%E8%A8%80"><span class="toc-number">1.1.</span> <span class="toc-text">一.前言</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E4%B8%8D%E7%9B%B4%E6%8E%A5%E6%8A%8A%E5%8E%9F%E6%9D%A5%E7%9A%84%E5%8D%9A%E5%AE%A2%E9%93%BE%E6%8E%A5%E6%94%BE%E4%B8%8A%EF%BC%9F"><span class="toc-number">1.1.1.</span> <span class="toc-text">为什么不直接把原来的博客链接放上？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E9%80%89%E6%8B%A9-Hexo%E4%B8%8EShoka%E6%A8%A1%E6%9D%BF"><span class="toc-number">1.1.2.</span> <span class="toc-text">为什么选择 Hexo与Shoka模板?</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%8C-%E8%BF%81%E7%A7%BB%E8%A6%81%E7%82%B9%E5%8F%8A%E5%8A%9F%E8%83%BD%E8%AE%BE%E8%AE%A1"><span class="toc-number">1.2.</span> <span class="toc-text">二.迁移要点及功能设计</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9B%BE%E5%BA%8A%E5%BB%BA%E7%AB%8B"><span class="toc-number">1.2.1.</span> <span class="toc-text">图床建立</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%A8%A1%E6%9D%BF%E4%BF%AE%E6%94%B9"><span class="toc-number">1.2.2.</span> <span class="toc-text">模板修改</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8A%9F%E8%83%BD%E8%AE%BE%E8%AE%A1-x2F-%E9%A1%B5%E9%9D%A2%E8%AE%BE%E8%AE%A1"><span class="toc-number">1.2.3.</span> <span class="toc-text">功能设计&#x2F;页面设计</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%89-%E8%B8%A9%E5%9D%91%E8%BF%87%E7%A8%8B"><span class="toc-number">1.3.</span> <span class="toc-text">三.踩坑过程</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9B%9B-%E5%90%8E%E7%BB%AD%E5%AE%89%E6%8E%92"><span class="toc-number">1.4.</span> <span class="toc-text">四.后续安排</span></a></li></ol></li></ol>
       </div>
       <div class="related panel pjax" data-title="系列文章">
         <ul>
@@ -271,19 +278,19 @@ Kun Qian = Qkgoalkeeper's blog</title>
 <nav class="state">
     <div class="item posts">
       <a href="/archives/">
-        <span class="count">4</span>
+        <span class="count">5</span>
         <span class="name">文章</span>
       </a>
     </div>
     <div class="item categories">
       <a href="/categories/">
-        <span class="count">4</span>
+        <span class="count">6</span>
         <span class="name">分类</span>
       </a>
     </div>
     <div class="item tags">
       <a href="/tags/">
-        <span class="count">5</span>
+        <span class="count">6</span>
         <span class="name">标签</span>
       </a>
     </div>
@@ -368,16 +375,6 @@ Kun Qian = Qkgoalkeeper's blog</title>
   <li class="item">
     
 <div class="breadcrumb">
-<a href="/categories/%E6%9D%82%E8%B0%88/" title="分类于 杂谈">杂谈</a>
-</div>
-
-    <span><a href="/new%20blog%E8%BF%81%E7%A7%BB%E8%AF%B4%E6%98%8E/" title="新blog迁移记录">新blog迁移记录</a></span>
-  </li>
-
-      
-  <li class="item">
-    
-<div class="breadcrumb">
 <a href="/categories/computer-science/" title="分类于 计算机科学">计算机科学</a>
 <i class="ic i-angle-right"></i>
 <a href="/categories/computer-science/leetcode/" title="分类于 Leetcode">Leetcode</a>
@@ -385,7 +382,17 @@ Kun Qian = Qkgoalkeeper's blog</title>
 <a href="/categories/computer-science/leetcode/offer2/" title="分类于 剑指offer">剑指offer</a>
 </div>
 
-    <span><a href="/computer-science/leetcode/offer2/LeetCode%E6%AF%8F%E6%97%A5%E7%BB%83%E4%B9%A0%EF%BC%9A%E5%89%91%E6%8C%87%20Offer%20II%20003.%20%E5%89%8D%20n%20%E4%B8%AA%E6%95%B0%E5%AD%97%E4%BA%8C%E8%BF%9B%E5%88%B6%E4%B8%AD%201%20%E7%9A%84%E4%B8%AA%E6%95%B0/" title="剑指 Offer II 003. 前 n 个数字二进制中 1 的个数">剑指 Offer II 003. 前 n 个数字二进制中 1 的个数</a></span>
+    <span><a href="/computer-science/leetcode/offer2/LeetCode%E6%AF%8F%E6%97%A5%E7%BB%83%E4%B9%A0%EF%BC%9A%E5%89%91%E6%8C%87%20Offer%20II%20002.%20%E4%BA%8C%E8%BF%9B%E5%88%B6%E5%8A%A0%E6%B3%95/" title="剑指 Offer II 002. 二进制加法">剑指 Offer II 002. 二进制加法</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/%E6%9D%82%E8%B0%88/" title="分类于 杂谈">杂谈</a>
+</div>
+
+    <span><a href="/new%20blog%E8%BF%81%E7%A7%BB%E8%AF%B4%E6%98%8E/" title="新blog迁移记录">新blog迁移记录</a></span>
   </li>
 
       
@@ -413,7 +420,21 @@ Kun Qian = Qkgoalkeeper's blog</title>
 <a href="/categories/computer-science/leetcode/offer2/" title="分类于 剑指offer">剑指offer</a>
 </div>
 
-    <span><a href="/computer-science/leetcode/offer2/LeetCode%E6%AF%8F%E6%97%A5%E7%BB%83%E4%B9%A0%EF%BC%9A%E5%89%91%E6%8C%87%20Offer%20II%20002.%20%E4%BA%8C%E8%BF%9B%E5%88%B6%E5%8A%A0%E6%B3%95/" title="剑指 Offer II 002. 二进制加法">剑指 Offer II 002. 二进制加法</a></span>
+    <span><a href="/computer-science/leetcode/offer2/LeetCode%E6%AF%8F%E6%97%A5%E7%BB%83%E4%B9%A0%EF%BC%9A%E5%89%91%E6%8C%87%20Offer%20II%20003.%20%E5%89%8D%20n%20%E4%B8%AA%E6%95%B0%E5%AD%97%E4%BA%8C%E8%BF%9B%E5%88%B6%E4%B8%AD%201%20%E7%9A%84%E4%B8%AA%E6%95%B0/" title="剑指 Offer II 003. 前 n 个数字二进制中 1 的个数">剑指 Offer II 003. 前 n 个数字二进制中 1 的个数</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/computer-science/" title="分类于 计算机科学">计算机科学</a>
+<i class="ic i-angle-right"></i>
+<a href="/categories/computer-science/study/" title="分类于 研究生学习">研究生学习</a>
+<i class="ic i-angle-right"></i>
+<a href="/categories/computer-science/study/paper/" title="分类于 论文源码解读">论文源码解读</a>
+</div>
+
+    <span><a href="/computer-science/study/paper/RAMBO%E6%BA%90%E7%A0%81%E8%A7%A3%E8%AF%BB/" title="RAMBO源码解读">RAMBO源码解读</a></span>
   </li>
 
   </ul>
