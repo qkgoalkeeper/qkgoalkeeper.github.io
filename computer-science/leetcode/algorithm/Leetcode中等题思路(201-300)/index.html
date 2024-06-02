@@ -1,0 +1,3791 @@
+
+
+
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#FFF">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+
+<link rel="icon" type="image/ico" sizes="32x32" href="/images/favicon.ico">
+  <link rel="mask-icon" href="/images/logo.svg" color="">
+  <link rel="manifest" href="/images/manifest.json">
+  <meta name="msapplication-config" content="/images/browserconfig.xml">
+  <meta http-equiv="Cache-Control" content="no-transform">
+  <meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+<link rel="alternate" type="application/rss+xml" title="Qkgoalkeeper's blog" href="https://qkgoalkeeper.github.io/rss.xml" />
+<link rel="alternate" type="application/atom+xml" title="Qkgoalkeeper's blog" href="https://qkgoalkeeper.github.io/atom.xml" />
+<link rel="alternate" type="application/json" title="Qkgoalkeeper's blog" href="https://qkgoalkeeper.github.io/feed.json" />
+
+<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Mulish:300,300italic,400,400italic,700,700italic%7CFredericka%20the%20Great:300,300italic,400,400italic,700,700italic%7CNoto%20Serif%20JP:300,300italic,400,400italic,700,700italic%7CNoto%20Serif%20SC:300,300italic,400,400italic,700,700italic%7CInconsolata:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+
+<link rel="stylesheet" href="/css/app.css?v=0.2.5">
+
+  
+  <meta name="keywords" content="c++" />
+
+
+<link rel="canonical" href="https://qkgoalkeeper.github.io/computer-science/leetcode/algorithm/Leetcode%E4%B8%AD%E7%AD%89%E9%A2%98%E6%80%9D%E8%B7%AF(201-300)/">
+
+
+
+  <title>
+Leetcode中等题思路（201-300） - 算法题思路 - Leetcode - 计算机科学 |
+Kun Qian = Qkgoalkeeper's blog</title>
+<meta name="generator" content="Hexo 6.3.0"></head>
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div id="loading">
+    <div class="cat">
+      <div class="body"></div>
+      <div class="head">
+        <div class="face"></div>
+      </div>
+      <div class="foot">
+        <div class="tummy-end"></div>
+        <div class="bottom"></div>
+        <div class="legs left"></div>
+        <div class="legs right"></div>
+      </div>
+      <div class="paw">
+        <div class="hands left"></div>
+        <div class="hands right"></div>
+      </div>
+    </div>
+  </div>
+  <div id="container">
+    <header id="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="inner">
+        <div id="brand">
+          <div class="pjax">
+          
+  <h1 itemprop="name headline">Leetcode中等题思路（201-300）
+  </h1>
+  
+<div class="meta">
+  <span class="item" title="创建时间：2024-05-04 14:45:48">
+    <span class="icon">
+      <i class="ic i-calendar"></i>
+    </span>
+    <span class="text">发表于</span>
+    <time itemprop="dateCreated datePublished" datetime="2024-05-04T14:45:48+08:00">2024-05-04</time>
+  </span>
+</div>
+
+
+          </div>
+        </div>
+        <nav id="nav">
+  <div class="inner">
+    <div class="toggle">
+      <div class="lines" aria-label="切换导航栏">
+        <span class="line"></span>
+        <span class="line"></span>
+        <span class="line"></span>
+      </div>
+    </div>
+    <ul class="menu">
+      <li class="item title"><a href="/" rel="start">Kun Qian</a></li>
+    </ul>
+    <ul class="right">
+      <li class="item theme">
+        <i class="ic i-sun"></i>
+      </li>
+      <li class="item search">
+        <i class="ic i-search"></i>
+      </li>
+    </ul>
+  </div>
+</nav>
+
+      </div>
+      <div id="imgs" class="pjax">
+          <img src="https://cdn.jsdelivr.net/gh/qkgoalkeeper/blogImage@main/img/leetcode.png">
+      </div>
+    </header>
+    <div id="waves">
+      <svg class="waves" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 24 150 28" preserveAspectRatio="none" shape-rendering="auto">
+        <defs>
+          <path id="gentle-wave" d="M-160 44c30 0 58-18 88-18s 58 18 88 18 58-18 88-18 58 18 88 18 v44h-352z" />
+        </defs>
+        <g class="parallax">
+          <use xlink:href="#gentle-wave" x="48" y="0" />
+          <use xlink:href="#gentle-wave" x="48" y="3" />
+          <use xlink:href="#gentle-wave" x="48" y="5" />
+          <use xlink:href="#gentle-wave" x="48" y="7" />
+        </g>
+      </svg>
+    </div>
+    <main>
+      <div class="inner">
+        <div id="main" class="pjax">
+          
+  <div class="article wrap">
+    
+<div class="breadcrumb" itemscope itemtype="https://schema.org/BreadcrumbList">
+<i class="ic i-home"></i>
+<span><a href="/">首页</a></span><i class="ic i-angle-right"></i>
+<span  itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/categories/computer-science/" itemprop="item" rel="index" title="分类于 计算机科学"><span itemprop="name">计算机科学</span></a>
+<meta itemprop="position" content="1" /></span>
+<i class="ic i-angle-right"></i>
+<span  itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/categories/computer-science/leetcode/" itemprop="item" rel="index" title="分类于 Leetcode"><span itemprop="name">Leetcode</span></a>
+<meta itemprop="position" content="2" /></span>
+<i class="ic i-angle-right"></i>
+<span  class="current" itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/categories/computer-science/leetcode/%E7%AE%97%E6%B3%95%E9%A2%98%E6%80%9D%E8%B7%AF/" itemprop="item" rel="index" title="分类于 算法题思路"><span itemprop="name">算法题思路</span></a>
+<meta itemprop="position" content="3" /></span>
+</div>
+
+    <article itemscope itemtype="http://schema.org/Article" class="post block" lang="zh-CN">
+  <link itemprop="mainEntityOfPage" href="https://qkgoalkeeper.github.io/computer-science/leetcode/algorithm/Leetcode%E4%B8%AD%E7%AD%89%E9%A2%98%E6%80%9D%E8%B7%AF(201-300)/">
+
+  <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <meta itemprop="image" content="/images/avatar.jpg">
+    <meta itemprop="name" content="Kun Qian">
+    <meta itemprop="description" content=", ">
+  </span>
+
+  <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="Qkgoalkeeper's blog">
+  </span>
+
+  <div class="body md" itemprop="articleBody">
+    
+
+    <h1 id="201-数字范围按位与"><a href="#201-数字范围按位与" class="headerlink" title="201. 数字范围按位与"></a><span class="exturl" data-url="aHR0cHM6Ly9sZWV0Y29kZS5jbi9wcm9ibGVtcy9iaXR3aXNlLWFuZC1vZi1udW1iZXJzLXJhbmdlLw==">201. 数字范围按位与</span></h1><h2 id="题干"><a href="#题干" class="headerlink" title="题干"></a>题干</h2><p>给你两个整数 <code>left</code> 和 <code>right</code> ，表示区间 <code>[left, right]</code> ，返回此区间内所有数字 <strong>按位与</strong> 的结果（包含 <code>left</code> 、<code>right</code> 端点）。</p>
+<p><strong>示例 1：</strong></p>
+<pre><code>输入：left = 5, right = 7
+输出：4
+</code></pre>
+<p><strong>示例 2：</strong></p>
+<pre><code>输入：left = 0, right = 0
+输出：0
+</code></pre>
+<p><strong>示例 3：</strong></p>
+<pre><code>输入：left = 1, right = 2147483647
+输出：0
+</code></pre>
+<p><strong>提示：</strong></p>
+<ul>
+<li><code>0 &lt;= left &lt;= right &lt;= 231 - 1</code></li>
+</ul>
+<h2 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h2><p>数学位运算小技巧，直接遍历取与会超时，实际上连续数组取与只与第一个数和最后一个数有关，且答案是两个数的公共前缀，其余部分补零</p>
+<h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><pre><code class="c++">class Solution &#123;
+public:
+    int rangeBitwiseAnd(int m, int n) &#123;
+        int shift = 0;
+        // 找到公共前缀
+        while (m &lt; n) &#123;
+            m &gt;&gt;= 1;
+            n &gt;&gt;= 1;
+            ++shift;
+        &#125;
+        return m &lt;&lt; shift;
+    &#125;
+&#125;;
+
+</code></pre>
+<h1 id="204-计数质数"><a href="#204-计数质数" class="headerlink" title="204. 计数质数"></a><span class="exturl" data-url="aHR0cHM6Ly9sZWV0Y29kZS5jbi9wcm9ibGVtcy9jb3VudC1wcmltZXMv">204. 计数质数</span></h1><h2 id="题干-1"><a href="#题干-1" class="headerlink" title="题干"></a>题干</h2><p>给定整数 <code>n</code> ，返回 <em>所有小于非负整数 <code>n</code> 的质数的数量</em> 。</p>
+<p><strong>示例 1：</strong></p>
+<pre><code>输入：n = 10
+输出：4
+解释：小于 10 的质数一共有 4 个, 它们是 2, 3, 5, 7 。
+</code></pre>
+<p><strong>示例 2：</strong></p>
+<pre><code>输入：n = 0
+输出：0
+</code></pre>
+<p><strong>示例 3：</strong></p>
+<pre><code>输入：n = 1
+输出：0
+</code></pre>
+<p><strong>提示：</strong></p>
+<ul>
+<li><code>0 &lt;= n &lt;= 5 * 106</code></li>
+</ul>
+<h2 id="思路-1"><a href="#思路-1" class="headerlink" title="思路"></a>思路</h2><p>素筛法，建立一个dp数组，初始值为1，从左往右取值，将其的倍数的dp值都置为0，最后dp里为1的就是质数</p>
+<h2 id="代码-1"><a href="#代码-1" class="headerlink" title="代码"></a>代码</h2><pre><code class="c++">class Solution &#123;
+public:
+    int countPrimes(int n) &#123;
+        vector&lt;int&gt; isPrime(n, 1);
+        int ans = 0;
+        for (int i = 2; i &lt; n; ++i) &#123;
+            if (isPrime[i]) &#123;
+                ans += 1;
+                if ((long long)i * i &lt; n) &#123;
+                    for (int j = i * i; j &lt; n; j += i) &#123;
+                        isPrime[j] = 0;
+                    &#125;
+                &#125;
+            &#125;
+        &#125;
+        return ans;
+    &#125;
+&#125;;
+
+</code></pre>
+<h1 id="207-课程表"><a href="#207-课程表" class="headerlink" title="207. 课程表"></a><span class="exturl" data-url="aHR0cHM6Ly9sZWV0Y29kZS5jbi9wcm9ibGVtcy9jb3Vyc2Utc2NoZWR1bGUv">207. 课程表</span></h1><h2 id="题干-2"><a href="#题干-2" class="headerlink" title="题干"></a>题干</h2><p>你这个学期必须选修 <code>numCourses</code> 门课程，记为 <code>0</code> 到 <code>numCourses - 1</code> 。</p>
+<p>在选修某些课程之前需要一些先修课程。 先修课程按数组 <code>prerequisites</code> 给出，其中 <code>prerequisites[i] = [ai, bi]</code> ，表示如果要学习课程 <code>ai</code> 则 <strong>必须</strong> 先学习课程 <code>bi</code> 。</p>
+<ul>
+<li>例如，先修课程对 <code>[0, 1]</code> 表示：想要学习课程 <code>0</code> ，你需要先完成课程 <code>1</code> 。</li>
+</ul>
+<p>请你判断是否可能完成所有课程的学习？如果可以，返回 <code>true</code> ；否则，返回 <code>false</code> 。</p>
+<p><strong>示例 1：</strong></p>
+<pre><code>输入：numCourses = 2, prerequisites = [[1,0]]
+输出：true
+解释：总共有 2 门课程。学习课程 1 之前，你需要完成课程 0 。这是可能的。
+</code></pre>
+<p><strong>示例 2：</strong></p>
+<pre><code>输入：numCourses = 2, prerequisites = [[1,0],[0,1]]
+输出：false
+解释：总共有 2 门课程。学习课程 1 之前，你需要先完成课程 0 ；并且学习课程 0 之前，你还应先完成课程 1 。这是不可能的。
+</code></pre>
+<p><strong>提示：</strong></p>
+<ul>
+<li><code>1 &lt;= numCourses &lt;= 2000</code></li>
+<li><code>0 &lt;= prerequisites.length &lt;= 5000</code></li>
+<li><code>prerequisites[i].length == 2</code></li>
+<li><code>0 &lt;= ai, bi &lt; numCourses</code></li>
+<li><code>prerequisites[i]</code> 中的所有课程对 <strong>互不相同</strong></li>
+</ul>
+<h2 id="思路-2"><a href="#思路-2" class="headerlink" title="思路"></a>思路</h2><p>拓扑排序能遍历所有的节点说明成立，否则不成立</p>
+<h2 id="代码-2"><a href="#代码-2" class="headerlink" title="代码"></a>代码</h2><pre><code class="c++">class Solution &#123;
+private:
+    vector&lt;vector&lt;int&gt;&gt; edges;
+    vector&lt;int&gt; indeg;
+
+public:
+    bool canFinish(int numCourses, vector&lt;vector&lt;int&gt;&gt;&amp; prerequisites) &#123;
+        edges.resize(numCourses);
+        indeg.resize(numCourses);
+        for (const auto&amp; info: prerequisites) &#123;
+            edges[info[1]].push_back(info[0]);
+            ++indeg[info[0]];
+        &#125;
+
+        queue&lt;int&gt; q;
+        for (int i = 0; i &lt; numCourses; ++i) &#123;
+            if (indeg[i] == 0) &#123;
+                q.push(i);
+            &#125;
+        &#125;
+
+        int visited = 0;
+        while (!q.empty()) &#123;
+            ++visited;
+            int u = q.front();
+            q.pop();
+            for (int v: edges[u]) &#123;
+                --indeg[v];
+                if (indeg[v] == 0) &#123;
+                    q.push(v);
+                &#125;
+            &#125;
+        &#125;
+
+        return visited == numCourses;
+    &#125;
+&#125;;
+
+</code></pre>
+<h1 id="208-实现-Trie-前缀树"><a href="#208-实现-Trie-前缀树" class="headerlink" title="208. 实现 Trie (前缀树)"></a><span class="exturl" data-url="aHR0cHM6Ly9sZWV0Y29kZS5jbi9wcm9ibGVtcy9pbXBsZW1lbnQtdHJpZS1wcmVmaXgtdHJlZS8=">208. 实现 Trie (前缀树)</span></h1><h2 id="题干-3"><a href="#题干-3" class="headerlink" title="题干"></a>题干</h2><p>**<span class="exturl" data-url="aHR0cHM6Ly9iYWlrZS5iYWlkdS5jb20vaXRlbS8lRTUlQUQlOTclRTUlODUlQjglRTYlQTAlOTEvOTgyNTIwOT9mcj1hbGFkZGlu">Trie</span>**（发音类似 “try”）或者说 <strong>前缀树</strong> 是一种树形数据结构，用于高效地存储和检索字符串数据集中的键。这一数据结构有相当多的应用情景，例如自动补完和拼写检查。</p>
+<p>请你实现 Trie 类：</p>
+<ul>
+<li><code>Trie()</code> 初始化前缀树对象。</li>
+<li><code>void insert(String word)</code> 向前缀树中插入字符串 <code>word</code> 。</li>
+<li><code>boolean search(String word)</code> 如果字符串 <code>word</code> 在前缀树中，返回 <code>true</code>（即，在检索之前已经插入）；否则，返回 <code>false</code> 。</li>
+<li><code>boolean startsWith(String prefix)</code> 如果之前已经插入的字符串 <code>word</code> 的前缀之一为 <code>prefix</code> ，返回 <code>true</code> ；否则，返回 <code>false</code> 。</li>
+</ul>
+<p><strong>示例：</strong></p>
+<pre><code>输入
+[&quot;Trie&quot;, &quot;insert&quot;, &quot;search&quot;, &quot;search&quot;, &quot;startsWith&quot;, &quot;insert&quot;, &quot;search&quot;]
+[[], [&quot;apple&quot;], [&quot;apple&quot;], [&quot;app&quot;], [&quot;app&quot;], [&quot;app&quot;], [&quot;app&quot;]]
+输出
+[null, null, true, false, true, null, true]
+
+解释
+Trie trie = new Trie();
+trie.insert(&quot;apple&quot;);
+trie.search(&quot;apple&quot;);   // 返回 True
+trie.search(&quot;app&quot;);     // 返回 False
+trie.startsWith(&quot;app&quot;); // 返回 True
+trie.insert(&quot;app&quot;);
+trie.search(&quot;app&quot;);     // 返回 True
+</code></pre>
+<p><strong>提示：</strong></p>
+<ul>
+<li><code>1 &lt;= word.length, prefix.length &lt;= 2000</code></li>
+<li><code>word</code> 和 <code>prefix</code> 仅由小写英文字母组成</li>
+<li><code>insert</code>、<code>search</code> 和 <code>startsWith</code> 调用次数 <strong>总计</strong> 不超过 <code>3 * 104</code> 次</li>
+</ul>
+<h2 id="思路-3"><a href="#思路-3" class="headerlink" title="思路"></a>思路</h2><p>每个节点数据结构为vector&lt;Trie*&gt; children(26)以及bool isEnd，后者表示是否是叶子节点，insert时如果指针位置为null则创建新节点（这个节点的children都为nullptr），查询时如果查到了isEnd为true的节点则查询成功</p>
+<h2 id="代码-3"><a href="#代码-3" class="headerlink" title="代码"></a>代码</h2><pre><code class="c++">class Trie &#123;
+private:
+    vector&lt;Trie*&gt; children;
+    bool isEnd;
+
+    Trie* searchPrefix(string prefix) &#123;
+        Trie* node = this;
+        for (char ch : prefix) &#123;
+            ch -= &#39;a&#39;;
+            if (node-&gt;children[ch] == nullptr) &#123;
+                return nullptr;
+            &#125;
+            node = node-&gt;children[ch];
+        &#125;
+        return node;
+    &#125;
+
+public:
+    Trie() : children(26), isEnd(false) &#123;&#125;
+    ~Trie() &#123;
+        for (auto &amp;child : this-&gt;children) &#123;
+            if (child != nullptr) delete child;
+        &#125;
+    &#125;
+
+    void insert(string word) &#123;
+        Trie* node = this;
+        for (char ch : word) &#123;
+            ch -= &#39;a&#39;;
+            if (node-&gt;children[ch] == nullptr) &#123;
+                node-&gt;children[ch] = new Trie();
+            &#125;
+            node = node-&gt;children[ch];
+        &#125;
+        node-&gt;isEnd = true;
+    &#125;
+
+    bool search(string word) &#123;
+        Trie* node = this-&gt;searchPrefix(word);
+        return node != nullptr &amp;&amp; node-&gt;isEnd;
+    &#125;
+
+    bool startsWith(string prefix) &#123;
+        return this-&gt;searchPrefix(prefix) != nullptr;
+    &#125;
+&#125;;
+
+</code></pre>
+<h1 id="209-长度最小的子数组"><a href="#209-长度最小的子数组" class="headerlink" title="209. 长度最小的子数组"></a><span class="exturl" data-url="aHR0cHM6Ly9sZWV0Y29kZS5jbi9wcm9ibGVtcy9taW5pbXVtLXNpemUtc3ViYXJyYXktc3VtLw==">209. 长度最小的子数组</span></h1><h2 id="题干-4"><a href="#题干-4" class="headerlink" title="题干"></a>题干</h2><p>给定一个含有 <code>n</code> 个正整数的数组和一个正整数 <code>target</code> <strong>。</strong></p>
+<p>找出该数组中满足其总和大于等于 <code>target</code> 的长度最小的 <strong>连续</strong></p>
+<p><strong>子数组</strong></p>
+<p><code>[numsl, numsl+1, ..., numsr-1, numsr]</code> ，并返回其长度<strong>。</strong>如果不存在符合条件的子数组，返回 <code>0</code> 。</p>
+<p><strong>示例 1：</strong></p>
+<pre><code>输入：target = 7, nums = [2,3,1,2,4,3]
+输出：2
+解释：子数组 [4,3] 是该条件下的长度最小的子数组。
+</code></pre>
+<p><strong>示例 2：</strong></p>
+<pre><code>输入：target = 4, nums = [1,4,4]
+输出：1
+</code></pre>
+<p><strong>示例 3：</strong></p>
+<pre><code>输入：target = 11, nums = [1,1,1,1,1,1,1,1]
+输出：0
+</code></pre>
+<p><strong>提示：</strong></p>
+<ul>
+<li><code>1 &lt;= target &lt;= 109</code></li>
+<li><code>1 &lt;= nums.length &lt;= 105</code></li>
+<li><code>1 &lt;= nums[i] &lt;= 105</code></li>
+</ul>
+<p><strong>进阶：</strong></p>
+<ul>
+<li>如果你已经实现 <code>O(n)</code> 时间复杂度的解法, 请尝试设计一个 <code>O(n log(n))</code> 时间复杂度的解法。</li>
+</ul>
+<h2 id="思路-4"><a href="#思路-4" class="headerlink" title="思路"></a>思路</h2><p>记录前缀和sums，随后枚举子数组的开始值start，用二分法找到第一个大于等于目标值sums[start]+s的位置，更新答案长度，这里可以使用stl的lower_bound函数</p>
+<h2 id="代码-4"><a href="#代码-4" class="headerlink" title="代码"></a>代码</h2><pre><code class="c++">class Solution &#123;
+public:
+    int minSubArrayLen(int s, vector&lt;int&gt;&amp; nums) &#123;
+        int n = nums.size();
+        if (n == 0) &#123;
+            return 0;
+        &#125;
+        int ans = INT_MAX;
+        vector&lt;int&gt; sums(n + 1, 0); 
+        // 为了方便计算，令 size = n + 1 
+        // sums[0] = 0 意味着前 0 个元素的前缀和为 0
+        // sums[1] = A[0] 前 1 个元素的前缀和为 A[0]
+        // 以此类推
+        for (int i = 1; i &lt;= n; i++) &#123;
+            sums[i] = sums[i - 1] + nums[i - 1];
+        &#125;
+        for (int i = 1; i &lt;= n; i++) &#123;
+            int target = s + sums[i - 1];
+            auto bound = lower_bound(sums.begin(), sums.end(), target);
+            if (bound != sums.end()) &#123;
+                ans = min(ans, static_cast&lt;int&gt;((bound - sums.begin()) - (i - 1)));
+            &#125;
+        &#125;
+        return ans == INT_MAX ? 0 : ans;
+    &#125;
+&#125;;
+
+</code></pre>
+<h1 id="210-课程表-II"><a href="#210-课程表-II" class="headerlink" title="210. 课程表 II"></a><span class="exturl" data-url="aHR0cHM6Ly9sZWV0Y29kZS5jbi9wcm9ibGVtcy9jb3Vyc2Utc2NoZWR1bGUtaWkv">210. 课程表 II</span></h1><h2 id="题干-5"><a href="#题干-5" class="headerlink" title="题干"></a>题干</h2><p>现在你总共有 <code>numCourses</code> 门课需要选，记为 <code>0</code> 到 <code>numCourses - 1</code>。给你一个数组 <code>prerequisites</code> ，其中 <code>prerequisites[i] = [ai, bi]</code> ，表示在选修课程 <code>ai</code> 前 <strong>必须</strong> 先选修 <code>bi</code> 。</p>
+<ul>
+<li>例如，想要学习课程 <code>0</code> ，你需要先完成课程 <code>1</code> ，我们用一个匹配来表示：<code>[0,1]</code> 。</li>
+</ul>
+<p>返回你为了学完所有课程所安排的学习顺序。可能会有多个正确的顺序，你只要返回 <strong>任意一种</strong> 就可以了。如果不可能完成所有课程，返回 <strong>一个空数组</strong> 。</p>
+<p><strong>示例 1：</strong></p>
+<pre><code>输入：numCourses = 2, prerequisites = [[1,0]]
+输出：[0,1]
+解释：总共有 2 门课程。要学习课程 1，你需要先完成课程 0。因此，正确的课程顺序为 [0,1] 。
+</code></pre>
+<p><strong>示例 2：</strong></p>
+<pre><code>输入：numCourses = 4, prerequisites = [[1,0],[2,0],[3,1],[3,2]]
+输出：[0,2,1,3]
+解释：总共有 4 门课程。要学习课程 3，你应该先完成课程 1 和课程 2。并且课程 1 和课程 2 都应该排在课程 0 之后。
+因此，一个正确的课程顺序是 [0,1,2,3] 。另一个正确的排序是 [0,2,1,3] 。
+</code></pre>
+<p><strong>示例 3：</strong></p>
+<pre><code>输入：numCourses = 1, prerequisites = []
+输出：[0]
+</code></pre>
+<p><strong>提示：</strong></p>
+<ul>
+<li><code>1 &lt;= numCourses &lt;= 2000</code></li>
+<li><code>0 &lt;= prerequisites.length &lt;= numCourses * (numCourses - 1)</code></li>
+<li><code>prerequisites[i].length == 2</code></li>
+<li><code>0 &lt;= ai, bi &lt; numCourses</code></li>
+<li><code>ai != bi</code></li>
+<li>所有<code>[ai, bi]</code> <strong>互不相同</strong></li>
+</ul>
+<h2 id="思路-5"><a href="#思路-5" class="headerlink" title="思路"></a>思路</h2><p>和<span class="exturl" data-url="aHR0cHM6Ly9sZWV0Y29kZS5jbi9wcm9ibGVtcy9jb3Vyc2Utc2NoZWR1bGUv">207. 课程表</span>类似，拓扑排序能覆盖所有节点说明有答案，queue中取front时将答案记录到vector中</p>
+<h2 id="代码-5"><a href="#代码-5" class="headerlink" title="代码"></a>代码</h2><pre><code class="c++">class Solution &#123;
+private:
+    // 存储有向图
+    vector&lt;vector&lt;int&gt;&gt; edges;
+    // 存储每个节点的入度
+    vector&lt;int&gt; indeg;
+    // 存储答案
+    vector&lt;int&gt; result;
+
+public:
+    vector&lt;int&gt; findOrder(int numCourses, vector&lt;vector&lt;int&gt;&gt;&amp; prerequisites) &#123;
+        edges.resize(numCourses);
+        indeg.resize(numCourses);
+        for (const auto&amp; info: prerequisites) &#123;
+            edges[info[1]].push_back(info[0]);
+            ++indeg[info[0]];
+        &#125;
+
+        queue&lt;int&gt; q;
+        // 将所有入度为 0 的节点放入队列中
+        for (int i = 0; i &lt; numCourses; ++i) &#123;
+            if (indeg[i] == 0) &#123;
+                q.push(i);
+            &#125;
+        &#125;
+
+        while (!q.empty()) &#123;
+            // 从队首取出一个节点
+            int u = q.front();
+            q.pop();
+            // 放入答案中
+            result.push_back(u);
+            for (int v: edges[u]) &#123;
+                --indeg[v];
+                // 如果相邻节点 v 的入度为 0，就可以选 v 对应的课程了
+                if (indeg[v] == 0) &#123;
+                    q.push(v);
+                &#125;
+            &#125;
+        &#125;
+
+        if (result.size() != numCourses) &#123;
+            return &#123;&#125;;
+        &#125;
+        return result;
+    &#125;
+&#125;;
+</code></pre>
+<h1 id="211-添加与搜索单词-数据结构设计"><a href="#211-添加与搜索单词-数据结构设计" class="headerlink" title="211. 添加与搜索单词 - 数据结构设计"></a><span class="exturl" data-url="aHR0cHM6Ly9sZWV0Y29kZS5jbi9wcm9ibGVtcy9kZXNpZ24tYWRkLWFuZC1zZWFyY2gtd29yZHMtZGF0YS1zdHJ1Y3R1cmUv">211. 添加与搜索单词 - 数据结构设计</span></h1><h2 id="题干-6"><a href="#题干-6" class="headerlink" title="题干"></a>题干</h2><p>请你设计一个数据结构，支持 添加新单词 和 查找字符串是否与任何先前添加的字符串匹配 。</p>
+<p>实现词典类 <code>WordDictionary</code> ：</p>
+<ul>
+<li><code>WordDictionary()</code> 初始化词典对象</li>
+<li><code>void addWord(word)</code> 将 <code>word</code> 添加到数据结构中，之后可以对它进行匹配</li>
+<li><code>bool search(word)</code> 如果数据结构中存在字符串与 <code>word</code> 匹配，则返回 <code>true</code> ；否则，返回 <code>false</code> 。<code>word</code> 中可能包含一些 <code>&#39;.&#39;</code> ，每个 <code>.</code> 都可以表示任何一个字母。</li>
+</ul>
+<p><strong>示例：</strong></p>
+<pre><code>输入：
+[&quot;WordDictionary&quot;,&quot;addWord&quot;,&quot;addWord&quot;,&quot;addWord&quot;,&quot;search&quot;,&quot;search&quot;,&quot;search&quot;,&quot;search&quot;]
+[[],[&quot;bad&quot;],[&quot;dad&quot;],[&quot;mad&quot;],[&quot;pad&quot;],[&quot;bad&quot;],[&quot;.ad&quot;],[&quot;b..&quot;]]
+输出：
+[null,null,null,null,false,true,true,true]
+
+解释：
+WordDictionary wordDictionary = new WordDictionary();
+wordDictionary.addWord(&quot;bad&quot;);
+wordDictionary.addWord(&quot;dad&quot;);
+wordDictionary.addWord(&quot;mad&quot;);
+wordDictionary.search(&quot;pad&quot;); // 返回 False
+wordDictionary.search(&quot;bad&quot;); // 返回 True
+wordDictionary.search(&quot;.ad&quot;); // 返回 True
+wordDictionary.search(&quot;b..&quot;); // 返回 True
+</code></pre>
+<p><strong>提示：</strong></p>
+<ul>
+<li><code>1 &lt;= word.length &lt;= 25</code></li>
+<li><code>addWord</code> 中的 <code>word</code> 由小写英文字母组成</li>
+<li><code>search</code> 中的 <code>word</code> 由 ‘.’ 或小写英文字母组成</li>
+<li>最多调用 <code>104</code> 次 <code>addWord</code> 和 <code>search</code></li>
+</ul>
+<h2 id="思路-6"><a href="#思路-6" class="headerlink" title="思路"></a>思路</h2><p>写一个trie树，随后在trie树中实现dfs，遇到”.“可以dfs所有非空孩子，遇到正常的字母就判断该字母位置指针是否为空，返回条件为到达了叶子节点且长度到达string末尾</p>
+<h2 id="代码-6"><a href="#代码-6" class="headerlink" title="代码"></a>代码</h2><pre><code class="c++">class Trie&#123;
+public:    
+    vector&lt;Trie*&gt; children;
+    bool isEnd;
+
+    Trie() : children(26), isEnd(false) &#123;&#125;
+    ~Trie() &#123;
+        for (auto &amp;child : this-&gt;children) &#123;
+            if (child != nullptr) delete child;
+        &#125;
+    &#125;
+
+    void insert(string word)&#123;
+        Trie* node = this;
+        for(char ch:word)&#123;
+            if(node-&gt;children[ch-&#39;a&#39;]!=nullptr)&#123;
+                node = node-&gt;children[ch-&#39;a&#39;];
+            &#125;else&#123;
+                node-&gt;children[ch-&#39;a&#39;] = new Trie();
+                node = node-&gt;children[ch-&#39;a&#39;];
+            &#125;
+        &#125;
+        node-&gt;isEnd = true;
+    &#125;
+
+    bool findPrefix(string word,Trie* node,int now)&#123;
+        if(now == word.size())&#123;
+            if(node-&gt;isEnd==true)&#123;
+                return true;
+            &#125;else&#123;
+                return false;
+            &#125;
+            
+        &#125;
+        char ch = word[now];
+
+        if(ch==&#39;.&#39;)&#123;
+            for(int i=0;i&lt;26;i++)&#123;
+                if(node-&gt;children[i]!=nullptr)&#123;
+                    if(findPrefix(word, node-&gt;children[i], now+1))&#123;
+                        return true;
+                    &#125;
+                &#125;
+            &#125;
+            return false;
+        &#125;else if(node-&gt;children[ch-&#39;a&#39;]==nullptr)&#123;
+            return false;
+        &#125;
+        return findPrefix(word, node-&gt;children[ch-&#39;a&#39;], now+1);
+    &#125;
+&#125;;
+
+
+class WordDictionary &#123;
+public:
+    Trie t;
+    WordDictionary() &#123;
+    &#125;
+    
+    void addWord(string word) &#123;
+        t.insert(word);
+    &#125;
+    
+    bool search(string word) &#123;
+        return t.findPrefix(word,&amp;t,0);
+    &#125;
+&#125;;
+
+/**
+ * Your WordDictionary object will be instantiated and called as such:
+ * WordDictionary* obj = new WordDictionary();
+ * obj-&gt;addWord(word);
+ * bool param_2 = obj-&gt;search(word);
+ */
+</code></pre>
+<h1 id="213-打家劫舍-II"><a href="#213-打家劫舍-II" class="headerlink" title="213. 打家劫舍 II"></a><span class="exturl" data-url="aHR0cHM6Ly9sZWV0Y29kZS5jbi9wcm9ibGVtcy9ob3VzZS1yb2JiZXItaWkv">213. 打家劫舍 II</span></h1><h2 id="题干-7"><a href="#题干-7" class="headerlink" title="题干"></a>题干</h2><p>你是一个专业的小偷，计划偷窃沿街的房屋，每间房内都藏有一定的现金。这个地方所有的房屋都 <strong>围成一圈</strong> ，这意味着第一个房屋和最后一个房屋是紧挨着的。同时，相邻的房屋装有相互连通的防盗系统，<strong>如果两间相邻的房屋在同一晚上被小偷闯入，系统会自动报警</strong> 。</p>
+<p>给定一个代表每个房屋存放金额的非负整数数组，计算你 <strong>在不触动警报装置的情况下</strong> ，今晚能够偷窃到的最高金额。</p>
+<p><strong>示例 1：</strong></p>
+<pre><code>输入：nums = [2,3,2]
+输出：3
+解释：你不能先偷窃 1 号房屋（金额 = 2），然后偷窃 3 号房屋（金额 = 2）, 因为他们是相邻的。
+</code></pre>
+<p><strong>示例 2：</strong></p>
+<pre><code>输入：nums = [1,2,3,1]
+输出：4
+解释：你可以先偷窃 1 号房屋（金额 = 1），然后偷窃 3 号房屋（金额 = 3）。
+     偷窃到的最高金额 = 1 + 3 = 4 。
+</code></pre>
+<p><strong>示例 3：</strong></p>
+<pre><code>输入：nums = [1,2,3]
+输出：3
+</code></pre>
+<p><strong>提示：</strong></p>
+<ul>
+<li><code>1 &lt;= nums.length &lt;= 100</code></li>
+<li><code>0 &lt;= nums[i] &lt;= 1000</code></li>
+</ul>
+<h2 id="思路-7"><a href="#思路-7" class="headerlink" title="思路"></a>思路</h2><p>同打家劫舍，分类讨论nums[0]取或者不取，截取两个子数组做两遍打家劫舍取最大值</p>
+<h2 id="代码-7"><a href="#代码-7" class="headerlink" title="代码"></a>代码</h2><pre><code class="c++">class Solution &#123;
+public:
+    int rob(vector&lt;int&gt;&amp; nums) &#123;
+        vector&lt;int&gt; dp1(nums.size());
+        vector&lt;int&gt; dp2(nums.size());
+        int ans=-1;
+
+        if(nums.size()==1) return nums[0];
+        if(nums.size()==2) return max(nums[0],nums[1]);
+
+        dp1[0]=nums[0];
+        if(dp1[0]&gt;ans) ans = dp1[0];
+        dp1[1]=max(nums[0],nums[1]);
+        if(dp1[1]&gt;ans) ans = dp1[1];
+        for(int i=2;i&lt;nums.size()-1;i++)&#123;
+            dp1[i]=max(dp1[i-2]+nums[i],dp1[i-1]);
+            if(dp1[i]&gt;ans) ans = dp1[i];
+        &#125;
+
+
+        dp2[1]=nums[1];
+        if(dp2[1]&gt;ans) ans = dp2[1];
+        dp2[2]=max(nums[1],nums[2]);
+        if(dp2[2]&gt;ans) ans = dp2[2];
+        for(int i=3;i&lt;nums.size();i++)&#123;
+            dp2[i]=max(dp2[i-2]+nums[i],dp2[i-1]);
+            if(dp2[i]&gt;ans) ans = dp2[i];
+        &#125;
+
+        return ans;
+    &#125;
+&#125;;
+</code></pre>
+<h1 id="215-数组中的第K个最大元素"><a href="#215-数组中的第K个最大元素" class="headerlink" title="215. 数组中的第K个最大元素"></a><span class="exturl" data-url="aHR0cHM6Ly9sZWV0Y29kZS5jbi9wcm9ibGVtcy9rdGgtbGFyZ2VzdC1lbGVtZW50LWluLWFuLWFycmF5Lw==">215. 数组中的第K个最大元素</span></h1><h2 id="题干-8"><a href="#题干-8" class="headerlink" title="题干"></a>题干</h2><p>给定整数数组 <code>nums</code> 和整数 <code>k</code>，请返回数组中第 <code>**k**</code> 个最大的元素。</p>
+<p>请注意，你需要找的是数组排序后的第 <code>k</code> 个最大的元素，而不是第 <code>k</code> 个不同的元素。</p>
+<p>你必须设计并实现时间复杂度为 <code>O(n)</code> 的算法解决此问题。</p>
+<p><strong>示例 1:</strong></p>
+<pre><code>输入: [3,2,1,5,6,4], k = 2
+输出: 5
+</code></pre>
+<p><strong>示例 2:</strong></p>
+<pre><code>输入: [3,2,3,1,2,4,5,5,6], k = 4
+输出: 4
+</code></pre>
+<p><strong>提示：</strong></p>
+<ul>
+<li><code>1 &lt;= k &lt;= nums.length &lt;= 105</code></li>
+<li><code>-104 &lt;= nums[i] &lt;= 104</code></li>
+</ul>
+<h2 id="思路-8"><a href="#思路-8" class="headerlink" title="思路"></a>思路</h2><p>堆的打卡题，会用priority_queue即可</p>
+<h2 id="代码-8"><a href="#代码-8" class="headerlink" title="代码"></a>代码</h2><pre><code class="c++">class Solution &#123;
+public:
+    int findKthLargest(vector&lt;int&gt;&amp; nums, int k) &#123;
+
+        priority_queue&lt;int&gt; pq;
+        for(auto &amp;x:nums)&#123;
+            pq.emplace(x);
+        &#125;
+
+        for(int i=0;i&lt;k-1;i++)&#123;
+            pq.pop();
+        &#125;
+
+        return pq.top();
+        
+    &#125;
+&#125;;
+</code></pre>
+<h1 id="216-组合总和-III"><a href="#216-组合总和-III" class="headerlink" title="216. 组合总和 III"></a><span class="exturl" data-url="aHR0cHM6Ly9sZWV0Y29kZS5jbi9wcm9ibGVtcy9jb21iaW5hdGlvbi1zdW0taWlpLw==">216. 组合总和 III</span></h1><h2 id="题干-9"><a href="#题干-9" class="headerlink" title="题干"></a>题干</h2><p>找出所有相加之和为 <code>n</code> 的 <code>k</code> 个数的组合，且满足下列条件：</p>
+<ul>
+<li>只使用数字1到9</li>
+<li>每个数字 <strong>最多使用一次</strong></li>
+</ul>
+<p>返回 <em>所有可能的有效组合的列表</em> 。该列表不能包含相同的组合两次，组合可以以任何顺序返回。</p>
+<p><strong>示例 1:</strong></p>
+<pre><code>输入: k = 3, n = 7
+输出: [[1,2,4]]
+解释:
+1 + 2 + 4 = 7
+没有其他符合的组合了。
+</code></pre>
+<p><strong>示例 2:</strong></p>
+<pre><code>输入: k = 3, n = 9
+输出: [[1,2,6], [1,3,5], [2,3,4]]
+解释:
+1 + 2 + 6 = 9
+1 + 3 + 5 = 9
+2 + 3 + 4 = 9
+没有其他符合的组合了。
+</code></pre>
+<p><strong>示例 3:</strong></p>
+<pre><code>输入: k = 4, n = 1
+输出: []
+解释: 不存在有效的组合。
+在[1,9]范围内使用4个不同的数字，我们可以得到的最小和是1+2+3+4 = 10，因为10 &gt; 1，没有有效的组合。
+</code></pre>
+<p><strong>提示:</strong></p>
+<ul>
+<li><code>2 &lt;= k &lt;= 9</code></li>
+<li><code>1 &lt;= n &lt;= 60</code></li>
+</ul>
+<h2 id="思路-9"><a href="#思路-9" class="headerlink" title="思路"></a>思路</h2><p>dfs题，每个数分为取或者不取，结束条件为k和n都等于0</p>
+<h2 id="代码-9"><a href="#代码-9" class="headerlink" title="代码"></a>代码</h2><pre><code class="c++">class Solution &#123;
+public:
+    vector&lt;vector&lt;int&gt;&gt; combinationSum3(int k, int n) &#123;
+        vector&lt;int&gt; nums = &#123;1,2,3,4,5,6,7,8,9&#125;;
+        int length = nums.size();
+        vector&lt;vector&lt;int&gt;&gt; answer;
+        vector&lt;int&gt; temp;
+        function&lt;void(int,int,int)&gt; dfs = [&amp;](int idx,int k,int n)&#123;
+            if(k==0&amp;&amp;n==0)&#123;
+                answer.emplace_back(temp);
+                return;
+            &#125;
+            if(n&lt;0)&#123;
+                return;
+            &#125;
+            if(idx&gt;=length)&#123;
+                return;
+            &#125;
+
+            //不取
+            dfs(idx+1,k,n);
+
+            //取
+            temp.emplace_back(nums[idx]);
+            dfs(idx+1,k-1,n-nums[idx]);
+            temp.pop_back();
+        &#125;;
+
+        dfs(0,k,n);
+        return answer;
+
+    &#125;
+&#125;;
+</code></pre>
+<h1 id="221-最大正方形"><a href="#221-最大正方形" class="headerlink" title="221. 最大正方形"></a><span class="exturl" data-url="aHR0cHM6Ly9sZWV0Y29kZS5jbi9wcm9ibGVtcy9tYXhpbWFsLXNxdWFyZS8=">221. 最大正方形</span></h1><h2 id="题干-10"><a href="#题干-10" class="headerlink" title="题干"></a>题干</h2><p>在一个由 <code>&#39;0&#39;</code> 和 <code>&#39;1&#39;</code> 组成的二维矩阵内，找到只包含 <code>&#39;1&#39;</code> 的最大正方形，并返回其面积。</p>
+<p><strong>示例 1：</strong></p>
+<p><img data-src="https://assets.leetcode.com/uploads/2020/11/26/max1grid.jpg" alt="img"></p>
+<pre><code>输入：matrix = [[&quot;1&quot;,&quot;0&quot;,&quot;1&quot;,&quot;0&quot;,&quot;0&quot;],[&quot;1&quot;,&quot;0&quot;,&quot;1&quot;,&quot;1&quot;,&quot;1&quot;],[&quot;1&quot;,&quot;1&quot;,&quot;1&quot;,&quot;1&quot;,&quot;1&quot;],[&quot;1&quot;,&quot;0&quot;,&quot;0&quot;,&quot;1&quot;,&quot;0&quot;]]
+输出：4
+</code></pre>
+<p><strong>示例 2：</strong></p>
+<p><img data-src="https://assets.leetcode.com/uploads/2020/11/26/max2grid.jpg" alt="img"></p>
+<pre><code>输入：matrix = [[&quot;0&quot;,&quot;1&quot;],[&quot;1&quot;,&quot;0&quot;]]
+输出：1
+</code></pre>
+<p><strong>示例 3：</strong></p>
+<pre><code>输入：matrix = [[&quot;0&quot;]]
+输出：0
+</code></pre>
+<p><strong>提示：</strong></p>
+<ul>
+<li><code>m == matrix.length</code></li>
+<li><code>n == matrix[i].length</code></li>
+<li><code>1 &lt;= m, n &lt;= 300</code></li>
+<li><code>matrix[i][j]</code> 为 <code>&#39;0&#39;</code> 或 <code>&#39;1&#39;</code></li>
+</ul>
+<h2 id="思路-10"><a href="#思路-10" class="headerlink" title="思路"></a>思路</h2><p>二维动态规划，dp[i][j]表示以ij位置为右下角的最大正方形的边长，其和上、左、左上三个相邻的dp值有关，转移方程为</p>
+<p>dp[i][j] &#x3D; min(min(dp[i - 1][j], dp[i][j - 1]), dp[i - 1][j - 1]) + 1;</p>
+<h2 id="代码-10"><a href="#代码-10" class="headerlink" title="代码"></a>代码</h2><pre><code class="c++">class Solution &#123;
+public:
+    int maximalSquare(vector&lt;vector&lt;char&gt;&gt;&amp; matrix) &#123;
+        if (matrix.size() == 0 || matrix[0].size() == 0) &#123;
+            return 0;
+        &#125;
+        int maxSide = 0;
+        int rows = matrix.size(), columns = matrix[0].size();
+        vector&lt;vector&lt;int&gt;&gt; dp(rows, vector&lt;int&gt;(columns));
+        for (int i = 0; i &lt; rows; i++) &#123;
+            for (int j = 0; j &lt; columns; j++) &#123;
+                if (matrix[i][j] == &#39;1&#39;) &#123;
+                    if (i == 0 || j == 0) &#123;
+                        dp[i][j] = 1;
+                    &#125; else &#123;
+                        dp[i][j] = min(min(dp[i - 1][j], dp[i][j - 1]), dp[i - 1][j - 1]) + 1;
+                    &#125;
+                    maxSide = max(maxSide, dp[i][j]);
+                &#125;
+            &#125;
+        &#125;
+        int maxSquare = maxSide * maxSide;
+        return maxSquare;
+    &#125;
+&#125;;
+
+</code></pre>
+<h1 id="223-矩形面积"><a href="#223-矩形面积" class="headerlink" title="223. 矩形面积"></a><span class="exturl" data-url="aHR0cHM6Ly9sZWV0Y29kZS5jbi9wcm9ibGVtcy9yZWN0YW5nbGUtYXJlYS8=">223. 矩形面积</span></h1><h2 id="题干-11"><a href="#题干-11" class="headerlink" title="题干"></a>题干</h2><p>给你 <strong>二维</strong> 平面上两个 <strong>由直线构成且边与坐标轴平行&#x2F;垂直</strong> 的矩形，请你计算并返回两个矩形覆盖的总面积。</p>
+<p>每个矩形由其 <strong>左下</strong> 顶点和 <strong>右上</strong> 顶点坐标表示：</p>
+<ul>
+<li>第一个矩形由其左下顶点 <code>(ax1, ay1)</code> 和右上顶点 <code>(ax2, ay2)</code> 定义。</li>
+<li>第二个矩形由其左下顶点 <code>(bx1, by1)</code> 和右上顶点 <code>(bx2, by2)</code> 定义。</li>
+</ul>
+<p><strong>示例 1：</strong></p>
+<p><img data-src="https://assets.leetcode.com/uploads/2021/05/08/rectangle-plane.png" alt="Rectangle Area"></p>
+<pre><code>输入：ax1 = -3, ay1 = 0, ax2 = 3, ay2 = 4, bx1 = 0, by1 = -1, bx2 = 9, by2 = 2
+输出：45
+</code></pre>
+<p><strong>示例 2：</strong></p>
+<pre><code>输入：ax1 = -2, ay1 = -2, ax2 = 2, ay2 = 2, bx1 = -2, by1 = -2, bx2 = 2, by2 = 2
+输出：16
+</code></pre>
+<p><strong>提示：</strong></p>
+<ul>
+<li><code>-104 &lt;= ax1, ay1, ax2, ay2, bx1, by1, bx2, by2 &lt;= 104</code></li>
+</ul>
+<h2 id="思路-11"><a href="#思路-11" class="headerlink" title="思路"></a>思路</h2><p>直接用两个矩形面积减去重叠部分面积即可</p>
+<p>注意用max和min去求重叠面积，这样不用枚举各个情况</p>
+<p>int overlapWidth &#x3D; min(ax2, bx2) - max(ax1, bx1), overlapHeight &#x3D; min(ay2, by2) - max(ay1, by1);</p>
+<h2 id="代码-11"><a href="#代码-11" class="headerlink" title="代码"></a>代码</h2><pre><code class="c++">class Solution &#123;
+public:
+    int computeArea(int ax1, int ay1, int ax2, int ay2, int bx1, int by1, int bx2, int by2) &#123;
+        int area1 = (ax2 - ax1) * (ay2 - ay1), area2 = (bx2 - bx1) * (by2 - by1);
+        int overlapWidth = min(ax2, bx2) - max(ax1, bx1), overlapHeight = min(ay2, by2) - max(ay1, by1);
+        int overlapArea = max(overlapWidth, 0) * max(overlapHeight, 0);
+        return area1 + area2 - overlapArea;
+    &#125;
+&#125;;
+
+</code></pre>
+<h1 id="227-基本计算器-II"><a href="#227-基本计算器-II" class="headerlink" title="227. 基本计算器 II"></a><span class="exturl" data-url="aHR0cHM6Ly9sZWV0Y29kZS5jbi9wcm9ibGVtcy9iYXNpYy1jYWxjdWxhdG9yLWlpLw==">227. 基本计算器 II</span></h1><h2 id="题干-12"><a href="#题干-12" class="headerlink" title="题干"></a>题干</h2><p>给你一个字符串表达式 <code>s</code> ，请你实现一个基本计算器来计算并返回它的值。</p>
+<p>整数除法仅保留整数部分。</p>
+<p>你可以假设给定的表达式总是有效的。所有中间结果将在 <code>[-231, 231 - 1]</code> 的范围内。</p>
+<p><strong>注意：</strong>不允许使用任何将字符串作为数学表达式计算的内置函数，比如 <code>eval()</code> 。</p>
+<p><strong>示例 1：</strong></p>
+<pre><code>输入：s = &quot;3+2*2&quot;
+输出：7
+</code></pre>
+<p><strong>示例 2：</strong></p>
+<pre><code>输入：s = &quot; 3/2 &quot;
+输出：1
+</code></pre>
+<p><strong>示例 3：</strong></p>
+<pre><code>输入：s = &quot; 3+5 / 2 &quot;
+输出：5
+</code></pre>
+<p><strong>提示：</strong></p>
+<ul>
+<li><code>1 &lt;= s.length &lt;= 3 * 105</code></li>
+<li><code>s</code> 由整数和算符 <code>(&#39;+&#39;, &#39;-&#39;, &#39;*&#39;, &#39;/&#39;)</code> 组成，中间由一些空格隔开</li>
+<li><code>s</code> 表示一个 <strong>有效表达式</strong></li>
+<li>表达式中的所有整数都是非负整数，且在范围 <code>[0, 231 - 1]</code> 内</li>
+<li>题目数据保证答案是一个 <strong>32-bit 整数</strong></li>
+</ul>
+<h2 id="思路-12"><a href="#思路-12" class="headerlink" title="思路"></a>思路</h2><p>栈中存数值，用一个符号char表示当前符号分类讨论（需要提前设置一个符号‘+’）</p>
+<h2 id="代码-12"><a href="#代码-12" class="headerlink" title="代码"></a>代码</h2><pre><code class="c++">class Solution &#123;
+public:
+    int calculate(string s) &#123;
+        vector&lt;int&gt; st;
+        int n = s.size();
+        int preSign = &#39;+&#39;;
+        int num = 0;
+        int i=0;
+        int temp;
+        while(i&lt;n)&#123;
+            if(s[i]&gt;=&#39;0&#39;&amp;&amp;s[i]&lt;=&#39;9&#39;)&#123;
+                num = num*10+int(s[i]-&#39;0&#39;);
+            &#125;
+
+            if((!(s[i]&gt;=&#39;0&#39;&amp;&amp;s[i]&lt;=&#39;9&#39;)&amp;&amp;s[i]!=&#39; &#39;)||i==n-1)&#123;
+                switch(preSign)&#123;
+                    case &#39;+&#39;:
+                        st.push_back(num);
+                        break;
+                    case &#39;-&#39;:
+                        st.push_back(-num);
+                        break;
+                    case &#39;*&#39;:
+                        temp = st.back();
+                        st.pop_back();
+                        st.push_back(temp*num);
+                        break;
+                    case &#39;/&#39;:
+                        temp = st.back();
+                        st.pop_back();
+                        st.push_back(temp/num);
+                        break;
+                    default:
+                        break;
+                &#125;
+                preSign = s[i];
+                num = 0;
+            &#125;
+            i++;
+        &#125;
+
+        return accumulate(st.begin(),st.end(),0);
+
+    &#125;
+&#125;;
+</code></pre>
+<h1 id="229-多数元素-II"><a href="#229-多数元素-II" class="headerlink" title="229. 多数元素 II"></a><span class="exturl" data-url="aHR0cHM6Ly9sZWV0Y29kZS5jbi9wcm9ibGVtcy9tYWpvcml0eS1lbGVtZW50LWlpLw==">229. 多数元素 II</span></h1><h2 id="题干-13"><a href="#题干-13" class="headerlink" title="题干"></a>题干</h2><p>给定一个大小为 <em>n</em> 的整数数组，找出其中所有出现超过 <code>⌊ n/3 ⌋</code> 次的元素。</p>
+<p><strong>示例 1：</strong></p>
+<pre><code>输入：nums = [3,2,3]
+输出：[3]
+</code></pre>
+<p><strong>示例 2：</strong></p>
+<pre><code>输入：nums = [1]
+输出：[1]
+</code></pre>
+<p><strong>示例 3：</strong></p>
+<pre><code>输入：nums = [1,2]
+输出：[1,2]
+</code></pre>
+<p><strong>提示：</strong></p>
+<ul>
+<li><code>1 &lt;= nums.length &lt;= 5 * 104</code></li>
+<li><code>-109 &lt;= nums[i] &lt;= 109</code></li>
+</ul>
+<p><strong>进阶：</strong>尝试设计时间复杂度为 O(n)、空间复杂度为 O(1)的算法解决此问题。</p>
+<h2 id="思路-13"><a href="#思路-13" class="headerlink" title="思路"></a>思路</h2><p>俄罗斯方块思想，设置两个num1，num2，再用size1、size2分别记录两个num的出现次数，如果发现访问了第三个数和num1、num2都不同则触发三消，如果数字已经存在则对应size++</p>
+<h2 id="代码-13"><a href="#代码-13" class="headerlink" title="代码"></a>代码</h2><pre><code class="c++">class Solution &#123;
+public:
+    vector&lt;int&gt; majorityElement(vector&lt;int&gt;&amp; nums) &#123;
+
+        int num1 = 0;
+        int size1 = 0;
+        int num2 = 0;
+        int size2 = 0;
+
+        for(int i=0;i&lt;nums.size();i++)&#123;
+
+            if(size1&gt;0&amp;&amp;nums[i]==num1)&#123;
+                size1++;
+            &#125;else if(size2&gt;0&amp;&amp;nums[i]==num2)&#123;
+                size2++;
+            &#125;else if(size1&gt;0&amp;&amp;size2&gt;0&amp;&amp;num1!=nums[i]&amp;&amp;num2!=nums[i])&#123;
+                size1--;
+                size2--;
+            &#125;else&#123;
+                if(size1==0)&#123;
+                    num1 = nums[i];
+                    size1++;
+                &#125;else if(size2==0)&#123;
+                    num2 = nums[i];
+                    size2++;
+                &#125;
+            &#125;
+        &#125;
+
+        vector&lt;int&gt; answer;
+        int n = nums.size();
+        //num1和num2是潜在答案，需要验证
+
+        int cnt1 = 0;
+        int cnt2 = 0;
+
+        for(int i=0;i&lt;nums.size();i++)&#123;
+            if(size1&gt;0&amp;&amp;nums[i]==num1)&#123;
+                cnt1++;
+            &#125;else if(size2&gt;0&amp;&amp;nums[i]==num2)&#123;
+                cnt2++;
+            &#125;
+        &#125;
+
+        if(size1&gt;0&amp;&amp;cnt1&gt;n/3)&#123;
+            answer.push_back(num1);
+        &#125;
+
+        if(size2&gt;0&amp;&amp;cnt2&gt;n/3)&#123;
+            answer.push_back(num2);
+        &#125;
+        return answer;
+        
+    &#125;
+&#125;;
+</code></pre>
+<h1 id="230-二叉搜索树中第K小的元素"><a href="#230-二叉搜索树中第K小的元素" class="headerlink" title="230. 二叉搜索树中第K小的元素"></a><span class="exturl" data-url="aHR0cHM6Ly9sZWV0Y29kZS5jbi9wcm9ibGVtcy9rdGgtc21hbGxlc3QtZWxlbWVudC1pbi1hLWJzdC8=">230. 二叉搜索树中第K小的元素</span></h1><h2 id="题干-14"><a href="#题干-14" class="headerlink" title="题干"></a>题干</h2><p>给定一个二叉搜索树的根节点 <code>root</code> ，和一个整数 <code>k</code> ，请你设计一个算法查找其中第 <code>k</code> 个最小元素（从 1 开始计数）。</p>
+<p><strong>示例 1：</strong></p>
+<p><img data-src="https://assets.leetcode.com/uploads/2021/01/28/kthtree1.jpg" alt="img"></p>
+<pre><code>输入：root = [3,1,4,null,2], k = 1
+输出：1
+</code></pre>
+<p><strong>示例 2：</strong></p>
+<p><img data-src="https://assets.leetcode.com/uploads/2021/01/28/kthtree2.jpg" alt="img"></p>
+<pre><code>输入：root = [5,3,6,2,4,null,null,1], k = 3
+输出：3
+</code></pre>
+<p><strong>提示：</strong></p>
+<ul>
+<li>树中的节点数为 <code>n</code> 。</li>
+<li><code>1 &lt;= k &lt;= n &lt;= 104</code></li>
+<li><code>0 &lt;= Node.val &lt;= 104</code></li>
+</ul>
+<p><strong>进阶：</strong>如果二叉搜索树经常被修改（插入&#x2F;删除操作）并且你需要频繁地查找第 <code>k</code> 小的值，你将如何优化算法？</p>
+<h2 id="思路-14"><a href="#思路-14" class="headerlink" title="思路"></a>思路</h2><p>简单一点就直接中序遍历取第k个被遍历，但是考虑到多次频繁调用的情况这一轮不好。因此另一个方法是遍历一次用哈希表存每个节点所包含数字的数量。有了这个哈希表，就可以根据k值和节点左子树的节点数判断这个树是在当前的左子树还是右子树还是根节点了</p>
+<h2 id="代码-14"><a href="#代码-14" class="headerlink" title="代码"></a>代码</h2><pre><code class="c++">/**
+ * Definition for a binary tree node.
+ * struct TreeNode &#123;
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode() : val(0), left(nullptr), right(nullptr) &#123;&#125;
+ *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) &#123;&#125;
+ *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) &#123;&#125;
+ * &#125;;
+ */
+class MyBst &#123;
+public:
+    MyBst(TreeNode *root) &#123;
+        this-&gt;root = root;
+        countNodeNum(root);
+    &#125;
+
+    // 返回二叉搜索树中第k小的元素
+    int kthSmallest(int k) &#123;
+        TreeNode *node = root;
+        while (node != nullptr) &#123;
+            int left = getNodeNum(node-&gt;left);
+            if (left &lt; k - 1) &#123;
+                node = node-&gt;right;
+                k -= left + 1;
+            &#125; else if (left == k - 1) &#123;
+                break;
+            &#125; else &#123;
+                node = node-&gt;left;
+            &#125;
+        &#125;
+        return node-&gt;val;
+    &#125;
+
+private:
+    TreeNode *root;
+    unordered_map&lt;TreeNode *, int&gt; nodeNum;
+
+    // 统计以node为根结点的子树的结点数
+    int countNodeNum(TreeNode * node) &#123;
+        if (node == nullptr) &#123;
+            return 0;
+        &#125;
+        nodeNum[node] = 1 + countNodeNum(node-&gt;left) + countNodeNum(node-&gt;right);
+        return nodeNum[node];
+    &#125;
+
+    // 获取以node为根结点的子树的结点数
+    int getNodeNum(TreeNode * node) &#123;
+        if (node != nullptr &amp;&amp; nodeNum.count(node)) &#123;
+            return nodeNum[node];
+        &#125;else&#123;
+            return 0;
+        &#125;
+    &#125;
+&#125;;
+
+class Solution &#123;
+public:
+    int kthSmallest(TreeNode* root, int k) &#123;
+        MyBst bst(root);
+        return bst.kthSmallest(k);
+    &#125;
+&#125;;
+</code></pre>
+<h1 id="235-二叉搜索树的最近公共祖先"><a href="#235-二叉搜索树的最近公共祖先" class="headerlink" title="235. 二叉搜索树的最近公共祖先"></a><span class="exturl" data-url="aHR0cHM6Ly9sZWV0Y29kZS5jbi9wcm9ibGVtcy9sb3dlc3QtY29tbW9uLWFuY2VzdG9yLW9mLWEtYmluYXJ5LXNlYXJjaC10cmVlLw==">235. 二叉搜索树的最近公共祖先</span></h1><h2 id="题干-15"><a href="#题干-15" class="headerlink" title="题干"></a>题干</h2><p>给定一个二叉搜索树, 找到该树中两个指定节点的最近公共祖先。</p>
+<p><span class="exturl" data-url="aHR0cHM6Ly9iYWlrZS5iYWlkdS5jb20vaXRlbS8lRTYlOUMlODAlRTglQkYlOTElRTUlODUlQUMlRTUlODUlQjElRTclQTUlOTYlRTUlODUlODgvODkxODgzND9mcj1hbGFkZGlu">百度百科</span>中最近公共祖先的定义为：“对于有根树 T 的两个结点 p、q，最近公共祖先表示为一个结点 x，满足 x 是 p、q 的祖先且 x 的深度尽可能大（<strong>一个节点也可以是它自己的祖先</strong>）。”</p>
+<p>例如，给定如下二叉搜索树: root &#x3D; [6,2,8,0,4,7,9,null,null,3,5]</p>
+<p><img data-src="https://assets.leetcode-cn.com/aliyun-lc-upload/uploads/2018/12/14/binarysearchtree_improved.png" alt="img"></p>
+<p><strong>示例 1:</strong></p>
+<pre><code>输入: root = [6,2,8,0,4,7,9,null,null,3,5], p = 2, q = 8
+输出: 6 
+解释: 节点 2 和节点 8 的最近公共祖先是 6。
+</code></pre>
+<p><strong>示例 2:</strong></p>
+<pre><code>输入: root = [6,2,8,0,4,7,9,null,null,3,5], p = 2, q = 4
+输出: 2
+解释: 节点 2 和节点 4 的最近公共祖先是 2, 因为根据定义最近公共祖先节点可以为节点本身。
+</code></pre>
+<p><strong>说明:</strong></p>
+<ul>
+<li>所有节点的值都是唯一的。</li>
+<li>p、q 为不同节点且均存在于给定的二叉搜索树中。</li>
+</ul>
+<h2 id="思路-15"><a href="#思路-15" class="headerlink" title="思路"></a>思路</h2><p>dfs去做，可以用二叉搜索树的大于小于性质，也可以当成普通的无重复树，找到第一个左边为true右边也为true的节点</p>
+<h2 id="代码-15"><a href="#代码-15" class="headerlink" title="代码"></a>代码</h2><pre><code class="c++">/**
+ * Definition for a binary tree node.
+ * struct TreeNode &#123;
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) &#123;&#125;
+ * &#125;;
+ */
+
+class Solution &#123;
+public:
+    bool find;
+    TreeNode* answer;
+    
+    bool dfs(TreeNode* root, TreeNode* p, TreeNode* q)&#123;
+        if(!root)&#123;
+            return false;
+        &#125;
+
+        bool left = dfs(root-&gt;left,p,q);
+
+        bool right = dfs(root-&gt;right,p,q);
+
+        if(left==true&amp;&amp;right==true)&#123;
+            if(!find)&#123;
+                find = true;
+                answer = root;
+            &#125;
+            return true;
+        &#125;
+
+        if((root==p||root==q)&amp;&amp;(left||right))&#123;
+            if(!find)&#123;
+                find = true;
+                answer = root;
+            &#125;
+            return true;
+        &#125;
+
+        if(root==p||root==q)&#123;
+            return true;
+        &#125;
+        return left||right;
+
+    &#125;
+
+    TreeNode* lowestCommonAncestor(TreeNode* root, TreeNode* p, TreeNode* q) &#123;
+        dfs(root,p,q);
+        return answer;   
+    &#125;
+&#125;;
+</code></pre>
+<h1 id="236-二叉树的最近公共祖先"><a href="#236-二叉树的最近公共祖先" class="headerlink" title="236. 二叉树的最近公共祖先"></a><span class="exturl" data-url="aHR0cHM6Ly9sZWV0Y29kZS5jbi9wcm9ibGVtcy9sb3dlc3QtY29tbW9uLWFuY2VzdG9yLW9mLWEtYmluYXJ5LXRyZWUv">236. 二叉树的最近公共祖先</span></h1><h2 id="题干-16"><a href="#题干-16" class="headerlink" title="题干"></a>题干</h2><p>给定一个二叉树, 找到该树中两个指定节点的最近公共祖先。</p>
+<p><span class="exturl" data-url="aHR0cHM6Ly9iYWlrZS5iYWlkdS5jb20vaXRlbS8lRTYlOUMlODAlRTglQkYlOTElRTUlODUlQUMlRTUlODUlQjElRTclQTUlOTYlRTUlODUlODgvODkxODgzND9mcj1hbGFkZGlu">百度百科</span>中最近公共祖先的定义为：“对于有根树 T 的两个节点 p、q，最近公共祖先表示为一个节点 x，满足 x 是 p、q 的祖先且 x 的深度尽可能大（<strong>一个节点也可以是它自己的祖先</strong>）。”</p>
+<p><strong>示例 1：</strong></p>
+<p><img data-src="https://assets.leetcode.com/uploads/2018/12/14/binarytree.png" alt="img"></p>
+<pre><code>输入：root = [3,5,1,6,2,0,8,null,null,7,4], p = 5, q = 1
+输出：3
+解释：节点 5 和节点 1 的最近公共祖先是节点 3 。
+</code></pre>
+<p><strong>示例 2：</strong></p>
+<p><img data-src="https://assets.leetcode.com/uploads/2018/12/14/binarytree.png" alt="img"></p>
+<pre><code>输入：root = [3,5,1,6,2,0,8,null,null,7,4], p = 5, q = 4
+输出：5
+解释：节点 5 和节点 4 的最近公共祖先是节点 5 。因为根据定义最近公共祖先节点可以为节点本身。
+</code></pre>
+<p><strong>示例 3：</strong></p>
+<pre><code>输入：root = [1,2], p = 1, q = 2
+输出：1
+</code></pre>
+<p><strong>提示：</strong></p>
+<ul>
+<li>树中节点数目在范围 <code>[2, 105]</code> 内。</li>
+<li><code>-109 &lt;= Node.val &lt;= 109</code></li>
+<li>所有 <code>Node.val</code> <code>互不相同</code> 。</li>
+<li><code>p != q</code></li>
+<li><code>p</code> 和 <code>q</code> 均存在于给定的二叉树中。</li>
+</ul>
+<h2 id="思路-16"><a href="#思路-16" class="headerlink" title="思路"></a>思路</h2><p>dfs找到第一个左边为true右边也为true的节点</p>
+<h2 id="代码-16"><a href="#代码-16" class="headerlink" title="代码"></a>代码</h2><pre><code class="c++">/**
+ * Definition for a binary tree node.
+ * struct TreeNode &#123;
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) &#123;&#125;
+ * &#125;;
+ */
+class Solution &#123;
+public:
+    TreeNode* answer;
+    int find;
+    bool dfs(TreeNode* root, TreeNode* p, TreeNode* q)&#123;
+        if(!root)&#123;
+            return false;
+        &#125;
+
+        bool a = dfs(root-&gt;left,p,q);
+        bool b = dfs(root-&gt;right,p,q);
+
+        if(root==p&amp;&amp;(a|b)&amp;&amp;find==0)&#123;
+            answer = root;
+            find = 1;
+            return true;
+        &#125;
+
+        if(root==q&amp;&amp;(a|b)&amp;&amp;find==0)&#123;
+            answer = root;
+            find = 1;
+            return true;
+        &#125;
+
+        if(a==true&amp;&amp;b==true&amp;&amp;find==0)&#123;
+            answer = root;
+            find = 1;
+            return true;
+        &#125;
+
+        if(a|b)&#123;
+            return true;
+        &#125;
+
+        if(root==p||root==q)&#123;
+            return true;
+        &#125;
+
+        return false;
+
+    &#125;
+
+    TreeNode* lowestCommonAncestor(TreeNode* root, TreeNode* p, TreeNode* q) &#123;
+        find = 0;
+        dfs(root,p,q);
+        return answer;
+
+    &#125;
+&#125;;
+</code></pre>
+<h1 id="237-删除链表中的节点"><a href="#237-删除链表中的节点" class="headerlink" title="237. 删除链表中的节点"></a><span class="exturl" data-url="aHR0cHM6Ly9sZWV0Y29kZS5jbi9wcm9ibGVtcy9kZWxldGUtbm9kZS1pbi1hLWxpbmtlZC1saXN0Lw==">237. 删除链表中的节点</span></h1><h2 id="题干-17"><a href="#题干-17" class="headerlink" title="题干"></a>题干</h2><p>有一个单链表的 <code>head</code>，我们想删除它其中的一个节点 <code>node</code>。</p>
+<p>给你一个需要删除的节点 <code>node</code> 。你将 <strong>无法访问</strong> 第一个节点 <code>head</code>。</p>
+<p>链表的所有值都是 <strong>唯一的</strong>，并且保证给定的节点 <code>node</code> 不是链表中的最后一个节点。</p>
+<p>删除给定的节点。注意，删除节点并不是指从内存中删除它。这里的意思是：</p>
+<ul>
+<li>给定节点的值不应该存在于链表中。</li>
+<li>链表中的节点数应该减少 1。</li>
+<li><code>node</code> 前面的所有值顺序相同。</li>
+<li><code>node</code> 后面的所有值顺序相同。</li>
+</ul>
+<p><strong>自定义测试：</strong></p>
+<ul>
+<li>对于输入，你应该提供整个链表 <code>head</code> 和要给出的节点 <code>node</code>。<code>node</code> 不应该是链表的最后一个节点，而应该是链表中的一个实际节点。</li>
+<li>我们将构建链表，并将节点传递给你的函数。</li>
+<li>输出将是调用你函数后的整个链表。</li>
+</ul>
+<p><strong>示例 1：</strong></p>
+<p><img data-src="https://assets.leetcode.com/uploads/2020/09/01/node1.jpg" alt="img"></p>
+<pre><code>输入：head = [4,5,1,9], node = 5
+输出：[4,1,9]
+解释：指定链表中值为 5 的第二个节点，那么在调用了你的函数之后，该链表应变为 4 -&gt; 1 -&gt; 9
+</code></pre>
+<p><strong>示例 2：</strong></p>
+<p><img data-src="https://assets.leetcode.com/uploads/2020/09/01/node2.jpg" alt="img"></p>
+<pre><code>输入：head = [4,5,1,9], node = 1
+输出：[4,5,9]
+解释：指定链表中值为 1 的第三个节点，那么在调用了你的函数之后，该链表应变为 4 -&gt; 5 -&gt; 9
+</code></pre>
+<p><strong>提示：</strong></p>
+<ul>
+<li>链表中节点的数目范围是 <code>[2, 1000]</code></li>
+<li><code>-1000 &lt;= Node.val &lt;= 1000</code></li>
+<li>链表中每个节点的值都是 <strong>唯一</strong> 的</li>
+<li>需要删除的节点 <code>node</code> 是 <strong>链表中的节点</strong> ，且 <strong>不是末尾节点</strong></li>
+</ul>
+<h2 id="思路-17"><a href="#思路-17" class="headerlink" title="思路"></a>思路</h2><p>直接将下一个节点内容复制到本节点，再删除下一个节点</p>
+<h2 id="代码-17"><a href="#代码-17" class="headerlink" title="代码"></a>代码</h2><pre><code class="c++">/**
+ * Definition for singly-linked list.
+ * struct ListNode &#123;
+ *     int val;
+ *     ListNode *next;
+ *     ListNode(int x) : val(x), next(NULL) &#123;&#125;
+ * &#125;;
+ */
+class Solution &#123;
+public:
+    void deleteNode(ListNode* node) &#123;
+        ListNode* temp = node;
+        temp-&gt;val = temp-&gt;next-&gt;val;
+        temp-&gt;next = temp-&gt;next-&gt;next;
+        return;
+        
+    &#125;
+&#125;;
+</code></pre>
+<h1 id="238-除自身以外数组的乘积"><a href="#238-除自身以外数组的乘积" class="headerlink" title="238. 除自身以外数组的乘积"></a><span class="exturl" data-url="aHR0cHM6Ly9sZWV0Y29kZS5jbi9wcm9ibGVtcy9wcm9kdWN0LW9mLWFycmF5LWV4Y2VwdC1zZWxmLw==">238. 除自身以外数组的乘积</span></h1><h2 id="题干-18"><a href="#题干-18" class="headerlink" title="题干"></a>题干</h2><p>给你一个整数数组 <code>nums</code>，返回 <em>数组 <code>answer</code> ，其中 <code>answer[i]</code> 等于 <code>nums</code> 中除 <code>nums[i]</code> 之外其余各元素的乘积</em> 。</p>
+<p>题目数据 <strong>保证</strong> 数组 <code>nums</code>之中任意元素的全部前缀元素和后缀的乘积都在 <strong>32 位</strong> 整数范围内。</p>
+<p>请 <strong>不要使用除法，</strong>且在 <code>O(*n*)</code> 时间复杂度内完成此题。</p>
+<p><strong>示例 1:</strong></p>
+<pre><code>输入: nums = [1,2,3,4]
+输出: [24,12,8,6]
+</code></pre>
+<p><strong>示例 2:</strong></p>
+<pre><code>输入: nums = [-1,1,0,-3,3]
+输出: [0,0,9,0,0]
+</code></pre>
+<p><strong>提示：</strong></p>
+<ul>
+<li><code>2 &lt;= nums.length &lt;= 105</code></li>
+<li><code>-30 &lt;= nums[i] &lt;= 30</code></li>
+<li><strong>保证</strong> 数组 <code>nums</code>之中任意元素的全部前缀元素和后缀的乘积都在 <strong>32 位</strong> 整数范围内</li>
+</ul>
+<p><strong>进阶：</strong>你可以在 <code>O(1)</code> 的额外空间复杂度内完成这个题目吗？（ 出于对空间复杂度分析的目的，输出数组 <strong>不被视为</strong> 额外空间。）</p>
+<h2 id="思路-18"><a href="#思路-18" class="headerlink" title="思路"></a>思路</h2><p>不能用除法，维护两个dp数组前缀积后缀积，再遍历一次数组输出每个位置前缀积后缀积之积即可</p>
+<h2 id="代码-18"><a href="#代码-18" class="headerlink" title="代码"></a>代码</h2><pre><code class="c++">class Solution &#123;
+public:
+    vector&lt;int&gt; productExceptSelf(vector&lt;int&gt;&amp; nums) &#123;
+        int length = nums.size();
+
+        // L 和 R 分别表示左右两侧的乘积列表
+        vector&lt;int&gt; L(length, 0), R(length, 0);
+
+        vector&lt;int&gt; answer(length);
+
+        // L[i] 为索引 i 左侧所有元素的乘积
+        // 对于索引为 &#39;0&#39; 的元素，因为左侧没有元素，所以 L[0] = 1
+        L[0] = 1;
+        for (int i = 1; i &lt; length; i++) &#123;
+            L[i] = nums[i - 1] * L[i - 1];
+        &#125;
+
+        // R[i] 为索引 i 右侧所有元素的乘积
+        // 对于索引为 &#39;length-1&#39; 的元素，因为右侧没有元素，所以 R[length-1] = 1
+        R[length - 1] = 1;
+        for (int i = length - 2; i &gt;= 0; i--) &#123;
+            R[i] = nums[i + 1] * R[i + 1];
+        &#125;
+
+        // 对于索引 i，除 nums[i] 之外其余各元素的乘积就是左侧所有元素的乘积乘以右侧所有元素的乘积
+        for (int i = 0; i &lt; length; i++) &#123;
+            answer[i] = L[i] * R[i];
+        &#125;
+
+        return answer;
+    &#125;
+&#125;;
+</code></pre>
+<h1 id="240-搜索二维矩阵-II"><a href="#240-搜索二维矩阵-II" class="headerlink" title="240. 搜索二维矩阵 II"></a><span class="exturl" data-url="aHR0cHM6Ly9sZWV0Y29kZS5jbi9wcm9ibGVtcy9zZWFyY2gtYS0yZC1tYXRyaXgtaWkv">240. 搜索二维矩阵 II</span></h1><h2 id="题干-19"><a href="#题干-19" class="headerlink" title="题干"></a>题干</h2><p>编写一个高效的算法来搜索 <code>*m* x *n*</code> 矩阵 <code>matrix</code> 中的一个目标值 <code>target</code> 。该矩阵具有以下特性：</p>
+<ul>
+<li>每行的元素从左到右升序排列。</li>
+<li>每列的元素从上到下升序排列。</li>
+</ul>
+<p><strong>示例 1：</strong></p>
+<p><img data-src="https://assets.leetcode-cn.com/aliyun-lc-upload/uploads/2020/11/25/searchgrid2.jpg" alt="img"></p>
+<pre><code>输入：matrix = [[1,4,7,11,15],[2,5,8,12,19],[3,6,9,16,22],[10,13,14,17,24],[18,21,23,26,30]], target = 5
+输出：true
+</code></pre>
+<p><strong>示例 2：</strong></p>
+<p><img data-src="https://assets.leetcode-cn.com/aliyun-lc-upload/uploads/2020/11/25/searchgrid.jpg" alt="img"></p>
+<pre><code>输入：matrix = [[1,4,7,11,15],[2,5,8,12,19],[3,6,9,16,22],[10,13,14,17,24],[18,21,23,26,30]], target = 20
+输出：false
+</code></pre>
+<p><strong>提示：</strong></p>
+<ul>
+<li><code>m == matrix.length</code></li>
+<li><code>n == matrix[i].length</code></li>
+<li><code>1 &lt;= n, m &lt;= 300</code></li>
+<li><code>-109 &lt;= matrix[i][j] &lt;= 109</code></li>
+<li>每行的所有元素从左到右升序排列</li>
+<li>每列的所有元素从上到下升序排列</li>
+<li><code>-109 &lt;= target &lt;= 109</code></li>
+</ul>
+<h2 id="思路-19"><a href="#思路-19" class="headerlink" title="思路"></a>思路</h2><p>对每行进行二分查找，注意lower_bound的使用</p>
+<h2 id="代码-19"><a href="#代码-19" class="headerlink" title="代码"></a>代码</h2><pre><code class="c++">class Solution &#123;
+public:
+    bool searchMatrix(vector&lt;vector&lt;int&gt;&gt;&amp; matrix, int target) &#123;
+        for (const auto&amp; row: matrix) &#123;
+            auto it = lower_bound(row.begin(), row.end(), target);
+            if (it != row.end() &amp;&amp; *it == target) &#123;
+                return true;
+            &#125;
+        &#125;
+        return false;
+    &#125;
+&#125;;
+</code></pre>
+<h1 id="241-为运算表达式设计优先级"><a href="#241-为运算表达式设计优先级" class="headerlink" title="241. 为运算表达式设计优先级"></a><span class="exturl" data-url="aHR0cHM6Ly9sZWV0Y29kZS5jbi9wcm9ibGVtcy9kaWZmZXJlbnQtd2F5cy10by1hZGQtcGFyZW50aGVzZXMv">241. 为运算表达式设计优先级</span></h1><h2 id="题干-20"><a href="#题干-20" class="headerlink" title="题干"></a>题干</h2><p>给你一个由数字和运算符组成的字符串 <code>expression</code> ，按不同优先级组合数字和运算符，计算并返回所有可能组合的结果。你可以 <strong>按任意顺序</strong> 返回答案。</p>
+<p>生成的测试用例满足其对应输出值符合 32 位整数范围，不同结果的数量不超过 <code>104</code> 。</p>
+<p><strong>示例 1：</strong></p>
+<pre><code>输入：expression = &quot;2-1-1&quot;
+输出：[0,2]
+解释：
+((2-1)-1) = 0 
+(2-(1-1)) = 2
+</code></pre>
+<p><strong>示例 2：</strong></p>
+<pre><code>输入：expression = &quot;2*3-4*5&quot;
+输出：[-34,-14,-10,-10,10]
+解释：
+(2*(3-(4*5))) = -34 
+((2*3)-(4*5)) = -14 
+((2*(3-4))*5) = -10 
+(2*((3-4)*5)) = -10 
+(((2*3)-4)*5) = 10
+</code></pre>
+<p><strong>提示：</strong></p>
+<ul>
+<li><code>1 &lt;= expression.length &lt;= 20</code></li>
+<li><code>expression</code> 由数字和算符 <code>&#39;+&#39;</code>、<code>&#39;-&#39;</code> 和 <code>&#39;*&#39;</code> 组成。</li>
+<li>输入表达式中的所有整数值在范围 <code>[0, 99]</code></li>
+</ul>
+<h2 id="思路-20"><a href="#思路-20" class="headerlink" title="思路"></a>思路</h2><p>暴力dfs，每次遇到一个符号，就dfs其两侧的子串的两个结果vector，再对这个vector两两组合得到可能答案，当子串为纯数字时则返回数字</p>
+<h2 id="代码-20"><a href="#代码-20" class="headerlink" title="代码"></a>代码</h2><pre><code class="c++">class Solution &#123;
+public:
+    vector&lt;int&gt; diffWaysToCompute(string expression) &#123;
+        vector&lt;int&gt; answer;
+        function&lt;vector&lt;int&gt;(int,int)&gt; dfs = [&amp;](int l,int r)&#123;
+            vector&lt;int&gt; tmp;
+            for(int i=l;i&lt;r;i++)&#123;
+                if(expression[i]&gt;=&#39;0&#39;&amp;&amp;expression[i]&lt;=&#39;9&#39;)&#123;
+                    continue;
+                &#125;
+                vector&lt;int&gt; left = dfs(l,i-1);
+                vector&lt;int&gt; right = dfs(i+1,r);
+
+                for(int j=0;j&lt;left.size();j++)&#123;
+                    for(int k=0;k&lt;right.size();k++)&#123;
+                        if(expression[i]==&#39;+&#39;)&#123;
+                            tmp.emplace_back(left[j]+right[k]);
+                        &#125;else if(expression[i]==&#39;-&#39;)&#123;
+                            tmp.emplace_back(left[j]-right[k]);
+                        &#125;else if(expression[i]==&#39;*&#39;)&#123;
+                            tmp.emplace_back(left[j]*right[k]);
+                        &#125;
+                    &#125;
+                &#125;
+            &#125;
+
+            if(tmp.size()==0)&#123;
+                int num = 0;
+                for(int j=l;j&lt;=r;j++)&#123;
+                    num = num*10+(expression[j]-&#39;0&#39;);
+                &#125;
+                tmp.emplace_back(num);
+            &#125;
+
+            return tmp;
+
+        &#125;;
+
+        return dfs(0,expression.size()-1);
+
+    &#125;
+&#125;;
+</code></pre>
+<h1 id="244-最短单词距离-II"><a href="#244-最短单词距离-II" class="headerlink" title="244. 最短单词距离 II"></a><span class="exturl" data-url="aHR0cHM6Ly9sZWV0Y29kZS5jbi9wcm9ibGVtcy9zaG9ydGVzdC13b3JkLWRpc3RhbmNlLWlpLw==">244. 最短单词距离 II</span></h1><h2 id="题干-21"><a href="#题干-21" class="headerlink" title="题干"></a>题干</h2><p>请设计一个类，使该类的构造函数能够接收一个字符串数组。然后再实现一个方法，该方法能够分别接收两个单词<em>，</em>并返回列表中这两个单词之间的最短距离。</p>
+<p>实现 <code>WordDistanc</code> 类:</p>
+<ul>
+<li><code>WordDistance(String[] wordsDict)</code> 用字符串数组 <code>wordsDict</code> 初始化对象。</li>
+<li><code>int shortest(String word1, String word2)</code> 返回数组 <code>worddict</code> 中 <code>word1</code> 和 <code>word2</code> 之间的最短距离。</li>
+</ul>
+<p><strong>示例 1:</strong></p>
+<pre><code>输入: 
+[&quot;WordDistance&quot;, &quot;shortest&quot;, &quot;shortest&quot;]
+[[[&quot;practice&quot;, &quot;makes&quot;, &quot;perfect&quot;, &quot;coding&quot;, &quot;makes&quot;]], [&quot;coding&quot;, &quot;practice&quot;], [&quot;makes&quot;, &quot;coding&quot;]]
+输出:
+[null, 3, 1]
+
+解释：
+WordDistance wordDistance = new WordDistance([&quot;practice&quot;, &quot;makes&quot;, &quot;perfect&quot;, &quot;coding&quot;, &quot;makes&quot;]);
+wordDistance.shortest(&quot;coding&quot;, &quot;practice&quot;); // 返回 3
+wordDistance.shortest(&quot;makes&quot;, &quot;coding&quot;);    // 返回 1
+</code></pre>
+<p><strong>注意:</strong></p>
+<ul>
+<li><code>1 &lt;= wordsDict.length &lt;= 3 * 104</code></li>
+<li><code>1 &lt;= wordsDict[i].length &lt;= 10</code></li>
+<li><code>wordsDict[i]</code> 由小写英文字母组成</li>
+<li><code>word1</code> 和 <code>word2</code> 在数组 <code>wordsDict</code> 中</li>
+<li><code>word1 != word2</code></li>
+<li><code>shortest</code> 操作次数不大于 <code>5000</code></li>
+</ul>
+<h2 id="思路-21"><a href="#思路-21" class="headerlink" title="思路"></a>思路</h2><p>哈希表存每个string的下标数组，然后把两个单词的下标数组找出来，题目转化为求两个数组中数字之差最小，用双指针做即可</p>
+<h2 id="代码-21"><a href="#代码-21" class="headerlink" title="代码"></a>代码</h2><pre><code class="c++">class WordDistance &#123;
+public:
+    unordered_map&lt;string,vector&lt;int&gt;&gt; cache;
+
+    WordDistance(vector&lt;string&gt;&amp; wordsDict) &#123;
+        for(int i=0;i&lt;wordsDict.size();i++)&#123;
+            cache[wordsDict[i]].emplace_back(i);
+        &#125;
+    &#125;
+    
+    int shortest(string word1, string word2) &#123;
+        int answer = INT_MAX;
+        int index1 = 0;
+        int index2 = 0;
+        
+        vector&lt;int&gt; a = cache[word1];
+        vector&lt;int&gt; b = cache[word2];
+        
+        while(index1&lt;a.size()&amp;&amp;index2&lt;b.size())&#123;
+            answer = min(answer,abs(a[index1]-b[index2]));
+            if(a[index1]&gt;b[index2])&#123;
+                    index2++;
+            &#125;else&#123;
+                    index1++;
+            &#125;
+        &#125;
+
+        return answer;
+    &#125;
+&#125;;
+
+/**
+ * Your WordDistance object will be instantiated and called as such:
+ * WordDistance* obj = new WordDistance(wordsDict);
+ * int param_1 = obj-&gt;shortest(word1,word2);
+ */
+</code></pre>
+<h1 id="245-最短单词距离-III"><a href="#245-最短单词距离-III" class="headerlink" title="245. 最短单词距离 III"></a><span class="exturl" data-url="aHR0cHM6Ly9sZWV0Y29kZS5jbi9wcm9ibGVtcy9zaG9ydGVzdC13b3JkLWRpc3RhbmNlLWlpaS8=">245. 最短单词距离 III</span></h1><h2 id="题干-22"><a href="#题干-22" class="headerlink" title="题干"></a>题干</h2><p>给定一个字符串数组 <code>wordsDict</code> 和两个字符串 <code>word1</code> 和 <code>word2</code> ，返回这两个单词在列表中出现的最短距离。</p>
+<p>注意：<code>word1</code> 和 <code>word2</code> 是有可能相同的，并且它们将分别表示为列表中 <strong>两个独立的单词</strong> 。</p>
+<p><strong>示例 1：</strong></p>
+<pre><code>输入：wordsDict = [&quot;practice&quot;, &quot;makes&quot;, &quot;perfect&quot;, &quot;coding&quot;, &quot;makes&quot;], word1 = &quot;makes&quot;, word2 = &quot;coding&quot;
+输出：1
+</code></pre>
+<p><strong>示例 2：</strong></p>
+<pre><code>输入：wordsDict = [&quot;practice&quot;, &quot;makes&quot;, &quot;perfect&quot;, &quot;coding&quot;, &quot;makes&quot;], word1 = &quot;makes&quot;, word2 = &quot;makes&quot;
+输出：3
+</code></pre>
+<p><strong>提示：</strong></p>
+<ul>
+<li><code>1 &lt;= wordsDict.length &lt;= 105</code></li>
+<li><code>1 &lt;= wordsDict[i].length &lt;= 10</code></li>
+<li><code>wordsDict[i]</code> 由小写英文字母组成</li>
+<li><code>word1</code> 和 <code>word2</code> 都在 <code>wordsDict</code> 中</li>
+</ul>
+<h2 id="思路-22"><a href="#思路-22" class="headerlink" title="思路"></a>思路</h2><p>哈希表存每个string的下标数组，然后把两个单词的下标数组找出来，题目转化为求两个数组中数字之差最小，用双指针做即可。如果是相同的单词，则改为求这个单词相邻数最小差</p>
+<h2 id="代码-22"><a href="#代码-22" class="headerlink" title="代码"></a>代码</h2><pre><code class="c++">class Solution &#123;
+public:
+
+    unordered_map&lt;string,vector&lt;int&gt;&gt; mp; 
+
+    int same_word(vector&lt;int&gt; &amp;v)&#123;
+        int answer = INT_MAX;
+
+        for(int i=0;i&lt;v.size()-1;i++)&#123;
+            answer = min(answer,v[i+1]-v[i]);
+        &#125;
+
+        return answer;
+    &#125;
+
+    int two_words(vector&lt;int&gt; &amp;v1,vector&lt;int&gt; &amp;v2)&#123;
+        int idx1 = 0;
+        int idx2 = 0;
+        int size1 = v1.size();
+        int size2 = v2.size();
+        int answer = INT_MAX;
+        while(idx1&lt;size1&amp;&amp;idx2&lt;size2)&#123;
+            answer = min(answer,abs(v1[idx1]-v2[idx2]));
+            if(v1[idx1]&gt;v2[idx2])&#123;
+                idx2++;
+            &#125;else&#123;
+                idx1++;
+            &#125;
+        &#125;
+        return answer;
+    &#125;
+
+    int shortestWordDistance(vector&lt;string&gt;&amp; wordsDict, string word1, string word2) &#123;
+        for(int i=0;i&lt;wordsDict.size();i++)&#123;
+            mp[wordsDict[i]].emplace_back(i);
+        &#125;
+
+        vector&lt;int&gt; w1 = mp[word1];
+        vector&lt;int&gt; w2 = mp[word2];
+
+        if(word1==word2)&#123;
+            return same_word(w1);
+        &#125;
+
+        return two_words(w1, w2);
+    &#125;;
+
+&#125;;
+</code></pre>
+<h1 id="247-中心对称数-II"><a href="#247-中心对称数-II" class="headerlink" title="247. 中心对称数 II"></a><span class="exturl" data-url="aHR0cHM6Ly9sZWV0Y29kZS5jbi9wcm9ibGVtcy9zdHJvYm9ncmFtbWF0aWMtbnVtYmVyLWlpLw==">247. 中心对称数 II</span></h1><h2 id="题干-23"><a href="#题干-23" class="headerlink" title="题干"></a>题干</h2><p>给定一个整数 <code>n</code> ，返回所有长度为 <code>n</code> 的 <strong>中心对称数</strong> 。你可以以 <strong>任何顺序</strong> 返回答案。</p>
+<p><strong>中心对称数</strong> 是一个数字在旋转了 <code>180</code> 度之后看起来依旧相同的数字（或者上下颠倒地看）。</p>
+<p><strong>示例 1:</strong></p>
+<pre><code>输入：n = 2
+输出：[&quot;11&quot;,&quot;69&quot;,&quot;88&quot;,&quot;96&quot;]
+</code></pre>
+<p><strong>示例 2:</strong></p>
+<pre><code>输入：n = 1
+输出：[&quot;0&quot;,&quot;1&quot;,&quot;8&quot;]
+</code></pre>
+<p><strong>提示：</strong></p>
+<ul>
+<li><code>1 &lt;= n &lt;= 14</code></li>
+</ul>
+<h2 id="思路-23"><a href="#思路-23" class="headerlink" title="思路"></a>思路</h2><p>哈希表或者数组存对称字符组的对应关系以及单个对称字符，dfs一半长度的字符串即可，注意奇偶分类奇数的话要枚举中间数，还有一个坑是第一项不能为0</p>
+<h2 id="代码-23"><a href="#代码-23" class="headerlink" title="代码"></a>代码</h2><pre><code class="c++">class Solution &#123;
+public:
+    vector&lt;string&gt; findStrobogrammatic(int n) &#123;
+        vector&lt;vector&lt;char&gt;&gt; pairs = &#123;&#123;'0','0'&#125;,&#123;'1','1'&#125;,&#123;'6','9'&#125;,&#123;'8','8'&#125;,&#123;'9','6'&#125;&#125;;
+        vector&lt;string&gt; single = &#123;&quot;0&quot;,&quot;1&quot;,&quot;8&quot;&#125;;
+        vector&lt;string&gt; answer;
+        string s1 =&quot;&quot;;
+        string s2 =&quot;&quot;;
+        int length = n/2;
+        int hasSingle = n%2;
+        function&lt;void(int)&gt; dfs = [&amp;](int i)&#123;
+            //cout&lt;&lt;i&lt;&lt;endl;
+            if(i==length)&#123;
+                string s3 = s2;
+                reverse(s3.begin(), s3.end());
+                if(hasSingle==0)&#123;
+                    answer.emplace_back(s1+s3);
+                &#125;else&#123;
+                    for(int k=0;k&lt;3;k++)&#123;
+                        //cout&lt;&lt;s1+single[k]+s3&lt;&lt;endl;
+                        answer.emplace_back(s1+single[k]+s3);
+                    &#125;
+                &#125;
+                return;
+            &#125;
+
+            if(i!=0)&#123;
+                s1.push_back(pairs[0][0]);
+                s2.push_back(pairs[0][1]);
+                dfs(i+1);
+                s1.pop_back();
+                s2.pop_back();
+
+            &#125;
+            
+            for(int j=1;j&lt;5;j++)&#123;
+                s1.push_back(pairs[j][0]);
+                s2.push_back(pairs[j][1]);
+                dfs(i+1);
+                s1.pop_back();
+                s2.pop_back();
+            &#125;
+        &#125;;
+
+        dfs(0);
+
+        return answer;
+
+    &#125;
+&#125;;
+</code></pre>
+<h1 id="250-统计同值子树"><a href="#250-统计同值子树" class="headerlink" title="250. 统计同值子树"></a><span class="exturl" data-url="aHR0cHM6Ly9sZWV0Y29kZS5jbi9wcm9ibGVtcy9jb3VudC11bml2YWx1ZS1zdWJ0cmVlcy8=">250. 统计同值子树</span></h1><h2 id="题干-24"><a href="#题干-24" class="headerlink" title="题干"></a>题干</h2><p>给定一个二叉树，统计该二叉树数值相同的</p>
+<p>子树</p>
+<p>个数。</p>
+<p>同值子树是指该子树的所有节点都拥有相同的数值。</p>
+<p><strong>示例：</strong></p>
+<pre><code>输入: root = [5,1,5,5,5,null,5]
+
+              5
+             / \
+            1   5
+           / \   \
+          5   5   5
+
+输出: 4
+</code></pre>
+<h2 id="思路-24"><a href="#思路-24" class="headerlink" title="思路"></a>思路</h2><p>树的dfs题，前向遍历，每个节点判断当前节点为根节点的树是否为同值子树即可</p>
+<h2 id="代码-24"><a href="#代码-24" class="headerlink" title="代码"></a>代码</h2><pre><code class="c++">/**
+ * Definition for a binary tree node.
+ * struct TreeNode &#123;
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode() : val(0), left(nullptr), right(nullptr) &#123;&#125;
+ *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) &#123;&#125;
+ *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) &#123;&#125;
+ * &#125;;
+ */
+class Solution &#123;
+public:
+    int answer;
+    bool dfs(TreeNode* root)&#123;
+        if(!root-&gt;left&amp;&amp;!root-&gt;right)&#123;
+            answer++;
+            return true;
+        &#125;
+
+        bool isTrue = true;
+        if(root-&gt;left)&#123;
+            if(dfs(root-&gt;left)==false)&#123;
+                isTrue = false;
+            &#125;
+            if(root-&gt;val!=root-&gt;left-&gt;val)&#123;
+                isTrue = false;
+            &#125;
+        &#125;
+
+        if(root-&gt;right)&#123;
+            if(dfs(root-&gt;right)==false)&#123;
+                isTrue = false;
+            &#125;
+            if(root-&gt;val!=root-&gt;right-&gt;val)&#123;
+                isTrue = false;
+            &#125;
+        &#125;
+
+        if(isTrue)&#123;
+            answer++;
+        &#125;
+
+        return isTrue;
+    &#125;
+
+    int countUnivalSubtrees(TreeNode* root) &#123;
+        if(!root)&#123;
+            return 0;
+        &#125;
+        answer = 0;
+        dfs(root);
+        return answer;
+    &#125;
+&#125;;
+</code></pre>
+<h1 id="251-展开二维向量"><a href="#251-展开二维向量" class="headerlink" title="251. 展开二维向量"></a><span class="exturl" data-url="aHR0cHM6Ly9sZWV0Y29kZS5jbi9wcm9ibGVtcy9mbGF0dGVuLTJkLXZlY3Rvci8=">251. 展开二维向量</span></h1><h2 id="题干-25"><a href="#题干-25" class="headerlink" title="题干"></a>题干</h2><p>请设计并实现一个能够展开二维向量的迭代器。该迭代器需要支持 <code>next</code> 和 <code>hasNext</code> 两种操作。</p>
+<p><strong>示例：</strong></p>
+<pre><code>Vector2D iterator = new Vector2D([[1,2],[3],[4]]);
+
+iterator.next(); // 返回 1
+iterator.next(); // 返回 2
+iterator.next(); // 返回 3
+iterator.hasNext(); // 返回 true
+iterator.hasNext(); // 返回 true
+iterator.next(); // 返回 4
+iterator.hasNext(); // 返回 false
+</code></pre>
+<p><strong>注意：</strong></p>
+<ol>
+<li>请记得 <strong>重置</strong> 在 Vector2D 中声明的类变量（静态变量），因为类变量会 <strong>在多个测试用例中保持不变</strong>，影响判题准确。请 <span class="exturl" data-url="aHR0cHM6Ly9zdXBwb3J0LmxlZXRjb2RlLWNuLmNvbS9oYy9rYi9zZWN0aW9uLzEwNzE1MzQv">查阅</span> 这里。</li>
+<li>你可以假定 <code>next()</code> 的调用总是合法的，即当 <code>next()</code> 被调用时，二维向量总是存在至少一个后续元素。</li>
+</ol>
+<p><strong>进阶：</strong>尝试在代码中仅使用 <span class="exturl" data-url="aHR0cDovL3d3dy5jcGx1c3BsdXMuY29tL3JlZmVyZW5jZS9pdGVyYXRvci9pdGVyYXRvci8=">C++ 提供的迭代器</span> 或 <span class="exturl" data-url="aHR0cHM6Ly9kb2NzLm9yYWNsZS5jb20vamF2YXNlLzcvZG9jcy9hcGkvamF2YS91dGlsL0l0ZXJhdG9yLmh0bWw=">Java 提供的迭代器</span>。</p>
+<h2 id="思路-25"><a href="#思路-25" class="headerlink" title="思路"></a>思路</h2><p>维护inner和outer两个指针即可outer指向第outer个vector&lt;int&gt;，inner是该vector的内部指针，outer &lt; vec.size() &amp;&amp; inner &#x3D;&#x3D; vec[outer].size()这句来判断是否应该移动outer</p>
+<h2 id="代码-25"><a href="#代码-25" class="headerlink" title="代码"></a>代码</h2><pre><code class="c++">class Vector2D &#123;
+public:
+    Vector2D(vector&lt;vector&lt;int&gt;&gt;&amp; vec) &#123;
+       this-&gt;vec = vec;
+    &#125;
+    
+    int next() &#123;
+        advanceToNext();
+        // 返回当前元素并向内移动，使其位于当前元素之后。
+        return vec[outer][inner++];
+    &#125;
+
+    // 如果当前 outer 和 internal 指向一个整数，则此方法不执行任何操作。
+    // 否则，内部和外部将向前推进，直到它们指向一个整数。
+    // 如果没有更多的整数，则当此方法终止时，outer 将等于 vector.length。
+    void advanceToNext() &#123;
+        // 虽然 outer 仍然在向量内，但 internal 位于 outer 指向的 internal 列表的末尾，
+        // 我们希望向前移动到下一个 internal 向量的起点。
+        while (outer &lt; vec.size() &amp;&amp; inner == vec[outer].size()) &#123;
+            inner = 0;
+            outer++;
+        &#125;
+    &#125;
+    
+    bool hasNext() &#123;
+        // 确保移动位置指针以使其指向整数，
+        // 或者让 outer = vector.length.
+        advanceToNext();
+        // 如果 outer = vector.length 那么就没有剩下的整数了, 
+        // 否则我们会在一个整数停下，也就是还有剩下的整数。
+        return outer &lt; vec.size();
+    &#125;
+private:
+    vector&lt;vector&lt;int&gt;&gt; vec;
+    int inner = 0;
+    int outer = 0;
+&#125;;
+
+
+/**
+ * Your Vector2D object will be instantiated and called as such:
+ * Vector2D* obj = new Vector2D(vec);
+ * int param_1 = obj-&gt;next();
+ * bool param_2 = obj-&gt;hasNext();
+ */
+</code></pre>
+<h1 id="253-会议室-II"><a href="#253-会议室-II" class="headerlink" title="253. 会议室 II"></a><span class="exturl" data-url="aHR0cHM6Ly9sZWV0Y29kZS5jbi9wcm9ibGVtcy9tZWV0aW5nLXJvb21zLWlpLw==">253. 会议室 II</span></h1><h2 id="题干-26"><a href="#题干-26" class="headerlink" title="题干"></a>题干</h2><p>给你一个会议时间安排的数组 <code>intervals</code> ，每个会议时间都会包括开始和结束的时间 <code>intervals[i] = [starti, endi]</code> ，返回 <em>所需会议室的最小数量</em> 。</p>
+<p><strong>示例 1：</strong></p>
+<pre><code>输入：intervals = [[0,30],[5,10],[15,20]]
+输出：2
+</code></pre>
+<p><strong>示例 2：</strong></p>
+<pre><code>输入：intervals = [[7,10],[2,4]]
+输出：1
+</code></pre>
+<p><strong>提示：</strong></p>
+<ul>
+<li><code>1 &lt;= intervals.length &lt;= 104</code></li>
+<li><code>0 &lt;= starti &lt; endi &lt;= 106</code></li>
+</ul>
+<h2 id="思路-26"><a href="#思路-26" class="headerlink" title="思路"></a>思路</h2><p>贪心堆，用堆维护会议室结束时间，堆的大小即为会议室个数，我们尝试每次让一个新会议加入结束最早的会议室，如果能找到则pop并push一个新的结束时间，否则直接新建一个会议室</p>
+<h2 id="代码-26"><a href="#代码-26" class="headerlink" title="代码"></a>代码</h2><pre><code class="c++">class Solution &#123;
+public:
+    int minMeetingRooms(vector&lt;vector&lt;int&gt;&gt;&amp; intervals) &#123;
+
+        auto cmp = [&amp;](const vector&lt;int&gt; &amp;a,const vector&lt;int&gt; &amp;b)&#123;
+            if(a[0]==b[0])&#123;
+                return a[1]&lt;b[1];
+            &#125;
+            return a[0]&lt;b[0];
+        &#125;;
+        sort(intervals.begin(), intervals.end(), cmp);
+
+        auto cmp2 = [&amp;](const int&amp; a,const int&amp; b)&#123;
+            return a&gt;=b;
+        &#125;;
+
+        priority_queue&lt;int, vector&lt;int&gt;, decltype(cmp2)&gt; pq(cmp2);
+
+        pq.emplace(intervals[0][1]);
+
+        for(int i=1;i&lt;intervals.size();i++)&#123;
+
+            if(intervals[i][0]&gt;=pq.top())&#123;
+                pq.pop();
+            &#125;
+
+            pq.emplace(intervals[i][1]);
+
+        &#125;
+
+        return pq.size();
+
+    &#125;
+&#125;;
+</code></pre>
+<h1 id="254-因子的组合"><a href="#254-因子的组合" class="headerlink" title="254. 因子的组合"></a><span class="exturl" data-url="aHR0cHM6Ly9sZWV0Y29kZS5jbi9wcm9ibGVtcy9mYWN0b3ItY29tYmluYXRpb25zLw==">254. 因子的组合</span></h1><h2 id="题干-27"><a href="#题干-27" class="headerlink" title="题干"></a>题干</h2><p>整数可以被看作是其因子的乘积。</p>
+<p>例如：</p>
+<pre><code>8 = 2 x 2 x 2;
+  = 2 x 4.
+</code></pre>
+<p>请实现一个函数，该函数接收一个整数 <em>n</em> 并返回该整数所有的因子组合。</p>
+<p><strong>注意：</strong></p>
+<ol>
+<li>你可以假定 <em>n</em> 为永远为正数。</li>
+<li>因子必须大于 1 并且小于 <em>n</em>。</li>
+</ol>
+<p><strong>示例 1：</strong></p>
+<pre><code>输入: 1
+输出: []
+</code></pre>
+<p><strong>示例 2：</strong></p>
+<pre><code>输入: 37
+输出: []
+</code></pre>
+<p><strong>示例 3：</strong></p>
+<pre><code>输入: 12
+输出:
+[
+  [2, 6],
+  [2, 2, 3],
+  [3, 4]
+]
+</code></pre>
+<p><strong>示例 4:</strong></p>
+<pre><code>输入: 32
+输出:
+[
+  [2, 16],
+  [2, 2, 8],
+  [2, 2, 2, 4],
+  [2, 2, 2, 2, 2],
+  [2, 4, 4],
+  [4, 8]
+]
+</code></pre>
+<h2 id="思路-27"><a href="#思路-27" class="headerlink" title="思路"></a>思路</h2><p>dfs枚举因子，随后暴力回溯，注意每次递归时的k具有非减性</p>
+<h2 id="代码-27"><a href="#代码-27" class="headerlink" title="代码"></a>代码</h2><pre><code class="c++">class Solution &#123;
+public:
+    vector&lt;vector&lt;int&gt;&gt; getFactors(int n) &#123;
+        vector&lt;vector&lt;int&gt;&gt; answer;
+        vector&lt;int&gt; temp;
+        function&lt;void(int,int)&gt; dfs = [&amp;](int n,int k)&#123;
+            for(int i=k;i&lt;=sqrt(n);i++)&#123;
+                if(n%i==0)&#123;
+                    temp.emplace_back(i);
+                    temp.emplace_back(n/i);
+                    answer.emplace_back(temp);
+                    temp.pop_back();
+                    dfs(n/i,i);
+                    temp.pop_back();
+                &#125;
+            &#125;
+        &#125;;
+
+        dfs(n,2);
+        return answer;
+
+    &#125;
+&#125;;
+</code></pre>
+<h1 id="255-验证二叉搜索树的前序遍历序列"><a href="#255-验证二叉搜索树的前序遍历序列" class="headerlink" title="255. 验证二叉搜索树的前序遍历序列"></a><span class="exturl" data-url="aHR0cHM6Ly9sZWV0Y29kZS5jbi9wcm9ibGVtcy92ZXJpZnktcHJlb3JkZXItc2VxdWVuY2UtaW4tYmluYXJ5LXNlYXJjaC10cmVlLw==">255. 验证二叉搜索树的前序遍历序列</span></h1><h2 id="题干-28"><a href="#题干-28" class="headerlink" title="题干"></a>题干</h2><p>给定一个 <strong>无重复元素</strong> 的整数数组 <code>preorder</code> ， <em>如果它是以二叉搜索树的<strong>先序遍历</strong>排列</em> ，返回 <code>true</code> 。</p>
+<p><strong>示例 1：</strong></p>
+<p><img data-src="https://assets.leetcode.com/uploads/2021/03/12/preorder-tree.jpg" alt="img"></p>
+<pre><code>输入: preorder = [5,2,1,3,6]
+输出: true
+</code></pre>
+<p><strong>示例 2：</strong></p>
+<pre><code>输入: preorder = [5,2,6,1,3]
+输出: false
+</code></pre>
+<p><strong>提示:</strong></p>
+<ul>
+<li><code>1 &lt;= preorder.length &lt;= 104</code></li>
+<li><code>1 &lt;= preorder[i] &lt;= 104</code></li>
+<li><code>preorder</code> 中 <strong>无重复元素</strong></li>
+</ul>
+<p><strong>进阶：</strong>您能否使用恒定的空间复杂度来完成此题？</p>
+<h2 id="思路-28"><a href="#思路-28" class="headerlink" title="思路"></a>思路</h2><p>递归，preorder的第一个数是根节点，又由于是二叉搜索树，将剩余数组分为小于根节点和大于根节点的两部分，分别进行子问题dfs</p>
+<h2 id="代码-28"><a href="#代码-28" class="headerlink" title="代码"></a>代码</h2><pre><code class="c++">class Solution &#123;
+public:
+    bool dfs(vector&lt;int&gt;&amp; preorder,int start,int end)&#123;
+        if(start&gt;=end)&#123;
+            return true;
+        &#125;
+        int now = preorder[start];
+        int i;
+        for(i=start+1;i&lt;=end;i++)&#123;
+            if(now&lt;preorder[i])&#123;
+                break;
+            &#125;
+        &#125;
+
+        for(int j=i;j&lt;=end;j++)&#123;
+            if(now&gt;preorder[j])&#123;
+                return false;
+            &#125;
+        &#125;
+
+        bool left = dfs(preorder,start+1,i-1);
+        bool right = dfs(preorder,i,end);
+        
+        return left&amp;&amp;right;
+
+    &#125;;
+
+    bool verifyPreorder(vector&lt;int&gt;&amp; preorder) &#123;
+        return dfs(preorder,0,preorder.size()-1);
+    &#125;
+&#125;;
+</code></pre>
+<h1 id="256-粉刷房子"><a href="#256-粉刷房子" class="headerlink" title="256. 粉刷房子"></a><span class="exturl" data-url="aHR0cHM6Ly9sZWV0Y29kZS5jbi9wcm9ibGVtcy9wYWludC1ob3VzZS8=">256. 粉刷房子</span></h1><h2 id="题干-29"><a href="#题干-29" class="headerlink" title="题干"></a>题干</h2><p>假如有一排房子，共 <code>n</code> 个，每个房子可以被粉刷成红色、蓝色或者绿色这三种颜色中的一种，你需要粉刷所有的房子并且使其相邻的两个房子颜色不能相同。</p>
+<p>当然，因为市场上不同颜色油漆的价格不同，所以房子粉刷成不同颜色的花费成本也是不同的。每个房子粉刷成不同颜色的花费是以一个 <code>n x 3</code> 的正整数矩阵 <code>costs</code> 来表示的。</p>
+<p>例如，<code>costs[0][0]</code> 表示第 0 号房子粉刷成红色的成本花费；<code>costs[1][2]</code> 表示第 1 号房子粉刷成绿色的花费，以此类推。</p>
+<p>请计算出粉刷完所有房子最少的花费成本。</p>
+<p><strong>示例 1：</strong></p>
+<pre><code>输入: costs = [[17,2,17],[16,16,5],[14,3,19]]
+输出: 10
+解释: 将 0 号房子粉刷成蓝色，1 号房子粉刷成绿色，2 号房子粉刷成蓝色。
+     最少花费: 2 + 5 + 3 = 10。
+</code></pre>
+<p><strong>示例 2：</strong></p>
+<pre><code>输入: costs = [[7,6,2]]
+输出: 2
+</code></pre>
+<p><strong>提示:</strong></p>
+<ul>
+<li><code>costs.length == n</code></li>
+<li><code>costs[i].length == 3</code></li>
+<li><code>1 &lt;= n &lt;= 100</code></li>
+<li><code>1 &lt;= costs[i][j] &lt;= 20</code></li>
+</ul>
+<h2 id="思路-29"><a href="#思路-29" class="headerlink" title="思路"></a>思路</h2><p>二维动态规划，012表示三种颜色,dp[i][0] &#x3D; costs[i][0]+min(dp[i-1][1],dp[i-1][2]);其余两种颜色的转移方程类似</p>
+<h2 id="代码-29"><a href="#代码-29" class="headerlink" title="代码"></a>代码</h2><pre><code class="c++">class Solution &#123;
+public:
+    int minCost(vector&lt;vector&lt;int&gt;&gt;&amp; costs) &#123;
+        vector&lt;vector&lt;int&gt;&gt; dp(costs.size(),vector&lt;int&gt;(3));
+        dp[0][0] = costs[0][0];
+        dp[0][1] = costs[0][1];
+        dp[0][2] = costs[0][2];
+
+        for(int i=1;i&lt;costs.size();i++)&#123;
+            dp[i][0] = costs[i][0]+min(dp[i-1][1],dp[i-1][2]);
+            dp[i][1] = costs[i][1]+min(dp[i-1][0],dp[i-1][2]);
+            dp[i][2] = costs[i][2]+min(dp[i-1][0],dp[i-1][1]);
+        &#125;
+
+        return min(dp[costs.size()-1][0],min(dp[costs.size()-1][1],dp[costs.size()-1][2]));
+         
+    &#125;
+&#125;;
+</code></pre>
+<h1 id="259-较小的三数之和"><a href="#259-较小的三数之和" class="headerlink" title="259. 较小的三数之和"></a><span class="exturl" data-url="aHR0cHM6Ly9sZWV0Y29kZS5jbi9wcm9ibGVtcy8zc3VtLXNtYWxsZXIv">259. 较小的三数之和</span></h1><h2 id="题干-30"><a href="#题干-30" class="headerlink" title="题干"></a>题干</h2><p>给定一个长度为 <code>n</code> 的整数数组和一个目标值 <code>target</code> ，寻找能够使条件 <code>nums[i] + nums[j] + nums[k] &lt; target</code> 成立的三元组 <code>i, j, k</code> 个数（<code>0 &lt;= i &lt; j &lt; k &lt; n</code>）。</p>
+<p><strong>示例 1：</strong></p>
+<pre><code>输入: nums = [-2,0,1,3], target = 2
+输出: 2 
+解释: 因为一共有两个三元组满足累加和小于 2:
+     [-2,0,1]
+     [-2,0,3]
+</code></pre>
+<p><strong>示例 2：</strong></p>
+<pre><code>输入: nums = [], target = 0
+输出: 0 
+</code></pre>
+<p><strong>示例 3：</strong></p>
+<pre><code>输入: nums = [0], target = 0
+输出: 0 
+</code></pre>
+<p><strong>提示:</strong></p>
+<ul>
+<li><code>n == nums.length</code></li>
+<li><code>0 &lt;= n &lt;= 3500</code></li>
+<li><code>-100 &lt;= nums[i] &lt;= 100</code></li>
+<li><code>-100 &lt;= target &lt;= 100</code></li>
+</ul>
+<h2 id="思路-30"><a href="#思路-30" class="headerlink" title="思路"></a>思路</h2><p>类似三数之和，但不是相等而是小于target，先确定第一个值，再用双指针，用双指针时候先固定右指针，再移动左指针，每次答案添加end-start</p>
+<h2 id="代码-30"><a href="#代码-30" class="headerlink" title="代码"></a>代码</h2><pre><code class="c++">class Solution &#123;
+public:
+    int threeSumSmaller(vector&lt;int&gt;&amp; nums, int target) &#123;
+        sort(nums.begin(),nums.end());
+        int answer = 0;
+        int n = nums.size();
+        for(int i=0;i&lt;n-2;i++)&#123;
+            int a = nums[i];
+            int t = target-a;
+            int start = i+1;
+            int end = n-1;
+            while(start&lt;end)&#123;
+                if(nums[start]+nums[end]&lt;t)&#123;
+                    answer+=end-start;
+                    start++;
+                &#125;else&#123;
+                    end--;
+                &#125;
+            &#125;
+
+        &#125;
+        return answer;
+
+    &#125;
+&#125;;
+</code></pre>
+<h1 id="260-只出现一次的数字-III"><a href="#260-只出现一次的数字-III" class="headerlink" title="260. 只出现一次的数字 III"></a><span class="exturl" data-url="aHR0cHM6Ly9sZWV0Y29kZS5jbi9wcm9ibGVtcy9zaW5nbGUtbnVtYmVyLWlpaS8=">260. 只出现一次的数字 III</span></h1><h2 id="题干-31"><a href="#题干-31" class="headerlink" title="题干"></a>题干</h2><p>给你一个整数数组 <code>nums</code>，其中恰好有两个元素只出现一次，其余所有元素均出现两次。 找出只出现一次的那两个元素。你可以按 <strong>任意顺序</strong> 返回答案。</p>
+<p>你必须设计并实现线性时间复杂度的算法且仅使用常量额外空间来解决此问题。</p>
+<p><strong>示例 1：</strong></p>
+<pre><code>输入：nums = [1,2,1,3,2,5]
+输出：[3,5]
+解释：[5, 3] 也是有效的答案。
+</code></pre>
+<p><strong>示例 2：</strong></p>
+<pre><code>输入：nums = [-1,0]
+输出：[-1,0]
+</code></pre>
+<p><strong>示例 3：</strong></p>
+<pre><code>输入：nums = [0,1]
+输出：[1,0]
+</code></pre>
+<p><strong>提示：</strong></p>
+<ul>
+<li><code>2 &lt;= nums.length &lt;= 3 * 104</code></li>
+<li><code>-231 &lt;= nums[i] &lt;= 231 - 1</code></li>
+<li>除两个只出现一次的整数外，<code>nums</code> 中的其他数字都出现两次</li>
+</ul>
+<h2 id="思路-31"><a href="#思路-31" class="headerlink" title="思路"></a>思路</h2><p>用全部数字异或得到两个唯一数字的异或结果xor_all（其余成对的都变0了），再取这个xor_all的最低位的1，将数字分成两类分别异或</p>
+<h2 id="代码-31"><a href="#代码-31" class="headerlink" title="代码"></a>代码</h2><pre><code class="c++">class Solution &#123;
+public:
+    vector&lt;int&gt; singleNumber(vector&lt;int&gt; &amp;nums) &#123;
+        unsigned int xor_all = 0;
+        for (int x: nums) &#123;
+            xor_all ^= x;
+        &#125;
+        int lowbit = xor_all &amp; -xor_all;//记忆
+        vector&lt;int&gt; ans(2);
+        for (int x: nums) &#123;
+            ans[(x &amp; lowbit) != 0] ^= x; // 分组异或
+        &#125;
+        return ans;
+    &#125;
+&#125;;
+
+</code></pre>
+<h1 id="261-以图判树"><a href="#261-以图判树" class="headerlink" title="261. 以图判树"></a><span class="exturl" data-url="aHR0cHM6Ly9sZWV0Y29kZS5jbi9wcm9ibGVtcy9ncmFwaC12YWxpZC10cmVlLw==">261. 以图判树</span></h1><h2 id="题干-32"><a href="#题干-32" class="headerlink" title="题干"></a>题干</h2><p>给定编号从 <code>0</code> 到 <code>n - 1</code> 的 <code>n</code> 个结点。给定一个整数 <code>n</code> 和一个 <code>edges</code> 列表，其中 <code>edges[i] = [ai, bi]</code> 表示图中节点 <code>ai</code> 和 <code>bi</code> 之间存在一条无向边。</p>
+<p>如果这些边能够形成一个合法有效的树结构，则返回 <code>true</code> ，否则返回 <code>false</code> 。</p>
+<p><strong>示例 1：</strong></p>
+<p><img data-src="https://assets.leetcode.com/uploads/2021/03/12/tree1-graph.jpg" alt="img"></p>
+<pre><code>输入: n = 5, edges = [[0,1],[0,2],[0,3],[1,4]]
+输出: true
+</code></pre>
+<p><strong>示例 2:</strong></p>
+<p><img data-src="https://assets.leetcode.com/uploads/2021/03/12/tree2-graph.jpg" alt="img"></p>
+<pre><code>输入: n = 5, edges = [[0,1],[1,2],[2,3],[1,3],[1,4]]
+输出: false
+</code></pre>
+<p><strong>提示：</strong></p>
+<ul>
+<li><code>1 &lt;= n &lt;= 2000</code></li>
+<li><code>0 &lt;= edges.length &lt;= 5000</code></li>
+<li><code>edges[i].length == 2</code></li>
+<li><code>0 &lt;= ai, bi &lt; n</code></li>
+<li><code>ai != bi</code></li>
+<li>不存在自循环或重复的边</li>
+</ul>
+<h2 id="思路-32"><a href="#思路-32" class="headerlink" title="思路"></a>思路</h2><p>if (edges.size() !&#x3D; n - 1) return false排除有环的情况，随后dfs遍历记录visit数组，排除节点单独分离的情况</p>
+<h2 id="代码-32"><a href="#代码-32" class="headerlink" title="代码"></a>代码</h2><pre><code class="c++">
+class Solution &#123;
+    vector&lt;vector&lt;int&gt;&gt; adjacency; // unordered_map&lt;int, vector&lt;int&gt;&gt; adjacency;
+    set&lt;int&gt; visited;
+public:
+    bool validTree(int n, vector&lt;vector&lt;int&gt;&gt;&amp; edges) &#123;
+        if (edges.size() != n - 1) return false; // 很关键，排除了同时【连通和有环的】情况
+
+        this-&gt;adjacency.resize(n); 
+
+        for (auto&amp; edge : edges) &#123;
+            adjacency[edge[0]].push_back(edge[1]);
+            adjacency[edge[1]].push_back(edge[0]);
+        &#125;
+
+        dfs(0);
+
+        return visited.size() == n;
+    &#125;
+
+    void dfs(int i) &#123;
+        visited.insert(i);
+        for (auto&amp; adj : adjacency[i]) &#123;
+            if (!visited.contains(adj)) &#123;
+                dfs(adj);
+            &#125;
+        &#125;
+    &#125;
+&#125;;
+</code></pre>
+<h1 id="264-丑数-II"><a href="#264-丑数-II" class="headerlink" title="264. 丑数 II"></a><span class="exturl" data-url="aHR0cHM6Ly9sZWV0Y29kZS5jbi9wcm9ibGVtcy91Z2x5LW51bWJlci1paS8=">264. 丑数 II</span></h1><h2 id="题干-33"><a href="#题干-33" class="headerlink" title="题干"></a>题干</h2><p>给你一个整数 <code>n</code> ，请你找出并返回第 <code>n</code> 个 <strong>丑数</strong> 。</p>
+<p><strong>丑数</strong> 就是质因子只包含 <code>2</code>、<code>3</code> 和 <code>5</code> 的正整数。</p>
+<p><strong>示例 1：</strong></p>
+<pre><code>输入：n = 10
+输出：12
+解释：[1, 2, 3, 4, 5, 6, 8, 9, 10, 12] 是由前 10 个丑数组成的序列。
+</code></pre>
+<p><strong>示例 2：</strong></p>
+<pre><code>输入：n = 1
+输出：1
+解释：1 通常被视为丑数。
+</code></pre>
+<p><strong>提示：</strong></p>
+<ul>
+<li><code>1 &lt;= n &lt;= 1690</code></li>
+</ul>
+<h2 id="思路-33"><a href="#思路-33" class="headerlink" title="思路"></a>思路</h2><p>堆加哈希表，堆用来排序，哈希表用来排除重复值</p>
+<h2 id="代码-33"><a href="#代码-33" class="headerlink" title="代码"></a>代码</h2><pre><code class="c++">class Solution &#123;
+public:
+    vector&lt;int&gt; key = &#123;2,3,5&#125;;
+    int nthUglyNumber(int n) &#123;
+        auto cmp = [&amp;](const long long a,const long long b)&#123;
+            return a&gt;b;
+        &#125;;
+        unordered_set&lt;long long&gt; set;
+        priority_queue&lt;long long,vector&lt;long long&gt;,decltype(cmp)&gt; pq(cmp);
+        int k=n;
+        pq.push(1);
+        int answer;
+        while(k&gt;0)&#123;
+            if(pq.empty())&#123;
+                break;
+            &#125;
+            long long temp = pq.top();
+            
+            pq.pop();
+            k--;
+            if(k==0)&#123;
+                answer = temp;
+                break;
+            &#125;
+            for(int i=0;i&lt;key.size();i++)&#123;
+                if(set.count(temp*key[i])==0)&#123;
+                    pq.push(temp*key[i]);
+                    set.insert(temp*key[i]);
+                &#125;
+            &#125;
+        &#125;
+
+        return answer;
+    &#125;
+&#125;;
+</code></pre>
+<h1 id="267-回文排列-II"><a href="#267-回文排列-II" class="headerlink" title="267. 回文排列 II"></a><span class="exturl" data-url="aHR0cHM6Ly9sZWV0Y29kZS5jbi9wcm9ibGVtcy9wYWxpbmRyb21lLXBlcm11dGF0aW9uLWlpLw==">267. 回文排列 II</span></h1><h2 id="题干-34"><a href="#题干-34" class="headerlink" title="题干"></a>题干</h2><p>给定一个字符串 <code>s</code> ，返回 <em>其重新排列组合后可能构成的所有回文字符串，并去除重复的组合</em> 。</p>
+<p>你可以按 <strong>任意顺序</strong> 返回答案。如果 <code>s</code> 不能形成任何回文排列时，则返回一个空列表。</p>
+<p><strong>示例 1：</strong></p>
+<pre><code>输入: s = &quot;aabb&quot;
+输出: [&quot;abba&quot;, &quot;baab&quot;]
+</code></pre>
+<p><strong>示例 2：</strong></p>
+<pre><code>输入: s = &quot;abc&quot;
+输出: []
+</code></pre>
+<p><strong>提示：</strong></p>
+<ul>
+<li><code>1 &lt;= s.length &lt;= 16</code></li>
+<li><code>s</code> 仅由小写英文字母组成</li>
+</ul>
+<h2 id="思路-34"><a href="#思路-34" class="headerlink" title="思路"></a>思路</h2><p>哈希表计数，如果能成回文排列，则取其一半，利用全排列的做法得到一半string的所有的全排列，再拼接另一半</p>
+<h2 id="代码-34"><a href="#代码-34" class="headerlink" title="代码"></a>代码</h2><pre><code class="c++">class Solution &#123;
+public:
+    bool hasSingle;
+    char single;
+
+    vector&lt;string&gt; generatePalindromes(string s) &#123;
+        hasSingle = false;
+        single = &#39;\0&#39;;
+        vector&lt;int&gt; mp(26);
+        int n = s.size();
+        for(int i=0;i&lt;n;i++)&#123;
+            mp[s[i]-&#39;a&#39;]++;
+        &#125;
+
+        if(!check(mp))&#123;
+            return &#123;&#125;;
+        &#125;
+
+        string x =&quot;&quot;;
+        for(int i=0;i&lt;26;i++)&#123; 
+            for(int j=0;j&lt;mp[i]/2;j++)&#123;
+                x+=&#39;a&#39;+i;
+            &#125;
+        &#125;
+
+        vector&lt;string&gt; halfAnswer = permutation(x);
+        vector&lt;string&gt; answer;
+
+        if(s.size()==1)&#123;
+            answer.emplace_back(s);
+            return answer;
+        &#125;
+
+        for(auto &amp;x:halfAnswer)&#123;
+            string temp = x;
+            reverse(temp.begin(), temp.end());
+            string temp2 = x;
+            if(hasSingle)&#123;
+                temp2+=single;
+            &#125;
+            temp2+=temp;
+            answer.emplace_back(temp2);
+
+        &#125;
+
+        return answer;
+
+
+    &#125;;
+
+    bool check(vector&lt;int&gt; &amp;v)&#123;
+        for(int i=0;i&lt;v.size();i++)&#123;
+            if(v[i]%2==1)&#123;
+                if(hasSingle)&#123;
+                    return false;
+                &#125;else&#123;
+                    hasSingle = true;
+                    single = &#39;a&#39;+i;
+                &#125;
+            &#125;
+        &#125;
+        return true;
+    &#125;
+
+    vector&lt;string&gt; permutation(string x)&#123;
+        vector&lt;string&gt; answer;
+        string s = x;
+        int n = x.size();
+        function&lt;void(int)&gt; dfs = [&amp;](int i)&#123;
+            if(i==n-1)&#123;
+                answer.emplace_back(s);
+            &#125;
+            unordered_set&lt;int&gt; st;
+            for(int k=i;k&lt;n;k++)&#123;
+                //如果这一轮交换重复则跳过
+                if(st.count(s[k]))&#123;
+                    continue;
+                &#125;
+                st.insert(s[k]);
+                swap(s[i],s[k]);
+                dfs(i+1);
+                swap(s[i],s[k]);
+            &#125;
+        &#125;;
+        dfs(0);
+
+        return answer;
+    &#125;;
+
+
+
+&#125;;
+</code></pre>
+<h1 id="271-字符串的编码与解码"><a href="#271-字符串的编码与解码" class="headerlink" title="271. 字符串的编码与解码"></a><span class="exturl" data-url="aHR0cHM6Ly9sZWV0Y29kZS5jbi9wcm9ibGVtcy9lbmNvZGUtYW5kLWRlY29kZS1zdHJpbmdzLw==">271. 字符串的编码与解码</span></h1><h2 id="题干-35"><a href="#题干-35" class="headerlink" title="题干"></a>题干</h2><p>请你设计一个算法，可以将一个 <strong>字符串列表</strong> 编码成为一个 <strong>字符串</strong>。这个编码后的字符串是可以通过网络进行高效传送的，并且可以在接收端被解码回原来的字符串列表。</p>
+<p>1 号机（发送方）有如下函数：</p>
+<pre><code>string encode(vector&lt;string&gt; strs) &#123;
+  // ... your code
+  return encoded_string;
+&#125;
+</code></pre>
+<p>2 号机（接收方）有如下函数：</p>
+<pre><code>vector&lt;string&gt; decode(string s) &#123;
+  //... your code
+  return strs;
+&#125;
+</code></pre>
+<p>1 号机（发送方）执行：</p>
+<pre><code>string encoded_string = encode(strs);
+</code></pre>
+<p>2 号机（接收方）执行：</p>
+<pre><code>vector&lt;string&gt; strs2 = decode(encoded_string);
+</code></pre>
+<p>此时，2 号机（接收方）的 <code>strs2</code> 需要和 1 号机（发送方）的 <code>strs</code> 相同。</p>
+<p>请你来实现这个 <code>encode</code> 和 <code>decode</code> 方法。</p>
+<p><strong>注意：</strong></p>
+<ul>
+<li>因为字符串可能会包含 256 个合法 ascii 字符中的任何字符，所以您的算法必须要能够处理任何可能会出现的字符。</li>
+<li>请勿使用 “类成员”、“全局变量” 或 “静态变量” 来存储这些状态，您的编码和解码算法应该是非状态依赖的。</li>
+<li>请不要依赖任何方法库，例如 <code>eval</code> 又或者是 <code>serialize</code> 之类的方法。本题的宗旨是需要您自己实现 “编码” 和 “解码” 算法。</li>
+</ul>
+<h2 id="思路-35"><a href="#思路-35" class="headerlink" title="思路"></a>思路</h2><p>通过自己定义添加分隔符数字长度进行编码解码</p>
+<h2 id="代码-35"><a href="#代码-35" class="headerlink" title="代码"></a>代码</h2><pre><code class="c++">class Codec &#123;
+public:
+
+    // Encodes a list of strings to a single string.
+    string encode(vector&lt;string&gt;&amp; strs) &#123;
+        string answer = &quot;&quot;;
+        for(int i=0;i&lt;strs.size();i++)&#123;
+            int len = strs[i].size();
+            answer+=&quot;[&quot;+to_string(len)+&quot;]&quot;;
+            answer+=strs[i];
+        &#125;
+        cout&lt;&lt;answer&lt;&lt;endl;
+        return answer;
+    &#125;
+
+    // Decodes a single string to a list of strings.
+    vector&lt;string&gt; decode(string s) &#123;
+        vector&lt;string&gt; answer;
+
+        int i = 0;
+        while(i&lt;s.size())&#123;
+            int num = 0;
+            i++;
+
+            // cout&lt;&lt;i&lt;&lt;endl;
+            while(s[i]&gt;=&#39;0&#39;&amp;&amp;s[i]&lt;=&#39;9&#39;)&#123;
+                num = num*10+s[i]-&#39;0&#39;;
+                i++;
+            &#125;
+            i++;
+            if(num==0)&#123;
+                // cout&lt;&lt;&quot;emplace:&quot;&lt;&lt;i&lt;&lt;endl;
+                answer.emplace_back(&quot;&quot;);
+            &#125;else&#123;
+                if(i&gt;=s.size())&#123;
+                    break;
+                &#125;
+                answer.emplace_back(s.substr(i,num));
+            &#125;
+
+            i = i+num;
+        &#125;
+
+        return answer;
+        
+    &#125;
+&#125;;
+
+// Your Codec object will be instantiated and called as such:
+// Codec codec;
+// codec.decode(codec.encode(strs));
+</code></pre>
+<h1 id="274-H-指数"><a href="#274-H-指数" class="headerlink" title="274. H 指数"></a><span class="exturl" data-url="aHR0cHM6Ly9sZWV0Y29kZS5jbi9wcm9ibGVtcy9oLWluZGV4Lw==">274. H 指数</span></h1><h2 id="题干-36"><a href="#题干-36" class="headerlink" title="题干"></a>题干</h2><p>给你一个整数数组 <code>citations</code> ，其中 <code>citations[i]</code> 表示研究者的第 <code>i</code> 篇论文被引用的次数。计算并返回该研究者的 <strong><code>h</code> 指数</strong>。</p>
+<p>根据维基百科上 <span class="exturl" data-url="aHR0cHM6Ly9iYWlrZS5iYWlkdS5jb20vaXRlbS9oLWluZGV4LzM5OTE0NTI/ZnI9YWxhZGRpbg==">h 指数的定义</span>：<code>h</code> 代表“高引用次数” ，一名科研人员的 <code>h</code> <strong>指数</strong> 是指他（她）至少发表了 <code>h</code> 篇论文，并且 <strong>至少</strong> 有 <code>h</code> 篇论文被引用次数大于等于 <code>h</code> 。如果 <code>h</code> 有多种可能的值，**<code>h</code> 指数** 是其中最大的那个。</p>
+<p><strong>示例 1：</strong></p>
+<pre><code>输入：citations = [3,0,6,1,5]
+输出：3 
+解释：给定数组表示研究者总共有 5 篇论文，每篇论文相应的被引用了 3, 0, 6, 1, 5 次。
+     由于研究者有 3 篇论文每篇 至少 被引用了 3 次，其余两篇论文每篇被引用 不多于 3 次，所以她的 h 指数是 3。
+</code></pre>
+<p><strong>示例 2：</strong></p>
+<pre><code>输入：citations = [1,3,1]
+输出：1
+</code></pre>
+<p><strong>提示：</strong></p>
+<ul>
+<li><code>n == citations.length</code></li>
+<li><code>1 &lt;= n &lt;= 5000</code></li>
+<li><code>0 &lt;= citations[i] &lt;= 1000</code></li>
+</ul>
+<h2 id="思路-36"><a href="#思路-36" class="headerlink" title="思路"></a>思路</h2><p>排序后，从最后往前遍历</p>
+<h2 id="代码-36"><a href="#代码-36" class="headerlink" title="代码"></a>代码</h2><pre><code class="c++">class Solution &#123;
+public:
+    int hIndex(vector&lt;int&gt;&amp; citations) &#123;
+        sort(citations.begin(), citations.end());
+        int h = 0, i = citations.size() - 1;
+        while (i &gt;= 0 &amp;&amp; citations[i] &gt; h) &#123;
+            h++;
+            i--;
+        &#125;
+        return h;
+    &#125;
+&#125;;
+</code></pre>
+<h1 id="275-H-指数-II"><a href="#275-H-指数-II" class="headerlink" title="275. H 指数 II"></a><span class="exturl" data-url="aHR0cHM6Ly9sZWV0Y29kZS5jbi9wcm9ibGVtcy9oLWluZGV4LWlpLw==">275. H 指数 II</span></h1><h2 id="题干-37"><a href="#题干-37" class="headerlink" title="题干"></a>题干</h2><p>给你一个整数数组 <code>citations</code> ，其中 <code>citations[i]</code> 表示研究者的第 <code>i</code> 篇论文被引用的次数，<code>citations</code> 已经按照 <strong>升序排列</strong> 。计算并返回该研究者的 h 指数。</p>
+<p><span class="exturl" data-url="aHR0cHM6Ly9iYWlrZS5iYWlkdS5jb20vaXRlbS9oLWluZGV4LzM5OTE0NTI/ZnI9YWxhZGRpbg==">h 指数的定义</span>：h 代表“高引用次数”（high citations），一名科研人员的 <code>h</code> 指数是指他（她）的 （<code>n</code> 篇论文中）<strong>至少</strong> 有 <code>h</code> 篇论文分别被引用了<strong>至少</strong> <code>h</code> 次。</p>
+<p>请你设计并实现对数时间复杂度的算法解决此问题。</p>
+<p><strong>示例 1：</strong></p>
+<pre><code>输入：citations = [0,1,3,5,6]
+输出：3
+解释：给定数组表示研究者总共有 5 篇论文，每篇论文相应的被引用了 0, 1, 3, 5, 6 次。
+     由于研究者有3篇论文每篇 至少 被引用了 3 次，其余两篇论文每篇被引用 不多于 3 次，所以她的 h 指数是 3 。
+</code></pre>
+<p><strong>示例 2：</strong></p>
+<pre><code>输入：citations = [1,2,100]
+输出：2
+</code></pre>
+<p><strong>提示：</strong></p>
+<ul>
+<li><code>n == citations.length</code></li>
+<li><code>1 &lt;= n &lt;= 105</code></li>
+<li><code>0 &lt;= citations[i] &lt;= 1000</code></li>
+<li><code>citations</code> 按 <strong>升序排列</strong></li>
+</ul>
+<h2 id="思路-37"><a href="#思路-37" class="headerlink" title="思路"></a>思路</h2><p>同<span class="exturl" data-url="aHR0cHM6Ly9sZWV0Y29kZS5jbi9wcm9ibGVtcy9oLWluZGV4Lw==">274. H 指数</span>如果已经有序则不用排序直接二分</p>
+<h2 id="代码-37"><a href="#代码-37" class="headerlink" title="代码"></a>代码</h2><pre><code class="c++">class Solution &#123;
+public:
+    int hIndex(vector&lt;int&gt;&amp; citations) &#123;
+        int n = citations.size();
+        int left = 0, right = n - 1;
+        while (left &lt;= right) &#123;
+            int mid = left + (right - left) / 2;
+            if (citations[mid] &gt;= n - mid) &#123;
+                right = mid - 1;
+            &#125; else &#123;
+                left = mid + 1;
+            &#125;
+        &#125;
+        return n - left;
+    &#125;
+&#125;;
+
+</code></pre>
+<h1 id="276-栅栏涂色"><a href="#276-栅栏涂色" class="headerlink" title="276. 栅栏涂色"></a><span class="exturl" data-url="aHR0cHM6Ly9sZWV0Y29kZS5jbi9wcm9ibGVtcy9wYWludC1mZW5jZS8=">276. 栅栏涂色</span></h1><h2 id="题干-38"><a href="#题干-38" class="headerlink" title="题干"></a>题干</h2><p>有 <code>k</code> 种颜色的涂料和一个包含 <code>n</code> 个栅栏柱的栅栏，请你按下述规则为栅栏设计涂色方案：</p>
+<ul>
+<li>每个栅栏柱可以用其中 <strong>一种</strong> 颜色进行上色。</li>
+<li>相邻的栅栏柱 <strong>最多连续两个</strong> 颜色相同。</li>
+</ul>
+<p>给你两个整数 <code>k</code> 和 <code>n</code> ，返回所有有效的涂色 <strong>方案数</strong> 。</p>
+<p><strong>示例 1：</strong></p>
+<p><img data-src="https://assets.leetcode.com/uploads/2021/02/28/paintfenceex1.png" alt="img"></p>
+<pre><code>输入：n = 3, k = 2
+输出：6
+解释：所有的可能涂色方案如上图所示。注意，全涂红或者全涂绿的方案属于无效方案，因为相邻的栅栏柱 最多连续两个 颜色相同。
+</code></pre>
+<p><strong>示例 2：</strong></p>
+<pre><code>输入：n = 1, k = 1
+输出：1
+</code></pre>
+<p><strong>示例 3：</strong></p>
+<pre><code>输入：n = 7, k = 2
+输出：42
+</code></pre>
+<p><strong>提示：</strong></p>
+<ul>
+<li><code>1 &lt;= n &lt;= 50</code></li>
+<li><code>1 &lt;= k &lt;= 105</code></li>
+<li>题目数据保证：对于输入的 <code>n</code> 和 <code>k</code> ，其答案在范围 <code>[0, 231 - 1]</code> 内</li>
+</ul>
+<h2 id="思路-38"><a href="#思路-38" class="headerlink" title="思路"></a>思路</h2><p>动态规划，转移方程为totalWays(i) &#x3D; (k - 1) * totalWays(i - 1) + (k - 1) * totalWays(i - 2)</p>
+<h2 id="代码-38"><a href="#代码-38" class="headerlink" title="代码"></a>代码</h2><pre><code class="c++">class Solution &#123;
+public:
+    int numWays(int n, int k) &#123;
+        vector&lt;int&gt; dp(n+1);
+        if(n==1)&#123;
+            return k;
+        &#125;
+        if(n==2)&#123;
+            return k*k;
+        &#125;
+        dp[1] = k;
+        dp[2] = k*k;
+        for(int i=3;i&lt;=n;i++)&#123;
+            dp[i]=dp[i-1]*(k-1)+1*dp[i-2]*(k-1);
+        &#125;
+
+        return dp[n];
+    &#125;
+&#125;;
+</code></pre>
+<h1 id="277-搜寻名人"><a href="#277-搜寻名人" class="headerlink" title="277. 搜寻名人"></a><span class="exturl" data-url="aHR0cHM6Ly9sZWV0Y29kZS5jbi9wcm9ibGVtcy9maW5kLXRoZS1jZWxlYnJpdHkv">277. 搜寻名人</span></h1><h2 id="题干-39"><a href="#题干-39" class="headerlink" title="题干"></a>题干</h2><p>假设你是一个专业的狗仔，参加了一个 <code>n</code> 人派对，其中每个人被从 <code>0</code> 到 <code>n - 1</code> 标号。在这个派对人群当中可能存在一位 “名人”。所谓 “名人” 的定义是：其他所有 <code>n - 1</code> 个人都认识他&#x2F;她，而他&#x2F;她并不认识其他任何人。</p>
+<p>现在你想要确认这个 “名人” 是谁，或者确定这里没有 “名人”。而你唯一能做的就是问诸如 “A 你好呀，请问你认不认识 B呀？” 的问题，以确定 A 是否认识 B。你需要在（渐近意义上）尽可能少的问题内来确定这位 “名人” 是谁（或者确定这里没有 “名人”）。</p>
+<p>在本题中，你可以使用辅助函数 <code>bool knows(a, b)</code> 获取到 A 是否认识 B。请你来实现一个函数 <code>int findCelebrity(n)</code>。</p>
+<p>派对最多只会有一个 “名人” 参加。若 “名人” 存在，请返回他&#x2F;她的编号；若 “名人” 不存在，请返回 <code>-1</code>。</p>
+<p><strong>示例 1:</strong></p>
+<p><img data-src="https://assets.leetcode.com/uploads/2019/02/02/277_example_1_bold.PNG" alt="img"></p>
+<pre><code>输入: graph = [
+  [1,1,0],
+  [0,1,0],
+  [1,1,1]
+]
+输出: 1
+解释: 有编号分别为 0、1 和 2 的三个人。graph[i][j] = 1 代表编号为 i 的人认识编号为 j 的人，而 graph[i][j] = 0 则代表编号为 i 的人不认识编号为 j 的人。“名人” 是编号 1 的人，因为 0 和 2 均认识他/她，但 1 不认识任何人。
+</code></pre>
+<p><strong>示例 2:</strong></p>
+<p><img data-src="https://assets.leetcode.com/uploads/2019/02/02/277_example_2.PNG" alt="img"></p>
+<pre><code>输入: graph = [
+  [1,0,1],
+  [1,1,0],
+  [0,1,1]
+]
+输出: -1
+解释: 没有 “名人”
+</code></pre>
+<p><strong>提示：</strong></p>
+<ul>
+<li><code>n == graph.length</code></li>
+<li><code>n == graph[i].length</code></li>
+<li><code>2 &lt;= n &lt;= 100</code></li>
+<li><code>graph[i][j]</code> 是 <code>0</code> 或 <code>1</code>.</li>
+<li><code>graph[i][i] == 1</code></li>
+</ul>
+<p><strong>进阶：</strong>如果允许调用 API <code>knows</code> 的最大次数为 <code>3 * n</code> ，你可以设计一个不超过最大调用次数的解决方案吗？</p>
+<h2 id="思路-39"><a href="#思路-39" class="headerlink" title="思路"></a>思路</h2><p>排除法，按照顺序相邻节点询问，一开始候选人是0，如果0-&gt;1为true说明0肯定不是，候选人变为1，最后再检测候选人是否与其余节点全联通</p>
+<h2 id="代码-39"><a href="#代码-39" class="headerlink" title="代码"></a>代码</h2><pre><code class="c++">/* The knows API is defined for you.
+      bool knows(int a, int b); */
+
+class Solution &#123;
+public:
+    int numberOfPeople;
+    int findCelebrity(int n) &#123;
+       numberOfPeople = n;
+       int celebrityCandidate = 0;
+       for (int i = 0; i &lt; n; i++) &#123;
+           if (knows(celebrityCandidate, i)) &#123;
+               celebrityCandidate = i;
+           &#125;
+       &#125;
+       if (isCelebrity(celebrityCandidate)) &#123;
+           return celebrityCandidate;
+       &#125;
+       return -1;
+ 
+    &#125;
+
+    bool isCelebrity(int x)&#123;
+        for(int i=0;i&lt;numberOfPeople;i++)&#123;
+            if(x!=i)&#123;
+                if(knows(x,i)||!knows(i,x))&#123;
+                    return false;
+                &#125;
+            &#125;
+        &#125;
+        return true;
+    &#125;
+&#125;;
+</code></pre>
+<h1 id="279-完全平方数"><a href="#279-完全平方数" class="headerlink" title="279. 完全平方数"></a><span class="exturl" data-url="aHR0cHM6Ly9sZWV0Y29kZS5jbi9wcm9ibGVtcy9wZXJmZWN0LXNxdWFyZXMv">279. 完全平方数</span></h1><h2 id="题干-40"><a href="#题干-40" class="headerlink" title="题干"></a>题干</h2><p>给你一个整数 <code>n</code> ，返回 <em>和为 <code>n</code> 的完全平方数的最少数量</em> 。</p>
+<p><strong>完全平方数</strong> 是一个整数，其值等于另一个整数的平方；换句话说，其值等于一个整数自乘的积。例如，<code>1</code>、<code>4</code>、<code>9</code> 和 <code>16</code> 都是完全平方数，而 <code>3</code> 和 <code>11</code> 不是。</p>
+<p><strong>示例 1：</strong></p>
+<pre><code>输入：n = 12
+输出：3 
+解释：12 = 4 + 4 + 4
+</code></pre>
+<p><strong>示例 2：</strong></p>
+<pre><code>输入：n = 13
+输出：2
+解释：13 = 4 + 9
+</code></pre>
+<p><strong>提示：</strong></p>
+<ul>
+<li><code>1 &lt;= n &lt;= 104</code></li>
+</ul>
+<h2 id="思路-40"><a href="#思路-40" class="headerlink" title="思路"></a>思路</h2><p>一维动态规划，每次枚举遍历当前值减去范围内的完全平方数的那个dp状态</p>
+<h2 id="代码-40"><a href="#代码-40" class="headerlink" title="代码"></a>代码</h2><pre><code class="c++">class Solution &#123;
+public:
+    int numSquares(int n) &#123;
+        vector&lt;int&gt; f(n + 1);
+        for (int i = 1; i &lt;= n; i++) &#123;
+            int minn = INT_MAX;
+            for (int j = 1; j * j &lt;= i; j++) &#123;
+                minn = min(minn, f[i - j * j]);
+            &#125;
+            f[i] = minn + 1;
+        &#125;
+        return f[n];
+    &#125;
+&#125;;
+
+</code></pre>
+<h1 id="280-摆动排序"><a href="#280-摆动排序" class="headerlink" title="280. 摆动排序"></a><span class="exturl" data-url="aHR0cHM6Ly9sZWV0Y29kZS5jbi9wcm9ibGVtcy93aWdnbGUtc29ydC8=">280. 摆动排序</span></h1><h2 id="题干-41"><a href="#题干-41" class="headerlink" title="题干"></a>题干</h2><p>给你一个的整数数组 <code>nums</code>, 将该数组重新排序后使 <code>nums[0] &lt;= nums[1] &gt;= nums[2] &lt;= nums[3]...</code> </p>
+<p>输入数组总是有一个有效的答案。</p>
+<p><strong>示例 1:</strong></p>
+<pre><code>输入：nums = [3,5,2,1,6,4]
+输出：[3,5,1,6,2,4]
+解释：[1,6,2,5,3,4]也是有效的答案
+</code></pre>
+<p><strong>示例 2:</strong></p>
+<pre><code>输入：nums = [6,6,5,6,3,8]
+输出：[6,6,5,6,3,8]
+</code></pre>
+<p><strong>提示：</strong></p>
+<ul>
+<li><code>1 &lt;= nums.length &lt;= 5 * 104</code></li>
+<li><code>0 &lt;= nums[i] &lt;= 104</code></li>
+<li>输入的 <code>nums</code> 保证至少有一个答案。</li>
+</ul>
+<p><strong>进阶：</strong>你能在 <code>O(n)</code> 时间复杂度下解决这个问题吗？</p>
+<h2 id="思路-41"><a href="#思路-41" class="headerlink" title="思路"></a>思路</h2><p>贪心法进行相邻交换</p>
+<h2 id="代码-41"><a href="#代码-41" class="headerlink" title="代码"></a>代码</h2><pre><code class="c++">class Solution &#123;
+public:
+   void swap(vector&lt;int&gt;&amp; nums, int i, int j) &#123;
+       int temp = nums[i];
+       nums[i] = nums[j];
+       nums[j] = temp;
+   &#125;
+
+   void wiggleSort(vector&lt;int&gt;&amp; nums) &#123;
+       for (int i = 0; i &lt; nums.size() - 1; i++) &#123;
+           if (((i % 2 == 0) &amp;&amp; nums[i] &gt; nums[i + 1]) ||
+               ((i % 2 == 1) &amp;&amp; nums[i] &lt; nums[i + 1])) &#123;
+               swap(nums, i, i + 1);
+           &#125;
+       &#125;
+   &#125;
+&#125;;
+</code></pre>
+<h1 id="281-锯齿迭代器"><a href="#281-锯齿迭代器" class="headerlink" title="281. 锯齿迭代器"></a><span class="exturl" data-url="aHR0cHM6Ly9sZWV0Y29kZS5jbi9wcm9ibGVtcy96aWd6YWctaXRlcmF0b3Iv">281. 锯齿迭代器</span></h1><h2 id="题干-42"><a href="#题干-42" class="headerlink" title="题干"></a>题干</h2><p>给出两个整数向量 <code>v1</code> 和 <code>v2</code>，请你实现一个迭代器，交替返回它们的元素。</p>
+<p>实现 <code>ZigzagIterator</code> 类：</p>
+<ul>
+<li><code>ZigzagIterator(List&lt;int&gt; v1, List&lt;int&gt; v2)</code> 用两个向量 <code>v1</code> 和 <code>v2</code> 初始化对象。</li>
+<li><code>boolean hasNext()</code> 如果迭代器还有元素返回 <code>true</code>，否则返回 <code>false</code>。</li>
+<li><code>int next()</code> 返回迭代器的当前元素并将迭代器移动到下一个元素。</li>
+</ul>
+<p><strong>示例 1:</strong></p>
+<pre><code>输入：v1 = [1,2], v2 = [3,4,5,6]
+输出：[1,3,2,4,5,6]
+解释：通过重复调用 next 直到 hasNext 返回 false，那么 next 返回的元素的顺序应该是：[1,3,2,4,5,6]。
+</code></pre>
+<p><strong>示例 2:</strong></p>
+<pre><code>输入：v1 = [1], v2 = []
+输出：[1]
+</code></pre>
+<p><strong>示例 3:</strong></p>
+<pre><code>输入：v1 = [], v2 = [1]
+输出：[1]
+</code></pre>
+<p><strong>拓展：</strong>假如给你 <code>k</code> 个向量呢？你的代码在这种情况下的扩展性又会如何呢?</p>
+<p><strong>拓展声明：</strong><br> “锯齿” 顺序对于 <code>k &gt; 2</code> 的情况定义可能会有些歧义。所以，假如你觉得 “锯齿” 这个表述不妥，也可以认为这是一种 “循环”。例如：</p>
+<pre><code>输入：v1 = [1,2,3], v2 = [4,5,6,7], v3 = [8,9]
+输出：[1,4,8,2,5,9,3,6,7]
+</code></pre>
+<h2 id="思路-42"><a href="#思路-42" class="headerlink" title="思路"></a>思路</h2><p>用标志位说明当前迭代在哪个vector中</p>
+<h2 id="代码-42"><a href="#代码-42" class="headerlink" title="代码"></a>代码</h2><pre><code class="c++">class ZigzagIterator &#123;
+public:
+    vector&lt;int&gt; vt1;
+    int a1;
+    vector&lt;int&gt; vt2;
+    int a2;
+    int now;
+
+    ZigzagIterator(vector&lt;int&gt;&amp; v1, vector&lt;int&gt;&amp; v2) &#123;
+        vt1 = v1;
+        vt2 = v2;
+        a1 = 0;
+        a2 = 0;
+        if(v1.size()&gt;0)&#123;
+            now = 0;
+        &#125;else&#123;
+            now = 1;
+        &#125;
+
+    &#125;
+
+    int next() &#123;
+        int answer;
+        if(now==0)&#123;
+            answer = vt1[a1];
+            a1++;
+            if(a2&lt;vt2.size())&#123;
+                now = 1 - now;
+            &#125;
+        &#125;else&#123;
+            answer = vt2[a2];
+            a2++;
+            if(a1&lt;vt1.size())&#123;
+                now = 1 - now;
+            &#125;
+        &#125;
+        return answer;
+    &#125;
+
+    bool hasNext() &#123;
+        if(now==0)&#123;
+            return a1&lt;vt1.size();
+        &#125;else&#123;
+            return a2&lt;vt2.size();
+        &#125;
+    &#125;
+&#125;;
+
+/**
+ * Your ZigzagIterator object will be instantiated and called as such:
+ * ZigzagIterator i(v1, v2);
+ * while (i.hasNext()) cout &lt;&lt; i.next();
+ */
+</code></pre>
+<h1 id="284-窥视迭代器"><a href="#284-窥视迭代器" class="headerlink" title="284. 窥视迭代器"></a><span class="exturl" data-url="aHR0cHM6Ly9sZWV0Y29kZS5jbi9wcm9ibGVtcy9wZWVraW5nLWl0ZXJhdG9yLw==">284. 窥视迭代器</span></h1><h2 id="题干-43"><a href="#题干-43" class="headerlink" title="题干"></a>题干</h2><p>请你在设计一个迭代器，在集成现有迭代器拥有的 <code>hasNext</code> 和 <code>next</code> 操作的基础上，还额外支持 <code>peek</code> 操作。</p>
+<p>实现 <code>PeekingIterator</code> 类：</p>
+<ul>
+<li><code>PeekingIterator(Iterator&lt;int&gt; nums)</code> 使用指定整数迭代器 <code>nums</code> 初始化迭代器。</li>
+<li><code>int next()</code> 返回数组中的下一个元素，并将指针移动到下个元素处。</li>
+<li><code>bool hasNext()</code> 如果数组中存在下一个元素，返回 <code>true</code> ；否则，返回 <code>false</code> 。</li>
+<li><code>int peek()</code> 返回数组中的下一个元素，但 <strong>不</strong> 移动指针。</li>
+</ul>
+<p><strong>注意：</strong>每种语言可能有不同的构造函数和迭代器 <code>Iterator</code>，但均支持 <code>int next()</code> 和 <code>boolean hasNext()</code> 函数。</p>
+<p><strong>示例 1：</strong></p>
+<pre><code>输入：
+[&quot;PeekingIterator&quot;, &quot;next&quot;, &quot;peek&quot;, &quot;next&quot;, &quot;next&quot;, &quot;hasNext&quot;]
+[[[1, 2, 3]], [], [], [], [], []]
+输出：
+[null, 1, 2, 2, 3, false]
+
+解释：
+PeekingIterator peekingIterator = new PeekingIterator([1, 2, 3]); // [1,2,3]
+peekingIterator.next();    // 返回 1 ，指针移动到下一个元素 [1,2,3]
+peekingIterator.peek();    // 返回 2 ，指针未发生移动 [1,2,3]
+peekingIterator.next();    // 返回 2 ，指针移动到下一个元素 [1,2,3]
+peekingIterator.next();    // 返回 3 ，指针移动到下一个元素 [1,2,3]
+peekingIterator.hasNext(); // 返回 False
+</code></pre>
+<p><strong>提示：</strong></p>
+<ul>
+<li><code>1 &lt;= nums.length &lt;= 1000</code></li>
+<li><code>1 &lt;= nums[i] &lt;= 1000</code></li>
+<li>对 <code>next</code> 和 <code>peek</code> 的调用均有效</li>
+<li><code>next</code>、<code>hasNext</code> 和 <code>peek </code>最多调用 <code>1000</code> 次</li>
+</ul>
+<p><strong>进阶：</strong>你将如何拓展你的设计？使之变得通用化，从而适应所有的类型，而不只是整数型？</p>
+<h2 id="思路-43"><a href="#思路-43" class="headerlink" title="思路"></a>思路</h2><p>单独存储下一个变量</p>
+<h2 id="代码-43"><a href="#代码-43" class="headerlink" title="代码"></a>代码</h2><pre><code class="c++">class PeekingIterator : public Iterator &#123;
+public:
+    int _next; // 用来存储下一个变量
+    bool _hasNext; // 存储是否存在下一个元素
+
+    PeekingIterator(const vector&lt;int&gt;&amp; nums) : Iterator(nums) &#123;
+            _hasNext = Iterator::hasNext();
+            if (_hasNext) _next = Iterator::next();
+    &#125;
+    
+    int peek() &#123;
+            return _next;
+    &#125;
+
+    int next() &#123;
+        int dummy = _next;
+        _hasNext = Iterator::hasNext();
+
+        if (_hasNext) _next = Iterator::next();
+        return dummy;
+    &#125;
+    
+    bool hasNext() const &#123;
+        return _hasNext;
+    &#125;
+&#125;;
+</code></pre>
+<h1 id="285-二叉搜索树中的中序后继"><a href="#285-二叉搜索树中的中序后继" class="headerlink" title="285. 二叉搜索树中的中序后继"></a><span class="exturl" data-url="aHR0cHM6Ly9sZWV0Y29kZS5jbi9wcm9ibGVtcy9pbm9yZGVyLXN1Y2Nlc3Nvci1pbi1ic3Qv">285. 二叉搜索树中的中序后继</span></h1><h2 id="题干-44"><a href="#题干-44" class="headerlink" title="题干"></a>题干</h2><p>给定一棵二叉搜索树和其中的一个节点 <code>p</code> ，找到该节点在树中的中序后继。如果节点没有中序后继，请返回 <code>null</code> 。</p>
+<p>节点 <code>p</code> 的后继是值比 <code>p.val</code> 大的节点中键值最小的节点。</p>
+<p><strong>示例 1：</strong></p>
+<p><img data-src="https://assets.leetcode.com/uploads/2019/01/23/285_example_1.PNG" alt="img"></p>
+<pre><code>输入：root = [2,1,3], p = 1
+输出：2
+解释：这里 1 的中序后继是 2。请注意 p 和返回值都应是 TreeNode 类型。
+</code></pre>
+<p><strong>示例 2：</strong></p>
+<p><img data-src="https://assets.leetcode.com/uploads/2019/01/23/285_example_2.PNG" alt="img"></p>
+<pre><code>输入：root = [5,3,6,2,4,null,null,1], p = 6
+输出：null
+解释：因为给出的节点没有中序后继，所以答案就返回 null 了。
+</code></pre>
+<p><strong>提示：</strong></p>
+<ul>
+<li>树中节点的数目在范围 <code>[1, 104]</code> 内。</li>
+<li><code>-105 &lt;= Node.val &lt;= 105</code></li>
+<li>树中各节点的值均保证唯一。</li>
+</ul>
+<h2 id="思路-44"><a href="#思路-44" class="headerlink" title="思路"></a>思路</h2><p>中序遍历最简单</p>
+<h2 id="代码-44"><a href="#代码-44" class="headerlink" title="代码"></a>代码</h2><pre><code class="c++">class Solution &#123;
+public:
+    TreeNode* inorderSuccessor(TreeNode* root, TreeNode* p) &#123;
+        stack&lt;TreeNode*&gt; st;
+        TreeNode *prev = nullptr, *curr = root;
+        while (!st.empty() || curr != nullptr) &#123;
+            while (curr != nullptr) &#123;
+                st.emplace(curr);
+                curr = curr-&gt;left;
+            &#125;
+            curr = st.top();
+            st.pop();
+            if (prev == p) &#123;
+                return curr;
+            &#125;
+            prev = curr;
+            curr = curr-&gt;right;
+        &#125;
+        return nullptr;
+    &#125;
+&#125;;
+
+</code></pre>
+<h1 id="286-墙与门"><a href="#286-墙与门" class="headerlink" title="286. 墙与门"></a><span class="exturl" data-url="aHR0cHM6Ly9sZWV0Y29kZS5jbi9wcm9ibGVtcy93YWxscy1hbmQtZ2F0ZXMv">286. 墙与门</span></h1><h2 id="题干-45"><a href="#题干-45" class="headerlink" title="题干"></a>题干</h2><p>你被给定一个 <code>m × n</code> 的二维网格 <code>rooms</code> ，网格中有以下三种可能的初始化值：</p>
+<ol>
+<li><code>-1</code> 表示墙或是障碍物</li>
+<li><code>0</code> 表示一扇门</li>
+<li><code>INF</code> 无限表示一个空的房间。然后，我们用 <code>231 - 1 = 2147483647</code> 代表 <code>INF</code>。你可以认为通往门的距离总是小于 <code>2147483647</code> 的。</li>
+</ol>
+<p>你要给每个空房间位上填上该房间到 <strong>最近门的距离</strong> ，如果无法到达门，则填 <code>INF</code> 即可。</p>
+<p><strong>示例 1：</strong></p>
+<p><img data-src="https://assets.leetcode.com/uploads/2021/01/03/grid.jpg" alt="img"></p>
+<pre><code>输入：rooms = [[2147483647,-1,0,2147483647],[2147483647,2147483647,2147483647,-1],[2147483647,-1,2147483647,-1],[0,-1,2147483647,2147483647]]
+输出：[[3,-1,0,1],[2,2,1,-1],[1,-1,2,-1],[0,-1,3,4]]
+</code></pre>
+<p><strong>示例 2：</strong></p>
+<pre><code>输入：rooms = [[-1]]
+输出：[[-1]]
+</code></pre>
+<p><strong>示例 3：</strong></p>
+<pre><code>输入：rooms = [[2147483647]]
+输出：[[2147483647]]
+</code></pre>
+<p><strong>示例 4：</strong></p>
+<pre><code>输入：rooms = [[0]]
+输出：[[0]]
+</code></pre>
+<p><strong>提示：</strong></p>
+<ul>
+<li><code>m == rooms.length</code></li>
+<li><code>n == rooms[i].length</code></li>
+<li><code>1 &lt;= m, n &lt;= 250</code></li>
+<li><code>rooms[i][j]</code> 是 <code>-1</code>、<code>0</code> 或 <code>231 - 1</code></li>
+</ul>
+<h2 id="思路-45"><a href="#思路-45" class="headerlink" title="思路"></a>思路</h2><p>从各个door开始bfs</p>
+<h2 id="代码-45"><a href="#代码-45" class="headerlink" title="代码"></a>代码</h2><pre><code class="c++">class Solution &#123;
+private:
+    const int WALL = -1;
+    const int DOOR = 0;
+    const int INF = 2147483647;
+    
+    // 上下左右
+    int direct[4][2] =&#123;
+        &#123;1, 0&#125;,
+        &#123;-1, 0&#125;,
+        &#123;0, -1&#125;,
+        &#123;0, 1&#125;,
+    &#125;;
+
+    // 队列存放节点
+    queue&lt;pair&lt;int, int&gt;&gt; q;
+public:
+    void wallsAndGates(vector&lt;vector&lt;int&gt;&gt;&amp; rooms) 
+    &#123;
+        int m = rooms.size();
+        if (!m) return;
+        int n = rooms[0].size();    
+        if (!n) return;
+
+        // 存放DOOR位置，即多源头BFS的起点
+        for (int i = 0; i &lt; m; ++i)
+        &#123;
+            for (int j = 0; j &lt; n; ++j)
+            &#123;
+                if (rooms[i][j] == DOOR)    q.emplace(make_pair(i, j));
+            &#125;
+        &#125;
+
+        while (!q.empty())
+        &#123;
+            auto top = q.front();   
+            q.pop();
+            
+            int row = top.first;
+            int col = top.second;
+
+            for (int i = 0; i &lt; 4; ++i)
+            &#123;
+                int newRow = row + direct[i][0];
+                int newCol = col + direct[i][1];
+
+                if (newRow &lt; 0 || newRow &gt;= m || newCol &lt; 0 || newCol &gt;= n || rooms[newRow][newCol] != INF)    continue;
+
+                rooms[newRow][newCol] = rooms[row][col] + 1;
+                q.emplace(make_pair(newRow, newCol));
+            &#125;
+         &#125;
+    &#125;
+&#125;;
+</code></pre>
+<h1 id="287-寻找重复数"><a href="#287-寻找重复数" class="headerlink" title="287. 寻找重复数"></a><span class="exturl" data-url="aHR0cHM6Ly9sZWV0Y29kZS5jbi9wcm9ibGVtcy9maW5kLXRoZS1kdXBsaWNhdGUtbnVtYmVyLw==">287. 寻找重复数</span></h1><h2 id="题干-46"><a href="#题干-46" class="headerlink" title="题干"></a>题干</h2><p>给定一个包含 <code>n + 1</code> 个整数的数组 <code>nums</code> ，其数字都在 <code>[1, n]</code> 范围内（包括 <code>1</code> 和 <code>n</code>），可知至少存在一个重复的整数。</p>
+<p>假设 <code>nums</code> 只有 <strong>一个重复的整数</strong> ，返回 <strong>这个重复的数</strong> 。</p>
+<p>你设计的解决方案必须 <strong>不修改</strong> 数组 <code>nums</code> 且只用常量级 <code>O(1)</code> 的额外空间。</p>
+<p><strong>示例 1：</strong></p>
+<pre><code>输入：nums = [1,3,4,2,2]
+输出：2
+</code></pre>
+<p><strong>示例 2：</strong></p>
+<pre><code>输入：nums = [3,1,3,4,2]
+输出：3
+</code></pre>
+<p><strong>示例 3 :</strong></p>
+<pre><code>输入：nums = [3,3,3,3,3]
+输出：3
+</code></pre>
+<p><strong>提示：</strong></p>
+<ul>
+<li><code>1 &lt;= n &lt;= 105</code></li>
+<li><code>nums.length == n + 1</code></li>
+<li><code>1 &lt;= nums[i] &lt;= n</code></li>
+<li><code>nums</code> 中 <strong>只有一个整数</strong> 出现 <strong>两次或多次</strong> ，其余整数均只出现 <strong>一次</strong></li>
+</ul>
+<p><strong>进阶：</strong></p>
+<ul>
+<li>如何证明 <code>nums</code> 中至少存在一个重复的数字?</li>
+<li>你可以设计一个线性级时间复杂度 <code>O(n)</code> 的解决方案吗？</li>
+</ul>
+<h2 id="思路-46"><a href="#思路-46" class="headerlink" title="思路"></a>思路</h2><p>快慢指针Floyd 判圈算法</p>
+<h2 id="代码-46"><a href="#代码-46" class="headerlink" title="代码"></a>代码</h2><pre><code class="c++">class Solution &#123;
+public:
+    int findDuplicate(vector&lt;int&gt;&amp; nums) &#123;
+        int slow = 0, fast = 0;
+        do &#123;
+            slow = nums[slow];
+            fast = nums[nums[fast]];
+        &#125; while (slow != fast);
+        slow = 0;
+        while (slow != fast) &#123;
+            slow = nums[slow];
+            fast = nums[fast];
+        &#125;
+        return slow;
+    &#125;
+&#125;;
+
+</code></pre>
+<h1 id="288-单词的唯一缩写"><a href="#288-单词的唯一缩写" class="headerlink" title="288. 单词的唯一缩写"></a><span class="exturl" data-url="aHR0cHM6Ly9sZWV0Y29kZS5jbi9wcm9ibGVtcy91bmlxdWUtd29yZC1hYmJyZXZpYXRpb24v">288. 单词的唯一缩写</span></h1><h2 id="题干-47"><a href="#题干-47" class="headerlink" title="题干"></a>题干</h2><p>单词的 <strong>缩写</strong> 需要遵循 &lt;起始字母&gt;&lt;中间字母数&gt;&lt;结尾字母&gt; 这样的格式。如果单词只有两个字符，那么它就是它自身的 <strong>缩写</strong> 。</p>
+<p>以下是一些单词缩写的范例：</p>
+<ul>
+<li><code>dog --&gt; d1g</code> 因为第一个字母 <code>&#39;d&#39;</code> 和最后一个字母 <code>&#39;g&#39;</code> 之间有 <code>1</code> 个字母</li>
+<li><code>internationalization --&gt; i18n</code> 因为第一个字母 <code>&#39;i&#39;</code> 和最后一个字母 <code>&#39;n&#39;</code> 之间有 <code>18</code> 个字母</li>
+<li><code>it --&gt; it</code> 单词只有两个字符，它就是它自身的 <strong>缩写</strong></li>
+</ul>
+<p>实现 <code>ValidWordAbbr</code> 类：</p>
+<ul>
+<li><p><code>ValidWordAbbr(String[] dictionary)</code> 使用单词字典 <code>dictionary</code> 初始化对象</p>
+</li>
+<li><pre><code>boolean isUnique(string word)
+</code></pre>
+<p>如果满足下述任意一个条件，返回</p>
+<pre><code>true
+</code></pre>
+<p>；否则，返回</p>
+<pre><code>false
+</code></pre>
+<p>：</p>
+<ul>
+<li>字典 <code>dictionary</code> 中没有任何其他单词的 <strong>缩写</strong> 与该单词 <code>word</code> 的 <strong>缩写</strong> 相同。</li>
+<li>字典 <code>dictionary</code> 中的所有 <strong>缩写</strong> 与该单词 <code>word</code> 的 <strong>缩写</strong> 相同的单词都与 <code>word</code> <strong>相同</strong> 。</li>
+</ul>
+</li>
+</ul>
+<p><strong>示例：</strong></p>
+<pre><code>输入
+[&quot;ValidWordAbbr&quot;, &quot;isUnique&quot;, &quot;isUnique&quot;, &quot;isUnique&quot;, &quot;isUnique&quot;, &quot;isUnique&quot;]
+[[[&quot;deer&quot;, &quot;door&quot;, &quot;cake&quot;, &quot;card&quot;]], [&quot;dear&quot;], [&quot;cart&quot;], [&quot;cane&quot;], [&quot;make&quot;], [&quot;cake&quot;]]
+输出
+[null, false, true, false, true, true]
+
+解释
+ValidWordAbbr validWordAbbr = new ValidWordAbbr([&quot;deer&quot;, &quot;door&quot;, &quot;cake&quot;, &quot;card&quot;]);
+validWordAbbr.isUnique(&quot;dear&quot;); // 返回 false，字典中的 &quot;deer&quot; 与输入 &quot;dear&quot; 的缩写都是 &quot;d2r&quot;，但这两个单词不相同
+validWordAbbr.isUnique(&quot;cart&quot;); // 返回 true，字典中不存在缩写为 &quot;c2t&quot; 的单词
+validWordAbbr.isUnique(&quot;cane&quot;); // 返回 false，字典中的 &quot;cake&quot; 与输入 &quot;cane&quot; 的缩写都是 &quot;c2e&quot;，但这两个单词不相同
+validWordAbbr.isUnique(&quot;make&quot;); // 返回 true，字典中不存在缩写为 &quot;m2e&quot; 的单词
+validWordAbbr.isUnique(&quot;cake&quot;); // 返回 true，因为 &quot;cake&quot; 已经存在于字典中，并且字典中没有其他缩写为 &quot;c2e&quot; 的单词
+</code></pre>
+<p><strong>提示：</strong></p>
+<ul>
+<li><code>1 &lt;= dictionary.length &lt;= 3 * 104</code></li>
+<li><code>1 &lt;= dictionary[i].length &lt;= 20</code></li>
+<li><code>dictionary[i]</code> 由小写英文字母组成</li>
+<li><code>1 &lt;= word &lt;= 20</code></li>
+<li><code>word</code> 由小写英文字母组成</li>
+<li>最多调用 <code>5000</code> 次 <code>isUnique</code></li>
+</ul>
+<h2 id="思路-47"><a href="#思路-47" class="headerlink" title="思路"></a>思路</h2><p>两个哈希表，一个存单词数量，一个存make修改后的缩写数量</p>
+<h2 id="代码-47"><a href="#代码-47" class="headerlink" title="代码"></a>代码</h2><pre><code class="c++">class ValidWordAbbr &#123;
+    unordered_map&lt;string, int&gt; ts, ss;
+    string make(string&amp; x)&#123;
+        return x.size() &lt;= 2 ? x : x.front() + to_string(x.size() - 2) + x.back();
+    &#125;
+public:
+    ValidWordAbbr(vector&lt;string&gt;&amp; dictionary) &#123;
+        for(auto&amp;&amp; x: dictionary) ++ts[x], ++ss[make(x)];
+    &#125;
+    
+    bool isUnique(string word) &#123;
+        auto y = make(word);
+        return (ts.count(word) ? ts[word] : 0) == (ss.count(y) ? ss[y] : 0);
+    &#125;
+&#125;;
+
+
+/**
+ * Your ValidWordAbbr object will be instantiated and called as such:
+ * ValidWordAbbr* obj = new ValidWordAbbr(dictionary);
+ * bool param_1 = obj-&gt;isUnique(word);
+ */
+</code></pre>
+<h1 id="289-生命游戏"><a href="#289-生命游戏" class="headerlink" title="289. 生命游戏"></a><span class="exturl" data-url="aHR0cHM6Ly9sZWV0Y29kZS5jbi9wcm9ibGVtcy9nYW1lLW9mLWxpZmUv">289. 生命游戏</span></h1><h2 id="题干-48"><a href="#题干-48" class="headerlink" title="题干"></a>题干</h2><p>根据 <span class="exturl" data-url="aHR0cHM6Ly9iYWlrZS5iYWlkdS5jb20vaXRlbS8lRTclOTQlOUYlRTUlOTElQkQlRTYlQjglQjglRTYlODglOEYvMjkyNjQzND9mcj1hbGFkZGlu">百度百科</span> ， <strong>生命游戏</strong> ，简称为 <strong>生命</strong> ，是英国数学家约翰·何顿·康威在 1970 年发明的细胞自动机。</p>
+<p>给定一个包含 <code>m × n</code> 个格子的面板，每一个格子都可以看成是一个细胞。每个细胞都具有一个初始状态： <code>1</code> 即为 <strong>活细胞</strong> （live），或 <code>0</code> 即为 <strong>死细胞</strong> （dead）。每个细胞与其八个相邻位置（水平，垂直，对角线）的细胞都遵循以下四条生存定律：</p>
+<ol>
+<li>如果活细胞周围八个位置的活细胞数少于两个，则该位置活细胞死亡；</li>
+<li>如果活细胞周围八个位置有两个或三个活细胞，则该位置活细胞仍然存活；</li>
+<li>如果活细胞周围八个位置有超过三个活细胞，则该位置活细胞死亡；</li>
+<li>如果死细胞周围正好有三个活细胞，则该位置死细胞复活；</li>
+</ol>
+<p>下一个状态是通过将上述规则同时应用于当前状态下的每个细胞所形成的，其中细胞的出生和死亡是同时发生的。给你 <code>m x n</code> 网格面板 <code>board</code> 的当前状态，返回下一个状态。</p>
+<p><strong>示例 1：</strong></p>
+<p><img data-src="https://assets.leetcode.com/uploads/2020/12/26/grid1.jpg" alt="img"></p>
+<pre><code>输入：board = [[0,1,0],[0,0,1],[1,1,1],[0,0,0]]
+输出：[[0,0,0],[1,0,1],[0,1,1],[0,1,0]]
+</code></pre>
+<p><strong>示例 2：</strong></p>
+<p><img data-src="https://assets.leetcode.com/uploads/2020/12/26/grid2.jpg" alt="img"></p>
+<pre><code>输入：board = [[1,1],[1,0]]
+输出：[[1,1],[1,1]]
+</code></pre>
+<p><strong>提示：</strong></p>
+<ul>
+<li><code>m == board.length</code></li>
+<li><code>n == board[i].length</code></li>
+<li><code>1 &lt;= m, n &lt;= 25</code></li>
+<li><code>board[i][j]</code> 为 <code>0</code> 或 <code>1</code></li>
+</ul>
+<p><strong>进阶：</strong></p>
+<ul>
+<li>你可以使用原地算法解决本题吗？请注意，面板上所有格子需要同时被更新：你不能先更新某些格子，然后使用它们的更新后的值再更新其他格子。</li>
+<li>本题中，我们使用二维数组来表示面板。原则上，面板是无限的，但当活细胞侵占了面板边界时会造成问题。你将如何解决这些问题？</li>
+</ul>
+<h2 id="思路-48"><a href="#思路-48" class="headerlink" title="思路"></a>思路</h2><p>最简单每次额外空间存每轮结果，更省空间的方法是位运算，把下一轮结果以位运算的方式存下来</p>
+<h2 id="代码-48"><a href="#代码-48" class="headerlink" title="代码"></a>代码</h2><pre><code class="c++">class Solution &#123;
+public:
+    void gameOfLife(vector&lt;vector&lt;int&gt;&gt;&amp; board) &#123;
+        int dx[] = &#123;-1,  0,  1, -1, 1, -1, 0, 1&#125;;
+        int dy[] = &#123;-1, -1, -1,  0, 0,  1, 1, 1&#125;;
+
+        for(int i = 0; i &lt; board.size(); i++) &#123;
+            for(int j = 0 ; j &lt; board[0].size(); j++) &#123;
+                int sum = 0;
+                for(int k = 0; k &lt; 8; k++) &#123;
+                    int nx = i + dx[k];
+                    int ny = j + dy[k];
+                    if(nx &gt;= 0 &amp;&amp; nx &lt; board.size() &amp;&amp; ny &gt;= 0 &amp;&amp; ny &lt; board[0].size()) &#123;
+                        sum += (board[nx][ny]&amp;1); // 只累加最低位
+                    &#125;
+                &#125;
+                if(board[i][j] == 1) &#123;
+                    if(sum == 2 || sum == 3) &#123;
+                        board[i][j] |= 2;  // 使用第二个bit标记是否存活
+                    &#125;
+                &#125; else &#123;
+                    if(sum == 3) &#123;
+                        board[i][j] |= 2; // 使用第二个bit标记是否存活
+                    &#125;
+                &#125;
+            &#125;
+        &#125;
+        for(int i = 0; i &lt; board.size(); i++) &#123;
+            for(int j = 0; j &lt; board[i].size(); j++) &#123;
+                board[i][j] &gt;&gt;= 1; //右移一位，用第二bit覆盖第一个bit。
+            &#125;
+        &#125;
+    &#125;
+&#125;;
+
+</code></pre>
+<h1 id="291-单词规律-II"><a href="#291-单词规律-II" class="headerlink" title="291. 单词规律 II"></a><span class="exturl" data-url="aHR0cHM6Ly9sZWV0Y29kZS5jbi9wcm9ibGVtcy93b3JkLXBhdHRlcm4taWkv">291. 单词规律 II</span></h1><h2 id="题干-49"><a href="#题干-49" class="headerlink" title="题干"></a>题干</h2><p>给你一种规律 <code>pattern</code> 和一个字符串 <code>s</code>，请你判断 <code>s</code> 是否和 <code>pattern</code> 的规律<strong>相匹配</strong>。</p>
+<p>如果存在单个字符到 <strong>非空</strong> 字符串的 <strong>双射映射</strong> ，那么字符串 <code>s</code> 匹配 <code>pattern</code> ，即：如果 <code>pattern</code> 中的每个字符都被它映射到的字符串替换，那么最终的字符串则为 <code>s</code> 。<strong>双射</strong> 意味着映射双方一一对应，不会存在两个字符映射到同一个字符串，也不会存在一个字符分别映射到两个不同的字符串。</p>
+<p><strong>示例 1：</strong></p>
+<pre><code>输入：pattern = &quot;abab&quot;, s = &quot;redblueredblue&quot;
+输出：true
+解释：一种可能的映射如下：
+&#39;a&#39; -&gt; &quot;red&quot;
+&#39;b&#39; -&gt; &quot;blue&quot;
+</code></pre>
+<p><strong>示例 2：</strong></p>
+<pre><code>输入：pattern = &quot;aaaa&quot;, s = &quot;asdasdasdasd&quot;
+输出：true
+解释：一种可能的映射如下：
+&#39;a&#39; -&gt; &quot;asd&quot;
+</code></pre>
+<p><strong>示例 3：</strong></p>
+<pre><code>输入：pattern = &quot;aabb&quot;, s = &quot;xyzabcxzyabc&quot;
+输出：false
+</code></pre>
+<p><strong>提示：</strong></p>
+<ul>
+<li><code>1 &lt;= pattern.length, s.length &lt;= 20</code></li>
+<li><code>pattern</code> 和 <code>s</code> 由小写英文字母组成</li>
+</ul>
+<h2 id="思路-49"><a href="#思路-49" class="headerlink" title="思路"></a>思路</h2><p>记忆化搜索dfs</p>
+<h2 id="代码-49"><a href="#代码-49" class="headerlink" title="代码"></a>代码</h2><pre><code class="c++">class Solution &#123;
+public:
+    bool wordPatternMatch(string pattern, string s) &#123;
+        unordered_map&lt;char,string&gt; mp;
+        unordered_map&lt;string,char&gt; mp2;
+        int n = pattern.size();
+        int m = s.size();
+        bool answer = false;
+        function&lt;void(int,int)&gt; dfs = [&amp;](int i,int j)&#123;
+            if(answer==true)&#123;
+                return;
+            &#125;
+            if(i==n&amp;&amp;j==m)&#123;
+                answer = true;
+                return;
+            &#125;
+
+            if(i==n||j==m)&#123;
+                return;
+            &#125;
+
+            char now = pattern[i];
+            if(mp.count(now))&#123;
+                if(mp[now]==s.substr(j,mp[now].size()))&#123;
+                    dfs(i+1,j+mp[now].size());
+                &#125;
+            &#125;else&#123;
+                for(int k=1;k&lt;=m-j;k++)&#123;
+                    if(mp2.count(s.substr(j,k))==0)&#123;
+                        mp[now] = s.substr(j,k);
+                        mp2[s.substr(j,k)] = now;
+                        dfs(i+1,j+k);
+                        mp.erase(now);
+                        mp2.erase(s.substr(j,k));
+                    &#125;
+                &#125;
+            &#125;
+        &#125;; 
+        dfs(0,0);
+        return answer;
+    &#125;;
+    
+&#125;;
+</code></pre>
+<h1 id="294-翻转游戏-II"><a href="#294-翻转游戏-II" class="headerlink" title="294. 翻转游戏 II"></a><span class="exturl" data-url="aHR0cHM6Ly9sZWV0Y29kZS5jbi9wcm9ibGVtcy9mbGlwLWdhbWUtaWkv">294. 翻转游戏 II</span></h1><h2 id="题干-50"><a href="#题干-50" class="headerlink" title="题干"></a>题干</h2><p>你和朋友玩一个叫做「翻转游戏」的游戏。游戏规则如下：</p>
+<p>给你一个字符串 <code>currentState</code> ，其中只含 <code>&#39;+&#39;</code> 和 <code>&#39;-&#39;</code> 。你和朋友轮流将 <strong>连续</strong> 的两个 <code>&quot;++&quot;</code> 反转成 <code>&quot;--&quot;</code> 。当一方无法进行有效的翻转时便意味着游戏结束，则另一方获胜。默认每个人都会采取最优策略。</p>
+<p>请你写出一个函数来判定起始玩家 <strong>是否存在必胜的方案</strong> ：如果存在，返回 <code>true</code> ；否则，返回 <code>false</code> 。</p>
+<p><strong>示例 1：</strong></p>
+<pre><code>输入：currentState = &quot;++++&quot;
+输出：true
+解释：起始玩家可将中间的 &quot;++&quot; 翻转变为 &quot;+--+&quot; 从而得胜。
+</code></pre>
+<p><strong>示例 2：</strong></p>
+<pre><code>输入：currentState = &quot;+&quot;
+输出：false
+</code></pre>
+<p><strong>提示：</strong></p>
+<ul>
+<li><code>1 &lt;= currentState.length &lt;= 60</code></li>
+<li><code>currentState[i]</code> 不是 <code>&#39;+&#39;</code> 就是 <code>&#39;-&#39;</code></li>
+</ul>
+<p><strong>进阶：</strong>请推导你算法的时间复杂度。</p>
+<h2 id="思路-50"><a href="#思路-50" class="headerlink" title="思路"></a>思路</h2><p>暴力回溯</p>
+<h2 id="代码-50"><a href="#代码-50" class="headerlink" title="代码"></a>代码</h2><pre><code class="c++">class Solution &#123;
+public:
+    bool canWin(string currentState) 
+    &#123;   //回溯
+        string s = currentState;        //纯粹为了好写
+        int n = s.size();
+        for (int i = 0; i &lt; n - 1; i ++)
+        &#123;
+            if (s[i] == &#39;+&#39; &amp;&amp; s[i+1] == &#39;+&#39;)
+            &#123;
+                s[i] = &#39;-&#39;;
+                s[i+1] = &#39;-&#39;;
+                if (canWin (s) == false)
+                    return true;
+                s[i] = &#39;+&#39;;             //回溯，有借有还
+                s[i+1] = &#39;+&#39;;           //回溯，有借有还
+            &#125;
+        &#125;
+        return false;
+    &#125;
+&#125;;
+</code></pre>
+<h1 id="298-二叉树最长连续序列"><a href="#298-二叉树最长连续序列" class="headerlink" title="298. 二叉树最长连续序列"></a><span class="exturl" data-url="aHR0cHM6Ly9sZWV0Y29kZS5jbi9wcm9ibGVtcy9iaW5hcnktdHJlZS1sb25nZXN0LWNvbnNlY3V0aXZlLXNlcXVlbmNlLw==">298. 二叉树最长连续序列</span></h1><h2 id="题干-51"><a href="#题干-51" class="headerlink" title="题干"></a>题干</h2><p>给你一棵指定的二叉树的根节点 <code>root</code> ，请你计算其中 <strong>最长连续序列路径</strong> 的长度。</p>
+<p><strong>最长连续序列路径</strong> 是依次递增 1 的路径。该路径，可以是从某个初始节点到树中任意节点，通过「父 - 子」关系连接而产生的任意路径。且必须从父节点到子节点，反过来是不可以的。</p>
+<p><strong>示例 1：</strong></p>
+<p><img data-src="https://assets.leetcode.com/uploads/2021/03/14/consec1-1-tree.jpg" alt="img"></p>
+<pre><code>输入：root = [1,null,3,2,4,null,null,null,5]
+输出：3
+解释：当中，最长连续序列是 3-4-5 ，所以返回结果为 3 。
+</code></pre>
+<p><strong>示例 2：</strong></p>
+<p><img data-src="https://assets.leetcode.com/uploads/2021/03/14/consec1-2-tree.jpg" alt="img"></p>
+<pre><code>输入：root = [2,null,3,2,null,1]
+输出：2
+解释：当中，最长连续序列是 2-3 。注意，不是 3-2-1，所以返回 2 。
+</code></pre>
+<p><strong>提示：</strong></p>
+<ul>
+<li>树中节点的数目在范围 <code>[1, 3 * 104]</code> 内</li>
+<li><code>-3 * 104 &lt;= Node.val &lt;= 3 * 104</code></li>
+</ul>
+<h2 id="思路-51"><a href="#思路-51" class="headerlink" title="思路"></a>思路</h2><p>树的dfs题</p>
+<h2 id="代码-51"><a href="#代码-51" class="headerlink" title="代码"></a>代码</h2><pre><code class="c++">/**
+ * Definition for a binary tree node.
+ * struct TreeNode &#123;
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode() : val(0), left(nullptr), right(nullptr) &#123;&#125;
+ *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) &#123;&#125;
+ *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) &#123;&#125;
+ * &#125;;
+ */
+class Solution &#123;
+public:
+    int longestConsecutive(TreeNode* root) &#123;
+        int answer = 1;
+        function&lt;int(TreeNode*)&gt; dfs = [&amp;](TreeNode* root)&#123;
+            if(!root-&gt;left&amp;&amp;!root-&gt;right)&#123;
+                return 1;
+            &#125;
+            int num = 1;
+            int temp = 0;
+            int temp2 = 0;
+            if(root-&gt;left)&#123;
+                temp=dfs(root-&gt;left);
+                
+                if(root-&gt;val+1==root-&gt;left-&gt;val)&#123;
+                    num = max(num,1+temp);
+                &#125;
+            &#125;
+            if(root-&gt;right)&#123;
+                temp2 = dfs(root-&gt;right);
+                if(root-&gt;val+1==root-&gt;right-&gt;val)&#123;
+                    num = max(num,1+temp2);
+                &#125;
+            &#125;;
+
+            //cout&lt;&lt;root-&gt;val&lt;&lt;&quot; &quot;&lt;&lt;num&lt;&lt;&quot; &quot;&lt;&lt;temp&lt;&lt;&quot; &quot;&lt;&lt;temp2&lt;&lt;endl;
+
+            answer = max(num,answer);
+            return num;
+        &#125;;
+        dfs(root);
+        return answer;
+
+    &#125;
+&#125;;
+</code></pre>
+<h1 id="299-猜数字游戏"><a href="#299-猜数字游戏" class="headerlink" title="299. 猜数字游戏"></a><span class="exturl" data-url="aHR0cHM6Ly9sZWV0Y29kZS5jbi9wcm9ibGVtcy9idWxscy1hbmQtY293cy8=">299. 猜数字游戏</span></h1><h2 id="题干-52"><a href="#题干-52" class="headerlink" title="题干"></a>题干</h2><p>你在和朋友一起玩 <span class="exturl" data-url="aHR0cHM6Ly9iYWlrZS5iYWlkdS5jb20vaXRlbS8lRTclOEMlOUMlRTYlOTUlQjAlRTUlQUQlOTcvODMyMDA/ZnJvbXRpdGxlPUJ1bGxzK2FuZCtDb3dzJmZyb21pZD0xMjAwMzQ4OCZmcj1hbGFkZGlu">猜数字（Bulls and Cows）</span>游戏，该游戏规则如下：</p>
+<p>写出一个秘密数字，并请朋友猜这个数字是多少。朋友每猜测一次，你就会给他一个包含下述信息的提示：</p>
+<ul>
+<li>猜测数字中有多少位属于数字和确切位置都猜对了（称为 “Bulls”，公牛），</li>
+<li>有多少位属于数字猜对了但是位置不对（称为 “Cows”，奶牛）。也就是说，这次猜测中有多少位非公牛数字可以通过重新排列转换成公牛数字。</li>
+</ul>
+<p>给你一个秘密数字 <code>secret</code> 和朋友猜测的数字 <code>guess</code> ，请你返回对朋友这次猜测的提示。</p>
+<p>提示的格式为 <code>&quot;xAyB&quot;</code> ，<code>x</code> 是公牛个数， <code>y</code> 是奶牛个数，<code>A</code> 表示公牛，<code>B</code> 表示奶牛。</p>
+<p>请注意秘密数字和朋友猜测的数字都可能含有重复数字。</p>
+<p><strong>示例 1：</strong></p>
+<pre><code>输入：secret = &quot;1807&quot;, guess = &quot;7810&quot;
+输出：&quot;1A3B&quot;
+解释：数字和位置都对（公牛）用 &#39;|&#39; 连接，数字猜对位置不对（奶牛）的采用斜体加粗标识。
+&quot;1807&quot;
+  |
+&quot;7810&quot;
+</code></pre>
+<p><strong>示例 2：</strong></p>
+<pre><code>输入：secret = &quot;1123&quot;, guess = &quot;0111&quot;
+输出：&quot;1A1B&quot;
+解释：数字和位置都对（公牛）用 &#39;|&#39; 连接，数字猜对位置不对（奶牛）的采用斜体加粗标识。
+&quot;1123&quot;        &quot;1123&quot;
+  |      or     |
+&quot;0111&quot;        &quot;0111&quot;
+注意，两个不匹配的 1 中，只有一个会算作奶牛（数字猜对位置不对）。通过重新排列非公牛数字，其中仅有一个 1 可以成为公牛数字。
+</code></pre>
+<p><strong>提示：</strong></p>
+<ul>
+<li><code>1 &lt;= secret.length, guess.length &lt;= 1000</code></li>
+<li><code>secret.length == guess.length</code></li>
+<li><code>secret</code> 和 <code>guess</code> 仅由数字组成</li>
+</ul>
+<h2 id="思路-52"><a href="#思路-52" class="headerlink" title="思路"></a>思路</h2><p>按照题意遍历模拟</p>
+<h2 id="代码-52"><a href="#代码-52" class="headerlink" title="代码"></a>代码</h2><pre><code class="c++">class Solution &#123;
+public:
+    string getHint(string secret, string guess) &#123;
+        int bulls = 0;
+        vector&lt;int&gt; cntS(10), cntG(10);
+        for (int i = 0; i &lt; secret.length(); ++i) &#123;
+            if (secret[i] == guess[i]) &#123;
+                ++bulls;
+            &#125; else &#123;
+                ++cntS[secret[i] - &#39;0&#39;];
+                ++cntG[guess[i] - &#39;0&#39;];
+            &#125;
+        &#125;
+        int cows = 0;
+        for (int i = 0; i &lt; 10; ++i) &#123;
+            cows += min(cntS[i], cntG[i]);
+        &#125;
+        return to_string(bulls) + &quot;A&quot; + to_string(cows) + &quot;B&quot;;
+    &#125;
+&#125;;
+
+</code></pre>
+<h1 id="300-最长递增子序列"><a href="#300-最长递增子序列" class="headerlink" title="300. 最长递增子序列"></a><span class="exturl" data-url="aHR0cHM6Ly9sZWV0Y29kZS5jbi9wcm9ibGVtcy9sb25nZXN0LWluY3JlYXNpbmctc3Vic2VxdWVuY2Uv">300. 最长递增子序列</span></h1><h2 id="题干-53"><a href="#题干-53" class="headerlink" title="题干"></a>题干</h2><p>给你一个整数数组 <code>nums</code> ，找到其中最长严格递增子序列的长度。</p>
+<p><strong>子序列</strong> 是由数组派生而来的序列，删除（或不删除）数组中的元素而不改变其余元素的顺序。例如，<code>[3,6,2,7]</code> 是数组 <code>[0,3,1,6,2,2,7]</code> 的</p>
+<p>子序列</p>
+<p>。</p>
+<p><strong>示例 1：</strong></p>
+<pre><code>输入：nums = [10,9,2,5,3,7,101,18]
+输出：4
+解释：最长递增子序列是 [2,3,7,101]，因此长度为 4 。
+</code></pre>
+<p><strong>示例 2：</strong></p>
+<pre><code>输入：nums = [0,1,0,3,2,3]
+输出：4
+</code></pre>
+<p><strong>示例 3：</strong></p>
+<pre><code>输入：nums = [7,7,7,7,7,7,7]
+输出：1
+</code></pre>
+<p><strong>提示：</strong></p>
+<ul>
+<li><code>1 &lt;= nums.length &lt;= 2500</code></li>
+<li><code>-104 &lt;= nums[i] &lt;= 104</code></li>
+</ul>
+<p><strong>进阶：</strong></p>
+<ul>
+<li>你能将算法的时间复杂度降低到 <code>O(n log(n))</code> 吗?</li>
+</ul>
+<h2 id="思路-53"><a href="#思路-53" class="headerlink" title="思路"></a>思路</h2><p>LIS问题的动态规划很好想，但是时间复杂度可能超时，本题可以贪心加二分查找，具体来说维护一个变长数组，每个位置i表示长度为i+1的上升子串当前的末尾值，对于一个新的数进这个数组来说，如果其比当前数组末尾要大就直接加末尾，否则替换找到第一个比 nums[i]小的数 d[k] ，并更新 d[k+1]&#x3D;nums[i]</p>
+<h2 id="代码-53"><a href="#代码-53" class="headerlink" title="代码"></a>代码</h2><pre><code class="c++">//动态规划
+class Solution &#123;
+public:
+    int lengthOfLIS(vector&lt;int&gt;&amp; nums) &#123;
+        int n = (int)nums.size();
+        if (n == 0) &#123;
+            return 0;
+        &#125;
+        vector&lt;int&gt; dp(n, 0);
+        for (int i = 0; i &lt; n; ++i) &#123;
+            dp[i] = 1;
+            for (int j = 0; j &lt; i; ++j) &#123;
+                if (nums[j] &lt; nums[i]) &#123;
+                    dp[i] = max(dp[i], dp[j] + 1);
+                &#125;
+            &#125;
+        &#125;
+        return *max_element(dp.begin(), dp.end());
+    &#125;
+&#125;;
+
+//贪心
+class Solution &#123;
+public:
+    int lengthOfLIS(vector&lt;int&gt;&amp; nums) &#123;
+        int len = 1, n = (int)nums.size();
+        if (n == 0) &#123;
+            return 0;
+        &#125;
+        vector&lt;int&gt; d(n + 1, 0);
+        d[len] = nums[0];
+        for (int i = 1; i &lt; n; ++i) &#123;
+            if (nums[i] &gt; d[len]) &#123;
+                d[++len] = nums[i];
+            &#125; else &#123;
+                int l = 1, r = len, pos = 0; // 如果找不到说明所有的数都比 nums[i] 大，此时要更新 d[1]，所以这里将 pos 设为 0
+                while (l &lt;= r) &#123;
+                    int mid = (l + r) &gt;&gt; 1;
+                    if (d[mid] &lt; nums[i]) &#123;
+                        pos = mid;
+                        l = mid + 1;
+                    &#125; else &#123;
+                        r = mid - 1;
+                    &#125;
+                &#125;
+                d[pos + 1] = nums[i];
+            &#125;
+        &#125;
+        return len;
+    &#125;
+&#125;;
+
+</code></pre>
+
+      <div class="tags">
+          <a href="/tags/c/" rel="tag"><i class="ic i-tag"></i> c++</a>
+      </div>
+  </div>
+
+   <footer>
+
+    <div class="meta">
+  <span class="item">
+    <span class="icon">
+      <i class="ic i-calendar-check"></i>
+    </span>
+    <span class="text">更新于</span>
+    <time title="修改时间：2024-06-03 00:02:30" itemprop="dateModified" datetime="2024-06-03T00:02:30+08:00">2024-06-03</time>
+  </span>
+</div>
+
+      
+
+<div id="copyright">
+<ul>
+  <li class="author">
+    <strong>本文作者： </strong>Kun Qian <i class="ic i-at"><em>@</em></i>Qkgoalkeeper's blog
+  </li>
+  <li class="link">
+    <strong>本文链接：</strong>
+    <a href="https://qkgoalkeeper.github.io/computer-science/leetcode/algorithm/Leetcode%E4%B8%AD%E7%AD%89%E9%A2%98%E6%80%9D%E8%B7%AF(201-300)/" title="Leetcode中等题思路（201-300）">https://qkgoalkeeper.github.io/computer-science/leetcode/algorithm/Leetcode中等题思路(201-300)/</a>
+  </li>
+  <li class="license">
+    <strong>版权声明： </strong>本站所有文章除特别声明外，均采用 <span class="exturl" data-url="aHR0cHM6Ly9jcmVhdGl2ZWNvbW1vbnMub3JnL2xpY2Vuc2VzL2J5LW5jLXNhLzQuMC9kZWVkLnpo"><i class="ic i-creative-commons"><em>(CC)</em></i>BY-NC-SA</span> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+  </footer>
+
+</article>
+
+  </div>
+  
+
+<div class="post-nav">
+    <div class="item left">
+      
+
+  <a href="/computer-science/leetcode/method/%E5%B9%B6%E6%9F%A5%E9%9B%86%E4%B8%93%E9%A2%98/" itemprop="url" rel="prev" data-background-image="https:&#x2F;&#x2F;cdn.jsdelivr.net&#x2F;gh&#x2F;qkgoalkeeper&#x2F;blogImage@main&#x2F;img&#x2F;leetcode.png" title="并查集专题">
+  <span class="type">上一篇</span>
+  <span class="category"><i class="ic i-flag"></i> Leetcode</span>
+  <h3>并查集专题</h3>
+  </a>
+
+    </div>
+    <div class="item right">
+    </div>
+</div>
+
+  
+  <div class="wrap" id="comments"></div>
+
+
+        </div>
+        <div id="sidebar">
+          
+
+<div class="inner">
+
+  <div class="panels">
+    <div class="inner">
+      <div class="contents panel pjax" data-title="文章目录">
+          <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#201-%E6%95%B0%E5%AD%97%E8%8C%83%E5%9B%B4%E6%8C%89%E4%BD%8D%E4%B8%8E"><span class="toc-number">1.</span> <span class="toc-text">201. 数字范围按位与</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%A2%98%E5%B9%B2"><span class="toc-number">1.1.</span> <span class="toc-text">题干</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%80%9D%E8%B7%AF"><span class="toc-number">1.2.</span> <span class="toc-text">思路</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BB%A3%E7%A0%81"><span class="toc-number">1.3.</span> <span class="toc-text">代码</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#204-%E8%AE%A1%E6%95%B0%E8%B4%A8%E6%95%B0"><span class="toc-number">2.</span> <span class="toc-text">204. 计数质数</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%A2%98%E5%B9%B2-1"><span class="toc-number">2.1.</span> <span class="toc-text">题干</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%80%9D%E8%B7%AF-1"><span class="toc-number">2.2.</span> <span class="toc-text">思路</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BB%A3%E7%A0%81-1"><span class="toc-number">2.3.</span> <span class="toc-text">代码</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#207-%E8%AF%BE%E7%A8%8B%E8%A1%A8"><span class="toc-number">3.</span> <span class="toc-text">207. 课程表</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%A2%98%E5%B9%B2-2"><span class="toc-number">3.1.</span> <span class="toc-text">题干</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%80%9D%E8%B7%AF-2"><span class="toc-number">3.2.</span> <span class="toc-text">思路</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BB%A3%E7%A0%81-2"><span class="toc-number">3.3.</span> <span class="toc-text">代码</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#208-%E5%AE%9E%E7%8E%B0-Trie-%E5%89%8D%E7%BC%80%E6%A0%91"><span class="toc-number">4.</span> <span class="toc-text">208. 实现 Trie (前缀树)</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%A2%98%E5%B9%B2-3"><span class="toc-number">4.1.</span> <span class="toc-text">题干</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%80%9D%E8%B7%AF-3"><span class="toc-number">4.2.</span> <span class="toc-text">思路</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BB%A3%E7%A0%81-3"><span class="toc-number">4.3.</span> <span class="toc-text">代码</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#209-%E9%95%BF%E5%BA%A6%E6%9C%80%E5%B0%8F%E7%9A%84%E5%AD%90%E6%95%B0%E7%BB%84"><span class="toc-number">5.</span> <span class="toc-text">209. 长度最小的子数组</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%A2%98%E5%B9%B2-4"><span class="toc-number">5.1.</span> <span class="toc-text">题干</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%80%9D%E8%B7%AF-4"><span class="toc-number">5.2.</span> <span class="toc-text">思路</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BB%A3%E7%A0%81-4"><span class="toc-number">5.3.</span> <span class="toc-text">代码</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#210-%E8%AF%BE%E7%A8%8B%E8%A1%A8-II"><span class="toc-number">6.</span> <span class="toc-text">210. 课程表 II</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%A2%98%E5%B9%B2-5"><span class="toc-number">6.1.</span> <span class="toc-text">题干</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%80%9D%E8%B7%AF-5"><span class="toc-number">6.2.</span> <span class="toc-text">思路</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BB%A3%E7%A0%81-5"><span class="toc-number">6.3.</span> <span class="toc-text">代码</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#211-%E6%B7%BB%E5%8A%A0%E4%B8%8E%E6%90%9C%E7%B4%A2%E5%8D%95%E8%AF%8D-%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E8%AE%BE%E8%AE%A1"><span class="toc-number">7.</span> <span class="toc-text">211. 添加与搜索单词 - 数据结构设计</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%A2%98%E5%B9%B2-6"><span class="toc-number">7.1.</span> <span class="toc-text">题干</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%80%9D%E8%B7%AF-6"><span class="toc-number">7.2.</span> <span class="toc-text">思路</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BB%A3%E7%A0%81-6"><span class="toc-number">7.3.</span> <span class="toc-text">代码</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#213-%E6%89%93%E5%AE%B6%E5%8A%AB%E8%88%8D-II"><span class="toc-number">8.</span> <span class="toc-text">213. 打家劫舍 II</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%A2%98%E5%B9%B2-7"><span class="toc-number">8.1.</span> <span class="toc-text">题干</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%80%9D%E8%B7%AF-7"><span class="toc-number">8.2.</span> <span class="toc-text">思路</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BB%A3%E7%A0%81-7"><span class="toc-number">8.3.</span> <span class="toc-text">代码</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#215-%E6%95%B0%E7%BB%84%E4%B8%AD%E7%9A%84%E7%AC%ACK%E4%B8%AA%E6%9C%80%E5%A4%A7%E5%85%83%E7%B4%A0"><span class="toc-number">9.</span> <span class="toc-text">215. 数组中的第K个最大元素</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%A2%98%E5%B9%B2-8"><span class="toc-number">9.1.</span> <span class="toc-text">题干</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%80%9D%E8%B7%AF-8"><span class="toc-number">9.2.</span> <span class="toc-text">思路</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BB%A3%E7%A0%81-8"><span class="toc-number">9.3.</span> <span class="toc-text">代码</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#216-%E7%BB%84%E5%90%88%E6%80%BB%E5%92%8C-III"><span class="toc-number">10.</span> <span class="toc-text">216. 组合总和 III</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%A2%98%E5%B9%B2-9"><span class="toc-number">10.1.</span> <span class="toc-text">题干</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%80%9D%E8%B7%AF-9"><span class="toc-number">10.2.</span> <span class="toc-text">思路</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BB%A3%E7%A0%81-9"><span class="toc-number">10.3.</span> <span class="toc-text">代码</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#221-%E6%9C%80%E5%A4%A7%E6%AD%A3%E6%96%B9%E5%BD%A2"><span class="toc-number">11.</span> <span class="toc-text">221. 最大正方形</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%A2%98%E5%B9%B2-10"><span class="toc-number">11.1.</span> <span class="toc-text">题干</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%80%9D%E8%B7%AF-10"><span class="toc-number">11.2.</span> <span class="toc-text">思路</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BB%A3%E7%A0%81-10"><span class="toc-number">11.3.</span> <span class="toc-text">代码</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#223-%E7%9F%A9%E5%BD%A2%E9%9D%A2%E7%A7%AF"><span class="toc-number">12.</span> <span class="toc-text">223. 矩形面积</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%A2%98%E5%B9%B2-11"><span class="toc-number">12.1.</span> <span class="toc-text">题干</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%80%9D%E8%B7%AF-11"><span class="toc-number">12.2.</span> <span class="toc-text">思路</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BB%A3%E7%A0%81-11"><span class="toc-number">12.3.</span> <span class="toc-text">代码</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#227-%E5%9F%BA%E6%9C%AC%E8%AE%A1%E7%AE%97%E5%99%A8-II"><span class="toc-number">13.</span> <span class="toc-text">227. 基本计算器 II</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%A2%98%E5%B9%B2-12"><span class="toc-number">13.1.</span> <span class="toc-text">题干</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%80%9D%E8%B7%AF-12"><span class="toc-number">13.2.</span> <span class="toc-text">思路</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BB%A3%E7%A0%81-12"><span class="toc-number">13.3.</span> <span class="toc-text">代码</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#229-%E5%A4%9A%E6%95%B0%E5%85%83%E7%B4%A0-II"><span class="toc-number">14.</span> <span class="toc-text">229. 多数元素 II</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%A2%98%E5%B9%B2-13"><span class="toc-number">14.1.</span> <span class="toc-text">题干</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%80%9D%E8%B7%AF-13"><span class="toc-number">14.2.</span> <span class="toc-text">思路</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BB%A3%E7%A0%81-13"><span class="toc-number">14.3.</span> <span class="toc-text">代码</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#230-%E4%BA%8C%E5%8F%89%E6%90%9C%E7%B4%A2%E6%A0%91%E4%B8%AD%E7%AC%ACK%E5%B0%8F%E7%9A%84%E5%85%83%E7%B4%A0"><span class="toc-number">15.</span> <span class="toc-text">230. 二叉搜索树中第K小的元素</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%A2%98%E5%B9%B2-14"><span class="toc-number">15.1.</span> <span class="toc-text">题干</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%80%9D%E8%B7%AF-14"><span class="toc-number">15.2.</span> <span class="toc-text">思路</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BB%A3%E7%A0%81-14"><span class="toc-number">15.3.</span> <span class="toc-text">代码</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#235-%E4%BA%8C%E5%8F%89%E6%90%9C%E7%B4%A2%E6%A0%91%E7%9A%84%E6%9C%80%E8%BF%91%E5%85%AC%E5%85%B1%E7%A5%96%E5%85%88"><span class="toc-number">16.</span> <span class="toc-text">235. 二叉搜索树的最近公共祖先</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%A2%98%E5%B9%B2-15"><span class="toc-number">16.1.</span> <span class="toc-text">题干</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%80%9D%E8%B7%AF-15"><span class="toc-number">16.2.</span> <span class="toc-text">思路</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BB%A3%E7%A0%81-15"><span class="toc-number">16.3.</span> <span class="toc-text">代码</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#236-%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E6%9C%80%E8%BF%91%E5%85%AC%E5%85%B1%E7%A5%96%E5%85%88"><span class="toc-number">17.</span> <span class="toc-text">236. 二叉树的最近公共祖先</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%A2%98%E5%B9%B2-16"><span class="toc-number">17.1.</span> <span class="toc-text">题干</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%80%9D%E8%B7%AF-16"><span class="toc-number">17.2.</span> <span class="toc-text">思路</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BB%A3%E7%A0%81-16"><span class="toc-number">17.3.</span> <span class="toc-text">代码</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#237-%E5%88%A0%E9%99%A4%E9%93%BE%E8%A1%A8%E4%B8%AD%E7%9A%84%E8%8A%82%E7%82%B9"><span class="toc-number">18.</span> <span class="toc-text">237. 删除链表中的节点</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%A2%98%E5%B9%B2-17"><span class="toc-number">18.1.</span> <span class="toc-text">题干</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%80%9D%E8%B7%AF-17"><span class="toc-number">18.2.</span> <span class="toc-text">思路</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BB%A3%E7%A0%81-17"><span class="toc-number">18.3.</span> <span class="toc-text">代码</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#238-%E9%99%A4%E8%87%AA%E8%BA%AB%E4%BB%A5%E5%A4%96%E6%95%B0%E7%BB%84%E7%9A%84%E4%B9%98%E7%A7%AF"><span class="toc-number">19.</span> <span class="toc-text">238. 除自身以外数组的乘积</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%A2%98%E5%B9%B2-18"><span class="toc-number">19.1.</span> <span class="toc-text">题干</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%80%9D%E8%B7%AF-18"><span class="toc-number">19.2.</span> <span class="toc-text">思路</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BB%A3%E7%A0%81-18"><span class="toc-number">19.3.</span> <span class="toc-text">代码</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#240-%E6%90%9C%E7%B4%A2%E4%BA%8C%E7%BB%B4%E7%9F%A9%E9%98%B5-II"><span class="toc-number">20.</span> <span class="toc-text">240. 搜索二维矩阵 II</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%A2%98%E5%B9%B2-19"><span class="toc-number">20.1.</span> <span class="toc-text">题干</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%80%9D%E8%B7%AF-19"><span class="toc-number">20.2.</span> <span class="toc-text">思路</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BB%A3%E7%A0%81-19"><span class="toc-number">20.3.</span> <span class="toc-text">代码</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#241-%E4%B8%BA%E8%BF%90%E7%AE%97%E8%A1%A8%E8%BE%BE%E5%BC%8F%E8%AE%BE%E8%AE%A1%E4%BC%98%E5%85%88%E7%BA%A7"><span class="toc-number">21.</span> <span class="toc-text">241. 为运算表达式设计优先级</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%A2%98%E5%B9%B2-20"><span class="toc-number">21.1.</span> <span class="toc-text">题干</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%80%9D%E8%B7%AF-20"><span class="toc-number">21.2.</span> <span class="toc-text">思路</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BB%A3%E7%A0%81-20"><span class="toc-number">21.3.</span> <span class="toc-text">代码</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#244-%E6%9C%80%E7%9F%AD%E5%8D%95%E8%AF%8D%E8%B7%9D%E7%A6%BB-II"><span class="toc-number">22.</span> <span class="toc-text">244. 最短单词距离 II</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%A2%98%E5%B9%B2-21"><span class="toc-number">22.1.</span> <span class="toc-text">题干</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%80%9D%E8%B7%AF-21"><span class="toc-number">22.2.</span> <span class="toc-text">思路</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BB%A3%E7%A0%81-21"><span class="toc-number">22.3.</span> <span class="toc-text">代码</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#245-%E6%9C%80%E7%9F%AD%E5%8D%95%E8%AF%8D%E8%B7%9D%E7%A6%BB-III"><span class="toc-number">23.</span> <span class="toc-text">245. 最短单词距离 III</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%A2%98%E5%B9%B2-22"><span class="toc-number">23.1.</span> <span class="toc-text">题干</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%80%9D%E8%B7%AF-22"><span class="toc-number">23.2.</span> <span class="toc-text">思路</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BB%A3%E7%A0%81-22"><span class="toc-number">23.3.</span> <span class="toc-text">代码</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#247-%E4%B8%AD%E5%BF%83%E5%AF%B9%E7%A7%B0%E6%95%B0-II"><span class="toc-number">24.</span> <span class="toc-text">247. 中心对称数 II</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%A2%98%E5%B9%B2-23"><span class="toc-number">24.1.</span> <span class="toc-text">题干</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%80%9D%E8%B7%AF-23"><span class="toc-number">24.2.</span> <span class="toc-text">思路</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BB%A3%E7%A0%81-23"><span class="toc-number">24.3.</span> <span class="toc-text">代码</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#250-%E7%BB%9F%E8%AE%A1%E5%90%8C%E5%80%BC%E5%AD%90%E6%A0%91"><span class="toc-number">25.</span> <span class="toc-text">250. 统计同值子树</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%A2%98%E5%B9%B2-24"><span class="toc-number">25.1.</span> <span class="toc-text">题干</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%80%9D%E8%B7%AF-24"><span class="toc-number">25.2.</span> <span class="toc-text">思路</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BB%A3%E7%A0%81-24"><span class="toc-number">25.3.</span> <span class="toc-text">代码</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#251-%E5%B1%95%E5%BC%80%E4%BA%8C%E7%BB%B4%E5%90%91%E9%87%8F"><span class="toc-number">26.</span> <span class="toc-text">251. 展开二维向量</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%A2%98%E5%B9%B2-25"><span class="toc-number">26.1.</span> <span class="toc-text">题干</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%80%9D%E8%B7%AF-25"><span class="toc-number">26.2.</span> <span class="toc-text">思路</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BB%A3%E7%A0%81-25"><span class="toc-number">26.3.</span> <span class="toc-text">代码</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#253-%E4%BC%9A%E8%AE%AE%E5%AE%A4-II"><span class="toc-number">27.</span> <span class="toc-text">253. 会议室 II</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%A2%98%E5%B9%B2-26"><span class="toc-number">27.1.</span> <span class="toc-text">题干</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%80%9D%E8%B7%AF-26"><span class="toc-number">27.2.</span> <span class="toc-text">思路</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BB%A3%E7%A0%81-26"><span class="toc-number">27.3.</span> <span class="toc-text">代码</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#254-%E5%9B%A0%E5%AD%90%E7%9A%84%E7%BB%84%E5%90%88"><span class="toc-number">28.</span> <span class="toc-text">254. 因子的组合</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%A2%98%E5%B9%B2-27"><span class="toc-number">28.1.</span> <span class="toc-text">题干</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%80%9D%E8%B7%AF-27"><span class="toc-number">28.2.</span> <span class="toc-text">思路</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BB%A3%E7%A0%81-27"><span class="toc-number">28.3.</span> <span class="toc-text">代码</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#255-%E9%AA%8C%E8%AF%81%E4%BA%8C%E5%8F%89%E6%90%9C%E7%B4%A2%E6%A0%91%E7%9A%84%E5%89%8D%E5%BA%8F%E9%81%8D%E5%8E%86%E5%BA%8F%E5%88%97"><span class="toc-number">29.</span> <span class="toc-text">255. 验证二叉搜索树的前序遍历序列</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%A2%98%E5%B9%B2-28"><span class="toc-number">29.1.</span> <span class="toc-text">题干</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%80%9D%E8%B7%AF-28"><span class="toc-number">29.2.</span> <span class="toc-text">思路</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BB%A3%E7%A0%81-28"><span class="toc-number">29.3.</span> <span class="toc-text">代码</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#256-%E7%B2%89%E5%88%B7%E6%88%BF%E5%AD%90"><span class="toc-number">30.</span> <span class="toc-text">256. 粉刷房子</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%A2%98%E5%B9%B2-29"><span class="toc-number">30.1.</span> <span class="toc-text">题干</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%80%9D%E8%B7%AF-29"><span class="toc-number">30.2.</span> <span class="toc-text">思路</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BB%A3%E7%A0%81-29"><span class="toc-number">30.3.</span> <span class="toc-text">代码</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#259-%E8%BE%83%E5%B0%8F%E7%9A%84%E4%B8%89%E6%95%B0%E4%B9%8B%E5%92%8C"><span class="toc-number">31.</span> <span class="toc-text">259. 较小的三数之和</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%A2%98%E5%B9%B2-30"><span class="toc-number">31.1.</span> <span class="toc-text">题干</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%80%9D%E8%B7%AF-30"><span class="toc-number">31.2.</span> <span class="toc-text">思路</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BB%A3%E7%A0%81-30"><span class="toc-number">31.3.</span> <span class="toc-text">代码</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#260-%E5%8F%AA%E5%87%BA%E7%8E%B0%E4%B8%80%E6%AC%A1%E7%9A%84%E6%95%B0%E5%AD%97-III"><span class="toc-number">32.</span> <span class="toc-text">260. 只出现一次的数字 III</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%A2%98%E5%B9%B2-31"><span class="toc-number">32.1.</span> <span class="toc-text">题干</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%80%9D%E8%B7%AF-31"><span class="toc-number">32.2.</span> <span class="toc-text">思路</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BB%A3%E7%A0%81-31"><span class="toc-number">32.3.</span> <span class="toc-text">代码</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#261-%E4%BB%A5%E5%9B%BE%E5%88%A4%E6%A0%91"><span class="toc-number">33.</span> <span class="toc-text">261. 以图判树</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%A2%98%E5%B9%B2-32"><span class="toc-number">33.1.</span> <span class="toc-text">题干</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%80%9D%E8%B7%AF-32"><span class="toc-number">33.2.</span> <span class="toc-text">思路</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BB%A3%E7%A0%81-32"><span class="toc-number">33.3.</span> <span class="toc-text">代码</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#264-%E4%B8%91%E6%95%B0-II"><span class="toc-number">34.</span> <span class="toc-text">264. 丑数 II</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%A2%98%E5%B9%B2-33"><span class="toc-number">34.1.</span> <span class="toc-text">题干</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%80%9D%E8%B7%AF-33"><span class="toc-number">34.2.</span> <span class="toc-text">思路</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BB%A3%E7%A0%81-33"><span class="toc-number">34.3.</span> <span class="toc-text">代码</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#267-%E5%9B%9E%E6%96%87%E6%8E%92%E5%88%97-II"><span class="toc-number">35.</span> <span class="toc-text">267. 回文排列 II</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%A2%98%E5%B9%B2-34"><span class="toc-number">35.1.</span> <span class="toc-text">题干</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%80%9D%E8%B7%AF-34"><span class="toc-number">35.2.</span> <span class="toc-text">思路</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BB%A3%E7%A0%81-34"><span class="toc-number">35.3.</span> <span class="toc-text">代码</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#271-%E5%AD%97%E7%AC%A6%E4%B8%B2%E7%9A%84%E7%BC%96%E7%A0%81%E4%B8%8E%E8%A7%A3%E7%A0%81"><span class="toc-number">36.</span> <span class="toc-text">271. 字符串的编码与解码</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%A2%98%E5%B9%B2-35"><span class="toc-number">36.1.</span> <span class="toc-text">题干</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%80%9D%E8%B7%AF-35"><span class="toc-number">36.2.</span> <span class="toc-text">思路</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BB%A3%E7%A0%81-35"><span class="toc-number">36.3.</span> <span class="toc-text">代码</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#274-H-%E6%8C%87%E6%95%B0"><span class="toc-number">37.</span> <span class="toc-text">274. H 指数</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%A2%98%E5%B9%B2-36"><span class="toc-number">37.1.</span> <span class="toc-text">题干</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%80%9D%E8%B7%AF-36"><span class="toc-number">37.2.</span> <span class="toc-text">思路</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BB%A3%E7%A0%81-36"><span class="toc-number">37.3.</span> <span class="toc-text">代码</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#275-H-%E6%8C%87%E6%95%B0-II"><span class="toc-number">38.</span> <span class="toc-text">275. H 指数 II</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%A2%98%E5%B9%B2-37"><span class="toc-number">38.1.</span> <span class="toc-text">题干</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%80%9D%E8%B7%AF-37"><span class="toc-number">38.2.</span> <span class="toc-text">思路</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BB%A3%E7%A0%81-37"><span class="toc-number">38.3.</span> <span class="toc-text">代码</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#276-%E6%A0%85%E6%A0%8F%E6%B6%82%E8%89%B2"><span class="toc-number">39.</span> <span class="toc-text">276. 栅栏涂色</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%A2%98%E5%B9%B2-38"><span class="toc-number">39.1.</span> <span class="toc-text">题干</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%80%9D%E8%B7%AF-38"><span class="toc-number">39.2.</span> <span class="toc-text">思路</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BB%A3%E7%A0%81-38"><span class="toc-number">39.3.</span> <span class="toc-text">代码</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#277-%E6%90%9C%E5%AF%BB%E5%90%8D%E4%BA%BA"><span class="toc-number">40.</span> <span class="toc-text">277. 搜寻名人</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%A2%98%E5%B9%B2-39"><span class="toc-number">40.1.</span> <span class="toc-text">题干</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%80%9D%E8%B7%AF-39"><span class="toc-number">40.2.</span> <span class="toc-text">思路</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BB%A3%E7%A0%81-39"><span class="toc-number">40.3.</span> <span class="toc-text">代码</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#279-%E5%AE%8C%E5%85%A8%E5%B9%B3%E6%96%B9%E6%95%B0"><span class="toc-number">41.</span> <span class="toc-text">279. 完全平方数</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%A2%98%E5%B9%B2-40"><span class="toc-number">41.1.</span> <span class="toc-text">题干</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%80%9D%E8%B7%AF-40"><span class="toc-number">41.2.</span> <span class="toc-text">思路</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BB%A3%E7%A0%81-40"><span class="toc-number">41.3.</span> <span class="toc-text">代码</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#280-%E6%91%86%E5%8A%A8%E6%8E%92%E5%BA%8F"><span class="toc-number">42.</span> <span class="toc-text">280. 摆动排序</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%A2%98%E5%B9%B2-41"><span class="toc-number">42.1.</span> <span class="toc-text">题干</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%80%9D%E8%B7%AF-41"><span class="toc-number">42.2.</span> <span class="toc-text">思路</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BB%A3%E7%A0%81-41"><span class="toc-number">42.3.</span> <span class="toc-text">代码</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#281-%E9%94%AF%E9%BD%BF%E8%BF%AD%E4%BB%A3%E5%99%A8"><span class="toc-number">43.</span> <span class="toc-text">281. 锯齿迭代器</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%A2%98%E5%B9%B2-42"><span class="toc-number">43.1.</span> <span class="toc-text">题干</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%80%9D%E8%B7%AF-42"><span class="toc-number">43.2.</span> <span class="toc-text">思路</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BB%A3%E7%A0%81-42"><span class="toc-number">43.3.</span> <span class="toc-text">代码</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#284-%E7%AA%A5%E8%A7%86%E8%BF%AD%E4%BB%A3%E5%99%A8"><span class="toc-number">44.</span> <span class="toc-text">284. 窥视迭代器</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%A2%98%E5%B9%B2-43"><span class="toc-number">44.1.</span> <span class="toc-text">题干</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%80%9D%E8%B7%AF-43"><span class="toc-number">44.2.</span> <span class="toc-text">思路</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BB%A3%E7%A0%81-43"><span class="toc-number">44.3.</span> <span class="toc-text">代码</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#285-%E4%BA%8C%E5%8F%89%E6%90%9C%E7%B4%A2%E6%A0%91%E4%B8%AD%E7%9A%84%E4%B8%AD%E5%BA%8F%E5%90%8E%E7%BB%A7"><span class="toc-number">45.</span> <span class="toc-text">285. 二叉搜索树中的中序后继</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%A2%98%E5%B9%B2-44"><span class="toc-number">45.1.</span> <span class="toc-text">题干</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%80%9D%E8%B7%AF-44"><span class="toc-number">45.2.</span> <span class="toc-text">思路</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BB%A3%E7%A0%81-44"><span class="toc-number">45.3.</span> <span class="toc-text">代码</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#286-%E5%A2%99%E4%B8%8E%E9%97%A8"><span class="toc-number">46.</span> <span class="toc-text">286. 墙与门</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%A2%98%E5%B9%B2-45"><span class="toc-number">46.1.</span> <span class="toc-text">题干</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%80%9D%E8%B7%AF-45"><span class="toc-number">46.2.</span> <span class="toc-text">思路</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BB%A3%E7%A0%81-45"><span class="toc-number">46.3.</span> <span class="toc-text">代码</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#287-%E5%AF%BB%E6%89%BE%E9%87%8D%E5%A4%8D%E6%95%B0"><span class="toc-number">47.</span> <span class="toc-text">287. 寻找重复数</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%A2%98%E5%B9%B2-46"><span class="toc-number">47.1.</span> <span class="toc-text">题干</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%80%9D%E8%B7%AF-46"><span class="toc-number">47.2.</span> <span class="toc-text">思路</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BB%A3%E7%A0%81-46"><span class="toc-number">47.3.</span> <span class="toc-text">代码</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#288-%E5%8D%95%E8%AF%8D%E7%9A%84%E5%94%AF%E4%B8%80%E7%BC%A9%E5%86%99"><span class="toc-number">48.</span> <span class="toc-text">288. 单词的唯一缩写</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%A2%98%E5%B9%B2-47"><span class="toc-number">48.1.</span> <span class="toc-text">题干</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%80%9D%E8%B7%AF-47"><span class="toc-number">48.2.</span> <span class="toc-text">思路</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BB%A3%E7%A0%81-47"><span class="toc-number">48.3.</span> <span class="toc-text">代码</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#289-%E7%94%9F%E5%91%BD%E6%B8%B8%E6%88%8F"><span class="toc-number">49.</span> <span class="toc-text">289. 生命游戏</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%A2%98%E5%B9%B2-48"><span class="toc-number">49.1.</span> <span class="toc-text">题干</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%80%9D%E8%B7%AF-48"><span class="toc-number">49.2.</span> <span class="toc-text">思路</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BB%A3%E7%A0%81-48"><span class="toc-number">49.3.</span> <span class="toc-text">代码</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#291-%E5%8D%95%E8%AF%8D%E8%A7%84%E5%BE%8B-II"><span class="toc-number">50.</span> <span class="toc-text">291. 单词规律 II</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%A2%98%E5%B9%B2-49"><span class="toc-number">50.1.</span> <span class="toc-text">题干</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%80%9D%E8%B7%AF-49"><span class="toc-number">50.2.</span> <span class="toc-text">思路</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BB%A3%E7%A0%81-49"><span class="toc-number">50.3.</span> <span class="toc-text">代码</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#294-%E7%BF%BB%E8%BD%AC%E6%B8%B8%E6%88%8F-II"><span class="toc-number">51.</span> <span class="toc-text">294. 翻转游戏 II</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%A2%98%E5%B9%B2-50"><span class="toc-number">51.1.</span> <span class="toc-text">题干</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%80%9D%E8%B7%AF-50"><span class="toc-number">51.2.</span> <span class="toc-text">思路</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BB%A3%E7%A0%81-50"><span class="toc-number">51.3.</span> <span class="toc-text">代码</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#298-%E4%BA%8C%E5%8F%89%E6%A0%91%E6%9C%80%E9%95%BF%E8%BF%9E%E7%BB%AD%E5%BA%8F%E5%88%97"><span class="toc-number">52.</span> <span class="toc-text">298. 二叉树最长连续序列</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%A2%98%E5%B9%B2-51"><span class="toc-number">52.1.</span> <span class="toc-text">题干</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%80%9D%E8%B7%AF-51"><span class="toc-number">52.2.</span> <span class="toc-text">思路</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BB%A3%E7%A0%81-51"><span class="toc-number">52.3.</span> <span class="toc-text">代码</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#299-%E7%8C%9C%E6%95%B0%E5%AD%97%E6%B8%B8%E6%88%8F"><span class="toc-number">53.</span> <span class="toc-text">299. 猜数字游戏</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%A2%98%E5%B9%B2-52"><span class="toc-number">53.1.</span> <span class="toc-text">题干</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%80%9D%E8%B7%AF-52"><span class="toc-number">53.2.</span> <span class="toc-text">思路</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BB%A3%E7%A0%81-52"><span class="toc-number">53.3.</span> <span class="toc-text">代码</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#300-%E6%9C%80%E9%95%BF%E9%80%92%E5%A2%9E%E5%AD%90%E5%BA%8F%E5%88%97"><span class="toc-number">54.</span> <span class="toc-text">300. 最长递增子序列</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%A2%98%E5%B9%B2-53"><span class="toc-number">54.1.</span> <span class="toc-text">题干</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%80%9D%E8%B7%AF-53"><span class="toc-number">54.2.</span> <span class="toc-text">思路</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BB%A3%E7%A0%81-53"><span class="toc-number">54.3.</span> <span class="toc-text">代码</span></a></li></ol></li></ol>
+      </div>
+      <div class="related panel pjax" data-title="系列文章">
+        <ul>
+          <li><a href="/computer-science/leetcode/algorithm/Leetcode%E4%B8%AD%E7%AD%89%E9%A2%98%E6%80%9D%E8%B7%AF%EF%BC%881-100%EF%BC%89/" rel="bookmark" title="Leetcode中等题思路（1-100）">Leetcode中等题思路（1-100）</a></li><li><a href="/computer-science/leetcode/algorithm/Leetcode%E4%B8%AD%E7%AD%89%E9%A2%98%E6%80%9D%E8%B7%AF(301-400)/" rel="bookmark" title="Leetcode中等题思路（1-100）">Leetcode中等题思路（1-100）</a></li><li><a href="/computer-science/leetcode/algorithm/Leetcode%E4%B8%AD%E7%AD%89%E9%A2%98%E6%80%9D%E8%B7%AF(101-200)/" rel="bookmark" title="Leetcode中等题思路（101-100）">Leetcode中等题思路（101-100）</a></li><li class="active"><a href="/computer-science/leetcode/algorithm/Leetcode%E4%B8%AD%E7%AD%89%E9%A2%98%E6%80%9D%E8%B7%AF(201-300)/" rel="bookmark" title="Leetcode中等题思路（201-300）">Leetcode中等题思路（201-300）</a></li>
+        </ul>
+      </div>
+      <div class="overview panel" data-title="站点概览">
+        <div class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <img class="image" itemprop="image" alt="Kun Qian"
+      data-src="/images/avatar.jpg">
+  <p class="name" itemprop="name">Kun Qian</p>
+  <div class="description" itemprop="description"></div>
+</div>
+
+<nav class="state">
+    <div class="item posts">
+      <a href="/archives/">
+        <span class="count">37</span>
+        <span class="name">文章</span>
+      </a>
+    </div>
+    <div class="item categories">
+      <a href="/categories/">
+        <span class="count">7</span>
+        <span class="name">分类</span>
+      </a>
+    </div>
+    <div class="item tags">
+      <a href="/tags/">
+        <span class="count">12</span>
+        <span class="name">标签</span>
+      </a>
+    </div>
+</nav>
+
+<div class="social">
+      <span class="exturl item github" data-url="aHR0cHM6Ly9naXRodWIuY29tL3FrZ29hbGtlZXBlcg==" title="https:&#x2F;&#x2F;github.com&#x2F;qkgoalkeeper"><i class="ic i-github"></i></span>
+      <span class="exturl item zhihu" data-url="aHR0cHM6Ly93d3cuemhpaHUuY29tL3Blb3BsZS9oYW8tbGFpLXd1LXNob3UtbWVuLXl1YW4=" title="https:&#x2F;&#x2F;www.zhihu.com&#x2F;people&#x2F;hao-lai-wu-shou-men-yuan"><i class="ic i-zhihu"></i></span>
+      <span class="exturl item music" data-url="aHR0cHM6Ly9tdXNpYy4xNjMuY29tLyMvdXNlci9ob21lP2lkPTM5MjU2NzE4Nw==" title="https:&#x2F;&#x2F;music.163.com&#x2F;#&#x2F;user&#x2F;home?id&#x3D;392567187"><i class="ic i-cloud-music"></i></span>
+      <a href="/about/" title="&#x2F;about&#x2F;" class="item about"><i class="ic i-address-card"></i></a>
+</div>
+
+<ul class="menu">
+  
+    
+  <li class="item">
+    <a href="/" rel="section"><i class="ic i-home"></i>首页</a>
+  </li>
+
+    
+  <li class="item">
+    <a href="/about/" rel="section"><i class="ic i-user"></i>关于</a>
+  </li>
+
+        
+  <li class="item dropdown">
+      <a href="javascript:void(0);"><i class="ic i-feather"></i>文章</a>
+    <ul class="submenu">
+
+        
+  <li class="item">
+    <a href="/archives/" rel="section"><i class="ic i-list-alt"></i>归档</a>
+  </li>
+
+        
+  <li class="item">
+    <a href="/categories/" rel="section"><i class="ic i-th"></i>分类</a>
+  </li>
+
+        
+  <li class="item">
+    <a href="/tags/" rel="section"><i class="ic i-tags"></i>标签</a>
+  </li>
+
+  </ul>
+    
+  <li class="item">
+    <a href="/friends/" rel="section"><i class="ic i-heart"></i>友達</a>
+  </li>
+
+
+</ul>
+
+      </div>
+    </div>
+  </div>
+
+  <ul id="quick">
+    <li class="prev pjax">
+    </li>
+    <li class="up"><i class="ic i-arrow-up"></i></li>
+    <li class="down"><i class="ic i-arrow-down"></i></li>
+    <li class="next pjax">
+    </li>
+    <li class="percent"></li>
+  </ul>
+</div>
+
+
+        </div>
+        <div class="dimmer"></div>
+      </div>
+    </main>
+    <footer id="footer">
+      <div class="inner">
+        <div class="widgets">
+          
+<div class="rpost pjax">
+  <h2>随机文章</h2>
+  <ul>
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/computer-science/" title="分类于 计算机科学">计算机科学</a>
+<i class="ic i-angle-right"></i>
+<a href="/categories/computer-science/leetcode/" title="分类于 Leetcode">Leetcode</a>
+<i class="ic i-angle-right"></i>
+<a href="/categories/computer-science/leetcode/offer2/" title="分类于 剑指offer">剑指offer</a>
+</div>
+
+    <span><a href="/computer-science/leetcode/method/c++%20std%E7%9A%84%E4%BA%8C%E5%88%86%E6%B3%95%E4%BD%BF%E7%94%A8/" title="剑指 Offer II 001. 整数除法">剑指 Offer II 001. 整数除法</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/computer-science/" title="分类于 计算机科学">计算机科学</a>
+<i class="ic i-angle-right"></i>
+<a href="/categories/computer-science/leetcode/" title="分类于 Leetcode">Leetcode</a>
+<i class="ic i-angle-right"></i>
+<a href="/categories/computer-science/leetcode/offer2/" title="分类于 剑指offer">剑指offer</a>
+</div>
+
+    <span><a href="/computer-science/leetcode/offer2/LeetCode%E6%AF%8F%E6%97%A5%E7%BB%83%E4%B9%A0%EF%BC%9A%E5%89%91%E6%8C%87%20Offer%20II%20016.%20%E4%B8%8D%E5%90%AB%E9%87%8D%E5%A4%8D%E5%AD%97%E7%AC%A6%E7%9A%84%E6%9C%80%E9%95%BF%E5%AD%90%E5%AD%97%E7%AC%A6%E4%B8%B2/" title="剑指 Offer II 016. 不含重复字符的最长子字符串">剑指 Offer II 016. 不含重复字符的最长子字符串</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/computer-science/" title="分类于 计算机科学">计算机科学</a>
+<i class="ic i-angle-right"></i>
+<a href="/categories/computer-science/leetcode/" title="分类于 Leetcode">Leetcode</a>
+<i class="ic i-angle-right"></i>
+<a href="/categories/computer-science/leetcode/offer2/" title="分类于 剑指offer">剑指offer</a>
+</div>
+
+    <span><a href="/computer-science/leetcode/method/%E8%AE%BE%E8%AE%A1%E7%B1%BB%E4%B8%93%E9%A2%98%EF%BC%88LRU%E3%80%81trie%EF%BC%89/" title="剑指 Offer II 001. 整数除法">剑指 Offer II 001. 整数除法</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/computer-science/" title="分类于 计算机科学">计算机科学</a>
+<i class="ic i-angle-right"></i>
+<a href="/categories/computer-science/study/" title="分类于 研究生学习">研究生学习</a>
+<i class="ic i-angle-right"></i>
+<a href="/categories/computer-science/study/paper/" title="分类于 论文源码解读">论文源码解读</a>
+</div>
+
+    <span><a href="/computer-science/study/paper/Spooky%E8%AE%BA%E6%96%87%E8%A7%A3%E8%AF%BB/" title="SPOOKY论文解读">SPOOKY论文解读</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/computer-science/" title="分类于 计算机科学">计算机科学</a>
+<i class="ic i-angle-right"></i>
+<a href="/categories/computer-science/leetcode/" title="分类于 Leetcode">Leetcode</a>
+<i class="ic i-angle-right"></i>
+<a href="/categories/computer-science/leetcode/%E7%AE%97%E6%B3%95%E9%A2%98%E6%80%9D%E8%B7%AF/" title="分类于 算法题思路">算法题思路</a>
+</div>
+
+    <span><a href="/computer-science/leetcode/algorithm/Leetcode%E4%B8%AD%E7%AD%89%E9%A2%98%E6%80%9D%E8%B7%AF(201-300)/" title="Leetcode中等题思路（201-300）">Leetcode中等题思路（201-300）</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/computer-science/" title="分类于 计算机科学">计算机科学</a>
+<i class="ic i-angle-right"></i>
+<a href="/categories/computer-science/leetcode/" title="分类于 Leetcode">Leetcode</a>
+<i class="ic i-angle-right"></i>
+<a href="/categories/computer-science/leetcode/offer2/" title="分类于 剑指offer">剑指offer</a>
+</div>
+
+    <span><a href="/computer-science/leetcode/offer2/LeetCode%E6%AF%8F%E6%97%A5%E7%BB%83%E4%B9%A0%EF%BC%9A%E5%89%91%E6%8C%87%20Offer%20II%20003.%20%E5%89%8D%20n%20%E4%B8%AA%E6%95%B0%E5%AD%97%E4%BA%8C%E8%BF%9B%E5%88%B6%E4%B8%AD%201%20%E7%9A%84%E4%B8%AA%E6%95%B0/" title="剑指 Offer II 003. 前 n 个数字二进制中 1 的个数">剑指 Offer II 003. 前 n 个数字二进制中 1 的个数</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/computer-science/" title="分类于 计算机科学">计算机科学</a>
+<i class="ic i-angle-right"></i>
+<a href="/categories/computer-science/leetcode/" title="分类于 Leetcode">Leetcode</a>
+<i class="ic i-angle-right"></i>
+<a href="/categories/computer-science/leetcode/offer2/" title="分类于 剑指offer">剑指offer</a>
+</div>
+
+    <span><a href="/computer-science/leetcode/offer2/LeetCode%E6%AF%8F%E6%97%A5%E7%BB%83%E4%B9%A0%EF%BC%9A%E5%89%91%E6%8C%87%20Offer%20II%20011.%200%20%E5%92%8C%201%20%E4%B8%AA%E6%95%B0%E7%9B%B8%E5%90%8C%E7%9A%84%E5%AD%90%E6%95%B0%E7%BB%84/" title="剑指 Offer II 011. 0 和 1 个数相同的子数组">剑指 Offer II 011. 0 和 1 个数相同的子数组</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/computer-science/" title="分类于 计算机科学">计算机科学</a>
+<i class="ic i-angle-right"></i>
+<a href="/categories/computer-science/leetcode/" title="分类于 Leetcode">Leetcode</a>
+<i class="ic i-angle-right"></i>
+<a href="/categories/computer-science/leetcode/offer2/" title="分类于 剑指offer">剑指offer</a>
+</div>
+
+    <span><a href="/computer-science/leetcode/offer2/LeetCode%E6%AF%8F%E6%97%A5%E7%BB%83%E4%B9%A0%EF%BC%9A%E5%89%91%E6%8C%87%20Offer%20II%20013.%20%E4%BA%8C%E7%BB%B4%E5%AD%90%E7%9F%A9%E9%98%B5%E7%9A%84%E5%92%8C/" title="剑指 Offer II 013. 二维子矩阵的和">剑指 Offer II 013. 二维子矩阵的和</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/computer-science/" title="分类于 计算机科学">计算机科学</a>
+<i class="ic i-angle-right"></i>
+<a href="/categories/computer-science/leetcode/" title="分类于 Leetcode">Leetcode</a>
+<i class="ic i-angle-right"></i>
+<a href="/categories/computer-science/leetcode/offer2/" title="分类于 剑指offer">剑指offer</a>
+</div>
+
+    <span><a href="/computer-science/leetcode/offer2/LeetCode%E6%AF%8F%E6%97%A5%E7%BB%83%E4%B9%A0%EF%BC%9A%E5%89%91%E6%8C%87%20Offer%20II%20015.%20%E5%AD%97%E7%AC%A6%E4%B8%B2%E4%B8%AD%E7%9A%84%E6%89%80%E6%9C%89%E5%8F%98%E4%BD%8D%E8%AF%8D/" title="剑指 Offer II 015. 字符串中的所有变位词">剑指 Offer II 015. 字符串中的所有变位词</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/computer-science/" title="分类于 计算机科学">计算机科学</a>
+<i class="ic i-angle-right"></i>
+<a href="/categories/computer-science/leetcode/" title="分类于 Leetcode">Leetcode</a>
+<i class="ic i-angle-right"></i>
+<a href="/categories/computer-science/leetcode/offer2/" title="分类于 剑指offer">剑指offer</a>
+</div>
+
+    <span><a href="/computer-science/leetcode/method/c++%20std%20vector%E3%80%81queue%E3%80%81stack%E5%BA%95%E5%B1%82%E5%8E%9F%E7%90%86/" title="剑指 Offer II 001. 整数除法">剑指 Offer II 001. 整数除法</a></span>
+  </li>
+
+  </ul>
+</div>
+
+        </div>
+        <div class="status">
+  <div class="copyright">
+    
+    &copy; 2020 – 
+    <span itemprop="copyrightYear">2024</span>
+    <span class="with-love">
+      <i class="ic i-sakura rotate"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">Kun Qian @ Kun Qian</span>
+  </div>
+  <div class="powered-by">
+    基于 <span class="exturl" data-url="aHR0cHM6Ly9oZXhvLmlv">Hexo</span> & Theme.<span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL2FtZWhpbWUvaGV4by10aGVtZS1zaG9rYQ==">Shoka</span>
+  </div>
+</div>
+
+      </div>
+    </footer>
+  </div>
+<script data-config type="text/javascript">
+  var LOCAL = {
+    path: 'computer-science/leetcode/algorithm/Leetcode中等题思路(201-300)/',
+    favicon: {
+      show: "qkgoalkeeper's blog",
+      hide: "qkgoalkeeper's blog"
+    },
+    search : {
+      placeholder: "文章搜索",
+      empty: "关于 「 ${query} 」，什么也没搜到",
+      stats: "${time} ms 内找到 ${hits} 条结果"
+    },
+    valine: true,fancybox: true,
+    copyright: '复制成功，转载请遵守 <i class="ic i-creative-commons"></i>BY-NC-SA 协议。',
+    ignores : [
+      function(uri) {
+        return uri.includes('#');
+      },
+      function(uri) {
+        return new RegExp(LOCAL.path+"$").test(uri);
+      }
+    ]
+  };
+</script>
+
+<script src="https://cdn.polyfill.io/v2/polyfill.js"></script>
+
+<script src="//cdn.jsdelivr.net/combine/npm/pace-js@1.0.2/pace.min.js,npm/pjax@0.2.8/pjax.min.js,npm/whatwg-fetch@3.4.0/dist/fetch.umd.min.js,npm/animejs@3.2.0/lib/anime.min.js,npm/algoliasearch@4/dist/algoliasearch-lite.umd.js,npm/instantsearch.js@4/dist/instantsearch.production.min.js,npm/lozad@1/dist/lozad.min.js,npm/quicklink@2/dist/quicklink.umd.js"></script>
+
+<script src="/js/app.js?v=0.2.5"></script>
+
+
+
+
+</body>
+</html>
