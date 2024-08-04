@@ -1,0 +1,967 @@
+
+
+
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#FFF">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+
+<link rel="icon" type="image/ico" sizes="32x32" href="/images/favicon.ico">
+  <link rel="mask-icon" href="/images/logo.svg" color="">
+  <link rel="manifest" href="/images/manifest.json">
+  <meta name="msapplication-config" content="/images/browserconfig.xml">
+  <meta http-equiv="Cache-Control" content="no-transform">
+  <meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+<link rel="alternate" type="application/rss+xml" title="Qkgoalkeeper's blog" href="https://qkgoalkeeper.github.io/rss.xml" />
+<link rel="alternate" type="application/atom+xml" title="Qkgoalkeeper's blog" href="https://qkgoalkeeper.github.io/atom.xml" />
+<link rel="alternate" type="application/json" title="Qkgoalkeeper's blog" href="https://qkgoalkeeper.github.io/feed.json" />
+
+<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Mulish:300,300italic,400,400italic,700,700italic%7CFredericka%20the%20Great:300,300italic,400,400italic,700,700italic%7CNoto%20Serif%20JP:300,300italic,400,400italic,700,700italic%7CNoto%20Serif%20SC:300,300italic,400,400italic,700,700italic%7CInconsolata:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+
+<link rel="stylesheet" href="/css/app.css?v=0.2.5">
+
+  
+  <meta name="keywords" content="leveldb,lsm-tree" />
+
+
+<link rel="canonical" href="https://qkgoalkeeper.github.io/computer-science/interview/middleware/Leveldb%E6%BA%90%E7%A0%81%E8%A7%A3%E8%AF%BB%EF%BC%885%EF%BC%89%EF%BC%9AMemtable%E6%A8%A1%E5%9D%97/">
+
+
+
+  <title>
+Leveldb源码解读（5）：Memtable模块 - 源码解读 - 计算机科学 |
+Kun Qian = Qkgoalkeeper's blog</title>
+<meta name="generator" content="Hexo 6.3.0"></head>
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div id="loading">
+    <div class="cat">
+      <div class="body"></div>
+      <div class="head">
+        <div class="face"></div>
+      </div>
+      <div class="foot">
+        <div class="tummy-end"></div>
+        <div class="bottom"></div>
+        <div class="legs left"></div>
+        <div class="legs right"></div>
+      </div>
+      <div class="paw">
+        <div class="hands left"></div>
+        <div class="hands right"></div>
+      </div>
+    </div>
+  </div>
+  <div id="container">
+    <header id="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="inner">
+        <div id="brand">
+          <div class="pjax">
+          
+  <h1 itemprop="name headline">Leveldb源码解读（5）：Memtable模块
+  </h1>
+  
+<div class="meta">
+  <span class="item" title="创建时间：2022-04-25 08:56:19">
+    <span class="icon">
+      <i class="ic i-calendar"></i>
+    </span>
+    <span class="text">发表于</span>
+    <time itemprop="dateCreated datePublished" datetime="2022-04-25T08:56:19+08:00">2022-04-25</time>
+  </span>
+</div>
+
+
+          </div>
+        </div>
+        <nav id="nav">
+  <div class="inner">
+    <div class="toggle">
+      <div class="lines" aria-label="切换导航栏">
+        <span class="line"></span>
+        <span class="line"></span>
+        <span class="line"></span>
+      </div>
+    </div>
+    <ul class="menu">
+      <li class="item title"><a href="/" rel="start">Kun Qian</a></li>
+    </ul>
+    <ul class="right">
+      <li class="item theme">
+        <i class="ic i-sun"></i>
+      </li>
+      <li class="item search">
+        <i class="ic i-search"></i>
+      </li>
+    </ul>
+  </div>
+</nav>
+
+      </div>
+      <div id="imgs" class="pjax">
+          <img src="https://cdn.jsdelivr.net/gh/qkgoalkeeper/blogImage@main/img/leveldb.png">
+      </div>
+    </header>
+    <div id="waves">
+      <svg class="waves" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 24 150 28" preserveAspectRatio="none" shape-rendering="auto">
+        <defs>
+          <path id="gentle-wave" d="M-160 44c30 0 58-18 88-18s 58 18 88 18 58-18 88-18 58 18 88 18 v44h-352z" />
+        </defs>
+        <g class="parallax">
+          <use xlink:href="#gentle-wave" x="48" y="0" />
+          <use xlink:href="#gentle-wave" x="48" y="3" />
+          <use xlink:href="#gentle-wave" x="48" y="5" />
+          <use xlink:href="#gentle-wave" x="48" y="7" />
+        </g>
+      </svg>
+    </div>
+    <main>
+      <div class="inner">
+        <div id="main" class="pjax">
+          
+  <div class="article wrap">
+    
+<div class="breadcrumb" itemscope itemtype="https://schema.org/BreadcrumbList">
+<i class="ic i-home"></i>
+<span><a href="/">首页</a></span><i class="ic i-angle-right"></i>
+<span  itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/categories/computer-science/" itemprop="item" rel="index" title="分类于 计算机科学"><span itemprop="name">计算机科学</span></a>
+<meta itemprop="position" content="1" /></span>
+<i class="ic i-angle-right"></i>
+<span  class="current" itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/categories/computer-science/%E6%BA%90%E7%A0%81%E8%A7%A3%E8%AF%BB/" itemprop="item" rel="index" title="分类于 源码解读"><span itemprop="name">源码解读</span></a>
+<meta itemprop="position" content="2" /></span>
+</div>
+
+    <article itemscope itemtype="http://schema.org/Article" class="post block" lang="zh-CN">
+  <link itemprop="mainEntityOfPage" href="https://qkgoalkeeper.github.io/computer-science/interview/middleware/Leveldb%E6%BA%90%E7%A0%81%E8%A7%A3%E8%AF%BB%EF%BC%885%EF%BC%89%EF%BC%9AMemtable%E6%A8%A1%E5%9D%97/">
+
+  <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <meta itemprop="image" content="/images/avatar.jpg">
+    <meta itemprop="name" content="Kun Qian">
+    <meta itemprop="description" content=", ">
+  </span>
+
+  <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="Qkgoalkeeper's blog">
+  </span>
+
+  <div class="body md" itemprop="articleBody">
+    
+
+    <h2 id="1-Memtable插入与查找"><a href="#1-Memtable插入与查找" class="headerlink" title="1.Memtable插入与查找"></a>1.Memtable插入与查找</h2><p>位置在：db&#x2F;memtable.h</p>
+<p>memtable类如下，主要方法是get、add和迭代器，其中迭代器事实上就是调用skiplist的迭代器这在下一节中说明</p>
+<pre><code class="c++">class MemTable &#123;
+ public:
+  // MemTables are reference counted.  The initial reference count
+  // is zero and the caller must call Ref() at least once.
+  explicit MemTable(const InternalKeyComparator&amp; comparator);
+
+  MemTable(const MemTable&amp;) = delete;
+  MemTable&amp; operator=(const MemTable&amp;) = delete;
+
+  // Increase reference count.
+  void Ref() &#123; ++refs_; &#125;
+
+  // Drop reference count.  Delete if no more references exist.
+  void Unref() &#123;
+    --refs_;
+    assert(refs_ &gt;= 0);
+    if (refs_ &lt;= 0) &#123;
+      delete this;
+    &#125;
+  &#125;
+
+  // Returns an estimate of the number of bytes of data in use by this
+  // data structure. It is safe to call when MemTable is being modified.
+  size_t ApproximateMemoryUsage();
+
+  // Return an iterator that yields the contents of the memtable.
+  //
+  // The caller must ensure that the underlying MemTable remains live
+  // while the returned iterator is live.  The keys returned by this
+  // iterator are internal keys encoded by AppendInternalKey in the
+  // db/format.&#123;h,cc&#125; module.
+  Iterator* NewIterator();
+
+  // Add an entry into memtable that maps key to value at the
+  // specified sequence number and with the specified type.
+  // Typically value will be empty if type==kTypeDeletion.
+  void Add(SequenceNumber seq, ValueType type, const Slice&amp; key,
+           const Slice&amp; value);
+
+  // If memtable contains a value for key, store it in *value and return true.
+  // If memtable contains a deletion for key, store a NotFound() error
+  // in *status and return true.
+  // Else, return false.
+  bool Get(const LookupKey&amp; key, std::string* value, Status* s);
+
+ private:
+  friend class MemTableIterator;
+  friend class MemTableBackwardIterator;
+
+  struct KeyComparator &#123;
+    const InternalKeyComparator comparator;
+    explicit KeyComparator(const InternalKeyComparator&amp; c) : comparator(c) &#123;&#125;
+    int operator()(const char* a, const char* b) const;
+  &#125;;
+
+  typedef SkipList&lt;const char*, KeyComparator&gt; Table;
+
+  ~MemTable();  // Private since only Unref() should be used to delete it
+
+  KeyComparator comparator_;
+  int refs_;
+  Arena arena_;
+  Table table_;
+&#125;;
+</code></pre>
+<p>插入通过调用add方法实现，插入的格式是len+key+sequencelValueType+value_len+value</p>
+<pre><code class="c++">
+void MemTable::Add(SequenceNumber s, ValueType type, const Slice&amp; key,
+                   const Slice&amp; value) &#123;
+  // Format of an entry is concatenation of:
+  //  key_size     : varint32 of internal_key.size()
+  //  key bytes    : char[internal_key.size()]
+  //  tag          : uint64((sequence &lt;&lt; 8) | type)
+  //  value_size   : varint32 of value.size()
+  //  value bytes  : char[value.size()]
+  size_t key_size = key.size();
+  size_t val_size = value.size();
+  size_t internal_key_size = key_size + 8;
+  const size_t encoded_len = VarintLength(internal_key_size) +
+                             internal_key_size + VarintLength(val_size) +
+                             val_size;
+  char* buf = arena_.Allocate(encoded_len);
+  char* p = EncodeVarint32(buf, internal_key_size);
+  std::memcpy(p, key.data(), key_size);
+  p += key_size;
+  EncodeFixed64(p, (s &lt;&lt; 8) | type);
+  p += 8;
+  p = EncodeVarint32(p, val_size);
+  std::memcpy(p, value.data(), val_size);
+  assert(p + val_size == buf + encoded_len);
+  table_.Insert(buf);
+&#125;
+</code></pre>
+<p>get方法则通过生成skiplist迭代器实现，注意如果取得的value标志为delete则返回not found</p>
+<pre><code class="c++">
+bool MemTable::Get(const LookupKey&amp; key, std::string* value, Status* s) &#123;
+  Slice memkey = key.memtable_key();
+  Table::Iterator iter(&amp;table_);
+  iter.Seek(memkey.data());
+  if (iter.Valid()) &#123;
+    // entry format is:
+    //    klength  varint32
+    //    userkey  char[klength]
+    //    tag      uint64
+    //    vlength  varint32
+    //    value    char[vlength]
+    // Check that it belongs to same user key.  We do not check the
+    // sequence number since the Seek() call above should have skipped
+    // all entries with overly large sequence numbers.
+    const char* entry = iter.key();
+    uint32_t key_length;
+    const char* key_ptr = GetVarint32Ptr(entry, entry + 5, &amp;key_length);
+    if (comparator_.comparator.user_comparator()-&gt;Compare(
+            Slice(key_ptr, key_length - 8), key.user_key()) == 0) &#123;
+      // Correct user key
+      const uint64_t tag = DecodeFixed64(key_ptr + key_length - 8);
+      switch (static_cast&lt;ValueType&gt;(tag &amp; 0xff)) &#123;
+        case kTypeValue: &#123;
+          Slice v = GetLengthPrefixedSlice(key_ptr + key_length);
+          value-&gt;assign(v.data(), v.size());
+          return true;
+        &#125;
+        case kTypeDeletion:
+          *s = Status::NotFound(Slice());
+          return true;
+      &#125;
+    &#125;
+  &#125;
+  return false;
+&#125;
+</code></pre>
+<h2 id="2-Skiplist插入与查找"><a href="#2-Skiplist插入与查找" class="headerlink" title="2.Skiplist插入与查找"></a>2.Skiplist插入与查找</h2><p>位置在：db&#x2F;skiplist.h</p>
+<p>skiplist类如下，</p>
+<pre><code class="c++">class SkipList &#123;
+ private:
+  struct Node;
+
+ public:
+  // Create a new SkipList object that will use &quot;cmp&quot; for comparing keys,
+  // and will allocate memory using &quot;*arena&quot;.  Objects allocated in the arena
+  // must remain allocated for the lifetime of the skiplist object.
+  explicit SkipList(Comparator cmp, Arena* arena);
+
+  SkipList(const SkipList&amp;) = delete;
+  SkipList&amp; operator=(const SkipList&amp;) = delete;
+
+  // Insert key into the list.
+  // REQUIRES: nothing that compares equal to key is currently in the list.
+  void Insert(const Key&amp; key);
+
+  // Returns true iff an entry that compares equal to key is in the list.
+  bool Contains(const Key&amp; key) const;
+
+  // Iteration over the contents of a skip list
+  class Iterator &#123;
+   public:
+    // Initialize an iterator over the specified list.
+    // The returned iterator is not valid.
+    explicit Iterator(const SkipList* list);
+
+    // Returns true iff the iterator is positioned at a valid node.
+    bool Valid() const;
+
+    // Returns the key at the current position.
+    // REQUIRES: Valid()
+    const Key&amp; key() const;
+
+    // Advances to the next position.
+    // REQUIRES: Valid()
+    void Next();
+
+    // Advances to the previous position.
+    // REQUIRES: Valid()
+    void Prev();
+
+    // Advance to the first entry with a key &gt;= target
+    void Seek(const Key&amp; target);
+
+    // Position at the first entry in list.
+    // Final state of iterator is Valid() iff list is not empty.
+    void SeekToFirst();
+
+    // Position at the last entry in list.
+    // Final state of iterator is Valid() iff list is not empty.
+    void SeekToLast();
+
+   private:
+    const SkipList* list_;
+    Node* node_;
+    // Intentionally copyable
+  &#125;;
+
+ private:
+  enum &#123; kMaxHeight = 12 &#125;;
+
+  inline int GetMaxHeight() const &#123;
+    return max_height_.load(std::memory_order_relaxed);
+  &#125;
+
+  Node* NewNode(const Key&amp; key, int height);
+  int RandomHeight();
+  bool Equal(const Key&amp; a, const Key&amp; b) const &#123; return (compare_(a, b) == 0); &#125;
+
+  // Return true if key is greater than the data stored in &quot;n&quot;
+  bool KeyIsAfterNode(const Key&amp; key, Node* n) const;
+
+  // Return the earliest node that comes at or after key.
+  // Return nullptr if there is no such node.
+  //
+  // If prev is non-null, fills prev[level] with pointer to previous
+  // node at &quot;level&quot; for every level in [0..max_height_-1].
+  Node* FindGreaterOrEqual(const Key&amp; key, Node** prev) const;
+
+  // Return the latest node with a key &lt; key.
+  // Return head_ if there is no such node.
+  Node* FindLessThan(const Key&amp; key) const;
+
+  // Return the last node in the list.
+  // Return head_ if list is empty.
+  Node* FindLast() const;
+
+  // Immutable after construction
+  Comparator const compare_;
+  Arena* const arena_;  // Arena used for allocations of nodes
+
+  Node* const head_;
+
+  // Modified only by Insert().  Read racily by readers, but stale
+  // values are ok.
+  std::atomic&lt;int&gt; max_height_;  // Height of the entire list
+
+  // Read/written only by Insert().
+  Random rnd_;
+&#125;;
+</code></pre>
+<p>插入节点过程如下，先找到插入位置（FindGreaterOrEqual从高层往低层查找），用指针数组prev记录新节点对应的前节点，节点高度由随机函数生成，越高层概率越低</p>
+<pre><code class="c++">template &lt;typename Key, class Comparator&gt;
+void SkipList&lt;Key, Comparator&gt;::Insert(const Key&amp; key) &#123;
+  // TODO(opt): We can use a barrier-free variant of FindGreaterOrEqual()
+  // here since Insert() is externally synchronized.
+  Node* prev[kMaxHeight];
+  // 获取所有大于等于（比较器定义） key 的结点
+  // prev 保存各个索引层要插入的前一个结点
+  Node* x = FindGreaterOrEqual(key, prev);
+
+  // Our data structure does not allow duplicate insertion
+  // 不允许插入重复的元素
+  // 那么为空，表示没有 &gt;= key 的结点。要么不等于列表中的所有 key，表示没有重复元素
+  assert(x == nullptr || !Equal(key, x-&gt;key));
+
+  // 生成一个随机高度
+  int height = RandomHeight();
+  // 如果随机高度比当前最大高度大
+  if (height &gt; GetMaxHeight()) &#123;
+    // prev 下标从原先的最大 height 到最新的最大 height 之间初始化为 head_
+    for (int i = GetMaxHeight(); i &lt; height; i++) &#123;
+      prev[i] = head_;
+    &#125;
+    // It is ok to mutate max_height_ without any synchronization
+    // with concurrent readers.  A concurrent reader that observes
+    // the new value of max_height_ will see either the old value of
+    // new level pointers from head_ (nullptr), or a new value set in
+    // the loop below.  In the former case the reader will
+    // immediately drop to the next level since nullptr sorts after all
+    // keys.  In the latter case the reader will use the new node.
+    // 原子操作：保存最新的最大高度
+    max_height_.store(height, std::memory_order_relaxed);
+  &#125;
+
+  // 创建一个新结点
+  x = NewNode(key, height);
+  for (int i = 0; i &lt; height; i++) &#123;
+    // NoBarrier_SetNext() suffices since we will add a barrier when
+    // we publish a pointer to &quot;x&quot; in prev[i].
+    // 
+    // 插入新结点，即：
+    // new_node-&gt;next = pre-&gt;next;
+    // pre-&gt;next = new_node;
+    x-&gt;NoBarrier_SetNext(i, prev[i]-&gt;NoBarrier_Next(i));
+    prev[i]-&gt;SetNext(i, x);
+  &#125;
+&#125;
+</code></pre>
+<p>seek方法由迭代器实现，实际上还是FindGreaterOrEqual函数</p>
+<pre><code class="c++">template &lt;typename Key, class Comparator&gt;
+inline void SkipList&lt;Key, Comparator&gt;::Iterator::Seek(const Key&amp; target) &#123;
+  node_ = list_-&gt;FindGreaterOrEqual(target, nullptr);
+&#125;
+
+...
+    
+template &lt;typename Key, class Comparator&gt;
+typename SkipList&lt;Key, Comparator&gt;::Node*
+SkipList&lt;Key, Comparator&gt;::FindGreaterOrEqual(const Key&amp; key,
+                                              Node** prev) const &#123;
+  Node* x = head_;
+  int level = GetMaxHeight() - 1;
+  while (true) &#123;
+    Node* next = x-&gt;Next(level);
+    if (KeyIsAfterNode(key, next)) &#123;
+      // Keep searching in this list
+      x = next;
+    &#125; else &#123;
+      if (prev != nullptr) prev[level] = x;
+      if (level == 0) &#123;
+        return next;
+      &#125; else &#123;
+        // Switch to next list
+        level--;
+      &#125;
+    &#125;
+  &#125;
+&#125;
+</code></pre>
+<h2 id="3-Memtable生成SSTable"><a href="#3-Memtable生成SSTable" class="headerlink" title="3.Memtable生成SSTable"></a>3.Memtable生成SSTable</h2><p>位置在：db&#x2F;db_impl.h</p>
+<p>当内存表大于某个阈值时需要写成sstable放入磁盘，代码如下</p>
+<p>可以看到生成了memtable的迭代器iter（其实是skiplist的迭代器），加锁后传参入BuildTable制作sstable</p>
+<pre><code class="c++">
+Status DBImpl::WriteLevel0Table(MemTable* mem, VersionEdit* edit,
+                                Version* base) &#123;
+  mutex_.AssertHeld();
+  const uint64_t start_micros = env_-&gt;NowMicros();
+  FileMetaData meta;
+  meta.number = versions_-&gt;NewFileNumber();
+  pending_outputs_.insert(meta.number);
+  Iterator* iter = mem-&gt;NewIterator();
+  Log(options_.info_log, &quot;Level-0 table #%llu: started&quot;,
+      (unsigned long long)meta.number);
+
+  Status s;
+  &#123;
+    mutex_.Unlock();
+    s = BuildTable(dbname_, env_, options_, table_cache_, iter, &amp;meta);
+    mutex_.Lock();
+  &#125;
+
+  Log(options_.info_log, &quot;Level-0 table #%llu: %lld bytes %s&quot;,
+      (unsigned long long)meta.number, (unsigned long long)meta.file_size,
+      s.ToString().c_str());
+  delete iter;
+  pending_outputs_.erase(meta.number);
+
+  // Note that if file_size is zero, the file has been deleted and
+  // should not be added to the manifest.
+  int level = 0;
+  if (s.ok() &amp;&amp; meta.file_size &gt; 0) &#123;
+    const Slice min_user_key = meta.smallest.user_key();
+    const Slice max_user_key = meta.largest.user_key();
+    if (base != nullptr) &#123;
+      level = base-&gt;PickLevelForMemTableOutput(min_user_key, max_user_key);
+    &#125;
+    edit-&gt;AddFile(level, meta.number, meta.file_size, meta.smallest,
+                  meta.largest);
+  &#125;
+
+  CompactionStats stats;
+  stats.micros = env_-&gt;NowMicros() - start_micros;
+  stats.bytes_written = meta.file_size;
+  stats_[level].Add(stats);
+  return s;
+&#125;
+</code></pre>
+<p>buildtable在db&#x2F;builder.cc</p>
+<p>调用之前的iter迭代器依次将kv对加入tablebuilder，调用tablebuilder的finish函数生成sstable文件，将文件刷入磁盘关闭</p>
+<pre><code class="c++">Status BuildTable(const std::string&amp; dbname, Env* env, const Options&amp; options,
+                  TableCache* table_cache, Iterator* iter, FileMetaData* meta) &#123;
+  Status s;
+  meta-&gt;file_size = 0;
+  iter-&gt;SeekToFirst();
+
+  std::string fname = TableFileName(dbname, meta-&gt;number);
+  if (iter-&gt;Valid()) &#123;
+    WritableFile* file;
+    s = env-&gt;NewWritableFile(fname, &amp;file);
+    if (!s.ok()) &#123;
+      return s;
+    &#125;
+
+    TableBuilder* builder = new TableBuilder(options, file);
+    meta-&gt;smallest.DecodeFrom(iter-&gt;key());
+    Slice key;
+    for (; iter-&gt;Valid(); iter-&gt;Next()) &#123;
+      key = iter-&gt;key();
+      builder-&gt;Add(key, iter-&gt;value());
+    &#125;
+    if (!key.empty()) &#123;
+      meta-&gt;largest.DecodeFrom(key);
+    &#125;
+
+    // Finish and check for builder errors
+    s = builder-&gt;Finish();
+    if (s.ok()) &#123;
+      meta-&gt;file_size = builder-&gt;FileSize();
+      assert(meta-&gt;file_size &gt; 0);
+    &#125;
+    delete builder;
+
+    // Finish and check for file errors
+    if (s.ok()) &#123;
+      s = file-&gt;Sync();
+    &#125;
+    if (s.ok()) &#123;
+      s = file-&gt;Close();
+    &#125;
+    delete file;
+    file = nullptr;
+
+    if (s.ok()) &#123;
+      // Verify that the table is usable
+      Iterator* it = table_cache-&gt;NewIterator(ReadOptions(), meta-&gt;number,
+                                              meta-&gt;file_size);
+      s = it-&gt;status();
+      delete it;
+    &#125;
+  &#125;
+
+  // Check for input iterator errors
+  if (!iter-&gt;status().ok()) &#123;
+    s = iter-&gt;status();
+  &#125;
+
+  if (s.ok() &amp;&amp; meta-&gt;file_size &gt; 0) &#123;
+    // Keep it
+  &#125; else &#123;
+    env-&gt;RemoveFile(fname);
+  &#125;
+  return s;
+&#125;
+</code></pre>
+
+      <div class="tags">
+          <a href="/tags/leveldb/" rel="tag"><i class="ic i-tag"></i> leveldb</a>
+          <a href="/tags/lsm-tree/" rel="tag"><i class="ic i-tag"></i> lsm-tree</a>
+      </div>
+  </div>
+
+   <footer>
+
+    <div class="meta">
+  <span class="item">
+    <span class="icon">
+      <i class="ic i-calendar-check"></i>
+    </span>
+    <span class="text">更新于</span>
+    <time title="修改时间：2024-07-29 00:31:58" itemprop="dateModified" datetime="2024-07-29T00:31:58+08:00">2024-07-29</time>
+  </span>
+</div>
+
+      
+
+<div id="copyright">
+<ul>
+  <li class="author">
+    <strong>本文作者： </strong>Kun Qian <i class="ic i-at"><em>@</em></i>Qkgoalkeeper's blog
+  </li>
+  <li class="link">
+    <strong>本文链接：</strong>
+    <a href="https://qkgoalkeeper.github.io/computer-science/interview/middleware/Leveldb%E6%BA%90%E7%A0%81%E8%A7%A3%E8%AF%BB%EF%BC%885%EF%BC%89%EF%BC%9AMemtable%E6%A8%A1%E5%9D%97/" title="Leveldb源码解读（5）：Memtable模块">https://qkgoalkeeper.github.io/computer-science/interview/middleware/Leveldb源码解读（5）：Memtable模块/</a>
+  </li>
+  <li class="license">
+    <strong>版权声明： </strong>本站所有文章除特别声明外，均采用 <span class="exturl" data-url="aHR0cHM6Ly9jcmVhdGl2ZWNvbW1vbnMub3JnL2xpY2Vuc2VzL2J5LW5jLXNhLzQuMC9kZWVkLnpo"><i class="ic i-creative-commons"><em>(CC)</em></i>BY-NC-SA</span> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+  </footer>
+
+</article>
+
+  </div>
+  
+
+<div class="post-nav">
+    <div class="item left">
+      
+
+  <a href="/computer-science/interview/middleware/Leveldb%E6%BA%90%E7%A0%81%E8%A7%A3%E8%AF%BB%EF%BC%884%EF%BC%89%EF%BC%9ALog%E6%A8%A1%E5%9D%97/" itemprop="url" rel="prev" data-background-image="https:&#x2F;&#x2F;cdn.jsdelivr.net&#x2F;gh&#x2F;qkgoalkeeper&#x2F;blogImage@main&#x2F;img&#x2F;leveldb.png" title="Leveldb源码解读（4）：Log模块">
+  <span class="type">上一篇</span>
+  <span class="category"><i class="ic i-flag"></i> 源码解读</span>
+  <h3>Leveldb源码解读（4）：Log模块</h3>
+  </a>
+
+    </div>
+    <div class="item right">
+      
+
+  <a href="/computer-science/interview/middleware/Leveldb%E6%BA%90%E7%A0%81%E8%A7%A3%E8%AF%BB%EF%BC%886%EF%BC%89%EF%BC%9ASSTable%E6%A8%A1%E5%9D%97/" itemprop="url" rel="next" data-background-image="https:&#x2F;&#x2F;cdn.jsdelivr.net&#x2F;gh&#x2F;qkgoalkeeper&#x2F;blogImage@main&#x2F;img&#x2F;leveldb.png" title="Leveldb源码解读（6）：SSTable模块">
+  <span class="type">下一篇</span>
+  <span class="category"><i class="ic i-flag"></i> 源码解读</span>
+  <h3>Leveldb源码解读（6）：SSTable模块</h3>
+  </a>
+
+    </div>
+</div>
+
+  
+  <div class="wrap" id="comments"></div>
+
+
+        </div>
+        <div id="sidebar">
+          
+
+<div class="inner">
+
+  <div class="panels">
+    <div class="inner">
+      <div class="contents panel pjax" data-title="文章目录">
+          <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-Memtable%E6%8F%92%E5%85%A5%E4%B8%8E%E6%9F%A5%E6%89%BE"><span class="toc-number">1.</span> <span class="toc-text">1.Memtable插入与查找</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-Skiplist%E6%8F%92%E5%85%A5%E4%B8%8E%E6%9F%A5%E6%89%BE"><span class="toc-number">2.</span> <span class="toc-text">2.Skiplist插入与查找</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-Memtable%E7%94%9F%E6%88%90SSTable"><span class="toc-number">3.</span> <span class="toc-text">3.Memtable生成SSTable</span></a></li></ol>
+      </div>
+      <div class="related panel pjax" data-title="系列文章">
+        <ul>
+          <li><a href="/computer-science/interview/middleware/Leveldb%E6%BA%90%E7%A0%81%E8%A7%A3%E8%AF%BB%EF%BC%881%EF%BC%89%EF%BC%9A%E5%9F%BA%E6%9C%AC%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" rel="bookmark" title="Leveldb源码解读（1）：基本数据结构">Leveldb源码解读（1）：基本数据结构</a></li><li><a href="/computer-science/interview/middleware/Leveldb%E6%BA%90%E7%A0%81%E8%A7%A3%E8%AF%BB%EF%BC%882%EF%BC%89%EF%BC%9A%E6%80%BB%E4%BD%93%E6%9E%B6%E6%9E%84%E4%B8%8E%E8%AE%BE%E8%AE%A1%E6%80%9D%E6%83%B3%20-%20%E5%89%AF%E6%9C%AC/" rel="bookmark" title="Leveldb源码解读（2）：总体架构与设计思想">Leveldb源码解读（2）：总体架构与设计思想</a></li><li><a href="/computer-science/interview/middleware/Leveldb%E6%BA%90%E7%A0%81%E8%A7%A3%E8%AF%BB%EF%BC%883%EF%BC%89%EF%BC%9A%E5%85%AC%E7%94%A8%E5%9F%BA%E7%A1%80%E7%B1%BB/" rel="bookmark" title="Leveldb源码解读（3）：公用基础类">Leveldb源码解读（3）：公用基础类</a></li><li><a href="/computer-science/interview/middleware/Leveldb%E6%BA%90%E7%A0%81%E8%A7%A3%E8%AF%BB%EF%BC%884%EF%BC%89%EF%BC%9ALog%E6%A8%A1%E5%9D%97/" rel="bookmark" title="Leveldb源码解读（4）：Log模块">Leveldb源码解读（4）：Log模块</a></li><li class="active"><a href="/computer-science/interview/middleware/Leveldb%E6%BA%90%E7%A0%81%E8%A7%A3%E8%AF%BB%EF%BC%885%EF%BC%89%EF%BC%9AMemtable%E6%A8%A1%E5%9D%97/" rel="bookmark" title="Leveldb源码解读（5）：Memtable模块">Leveldb源码解读（5）：Memtable模块</a></li><li><a href="/computer-science/interview/middleware/Leveldb%E6%BA%90%E7%A0%81%E8%A7%A3%E8%AF%BB%EF%BC%886%EF%BC%89%EF%BC%9ASSTable%E6%A8%A1%E5%9D%97/" rel="bookmark" title="Leveldb源码解读（6）：SSTable模块">Leveldb源码解读（6）：SSTable模块</a></li>
+        </ul>
+      </div>
+      <div class="overview panel" data-title="站点概览">
+        <div class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <img class="image" itemprop="image" alt="Kun Qian"
+      data-src="/images/avatar.jpg">
+  <p class="name" itemprop="name">Kun Qian</p>
+  <div class="description" itemprop="description"></div>
+</div>
+
+<nav class="state">
+    <div class="item posts">
+      <a href="/archives/">
+        <span class="count">30</span>
+        <span class="name">文章</span>
+      </a>
+    </div>
+    <div class="item categories">
+      <a href="/categories/">
+        <span class="count">8</span>
+        <span class="name">分类</span>
+      </a>
+    </div>
+    <div class="item tags">
+      <a href="/tags/">
+        <span class="count">13</span>
+        <span class="name">标签</span>
+      </a>
+    </div>
+</nav>
+
+<div class="social">
+      <span class="exturl item github" data-url="aHR0cHM6Ly9naXRodWIuY29tL3FrZ29hbGtlZXBlcg==" title="https:&#x2F;&#x2F;github.com&#x2F;qkgoalkeeper"><i class="ic i-github"></i></span>
+      <span class="exturl item zhihu" data-url="aHR0cHM6Ly93d3cuemhpaHUuY29tL3Blb3BsZS9oYW8tbGFpLXd1LXNob3UtbWVuLXl1YW4=" title="https:&#x2F;&#x2F;www.zhihu.com&#x2F;people&#x2F;hao-lai-wu-shou-men-yuan"><i class="ic i-zhihu"></i></span>
+      <span class="exturl item music" data-url="aHR0cHM6Ly9tdXNpYy4xNjMuY29tLyMvdXNlci9ob21lP2lkPTM5MjU2NzE4Nw==" title="https:&#x2F;&#x2F;music.163.com&#x2F;#&#x2F;user&#x2F;home?id&#x3D;392567187"><i class="ic i-cloud-music"></i></span>
+      <a href="/about/" title="&#x2F;about&#x2F;" class="item about"><i class="ic i-address-card"></i></a>
+</div>
+
+<ul class="menu">
+  
+    
+  <li class="item">
+    <a href="/" rel="section"><i class="ic i-home"></i>首页</a>
+  </li>
+
+    
+  <li class="item">
+    <a href="/about/" rel="section"><i class="ic i-user"></i>关于</a>
+  </li>
+
+        
+  <li class="item dropdown">
+      <a href="javascript:void(0);"><i class="ic i-feather"></i>文章</a>
+    <ul class="submenu">
+
+        
+  <li class="item">
+    <a href="/archives/" rel="section"><i class="ic i-list-alt"></i>归档</a>
+  </li>
+
+        
+  <li class="item">
+    <a href="/categories/" rel="section"><i class="ic i-th"></i>分类</a>
+  </li>
+
+        
+  <li class="item">
+    <a href="/tags/" rel="section"><i class="ic i-tags"></i>标签</a>
+  </li>
+
+  </ul>
+    
+  <li class="item">
+    <a href="/friends/" rel="section"><i class="ic i-heart"></i>友達</a>
+  </li>
+
+
+</ul>
+
+      </div>
+    </div>
+  </div>
+
+  <ul id="quick">
+    <li class="prev pjax">
+        <a href="/computer-science/interview/middleware/Leveldb%E6%BA%90%E7%A0%81%E8%A7%A3%E8%AF%BB%EF%BC%884%EF%BC%89%EF%BC%9ALog%E6%A8%A1%E5%9D%97/" rel="prev" title="上一篇"><i class="ic i-chevron-left"></i></a>
+    </li>
+    <li class="up"><i class="ic i-arrow-up"></i></li>
+    <li class="down"><i class="ic i-arrow-down"></i></li>
+    <li class="next pjax">
+        <a href="/computer-science/interview/middleware/Leveldb%E6%BA%90%E7%A0%81%E8%A7%A3%E8%AF%BB%EF%BC%886%EF%BC%89%EF%BC%9ASSTable%E6%A8%A1%E5%9D%97/" rel="next" title="下一篇"><i class="ic i-chevron-right"></i></a>
+    </li>
+    <li class="percent"></li>
+  </ul>
+</div>
+
+
+        </div>
+        <div class="dimmer"></div>
+      </div>
+    </main>
+    <footer id="footer">
+      <div class="inner">
+        <div class="widgets">
+          
+<div class="rpost pjax">
+  <h2>随机文章</h2>
+  <ul>
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/computer-science/" title="分类于 计算机科学">计算机科学</a>
+<i class="ic i-angle-right"></i>
+<a href="/categories/computer-science/%E6%BA%90%E7%A0%81%E8%A7%A3%E8%AF%BB/" title="分类于 源码解读">源码解读</a>
+</div>
+
+    <span><a href="/computer-science/interview/middleware/Leveldb%E6%BA%90%E7%A0%81%E8%A7%A3%E8%AF%BB%EF%BC%886%EF%BC%89%EF%BC%9ASSTable%E6%A8%A1%E5%9D%97/" title="Leveldb源码解读（6）：SSTable模块">Leveldb源码解读（6）：SSTable模块</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/computer-science/" title="分类于 计算机科学">计算机科学</a>
+<i class="ic i-angle-right"></i>
+<a href="/categories/computer-science/leetcode/" title="分类于 Leetcode">Leetcode</a>
+<i class="ic i-angle-right"></i>
+<a href="/categories/computer-science/leetcode/offer2/" title="分类于 剑指offer">剑指offer</a>
+</div>
+
+    <span><a href="/computer-science/leetcode/offer2/LeetCode%E6%AF%8F%E6%97%A5%E7%BB%83%E4%B9%A0%EF%BC%9A%E5%89%91%E6%8C%87%20Offer%20II%20006.%20%E6%8E%92%E5%BA%8F%E6%95%B0%E7%BB%84%E4%B8%AD%E4%B8%A4%E4%B8%AA%E6%95%B0%E5%AD%97%E4%B9%8B%E5%92%8C/" title="剑指 Offer II 006. 排序数组中两个数字之和">剑指 Offer II 006. 排序数组中两个数字之和</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/%E6%9D%82%E8%B0%88/" title="分类于 杂谈">杂谈</a>
+</div>
+
+    <span><a href="/new%20blog%E8%BF%81%E7%A7%BB%E8%AF%B4%E6%98%8E/" title="新blog迁移记录">新blog迁移记录</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/computer-science/" title="分类于 计算机科学">计算机科学</a>
+<i class="ic i-angle-right"></i>
+<a href="/categories/computer-science/leetcode/" title="分类于 Leetcode">Leetcode</a>
+<i class="ic i-angle-right"></i>
+<a href="/categories/computer-science/leetcode/offer2/" title="分类于 剑指offer">剑指offer</a>
+</div>
+
+    <span><a href="/computer-science/leetcode/offer2/LeetCode%E6%AF%8F%E6%97%A5%E7%BB%83%E4%B9%A0%EF%BC%9A%E5%89%91%E6%8C%87%20Offer%20II%20015.%20%E5%AD%97%E7%AC%A6%E4%B8%B2%E4%B8%AD%E7%9A%84%E6%89%80%E6%9C%89%E5%8F%98%E4%BD%8D%E8%AF%8D/" title="剑指 Offer II 015. 字符串中的所有变位词">剑指 Offer II 015. 字符串中的所有变位词</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/computer-science/" title="分类于 计算机科学">计算机科学</a>
+<i class="ic i-angle-right"></i>
+<a href="/categories/computer-science/leetcode/" title="分类于 Leetcode">Leetcode</a>
+<i class="ic i-angle-right"></i>
+<a href="/categories/computer-science/leetcode/%E7%AE%97%E6%B3%95%E9%A2%98%E6%80%9D%E8%B7%AF/" title="分类于 算法题思路">算法题思路</a>
+</div>
+
+    <span><a href="/computer-science/leetcode/algorithm/Leetcode%E4%B8%AD%E7%AD%89%E9%A2%98%E6%80%9D%E8%B7%AF(101-200)/" title="Leetcode中等题思路（101-100）">Leetcode中等题思路（101-100）</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/computer-science/" title="分类于 计算机科学">计算机科学</a>
+<i class="ic i-angle-right"></i>
+<a href="/categories/computer-science/leetcode/" title="分类于 Leetcode">Leetcode</a>
+<i class="ic i-angle-right"></i>
+<a href="/categories/computer-science/leetcode/offer2/" title="分类于 剑指offer">剑指offer</a>
+</div>
+
+    <span><a href="/computer-science/leetcode/offer2/LeetCode%E6%AF%8F%E6%97%A5%E7%BB%83%E4%B9%A0%EF%BC%9A%E5%89%91%E6%8C%87%20Offer%20II%20014.%20%E5%AD%97%E7%AC%A6%E4%B8%B2%E4%B8%AD%E7%9A%84%E5%8F%98%E4%BD%8D%E8%AF%8D/" title="剑指 Offer II 014. 字符串中的变位词">剑指 Offer II 014. 字符串中的变位词</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/computer-science/" title="分类于 计算机科学">计算机科学</a>
+<i class="ic i-angle-right"></i>
+<a href="/categories/computer-science/%E6%BA%90%E7%A0%81%E8%A7%A3%E8%AF%BB/" title="分类于 源码解读">源码解读</a>
+</div>
+
+    <span><a href="/computer-science/interview/middleware/Leveldb%E6%BA%90%E7%A0%81%E8%A7%A3%E8%AF%BB%EF%BC%881%EF%BC%89%EF%BC%9A%E5%9F%BA%E6%9C%AC%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" title="Leveldb源码解读（1）：基本数据结构">Leveldb源码解读（1）：基本数据结构</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/computer-science/" title="分类于 计算机科学">计算机科学</a>
+<i class="ic i-angle-right"></i>
+<a href="/categories/computer-science/leetcode/" title="分类于 Leetcode">Leetcode</a>
+<i class="ic i-angle-right"></i>
+<a href="/categories/computer-science/leetcode/%E7%AE%97%E6%B3%95%E9%A2%98%E6%80%9D%E8%B7%AF/" title="分类于 算法题思路">算法题思路</a>
+</div>
+
+    <span><a href="/computer-science/leetcode/algorithm/Leetcode%E4%B8%AD%E7%AD%89%E9%A2%98%E6%80%9D%E8%B7%AF(201-300)/" title="Leetcode中等题思路（201-300）">Leetcode中等题思路（201-300）</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/computer-science/" title="分类于 计算机科学">计算机科学</a>
+<i class="ic i-angle-right"></i>
+<a href="/categories/computer-science/leetcode/" title="分类于 Leetcode">Leetcode</a>
+<i class="ic i-angle-right"></i>
+<a href="/categories/computer-science/leetcode/offer2/" title="分类于 剑指offer">剑指offer</a>
+</div>
+
+    <span><a href="/computer-science/leetcode/offer2/LeetCode%E6%AF%8F%E6%97%A5%E7%BB%83%E4%B9%A0%EF%BC%9A%E5%89%91%E6%8C%87%20Offer%20II%20010.%20%E5%92%8C%E4%B8%BA%20k%20%E7%9A%84%E5%AD%90%E6%95%B0%E7%BB%84/" title="剑指 Offer II 010. 和为 k 的子数组">剑指 Offer II 010. 和为 k 的子数组</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/computer-science/" title="分类于 计算机科学">计算机科学</a>
+<i class="ic i-angle-right"></i>
+<a href="/categories/computer-science/leetcode/" title="分类于 Leetcode">Leetcode</a>
+<i class="ic i-angle-right"></i>
+<a href="/categories/computer-science/leetcode/offer2/" title="分类于 剑指offer">剑指offer</a>
+</div>
+
+    <span><a href="/computer-science/leetcode/offer2/LeetCode%E6%AF%8F%E6%97%A5%E7%BB%83%E4%B9%A0%EF%BC%9A%E5%89%91%E6%8C%87%20Offer%20II%20007.%20%E6%95%B0%E7%BB%84%E4%B8%AD%E5%92%8C%E4%B8%BA%200%20%E7%9A%84%E4%B8%89%E4%B8%AA%E6%95%B0/" title="剑指 Offer II 007. 数组中和为 0 的三个数">剑指 Offer II 007. 数组中和为 0 的三个数</a></span>
+  </li>
+
+  </ul>
+</div>
+
+        </div>
+        <div class="status">
+  <div class="copyright">
+    
+    &copy; 2020 – 
+    <span itemprop="copyrightYear">2024</span>
+    <span class="with-love">
+      <i class="ic i-sakura rotate"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">Kun Qian @ Kun Qian</span>
+  </div>
+  <div class="powered-by">
+    基于 <span class="exturl" data-url="aHR0cHM6Ly9oZXhvLmlv">Hexo</span> & Theme.<span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL2FtZWhpbWUvaGV4by10aGVtZS1zaG9rYQ==">Shoka</span>
+  </div>
+</div>
+
+      </div>
+    </footer>
+  </div>
+<script data-config type="text/javascript">
+  var LOCAL = {
+    path: 'computer-science/interview/middleware/Leveldb源码解读（5）：Memtable模块/',
+    favicon: {
+      show: "qkgoalkeeper's blog",
+      hide: "qkgoalkeeper's blog"
+    },
+    search : {
+      placeholder: "文章搜索",
+      empty: "关于 「 ${query} 」，什么也没搜到",
+      stats: "${time} ms 内找到 ${hits} 条结果"
+    },
+    valine: true,fancybox: true,
+    copyright: '复制成功，转载请遵守 <i class="ic i-creative-commons"></i>BY-NC-SA 协议。',
+    ignores : [
+      function(uri) {
+        return uri.includes('#');
+      },
+      function(uri) {
+        return new RegExp(LOCAL.path+"$").test(uri);
+      }
+    ]
+  };
+</script>
+
+<script src="https://cdn.polyfill.io/v2/polyfill.js"></script>
+
+<script src="//cdn.jsdelivr.net/combine/npm/pace-js@1.0.2/pace.min.js,npm/pjax@0.2.8/pjax.min.js,npm/whatwg-fetch@3.4.0/dist/fetch.umd.min.js,npm/animejs@3.2.0/lib/anime.min.js,npm/algoliasearch@4/dist/algoliasearch-lite.umd.js,npm/instantsearch.js@4/dist/instantsearch.production.min.js,npm/lozad@1/dist/lozad.min.js,npm/quicklink@2/dist/quicklink.umd.js"></script>
+
+<script src="/js/app.js?v=0.2.5"></script>
+
+
+
+
+</body>
+</html>

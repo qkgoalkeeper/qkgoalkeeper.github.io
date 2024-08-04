@@ -1,0 +1,959 @@
+
+
+
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#FFF">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+
+<link rel="icon" type="image/ico" sizes="32x32" href="/images/favicon.ico">
+  <link rel="mask-icon" href="/images/logo.svg" color="">
+  <link rel="manifest" href="/images/manifest.json">
+  <meta name="msapplication-config" content="/images/browserconfig.xml">
+  <meta http-equiv="Cache-Control" content="no-transform">
+  <meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+<link rel="alternate" type="application/rss+xml" title="Qkgoalkeeper's blog" href="https://qkgoalkeeper.github.io/rss.xml" />
+<link rel="alternate" type="application/atom+xml" title="Qkgoalkeeper's blog" href="https://qkgoalkeeper.github.io/atom.xml" />
+<link rel="alternate" type="application/json" title="Qkgoalkeeper's blog" href="https://qkgoalkeeper.github.io/feed.json" />
+
+<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Mulish:300,300italic,400,400italic,700,700italic%7CFredericka%20the%20Great:300,300italic,400,400italic,700,700italic%7CNoto%20Serif%20JP:300,300italic,400,400italic,700,700italic%7CNoto%20Serif%20SC:300,300italic,400,400italic,700,700italic%7CInconsolata:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+
+<link rel="stylesheet" href="/css/app.css?v=0.2.5">
+
+  
+  <meta name="keywords" content="leveldb,lsm-tree" />
+
+
+<link rel="canonical" href="https://qkgoalkeeper.github.io/computer-science/interview/middleware/Leveldb%E6%BA%90%E7%A0%81%E8%A7%A3%E8%AF%BB%EF%BC%884%EF%BC%89%EF%BC%9ALog%E6%A8%A1%E5%9D%97/">
+
+
+
+  <title>
+Leveldb源码解读（4）：Log模块 - 源码解读 - 计算机科学 |
+Kun Qian = Qkgoalkeeper's blog</title>
+<meta name="generator" content="Hexo 6.3.0"></head>
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div id="loading">
+    <div class="cat">
+      <div class="body"></div>
+      <div class="head">
+        <div class="face"></div>
+      </div>
+      <div class="foot">
+        <div class="tummy-end"></div>
+        <div class="bottom"></div>
+        <div class="legs left"></div>
+        <div class="legs right"></div>
+      </div>
+      <div class="paw">
+        <div class="hands left"></div>
+        <div class="hands right"></div>
+      </div>
+    </div>
+  </div>
+  <div id="container">
+    <header id="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="inner">
+        <div id="brand">
+          <div class="pjax">
+          
+  <h1 itemprop="name headline">Leveldb源码解读（4）：Log模块
+  </h1>
+  
+<div class="meta">
+  <span class="item" title="创建时间：2022-04-10 08:56:19">
+    <span class="icon">
+      <i class="ic i-calendar"></i>
+    </span>
+    <span class="text">发表于</span>
+    <time itemprop="dateCreated datePublished" datetime="2022-04-10T08:56:19+08:00">2022-04-10</time>
+  </span>
+</div>
+
+
+          </div>
+        </div>
+        <nav id="nav">
+  <div class="inner">
+    <div class="toggle">
+      <div class="lines" aria-label="切换导航栏">
+        <span class="line"></span>
+        <span class="line"></span>
+        <span class="line"></span>
+      </div>
+    </div>
+    <ul class="menu">
+      <li class="item title"><a href="/" rel="start">Kun Qian</a></li>
+    </ul>
+    <ul class="right">
+      <li class="item theme">
+        <i class="ic i-sun"></i>
+      </li>
+      <li class="item search">
+        <i class="ic i-search"></i>
+      </li>
+    </ul>
+  </div>
+</nav>
+
+      </div>
+      <div id="imgs" class="pjax">
+          <img src="https://cdn.jsdelivr.net/gh/qkgoalkeeper/blogImage@main/img/leveldb.png">
+      </div>
+    </header>
+    <div id="waves">
+      <svg class="waves" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 24 150 28" preserveAspectRatio="none" shape-rendering="auto">
+        <defs>
+          <path id="gentle-wave" d="M-160 44c30 0 58-18 88-18s 58 18 88 18 58-18 88-18 58 18 88 18 v44h-352z" />
+        </defs>
+        <g class="parallax">
+          <use xlink:href="#gentle-wave" x="48" y="0" />
+          <use xlink:href="#gentle-wave" x="48" y="3" />
+          <use xlink:href="#gentle-wave" x="48" y="5" />
+          <use xlink:href="#gentle-wave" x="48" y="7" />
+        </g>
+      </svg>
+    </div>
+    <main>
+      <div class="inner">
+        <div id="main" class="pjax">
+          
+  <div class="article wrap">
+    
+<div class="breadcrumb" itemscope itemtype="https://schema.org/BreadcrumbList">
+<i class="ic i-home"></i>
+<span><a href="/">首页</a></span><i class="ic i-angle-right"></i>
+<span  itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/categories/computer-science/" itemprop="item" rel="index" title="分类于 计算机科学"><span itemprop="name">计算机科学</span></a>
+<meta itemprop="position" content="1" /></span>
+<i class="ic i-angle-right"></i>
+<span  class="current" itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/categories/computer-science/%E6%BA%90%E7%A0%81%E8%A7%A3%E8%AF%BB/" itemprop="item" rel="index" title="分类于 源码解读"><span itemprop="name">源码解读</span></a>
+<meta itemprop="position" content="2" /></span>
+</div>
+
+    <article itemscope itemtype="http://schema.org/Article" class="post block" lang="zh-CN">
+  <link itemprop="mainEntityOfPage" href="https://qkgoalkeeper.github.io/computer-science/interview/middleware/Leveldb%E6%BA%90%E7%A0%81%E8%A7%A3%E8%AF%BB%EF%BC%884%EF%BC%89%EF%BC%9ALog%E6%A8%A1%E5%9D%97/">
+
+  <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <meta itemprop="image" content="/images/avatar.jpg">
+    <meta itemprop="name" content="Kun Qian">
+    <meta itemprop="description" content=", ">
+  </span>
+
+  <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="Qkgoalkeeper's blog">
+  </span>
+
+  <div class="body md" itemprop="articleBody">
+    
+
+    <h2 id="1-Log读写类"><a href="#1-Log读写类" class="headerlink" title="1.Log读写类"></a>1.Log读写类</h2><p>位置在：db&#x2F;log_writer.h、db&#x2F;log_reader.h</p>
+<p>writer的构造函数传的是writablefile指针，就是上一篇文章讲到的，所以log读写类本质上只是定义了log格式 （7字节的header+变长record）</p>
+<pre><code class="c++">class Writer &#123;
+ public:
+  // Create a writer that will append data to &quot;*dest&quot;.
+  // &quot;*dest&quot; must be initially empty.
+  // &quot;*dest&quot; must remain live while this Writer is in use.
+  explicit Writer(WritableFile* dest);
+
+  // Create a writer that will append data to &quot;*dest&quot;.
+  // &quot;*dest&quot; must have initial length &quot;dest_length&quot;.
+  // &quot;*dest&quot; must remain live while this Writer is in use.
+  Writer(WritableFile* dest, uint64_t dest_length);
+
+  Writer(const Writer&amp;) = delete;
+  Writer&amp; operator=(const Writer&amp;) = delete;
+
+  ~Writer();
+  Status AddRecord(const Slice&amp; slice);
+
+ private:
+  Status EmitPhysicalRecord(RecordType type, const char* ptr, size_t length);
+
+  WritableFile* dest_;
+  int block_offset_;  // Current offset in block
+
+  // crc32c values for all supported record types.  These are
+  // pre-computed to reduce the overhead of computing the crc of the
+  // record type stored in the header.
+  uint32_t type_crc_[kMaxRecordType + 1];
+&#125;;
+</code></pre>
+<p>reader的构造函数传的是SequentialFile指针，这同样在上一篇文章提及</p>
+<pre><code class="c++">class Reader &#123;
+ public:
+  // Interface for reporting errors.
+  class Reporter &#123;
+   public:
+    virtual ~Reporter();
+
+    // Some corruption was detected.  &quot;bytes&quot; is the approximate number
+    // of bytes dropped due to the corruption.
+    virtual void Corruption(size_t bytes, const Status&amp; status) = 0;
+  &#125;;
+
+  // Create a reader that will return log records from &quot;*file&quot;.
+  // &quot;*file&quot; must remain live while this Reader is in use.
+  //
+  // If &quot;reporter&quot; is non-null, it is notified whenever some data is
+  // dropped due to a detected corruption.  &quot;*reporter&quot; must remain
+  // live while this Reader is in use.
+  //
+  // If &quot;checksum&quot; is true, verify checksums if available.
+  //
+  // The Reader will start reading at the first record located at physical
+  // position &gt;= initial_offset within the file.
+  Reader(SequentialFile* file, Reporter* reporter, bool checksum,
+         uint64_t initial_offset);
+
+  Reader(const Reader&amp;) = delete;
+  Reader&amp; operator=(const Reader&amp;) = delete;
+
+  ~Reader();
+
+  // Read the next record into *record.  Returns true if read
+  // successfully, false if we hit end of the input.  May use
+  // &quot;*scratch&quot; as temporary storage.  The contents filled in *record
+  // will only be valid until the next mutating operation on this
+  // reader or the next mutation to *scratch.
+  bool ReadRecord(Slice* record, std::string* scratch);
+
+  // Returns the physical offset of the last record returned by ReadRecord.
+  //
+  // Undefined before the first call to ReadRecord.
+  uint64_t LastRecordOffset();
+
+ private:
+  // Extend record types with the following special values
+  enum &#123;
+    kEof = kMaxRecordType + 1,
+    // Returned whenever we find an invalid physical record.
+    // Currently there are three situations in which this happens:
+    // * The record has an invalid CRC (ReadPhysicalRecord reports a drop)
+    // * The record is a 0-length record (No drop is reported)
+    // * The record is below constructor&#39;s initial_offset (No drop is reported)
+    kBadRecord = kMaxRecordType + 2
+  &#125;;
+
+  // Skips all blocks that are completely before &quot;initial_offset_&quot;.
+  //
+  // Returns true on success. Handles reporting.
+  bool SkipToInitialBlock();
+
+  // Return type, or one of the preceding special values
+  unsigned int ReadPhysicalRecord(Slice* result);
+
+  // Reports dropped bytes to the reporter.
+  // buffer_ must be updated to remove the dropped bytes prior to invocation.
+  void ReportCorruption(uint64_t bytes, const char* reason);
+  void ReportDrop(uint64_t bytes, const Status&amp; reason);
+
+  SequentialFile* const file_;
+  Reporter* const reporter_;
+  bool const checksum_;
+  char* const backing_store_;
+  Slice buffer_;
+  bool eof_;  // Last Read() indicated EOF by returning &lt; kBlockSize
+
+  // Offset of the last record returned by ReadRecord.
+  uint64_t last_record_offset_;
+  // Offset of the first location past the end of buffer_.
+  uint64_t end_of_buffer_offset_;
+
+  // Offset at which to start looking for the first record to return
+  uint64_t const initial_offset_;
+
+  // True if we are resynchronizing after a seek (initial_offset_ &gt; 0). In
+  // particular, a run of kMiddleType and kLastType records can be silently
+  // skipped in this mode
+  bool resyncing_;
+&#125;;
+</code></pre>
+<h2 id="2-Log文件读写"><a href="#2-Log文件读写" class="headerlink" title="2.Log文件读写"></a>2.Log文件读写</h2><p>文件写位置在：db&#x2F;log_writer.h</p>
+<p>addrecord负责一条record的插入，log文件以块为单位大小为32768字节，每条记录有7字节的header，如果record大于块的最大大小则该条record会分入多个块中，每部分各有一个header其中会记录其type（kfulltype（不用分块），kfirsttype（分块的第一部分），kmiddletype（分块的中间部分），klasttype（分块的最后一个部分））</p>
+<pre><code class="c++">
+Status Writer::AddRecord(const Slice&amp; slice) &#123;
+  const char* ptr = slice.data();
+  size_t left = slice.size();
+
+  // Fragment the record if necessary and emit it.  Note that if slice
+  // is empty, we still want to iterate once to emit a single
+  // zero-length record
+  Status s;
+  bool begin = true;
+  do &#123;
+    const int leftover = kBlockSize - block_offset_;
+    assert(leftover &gt;= 0);
+    if (leftover &lt; kHeaderSize) &#123;
+      // Switch to a new block
+      if (leftover &gt; 0) &#123;
+        // Fill the trailer (literal below relies on kHeaderSize being 7)
+        static_assert(kHeaderSize == 7, &quot;&quot;);
+        dest_-&gt;Append(Slice(&quot;\x00\x00\x00\x00\x00\x00&quot;, leftover));
+      &#125;
+      block_offset_ = 0;
+    &#125;
+
+    // Invariant: we never leave &lt; kHeaderSize bytes in a block.
+    assert(kBlockSize - block_offset_ - kHeaderSize &gt;= 0);
+
+    const size_t avail = kBlockSize - block_offset_ - kHeaderSize;
+    const size_t fragment_length = (left &lt; avail) ? left : avail;
+
+    RecordType type;
+    const bool end = (left == fragment_length);
+    if (begin &amp;&amp; end) &#123;
+      type = kFullType;
+    &#125; else if (begin) &#123;
+      type = kFirstType;
+    &#125; else if (end) &#123;
+      type = kLastType;
+    &#125; else &#123;
+      type = kMiddleType;
+    &#125;
+
+    s = EmitPhysicalRecord(type, ptr, fragment_length);
+    ptr += fragment_length;
+    left -= fragment_length;
+    begin = false;
+  &#125; while (s.ok() &amp;&amp; left &gt; 0);
+  return s;
+&#125;
+</code></pre>
+<p>文件读取位置在db&#x2F;log_reader.h</p>
+<p>这里就注意一点，读取一条record也许覆盖多个块，因此string* scratch是个缓存区，如果多个块就把每个块的该record部分拼接在尾部</p>
+<pre><code class="c++">bool Reader::ReadRecord(Slice* record, std::string* scratch) &#123;
+  if (last_record_offset_ &lt; initial_offset_) &#123;
+    if (!SkipToInitialBlock()) &#123;
+      return false;
+    &#125;
+  &#125;
+
+  scratch-&gt;clear();
+  record-&gt;clear();
+  bool in_fragmented_record = false;
+  // Record offset of the logical record that we&#39;re reading
+  // 0 is a dummy value to make compilers happy
+  uint64_t prospective_record_offset = 0;
+
+  Slice fragment;
+  while (true) &#123;
+    const unsigned int record_type = ReadPhysicalRecord(&amp;fragment);
+
+    // ReadPhysicalRecord may have only had an empty trailer remaining in its
+    // internal buffer. Calculate the offset of the next physical record now
+    // that it has returned, properly accounting for its header size.
+    uint64_t physical_record_offset =
+        end_of_buffer_offset_ - buffer_.size() - kHeaderSize - fragment.size();
+
+    if (resyncing_) &#123;
+      if (record_type == kMiddleType) &#123;
+        continue;
+      &#125; else if (record_type == kLastType) &#123;
+        resyncing_ = false;
+        continue;
+      &#125; else &#123;
+        resyncing_ = false;
+      &#125;
+    &#125;
+
+    switch (record_type) &#123;
+      case kFullType:
+        if (in_fragmented_record) &#123;
+          // Handle bug in earlier versions of log::Writer where
+          // it could emit an empty kFirstType record at the tail end
+          // of a block followed by a kFullType or kFirstType record
+          // at the beginning of the next block.
+          if (!scratch-&gt;empty()) &#123;
+            ReportCorruption(scratch-&gt;size(), &quot;partial record without end(1)&quot;);
+          &#125;
+        &#125;
+        prospective_record_offset = physical_record_offset;
+        scratch-&gt;clear();
+        *record = fragment;
+        last_record_offset_ = prospective_record_offset;
+        return true;
+
+      case kFirstType:
+        if (in_fragmented_record) &#123;
+          // Handle bug in earlier versions of log::Writer where
+          // it could emit an empty kFirstType record at the tail end
+          // of a block followed by a kFullType or kFirstType record
+          // at the beginning of the next block.
+          if (!scratch-&gt;empty()) &#123;
+            ReportCorruption(scratch-&gt;size(), &quot;partial record without end(2)&quot;);
+          &#125;
+        &#125;
+        prospective_record_offset = physical_record_offset;
+        scratch-&gt;assign(fragment.data(), fragment.size());
+        in_fragmented_record = true;
+        break;
+
+      case kMiddleType:
+        if (!in_fragmented_record) &#123;
+          ReportCorruption(fragment.size(),
+                           &quot;missing start of fragmented record(1)&quot;);
+        &#125; else &#123;
+          scratch-&gt;append(fragment.data(), fragment.size());
+        &#125;
+        break;
+
+      case kLastType:
+        if (!in_fragmented_record) &#123;
+          ReportCorruption(fragment.size(),
+                           &quot;missing start of fragmented record(2)&quot;);
+        &#125; else &#123;
+          scratch-&gt;append(fragment.data(), fragment.size());
+          *record = Slice(*scratch);
+          last_record_offset_ = prospective_record_offset;
+          return true;
+        &#125;
+        break;
+
+      case kEof:
+        if (in_fragmented_record) &#123;
+          // This can be caused by the writer dying immediately after
+          // writing a physical record but before completing the next; don&#39;t
+          // treat it as a corruption, just ignore the entire logical record.
+          scratch-&gt;clear();
+        &#125;
+        return false;
+
+      case kBadRecord:
+        if (in_fragmented_record) &#123;
+          ReportCorruption(scratch-&gt;size(), &quot;error in middle of record&quot;);
+          in_fragmented_record = false;
+          scratch-&gt;clear();
+        &#125;
+        break;
+
+      default: &#123;
+        char buf[40];
+        std::snprintf(buf, sizeof(buf), &quot;unknown record type %u&quot;, record_type);
+        ReportCorruption(
+            (fragment.size() + (in_fragmented_record ? scratch-&gt;size() : 0)),
+            buf);
+        in_fragmented_record = false;
+        scratch-&gt;clear();
+        break;
+      &#125;
+    &#125;
+  &#125;
+  return false;
+&#125;
+</code></pre>
+<h2 id="3-Log文件恢复memtable"><a href="#3-Log文件恢复memtable" class="headerlink" title="3.Log文件恢复memtable"></a>3.Log文件恢复memtable</h2><p>位置在：db&#x2F;db_impl.h</p>
+<p>每个log文件对应当前的memtable，一旦memtable落盘说明已经持久化，log文件便随之删除，因此当leveldb重新启动时如果发现log文件非空说明这部分memtable数据没有持久化，所以需要从log文件恢复memtable，recoverlogfile函数实现了这一点，status &#x3D; WriteBatchInternal::InsertInto(&amp;batch, mem);这行表示输入一条record到memtable，里面具体最终调用的是memtable的add函数，memtable相关内容会在之后的文章补充</p>
+<pre><code class="c++">Status DBImpl::RecoverLogFile(uint64_t log_number, bool last_log,
+                              bool* save_manifest, VersionEdit* edit,
+                              SequenceNumber* max_sequence) &#123;
+  struct LogReporter : public log::Reader::Reporter &#123;
+    Env* env;
+    Logger* info_log;
+    const char* fname;
+    Status* status;  // null if options_.paranoid_checks==false
+    void Corruption(size_t bytes, const Status&amp; s) override &#123;
+      Log(info_log, &quot;%s%s: dropping %d bytes; %s&quot;,
+          (this-&gt;status == nullptr ? &quot;(ignoring error) &quot; : &quot;&quot;), fname,
+          static_cast&lt;int&gt;(bytes), s.ToString().c_str());
+      if (this-&gt;status != nullptr &amp;&amp; this-&gt;status-&gt;ok()) *this-&gt;status = s;
+    &#125;
+  &#125;;
+
+  mutex_.AssertHeld();
+
+  // Open the log file
+  std::string fname = LogFileName(dbname_, log_number);
+  SequentialFile* file;
+  Status status = env_-&gt;NewSequentialFile(fname, &amp;file);
+  if (!status.ok()) &#123;
+    MaybeIgnoreError(&amp;status);
+    return status;
+  &#125;
+
+  // Create the log reader.
+  LogReporter reporter;
+  reporter.env = env_;
+  reporter.info_log = options_.info_log;
+  reporter.fname = fname.c_str();
+  reporter.status = (options_.paranoid_checks ? &amp;status : nullptr);
+  // We intentionally make log::Reader do checksumming even if
+  // paranoid_checks==false so that corruptions cause entire commits
+  // to be skipped instead of propagating bad information (like overly
+  // large sequence numbers).
+  log::Reader reader(file, &amp;reporter, true /*checksum*/, 0 /*initial_offset*/);
+  Log(options_.info_log, &quot;Recovering log #%llu&quot;,
+      (unsigned long long)log_number);
+
+  // Read all the records and add to a memtable
+  std::string scratch;
+  Slice record;
+  WriteBatch batch;
+  int compactions = 0;
+  MemTable* mem = nullptr;
+  while (reader.ReadRecord(&amp;record, &amp;scratch) &amp;&amp; status.ok()) &#123;
+    if (record.size() &lt; 12) &#123;
+      reporter.Corruption(record.size(),
+                          Status::Corruption(&quot;log record too small&quot;));
+      continue;
+    &#125;
+    WriteBatchInternal::SetContents(&amp;batch, record);
+
+    if (mem == nullptr) &#123;
+      mem = new MemTable(internal_comparator_);
+      mem-&gt;Ref();
+    &#125;
+    status = WriteBatchInternal::InsertInto(&amp;batch, mem);
+    MaybeIgnoreError(&amp;status);
+    if (!status.ok()) &#123;
+      break;
+    &#125;
+    const SequenceNumber last_seq = WriteBatchInternal::Sequence(&amp;batch) +
+                                    WriteBatchInternal::Count(&amp;batch) - 1;
+    if (last_seq &gt; *max_sequence) &#123;
+      *max_sequence = last_seq;
+    &#125;
+
+    if (mem-&gt;ApproximateMemoryUsage() &gt; options_.write_buffer_size) &#123;
+      compactions++;
+      *save_manifest = true;
+      status = WriteLevel0Table(mem, edit, nullptr);
+      mem-&gt;Unref();
+      mem = nullptr;
+      if (!status.ok()) &#123;
+        // Reflect errors immediately so that conditions like full
+        // file-systems cause the DB::Open() to fail.
+        break;
+      &#125;
+    &#125;
+  &#125;
+
+  delete file;
+
+  // See if we should keep reusing the last log file.
+  if (status.ok() &amp;&amp; options_.reuse_logs &amp;&amp; last_log &amp;&amp; compactions == 0) &#123;
+    assert(logfile_ == nullptr);
+    assert(log_ == nullptr);
+    assert(mem_ == nullptr);
+    uint64_t lfile_size;
+    if (env_-&gt;GetFileSize(fname, &amp;lfile_size).ok() &amp;&amp;
+        env_-&gt;NewAppendableFile(fname, &amp;logfile_).ok()) &#123;
+      Log(options_.info_log, &quot;Reusing old log %s \n&quot;, fname.c_str());
+      log_ = new log::Writer(logfile_, lfile_size);
+      logfile_number_ = log_number;
+      if (mem != nullptr) &#123;
+        mem_ = mem;
+        mem = nullptr;
+      &#125; else &#123;
+        // mem can be nullptr if lognum exists but was empty.
+        mem_ = new MemTable(internal_comparator_);
+        mem_-&gt;Ref();
+      &#125;
+    &#125;
+  &#125;
+
+  if (mem != nullptr) &#123;
+    // mem did not get reused; compact it.
+    if (status.ok()) &#123;
+      *save_manifest = true;
+      status = WriteLevel0Table(mem, edit, nullptr);
+    &#125;
+    mem-&gt;Unref();
+  &#125;
+
+  return status;
+&#125;
+</code></pre>
+
+      <div class="tags">
+          <a href="/tags/leveldb/" rel="tag"><i class="ic i-tag"></i> leveldb</a>
+          <a href="/tags/lsm-tree/" rel="tag"><i class="ic i-tag"></i> lsm-tree</a>
+      </div>
+  </div>
+
+   <footer>
+
+    <div class="meta">
+  <span class="item">
+    <span class="icon">
+      <i class="ic i-calendar-check"></i>
+    </span>
+    <span class="text">更新于</span>
+    <time title="修改时间：2024-07-28 23:13:53" itemprop="dateModified" datetime="2024-07-28T23:13:53+08:00">2024-07-28</time>
+  </span>
+</div>
+
+      
+
+<div id="copyright">
+<ul>
+  <li class="author">
+    <strong>本文作者： </strong>Kun Qian <i class="ic i-at"><em>@</em></i>Qkgoalkeeper's blog
+  </li>
+  <li class="link">
+    <strong>本文链接：</strong>
+    <a href="https://qkgoalkeeper.github.io/computer-science/interview/middleware/Leveldb%E6%BA%90%E7%A0%81%E8%A7%A3%E8%AF%BB%EF%BC%884%EF%BC%89%EF%BC%9ALog%E6%A8%A1%E5%9D%97/" title="Leveldb源码解读（4）：Log模块">https://qkgoalkeeper.github.io/computer-science/interview/middleware/Leveldb源码解读（4）：Log模块/</a>
+  </li>
+  <li class="license">
+    <strong>版权声明： </strong>本站所有文章除特别声明外，均采用 <span class="exturl" data-url="aHR0cHM6Ly9jcmVhdGl2ZWNvbW1vbnMub3JnL2xpY2Vuc2VzL2J5LW5jLXNhLzQuMC9kZWVkLnpo"><i class="ic i-creative-commons"><em>(CC)</em></i>BY-NC-SA</span> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+  </footer>
+
+</article>
+
+  </div>
+  
+
+<div class="post-nav">
+    <div class="item left">
+      
+
+  <a href="/computer-science/interview/middleware/Leveldb%E6%BA%90%E7%A0%81%E8%A7%A3%E8%AF%BB%EF%BC%883%EF%BC%89%EF%BC%9A%E5%85%AC%E7%94%A8%E5%9F%BA%E7%A1%80%E7%B1%BB/" itemprop="url" rel="prev" data-background-image="https:&#x2F;&#x2F;cdn.jsdelivr.net&#x2F;gh&#x2F;qkgoalkeeper&#x2F;blogImage@main&#x2F;img&#x2F;leveldb.png" title="Leveldb源码解读（3）：公用基础类">
+  <span class="type">上一篇</span>
+  <span class="category"><i class="ic i-flag"></i> 源码解读</span>
+  <h3>Leveldb源码解读（3）：公用基础类</h3>
+  </a>
+
+    </div>
+    <div class="item right">
+      
+
+  <a href="/computer-science/interview/middleware/Leveldb%E6%BA%90%E7%A0%81%E8%A7%A3%E8%AF%BB%EF%BC%885%EF%BC%89%EF%BC%9AMemtable%E6%A8%A1%E5%9D%97/" itemprop="url" rel="next" data-background-image="https:&#x2F;&#x2F;cdn.jsdelivr.net&#x2F;gh&#x2F;qkgoalkeeper&#x2F;blogImage@main&#x2F;img&#x2F;leveldb.png" title="Leveldb源码解读（5）：Memtable模块">
+  <span class="type">下一篇</span>
+  <span class="category"><i class="ic i-flag"></i> 源码解读</span>
+  <h3>Leveldb源码解读（5）：Memtable模块</h3>
+  </a>
+
+    </div>
+</div>
+
+  
+  <div class="wrap" id="comments"></div>
+
+
+        </div>
+        <div id="sidebar">
+          
+
+<div class="inner">
+
+  <div class="panels">
+    <div class="inner">
+      <div class="contents panel pjax" data-title="文章目录">
+          <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-Log%E8%AF%BB%E5%86%99%E7%B1%BB"><span class="toc-number">1.</span> <span class="toc-text">1.Log读写类</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-Log%E6%96%87%E4%BB%B6%E8%AF%BB%E5%86%99"><span class="toc-number">2.</span> <span class="toc-text">2.Log文件读写</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-Log%E6%96%87%E4%BB%B6%E6%81%A2%E5%A4%8Dmemtable"><span class="toc-number">3.</span> <span class="toc-text">3.Log文件恢复memtable</span></a></li></ol>
+      </div>
+      <div class="related panel pjax" data-title="系列文章">
+        <ul>
+          <li><a href="/computer-science/interview/middleware/Leveldb%E6%BA%90%E7%A0%81%E8%A7%A3%E8%AF%BB%EF%BC%881%EF%BC%89%EF%BC%9A%E5%9F%BA%E6%9C%AC%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" rel="bookmark" title="Leveldb源码解读（1）：基本数据结构">Leveldb源码解读（1）：基本数据结构</a></li><li><a href="/computer-science/interview/middleware/Leveldb%E6%BA%90%E7%A0%81%E8%A7%A3%E8%AF%BB%EF%BC%882%EF%BC%89%EF%BC%9A%E6%80%BB%E4%BD%93%E6%9E%B6%E6%9E%84%E4%B8%8E%E8%AE%BE%E8%AE%A1%E6%80%9D%E6%83%B3%20-%20%E5%89%AF%E6%9C%AC/" rel="bookmark" title="Leveldb源码解读（2）：总体架构与设计思想">Leveldb源码解读（2）：总体架构与设计思想</a></li><li><a href="/computer-science/interview/middleware/Leveldb%E6%BA%90%E7%A0%81%E8%A7%A3%E8%AF%BB%EF%BC%883%EF%BC%89%EF%BC%9A%E5%85%AC%E7%94%A8%E5%9F%BA%E7%A1%80%E7%B1%BB/" rel="bookmark" title="Leveldb源码解读（3）：公用基础类">Leveldb源码解读（3）：公用基础类</a></li><li class="active"><a href="/computer-science/interview/middleware/Leveldb%E6%BA%90%E7%A0%81%E8%A7%A3%E8%AF%BB%EF%BC%884%EF%BC%89%EF%BC%9ALog%E6%A8%A1%E5%9D%97/" rel="bookmark" title="Leveldb源码解读（4）：Log模块">Leveldb源码解读（4）：Log模块</a></li><li><a href="/computer-science/interview/middleware/Leveldb%E6%BA%90%E7%A0%81%E8%A7%A3%E8%AF%BB%EF%BC%885%EF%BC%89%EF%BC%9AMemtable%E6%A8%A1%E5%9D%97/" rel="bookmark" title="Leveldb源码解读（5）：Memtable模块">Leveldb源码解读（5）：Memtable模块</a></li><li><a href="/computer-science/interview/middleware/Leveldb%E6%BA%90%E7%A0%81%E8%A7%A3%E8%AF%BB%EF%BC%886%EF%BC%89%EF%BC%9ASSTable%E6%A8%A1%E5%9D%97/" rel="bookmark" title="Leveldb源码解读（6）：SSTable模块">Leveldb源码解读（6）：SSTable模块</a></li>
+        </ul>
+      </div>
+      <div class="overview panel" data-title="站点概览">
+        <div class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <img class="image" itemprop="image" alt="Kun Qian"
+      data-src="/images/avatar.jpg">
+  <p class="name" itemprop="name">Kun Qian</p>
+  <div class="description" itemprop="description"></div>
+</div>
+
+<nav class="state">
+    <div class="item posts">
+      <a href="/archives/">
+        <span class="count">30</span>
+        <span class="name">文章</span>
+      </a>
+    </div>
+    <div class="item categories">
+      <a href="/categories/">
+        <span class="count">8</span>
+        <span class="name">分类</span>
+      </a>
+    </div>
+    <div class="item tags">
+      <a href="/tags/">
+        <span class="count">13</span>
+        <span class="name">标签</span>
+      </a>
+    </div>
+</nav>
+
+<div class="social">
+      <span class="exturl item github" data-url="aHR0cHM6Ly9naXRodWIuY29tL3FrZ29hbGtlZXBlcg==" title="https:&#x2F;&#x2F;github.com&#x2F;qkgoalkeeper"><i class="ic i-github"></i></span>
+      <span class="exturl item zhihu" data-url="aHR0cHM6Ly93d3cuemhpaHUuY29tL3Blb3BsZS9oYW8tbGFpLXd1LXNob3UtbWVuLXl1YW4=" title="https:&#x2F;&#x2F;www.zhihu.com&#x2F;people&#x2F;hao-lai-wu-shou-men-yuan"><i class="ic i-zhihu"></i></span>
+      <span class="exturl item music" data-url="aHR0cHM6Ly9tdXNpYy4xNjMuY29tLyMvdXNlci9ob21lP2lkPTM5MjU2NzE4Nw==" title="https:&#x2F;&#x2F;music.163.com&#x2F;#&#x2F;user&#x2F;home?id&#x3D;392567187"><i class="ic i-cloud-music"></i></span>
+      <a href="/about/" title="&#x2F;about&#x2F;" class="item about"><i class="ic i-address-card"></i></a>
+</div>
+
+<ul class="menu">
+  
+    
+  <li class="item">
+    <a href="/" rel="section"><i class="ic i-home"></i>首页</a>
+  </li>
+
+    
+  <li class="item">
+    <a href="/about/" rel="section"><i class="ic i-user"></i>关于</a>
+  </li>
+
+        
+  <li class="item dropdown">
+      <a href="javascript:void(0);"><i class="ic i-feather"></i>文章</a>
+    <ul class="submenu">
+
+        
+  <li class="item">
+    <a href="/archives/" rel="section"><i class="ic i-list-alt"></i>归档</a>
+  </li>
+
+        
+  <li class="item">
+    <a href="/categories/" rel="section"><i class="ic i-th"></i>分类</a>
+  </li>
+
+        
+  <li class="item">
+    <a href="/tags/" rel="section"><i class="ic i-tags"></i>标签</a>
+  </li>
+
+  </ul>
+    
+  <li class="item">
+    <a href="/friends/" rel="section"><i class="ic i-heart"></i>友達</a>
+  </li>
+
+
+</ul>
+
+      </div>
+    </div>
+  </div>
+
+  <ul id="quick">
+    <li class="prev pjax">
+        <a href="/computer-science/interview/middleware/Leveldb%E6%BA%90%E7%A0%81%E8%A7%A3%E8%AF%BB%EF%BC%883%EF%BC%89%EF%BC%9A%E5%85%AC%E7%94%A8%E5%9F%BA%E7%A1%80%E7%B1%BB/" rel="prev" title="上一篇"><i class="ic i-chevron-left"></i></a>
+    </li>
+    <li class="up"><i class="ic i-arrow-up"></i></li>
+    <li class="down"><i class="ic i-arrow-down"></i></li>
+    <li class="next pjax">
+        <a href="/computer-science/interview/middleware/Leveldb%E6%BA%90%E7%A0%81%E8%A7%A3%E8%AF%BB%EF%BC%885%EF%BC%89%EF%BC%9AMemtable%E6%A8%A1%E5%9D%97/" rel="next" title="下一篇"><i class="ic i-chevron-right"></i></a>
+    </li>
+    <li class="percent"></li>
+  </ul>
+</div>
+
+
+        </div>
+        <div class="dimmer"></div>
+      </div>
+    </main>
+    <footer id="footer">
+      <div class="inner">
+        <div class="widgets">
+          
+<div class="rpost pjax">
+  <h2>随机文章</h2>
+  <ul>
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/computer-science/" title="分类于 计算机科学">计算机科学</a>
+<i class="ic i-angle-right"></i>
+<a href="/categories/computer-science/leetcode/" title="分类于 Leetcode">Leetcode</a>
+<i class="ic i-angle-right"></i>
+<a href="/categories/computer-science/leetcode/offer2/" title="分类于 剑指offer">剑指offer</a>
+</div>
+
+    <span><a href="/computer-science/leetcode/offer2/LeetCode%E6%AF%8F%E6%97%A5%E7%BB%83%E4%B9%A0%EF%BC%9A%E5%89%91%E6%8C%87%20Offer%20II%20015.%20%E5%AD%97%E7%AC%A6%E4%B8%B2%E4%B8%AD%E7%9A%84%E6%89%80%E6%9C%89%E5%8F%98%E4%BD%8D%E8%AF%8D/" title="剑指 Offer II 015. 字符串中的所有变位词">剑指 Offer II 015. 字符串中的所有变位词</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/computer-science/" title="分类于 计算机科学">计算机科学</a>
+<i class="ic i-angle-right"></i>
+<a href="/categories/computer-science/study/" title="分类于 研究生学习">研究生学习</a>
+<i class="ic i-angle-right"></i>
+<a href="/categories/computer-science/study/paper/" title="分类于 论文源码解读">论文源码解读</a>
+</div>
+
+    <span><a href="/computer-science/study/paper/RAMBO%E6%BA%90%E7%A0%81%E8%A7%A3%E8%AF%BB/" title="RAMBO源码解读">RAMBO源码解读</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/computer-science/" title="分类于 计算机科学">计算机科学</a>
+<i class="ic i-angle-right"></i>
+<a href="/categories/computer-science/leetcode/" title="分类于 Leetcode">Leetcode</a>
+<i class="ic i-angle-right"></i>
+<a href="/categories/computer-science/leetcode/%E7%AE%97%E6%B3%95%E9%A2%98%E6%80%9D%E8%B7%AF/" title="分类于 算法题思路">算法题思路</a>
+</div>
+
+    <span><a href="/computer-science/leetcode/algorithm/Leetcode%E4%B8%AD%E7%AD%89%E9%A2%98%E6%80%9D%E8%B7%AF(301-400)/" title="Leetcode中等题思路（1-100）">Leetcode中等题思路（1-100）</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/computer-science/" title="分类于 计算机科学">计算机科学</a>
+<i class="ic i-angle-right"></i>
+<a href="/categories/computer-science/leetcode/" title="分类于 Leetcode">Leetcode</a>
+<i class="ic i-angle-right"></i>
+<a href="/categories/computer-science/leetcode/offer2/" title="分类于 剑指offer">剑指offer</a>
+</div>
+
+    <span><a href="/computer-science/leetcode/offer2/LeetCode%E6%AF%8F%E6%97%A5%E7%BB%83%E4%B9%A0%EF%BC%9A%E5%89%91%E6%8C%87%20Offer%20II%20007.%20%E6%95%B0%E7%BB%84%E4%B8%AD%E5%92%8C%E4%B8%BA%200%20%E7%9A%84%E4%B8%89%E4%B8%AA%E6%95%B0/" title="剑指 Offer II 007. 数组中和为 0 的三个数">剑指 Offer II 007. 数组中和为 0 的三个数</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/computer-science/" title="分类于 计算机科学">计算机科学</a>
+<i class="ic i-angle-right"></i>
+<a href="/categories/computer-science/leetcode/" title="分类于 Leetcode">Leetcode</a>
+<i class="ic i-angle-right"></i>
+<a href="/categories/computer-science/leetcode/%E7%AE%97%E6%B3%95%E9%A2%98%E6%80%9D%E8%B7%AF/" title="分类于 算法题思路">算法题思路</a>
+</div>
+
+    <span><a href="/computer-science/leetcode/algorithm/Leetcode%E4%B8%AD%E7%AD%89%E9%A2%98%E6%80%9D%E8%B7%AF%EF%BC%881-100%EF%BC%89/" title="Leetcode中等题思路（1-100）">Leetcode中等题思路（1-100）</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/computer-science/" title="分类于 计算机科学">计算机科学</a>
+<i class="ic i-angle-right"></i>
+<a href="/categories/computer-science/leetcode/" title="分类于 Leetcode">Leetcode</a>
+<i class="ic i-angle-right"></i>
+<a href="/categories/computer-science/leetcode/offer2/" title="分类于 剑指offer">剑指offer</a>
+</div>
+
+    <span><a href="/computer-science/leetcode/offer2/LeetCode%E6%AF%8F%E6%97%A5%E7%BB%83%E4%B9%A0%EF%BC%9A%E5%89%91%E6%8C%87%20Offer%20II%20004.%20%E5%8F%AA%E5%87%BA%E7%8E%B0%E4%B8%80%E6%AC%A1%E7%9A%84%E6%95%B0%E5%AD%97/" title="剑指 Offer II 004. 只出现一次的数字">剑指 Offer II 004. 只出现一次的数字</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/computer-science/" title="分类于 计算机科学">计算机科学</a>
+<i class="ic i-angle-right"></i>
+<a href="/categories/computer-science/%E6%BA%90%E7%A0%81%E8%A7%A3%E8%AF%BB/" title="分类于 源码解读">源码解读</a>
+</div>
+
+    <span><a href="/computer-science/interview/middleware/Leveldb%E6%BA%90%E7%A0%81%E8%A7%A3%E8%AF%BB%EF%BC%885%EF%BC%89%EF%BC%9AMemtable%E6%A8%A1%E5%9D%97/" title="Leveldb源码解读（5）：Memtable模块">Leveldb源码解读（5）：Memtable模块</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/computer-science/" title="分类于 计算机科学">计算机科学</a>
+<i class="ic i-angle-right"></i>
+<a href="/categories/computer-science/leetcode/" title="分类于 Leetcode">Leetcode</a>
+<i class="ic i-angle-right"></i>
+<a href="/categories/computer-science/leetcode/%E7%AE%97%E6%B3%95%E9%A2%98%E6%80%9D%E8%B7%AF/" title="分类于 算法题思路">算法题思路</a>
+</div>
+
+    <span><a href="/computer-science/leetcode/algorithm/Leetcode%E4%B8%AD%E7%AD%89%E9%A2%98%E6%80%9D%E8%B7%AF(201-300)/" title="Leetcode中等题思路（201-300）">Leetcode中等题思路（201-300）</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/computer-science/" title="分类于 计算机科学">计算机科学</a>
+<i class="ic i-angle-right"></i>
+<a href="/categories/computer-science/leetcode/" title="分类于 Leetcode">Leetcode</a>
+<i class="ic i-angle-right"></i>
+<a href="/categories/computer-science/leetcode/offer2/" title="分类于 剑指offer">剑指offer</a>
+</div>
+
+    <span><a href="/computer-science/leetcode/offer2/LeetCode%E6%AF%8F%E6%97%A5%E7%BB%83%E4%B9%A0%EF%BC%9A%E5%89%91%E6%8C%87%20Offer%20II%20003.%20%E5%89%8D%20n%20%E4%B8%AA%E6%95%B0%E5%AD%97%E4%BA%8C%E8%BF%9B%E5%88%B6%E4%B8%AD%201%20%E7%9A%84%E4%B8%AA%E6%95%B0/" title="剑指 Offer II 003. 前 n 个数字二进制中 1 的个数">剑指 Offer II 003. 前 n 个数字二进制中 1 的个数</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/computer-science/" title="分类于 计算机科学">计算机科学</a>
+<i class="ic i-angle-right"></i>
+<a href="/categories/computer-science/leetcode/" title="分类于 Leetcode">Leetcode</a>
+<i class="ic i-angle-right"></i>
+<a href="/categories/computer-science/leetcode/offer2/" title="分类于 剑指offer">剑指offer</a>
+</div>
+
+    <span><a href="/computer-science/leetcode/offer2/LeetCode%E6%AF%8F%E6%97%A5%E7%BB%83%E4%B9%A0%EF%BC%9A%E5%89%91%E6%8C%87%20Offer%20II%20014.%20%E5%AD%97%E7%AC%A6%E4%B8%B2%E4%B8%AD%E7%9A%84%E5%8F%98%E4%BD%8D%E8%AF%8D/" title="剑指 Offer II 014. 字符串中的变位词">剑指 Offer II 014. 字符串中的变位词</a></span>
+  </li>
+
+  </ul>
+</div>
+
+        </div>
+        <div class="status">
+  <div class="copyright">
+    
+    &copy; 2020 – 
+    <span itemprop="copyrightYear">2024</span>
+    <span class="with-love">
+      <i class="ic i-sakura rotate"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">Kun Qian @ Kun Qian</span>
+  </div>
+  <div class="powered-by">
+    基于 <span class="exturl" data-url="aHR0cHM6Ly9oZXhvLmlv">Hexo</span> & Theme.<span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL2FtZWhpbWUvaGV4by10aGVtZS1zaG9rYQ==">Shoka</span>
+  </div>
+</div>
+
+      </div>
+    </footer>
+  </div>
+<script data-config type="text/javascript">
+  var LOCAL = {
+    path: 'computer-science/interview/middleware/Leveldb源码解读（4）：Log模块/',
+    favicon: {
+      show: "qkgoalkeeper's blog",
+      hide: "qkgoalkeeper's blog"
+    },
+    search : {
+      placeholder: "文章搜索",
+      empty: "关于 「 ${query} 」，什么也没搜到",
+      stats: "${time} ms 内找到 ${hits} 条结果"
+    },
+    valine: true,fancybox: true,
+    copyright: '复制成功，转载请遵守 <i class="ic i-creative-commons"></i>BY-NC-SA 协议。',
+    ignores : [
+      function(uri) {
+        return uri.includes('#');
+      },
+      function(uri) {
+        return new RegExp(LOCAL.path+"$").test(uri);
+      }
+    ]
+  };
+</script>
+
+<script src="https://cdn.polyfill.io/v2/polyfill.js"></script>
+
+<script src="//cdn.jsdelivr.net/combine/npm/pace-js@1.0.2/pace.min.js,npm/pjax@0.2.8/pjax.min.js,npm/whatwg-fetch@3.4.0/dist/fetch.umd.min.js,npm/animejs@3.2.0/lib/anime.min.js,npm/algoliasearch@4/dist/algoliasearch-lite.umd.js,npm/instantsearch.js@4/dist/instantsearch.production.min.js,npm/lozad@1/dist/lozad.min.js,npm/quicklink@2/dist/quicklink.umd.js"></script>
+
+<script src="/js/app.js?v=0.2.5"></script>
+
+
+
+
+</body>
+</html>

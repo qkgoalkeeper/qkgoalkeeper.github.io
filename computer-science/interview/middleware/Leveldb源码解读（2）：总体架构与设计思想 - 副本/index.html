@@ -1,0 +1,767 @@
+
+
+
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#FFF">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+
+<link rel="icon" type="image/ico" sizes="32x32" href="/images/favicon.ico">
+  <link rel="mask-icon" href="/images/logo.svg" color="">
+  <link rel="manifest" href="/images/manifest.json">
+  <meta name="msapplication-config" content="/images/browserconfig.xml">
+  <meta http-equiv="Cache-Control" content="no-transform">
+  <meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+<link rel="alternate" type="application/rss+xml" title="Qkgoalkeeper's blog" href="https://qkgoalkeeper.github.io/rss.xml" />
+<link rel="alternate" type="application/atom+xml" title="Qkgoalkeeper's blog" href="https://qkgoalkeeper.github.io/atom.xml" />
+<link rel="alternate" type="application/json" title="Qkgoalkeeper's blog" href="https://qkgoalkeeper.github.io/feed.json" />
+
+<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Mulish:300,300italic,400,400italic,700,700italic%7CFredericka%20the%20Great:300,300italic,400,400italic,700,700italic%7CNoto%20Serif%20JP:300,300italic,400,400italic,700,700italic%7CNoto%20Serif%20SC:300,300italic,400,400italic,700,700italic%7CInconsolata:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+
+<link rel="stylesheet" href="/css/app.css?v=0.2.5">
+
+  
+  <meta name="keywords" content="leveldb,lsm-tree" />
+
+
+<link rel="canonical" href="https://qkgoalkeeper.github.io/computer-science/interview/middleware/Leveldb%E6%BA%90%E7%A0%81%E8%A7%A3%E8%AF%BB%EF%BC%882%EF%BC%89%EF%BC%9A%E6%80%BB%E4%BD%93%E6%9E%B6%E6%9E%84%E4%B8%8E%E8%AE%BE%E8%AE%A1%E6%80%9D%E6%83%B3%20-%20%E5%89%AF%E6%9C%AC/">
+
+
+
+  <title>
+Leveldb源码解读（2）：总体架构与设计思想 - 源码解读 - 计算机科学 |
+Kun Qian = Qkgoalkeeper's blog</title>
+<meta name="generator" content="Hexo 6.3.0"></head>
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div id="loading">
+    <div class="cat">
+      <div class="body"></div>
+      <div class="head">
+        <div class="face"></div>
+      </div>
+      <div class="foot">
+        <div class="tummy-end"></div>
+        <div class="bottom"></div>
+        <div class="legs left"></div>
+        <div class="legs right"></div>
+      </div>
+      <div class="paw">
+        <div class="hands left"></div>
+        <div class="hands right"></div>
+      </div>
+    </div>
+  </div>
+  <div id="container">
+    <header id="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="inner">
+        <div id="brand">
+          <div class="pjax">
+          
+  <h1 itemprop="name headline">Leveldb源码解读（2）：总体架构与设计思想
+  </h1>
+  
+<div class="meta">
+  <span class="item" title="创建时间：2022-02-19 08:56:19">
+    <span class="icon">
+      <i class="ic i-calendar"></i>
+    </span>
+    <span class="text">发表于</span>
+    <time itemprop="dateCreated datePublished" datetime="2022-02-19T08:56:19+08:00">2022-02-19</time>
+  </span>
+</div>
+
+
+          </div>
+        </div>
+        <nav id="nav">
+  <div class="inner">
+    <div class="toggle">
+      <div class="lines" aria-label="切换导航栏">
+        <span class="line"></span>
+        <span class="line"></span>
+        <span class="line"></span>
+      </div>
+    </div>
+    <ul class="menu">
+      <li class="item title"><a href="/" rel="start">Kun Qian</a></li>
+    </ul>
+    <ul class="right">
+      <li class="item theme">
+        <i class="ic i-sun"></i>
+      </li>
+      <li class="item search">
+        <i class="ic i-search"></i>
+      </li>
+    </ul>
+  </div>
+</nav>
+
+      </div>
+      <div id="imgs" class="pjax">
+          <img src="https://cdn.jsdelivr.net/gh/qkgoalkeeper/blogImage@main/img/leveldb.png">
+      </div>
+    </header>
+    <div id="waves">
+      <svg class="waves" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 24 150 28" preserveAspectRatio="none" shape-rendering="auto">
+        <defs>
+          <path id="gentle-wave" d="M-160 44c30 0 58-18 88-18s 58 18 88 18 58-18 88-18 58 18 88 18 v44h-352z" />
+        </defs>
+        <g class="parallax">
+          <use xlink:href="#gentle-wave" x="48" y="0" />
+          <use xlink:href="#gentle-wave" x="48" y="3" />
+          <use xlink:href="#gentle-wave" x="48" y="5" />
+          <use xlink:href="#gentle-wave" x="48" y="7" />
+        </g>
+      </svg>
+    </div>
+    <main>
+      <div class="inner">
+        <div id="main" class="pjax">
+          
+  <div class="article wrap">
+    
+<div class="breadcrumb" itemscope itemtype="https://schema.org/BreadcrumbList">
+<i class="ic i-home"></i>
+<span><a href="/">首页</a></span><i class="ic i-angle-right"></i>
+<span  itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/categories/computer-science/" itemprop="item" rel="index" title="分类于 计算机科学"><span itemprop="name">计算机科学</span></a>
+<meta itemprop="position" content="1" /></span>
+<i class="ic i-angle-right"></i>
+<span  class="current" itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/categories/computer-science/%E6%BA%90%E7%A0%81%E8%A7%A3%E8%AF%BB/" itemprop="item" rel="index" title="分类于 源码解读"><span itemprop="name">源码解读</span></a>
+<meta itemprop="position" content="2" /></span>
+</div>
+
+    <article itemscope itemtype="http://schema.org/Article" class="post block" lang="zh-CN">
+  <link itemprop="mainEntityOfPage" href="https://qkgoalkeeper.github.io/computer-science/interview/middleware/Leveldb%E6%BA%90%E7%A0%81%E8%A7%A3%E8%AF%BB%EF%BC%882%EF%BC%89%EF%BC%9A%E6%80%BB%E4%BD%93%E6%9E%B6%E6%9E%84%E4%B8%8E%E8%AE%BE%E8%AE%A1%E6%80%9D%E6%83%B3%20-%20%E5%89%AF%E6%9C%AC/">
+
+  <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <meta itemprop="image" content="/images/avatar.jpg">
+    <meta itemprop="name" content="Kun Qian">
+    <meta itemprop="description" content=", ">
+  </span>
+
+  <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="Qkgoalkeeper's blog">
+  </span>
+
+  <div class="body md" itemprop="articleBody">
+    
+
+    <h2 id="1-数据库Open流程分析"><a href="#1-数据库Open流程分析" class="headerlink" title="1.数据库Open流程分析"></a>1.数据库Open流程分析</h2><p>位置在：db&#x2F;db_impl.cc</p>
+<p>初始化dbimpl对象</p>
+<p>尝试对dbimpl进行recover恢复</p>
+<p>判断memtable是否为空（为空就创建新的log、memtable）</p>
+<p>判断是否需要保存manifest文件，是就更新manifest</p>
+<p>如果一切都成功，就删除过时文件尝试compaction操作</p>
+<pre><code class="c++">
+Status DB::Open(const Options&amp; options, const std::string&amp; dbname, DB** dbptr) &#123;
+  *dbptr = nullptr;
+
+  DBImpl* impl = new DBImpl(options, dbname);
+  impl-&gt;mutex_.Lock();
+  VersionEdit edit;
+  // Recover handles create_if_missing, error_if_exists
+  bool save_manifest = false;
+  Status s = impl-&gt;Recover(&amp;edit, &amp;save_manifest);
+  if (s.ok() &amp;&amp; impl-&gt;mem_ == nullptr) &#123;
+    // Create new log and a corresponding memtable.
+    uint64_t new_log_number = impl-&gt;versions_-&gt;NewFileNumber();
+    WritableFile* lfile;
+    s = options.env-&gt;NewWritableFile(LogFileName(dbname, new_log_number),
+                                     &amp;lfile);
+    if (s.ok()) &#123;
+      edit.SetLogNumber(new_log_number);
+      impl-&gt;logfile_ = lfile;
+      impl-&gt;logfile_number_ = new_log_number;
+      impl-&gt;log_ = new log::Writer(lfile);
+      impl-&gt;mem_ = new MemTable(impl-&gt;internal_comparator_);
+      impl-&gt;mem_-&gt;Ref();
+    &#125;
+  &#125;
+  if (s.ok() &amp;&amp; save_manifest) &#123;
+    edit.SetPrevLogNumber(0);  // No older logs needed after recovery.
+    edit.SetLogNumber(impl-&gt;logfile_number_);
+    s = impl-&gt;versions_-&gt;LogAndApply(&amp;edit, &amp;impl-&gt;mutex_);
+  &#125;
+  if (s.ok()) &#123;
+    impl-&gt;RemoveObsoleteFiles();
+    impl-&gt;MaybeScheduleCompaction();
+  &#125;
+  impl-&gt;mutex_.Unlock();
+  if (s.ok()) &#123;
+    assert(impl-&gt;mem_ != nullptr);
+    *dbptr = impl;
+  &#125; else &#123;
+    delete impl;
+  &#125;
+  return s;
+&#125;
+</code></pre>
+<h2 id="2-数据Get流程分析"><a href="#2-数据Get流程分析" class="headerlink" title="2.数据Get流程分析"></a>2.数据Get流程分析</h2><p>位置在：db&#x2F;db_impl.cc</p>
+<p>获取get操作对应的sequencenumber</p>
+<p>根据key和sequencenumber构造lookupkey</p>
+<p>从memtable查询</p>
+<p>从immutable memtable查询</p>
+<p>从sstable文件查询</p>
+<pre><code class="c++">
+Status DBImpl::Get(const ReadOptions&amp; options, const Slice&amp; key,
+                   std::string* value) &#123;
+  Status s;
+  MutexLock l(&amp;mutex_);
+  SequenceNumber snapshot;
+  if (options.snapshot != nullptr) &#123;
+    snapshot =
+        static_cast&lt;const SnapshotImpl*&gt;(options.snapshot)-&gt;sequence_number();
+  &#125; else &#123;
+    snapshot = versions_-&gt;LastSequence();
+  &#125;
+
+  MemTable* mem = mem_;
+  MemTable* imm = imm_;
+  Version* current = versions_-&gt;current();
+  mem-&gt;Ref();
+  if (imm != nullptr) imm-&gt;Ref();
+  current-&gt;Ref();
+
+  bool have_stat_update = false;
+  Version::GetStats stats;
+
+  // Unlock while reading from files and memtables
+  &#123;
+    mutex_.Unlock();
+    // First look in the memtable, then in the immutable memtable (if any).
+    LookupKey lkey(key, snapshot);
+    if (mem-&gt;Get(lkey, value, &amp;s)) &#123;
+      // Done
+    &#125; else if (imm != nullptr &amp;&amp; imm-&gt;Get(lkey, value, &amp;s)) &#123;
+      // Done
+    &#125; else &#123;
+      s = current-&gt;Get(options, lkey, value, &amp;stats);
+      have_stat_update = true;
+    &#125;
+    mutex_.Lock();
+  &#125;
+
+  if (have_stat_update &amp;&amp; current-&gt;UpdateStats(stats)) &#123;
+    MaybeScheduleCompaction();
+  &#125;
+  mem-&gt;Unref();
+  if (imm != nullptr) imm-&gt;Unref();
+  current-&gt;Unref();
+  return s;
+&#125;
+</code></pre>
+<h2 id="3-数据Put与Write流程分析"><a href="#3-数据Put与Write流程分析" class="headerlink" title="3.数据Put与Write流程分析"></a>3.数据Put与Write流程分析</h2><p>位置在：db&#x2F;db_impl.cc</p>
+<p>put包括插入修改删除操作，write是批量操作，或者说看下面代码put就是只有一个数据的write</p>
+<pre><code class="c++">Status DB::Put(const WriteOptions&amp; opt, const Slice&amp; key, const Slice&amp; value) &#123;
+  WriteBatch batch;
+  batch.Put(key, value);
+  return Write(opt, &amp;batch);
+&#125;
+</code></pre>
+<p>所以这边主要看write操作</p>
+<p>构建write对象插入队列</p>
+<p>等待队列前面执行完毕</p>
+<p>预先分配内存空间</p>
+<p>写入log文件</p>
+<p>更新memtable</p>
+<p>更新sequencenumber</p>
+<p>发送signal信号通知该线程执行完毕</p>
+<p><strong>提示：多线程编程中的wait和signal</strong></p>
+<p>这是c++多线程的用法，信号量唤醒或者阻塞线程</p>
+<pre><code class="c++">Status DBImpl::Write(const WriteOptions&amp; options, WriteBatch* updates) &#123;
+  Writer w(&amp;mutex_);
+  w.batch = updates;
+  w.sync = options.sync;
+  w.done = false;
+
+  MutexLock l(&amp;mutex_);
+  writers_.push_back(&amp;w);
+  while (!w.done &amp;&amp; &amp;w != writers_.front()) &#123;
+    w.cv.Wait();
+  &#125;
+  if (w.done) &#123;
+    return w.status;
+  &#125;
+
+  // May temporarily unlock and wait.
+  Status status = MakeRoomForWrite(updates == nullptr);
+  uint64_t last_sequence = versions_-&gt;LastSequence();
+  Writer* last_writer = &amp;w;
+  if (status.ok() &amp;&amp; updates != nullptr) &#123;  // nullptr batch is for compactions
+    WriteBatch* write_batch = BuildBatchGroup(&amp;last_writer);
+    WriteBatchInternal::SetSequence(write_batch, last_sequence + 1);
+    last_sequence += WriteBatchInternal::Count(write_batch);
+
+    // Add to log and apply to memtable.  We can release the lock
+    // during this phase since &amp;w is currently responsible for logging
+    // and protects against concurrent loggers and concurrent writes
+    // into mem_.
+    &#123;
+      mutex_.Unlock();
+      status = log_-&gt;AddRecord(WriteBatchInternal::Contents(write_batch));
+      bool sync_error = false;
+      if (status.ok() &amp;&amp; options.sync) &#123;
+        status = logfile_-&gt;Sync();
+        if (!status.ok()) &#123;
+          sync_error = true;
+        &#125;
+      &#125;
+      if (status.ok()) &#123;
+        status = WriteBatchInternal::InsertInto(write_batch, mem_);
+      &#125;
+      mutex_.Lock();
+      if (sync_error) &#123;
+        // The state of the log file is indeterminate: the log record we
+        // just added may or may not show up when the DB is re-opened.
+        // So we force the DB into a mode where all future writes fail.
+        RecordBackgroundError(status);
+      &#125;
+    &#125;
+    if (write_batch == tmp_batch_) tmp_batch_-&gt;Clear();
+
+    versions_-&gt;SetLastSequence(last_sequence);
+  &#125;
+
+  while (true) &#123;
+    Writer* ready = writers_.front();
+    writers_.pop_front();
+    if (ready != &amp;w) &#123;
+      ready-&gt;status = status;
+      ready-&gt;done = true;
+      ready-&gt;cv.Signal();
+    &#125;
+    if (ready == last_writer) break;
+  &#125;
+
+  // Notify new head of write queue
+  if (!writers_.empty()) &#123;
+    writers_.front()-&gt;cv.Signal();
+  &#125;
+
+  return status;
+&#125;
+</code></pre>
+<h2 id="4-快照生成"><a href="#4-快照生成" class="headerlink" title="4.快照生成"></a>4.快照生成</h2><p>位置在：db&#x2F;snapshot.h （虚类在include&#x2F;leveldb&#x2F;db.h）</p>
+<p>leveldb实际采用多版本并发控制MVCC，快照并不是对所有数据进行完整物理空间备份，而是保存备份时的序列号，快照添加后，该快照对应的数据将不受到compaction的影响，为了保持快照一致性</p>
+<pre><code class="c++">
+class LEVELDB_EXPORT Snapshot &#123;
+ protected:
+  virtual ~Snapshot();
+&#125;;
+
+
+
+class SnapshotImpl : public Snapshot &#123;
+ public:
+  SnapshotImpl(SequenceNumber sequence_number)
+      : sequence_number_(sequence_number) &#123;&#125;
+
+  SequenceNumber sequence_number() const &#123; return sequence_number_; &#125;
+
+ private:
+  friend class SnapshotList;
+
+  // SnapshotImpl is kept in a doubly-linked circular list. The SnapshotList
+  // implementation operates on the next/previous fields directly.
+  SnapshotImpl* prev_;
+  SnapshotImpl* next_;
+
+  const SequenceNumber sequence_number_;
+
+#if !defined(NDEBUG)
+  SnapshotList* list_ = nullptr;
+#endif  // !defined(NDEBUG)
+&#125;;
+</code></pre>
+
+      <div class="tags">
+          <a href="/tags/leveldb/" rel="tag"><i class="ic i-tag"></i> leveldb</a>
+          <a href="/tags/lsm-tree/" rel="tag"><i class="ic i-tag"></i> lsm-tree</a>
+      </div>
+  </div>
+
+   <footer>
+
+    <div class="meta">
+  <span class="item">
+    <span class="icon">
+      <i class="ic i-calendar-check"></i>
+    </span>
+    <span class="text">更新于</span>
+    <time title="修改时间：2024-07-25 22:06:07" itemprop="dateModified" datetime="2024-07-25T22:06:07+08:00">2024-07-25</time>
+  </span>
+</div>
+
+      
+
+<div id="copyright">
+<ul>
+  <li class="author">
+    <strong>本文作者： </strong>Kun Qian <i class="ic i-at"><em>@</em></i>Qkgoalkeeper's blog
+  </li>
+  <li class="link">
+    <strong>本文链接：</strong>
+    <a href="https://qkgoalkeeper.github.io/computer-science/interview/middleware/Leveldb%E6%BA%90%E7%A0%81%E8%A7%A3%E8%AF%BB%EF%BC%882%EF%BC%89%EF%BC%9A%E6%80%BB%E4%BD%93%E6%9E%B6%E6%9E%84%E4%B8%8E%E8%AE%BE%E8%AE%A1%E6%80%9D%E6%83%B3%20-%20%E5%89%AF%E6%9C%AC/" title="Leveldb源码解读（2）：总体架构与设计思想">https://qkgoalkeeper.github.io/computer-science/interview/middleware/Leveldb源码解读（2）：总体架构与设计思想 - 副本/</a>
+  </li>
+  <li class="license">
+    <strong>版权声明： </strong>本站所有文章除特别声明外，均采用 <span class="exturl" data-url="aHR0cHM6Ly9jcmVhdGl2ZWNvbW1vbnMub3JnL2xpY2Vuc2VzL2J5LW5jLXNhLzQuMC9kZWVkLnpo"><i class="ic i-creative-commons"><em>(CC)</em></i>BY-NC-SA</span> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+  </footer>
+
+</article>
+
+  </div>
+  
+
+<div class="post-nav">
+    <div class="item left">
+      
+
+  <a href="/computer-science/leetcode/offer2/LeetCode%E6%AF%8F%E6%97%A5%E7%BB%83%E4%B9%A0%EF%BC%9A%E5%89%91%E6%8C%87%20Offer%20II%20017.%20%E5%90%AB%E6%9C%89%E6%89%80%E6%9C%89%E5%AD%97%E7%AC%A6%E7%9A%84%E6%9C%80%E7%9F%AD%E5%AD%97%E7%AC%A6%E4%B8%B2/" itemprop="url" rel="prev" data-background-image="https:&#x2F;&#x2F;cdn.jsdelivr.net&#x2F;gh&#x2F;qkgoalkeeper&#x2F;blogImage@main&#x2F;img&#x2F;leetcode.png" title="剑指 Offer II 017. 含有所有字符的最短字符串">
+  <span class="type">上一篇</span>
+  <span class="category"><i class="ic i-flag"></i> 剑指offer</span>
+  <h3>剑指 Offer II 017. 含有所有字符的最短字符串</h3>
+  </a>
+
+    </div>
+    <div class="item right">
+      
+
+  <a href="/computer-science/interview/middleware/Leveldb%E6%BA%90%E7%A0%81%E8%A7%A3%E8%AF%BB%EF%BC%883%EF%BC%89%EF%BC%9A%E5%85%AC%E7%94%A8%E5%9F%BA%E7%A1%80%E7%B1%BB/" itemprop="url" rel="next" data-background-image="https:&#x2F;&#x2F;cdn.jsdelivr.net&#x2F;gh&#x2F;qkgoalkeeper&#x2F;blogImage@main&#x2F;img&#x2F;leveldb.png" title="Leveldb源码解读（3）：公用基础类">
+  <span class="type">下一篇</span>
+  <span class="category"><i class="ic i-flag"></i> 源码解读</span>
+  <h3>Leveldb源码解读（3）：公用基础类</h3>
+  </a>
+
+    </div>
+</div>
+
+  
+  <div class="wrap" id="comments"></div>
+
+
+        </div>
+        <div id="sidebar">
+          
+
+<div class="inner">
+
+  <div class="panels">
+    <div class="inner">
+      <div class="contents panel pjax" data-title="文章目录">
+          <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-%E6%95%B0%E6%8D%AE%E5%BA%93Open%E6%B5%81%E7%A8%8B%E5%88%86%E6%9E%90"><span class="toc-number">1.</span> <span class="toc-text">1.数据库Open流程分析</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-%E6%95%B0%E6%8D%AEGet%E6%B5%81%E7%A8%8B%E5%88%86%E6%9E%90"><span class="toc-number">2.</span> <span class="toc-text">2.数据Get流程分析</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-%E6%95%B0%E6%8D%AEPut%E4%B8%8EWrite%E6%B5%81%E7%A8%8B%E5%88%86%E6%9E%90"><span class="toc-number">3.</span> <span class="toc-text">3.数据Put与Write流程分析</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-%E5%BF%AB%E7%85%A7%E7%94%9F%E6%88%90"><span class="toc-number">4.</span> <span class="toc-text">4.快照生成</span></a></li></ol>
+      </div>
+      <div class="related panel pjax" data-title="系列文章">
+        <ul>
+          <li><a href="/computer-science/interview/middleware/Leveldb%E6%BA%90%E7%A0%81%E8%A7%A3%E8%AF%BB%EF%BC%881%EF%BC%89%EF%BC%9A%E5%9F%BA%E6%9C%AC%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" rel="bookmark" title="Leveldb源码解读（1）：基本数据结构">Leveldb源码解读（1）：基本数据结构</a></li><li class="active"><a href="/computer-science/interview/middleware/Leveldb%E6%BA%90%E7%A0%81%E8%A7%A3%E8%AF%BB%EF%BC%882%EF%BC%89%EF%BC%9A%E6%80%BB%E4%BD%93%E6%9E%B6%E6%9E%84%E4%B8%8E%E8%AE%BE%E8%AE%A1%E6%80%9D%E6%83%B3%20-%20%E5%89%AF%E6%9C%AC/" rel="bookmark" title="Leveldb源码解读（2）：总体架构与设计思想">Leveldb源码解读（2）：总体架构与设计思想</a></li><li><a href="/computer-science/interview/middleware/Leveldb%E6%BA%90%E7%A0%81%E8%A7%A3%E8%AF%BB%EF%BC%883%EF%BC%89%EF%BC%9A%E5%85%AC%E7%94%A8%E5%9F%BA%E7%A1%80%E7%B1%BB/" rel="bookmark" title="Leveldb源码解读（3）：公用基础类">Leveldb源码解读（3）：公用基础类</a></li><li><a href="/computer-science/interview/middleware/Leveldb%E6%BA%90%E7%A0%81%E8%A7%A3%E8%AF%BB%EF%BC%884%EF%BC%89%EF%BC%9ALog%E6%A8%A1%E5%9D%97/" rel="bookmark" title="Leveldb源码解读（4）：Log模块">Leveldb源码解读（4）：Log模块</a></li><li><a href="/computer-science/interview/middleware/Leveldb%E6%BA%90%E7%A0%81%E8%A7%A3%E8%AF%BB%EF%BC%885%EF%BC%89%EF%BC%9AMemtable%E6%A8%A1%E5%9D%97/" rel="bookmark" title="Leveldb源码解读（5）：Memtable模块">Leveldb源码解读（5）：Memtable模块</a></li><li><a href="/computer-science/interview/middleware/Leveldb%E6%BA%90%E7%A0%81%E8%A7%A3%E8%AF%BB%EF%BC%886%EF%BC%89%EF%BC%9ASSTable%E6%A8%A1%E5%9D%97/" rel="bookmark" title="Leveldb源码解读（6）：SSTable模块">Leveldb源码解读（6）：SSTable模块</a></li>
+        </ul>
+      </div>
+      <div class="overview panel" data-title="站点概览">
+        <div class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <img class="image" itemprop="image" alt="Kun Qian"
+      data-src="/images/avatar.jpg">
+  <p class="name" itemprop="name">Kun Qian</p>
+  <div class="description" itemprop="description"></div>
+</div>
+
+<nav class="state">
+    <div class="item posts">
+      <a href="/archives/">
+        <span class="count">30</span>
+        <span class="name">文章</span>
+      </a>
+    </div>
+    <div class="item categories">
+      <a href="/categories/">
+        <span class="count">8</span>
+        <span class="name">分类</span>
+      </a>
+    </div>
+    <div class="item tags">
+      <a href="/tags/">
+        <span class="count">13</span>
+        <span class="name">标签</span>
+      </a>
+    </div>
+</nav>
+
+<div class="social">
+      <span class="exturl item github" data-url="aHR0cHM6Ly9naXRodWIuY29tL3FrZ29hbGtlZXBlcg==" title="https:&#x2F;&#x2F;github.com&#x2F;qkgoalkeeper"><i class="ic i-github"></i></span>
+      <span class="exturl item zhihu" data-url="aHR0cHM6Ly93d3cuemhpaHUuY29tL3Blb3BsZS9oYW8tbGFpLXd1LXNob3UtbWVuLXl1YW4=" title="https:&#x2F;&#x2F;www.zhihu.com&#x2F;people&#x2F;hao-lai-wu-shou-men-yuan"><i class="ic i-zhihu"></i></span>
+      <span class="exturl item music" data-url="aHR0cHM6Ly9tdXNpYy4xNjMuY29tLyMvdXNlci9ob21lP2lkPTM5MjU2NzE4Nw==" title="https:&#x2F;&#x2F;music.163.com&#x2F;#&#x2F;user&#x2F;home?id&#x3D;392567187"><i class="ic i-cloud-music"></i></span>
+      <a href="/about/" title="&#x2F;about&#x2F;" class="item about"><i class="ic i-address-card"></i></a>
+</div>
+
+<ul class="menu">
+  
+    
+  <li class="item">
+    <a href="/" rel="section"><i class="ic i-home"></i>首页</a>
+  </li>
+
+    
+  <li class="item">
+    <a href="/about/" rel="section"><i class="ic i-user"></i>关于</a>
+  </li>
+
+        
+  <li class="item dropdown">
+      <a href="javascript:void(0);"><i class="ic i-feather"></i>文章</a>
+    <ul class="submenu">
+
+        
+  <li class="item">
+    <a href="/archives/" rel="section"><i class="ic i-list-alt"></i>归档</a>
+  </li>
+
+        
+  <li class="item">
+    <a href="/categories/" rel="section"><i class="ic i-th"></i>分类</a>
+  </li>
+
+        
+  <li class="item">
+    <a href="/tags/" rel="section"><i class="ic i-tags"></i>标签</a>
+  </li>
+
+  </ul>
+    
+  <li class="item">
+    <a href="/friends/" rel="section"><i class="ic i-heart"></i>友達</a>
+  </li>
+
+
+</ul>
+
+      </div>
+    </div>
+  </div>
+
+  <ul id="quick">
+    <li class="prev pjax">
+        <a href="/computer-science/leetcode/offer2/LeetCode%E6%AF%8F%E6%97%A5%E7%BB%83%E4%B9%A0%EF%BC%9A%E5%89%91%E6%8C%87%20Offer%20II%20017.%20%E5%90%AB%E6%9C%89%E6%89%80%E6%9C%89%E5%AD%97%E7%AC%A6%E7%9A%84%E6%9C%80%E7%9F%AD%E5%AD%97%E7%AC%A6%E4%B8%B2/" rel="prev" title="上一篇"><i class="ic i-chevron-left"></i></a>
+    </li>
+    <li class="up"><i class="ic i-arrow-up"></i></li>
+    <li class="down"><i class="ic i-arrow-down"></i></li>
+    <li class="next pjax">
+        <a href="/computer-science/interview/middleware/Leveldb%E6%BA%90%E7%A0%81%E8%A7%A3%E8%AF%BB%EF%BC%883%EF%BC%89%EF%BC%9A%E5%85%AC%E7%94%A8%E5%9F%BA%E7%A1%80%E7%B1%BB/" rel="next" title="下一篇"><i class="ic i-chevron-right"></i></a>
+    </li>
+    <li class="percent"></li>
+  </ul>
+</div>
+
+
+        </div>
+        <div class="dimmer"></div>
+      </div>
+    </main>
+    <footer id="footer">
+      <div class="inner">
+        <div class="widgets">
+          
+<div class="rpost pjax">
+  <h2>随机文章</h2>
+  <ul>
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/computer-science/" title="分类于 计算机科学">计算机科学</a>
+<i class="ic i-angle-right"></i>
+<a href="/categories/computer-science/leetcode/" title="分类于 Leetcode">Leetcode</a>
+<i class="ic i-angle-right"></i>
+<a href="/categories/computer-science/leetcode/offer2/" title="分类于 剑指offer">剑指offer</a>
+</div>
+
+    <span><a href="/computer-science/leetcode/offer2/LeetCode%E6%AF%8F%E6%97%A5%E7%BB%83%E4%B9%A0%EF%BC%9A%E5%89%91%E6%8C%87%20Offer%20II%20007.%20%E6%95%B0%E7%BB%84%E4%B8%AD%E5%92%8C%E4%B8%BA%200%20%E7%9A%84%E4%B8%89%E4%B8%AA%E6%95%B0/" title="剑指 Offer II 007. 数组中和为 0 的三个数">剑指 Offer II 007. 数组中和为 0 的三个数</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/computer-science/" title="分类于 计算机科学">计算机科学</a>
+<i class="ic i-angle-right"></i>
+<a href="/categories/computer-science/%E6%BA%90%E7%A0%81%E8%A7%A3%E8%AF%BB/" title="分类于 源码解读">源码解读</a>
+</div>
+
+    <span><a href="/computer-science/interview/middleware/Leveldb%E6%BA%90%E7%A0%81%E8%A7%A3%E8%AF%BB%EF%BC%884%EF%BC%89%EF%BC%9ALog%E6%A8%A1%E5%9D%97/" title="Leveldb源码解读（4）：Log模块">Leveldb源码解读（4）：Log模块</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/computer-science/" title="分类于 计算机科学">计算机科学</a>
+<i class="ic i-angle-right"></i>
+<a href="/categories/computer-science/leetcode/" title="分类于 Leetcode">Leetcode</a>
+<i class="ic i-angle-right"></i>
+<a href="/categories/computer-science/leetcode/offer2/" title="分类于 剑指offer">剑指offer</a>
+</div>
+
+    <span><a href="/computer-science/leetcode/offer2/LeetCode%E6%AF%8F%E6%97%A5%E7%BB%83%E4%B9%A0%EF%BC%9A%E5%89%91%E6%8C%87%20Offer%20II%20006.%20%E6%8E%92%E5%BA%8F%E6%95%B0%E7%BB%84%E4%B8%AD%E4%B8%A4%E4%B8%AA%E6%95%B0%E5%AD%97%E4%B9%8B%E5%92%8C/" title="剑指 Offer II 006. 排序数组中两个数字之和">剑指 Offer II 006. 排序数组中两个数字之和</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/computer-science/" title="分类于 计算机科学">计算机科学</a>
+<i class="ic i-angle-right"></i>
+<a href="/categories/computer-science/leetcode/" title="分类于 Leetcode">Leetcode</a>
+<i class="ic i-angle-right"></i>
+<a href="/categories/computer-science/leetcode/%E7%AE%97%E6%B3%95%E9%A2%98%E6%80%9D%E8%B7%AF/" title="分类于 算法题思路">算法题思路</a>
+</div>
+
+    <span><a href="/computer-science/leetcode/algorithm/Leetcode%E4%B8%AD%E7%AD%89%E9%A2%98%E6%80%9D%E8%B7%AF%EF%BC%881-100%EF%BC%89/" title="Leetcode中等题思路（1-100）">Leetcode中等题思路（1-100）</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/computer-science/" title="分类于 计算机科学">计算机科学</a>
+<i class="ic i-angle-right"></i>
+<a href="/categories/computer-science/leetcode/" title="分类于 Leetcode">Leetcode</a>
+<i class="ic i-angle-right"></i>
+<a href="/categories/computer-science/leetcode/offer2/" title="分类于 剑指offer">剑指offer</a>
+</div>
+
+    <span><a href="/computer-science/leetcode/offer2/LeetCode%E6%AF%8F%E6%97%A5%E7%BB%83%E4%B9%A0%EF%BC%9A%E5%89%91%E6%8C%87%20Offer%20II%20004.%20%E5%8F%AA%E5%87%BA%E7%8E%B0%E4%B8%80%E6%AC%A1%E7%9A%84%E6%95%B0%E5%AD%97/" title="剑指 Offer II 004. 只出现一次的数字">剑指 Offer II 004. 只出现一次的数字</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/computer-science/" title="分类于 计算机科学">计算机科学</a>
+<i class="ic i-angle-right"></i>
+<a href="/categories/computer-science/leetcode/" title="分类于 Leetcode">Leetcode</a>
+<i class="ic i-angle-right"></i>
+<a href="/categories/computer-science/leetcode/offer2/" title="分类于 剑指offer">剑指offer</a>
+</div>
+
+    <span><a href="/computer-science/leetcode/offer2/LeetCode%E6%AF%8F%E6%97%A5%E7%BB%83%E4%B9%A0%EF%BC%9A%E5%89%91%E6%8C%87%20Offer%20II%20015.%20%E5%AD%97%E7%AC%A6%E4%B8%B2%E4%B8%AD%E7%9A%84%E6%89%80%E6%9C%89%E5%8F%98%E4%BD%8D%E8%AF%8D/" title="剑指 Offer II 015. 字符串中的所有变位词">剑指 Offer II 015. 字符串中的所有变位词</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/computer-science/" title="分类于 计算机科学">计算机科学</a>
+<i class="ic i-angle-right"></i>
+<a href="/categories/computer-science/leetcode/" title="分类于 Leetcode">Leetcode</a>
+<i class="ic i-angle-right"></i>
+<a href="/categories/computer-science/leetcode/offer2/" title="分类于 剑指offer">剑指offer</a>
+</div>
+
+    <span><a href="/computer-science/leetcode/offer2/LeetCode%E6%AF%8F%E6%97%A5%E7%BB%83%E4%B9%A0%EF%BC%9A%E5%89%91%E6%8C%87%20Offer%20II%20011.%200%20%E5%92%8C%201%20%E4%B8%AA%E6%95%B0%E7%9B%B8%E5%90%8C%E7%9A%84%E5%AD%90%E6%95%B0%E7%BB%84/" title="剑指 Offer II 011. 0 和 1 个数相同的子数组">剑指 Offer II 011. 0 和 1 个数相同的子数组</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/computer-science/" title="分类于 计算机科学">计算机科学</a>
+<i class="ic i-angle-right"></i>
+<a href="/categories/computer-science/leetcode/" title="分类于 Leetcode">Leetcode</a>
+<i class="ic i-angle-right"></i>
+<a href="/categories/computer-science/leetcode/%E7%AE%97%E6%B3%95%E9%A2%98%E6%80%9D%E8%B7%AF/" title="分类于 算法题思路">算法题思路</a>
+</div>
+
+    <span><a href="/computer-science/leetcode/algorithm/Leetcode%E4%B8%AD%E7%AD%89%E9%A2%98%E6%80%9D%E8%B7%AF(301-400)/" title="Leetcode中等题思路（1-100）">Leetcode中等题思路（1-100）</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/computer-science/" title="分类于 计算机科学">计算机科学</a>
+<i class="ic i-angle-right"></i>
+<a href="/categories/computer-science/leetcode/" title="分类于 Leetcode">Leetcode</a>
+<i class="ic i-angle-right"></i>
+<a href="/categories/computer-science/leetcode/offer2/" title="分类于 剑指offer">剑指offer</a>
+</div>
+
+    <span><a href="/computer-science/leetcode/offer2/LeetCode%E6%AF%8F%E6%97%A5%E7%BB%83%E4%B9%A0%EF%BC%9A%E5%89%91%E6%8C%87%20Offer%20II%20008.%20%E5%92%8C%E5%A4%A7%E4%BA%8E%E7%AD%89%E4%BA%8E%20target%20%E7%9A%84%E6%9C%80%E7%9F%AD%E5%AD%90%E6%95%B0%E7%BB%84/" title="剑指 Offer II 008. 和大于等于 target 的最短子数组">剑指 Offer II 008. 和大于等于 target 的最短子数组</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/computer-science/" title="分类于 计算机科学">计算机科学</a>
+<i class="ic i-angle-right"></i>
+<a href="/categories/computer-science/%E6%BA%90%E7%A0%81%E8%A7%A3%E8%AF%BB/" title="分类于 源码解读">源码解读</a>
+</div>
+
+    <span><a href="/computer-science/interview/middleware/Leveldb%E6%BA%90%E7%A0%81%E8%A7%A3%E8%AF%BB%EF%BC%885%EF%BC%89%EF%BC%9AMemtable%E6%A8%A1%E5%9D%97/" title="Leveldb源码解读（5）：Memtable模块">Leveldb源码解读（5）：Memtable模块</a></span>
+  </li>
+
+  </ul>
+</div>
+
+        </div>
+        <div class="status">
+  <div class="copyright">
+    
+    &copy; 2020 – 
+    <span itemprop="copyrightYear">2024</span>
+    <span class="with-love">
+      <i class="ic i-sakura rotate"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">Kun Qian @ Kun Qian</span>
+  </div>
+  <div class="powered-by">
+    基于 <span class="exturl" data-url="aHR0cHM6Ly9oZXhvLmlv">Hexo</span> & Theme.<span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL2FtZWhpbWUvaGV4by10aGVtZS1zaG9rYQ==">Shoka</span>
+  </div>
+</div>
+
+      </div>
+    </footer>
+  </div>
+<script data-config type="text/javascript">
+  var LOCAL = {
+    path: 'computer-science/interview/middleware/Leveldb源码解读（2）：总体架构与设计思想 - 副本/',
+    favicon: {
+      show: "qkgoalkeeper's blog",
+      hide: "qkgoalkeeper's blog"
+    },
+    search : {
+      placeholder: "文章搜索",
+      empty: "关于 「 ${query} 」，什么也没搜到",
+      stats: "${time} ms 内找到 ${hits} 条结果"
+    },
+    valine: true,fancybox: true,
+    copyright: '复制成功，转载请遵守 <i class="ic i-creative-commons"></i>BY-NC-SA 协议。',
+    ignores : [
+      function(uri) {
+        return uri.includes('#');
+      },
+      function(uri) {
+        return new RegExp(LOCAL.path+"$").test(uri);
+      }
+    ]
+  };
+</script>
+
+<script src="https://cdn.polyfill.io/v2/polyfill.js"></script>
+
+<script src="//cdn.jsdelivr.net/combine/npm/pace-js@1.0.2/pace.min.js,npm/pjax@0.2.8/pjax.min.js,npm/whatwg-fetch@3.4.0/dist/fetch.umd.min.js,npm/animejs@3.2.0/lib/anime.min.js,npm/algoliasearch@4/dist/algoliasearch-lite.umd.js,npm/instantsearch.js@4/dist/instantsearch.production.min.js,npm/lozad@1/dist/lozad.min.js,npm/quicklink@2/dist/quicklink.umd.js"></script>
+
+<script src="/js/app.js?v=0.2.5"></script>
+
+
+
+
+</body>
+</html>

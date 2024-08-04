@@ -1,0 +1,1082 @@
+
+
+
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#FFF">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+
+<link rel="icon" type="image/ico" sizes="32x32" href="/images/favicon.ico">
+  <link rel="mask-icon" href="/images/logo.svg" color="">
+  <link rel="manifest" href="/images/manifest.json">
+  <meta name="msapplication-config" content="/images/browserconfig.xml">
+  <meta http-equiv="Cache-Control" content="no-transform">
+  <meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+<link rel="alternate" type="application/rss+xml" title="Qkgoalkeeper's blog" href="https://qkgoalkeeper.github.io/rss.xml" />
+<link rel="alternate" type="application/atom+xml" title="Qkgoalkeeper's blog" href="https://qkgoalkeeper.github.io/atom.xml" />
+<link rel="alternate" type="application/json" title="Qkgoalkeeper's blog" href="https://qkgoalkeeper.github.io/feed.json" />
+
+<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Mulish:300,300italic,400,400italic,700,700italic%7CFredericka%20the%20Great:300,300italic,400,400italic,700,700italic%7CNoto%20Serif%20JP:300,300italic,400,400italic,700,700italic%7CNoto%20Serif%20SC:300,300italic,400,400italic,700,700italic%7CInconsolata:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+
+<link rel="stylesheet" href="/css/app.css?v=0.2.5">
+
+  
+  <meta name="keywords" content="leveldb,lsm-tree" />
+
+
+<link rel="canonical" href="https://qkgoalkeeper.github.io/computer-science/interview/middleware/Leveldb%E6%BA%90%E7%A0%81%E8%A7%A3%E8%AF%BB%EF%BC%883%EF%BC%89%EF%BC%9A%E5%85%AC%E7%94%A8%E5%9F%BA%E7%A1%80%E7%B1%BB/">
+
+
+
+  <title>
+Leveldb源码解读（3）：公用基础类 - 源码解读 - 计算机科学 |
+Kun Qian = Qkgoalkeeper's blog</title>
+<meta name="generator" content="Hexo 6.3.0"></head>
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div id="loading">
+    <div class="cat">
+      <div class="body"></div>
+      <div class="head">
+        <div class="face"></div>
+      </div>
+      <div class="foot">
+        <div class="tummy-end"></div>
+        <div class="bottom"></div>
+        <div class="legs left"></div>
+        <div class="legs right"></div>
+      </div>
+      <div class="paw">
+        <div class="hands left"></div>
+        <div class="hands right"></div>
+      </div>
+    </div>
+  </div>
+  <div id="container">
+    <header id="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="inner">
+        <div id="brand">
+          <div class="pjax">
+          
+  <h1 itemprop="name headline">Leveldb源码解读（3）：公用基础类
+  </h1>
+  
+<div class="meta">
+  <span class="item" title="创建时间：2022-03-25 08:56:19">
+    <span class="icon">
+      <i class="ic i-calendar"></i>
+    </span>
+    <span class="text">发表于</span>
+    <time itemprop="dateCreated datePublished" datetime="2022-03-25T08:56:19+08:00">2022-03-25</time>
+  </span>
+</div>
+
+
+          </div>
+        </div>
+        <nav id="nav">
+  <div class="inner">
+    <div class="toggle">
+      <div class="lines" aria-label="切换导航栏">
+        <span class="line"></span>
+        <span class="line"></span>
+        <span class="line"></span>
+      </div>
+    </div>
+    <ul class="menu">
+      <li class="item title"><a href="/" rel="start">Kun Qian</a></li>
+    </ul>
+    <ul class="right">
+      <li class="item theme">
+        <i class="ic i-sun"></i>
+      </li>
+      <li class="item search">
+        <i class="ic i-search"></i>
+      </li>
+    </ul>
+  </div>
+</nav>
+
+      </div>
+      <div id="imgs" class="pjax">
+          <img src="https://cdn.jsdelivr.net/gh/qkgoalkeeper/blogImage@main/img/leveldb.png">
+      </div>
+    </header>
+    <div id="waves">
+      <svg class="waves" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 24 150 28" preserveAspectRatio="none" shape-rendering="auto">
+        <defs>
+          <path id="gentle-wave" d="M-160 44c30 0 58-18 88-18s 58 18 88 18 58-18 88-18 58 18 88 18 v44h-352z" />
+        </defs>
+        <g class="parallax">
+          <use xlink:href="#gentle-wave" x="48" y="0" />
+          <use xlink:href="#gentle-wave" x="48" y="3" />
+          <use xlink:href="#gentle-wave" x="48" y="5" />
+          <use xlink:href="#gentle-wave" x="48" y="7" />
+        </g>
+      </svg>
+    </div>
+    <main>
+      <div class="inner">
+        <div id="main" class="pjax">
+          
+  <div class="article wrap">
+    
+<div class="breadcrumb" itemscope itemtype="https://schema.org/BreadcrumbList">
+<i class="ic i-home"></i>
+<span><a href="/">首页</a></span><i class="ic i-angle-right"></i>
+<span  itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/categories/computer-science/" itemprop="item" rel="index" title="分类于 计算机科学"><span itemprop="name">计算机科学</span></a>
+<meta itemprop="position" content="1" /></span>
+<i class="ic i-angle-right"></i>
+<span  class="current" itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/categories/computer-science/%E6%BA%90%E7%A0%81%E8%A7%A3%E8%AF%BB/" itemprop="item" rel="index" title="分类于 源码解读"><span itemprop="name">源码解读</span></a>
+<meta itemprop="position" content="2" /></span>
+</div>
+
+    <article itemscope itemtype="http://schema.org/Article" class="post block" lang="zh-CN">
+  <link itemprop="mainEntityOfPage" href="https://qkgoalkeeper.github.io/computer-science/interview/middleware/Leveldb%E6%BA%90%E7%A0%81%E8%A7%A3%E8%AF%BB%EF%BC%883%EF%BC%89%EF%BC%9A%E5%85%AC%E7%94%A8%E5%9F%BA%E7%A1%80%E7%B1%BB/">
+
+  <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <meta itemprop="image" content="/images/avatar.jpg">
+    <meta itemprop="name" content="Kun Qian">
+    <meta itemprop="description" content=", ">
+  </span>
+
+  <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="Qkgoalkeeper's blog">
+  </span>
+
+  <div class="body md" itemprop="articleBody">
+    
+
+    <h2 id="1-文件操作"><a href="#1-文件操作" class="headerlink" title="1.文件操作"></a>1.文件操作</h2><p>位置在：util&#x2F;env_posix.cc （以posix系统为例，基类Env同样是虚类，PosixEnv是其具体实现，还有还有别的如Windows版本的）</p>
+<p>注意文件读取在多环境下并不线程安全，需要开发者调用时采取外部手段</p>
+<p>文件顺序读如下：</p>
+<p>read从文件当前位置读取指定字节数，skip为从当前位置跳过指定字节数</p>
+<pre><code class="c++">class PosixSequentialFile final : public SequentialFile &#123;
+ public:
+  PosixSequentialFile(std::string filename, int fd)
+      : fd_(fd), filename_(std::move(filename)) &#123;&#125;
+  ~PosixSequentialFile() override &#123; close(fd_); &#125;
+
+  Status Read(size_t n, Slice* result, char* scratch) override &#123;
+    Status status;
+    while (true) &#123;
+      ::ssize_t read_size = ::read(fd_, scratch, n);
+      if (read_size &lt; 0) &#123;  // Read error.
+        if (errno == EINTR) &#123;
+          continue;  // Retry
+        &#125;
+        status = PosixError(filename_, errno);
+        break;
+      &#125;
+      *result = Slice(scratch, read_size);
+      break;
+    &#125;
+    return status;
+  &#125;
+
+  Status Skip(uint64_t n) override &#123;
+    if (::lseek(fd_, n, SEEK_CUR) == static_cast&lt;off_t&gt;(-1)) &#123;
+      return PosixError(filename_, errno);
+    &#125;
+    return Status::OK();
+  &#125;
+
+ private:
+  const int fd_;
+  const std::string filename_;
+&#125;;
+</code></pre>
+<p>文件顺序写如下：</p>
+<p>append顺序写、close关闭、flush刷入内核缓冲区，sync才是真正写入磁盘</p>
+<pre><code class="c++">class PosixWritableFile final : public WritableFile &#123;
+ public:
+  PosixWritableFile(std::string filename, int fd)
+      : pos_(0),
+        fd_(fd),
+        is_manifest_(IsManifest(filename)),
+        filename_(std::move(filename)),
+        dirname_(Dirname(filename_)) &#123;&#125;
+
+  ~PosixWritableFile() override &#123;
+    if (fd_ &gt;= 0) &#123;
+      // Ignoring any potential errors
+      Close();
+    &#125;
+  &#125;
+
+  Status Append(const Slice&amp; data) override &#123;
+    size_t write_size = data.size();
+    const char* write_data = data.data();
+
+    // Fit as much as possible into buffer.
+    size_t copy_size = std::min(write_size, kWritableFileBufferSize - pos_);
+    std::memcpy(buf_ + pos_, write_data, copy_size);
+    write_data += copy_size;
+    write_size -= copy_size;
+    pos_ += copy_size;
+    if (write_size == 0) &#123;
+      return Status::OK();
+    &#125;
+
+    // Can&#39;t fit in buffer, so need to do at least one write.
+    Status status = FlushBuffer();
+    if (!status.ok()) &#123;
+      return status;
+    &#125;
+
+    // Small writes go to buffer, large writes are written directly.
+    if (write_size &lt; kWritableFileBufferSize) &#123;
+      std::memcpy(buf_, write_data, write_size);
+      pos_ = write_size;
+      return Status::OK();
+    &#125;
+    return WriteUnbuffered(write_data, write_size);
+  &#125;
+
+  Status Close() override &#123;
+    Status status = FlushBuffer();
+    const int close_result = ::close(fd_);
+    if (close_result &lt; 0 &amp;&amp; status.ok()) &#123;
+      status = PosixError(filename_, errno);
+    &#125;
+    fd_ = -1;
+    return status;
+  &#125;
+
+  Status Flush() override &#123; return FlushBuffer(); &#125;
+
+  Status Sync() override &#123;
+    // Ensure new files referred to by the manifest are in the filesystem.
+    //
+    // This needs to happen before the manifest file is flushed to disk, to
+    // avoid crashing in a state where the manifest refers to files that are not
+    // yet on disk.
+    Status status = SyncDirIfManifest();
+    if (!status.ok()) &#123;
+      return status;
+    &#125;
+
+    status = FlushBuffer();
+    if (!status.ok()) &#123;
+      return status;
+    &#125;
+
+    return SyncFd(fd_, filename_);
+  &#125;
+
+ private:
+  Status FlushBuffer() &#123;
+    Status status = WriteUnbuffered(buf_, pos_);
+    pos_ = 0;
+    return status;
+  &#125;
+
+  Status WriteUnbuffered(const char* data, size_t size) &#123;
+    while (size &gt; 0) &#123;
+      ssize_t write_result = ::write(fd_, data, size);
+      if (write_result &lt; 0) &#123;
+        if (errno == EINTR) &#123;
+          continue;  // Retry
+        &#125;
+        return PosixError(filename_, errno);
+      &#125;
+      data += write_result;
+      size -= write_result;
+    &#125;
+    return Status::OK();
+  &#125;
+
+  Status SyncDirIfManifest() &#123;
+    Status status;
+    if (!is_manifest_) &#123;
+      return status;
+    &#125;
+
+    int fd = ::open(dirname_.c_str(), O_RDONLY | kOpenBaseFlags);
+    if (fd &lt; 0) &#123;
+      status = PosixError(dirname_, errno);
+    &#125; else &#123;
+      status = SyncFd(fd, dirname_);
+      ::close(fd);
+    &#125;
+    return status;
+  &#125;
+
+  // Ensures that all the caches associated with the given file descriptor&#39;s
+  // data are flushed all the way to durable media, and can withstand power
+  // failures.
+  //
+  // The path argument is only used to populate the description string in the
+  // returned Status if an error occurs.
+  static Status SyncFd(int fd, const std::string&amp; fd_path) &#123;
+#if HAVE_FULLFSYNC
+    // On macOS and iOS, fsync() doesn&#39;t guarantee durability past power
+    // failures. fcntl(F_FULLFSYNC) is required for that purpose. Some
+    // filesystems don&#39;t support fcntl(F_FULLFSYNC), and require a fallback to
+    // fsync().
+    if (::fcntl(fd, F_FULLFSYNC) == 0) &#123;
+      return Status::OK();
+    &#125;
+#endif  // HAVE_FULLFSYNC
+
+#if HAVE_FDATASYNC
+    bool sync_success = ::fdatasync(fd) == 0;
+#else
+    bool sync_success = ::fsync(fd) == 0;
+#endif  // HAVE_FDATASYNC
+
+    if (sync_success) &#123;
+      return Status::OK();
+    &#125;
+    return PosixError(fd_path, errno);
+  &#125;
+
+  // Returns the directory name in a path pointing to a file.
+  //
+  // Returns &quot;.&quot; if the path does not contain any directory separator.
+  static std::string Dirname(const std::string&amp; filename) &#123;
+    std::string::size_type separator_pos = filename.rfind(&#39;/&#39;);
+    if (separator_pos == std::string::npos) &#123;
+      return std::string(&quot;.&quot;);
+    &#125;
+    // The filename component should not contain a path separator. If it does,
+    // the splitting was done incorrectly.
+    assert(filename.find(&#39;/&#39;, separator_pos + 1) == std::string::npos);
+
+    return filename.substr(0, separator_pos);
+  &#125;
+
+  // Extracts the file name from a path pointing to a file.
+  //
+  // The returned Slice points to |filename|&#39;s data buffer, so it is only valid
+  // while |filename| is alive and unchanged.
+  static Slice Basename(const std::string&amp; filename) &#123;
+    std::string::size_type separator_pos = filename.rfind(&#39;/&#39;);
+    if (separator_pos == std::string::npos) &#123;
+      return Slice(filename);
+    &#125;
+    // The filename component should not contain a path separator. If it does,
+    // the splitting was done incorrectly.
+    assert(filename.find(&#39;/&#39;, separator_pos + 1) == std::string::npos);
+
+    return Slice(filename.data() + separator_pos + 1,
+                 filename.length() - separator_pos - 1);
+  &#125;
+
+  // True if the given file is a manifest file.
+  static bool IsManifest(const std::string&amp; filename) &#123;
+    return Basename(filename).starts_with(&quot;MANIFEST&quot;);
+  &#125;
+
+  // buf_[0, pos_ - 1] contains data to be written to fd_.
+  char buf_[kWritableFileBufferSize];
+  size_t pos_;
+  int fd_;
+
+  const bool is_manifest_;  // True if the file&#39;s name starts with MANIFEST.
+  const std::string filename_;
+  const std::string dirname_;  // The directory of filename_.
+&#125;;
+</code></pre>
+<p>随机读（随机操作没有随机写）：</p>
+<p>底层用pread（lseek和read结合的原子操作）从而保证原子性</p>
+<pre><code class="c++">class PosixRandomAccessFile final : public RandomAccessFile &#123;
+ public:
+  // The new instance takes ownership of |fd|. |fd_limiter| must outlive this
+  // instance, and will be used to determine if .
+  PosixRandomAccessFile(std::string filename, int fd, Limiter* fd_limiter)
+      : has_permanent_fd_(fd_limiter-&gt;Acquire()),
+        fd_(has_permanent_fd_ ? fd : -1),
+        fd_limiter_(fd_limiter),
+        filename_(std::move(filename)) &#123;
+    if (!has_permanent_fd_) &#123;
+      assert(fd_ == -1);
+      ::close(fd);  // The file will be opened on every read.
+    &#125;
+  &#125;
+
+  ~PosixRandomAccessFile() override &#123;
+    if (has_permanent_fd_) &#123;
+      assert(fd_ != -1);
+      ::close(fd_);
+      fd_limiter_-&gt;Release();
+    &#125;
+  &#125;
+
+  Status Read(uint64_t offset, size_t n, Slice* result,
+              char* scratch) const override &#123;
+    int fd = fd_;
+    if (!has_permanent_fd_) &#123;
+      fd = ::open(filename_.c_str(), O_RDONLY | kOpenBaseFlags);
+      if (fd &lt; 0) &#123;
+        return PosixError(filename_, errno);
+      &#125;
+    &#125;
+
+    assert(fd != -1);
+
+    Status status;
+    ssize_t read_size = ::pread(fd, scratch, n, static_cast&lt;off_t&gt;(offset));
+    *result = Slice(scratch, (read_size &lt; 0) ? 0 : read_size);
+    if (read_size &lt; 0) &#123;
+      // An error: return a non-ok status.
+      status = PosixError(filename_, errno);
+    &#125;
+    if (!has_permanent_fd_) &#123;
+      // Close the temporary file descriptor opened earlier.
+      assert(fd != fd_);
+      ::close(fd);
+    &#125;
+    return status;
+  &#125;
+
+ private:
+  const bool has_permanent_fd_;  // If false, the file is opened on every read.
+  const int fd_;                 // -1 if has_permanent_fd_ is false.
+  Limiter* const fd_limiter_;
+  const std::string filename_;
+&#125;;
+</code></pre>
+<p>另一种使用内存映射文件</p>
+<pre><code class="c++">class PosixMmapReadableFile final : public RandomAccessFile &#123;
+ public:
+  // mmap_base[0, length-1] points to the memory-mapped contents of the file. It
+  // must be the result of a successful call to mmap(). This instances takes
+  // over the ownership of the region.
+  //
+  // |mmap_limiter| must outlive this instance. The caller must have already
+  // acquired the right to use one mmap region, which will be released when this
+  // instance is destroyed.
+  PosixMmapReadableFile(std::string filename, char* mmap_base, size_t length,
+                        Limiter* mmap_limiter)
+      : mmap_base_(mmap_base),
+        length_(length),
+        mmap_limiter_(mmap_limiter),
+        filename_(std::move(filename)) &#123;&#125;
+
+  ~PosixMmapReadableFile() override &#123;
+    ::munmap(static_cast&lt;void*&gt;(mmap_base_), length_);
+    mmap_limiter_-&gt;Release();
+  &#125;
+
+  Status Read(uint64_t offset, size_t n, Slice* result,
+              char* scratch) const override &#123;
+    if (offset + n &gt; length_) &#123;
+      *result = Slice();
+      return PosixError(filename_, EINVAL);
+    &#125;
+
+    *result = Slice(mmap_base_ + offset, n);
+    return Status::OK();
+  &#125;
+
+ private:
+  char* const mmap_base_;
+  const size_t length_;
+  Limiter* const mmap_limiter_;
+  const std::string filename_;
+&#125;;
+</code></pre>
+<p>log文件操作：</p>
+<p>Logv先保存信息到缓存（一个数组），fwrite和fflush实现文件追加写入保存</p>
+<pre><code class="c++">class PosixLogger final : public Logger &#123;
+ public:
+  // Creates a logger that writes to the given file.
+  //
+  // The PosixLogger instance takes ownership of the file handle.
+  explicit PosixLogger(std::FILE* fp) : fp_(fp) &#123; assert(fp != nullptr); &#125;
+
+  ~PosixLogger() override &#123; std::fclose(fp_); &#125;
+
+  void Logv(const char* format, std::va_list arguments) override &#123;
+    // Record the time as close to the Logv() call as possible.
+    struct ::timeval now_timeval;
+    ::gettimeofday(&amp;now_timeval, nullptr);
+    const std::time_t now_seconds = now_timeval.tv_sec;
+    struct std::tm now_components;
+    ::localtime_r(&amp;now_seconds, &amp;now_components);
+
+    // Record the thread ID.
+    constexpr const int kMaxThreadIdSize = 32;
+    std::ostringstream thread_stream;
+    thread_stream &lt;&lt; std::this_thread::get_id();
+    std::string thread_id = thread_stream.str();
+    if (thread_id.size() &gt; kMaxThreadIdSize) &#123;
+      thread_id.resize(kMaxThreadIdSize);
+    &#125;
+
+    // We first attempt to print into a stack-allocated buffer. If this attempt
+    // fails, we make a second attempt with a dynamically allocated buffer.
+    constexpr const int kStackBufferSize = 512;
+    char stack_buffer[kStackBufferSize];
+    static_assert(sizeof(stack_buffer) == static_cast&lt;size_t&gt;(kStackBufferSize),
+                  &quot;sizeof(char) is expected to be 1 in C++&quot;);
+
+    int dynamic_buffer_size = 0;  // Computed in the first iteration.
+    for (int iteration = 0; iteration &lt; 2; ++iteration) &#123;
+      const int buffer_size =
+          (iteration == 0) ? kStackBufferSize : dynamic_buffer_size;
+      char* const buffer =
+          (iteration == 0) ? stack_buffer : new char[dynamic_buffer_size];
+
+      // Print the header into the buffer.
+      int buffer_offset = std::snprintf(
+          buffer, buffer_size, &quot;%04d/%02d/%02d-%02d:%02d:%02d.%06d %s &quot;,
+          now_components.tm_year + 1900, now_components.tm_mon + 1,
+          now_components.tm_mday, now_components.tm_hour, now_components.tm_min,
+          now_components.tm_sec, static_cast&lt;int&gt;(now_timeval.tv_usec),
+          thread_id.c_str());
+
+      // The header can be at most 28 characters (10 date + 15 time +
+      // 3 delimiters) plus the thread ID, which should fit comfortably into the
+      // static buffer.
+      assert(buffer_offset &lt;= 28 + kMaxThreadIdSize);
+      static_assert(28 + kMaxThreadIdSize &lt; kStackBufferSize,
+                    &quot;stack-allocated buffer may not fit the message header&quot;);
+      assert(buffer_offset &lt; buffer_size);
+
+      // Print the message into the buffer.
+      std::va_list arguments_copy;
+      va_copy(arguments_copy, arguments);
+      buffer_offset +=
+          std::vsnprintf(buffer + buffer_offset, buffer_size - buffer_offset,
+                         format, arguments_copy);
+      va_end(arguments_copy);
+
+      // The code below may append a newline at the end of the buffer, which
+      // requires an extra character.
+      if (buffer_offset &gt;= buffer_size - 1) &#123;
+        // The message did not fit into the buffer.
+        if (iteration == 0) &#123;
+          // Re-run the loop and use a dynamically-allocated buffer. The buffer
+          // will be large enough for the log message, an extra newline and a
+          // null terminator.
+          dynamic_buffer_size = buffer_offset + 2;
+          continue;
+        &#125;
+
+        // The dynamically-allocated buffer was incorrectly sized. This should
+        // not happen, assuming a correct implementation of std::(v)snprintf.
+        // Fail in tests, recover by truncating the log message in production.
+        assert(false);
+        buffer_offset = buffer_size - 1;
+      &#125;
+
+      // Add a newline if necessary.
+      if (buffer[buffer_offset - 1] != &#39;\n&#39;) &#123;
+        buffer[buffer_offset] = &#39;\n&#39;;
+        ++buffer_offset;
+      &#125;
+
+      assert(buffer_offset &lt;= buffer_size);
+      std::fwrite(buffer, 1, buffer_offset, fp_);
+      std::fflush(fp_);
+
+      if (iteration != 0) &#123;
+        delete[] buffer;
+      &#125;
+      break;
+    &#125;
+  &#125;
+
+ private:
+  std::FILE* const fp_;
+&#125;;
+
+  
+</code></pre>
+<h2 id="2-内存管理"><a href="#2-内存管理" class="headerlink" title="2.内存管理"></a>2.内存管理</h2><p>位置在：util&#x2F;arena.h</p>
+<p>为了c++内存的高效利用，leveldb设计了arena内存池</p>
+<p>std::vector&lt;char*&gt; blocks_是固定大小的内存块，存指向内存块的指针</p>
+<p>alloc_ptr_指向最新block的可用空间的起始地址</p>
+<p>alloc_bytes_remaining_表示当前block剩余内存</p>
+<p>allocate函数分配内存，allocatealigned作用同allocate区别在其内存首地址满足内存对齐（内存对齐指的是内存分配后alloc_ptr_的地址应该为b&#x2F;8的倍数，b指的是32位或者64位）</p>
+<p>allocate分两种情况，如果当前remaining足够就在当前块分配内存更新remaining和ptr，如果超过了就调用allocatefullback申请内存</p>
+<p>allocatefallback用于申请一个新的block内存空间分小于1024字节和大于两种情况，如果小于则新建一个4096的块，如果大于比如需要2000字节，就申请一个2000字节的块（用多少申请多少），这是为了减少浪费</p>
+<pre><code class="c++">class Arena &#123;
+ public:
+  Arena();
+
+  Arena(const Arena&amp;) = delete;
+  Arena&amp; operator=(const Arena&amp;) = delete;
+
+  ~Arena();
+
+  // Return a pointer to a newly allocated memory block of &quot;bytes&quot; bytes.
+  char* Allocate(size_t bytes);
+
+  // Allocate memory with the normal alignment guarantees provided by malloc.
+  char* AllocateAligned(size_t bytes);
+
+  // Returns an estimate of the total memory usage of data allocated
+  // by the arena.
+  size_t MemoryUsage() const &#123;
+    return memory_usage_.load(std::memory_order_relaxed);
+  &#125;
+
+ private:
+  char* AllocateFallback(size_t bytes);
+  char* AllocateNewBlock(size_t block_bytes);
+
+  // Allocation state
+  char* alloc_ptr_;
+  size_t alloc_bytes_remaining_;
+
+  // Array of new[] allocated memory blocks
+  std::vector&lt;char*&gt; blocks_;
+
+  // Total memory usage of the arena.
+  //
+  // TODO(costan): This member is accessed via atomics, but the others are
+  //               accessed without any locking. Is this OK?
+  std::atomic&lt;size_t&gt; memory_usage_;
+&#125;;
+
+
+inline char* Arena::Allocate(size_t bytes) &#123;
+  // The semantics of what to return are a bit messy if we allow
+  // 0-byte allocations, so we disallow them here (we don&#39;t need
+  // them for our internal use).
+  assert(bytes &gt; 0);
+  if (bytes &lt;= alloc_bytes_remaining_) &#123;
+    char* result = alloc_ptr_;
+    alloc_ptr_ += bytes;
+    alloc_bytes_remaining_ -= bytes;
+    return result;
+  &#125;
+  return AllocateFallback(bytes);
+&#125;
+
+char* Arena::AllocateFallback(size_t bytes) &#123;
+  if (bytes &gt; kBlockSize / 4) &#123;
+    // Object is more than a quarter of our block size.  Allocate it separately
+    // to avoid wasting too much space in leftover bytes.
+    char* result = AllocateNewBlock(bytes);
+    return result;
+  &#125;
+
+  // We waste the remaining space in the current block.
+  alloc_ptr_ = AllocateNewBlock(kBlockSize);
+  alloc_bytes_remaining_ = kBlockSize;
+
+  char* result = alloc_ptr_;
+  alloc_ptr_ += bytes;
+  alloc_bytes_remaining_ -= bytes;
+  return result;
+&#125;
+
+char* Arena::AllocateAligned(size_t bytes) &#123;
+  const int align = (sizeof(void*) &gt; 8) ? sizeof(void*) : 8;
+  static_assert((align &amp; (align - 1)) == 0,
+                &quot;Pointer size should be a power of 2&quot;);
+  size_t current_mod = reinterpret_cast&lt;uintptr_t&gt;(alloc_ptr_) &amp; (align - 1);
+  size_t slop = (current_mod == 0 ? 0 : align - current_mod);
+  size_t needed = bytes + slop;
+  char* result;
+  if (needed &lt;= alloc_bytes_remaining_) &#123;
+    result = alloc_ptr_ + slop;
+    alloc_ptr_ += needed;
+    alloc_bytes_remaining_ -= needed;
+  &#125; else &#123;
+    // AllocateFallback always returned aligned memory
+    result = AllocateFallback(bytes);
+  &#125;
+  assert((reinterpret_cast&lt;uintptr_t&gt;(result) &amp; (align - 1)) == 0);
+  return result;
+&#125;
+
+char* Arena::AllocateNewBlock(size_t block_bytes) &#123;
+  char* result = new char[block_bytes];
+  blocks_.push_back(result);
+  memory_usage_.fetch_add(block_bytes + sizeof(char*),
+                          std::memory_order_relaxed);
+  return result;
+&#125;
+</code></pre>
+
+      <div class="tags">
+          <a href="/tags/leveldb/" rel="tag"><i class="ic i-tag"></i> leveldb</a>
+          <a href="/tags/lsm-tree/" rel="tag"><i class="ic i-tag"></i> lsm-tree</a>
+      </div>
+  </div>
+
+   <footer>
+
+    <div class="meta">
+  <span class="item">
+    <span class="icon">
+      <i class="ic i-calendar-check"></i>
+    </span>
+    <span class="text">更新于</span>
+    <time title="修改时间：2024-07-25 22:05:43" itemprop="dateModified" datetime="2024-07-25T22:05:43+08:00">2024-07-25</time>
+  </span>
+</div>
+
+      
+
+<div id="copyright">
+<ul>
+  <li class="author">
+    <strong>本文作者： </strong>Kun Qian <i class="ic i-at"><em>@</em></i>Qkgoalkeeper's blog
+  </li>
+  <li class="link">
+    <strong>本文链接：</strong>
+    <a href="https://qkgoalkeeper.github.io/computer-science/interview/middleware/Leveldb%E6%BA%90%E7%A0%81%E8%A7%A3%E8%AF%BB%EF%BC%883%EF%BC%89%EF%BC%9A%E5%85%AC%E7%94%A8%E5%9F%BA%E7%A1%80%E7%B1%BB/" title="Leveldb源码解读（3）：公用基础类">https://qkgoalkeeper.github.io/computer-science/interview/middleware/Leveldb源码解读（3）：公用基础类/</a>
+  </li>
+  <li class="license">
+    <strong>版权声明： </strong>本站所有文章除特别声明外，均采用 <span class="exturl" data-url="aHR0cHM6Ly9jcmVhdGl2ZWNvbW1vbnMub3JnL2xpY2Vuc2VzL2J5LW5jLXNhLzQuMC9kZWVkLnpo"><i class="ic i-creative-commons"><em>(CC)</em></i>BY-NC-SA</span> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+  </footer>
+
+</article>
+
+  </div>
+  
+
+<div class="post-nav">
+    <div class="item left">
+      
+
+  <a href="/computer-science/interview/middleware/Leveldb%E6%BA%90%E7%A0%81%E8%A7%A3%E8%AF%BB%EF%BC%882%EF%BC%89%EF%BC%9A%E6%80%BB%E4%BD%93%E6%9E%B6%E6%9E%84%E4%B8%8E%E8%AE%BE%E8%AE%A1%E6%80%9D%E6%83%B3%20-%20%E5%89%AF%E6%9C%AC/" itemprop="url" rel="prev" data-background-image="https:&#x2F;&#x2F;cdn.jsdelivr.net&#x2F;gh&#x2F;qkgoalkeeper&#x2F;blogImage@main&#x2F;img&#x2F;leveldb.png" title="Leveldb源码解读（2）：总体架构与设计思想">
+  <span class="type">上一篇</span>
+  <span class="category"><i class="ic i-flag"></i> 源码解读</span>
+  <h3>Leveldb源码解读（2）：总体架构与设计思想</h3>
+  </a>
+
+    </div>
+    <div class="item right">
+      
+
+  <a href="/computer-science/interview/middleware/Leveldb%E6%BA%90%E7%A0%81%E8%A7%A3%E8%AF%BB%EF%BC%884%EF%BC%89%EF%BC%9ALog%E6%A8%A1%E5%9D%97/" itemprop="url" rel="next" data-background-image="https:&#x2F;&#x2F;cdn.jsdelivr.net&#x2F;gh&#x2F;qkgoalkeeper&#x2F;blogImage@main&#x2F;img&#x2F;leveldb.png" title="Leveldb源码解读（4）：Log模块">
+  <span class="type">下一篇</span>
+  <span class="category"><i class="ic i-flag"></i> 源码解读</span>
+  <h3>Leveldb源码解读（4）：Log模块</h3>
+  </a>
+
+    </div>
+</div>
+
+  
+  <div class="wrap" id="comments"></div>
+
+
+        </div>
+        <div id="sidebar">
+          
+
+<div class="inner">
+
+  <div class="panels">
+    <div class="inner">
+      <div class="contents panel pjax" data-title="文章目录">
+          <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-%E6%96%87%E4%BB%B6%E6%93%8D%E4%BD%9C"><span class="toc-number">1.</span> <span class="toc-text">1.文件操作</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86"><span class="toc-number">2.</span> <span class="toc-text">2.内存管理</span></a></li></ol>
+      </div>
+      <div class="related panel pjax" data-title="系列文章">
+        <ul>
+          <li><a href="/computer-science/interview/middleware/Leveldb%E6%BA%90%E7%A0%81%E8%A7%A3%E8%AF%BB%EF%BC%881%EF%BC%89%EF%BC%9A%E5%9F%BA%E6%9C%AC%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" rel="bookmark" title="Leveldb源码解读（1）：基本数据结构">Leveldb源码解读（1）：基本数据结构</a></li><li><a href="/computer-science/interview/middleware/Leveldb%E6%BA%90%E7%A0%81%E8%A7%A3%E8%AF%BB%EF%BC%882%EF%BC%89%EF%BC%9A%E6%80%BB%E4%BD%93%E6%9E%B6%E6%9E%84%E4%B8%8E%E8%AE%BE%E8%AE%A1%E6%80%9D%E6%83%B3%20-%20%E5%89%AF%E6%9C%AC/" rel="bookmark" title="Leveldb源码解读（2）：总体架构与设计思想">Leveldb源码解读（2）：总体架构与设计思想</a></li><li class="active"><a href="/computer-science/interview/middleware/Leveldb%E6%BA%90%E7%A0%81%E8%A7%A3%E8%AF%BB%EF%BC%883%EF%BC%89%EF%BC%9A%E5%85%AC%E7%94%A8%E5%9F%BA%E7%A1%80%E7%B1%BB/" rel="bookmark" title="Leveldb源码解读（3）：公用基础类">Leveldb源码解读（3）：公用基础类</a></li><li><a href="/computer-science/interview/middleware/Leveldb%E6%BA%90%E7%A0%81%E8%A7%A3%E8%AF%BB%EF%BC%884%EF%BC%89%EF%BC%9ALog%E6%A8%A1%E5%9D%97/" rel="bookmark" title="Leveldb源码解读（4）：Log模块">Leveldb源码解读（4）：Log模块</a></li><li><a href="/computer-science/interview/middleware/Leveldb%E6%BA%90%E7%A0%81%E8%A7%A3%E8%AF%BB%EF%BC%885%EF%BC%89%EF%BC%9AMemtable%E6%A8%A1%E5%9D%97/" rel="bookmark" title="Leveldb源码解读（5）：Memtable模块">Leveldb源码解读（5）：Memtable模块</a></li><li><a href="/computer-science/interview/middleware/Leveldb%E6%BA%90%E7%A0%81%E8%A7%A3%E8%AF%BB%EF%BC%886%EF%BC%89%EF%BC%9ASSTable%E6%A8%A1%E5%9D%97/" rel="bookmark" title="Leveldb源码解读（6）：SSTable模块">Leveldb源码解读（6）：SSTable模块</a></li>
+        </ul>
+      </div>
+      <div class="overview panel" data-title="站点概览">
+        <div class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <img class="image" itemprop="image" alt="Kun Qian"
+      data-src="/images/avatar.jpg">
+  <p class="name" itemprop="name">Kun Qian</p>
+  <div class="description" itemprop="description"></div>
+</div>
+
+<nav class="state">
+    <div class="item posts">
+      <a href="/archives/">
+        <span class="count">30</span>
+        <span class="name">文章</span>
+      </a>
+    </div>
+    <div class="item categories">
+      <a href="/categories/">
+        <span class="count">8</span>
+        <span class="name">分类</span>
+      </a>
+    </div>
+    <div class="item tags">
+      <a href="/tags/">
+        <span class="count">13</span>
+        <span class="name">标签</span>
+      </a>
+    </div>
+</nav>
+
+<div class="social">
+      <span class="exturl item github" data-url="aHR0cHM6Ly9naXRodWIuY29tL3FrZ29hbGtlZXBlcg==" title="https:&#x2F;&#x2F;github.com&#x2F;qkgoalkeeper"><i class="ic i-github"></i></span>
+      <span class="exturl item zhihu" data-url="aHR0cHM6Ly93d3cuemhpaHUuY29tL3Blb3BsZS9oYW8tbGFpLXd1LXNob3UtbWVuLXl1YW4=" title="https:&#x2F;&#x2F;www.zhihu.com&#x2F;people&#x2F;hao-lai-wu-shou-men-yuan"><i class="ic i-zhihu"></i></span>
+      <span class="exturl item music" data-url="aHR0cHM6Ly9tdXNpYy4xNjMuY29tLyMvdXNlci9ob21lP2lkPTM5MjU2NzE4Nw==" title="https:&#x2F;&#x2F;music.163.com&#x2F;#&#x2F;user&#x2F;home?id&#x3D;392567187"><i class="ic i-cloud-music"></i></span>
+      <a href="/about/" title="&#x2F;about&#x2F;" class="item about"><i class="ic i-address-card"></i></a>
+</div>
+
+<ul class="menu">
+  
+    
+  <li class="item">
+    <a href="/" rel="section"><i class="ic i-home"></i>首页</a>
+  </li>
+
+    
+  <li class="item">
+    <a href="/about/" rel="section"><i class="ic i-user"></i>关于</a>
+  </li>
+
+        
+  <li class="item dropdown">
+      <a href="javascript:void(0);"><i class="ic i-feather"></i>文章</a>
+    <ul class="submenu">
+
+        
+  <li class="item">
+    <a href="/archives/" rel="section"><i class="ic i-list-alt"></i>归档</a>
+  </li>
+
+        
+  <li class="item">
+    <a href="/categories/" rel="section"><i class="ic i-th"></i>分类</a>
+  </li>
+
+        
+  <li class="item">
+    <a href="/tags/" rel="section"><i class="ic i-tags"></i>标签</a>
+  </li>
+
+  </ul>
+    
+  <li class="item">
+    <a href="/friends/" rel="section"><i class="ic i-heart"></i>友達</a>
+  </li>
+
+
+</ul>
+
+      </div>
+    </div>
+  </div>
+
+  <ul id="quick">
+    <li class="prev pjax">
+        <a href="/computer-science/interview/middleware/Leveldb%E6%BA%90%E7%A0%81%E8%A7%A3%E8%AF%BB%EF%BC%882%EF%BC%89%EF%BC%9A%E6%80%BB%E4%BD%93%E6%9E%B6%E6%9E%84%E4%B8%8E%E8%AE%BE%E8%AE%A1%E6%80%9D%E6%83%B3%20-%20%E5%89%AF%E6%9C%AC/" rel="prev" title="上一篇"><i class="ic i-chevron-left"></i></a>
+    </li>
+    <li class="up"><i class="ic i-arrow-up"></i></li>
+    <li class="down"><i class="ic i-arrow-down"></i></li>
+    <li class="next pjax">
+        <a href="/computer-science/interview/middleware/Leveldb%E6%BA%90%E7%A0%81%E8%A7%A3%E8%AF%BB%EF%BC%884%EF%BC%89%EF%BC%9ALog%E6%A8%A1%E5%9D%97/" rel="next" title="下一篇"><i class="ic i-chevron-right"></i></a>
+    </li>
+    <li class="percent"></li>
+  </ul>
+</div>
+
+
+        </div>
+        <div class="dimmer"></div>
+      </div>
+    </main>
+    <footer id="footer">
+      <div class="inner">
+        <div class="widgets">
+          
+<div class="rpost pjax">
+  <h2>随机文章</h2>
+  <ul>
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/computer-science/" title="分类于 计算机科学">计算机科学</a>
+<i class="ic i-angle-right"></i>
+<a href="/categories/computer-science/leetcode/" title="分类于 Leetcode">Leetcode</a>
+<i class="ic i-angle-right"></i>
+<a href="/categories/computer-science/leetcode/offer2/" title="分类于 剑指offer">剑指offer</a>
+</div>
+
+    <span><a href="/computer-science/leetcode/offer2/LeetCode%E6%AF%8F%E6%97%A5%E7%BB%83%E4%B9%A0%EF%BC%9A%E5%89%91%E6%8C%87%20Offer%20II%20010.%20%E5%92%8C%E4%B8%BA%20k%20%E7%9A%84%E5%AD%90%E6%95%B0%E7%BB%84/" title="剑指 Offer II 010. 和为 k 的子数组">剑指 Offer II 010. 和为 k 的子数组</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/computer-science/" title="分类于 计算机科学">计算机科学</a>
+<i class="ic i-angle-right"></i>
+<a href="/categories/computer-science/%E6%BA%90%E7%A0%81%E8%A7%A3%E8%AF%BB/" title="分类于 源码解读">源码解读</a>
+</div>
+
+    <span><a href="/computer-science/interview/middleware/Leveldb%E6%BA%90%E7%A0%81%E8%A7%A3%E8%AF%BB%EF%BC%881%EF%BC%89%EF%BC%9A%E5%9F%BA%E6%9C%AC%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" title="Leveldb源码解读（1）：基本数据结构">Leveldb源码解读（1）：基本数据结构</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/computer-science/" title="分类于 计算机科学">计算机科学</a>
+<i class="ic i-angle-right"></i>
+<a href="/categories/computer-science/leetcode/" title="分类于 Leetcode">Leetcode</a>
+<i class="ic i-angle-right"></i>
+<a href="/categories/computer-science/leetcode/offer2/" title="分类于 剑指offer">剑指offer</a>
+</div>
+
+    <span><a href="/computer-science/leetcode/offer2/LeetCode%E6%AF%8F%E6%97%A5%E7%BB%83%E4%B9%A0%EF%BC%9A%E5%89%91%E6%8C%87%20Offer%20II%20009.%20%E4%B9%98%E7%A7%AF%E5%B0%8F%E4%BA%8E%20K%20%E7%9A%84%E5%AD%90%E6%95%B0%E7%BB%84/" title="剑指 Offer II 009. 乘积小于 K 的子数组">剑指 Offer II 009. 乘积小于 K 的子数组</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/computer-science/" title="分类于 计算机科学">计算机科学</a>
+<i class="ic i-angle-right"></i>
+<a href="/categories/computer-science/%E6%BA%90%E7%A0%81%E8%A7%A3%E8%AF%BB/" title="分类于 源码解读">源码解读</a>
+</div>
+
+    <span><a href="/computer-science/interview/middleware/Leveldb%E6%BA%90%E7%A0%81%E8%A7%A3%E8%AF%BB%EF%BC%883%EF%BC%89%EF%BC%9A%E5%85%AC%E7%94%A8%E5%9F%BA%E7%A1%80%E7%B1%BB/" title="Leveldb源码解读（3）：公用基础类">Leveldb源码解读（3）：公用基础类</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/computer-science/" title="分类于 计算机科学">计算机科学</a>
+<i class="ic i-angle-right"></i>
+<a href="/categories/computer-science/leetcode/" title="分类于 Leetcode">Leetcode</a>
+<i class="ic i-angle-right"></i>
+<a href="/categories/computer-science/leetcode/offer2/" title="分类于 剑指offer">剑指offer</a>
+</div>
+
+    <span><a href="/computer-science/leetcode/offer2/LeetCode%E6%AF%8F%E6%97%A5%E7%BB%83%E4%B9%A0%EF%BC%9A%E5%89%91%E6%8C%87%20Offer%20II%20004.%20%E5%8F%AA%E5%87%BA%E7%8E%B0%E4%B8%80%E6%AC%A1%E7%9A%84%E6%95%B0%E5%AD%97/" title="剑指 Offer II 004. 只出现一次的数字">剑指 Offer II 004. 只出现一次的数字</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/computer-science/" title="分类于 计算机科学">计算机科学</a>
+<i class="ic i-angle-right"></i>
+<a href="/categories/computer-science/leetcode/" title="分类于 Leetcode">Leetcode</a>
+<i class="ic i-angle-right"></i>
+<a href="/categories/computer-science/leetcode/offer2/" title="分类于 剑指offer">剑指offer</a>
+</div>
+
+    <span><a href="/computer-science/leetcode/offer2/LeetCode%E6%AF%8F%E6%97%A5%E7%BB%83%E4%B9%A0%EF%BC%9A%E5%89%91%E6%8C%87%20Offer%20II%20016.%20%E4%B8%8D%E5%90%AB%E9%87%8D%E5%A4%8D%E5%AD%97%E7%AC%A6%E7%9A%84%E6%9C%80%E9%95%BF%E5%AD%90%E5%AD%97%E7%AC%A6%E4%B8%B2/" title="剑指 Offer II 016. 不含重复字符的最长子字符串">剑指 Offer II 016. 不含重复字符的最长子字符串</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/%E6%9D%82%E8%B0%88/" title="分类于 杂谈">杂谈</a>
+</div>
+
+    <span><a href="/new%20blog%E8%BF%81%E7%A7%BB%E8%AF%B4%E6%98%8E/" title="新blog迁移记录">新blog迁移记录</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/computer-science/" title="分类于 计算机科学">计算机科学</a>
+<i class="ic i-angle-right"></i>
+<a href="/categories/computer-science/leetcode/" title="分类于 Leetcode">Leetcode</a>
+<i class="ic i-angle-right"></i>
+<a href="/categories/computer-science/leetcode/offer2/" title="分类于 剑指offer">剑指offer</a>
+</div>
+
+    <span><a href="/computer-science/leetcode/offer2/LeetCode%E6%AF%8F%E6%97%A5%E7%BB%83%E4%B9%A0%EF%BC%9A%E5%89%91%E6%8C%87%20Offer%20II%20011.%200%20%E5%92%8C%201%20%E4%B8%AA%E6%95%B0%E7%9B%B8%E5%90%8C%E7%9A%84%E5%AD%90%E6%95%B0%E7%BB%84/" title="剑指 Offer II 011. 0 和 1 个数相同的子数组">剑指 Offer II 011. 0 和 1 个数相同的子数组</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/computer-science/" title="分类于 计算机科学">计算机科学</a>
+<i class="ic i-angle-right"></i>
+<a href="/categories/computer-science/leetcode/" title="分类于 Leetcode">Leetcode</a>
+<i class="ic i-angle-right"></i>
+<a href="/categories/computer-science/leetcode/offer2/" title="分类于 剑指offer">剑指offer</a>
+</div>
+
+    <span><a href="/computer-science/leetcode/offer2/LeetCode%E6%AF%8F%E6%97%A5%E7%BB%83%E4%B9%A0%EF%BC%9A%E5%89%91%E6%8C%87%20Offer%20II%20006.%20%E6%8E%92%E5%BA%8F%E6%95%B0%E7%BB%84%E4%B8%AD%E4%B8%A4%E4%B8%AA%E6%95%B0%E5%AD%97%E4%B9%8B%E5%92%8C/" title="剑指 Offer II 006. 排序数组中两个数字之和">剑指 Offer II 006. 排序数组中两个数字之和</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/computer-science/" title="分类于 计算机科学">计算机科学</a>
+<i class="ic i-angle-right"></i>
+<a href="/categories/computer-science/leetcode/" title="分类于 Leetcode">Leetcode</a>
+<i class="ic i-angle-right"></i>
+<a href="/categories/computer-science/leetcode/%E7%AE%97%E6%B3%95%E9%A2%98%E6%80%9D%E8%B7%AF/" title="分类于 算法题思路">算法题思路</a>
+</div>
+
+    <span><a href="/computer-science/leetcode/algorithm/Leetcode%E4%B8%AD%E7%AD%89%E9%A2%98%E6%80%9D%E8%B7%AF(101-200)/" title="Leetcode中等题思路（101-100）">Leetcode中等题思路（101-100）</a></span>
+  </li>
+
+  </ul>
+</div>
+
+        </div>
+        <div class="status">
+  <div class="copyright">
+    
+    &copy; 2020 – 
+    <span itemprop="copyrightYear">2024</span>
+    <span class="with-love">
+      <i class="ic i-sakura rotate"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">Kun Qian @ Kun Qian</span>
+  </div>
+  <div class="powered-by">
+    基于 <span class="exturl" data-url="aHR0cHM6Ly9oZXhvLmlv">Hexo</span> & Theme.<span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL2FtZWhpbWUvaGV4by10aGVtZS1zaG9rYQ==">Shoka</span>
+  </div>
+</div>
+
+      </div>
+    </footer>
+  </div>
+<script data-config type="text/javascript">
+  var LOCAL = {
+    path: 'computer-science/interview/middleware/Leveldb源码解读（3）：公用基础类/',
+    favicon: {
+      show: "qkgoalkeeper's blog",
+      hide: "qkgoalkeeper's blog"
+    },
+    search : {
+      placeholder: "文章搜索",
+      empty: "关于 「 ${query} 」，什么也没搜到",
+      stats: "${time} ms 内找到 ${hits} 条结果"
+    },
+    valine: true,fancybox: true,
+    copyright: '复制成功，转载请遵守 <i class="ic i-creative-commons"></i>BY-NC-SA 协议。',
+    ignores : [
+      function(uri) {
+        return uri.includes('#');
+      },
+      function(uri) {
+        return new RegExp(LOCAL.path+"$").test(uri);
+      }
+    ]
+  };
+</script>
+
+<script src="https://cdn.polyfill.io/v2/polyfill.js"></script>
+
+<script src="//cdn.jsdelivr.net/combine/npm/pace-js@1.0.2/pace.min.js,npm/pjax@0.2.8/pjax.min.js,npm/whatwg-fetch@3.4.0/dist/fetch.umd.min.js,npm/animejs@3.2.0/lib/anime.min.js,npm/algoliasearch@4/dist/algoliasearch-lite.umd.js,npm/instantsearch.js@4/dist/instantsearch.production.min.js,npm/lozad@1/dist/lozad.min.js,npm/quicklink@2/dist/quicklink.umd.js"></script>
+
+<script src="/js/app.js?v=0.2.5"></script>
+
+
+
+
+</body>
+</html>
