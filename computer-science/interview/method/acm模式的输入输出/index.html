@@ -1,0 +1,922 @@
+
+
+
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#FFF">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+
+<link rel="icon" type="image/ico" sizes="32x32" href="/images/favicon.ico">
+  <link rel="mask-icon" href="/images/logo.svg" color="">
+  <link rel="manifest" href="/images/manifest.json">
+  <meta name="msapplication-config" content="/images/browserconfig.xml">
+  <meta http-equiv="Cache-Control" content="no-transform">
+  <meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+<link rel="alternate" type="application/rss+xml" title="Qkgoalkeeper's blog" href="https://qkgoalkeeper.github.io/rss.xml" />
+<link rel="alternate" type="application/atom+xml" title="Qkgoalkeeper's blog" href="https://qkgoalkeeper.github.io/atom.xml" />
+<link rel="alternate" type="application/json" title="Qkgoalkeeper's blog" href="https://qkgoalkeeper.github.io/feed.json" />
+
+<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Mulish:300,300italic,400,400italic,700,700italic%7CFredericka%20the%20Great:300,300italic,400,400italic,700,700italic%7CNoto%20Serif%20JP:300,300italic,400,400italic,700,700italic%7CNoto%20Serif%20SC:300,300italic,400,400italic,700,700italic%7CInconsolata:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+
+<link rel="stylesheet" href="/css/app.css?v=0.2.5">
+
+  
+  <meta name="keywords" content="c++" />
+
+
+<link rel="canonical" href="https://qkgoalkeeper.github.io/computer-science/interview/method/acm%E6%A8%A1%E5%BC%8F%E7%9A%84%E8%BE%93%E5%85%A5%E8%BE%93%E5%87%BA/">
+
+
+
+  <title>
+acm模式的输入输出 - 面试 - 计算机科学 |
+Kun Qian = Qkgoalkeeper's blog</title>
+<meta name="generator" content="Hexo 6.3.0"></head>
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div id="loading">
+    <div class="cat">
+      <div class="body"></div>
+      <div class="head">
+        <div class="face"></div>
+      </div>
+      <div class="foot">
+        <div class="tummy-end"></div>
+        <div class="bottom"></div>
+        <div class="legs left"></div>
+        <div class="legs right"></div>
+      </div>
+      <div class="paw">
+        <div class="hands left"></div>
+        <div class="hands right"></div>
+      </div>
+    </div>
+  </div>
+  <div id="container">
+    <header id="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="inner">
+        <div id="brand">
+          <div class="pjax">
+          
+  <h1 itemprop="name headline">acm模式的输入输出
+  </h1>
+  
+<div class="meta">
+  <span class="item" title="创建时间：2024-06-04 15:45:48">
+    <span class="icon">
+      <i class="ic i-calendar"></i>
+    </span>
+    <span class="text">发表于</span>
+    <time itemprop="dateCreated datePublished" datetime="2024-06-04T15:45:48+08:00">2024-06-04</time>
+  </span>
+</div>
+
+
+          </div>
+        </div>
+        <nav id="nav">
+  <div class="inner">
+    <div class="toggle">
+      <div class="lines" aria-label="切换导航栏">
+        <span class="line"></span>
+        <span class="line"></span>
+        <span class="line"></span>
+      </div>
+    </div>
+    <ul class="menu">
+      <li class="item title"><a href="/" rel="start">Kun Qian</a></li>
+    </ul>
+    <ul class="right">
+      <li class="item theme">
+        <i class="ic i-sun"></i>
+      </li>
+      <li class="item search">
+        <i class="ic i-search"></i>
+      </li>
+    </ul>
+  </div>
+</nav>
+
+      </div>
+      <div id="imgs" class="pjax">
+          <img src="https://cdn.jsdelivr.net/gh/qkgoalkeeper/blogImage@main/img/leetcode.png">
+      </div>
+    </header>
+    <div id="waves">
+      <svg class="waves" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 24 150 28" preserveAspectRatio="none" shape-rendering="auto">
+        <defs>
+          <path id="gentle-wave" d="M-160 44c30 0 58-18 88-18s 58 18 88 18 58-18 88-18 58 18 88 18 v44h-352z" />
+        </defs>
+        <g class="parallax">
+          <use xlink:href="#gentle-wave" x="48" y="0" />
+          <use xlink:href="#gentle-wave" x="48" y="3" />
+          <use xlink:href="#gentle-wave" x="48" y="5" />
+          <use xlink:href="#gentle-wave" x="48" y="7" />
+        </g>
+      </svg>
+    </div>
+    <main>
+      <div class="inner">
+        <div id="main" class="pjax">
+          
+  <div class="article wrap">
+    
+<div class="breadcrumb" itemscope itemtype="https://schema.org/BreadcrumbList">
+<i class="ic i-home"></i>
+<span><a href="/">首页</a></span><i class="ic i-angle-right"></i>
+<span  itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/categories/computer-science/" itemprop="item" rel="index" title="分类于 计算机科学"><span itemprop="name">计算机科学</span></a>
+<meta itemprop="position" content="1" /></span>
+<i class="ic i-angle-right"></i>
+<span  class="current" itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/categories/computer-science/interview/" itemprop="item" rel="index" title="分类于 面试"><span itemprop="name">面试</span></a>
+<meta itemprop="position" content="2" /></span>
+</div>
+
+    <article itemscope itemtype="http://schema.org/Article" class="post block" lang="zh-CN">
+  <link itemprop="mainEntityOfPage" href="https://qkgoalkeeper.github.io/computer-science/interview/method/acm%E6%A8%A1%E5%BC%8F%E7%9A%84%E8%BE%93%E5%85%A5%E8%BE%93%E5%87%BA/">
+
+  <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <meta itemprop="image" content="/images/avatar.jpg">
+    <meta itemprop="name" content="Kun Qian">
+    <meta itemprop="description" content=", ">
+  </span>
+
+  <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="Qkgoalkeeper's blog">
+  </span>
+
+  <div class="body md" itemprop="articleBody">
+    
+
+    <p>面试的时候通常是acm模式，头文件用 #include&lt;bits&#x2F;stdc++.h&gt;，做题就加一句using namespace std；</p>
+<h1 id="一-不含额外数据结构的输入输出"><a href="#一-不含额外数据结构的输入输出" class="headerlink" title="一.不含额外数据结构的输入输出"></a>一.不含额外数据结构的输入输出</h1><p>只需要cin,cout</p>
+<p>这是最简单的也是大多数题用的，通过构建int，string并cin即可，遇到数组就用vector或者map去存</p>
+<p>例子如下：</p>
+<pre><code class="c++">#include&lt;bits/stdc++.h&gt;
+using namespace std;
+ 
+int main()&#123;
+    int n;
+    vector&lt;int&gt; v;
+    int x;
+    int y;
+     
+    cin&gt;&gt;n;
+    for(int i=0;i&lt;n;i++)&#123;
+        int temp;
+        cin&gt;&gt;temp;
+        v.emplace_back(temp);
+    &#125;
+     
+    cin&gt;&gt;x&gt;&gt;y;
+     
+    for(int i=0;i&lt;v.size();i++)&#123;
+        if(v[i]==x)&#123;
+            if(i+1&lt;int(v.size())&amp;&amp;v[i+1]==y)&#123;
+                cout&lt;&lt;&quot;Yes&quot;&lt;&lt;endl;
+                return 0;
+            &#125;else&#123;
+                cout&lt;&lt;&quot;No&quot;&lt;&lt;endl;
+                return 0;
+            &#125;
+        &#125;
+        if(v[i]==y)&#123;
+            if(i+1&lt;int(v.size())&amp;&amp;v[i+1]==x)&#123;
+                cout&lt;&lt;&quot;Yes&quot;&lt;&lt;endl;
+                return 0;
+            &#125;else&#123;
+                cout&lt;&lt;&quot;No&quot;&lt;&lt;endl;
+                return 0;
+            &#125;
+        &#125;
+    &#125;
+    return 0;
+     
+     
+     
+&#125;
+</code></pre>
+<p>需要getline并且stringstream进行split的场景参见blog里面的《c++字符串分割&amp;常见数据类型转换&amp;进制转换》这篇文章</p>
+<h1 id="二-链表数据结构"><a href="#二-链表数据结构" class="headerlink" title="二.链表数据结构"></a>二.链表数据结构</h1><p>自己写一个struct Node，然后当LeetCode题做，例子如下</p>
+<pre><code class="c++">#include&lt;iostream&gt;
+using namespace std;
+
+struct ListNode &#123;
+    int val;
+    ListNode* next;
+    ListNode(int val): val(val), next(nullptr) &#123;&#125;
+&#125;;
+
+ListNode* reverse (ListNode* head) &#123;
+    ListNode* pre = nullptr;
+    ListNode* cur = head;
+    while (cur != nullptr) &#123;
+        ListNode* tmp = cur-&gt;next;
+        cur-&gt;next = pre;
+        pre = cur;
+        cur = tmp;
+    &#125;
+    return pre;
+&#125;
+
+void printLinkedList(ListNode* head) &#123;
+    ListNode* cur = head;
+    while (cur != nullptr) &#123;
+        cout &lt;&lt; cur-&gt;val &lt;&lt; &quot; &quot;;
+        cur = cur-&gt;next;
+    &#125;
+    cout &lt;&lt; endl;
+&#125;
+
+int main() &#123;
+    int n, m;
+    ListNode* dummyHead = new ListNode(0);
+    while (cin &gt;&gt; n) &#123;
+        if (n == 0) &#123;
+            cout &lt;&lt; &quot;list is empty&quot; &lt;&lt; endl;
+            continue;
+        &#125;
+        ListNode* cur = dummyHead;
+        
+        // 读取输入构建链表
+        while (n--) &#123;
+            cin &gt;&gt; m;
+            ListNode* newNode = new ListNode(m); // 构造节点
+            cur-&gt;next = newNode;
+            cur = cur-&gt;next;
+        &#125;
+        printLinkedList(dummyHead-&gt;next);
+        printLinkedList(reverse(dummyHead-&gt;next));
+    &#125;
+    return 0;
+&#125;
+</code></pre>
+<h1 id="三-树数据结构"><a href="#三-树数据结构" class="headerlink" title="三.树数据结构"></a>三.树数据结构</h1><p>构建树有三种方式，一种是告诉你所有的边，一种是告诉你层序遍历结果，一种是告诉你前序遍历中序遍历让你序列化（LeetCode中等题<span class="exturl" data-url="aHR0cHM6Ly9sZWV0Y29kZS5jbi9wcm9ibGVtcy9jb25zdHJ1Y3QtYmluYXJ5LXRyZWUtZnJvbS1wcmVvcmRlci1hbmQtcG9zdG9yZGVyLXRyYXZlcnNhbC9kZXNjcmlwdGlvbi8=">889. 根据前序和后序遍历构造二叉树 - 力扣（LeetCode）</span>）（如果是二叉搜索树只需前序遍历就行<span class="exturl" data-url="aHR0cHM6Ly9sZWV0Y29kZS5jbi9wcm9ibGVtcy9jb25zdHJ1Y3QtYmluYXJ5LXNlYXJjaC10cmVlLWZyb20tcHJlb3JkZXItdHJhdmVyc2FsL2Rlc2NyaXB0aW9uLw==">1008. 前序遍历构造二叉搜索树 - 力扣（LeetCode）</span>）</p>
+<p>通常一般就是前两种，示例代码如下：</p>
+<pre><code class="c++">//知道所有边
+/*
+输入示例
+5
+1 4
+4 2
+4 3
+3 5
+*/
+
+
+#include&lt;bits/stdc++.h&gt;
+ 
+using namespace std;
+ 
+ 
+struct TreeNode&#123;
+    int value;
+     
+    vector&lt;TreeNode*&gt; childs;
+     
+    TreeNode(int v):value(v)&#123;
+         
+    &#125;;
+     
+    TreeNode():value(0)&#123;
+         
+    &#125;;
+&#125;; 
+ 
+ 
+int main()&#123;
+    unordered_map&lt;int,TreeNode*&gt; mp;
+    int n;
+    cin&gt;&gt;n;
+    for(int i=0;i&lt;n-1;i++)&#123;
+        int value1;
+        int value2;
+        cin&gt;&gt;value1&gt;&gt;value2;
+         
+        if(!mp.count(value1))&#123;
+            TreeNode* node = new TreeNode(value1);
+            mp[value1] = node;
+        &#125;
+         
+        if(!mp.count(value2))&#123;
+            TreeNode* node = new TreeNode(value2);
+            mp[value2] = node;
+        &#125;
+         
+        mp[value1]-&gt;childs.emplace_back(mp[value2]);
+    &#125;
+     
+    unordered_map&lt;int,int&gt; answer;
+     
+    auto dfs = [&amp;](auto &amp;&amp;dfs,TreeNode* root)&#123;
+        //cout&lt;&lt;&quot;dfs:&quot;&lt;&lt;root-&gt;value&lt;&lt;endl;
+        if(root-&gt;childs.size()==0)&#123;
+            answer[root-&gt;value]=1;
+            int m = root-&gt;value;
+            return m;
+        &#125;
+         
+        int minNode = root-&gt;childs[0]-&gt;value;
+        for(int i=0;i&lt;root-&gt;childs.size();i++)&#123;
+            auto x = dfs(dfs,root-&gt;childs[i]);
+            minNode = min(minNode,x);
+        &#125;
+         
+        answer[root-&gt;value] = 1+answer[minNode];
+ 
+        //cout&lt;&lt;&quot;here:&quot;&lt;&lt;answer[root-&gt;value]&lt;&lt;endl;
+          
+        return min(root-&gt;value,minNode);
+    &#125;;
+     
+     
+    dfs(dfs,mp[1]);
+     
+    for(int i=1;i&lt;=n;i++)&#123;
+        cout&lt;&lt;answer[i];
+        if(i!=n)&#123;
+            cout&lt;&lt;&quot; &quot;;
+        &#125;
+    &#125;
+     
+    return 0;
+     
+&#125;
+</code></pre>
+<pre><code class="c++"> //完全二叉树层次遍历可以用数组然后i*2,i*2+1为左右节点这么写   
+
+vector&lt;TreeNode*&gt; nodes(n+1);
+    
+    for(int i=1;i&lt;=n;i++)&#123;
+        TreeNode* node = new TreeNode();
+        nodes[i] = node;
+    &#125;
+    
+    for(int i=1;i&lt;=n;i++)&#123;
+        string s;
+        cin&gt;&gt;s;
+        
+        if(s==&quot;null&quot;)&#123;
+            nodes[i] = nullptr;
+        &#125;else&#123;
+            int temp = stoi(s);
+            nodes[i]-&gt;val = temp;
+            if(i*2&lt;=n)&#123;
+                nodes[i]-&gt;left = nodes[i*2];
+            &#125;
+            
+            if(i*2+1&lt;=n)&#123;
+                nodes[i]-&gt;right = nodes[i*2+1];
+            &#125;
+            
+            
+        &#125;
+    &#125;
+</code></pre>
+<pre><code class="c++">//层次遍历通用解法是用queue
+
+
+#include&lt;iostream&gt;
+#include&lt;sstream&gt;
+#include&lt;vector&gt;
+#include&lt;string&gt;
+#include&lt;queue&gt;
+using namespace std;
+
+struct TreeNode &#123;
+    TreeNode* left, *right;
+    int val;
+    TreeNode(int _val) : left(nullptr), right(nullptr), val(_val) &#123;&#125;
+&#125;;
+
+TreeNode *buildTree(vector&lt;string&gt;&amp; nodes) &#123;
+    if (nodes.empty() || nodes[0] == &quot;null&quot;) return nullptr;
+    queue&lt;TreeNode*&gt; q;
+    TreeNode* root = new TreeNode(stoi(nodes[0]));
+    q.push(root);
+    int i = 1;
+    while (!q.empty() &amp;&amp; i &lt; nodes.size()) &#123;
+        TreeNode* node = q.front();
+        q.pop();
+        if (i &lt; nodes.size() &amp;&amp; nodes[i] != &quot;null&quot;) &#123;
+            node-&gt;left = new TreeNode(stoi(nodes[i]));
+            q.push(node-&gt;left);
+        &#125;
+        i++;
+        if (i &lt; nodes.size() &amp;&amp; nodes[i] != &quot;null&quot;) &#123;
+            node-&gt;right = new TreeNode(stoi(nodes[i]));
+            q.push(node-&gt;right);
+        &#125;
+        i++;
+    &#125;
+    return root;
+&#125;
+
+int longest = 0;
+
+int findPath(TreeNode* root) &#123;
+    if (!root) return 0;
+    int left = findPath(root-&gt;left);
+    int right = findPath(root-&gt;right);
+    int leftPath = 0, rightPath = 0;
+    if (root-&gt;left &amp;&amp; root-&gt;left-&gt;val == root-&gt;val) &#123;
+        leftPath = left + 1;
+    &#125;
+    if (root-&gt;right &amp;&amp; root-&gt;right-&gt;val == root-&gt;val) &#123;
+        rightPath = right + 1;
+    &#125;
+    longest = max(longest, leftPath + rightPath);
+    return max(leftPath, rightPath);
+&#125;
+
+int main() &#123;
+    int n;
+    cin &gt;&gt; n;
+    cin.ignore();  
+    string line;
+    getline(cin, line);
+    stringstream ss(line);
+    vector&lt;string&gt; nodes;
+    string node;
+    while (ss &gt;&gt; node) &#123;
+        nodes.push_back(node);
+    &#125;
+    TreeNode *root = buildTree(nodes);
+    findPath(root); 
+    cout &lt;&lt; longest &lt;&lt; endl;  
+    return 0;
+&#125;
+</code></pre>
+<h1 id="四-字符串的坑"><a href="#四-字符串的坑" class="headerlink" title="四.字符串的坑"></a>四.字符串的坑</h1><p>输入有空格或者分隔符的字符串时，如果知道每行的单词数量，那就可以按照数量cin到string中存入类似vector&lt;string&gt;的数组中，但有时候不知道数量时需要用getline(cin,s)读取一行放入s中，这时候有个cin和getline混用的坑</p>
+<p>如下图所示，这是题目经常会碰到的情况，读取N行对每行进行处理，但是cin输入n之后，拿走的只是n的值，缓冲区还有个回车符\n，j结果缓冲区中的回车被getline()拿走</p>
+<pre><code class="c++">//错误写法
+
+#include&lt;iostream&gt;
+using namespace std;
+int main()&#123;
+    int N;
+    cin &gt;&gt; N ;  //希望读取N行，并输出
+    while(N--)&#123;
+        string s;
+        getline(cin, s);
+        cout &lt;&lt; s &lt;&lt; endl; 
+    &#125;
+&#125; 
+</code></pre>
+<p>因此当cin和getline混用的时候，在cin后面添加cin.ignore();忽略掉\n后再getline</p>
+<pre><code class="c++">//正确写法
+
+#include&lt;iostream&gt;
+using namespace std;
+int main()&#123;
+    int N;
+    cin &gt;&gt; N ;  
+    cin.ignore(); // cin.ignore()可去除缓冲区中残留的&#39;\n&#39;.
+    while(N--)&#123;
+        string s;
+        getline(cin, s);
+        cout &lt;&lt; s &lt;&lt; endl;;
+    &#125;
+&#125; 
+</code></pre>
+<h1 id="五-输出精度问题"><a href="#五-输出精度问题" class="headerlink" title="五.输出精度问题"></a>五.输出精度问题</h1><p>如果遇到输出精度要求，比如double保留一位小数，那还是改用printf这个c语言函数吧（cout也能实现需要用std::cout &lt;&lt; std::fixed &lt;&lt; std::setprecision(1) &lt;&lt; number &lt;&lt; std::endl; 能记住最好有可能会忘记）</p>
+<p>下面就是一个例子，输出的”%.1f”表示double保留一位小数</p>
+<pre><code class="c++">#include&lt;bits/stdc++.h&gt;
+using namespace std;
+
+int main()&#123;
+    int num;
+    cin&gt;&gt;num;
+    cin.ignore();
+    string line;
+    getline(cin,line);
+    stringstream ss(line);
+    vector&lt;pair&lt;int,int&gt;&gt; v;
+    string split1;
+    while(getline(ss,split1,&#39; &#39;))&#123;
+        stringstream ss2(split1);
+        string t1;
+        string t2;
+        getline(ss2,t1,&#39;:&#39;);
+        getline(ss2,t2,&#39;:&#39;);
+        
+        v.push_back(make_pair(stoi(t1),stoi(t2)));
+    &#125;
+    
+    int n = v.size();
+    //两边特殊判断
+    
+    if(num&lt;v[0].first)&#123;
+        printf(&quot;%.1f&quot;, (double)v[0].second);
+        return 0;
+    &#125;
+    
+    if(num&gt;v[n-1].first)&#123;
+        printf(&quot;%.1f&quot;, (double)v[n-1].second);
+        return 0;
+    &#125;
+    
+    for(int i=0;i&lt;n-1;i++)&#123;
+        if(v[i].first&lt;=num&amp;&amp;v[i+1].first&gt;=num)&#123;
+            if(abs(v[i].first-num)&lt;abs(v[i+1].first-num))&#123;
+                printf(&quot;%.1f&quot;, (double)v[i].second);
+                return 0;
+            &#125;else if(abs(v[i].first-num)&gt;abs(v[i+1].first-num))&#123;
+                printf(&quot;%.1f&quot;, (double)v[i+1].second);
+                return 0;
+            &#125;else&#123;
+                printf(&quot;%.1f&quot;, ((double)(v[i+1].second)+(double)(v[i].second))*0.5);
+                return 0; 
+                
+            &#125;
+        &#125;
+    &#125;
+
+    return 0;
+&#125;
+</code></pre>
+
+      <div class="tags">
+          <a href="/tags/c/" rel="tag"><i class="ic i-tag"></i> c++</a>
+      </div>
+  </div>
+
+   <footer>
+
+    <div class="meta">
+  <span class="item">
+    <span class="icon">
+      <i class="ic i-calendar-check"></i>
+    </span>
+    <span class="text">更新于</span>
+    <time title="修改时间：2024-08-06 01:00:56" itemprop="dateModified" datetime="2024-08-06T01:00:56+08:00">2024-08-06</time>
+  </span>
+</div>
+
+      
+
+<div id="copyright">
+<ul>
+  <li class="author">
+    <strong>本文作者： </strong>Kun Qian <i class="ic i-at"><em>@</em></i>Qkgoalkeeper's blog
+  </li>
+  <li class="link">
+    <strong>本文链接：</strong>
+    <a href="https://qkgoalkeeper.github.io/computer-science/interview/method/acm%E6%A8%A1%E5%BC%8F%E7%9A%84%E8%BE%93%E5%85%A5%E8%BE%93%E5%87%BA/" title="acm模式的输入输出">https://qkgoalkeeper.github.io/computer-science/interview/method/acm模式的输入输出/</a>
+  </li>
+  <li class="license">
+    <strong>版权声明： </strong>本站所有文章除特别声明外，均采用 <span class="exturl" data-url="aHR0cHM6Ly9jcmVhdGl2ZWNvbW1vbnMub3JnL2xpY2Vuc2VzL2J5LW5jLXNhLzQuMC9kZWVkLnpo"><i class="ic i-creative-commons"><em>(CC)</em></i>BY-NC-SA</span> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+  </footer>
+
+</article>
+
+  </div>
+  
+
+<div class="post-nav">
+    <div class="item left">
+      
+
+  <a href="/computer-science/leetcode/algorithm/Leetcode%E4%B8%AD%E7%AD%89%E9%A2%98%E6%80%9D%E8%B7%AF(201-300)/" itemprop="url" rel="prev" data-background-image="https:&#x2F;&#x2F;cdn.jsdelivr.net&#x2F;gh&#x2F;qkgoalkeeper&#x2F;blogImage@main&#x2F;img&#x2F;leetcode.png" title="Leetcode中等题思路（201-300）">
+  <span class="type">上一篇</span>
+  <span class="category"><i class="ic i-flag"></i> 算法题思路</span>
+  <h3>Leetcode中等题思路（201-300）</h3>
+  </a>
+
+    </div>
+    <div class="item right">
+      
+
+  <a href="/computer-science/interview/method/c++%E5%AD%97%E7%AC%A6%E4%B8%B2%E5%88%86%E5%89%B2%E7%AD%89%E6%8A%80%E5%B7%A7/" itemprop="url" rel="next" data-background-image="https:&#x2F;&#x2F;cdn.jsdelivr.net&#x2F;gh&#x2F;qkgoalkeeper&#x2F;blogImage@main&#x2F;img&#x2F;leetcode.png" title="c++字符串分割等技巧">
+  <span class="type">下一篇</span>
+  <span class="category"><i class="ic i-flag"></i> 面试</span>
+  <h3>c++字符串分割等技巧</h3>
+  </a>
+
+    </div>
+</div>
+
+  
+  <div class="wrap" id="comments"></div>
+
+
+        </div>
+        <div id="sidebar">
+          
+
+<div class="inner">
+
+  <div class="panels">
+    <div class="inner">
+      <div class="contents panel pjax" data-title="文章目录">
+          <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%B8%80-%E4%B8%8D%E5%90%AB%E9%A2%9D%E5%A4%96%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E7%9A%84%E8%BE%93%E5%85%A5%E8%BE%93%E5%87%BA"><span class="toc-number">1.</span> <span class="toc-text">一.不含额外数据结构的输入输出</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%BA%8C-%E9%93%BE%E8%A1%A8%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84"><span class="toc-number">2.</span> <span class="toc-text">二.链表数据结构</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%B8%89-%E6%A0%91%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84"><span class="toc-number">3.</span> <span class="toc-text">三.树数据结构</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%9B%9B-%E5%AD%97%E7%AC%A6%E4%B8%B2%E7%9A%84%E5%9D%91"><span class="toc-number">4.</span> <span class="toc-text">四.字符串的坑</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%BA%94-%E8%BE%93%E5%87%BA%E7%B2%BE%E5%BA%A6%E9%97%AE%E9%A2%98"><span class="toc-number">5.</span> <span class="toc-text">五.输出精度问题</span></a></li></ol>
+      </div>
+      <div class="related panel pjax" data-title="系列文章">
+        <ul>
+          <li class="active"><a href="/computer-science/interview/method/acm%E6%A8%A1%E5%BC%8F%E7%9A%84%E8%BE%93%E5%85%A5%E8%BE%93%E5%87%BA/" rel="bookmark" title="acm模式的输入输出">acm模式的输入输出</a></li><li><a href="/computer-science/interview/method/c++%E5%AD%97%E7%AC%A6%E4%B8%B2%E5%88%86%E5%89%B2%E7%AD%89%E6%8A%80%E5%B7%A7/" rel="bookmark" title="c++字符串分割等技巧">c++字符串分割等技巧</a></li><li><a href="/computer-science/interview/method/%E6%8E%92%E5%BA%8F%E4%B8%93%E9%A2%98/" rel="bookmark" title="排序专题">排序专题</a></li>
+        </ul>
+      </div>
+      <div class="overview panel" data-title="站点概览">
+        <div class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <img class="image" itemprop="image" alt="Kun Qian"
+      data-src="/images/avatar.jpg">
+  <p class="name" itemprop="name">Kun Qian</p>
+  <div class="description" itemprop="description"></div>
+</div>
+
+<nav class="state">
+    <div class="item posts">
+      <a href="/archives/">
+        <span class="count">34</span>
+        <span class="name">文章</span>
+      </a>
+    </div>
+    <div class="item categories">
+      <a href="/categories/">
+        <span class="count">9</span>
+        <span class="name">分类</span>
+      </a>
+    </div>
+    <div class="item tags">
+      <a href="/tags/">
+        <span class="count">15</span>
+        <span class="name">标签</span>
+      </a>
+    </div>
+</nav>
+
+<div class="social">
+      <span class="exturl item github" data-url="aHR0cHM6Ly9naXRodWIuY29tL3FrZ29hbGtlZXBlcg==" title="https:&#x2F;&#x2F;github.com&#x2F;qkgoalkeeper"><i class="ic i-github"></i></span>
+      <span class="exturl item zhihu" data-url="aHR0cHM6Ly93d3cuemhpaHUuY29tL3Blb3BsZS9oYW8tbGFpLXd1LXNob3UtbWVuLXl1YW4=" title="https:&#x2F;&#x2F;www.zhihu.com&#x2F;people&#x2F;hao-lai-wu-shou-men-yuan"><i class="ic i-zhihu"></i></span>
+      <span class="exturl item music" data-url="aHR0cHM6Ly9tdXNpYy4xNjMuY29tLyMvdXNlci9ob21lP2lkPTM5MjU2NzE4Nw==" title="https:&#x2F;&#x2F;music.163.com&#x2F;#&#x2F;user&#x2F;home?id&#x3D;392567187"><i class="ic i-cloud-music"></i></span>
+      <a href="/about/" title="&#x2F;about&#x2F;" class="item about"><i class="ic i-address-card"></i></a>
+</div>
+
+<ul class="menu">
+  
+    
+  <li class="item">
+    <a href="/" rel="section"><i class="ic i-home"></i>首页</a>
+  </li>
+
+    
+  <li class="item">
+    <a href="/about/" rel="section"><i class="ic i-user"></i>关于</a>
+  </li>
+
+        
+  <li class="item dropdown">
+      <a href="javascript:void(0);"><i class="ic i-feather"></i>文章</a>
+    <ul class="submenu">
+
+        
+  <li class="item">
+    <a href="/archives/" rel="section"><i class="ic i-list-alt"></i>归档</a>
+  </li>
+
+        
+  <li class="item">
+    <a href="/categories/" rel="section"><i class="ic i-th"></i>分类</a>
+  </li>
+
+        
+  <li class="item">
+    <a href="/tags/" rel="section"><i class="ic i-tags"></i>标签</a>
+  </li>
+
+  </ul>
+    
+  <li class="item">
+    <a href="/friends/" rel="section"><i class="ic i-heart"></i>友達</a>
+  </li>
+
+
+</ul>
+
+      </div>
+    </div>
+  </div>
+
+  <ul id="quick">
+    <li class="prev pjax">
+        <a href="/computer-science/leetcode/algorithm/Leetcode%E4%B8%AD%E7%AD%89%E9%A2%98%E6%80%9D%E8%B7%AF(201-300)/" rel="prev" title="上一篇"><i class="ic i-chevron-left"></i></a>
+    </li>
+    <li class="up"><i class="ic i-arrow-up"></i></li>
+    <li class="down"><i class="ic i-arrow-down"></i></li>
+    <li class="next pjax">
+        <a href="/computer-science/interview/method/c++%E5%AD%97%E7%AC%A6%E4%B8%B2%E5%88%86%E5%89%B2%E7%AD%89%E6%8A%80%E5%B7%A7/" rel="next" title="下一篇"><i class="ic i-chevron-right"></i></a>
+    </li>
+    <li class="percent"></li>
+  </ul>
+</div>
+
+
+        </div>
+        <div class="dimmer"></div>
+      </div>
+    </main>
+    <footer id="footer">
+      <div class="inner">
+        <div class="widgets">
+          
+<div class="rpost pjax">
+  <h2>随机文章</h2>
+  <ul>
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/computer-science/" title="分类于 计算机科学">计算机科学</a>
+<i class="ic i-angle-right"></i>
+<a href="/categories/computer-science/%E8%AE%BA%E6%96%87%E6%BA%90%E7%A0%81%E8%A7%A3%E8%AF%BB/" title="分类于 论文源码解读">论文源码解读</a>
+</div>
+
+    <span><a href="/computer-science/interview/middleware/Leveldb%E6%BA%90%E7%A0%81%E8%A7%A3%E8%AF%BB%EF%BC%884%EF%BC%89%EF%BC%9ALog%E6%A8%A1%E5%9D%97/" title="Leveldb源码解读（4）：Log模块">Leveldb源码解读（4）：Log模块</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/computer-science/" title="分类于 计算机科学">计算机科学</a>
+<i class="ic i-angle-right"></i>
+<a href="/categories/computer-science/%E8%AE%BA%E6%96%87%E6%BA%90%E7%A0%81%E8%A7%A3%E8%AF%BB/" title="分类于 论文源码解读">论文源码解读</a>
+</div>
+
+    <span><a href="/computer-science/interview/middleware/Leveldb%E6%BA%90%E7%A0%81%E8%A7%A3%E8%AF%BB%EF%BC%886%EF%BC%89%EF%BC%9ASSTable%E6%A8%A1%E5%9D%97%20-%20%E5%89%AF%E6%9C%AC/" title="Leveldb源码解读（6）：SSTable模块">Leveldb源码解读（6）：SSTable模块</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/computer-science/" title="分类于 计算机科学">计算机科学</a>
+<i class="ic i-angle-right"></i>
+<a href="/categories/computer-science/leetcode/" title="分类于 Leetcode">Leetcode</a>
+<i class="ic i-angle-right"></i>
+<a href="/categories/computer-science/leetcode/offer2/" title="分类于 剑指offer">剑指offer</a>
+</div>
+
+    <span><a href="/computer-science/leetcode/offer2/LeetCode%E6%AF%8F%E6%97%A5%E7%BB%83%E4%B9%A0%EF%BC%9A%E5%89%91%E6%8C%87%20Offer%20II%20014.%20%E5%AD%97%E7%AC%A6%E4%B8%B2%E4%B8%AD%E7%9A%84%E5%8F%98%E4%BD%8D%E8%AF%8D/" title="剑指 Offer II 014. 字符串中的变位词">剑指 Offer II 014. 字符串中的变位词</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/computer-science/" title="分类于 计算机科学">计算机科学</a>
+<i class="ic i-angle-right"></i>
+<a href="/categories/computer-science/leetcode/" title="分类于 Leetcode">Leetcode</a>
+<i class="ic i-angle-right"></i>
+<a href="/categories/computer-science/leetcode/offer2/" title="分类于 剑指offer">剑指offer</a>
+</div>
+
+    <span><a href="/computer-science/leetcode/offer2/LeetCode%E6%AF%8F%E6%97%A5%E7%BB%83%E4%B9%A0%EF%BC%9A%E5%89%91%E6%8C%87%20Offer%20II%20003.%20%E5%89%8D%20n%20%E4%B8%AA%E6%95%B0%E5%AD%97%E4%BA%8C%E8%BF%9B%E5%88%B6%E4%B8%AD%201%20%E7%9A%84%E4%B8%AA%E6%95%B0/" title="剑指 Offer II 003. 前 n 个数字二进制中 1 的个数">剑指 Offer II 003. 前 n 个数字二进制中 1 的个数</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/computer-science/" title="分类于 计算机科学">计算机科学</a>
+<i class="ic i-angle-right"></i>
+<a href="/categories/computer-science/interview/" title="分类于 面试">面试</a>
+</div>
+
+    <span><a href="/computer-science/interview/method/acm%E6%A8%A1%E5%BC%8F%E7%9A%84%E8%BE%93%E5%85%A5%E8%BE%93%E5%87%BA/" title="acm模式的输入输出">acm模式的输入输出</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/computer-science/" title="分类于 计算机科学">计算机科学</a>
+<i class="ic i-angle-right"></i>
+<a href="/categories/computer-science/leetcode/" title="分类于 Leetcode">Leetcode</a>
+<i class="ic i-angle-right"></i>
+<a href="/categories/computer-science/leetcode/%E7%AE%97%E6%B3%95%E9%A2%98%E6%80%9D%E8%B7%AF/" title="分类于 算法题思路">算法题思路</a>
+</div>
+
+    <span><a href="/computer-science/leetcode/algorithm/Leetcode%E4%B8%AD%E7%AD%89%E9%A2%98%E6%80%9D%E8%B7%AF(201-300)/" title="Leetcode中等题思路（201-300）">Leetcode中等题思路（201-300）</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/computer-science/" title="分类于 计算机科学">计算机科学</a>
+<i class="ic i-angle-right"></i>
+<a href="/categories/computer-science/interview/" title="分类于 面试">面试</a>
+</div>
+
+    <span><a href="/computer-science/interview/method/%E6%8E%92%E5%BA%8F%E4%B8%93%E9%A2%98/" title="排序专题">排序专题</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/computer-science/" title="分类于 计算机科学">计算机科学</a>
+<i class="ic i-angle-right"></i>
+<a href="/categories/computer-science/leetcode/" title="分类于 Leetcode">Leetcode</a>
+<i class="ic i-angle-right"></i>
+<a href="/categories/computer-science/leetcode/offer2/" title="分类于 剑指offer">剑指offer</a>
+</div>
+
+    <span><a href="/computer-science/leetcode/offer2/LeetCode%E6%AF%8F%E6%97%A5%E7%BB%83%E4%B9%A0%EF%BC%9A%E5%89%91%E6%8C%87%20Offer%20II%20010.%20%E5%92%8C%E4%B8%BA%20k%20%E7%9A%84%E5%AD%90%E6%95%B0%E7%BB%84/" title="剑指 Offer II 010. 和为 k 的子数组">剑指 Offer II 010. 和为 k 的子数组</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/computer-science/" title="分类于 计算机科学">计算机科学</a>
+<i class="ic i-angle-right"></i>
+<a href="/categories/computer-science/leetcode/" title="分类于 Leetcode">Leetcode</a>
+<i class="ic i-angle-right"></i>
+<a href="/categories/computer-science/leetcode/offer2/" title="分类于 剑指offer">剑指offer</a>
+</div>
+
+    <span><a href="/computer-science/leetcode/offer2/LeetCode%E6%AF%8F%E6%97%A5%E7%BB%83%E4%B9%A0%EF%BC%9A%E5%89%91%E6%8C%87%20Offer%20II%20007.%20%E6%95%B0%E7%BB%84%E4%B8%AD%E5%92%8C%E4%B8%BA%200%20%E7%9A%84%E4%B8%89%E4%B8%AA%E6%95%B0/" title="剑指 Offer II 007. 数组中和为 0 的三个数">剑指 Offer II 007. 数组中和为 0 的三个数</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/computer-science/" title="分类于 计算机科学">计算机科学</a>
+<i class="ic i-angle-right"></i>
+<a href="/categories/computer-science/leetcode/" title="分类于 Leetcode">Leetcode</a>
+<i class="ic i-angle-right"></i>
+<a href="/categories/computer-science/leetcode/%E7%AE%97%E6%B3%95%E9%A2%98%E6%80%9D%E8%B7%AF/" title="分类于 算法题思路">算法题思路</a>
+</div>
+
+    <span><a href="/computer-science/leetcode/algorithm/Leetcode%E4%B8%AD%E7%AD%89%E9%A2%98%E6%80%9D%E8%B7%AF(101-200)/" title="Leetcode中等题思路（101-100）">Leetcode中等题思路（101-100）</a></span>
+  </li>
+
+  </ul>
+</div>
+
+        </div>
+        <div class="status">
+  <div class="copyright">
+    
+    &copy; 2020 – 
+    <span itemprop="copyrightYear">2024</span>
+    <span class="with-love">
+      <i class="ic i-sakura rotate"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">Kun Qian @ Kun Qian</span>
+  </div>
+  <div class="powered-by">
+    基于 <span class="exturl" data-url="aHR0cHM6Ly9oZXhvLmlv">Hexo</span> & Theme.<span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL2FtZWhpbWUvaGV4by10aGVtZS1zaG9rYQ==">Shoka</span>
+  </div>
+</div>
+
+      </div>
+    </footer>
+  </div>
+<script data-config type="text/javascript">
+  var LOCAL = {
+    path: 'computer-science/interview/method/acm模式的输入输出/',
+    favicon: {
+      show: "qkgoalkeeper's blog",
+      hide: "qkgoalkeeper's blog"
+    },
+    search : {
+      placeholder: "文章搜索",
+      empty: "关于 「 ${query} 」，什么也没搜到",
+      stats: "${time} ms 内找到 ${hits} 条结果"
+    },
+    valine: true,fancybox: true,
+    copyright: '复制成功，转载请遵守 <i class="ic i-creative-commons"></i>BY-NC-SA 协议。',
+    ignores : [
+      function(uri) {
+        return uri.includes('#');
+      },
+      function(uri) {
+        return new RegExp(LOCAL.path+"$").test(uri);
+      }
+    ]
+  };
+</script>
+
+<script src="https://cdn.polyfill.io/v2/polyfill.js"></script>
+
+<script src="//cdn.jsdelivr.net/combine/npm/pace-js@1.0.2/pace.min.js,npm/pjax@0.2.8/pjax.min.js,npm/whatwg-fetch@3.4.0/dist/fetch.umd.min.js,npm/animejs@3.2.0/lib/anime.min.js,npm/algoliasearch@4/dist/algoliasearch-lite.umd.js,npm/instantsearch.js@4/dist/instantsearch.production.min.js,npm/lozad@1/dist/lozad.min.js,npm/quicklink@2/dist/quicklink.umd.js"></script>
+
+<script src="/js/app.js?v=0.2.5"></script>
+
+
+
+
+</body>
+</html>

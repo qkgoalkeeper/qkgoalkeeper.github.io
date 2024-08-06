@@ -1,0 +1,760 @@
+
+
+
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#FFF">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+
+<link rel="icon" type="image/ico" sizes="32x32" href="/images/favicon.ico">
+  <link rel="mask-icon" href="/images/logo.svg" color="">
+  <link rel="manifest" href="/images/manifest.json">
+  <meta name="msapplication-config" content="/images/browserconfig.xml">
+  <meta http-equiv="Cache-Control" content="no-transform">
+  <meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+<link rel="alternate" type="application/rss+xml" title="Qkgoalkeeper's blog" href="https://qkgoalkeeper.github.io/rss.xml" />
+<link rel="alternate" type="application/atom+xml" title="Qkgoalkeeper's blog" href="https://qkgoalkeeper.github.io/atom.xml" />
+<link rel="alternate" type="application/json" title="Qkgoalkeeper's blog" href="https://qkgoalkeeper.github.io/feed.json" />
+
+<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Mulish:300,300italic,400,400italic,700,700italic%7CFredericka%20the%20Great:300,300italic,400,400italic,700,700italic%7CNoto%20Serif%20JP:300,300italic,400,400italic,700,700italic%7CNoto%20Serif%20SC:300,300italic,400,400italic,700,700italic%7CInconsolata:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+
+<link rel="stylesheet" href="/css/app.css?v=0.2.5">
+
+  
+  <meta name="keywords" content="c++" />
+
+
+<link rel="canonical" href="https://qkgoalkeeper.github.io/computer-science/interview/method/c++%E5%AD%97%E7%AC%A6%E4%B8%B2%E5%88%86%E5%89%B2%E7%AD%89%E6%8A%80%E5%B7%A7/">
+
+
+
+  <title>
+c++字符串分割等技巧 - 面试 - 计算机科学 |
+Kun Qian = Qkgoalkeeper's blog</title>
+<meta name="generator" content="Hexo 6.3.0"></head>
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div id="loading">
+    <div class="cat">
+      <div class="body"></div>
+      <div class="head">
+        <div class="face"></div>
+      </div>
+      <div class="foot">
+        <div class="tummy-end"></div>
+        <div class="bottom"></div>
+        <div class="legs left"></div>
+        <div class="legs right"></div>
+      </div>
+      <div class="paw">
+        <div class="hands left"></div>
+        <div class="hands right"></div>
+      </div>
+    </div>
+  </div>
+  <div id="container">
+    <header id="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="inner">
+        <div id="brand">
+          <div class="pjax">
+          
+  <h1 itemprop="name headline">c++字符串分割等技巧
+  </h1>
+  
+<div class="meta">
+  <span class="item" title="创建时间：2024-06-05 15:45:48">
+    <span class="icon">
+      <i class="ic i-calendar"></i>
+    </span>
+    <span class="text">发表于</span>
+    <time itemprop="dateCreated datePublished" datetime="2024-06-05T15:45:48+08:00">2024-06-05</time>
+  </span>
+</div>
+
+
+          </div>
+        </div>
+        <nav id="nav">
+  <div class="inner">
+    <div class="toggle">
+      <div class="lines" aria-label="切换导航栏">
+        <span class="line"></span>
+        <span class="line"></span>
+        <span class="line"></span>
+      </div>
+    </div>
+    <ul class="menu">
+      <li class="item title"><a href="/" rel="start">Kun Qian</a></li>
+    </ul>
+    <ul class="right">
+      <li class="item theme">
+        <i class="ic i-sun"></i>
+      </li>
+      <li class="item search">
+        <i class="ic i-search"></i>
+      </li>
+    </ul>
+  </div>
+</nav>
+
+      </div>
+      <div id="imgs" class="pjax">
+          <img src="https://cdn.jsdelivr.net/gh/qkgoalkeeper/blogImage@main/img/leetcode.png">
+      </div>
+    </header>
+    <div id="waves">
+      <svg class="waves" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 24 150 28" preserveAspectRatio="none" shape-rendering="auto">
+        <defs>
+          <path id="gentle-wave" d="M-160 44c30 0 58-18 88-18s 58 18 88 18 58-18 88-18 58 18 88 18 v44h-352z" />
+        </defs>
+        <g class="parallax">
+          <use xlink:href="#gentle-wave" x="48" y="0" />
+          <use xlink:href="#gentle-wave" x="48" y="3" />
+          <use xlink:href="#gentle-wave" x="48" y="5" />
+          <use xlink:href="#gentle-wave" x="48" y="7" />
+        </g>
+      </svg>
+    </div>
+    <main>
+      <div class="inner">
+        <div id="main" class="pjax">
+          
+  <div class="article wrap">
+    
+<div class="breadcrumb" itemscope itemtype="https://schema.org/BreadcrumbList">
+<i class="ic i-home"></i>
+<span><a href="/">首页</a></span><i class="ic i-angle-right"></i>
+<span  itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/categories/computer-science/" itemprop="item" rel="index" title="分类于 计算机科学"><span itemprop="name">计算机科学</span></a>
+<meta itemprop="position" content="1" /></span>
+<i class="ic i-angle-right"></i>
+<span  class="current" itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/categories/computer-science/interview/" itemprop="item" rel="index" title="分类于 面试"><span itemprop="name">面试</span></a>
+<meta itemprop="position" content="2" /></span>
+</div>
+
+    <article itemscope itemtype="http://schema.org/Article" class="post block" lang="zh-CN">
+  <link itemprop="mainEntityOfPage" href="https://qkgoalkeeper.github.io/computer-science/interview/method/c++%E5%AD%97%E7%AC%A6%E4%B8%B2%E5%88%86%E5%89%B2%E7%AD%89%E6%8A%80%E5%B7%A7/">
+
+  <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <meta itemprop="image" content="/images/avatar.jpg">
+    <meta itemprop="name" content="Kun Qian">
+    <meta itemprop="description" content=", ">
+  </span>
+
+  <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="Qkgoalkeeper's blog">
+  </span>
+
+  <div class="body md" itemprop="articleBody">
+    
+
+    <h1 id="一-字符串分割"><a href="#一-字符串分割" class="headerlink" title="一.字符串分割"></a>一.字符串分割</h1><p>有多种方法比如自己双指针实现split函数，这里主要说明当split为类单字符时候，如何快速用stringstream数据流去比较方便地处理，用法就是stringstream ss后getline的第一个参数改为ss而不是cin，然后第三个参数改为需要的分隔符如逗号</p>
+<pre><code class="c++">//具体看例子就懂，以下是将 “1:2,3:4,5:6” 存入vector&lt;std::pair&lt;int, int&gt;&gt;也就是&#123;&#123;1,2&#125;,&#123;3,4&#125;,&#123;5,6&#125;&#125;的代码，允许stringstream嵌套的使用
+
+#include &lt;iostream&gt;
+#include &lt;sstream&gt;
+#include &lt;vector&gt;
+#include &lt;string&gt;
+#include &lt;utility&gt;
+
+// 函数：将输入字符串分割成vector&lt;pair&lt;int, int&gt;&gt;
+std::vector&lt;std::pair&lt;int, int&gt;&gt; splitStringToPairVector(const std::string&amp; input) &#123;
+    std::vector&lt;std::pair&lt;int, int&gt;&gt; result;
+    std::stringstream ss(input);
+    std::string item;
+    
+    // 通过逗号分割每个pair
+    while (std::getline(ss, item, &#39;,&#39;)) &#123;
+        std::stringstream pairStream(item);
+        std::string key, value;
+        
+        // 通过冒号分割key和value
+        if (std::getline(pairStream, key, &#39;:&#39;) &amp;&amp; std::getline(pairStream, value, &#39;:&#39;)) &#123;
+            result.emplace_back(std::stoi(key), std::stoi(value));
+        &#125;
+    &#125;
+    
+    return result;
+&#125;
+
+int main() &#123;
+    std::string input;
+    
+    // 从标准输入获取整个字符串
+    std::cout &lt;&lt; &quot;Enter the input string: &quot;;
+    std::getline(std::cin, input);
+
+    // 将字符串分割为vector&lt;pair&lt;int, int&gt;&gt;
+    std::vector&lt;std::pair&lt;int, int&gt;&gt; result = splitStringToPairVector(input);
+
+    // 打印结果
+    for (const auto&amp; p : result) &#123;
+        std::cout &lt;&lt; &quot;(&quot; &lt;&lt; p.first &lt;&lt; &quot;, &quot; &lt;&lt; p.second &lt;&lt; &quot;)\n&quot;;
+    &#125;
+
+    return 0;
+&#125;
+</code></pre>
+<h1 id="二-常见数据类型转换"><a href="#二-常见数据类型转换" class="headerlink" title="二.常见数据类型转换"></a>二.常见数据类型转换</h1><p>string 和 int&#x2F;double&#x2F;long long 的相互转换：</p>
+<pre><code class="c++">#include &lt;string&gt;
+#include &lt;iostream&gt;
+
+int main() &#123;
+    std::string str = &quot;12345&quot;;
+    int intValue = std::stoi(str);
+    double doubleValue = std::stod(str);
+    long long longLongValue = std::stoll(str);
+
+    std::cout &lt;&lt; &quot;int: &quot; &lt;&lt; intValue &lt;&lt; &quot;\n&quot;;
+    std::cout &lt;&lt; &quot;double: &quot; &lt;&lt; doubleValue &lt;&lt; &quot;\n&quot;;
+    std::cout &lt;&lt; &quot;long long: &quot; &lt;&lt; longLongValue &lt;&lt; &quot;\n&quot;;
+
+    return 0;
+&#125;
+</code></pre>
+<pre><code class="c++">#include &lt;string&gt;
+#include &lt;iostream&gt;
+
+int main() &#123;
+    int intValue = 12345;
+    double doubleValue = 12345.678;
+    long long longLongValue = 123456789012345LL;
+
+    std::string strInt = std::to_string(intValue);
+    std::string strDouble = std::to_string(doubleValue);
+    std::string strLongLong = std::to_string(longLongValue);
+
+    std::cout &lt;&lt; &quot;string from int: &quot; &lt;&lt; strInt &lt;&lt; &quot;\n&quot;;
+    std::cout &lt;&lt; &quot;string from double: &quot; &lt;&lt; strDouble &lt;&lt; &quot;\n&quot;;
+    std::cout &lt;&lt; &quot;string from long long: &quot; &lt;&lt; strLongLong &lt;&lt; &quot;\n&quot;;
+
+    return 0;
+&#125;
+</code></pre>
+<p>int 和 bitset 的相互转换</p>
+<pre><code class="c++">#include &lt;bitset&gt;
+#include &lt;iostream&gt;
+
+int main() &#123;
+    int num = 29;
+    std::bitset&lt;8&gt; bits(num);
+
+    std::cout &lt;&lt; &quot;Bitset: &quot; &lt;&lt; bits &lt;&lt; &quot;\n&quot;;
+
+    return 0;
+&#125;
+</code></pre>
+<pre><code class="c++">#include &lt;bitset&gt;
+#include &lt;iostream&gt;
+
+int main() &#123;
+    std::bitset&lt;8&gt; bits(&quot;00011101&quot;);
+    unsigned long num = bits.to_ulong();
+    std::cout &lt;&lt; &quot;Integer: &quot; &lt;&lt; int(num) &lt;&lt; &quot;\n&quot;;
+    return 0;
+&#125;
+</code></pre>
+<h1 id="三-进制转换"><a href="#三-进制转换" class="headerlink" title="三.进制转换"></a>三.进制转换</h1><p>有的题会考任意的进制转换  2-16进制</p>
+<p>一个任意进制的string转为int</p>
+<pre><code class="c++">#include &lt;iostream&gt;
+#include &lt;string&gt;
+#include &lt;cmath&gt;
+
+int charToValue(char c) &#123;
+    if (c &gt;= &#39;0&#39; &amp;&amp; c &lt;= &#39;9&#39;)
+        return c - &#39;0&#39;;
+    else if (c &gt;= &#39;A&#39; &amp;&amp; c &lt;= &#39;Z&#39;)
+        return c - &#39;A&#39; + 10;
+    else if (c &gt;= &#39;a&#39; &amp;&amp; c &lt;= &#39;z&#39;)
+        return c - &#39;a&#39; + 10;
+    return -1; // 无效字符
+&#125;
+
+int baseToDecimal(const std::string&amp; num, int base) &#123;
+    int decimal = 0;
+    int length = num.size();
+
+    for (int i = 0; i &lt; length; ++i) &#123;
+        int value = charToValue(num[i]);
+        if (value &gt;= base) &#123;
+            std::cerr &lt;&lt; &quot;Invalid digit in number for the given base.\n&quot;;
+            return -1;
+        &#125;
+        decimal += value * std::pow(base, length - i - 1);
+    &#125;
+
+    return decimal;
+&#125;
+</code></pre>
+<p>int转一个任意进制的string</p>
+<pre><code class="c++">#include &lt;iostream&gt;
+#include &lt;string&gt;
+#include &lt;cmath&gt;
+
+int charToValue(char c) &#123;
+    if (c &gt;= &#39;0&#39; &amp;&amp; c &lt;= &#39;9&#39;)
+        return c - &#39;0&#39;;
+    else if (c &gt;= &#39;A&#39; &amp;&amp; c &lt;= &#39;Z&#39;)
+        return c - &#39;A&#39; + 10;
+    else if (c &gt;= &#39;a&#39; &amp;&amp; c &lt;= &#39;z&#39;)
+        return c - &#39;a&#39; + 10;
+    return -1; // 无效字符
+&#125;
+
+int baseToDecimal(const std::string&amp; num, int base) &#123;
+    int decimal = 0;
+    int length = num.size();
+
+    for (int i = 0; i &lt; length; ++i) &#123;
+        int value = charToValue(num[i]);
+        if (value &gt;= base) &#123;
+            std::cerr &lt;&lt; &quot;Invalid digit in number for the given base.\n&quot;;
+            return -1;
+        &#125;
+        decimal += value * std::pow(base, length - i - 1);
+    &#125;
+
+    return decimal;
+&#125;
+</code></pre>
+<h1 id="四-二进制的位运算"><a href="#四-二进制的位运算" class="headerlink" title="四.二进制的位运算"></a>四.二进制的位运算</h1><p>有的题会考位运算的track，以下是一些常用位运算结论</p>
+<pre><code class="c++">#include &lt;iostream&gt;
+
+// 清零最低位的 1
+int clearLowestOne(int n) &#123;
+    return n &amp; (n - 1);
+&#125;
+
+// 得到最低位的 1
+int getLowestOne(int n) &#123;
+    return n &amp; -n;
+&#125;
+
+// 交换两个数
+void swap(int &amp;a, int &amp;b) &#123;
+    a ^= b;
+    b ^= a;
+    a ^= b;
+&#125;
+
+// 计算二进制中 1 的个数
+int countOnes(int n) &#123;
+    int count = 0;
+    while (n) &#123;
+        n = n &amp; (n - 1);
+        count++;
+    &#125;
+    return count;
+&#125;
+
+int main() &#123;
+    int a = 12; // 1100
+    int b = 3;  // 0011
+
+    // 清零最低位的 1
+    std::cout &lt;&lt; &quot;Clear lowest 1 of &quot; &lt;&lt; a &lt;&lt; &quot;: &quot; &lt;&lt; clearLowestOne(a) &lt;&lt; std::endl;
+
+    // 得到最低位的 1
+    std::cout &lt;&lt; &quot;Lowest 1 of &quot; &lt;&lt; a &lt;&lt; &quot;: &quot; &lt;&lt; getLowestOne(a) &lt;&lt; std::endl;
+
+    // 交换两个数
+    std::cout &lt;&lt; &quot;Before swap: a = &quot; &lt;&lt; a &lt;&lt; &quot;, b = &quot; &lt;&lt; b &lt;&lt; std::endl;
+    swap(a, b);
+    std::cout &lt;&lt; &quot;After swap: a = &quot; &lt;&lt; a &lt;&lt; &quot;, b = &quot; &lt;&lt; b &lt;&lt; std::endl;
+
+    // 计算二进制中 1 的个数
+    std::cout &lt;&lt; &quot;Number of 1s in &quot; &lt;&lt; a &lt;&lt; &quot;: &quot; &lt;&lt; countOnes(a) &lt;&lt; std::endl;
+
+    return 0;
+&#125;
+</code></pre>
+<h1 id="五-最大公约数和最小公倍数"><a href="#五-最大公约数和最小公倍数" class="headerlink" title="五.最大公约数和最小公倍数"></a>五.最大公约数和最小公倍数</h1><p>辗转相除法</p>
+<pre><code class="c++">int gcd(int a, int b) &#123; return b == 0 ? a : gcd(b, a % b); &#125;
+
+int lcm(int a, int b) &#123; return a / gcd(a, b) * b; &#125;
+</code></pre>
+
+      <div class="tags">
+          <a href="/tags/c/" rel="tag"><i class="ic i-tag"></i> c++</a>
+      </div>
+  </div>
+
+   <footer>
+
+    <div class="meta">
+  <span class="item">
+    <span class="icon">
+      <i class="ic i-calendar-check"></i>
+    </span>
+    <span class="text">更新于</span>
+    <time title="修改时间：2024-08-07 00:07:53" itemprop="dateModified" datetime="2024-08-07T00:07:53+08:00">2024-08-07</time>
+  </span>
+</div>
+
+      
+
+<div id="copyright">
+<ul>
+  <li class="author">
+    <strong>本文作者： </strong>Kun Qian <i class="ic i-at"><em>@</em></i>Qkgoalkeeper's blog
+  </li>
+  <li class="link">
+    <strong>本文链接：</strong>
+    <a href="https://qkgoalkeeper.github.io/computer-science/interview/method/c++%E5%AD%97%E7%AC%A6%E4%B8%B2%E5%88%86%E5%89%B2%E7%AD%89%E6%8A%80%E5%B7%A7/" title="c++字符串分割等技巧">https://qkgoalkeeper.github.io/computer-science/interview/method/c++字符串分割等技巧/</a>
+  </li>
+  <li class="license">
+    <strong>版权声明： </strong>本站所有文章除特别声明外，均采用 <span class="exturl" data-url="aHR0cHM6Ly9jcmVhdGl2ZWNvbW1vbnMub3JnL2xpY2Vuc2VzL2J5LW5jLXNhLzQuMC9kZWVkLnpo"><i class="ic i-creative-commons"><em>(CC)</em></i>BY-NC-SA</span> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+  </footer>
+
+</article>
+
+  </div>
+  
+
+<div class="post-nav">
+    <div class="item left">
+      
+
+  <a href="/computer-science/interview/method/acm%E6%A8%A1%E5%BC%8F%E7%9A%84%E8%BE%93%E5%85%A5%E8%BE%93%E5%87%BA/" itemprop="url" rel="prev" data-background-image="https:&#x2F;&#x2F;cdn.jsdelivr.net&#x2F;gh&#x2F;qkgoalkeeper&#x2F;blogImage@main&#x2F;img&#x2F;leetcode.png" title="acm模式的输入输出">
+  <span class="type">上一篇</span>
+  <span class="category"><i class="ic i-flag"></i> 面试</span>
+  <h3>acm模式的输入输出</h3>
+  </a>
+
+    </div>
+    <div class="item right">
+      
+
+  <a href="/computer-science/interview/method/%E6%8E%92%E5%BA%8F%E4%B8%93%E9%A2%98/" itemprop="url" rel="next" data-background-image="https:&#x2F;&#x2F;cdn.jsdelivr.net&#x2F;gh&#x2F;qkgoalkeeper&#x2F;blogImage@main&#x2F;img&#x2F;leetcode.png" title="排序专题">
+  <span class="type">下一篇</span>
+  <span class="category"><i class="ic i-flag"></i> 面试</span>
+  <h3>排序专题</h3>
+  </a>
+
+    </div>
+</div>
+
+  
+  <div class="wrap" id="comments"></div>
+
+
+        </div>
+        <div id="sidebar">
+          
+
+<div class="inner">
+
+  <div class="panels">
+    <div class="inner">
+      <div class="contents panel pjax" data-title="文章目录">
+          <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%B8%80-%E5%AD%97%E7%AC%A6%E4%B8%B2%E5%88%86%E5%89%B2"><span class="toc-number">1.</span> <span class="toc-text">一.字符串分割</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%BA%8C-%E5%B8%B8%E8%A7%81%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E8%BD%AC%E6%8D%A2"><span class="toc-number">2.</span> <span class="toc-text">二.常见数据类型转换</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%B8%89-%E8%BF%9B%E5%88%B6%E8%BD%AC%E6%8D%A2"><span class="toc-number">3.</span> <span class="toc-text">三.进制转换</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%9B%9B-%E4%BA%8C%E8%BF%9B%E5%88%B6%E7%9A%84%E4%BD%8D%E8%BF%90%E7%AE%97"><span class="toc-number">4.</span> <span class="toc-text">四.二进制的位运算</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%BA%94-%E6%9C%80%E5%A4%A7%E5%85%AC%E7%BA%A6%E6%95%B0%E5%92%8C%E6%9C%80%E5%B0%8F%E5%85%AC%E5%80%8D%E6%95%B0"><span class="toc-number">5.</span> <span class="toc-text">五.最大公约数和最小公倍数</span></a></li></ol>
+      </div>
+      <div class="related panel pjax" data-title="系列文章">
+        <ul>
+          <li><a href="/computer-science/interview/method/acm%E6%A8%A1%E5%BC%8F%E7%9A%84%E8%BE%93%E5%85%A5%E8%BE%93%E5%87%BA/" rel="bookmark" title="acm模式的输入输出">acm模式的输入输出</a></li><li class="active"><a href="/computer-science/interview/method/c++%E5%AD%97%E7%AC%A6%E4%B8%B2%E5%88%86%E5%89%B2%E7%AD%89%E6%8A%80%E5%B7%A7/" rel="bookmark" title="c++字符串分割等技巧">c++字符串分割等技巧</a></li><li><a href="/computer-science/interview/method/%E6%8E%92%E5%BA%8F%E4%B8%93%E9%A2%98/" rel="bookmark" title="排序专题">排序专题</a></li>
+        </ul>
+      </div>
+      <div class="overview panel" data-title="站点概览">
+        <div class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <img class="image" itemprop="image" alt="Kun Qian"
+      data-src="/images/avatar.jpg">
+  <p class="name" itemprop="name">Kun Qian</p>
+  <div class="description" itemprop="description"></div>
+</div>
+
+<nav class="state">
+    <div class="item posts">
+      <a href="/archives/">
+        <span class="count">34</span>
+        <span class="name">文章</span>
+      </a>
+    </div>
+    <div class="item categories">
+      <a href="/categories/">
+        <span class="count">9</span>
+        <span class="name">分类</span>
+      </a>
+    </div>
+    <div class="item tags">
+      <a href="/tags/">
+        <span class="count">15</span>
+        <span class="name">标签</span>
+      </a>
+    </div>
+</nav>
+
+<div class="social">
+      <span class="exturl item github" data-url="aHR0cHM6Ly9naXRodWIuY29tL3FrZ29hbGtlZXBlcg==" title="https:&#x2F;&#x2F;github.com&#x2F;qkgoalkeeper"><i class="ic i-github"></i></span>
+      <span class="exturl item zhihu" data-url="aHR0cHM6Ly93d3cuemhpaHUuY29tL3Blb3BsZS9oYW8tbGFpLXd1LXNob3UtbWVuLXl1YW4=" title="https:&#x2F;&#x2F;www.zhihu.com&#x2F;people&#x2F;hao-lai-wu-shou-men-yuan"><i class="ic i-zhihu"></i></span>
+      <span class="exturl item music" data-url="aHR0cHM6Ly9tdXNpYy4xNjMuY29tLyMvdXNlci9ob21lP2lkPTM5MjU2NzE4Nw==" title="https:&#x2F;&#x2F;music.163.com&#x2F;#&#x2F;user&#x2F;home?id&#x3D;392567187"><i class="ic i-cloud-music"></i></span>
+      <a href="/about/" title="&#x2F;about&#x2F;" class="item about"><i class="ic i-address-card"></i></a>
+</div>
+
+<ul class="menu">
+  
+    
+  <li class="item">
+    <a href="/" rel="section"><i class="ic i-home"></i>首页</a>
+  </li>
+
+    
+  <li class="item">
+    <a href="/about/" rel="section"><i class="ic i-user"></i>关于</a>
+  </li>
+
+        
+  <li class="item dropdown">
+      <a href="javascript:void(0);"><i class="ic i-feather"></i>文章</a>
+    <ul class="submenu">
+
+        
+  <li class="item">
+    <a href="/archives/" rel="section"><i class="ic i-list-alt"></i>归档</a>
+  </li>
+
+        
+  <li class="item">
+    <a href="/categories/" rel="section"><i class="ic i-th"></i>分类</a>
+  </li>
+
+        
+  <li class="item">
+    <a href="/tags/" rel="section"><i class="ic i-tags"></i>标签</a>
+  </li>
+
+  </ul>
+    
+  <li class="item">
+    <a href="/friends/" rel="section"><i class="ic i-heart"></i>友達</a>
+  </li>
+
+
+</ul>
+
+      </div>
+    </div>
+  </div>
+
+  <ul id="quick">
+    <li class="prev pjax">
+        <a href="/computer-science/interview/method/acm%E6%A8%A1%E5%BC%8F%E7%9A%84%E8%BE%93%E5%85%A5%E8%BE%93%E5%87%BA/" rel="prev" title="上一篇"><i class="ic i-chevron-left"></i></a>
+    </li>
+    <li class="up"><i class="ic i-arrow-up"></i></li>
+    <li class="down"><i class="ic i-arrow-down"></i></li>
+    <li class="next pjax">
+        <a href="/computer-science/interview/method/%E6%8E%92%E5%BA%8F%E4%B8%93%E9%A2%98/" rel="next" title="下一篇"><i class="ic i-chevron-right"></i></a>
+    </li>
+    <li class="percent"></li>
+  </ul>
+</div>
+
+
+        </div>
+        <div class="dimmer"></div>
+      </div>
+    </main>
+    <footer id="footer">
+      <div class="inner">
+        <div class="widgets">
+          
+<div class="rpost pjax">
+  <h2>随机文章</h2>
+  <ul>
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/computer-science/" title="分类于 计算机科学">计算机科学</a>
+<i class="ic i-angle-right"></i>
+<a href="/categories/computer-science/leetcode/" title="分类于 Leetcode">Leetcode</a>
+<i class="ic i-angle-right"></i>
+<a href="/categories/computer-science/leetcode/offer2/" title="分类于 剑指offer">剑指offer</a>
+</div>
+
+    <span><a href="/computer-science/leetcode/offer2/LeetCode%E6%AF%8F%E6%97%A5%E7%BB%83%E4%B9%A0%EF%BC%9A%E5%89%91%E6%8C%87%20Offer%20II%20012.%20%E5%B7%A6%E5%8F%B3%E4%B8%A4%E8%BE%B9%E5%AD%90%E6%95%B0%E7%BB%84%E7%9A%84%E5%92%8C%E7%9B%B8%E7%AD%89/" title="剑指 Offer II 012. 左右两边子数组的和相等">剑指 Offer II 012. 左右两边子数组的和相等</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/computer-science/" title="分类于 计算机科学">计算机科学</a>
+<i class="ic i-angle-right"></i>
+<a href="/categories/computer-science/%E8%AE%BA%E6%96%87%E6%BA%90%E7%A0%81%E8%A7%A3%E8%AF%BB/" title="分类于 论文源码解读">论文源码解读</a>
+</div>
+
+    <span><a href="/computer-science/interview/middleware/Leveldb%E6%BA%90%E7%A0%81%E8%A7%A3%E8%AF%BB%EF%BC%883%EF%BC%89%EF%BC%9A%E5%85%AC%E7%94%A8%E5%9F%BA%E7%A1%80%E7%B1%BB/" title="Leveldb源码解读（3）：公用基础类">Leveldb源码解读（3）：公用基础类</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/computer-science/" title="分类于 计算机科学">计算机科学</a>
+<i class="ic i-angle-right"></i>
+<a href="/categories/computer-science/leetcode/" title="分类于 Leetcode">Leetcode</a>
+<i class="ic i-angle-right"></i>
+<a href="/categories/computer-science/leetcode/offer2/" title="分类于 剑指offer">剑指offer</a>
+</div>
+
+    <span><a href="/computer-science/leetcode/offer2/LeetCode%E6%AF%8F%E6%97%A5%E7%BB%83%E4%B9%A0%EF%BC%9A%E5%89%91%E6%8C%87%20Offer%20II%20014.%20%E5%AD%97%E7%AC%A6%E4%B8%B2%E4%B8%AD%E7%9A%84%E5%8F%98%E4%BD%8D%E8%AF%8D/" title="剑指 Offer II 014. 字符串中的变位词">剑指 Offer II 014. 字符串中的变位词</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/computer-science/" title="分类于 计算机科学">计算机科学</a>
+<i class="ic i-angle-right"></i>
+<a href="/categories/computer-science/leetcode/" title="分类于 Leetcode">Leetcode</a>
+<i class="ic i-angle-right"></i>
+<a href="/categories/computer-science/leetcode/offer2/" title="分类于 剑指offer">剑指offer</a>
+</div>
+
+    <span><a href="/computer-science/leetcode/offer2/LeetCode%E6%AF%8F%E6%97%A5%E7%BB%83%E4%B9%A0%EF%BC%9A%E5%89%91%E6%8C%87%20Offer%20II%20002.%20%E4%BA%8C%E8%BF%9B%E5%88%B6%E5%8A%A0%E6%B3%95/" title="剑指 Offer II 002. 二进制加法">剑指 Offer II 002. 二进制加法</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/computer-science/" title="分类于 计算机科学">计算机科学</a>
+<i class="ic i-angle-right"></i>
+<a href="/categories/computer-science/study/" title="分类于 研究生学习">研究生学习</a>
+<i class="ic i-angle-right"></i>
+<a href="/categories/computer-science/study/%E8%AE%BA%E6%96%87%E6%BA%90%E7%A0%81%E8%A7%A3%E8%AF%BB/" title="分类于 论文源码解读">论文源码解读</a>
+</div>
+
+    <span><a href="/computer-science/study/paper/Spooky%E8%AE%BA%E6%96%87%E8%A7%A3%E8%AF%BB/" title="SPOOKY论文解读">SPOOKY论文解读</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/computer-science/" title="分类于 计算机科学">计算机科学</a>
+<i class="ic i-angle-right"></i>
+<a href="/categories/computer-science/study/" title="分类于 研究生学习">研究生学习</a>
+<i class="ic i-angle-right"></i>
+<a href="/categories/computer-science/study/%E8%AE%BA%E6%96%87%E6%BA%90%E7%A0%81%E8%A7%A3%E8%AF%BB/" title="分类于 论文源码解读">论文源码解读</a>
+</div>
+
+    <span><a href="/computer-science/study/paper/RAMBO%E6%BA%90%E7%A0%81%E8%A7%A3%E8%AF%BB/" title="RAMBO源码解读">RAMBO源码解读</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/computer-science/" title="分类于 计算机科学">计算机科学</a>
+<i class="ic i-angle-right"></i>
+<a href="/categories/computer-science/%E8%AE%BA%E6%96%87%E6%BA%90%E7%A0%81%E8%A7%A3%E8%AF%BB/" title="分类于 论文源码解读">论文源码解读</a>
+</div>
+
+    <span><a href="/computer-science/interview/middleware/Leveldb%E6%BA%90%E7%A0%81%E8%A7%A3%E8%AF%BB%EF%BC%884%EF%BC%89%EF%BC%9ALog%E6%A8%A1%E5%9D%97/" title="Leveldb源码解读（4）：Log模块">Leveldb源码解读（4）：Log模块</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/computer-science/" title="分类于 计算机科学">计算机科学</a>
+<i class="ic i-angle-right"></i>
+<a href="/categories/computer-science/leetcode/" title="分类于 Leetcode">Leetcode</a>
+<i class="ic i-angle-right"></i>
+<a href="/categories/computer-science/leetcode/offer2/" title="分类于 剑指offer">剑指offer</a>
+</div>
+
+    <span><a href="/computer-science/leetcode/offer2/LeetCode%E6%AF%8F%E6%97%A5%E7%BB%83%E4%B9%A0%EF%BC%9A%E5%89%91%E6%8C%87%20Offer%20II%20006.%20%E6%8E%92%E5%BA%8F%E6%95%B0%E7%BB%84%E4%B8%AD%E4%B8%A4%E4%B8%AA%E6%95%B0%E5%AD%97%E4%B9%8B%E5%92%8C/" title="剑指 Offer II 006. 排序数组中两个数字之和">剑指 Offer II 006. 排序数组中两个数字之和</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/computer-science/" title="分类于 计算机科学">计算机科学</a>
+<i class="ic i-angle-right"></i>
+<a href="/categories/computer-science/interview/" title="分类于 面试">面试</a>
+</div>
+
+    <span><a href="/computer-science/interview/method/%E6%8E%92%E5%BA%8F%E4%B8%93%E9%A2%98/" title="排序专题">排序专题</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/computer-science/" title="分类于 计算机科学">计算机科学</a>
+<i class="ic i-angle-right"></i>
+<a href="/categories/computer-science/%E8%AE%BA%E6%96%87%E6%BA%90%E7%A0%81%E8%A7%A3%E8%AF%BB/" title="分类于 论文源码解读">论文源码解读</a>
+</div>
+
+    <span><a href="/computer-science/interview/middleware/Leveldb%E6%BA%90%E7%A0%81%E8%A7%A3%E8%AF%BB%EF%BC%881%EF%BC%89%EF%BC%9A%E5%9F%BA%E6%9C%AC%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" title="Leveldb源码解读（1）：基本数据结构">Leveldb源码解读（1）：基本数据结构</a></span>
+  </li>
+
+  </ul>
+</div>
+
+        </div>
+        <div class="status">
+  <div class="copyright">
+    
+    &copy; 2020 – 
+    <span itemprop="copyrightYear">2024</span>
+    <span class="with-love">
+      <i class="ic i-sakura rotate"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">Kun Qian @ Kun Qian</span>
+  </div>
+  <div class="powered-by">
+    基于 <span class="exturl" data-url="aHR0cHM6Ly9oZXhvLmlv">Hexo</span> & Theme.<span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL2FtZWhpbWUvaGV4by10aGVtZS1zaG9rYQ==">Shoka</span>
+  </div>
+</div>
+
+      </div>
+    </footer>
+  </div>
+<script data-config type="text/javascript">
+  var LOCAL = {
+    path: 'computer-science/interview/method/c++字符串分割等技巧/',
+    favicon: {
+      show: "qkgoalkeeper's blog",
+      hide: "qkgoalkeeper's blog"
+    },
+    search : {
+      placeholder: "文章搜索",
+      empty: "关于 「 ${query} 」，什么也没搜到",
+      stats: "${time} ms 内找到 ${hits} 条结果"
+    },
+    valine: true,fancybox: true,
+    copyright: '复制成功，转载请遵守 <i class="ic i-creative-commons"></i>BY-NC-SA 协议。',
+    ignores : [
+      function(uri) {
+        return uri.includes('#');
+      },
+      function(uri) {
+        return new RegExp(LOCAL.path+"$").test(uri);
+      }
+    ]
+  };
+</script>
+
+<script src="https://cdn.polyfill.io/v2/polyfill.js"></script>
+
+<script src="//cdn.jsdelivr.net/combine/npm/pace-js@1.0.2/pace.min.js,npm/pjax@0.2.8/pjax.min.js,npm/whatwg-fetch@3.4.0/dist/fetch.umd.min.js,npm/animejs@3.2.0/lib/anime.min.js,npm/algoliasearch@4/dist/algoliasearch-lite.umd.js,npm/instantsearch.js@4/dist/instantsearch.production.min.js,npm/lozad@1/dist/lozad.min.js,npm/quicklink@2/dist/quicklink.umd.js"></script>
+
+<script src="/js/app.js?v=0.2.5"></script>
+
+
+
+
+</body>
+</html>
