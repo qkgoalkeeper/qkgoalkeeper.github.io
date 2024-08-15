@@ -152,810 +152,94 @@ Kun Qian = Qkgoalkeeper's blog</title>
   <div class="body md" itemprop="articleBody">
     
 
-    <h2 id="1-SSTable的读写"><a href="#1-SSTable的读写" class="headerlink" title="1.SSTable的读写"></a>1.SSTable的读写</h2><p>sstable文件由一个个块组成，按照顺序是数据区域，元数据区域，索引区域，尾部</p>
-<p><img data-src="https://cdn.jsdelivr.net/gh/qkgoalkeeper/blogImage@main/img/sstable3.png"></p>
-<p>生成块代码：table&#x2F;block_builder.h和table&#x2F;block_builder.cc</p>
-<p>块中键值对存储其实根据前缀做了压缩，为shared_bytes+unshared_bytes+value_len+char[unshared_bytes]+char[value_len]</p>
-<p>add主要就存std::string buffer_;每次按照压缩后的格式添加</p>
-<pre><code class="c++">class BlockBuilder &#123;
+    <h2 id="1-多版本管理"><a href="#1-多版本管理" class="headerlink" title="1.多版本管理"></a>1.多版本管理</h2><p>leveldb进行一次从level n到level n+1层的compaction操作后会在level n+1层生成新的文件，随后再删除旧文件，leveldb使用version来管理每个层级拥有的文件信息，每次compaction操作后会生成一个新的版本，生成新版本的过程中用versionedit来临时保存信息（中间状态），最后当前版本和versionedit合并后生成新版本</p>
+<p>先看versionedit，其代码在db&#x2F;version_edit.h，其保存compaction操作后增加的删除文件信息和其他元数据</p>
+<pre><code class="c++">class VersionEdit &#123;
  public:
-  explicit BlockBuilder(const Options* options);
+  VersionEdit() &#123; Clear(); &#125;
+  ~VersionEdit() = default;
 
-  BlockBuilder(const BlockBuilder&amp;) = delete;
-  BlockBuilder&amp; operator=(const BlockBuilder&amp;) = delete;
+  void Clear();
 
-  // Reset the contents as if the BlockBuilder was just constructed.
-  void Reset();
+  void SetComparatorName(const Slice&amp; name) &#123;
+    has_comparator_ = true;
+    comparator_ = name.ToString();
+  &#125;
+  void SetLogNumber(uint64_t num) &#123;
+    has_log_number_ = true;
+    log_number_ = num;
+  &#125;
+  void SetPrevLogNumber(uint64_t num) &#123;
+    has_prev_log_number_ = true;
+    prev_log_number_ = num;
+  &#125;
+  void SetNextFile(uint64_t num) &#123;
+    has_next_file_number_ = true;
+    next_file_number_ = num;
+  &#125;
+  void SetLastSequence(SequenceNumber seq) &#123;
+    has_last_sequence_ = true;
+    last_sequence_ = seq;
+  &#125;
+  void SetCompactPointer(int level, const InternalKey&amp; key) &#123;
+    compact_pointers_.push_back(std::make_pair(level, key));
+  &#125;
 
-  // REQUIRES: Finish() has not been called since the last call to Reset().
-  // REQUIRES: key is larger than any previously added key
-  void Add(const Slice&amp; key, const Slice&amp; value);
+  // Add the specified file at the specified number.
+  // REQUIRES: This version has not been saved (see VersionSet::SaveTo)
+  // REQUIRES: &quot;smallest&quot; and &quot;largest&quot; are smallest and largest keys in file
+  void AddFile(int level, uint64_t file, uint64_t file_size,
+               const InternalKey&amp; smallest, const InternalKey&amp; largest) &#123;
+    FileMetaData f;
+    f.number = file;
+    f.file_size = file_size;
+    f.smallest = smallest;
+    f.largest = largest;
+    new_files_.push_back(std::make_pair(level, f));
+  &#125;
 
-  // Finish building the block and return a slice that refers to the
-  // block contents.  The returned slice will remain valid for the
-  // lifetime of this builder or until Reset() is called.
-  Slice Finish();
+  // Delete the specified &quot;file&quot; from the specified &quot;level&quot;.
+  void RemoveFile(int level, uint64_t file) &#123;
+    deleted_files_.insert(std::make_pair(level, file));
+  &#125;
 
-  // Returns an estimate of the current (uncompressed) size of the block
-  // we are building.
-  size_t CurrentSizeEstimate() const;
+  void EncodeTo(std::string* dst) const;
+  Status DecodeFrom(const Slice&amp; src);
 
-  // Return true iff no entries have been added since the last Reset()
-  bool empty() const &#123; return buffer_.empty(); &#125;
+  std::string DebugString() const;
 
  private:
-  const Options* options_;
-  std::string buffer_;              // Destination buffer 所有键值对
-  std::vector&lt;uint32_t&gt; restarts_;  // Restart points 重启点
-  int counter_;                     // Number of entries emitted since restart
-  bool finished_;                   // Has Finish() been called?
-  std::string last_key_;
-&#125;;
-
-...
-    
-void BlockBuilder::Add(const Slice&amp; key, const Slice&amp; value) &#123;
-  Slice last_key_piece(last_key_);
-  assert(!finished_);
-  assert(counter_ &lt;= options_-&gt;block_restart_interval);
-  assert(buffer_.empty()  // No values yet?
-         || options_-&gt;comparator-&gt;Compare(key, last_key_piece) &gt; 0);
-  size_t shared = 0;
-  if (counter_ &lt; options_-&gt;block_restart_interval) &#123;
-    // See how much sharing to do with previous string
-    const size_t min_length = std::min(last_key_piece.size(), key.size());
-    while ((shared &lt; min_length) &amp;&amp; (last_key_piece[shared] == key[shared])) &#123;
-      shared++;
-    &#125;
-  &#125; else &#123;
-    // Restart compression
-    restarts_.push_back(buffer_.size());
-    counter_ = 0;
-  &#125;
-  const size_t non_shared = key.size() - shared;
-
-  // Add &quot;&lt;shared&gt;&lt;non_shared&gt;&lt;value_size&gt;&quot; to buffer_
-  PutVarint32(&amp;buffer_, shared);
-  PutVarint32(&amp;buffer_, non_shared);
-  PutVarint32(&amp;buffer_, value.size());
-
-  // Add string delta to buffer_ followed by value
-  buffer_.append(key.data() + shared, non_shared);
-  buffer_.append(value.data(), value.size());
-
-  // Update state
-  last_key_.resize(shared);
-  last_key_.append(key.data() + shared, non_shared);
-  assert(Slice(last_key_) == key);
-  counter_++;
-&#125;
-
-...
-</code></pre>
-<p>读取块代码：table&#x2F;block.h和table&#x2F;block.cc</p>
-<p>读取一个块时候需要在block类中生成一个迭代器，实际生成一个iter实例，主要看最后seek的实现，通过重启点的kv位置开始遍历知道访问到一个大于等于target的第一个键</p>
-<pre><code class="c++">Iterator* Block::NewIterator(const Comparator* comparator) &#123;
-  if (size_ &lt; sizeof(uint32_t)) &#123;
-    return NewErrorIterator(Status::Corruption(&quot;bad block contents&quot;));
-  &#125;
-  const uint32_t num_restarts = NumRestarts();
-  if (num_restarts == 0) &#123;
-    return NewEmptyIterator();
-  &#125; else &#123;
-    return new Iter(comparator, data_, restart_offset_, num_restarts);
-  &#125;
-&#125;
-
-class Block::Iter : public Iterator &#123;
- private:
-  const Comparator* const comparator_;
-  const char* const data_;       // underlying block contents
-  uint32_t const restarts_;      // Offset of restart array (list of fixed32)
-  uint32_t const num_restarts_;  // Number of uint32_t entries in restart array
-
-  // current_ is offset in data_ of current entry.  &gt;= restarts_ if !Valid
-  uint32_t current_;
-  uint32_t restart_index_;  // Index of restart block in which current_ falls
-  std::string key_;
-  Slice value_;
-  Status status_;
-
-  inline int Compare(const Slice&amp; a, const Slice&amp; b) const &#123;
-    return comparator_-&gt;Compare(a, b);
-  &#125;
-
-  // Return the offset in data_ just past the end of the current entry.
-  inline uint32_t NextEntryOffset() const &#123;
-    return (value_.data() + value_.size()) - data_;
-  &#125;
-
-  uint32_t GetRestartPoint(uint32_t index) &#123;
-    assert(index &lt; num_restarts_);
-    return DecodeFixed32(data_ + restarts_ + index * sizeof(uint32_t));
-  &#125;
-
-  void SeekToRestartPoint(uint32_t index) &#123;
-    key_.clear();
-    restart_index_ = index;
-    // current_ will be fixed by ParseNextKey();
-
-    // ParseNextKey() starts at the end of value_, so set value_ accordingly
-    uint32_t offset = GetRestartPoint(index);
-    value_ = Slice(data_ + offset, 0);
-  &#125;
-
- public:
-  Iter(const Comparator* comparator, const char* data, uint32_t restarts,
-       uint32_t num_restarts)
-      : comparator_(comparator),
-        data_(data),
-        restarts_(restarts),
-        num_restarts_(num_restarts),
-        current_(restarts_),
-        restart_index_(num_restarts_) &#123;
-    assert(num_restarts_ &gt; 0);
-  &#125;
-
-  bool Valid() const override &#123; return current_ &lt; restarts_; &#125;
-  Status status() const override &#123; return status_; &#125;
-  Slice key() const override &#123;
-    assert(Valid());
-    return key_;
-  &#125;
-  Slice value() const override &#123;
-    assert(Valid());
-    return value_;
-  &#125;
-
-  void Next() override &#123;
-    assert(Valid());
-    ParseNextKey();
-  &#125;
-
-  void Prev() override &#123;
-    assert(Valid());
-
-    // Scan backwards to a restart point before current_
-    const uint32_t original = current_;
-    while (GetRestartPoint(restart_index_) &gt;= original) &#123;
-      if (restart_index_ == 0) &#123;
-        // No more entries
-        current_ = restarts_;
-        restart_index_ = num_restarts_;
-        return;
-      &#125;
-      restart_index_--;
-    &#125;
-
-    SeekToRestartPoint(restart_index_);
-    do &#123;
-      // Loop until end of current entry hits the start of original entry
-    &#125; while (ParseNextKey() &amp;&amp; NextEntryOffset() &lt; original);
-  &#125;
-
-  void Seek(const Slice&amp; target) override &#123;
-    // Binary search in restart array to find the last restart point
-    // with a key &lt; target
-    uint32_t left = 0;
-    uint32_t right = num_restarts_ - 1;
-    int current_key_compare = 0;
-
-    if (Valid()) &#123;
-      // If we&#39;re already scanning, use the current position as a starting
-      // point. This is beneficial if the key we&#39;re seeking to is ahead of the
-      // current position.
-      current_key_compare = Compare(key_, target);
-      if (current_key_compare &lt; 0) &#123;
-        // key_ is smaller than target
-        left = restart_index_;
-      &#125; else if (current_key_compare &gt; 0) &#123;
-        right = restart_index_;
-      &#125; else &#123;
-        // We&#39;re seeking to the key we&#39;re already at.
-        return;
-      &#125;
-    &#125;
-
-    while (left &lt; right) &#123;
-      uint32_t mid = (left + right + 1) / 2;
-      uint32_t region_offset = GetRestartPoint(mid);
-      uint32_t shared, non_shared, value_length;
-      const char* key_ptr =
-          DecodeEntry(data_ + region_offset, data_ + restarts_, &amp;shared,
-                      &amp;non_shared, &amp;value_length);
-      if (key_ptr == nullptr || (shared != 0)) &#123;
-        CorruptionError();
-        return;
-      &#125;
-      Slice mid_key(key_ptr, non_shared);
-      if (Compare(mid_key, target) &lt; 0) &#123;
-        // Key at &quot;mid&quot; is smaller than &quot;target&quot;.  Therefore all
-        // blocks before &quot;mid&quot; are uninteresting.
-        left = mid;
-      &#125; else &#123;
-        // Key at &quot;mid&quot; is &gt;= &quot;target&quot;.  Therefore all blocks at or
-        // after &quot;mid&quot; are uninteresting.
-        right = mid - 1;
-      &#125;
-    &#125;
-
-    // We might be able to use our current position within the restart block.
-    // This is true if we determined the key we desire is in the current block
-    // and is after than the current key.
-    assert(current_key_compare == 0 || Valid());
-    bool skip_seek = left == restart_index_ &amp;&amp; current_key_compare &lt; 0;
-    if (!skip_seek) &#123;
-      SeekToRestartPoint(left);
-    &#125;
-    // Linear search (within restart block) for first key &gt;= target
-    while (true) &#123;
-      if (!ParseNextKey()) &#123;
-        return;
-      &#125;
-      if (Compare(key_, target) &gt;= 0) &#123;
-        return;
-      &#125;
-    &#125;
-  &#125;
-
-  void SeekToFirst() override &#123;
-    SeekToRestartPoint(0);
-    ParseNextKey();
-  &#125;
-
-  void SeekToLast() override &#123;
-    SeekToRestartPoint(num_restarts_ - 1);
-    while (ParseNextKey() &amp;&amp; NextEntryOffset() &lt; restarts_) &#123;
-      // Keep skipping
-    &#125;
-  &#125;
-
- private:
-  void CorruptionError() &#123;
-    current_ = restarts_;
-    restart_index_ = num_restarts_;
-    status_ = Status::Corruption(&quot;bad entry in block&quot;);
-    key_.clear();
-    value_.clear();
-  &#125;
-
-  bool ParseNextKey() &#123;
-    current_ = NextEntryOffset();
-    const char* p = data_ + current_;
-    const char* limit = data_ + restarts_;  // Restarts come right after data
-    if (p &gt;= limit) &#123;
-      // No more entries to return.  Mark as invalid.
-      current_ = restarts_;
-      restart_index_ = num_restarts_;
-      return false;
-    &#125;
-
-    // Decode next entry
-    uint32_t shared, non_shared, value_length;
-    p = DecodeEntry(p, limit, &amp;shared, &amp;non_shared, &amp;value_length);
-    if (p == nullptr || key_.size() &lt; shared) &#123;
-      CorruptionError();
-      return false;
-    &#125; else &#123;
-      key_.resize(shared);
-      key_.append(p, non_shared);
-      value_ = Slice(p + non_shared, value_length);
-      while (restart_index_ + 1 &lt; num_restarts_ &amp;&amp;
-             GetRestartPoint(restart_index_ + 1) &lt; current_) &#123;
-        ++restart_index_;
-      &#125;
-      return true;
-    &#125;
-  &#125;
-&#125;;
-
-
-...
-
-//注意seek其实返回void，只是改变iter的位置，判断是不是找到target需要手动比较iter-&gt;key()和target
-Iterator* iter = table-&gt;NewIterator(ReadOptions());
-iter-&gt;Seek(target);
-
-if (iter-&gt;Valid() &amp;&amp; iter-&gt;key() == target) &#123;
-    // 找到了目标键
-    // 可以使用 iter-&gt;value() 获取对应的值
-&#125; else &#123;
-    // 没有找到目标键
-    // 可以处理目标键不存在的情况
-&#125;
-</code></pre>
-<p>生成sstable代码：include&#x2F;leveldb&#x2F;table_builder.h和table&#x2F;table_builder.cc</p>
-<p>先看懂这个Rep结构体 WritableFile* file;就是sstable生成文件</p>
-<p>  BlockBuilder data_block;BlockBuilder index_block;这两分别是sstable的数据区域和数据索引区域</p>
-<p>生成sstable主要看tablebuilder的add和finish方法</p>
-<p>add方法调用生成数据块和生成数据索引块</p>
-<p>这边主要记一下数据索引块的键生成规则是大于等于上个块最大的键，比如上一个块最大的键是theqk，下一个块最小的键是thezz，那么ther就是索引键，减少索引占据空间</p>
-<p>最后finish函数通过调用各种writeblock函数把Rep结构体里的数据写入文件当中</p>
-<pre><code class="c++">struct TableBuilder::Rep &#123;
-  Rep(const Options&amp; opt, WritableFile* f)
-      : options(opt),
-        index_block_options(opt),
-        file(f),
-        offset(0),
-        data_block(&amp;options),
-        index_block(&amp;index_block_options),
-        num_entries(0),
-        closed(false),
-        filter_block(opt.filter_policy == nullptr
-                         ? nullptr
-                         : new FilterBlockBuilder(opt.filter_policy)),
-        pending_index_entry(false) &#123;
-    index_block_options.block_restart_interval = 1;
-  &#125;
-
-  Options options;
-  Options index_block_options;
-  WritableFile* file; //sstable生成文件
-  uint64_t offset;
-  Status status;
-  BlockBuilder data_block;//数据区域/
-  BlockBuilder index_block;///数据索引区域
-  std::string last_key;
-  int64_t num_entries;
-  bool closed;  // Either Finish() or Abandon() has been called.
-  FilterBlockBuilder* filter_block; //元数据布隆过滤器
-
-  // We do not emit the index entry for a block until we have seen the
-  // first key for the next data block.  This allows us to use shorter
-  // keys in the index block.  For example, consider a block boundary
-  // between the keys &quot;the quick brown fox&quot; and &quot;the who&quot;.  We can use
-  // &quot;the r&quot; as the key for the index block entry since it is &gt;= all
-  // entries in the first block and &lt; all entries in subsequent
-  // blocks.
-  //
-  // Invariant: r-&gt;pending_index_entry is true only if data_block is empty.
-  bool pending_index_entry; //判断是否需要给块添加索引
-  BlockHandle pending_handle;  // Handle to add to index block 记录索引块在sstable中的偏移量和大小
-
-  std::string compressed_output;
-&#125;;
-
-
-...
-    
-void TableBuilder::Add(const Slice&amp; key, const Slice&amp; value) &#123;
-  Rep* r = rep_;
-  assert(!r-&gt;closed);
-  if (!ok()) return;
-  if (r-&gt;num_entries &gt; 0) &#123;
-    assert(r-&gt;options.comparator-&gt;Compare(key, Slice(r-&gt;last_key)) &gt; 0);
-  &#125;
-
-  if (r-&gt;pending_index_entry) &#123;
-    assert(r-&gt;data_block.empty());
-    r-&gt;options.comparator-&gt;FindShortestSeparator(&amp;r-&gt;last_key, key);
-    std::string handle_encoding;
-    r-&gt;pending_handle.EncodeTo(&amp;handle_encoding);
-    r-&gt;index_block.Add(r-&gt;last_key, Slice(handle_encoding));
-    r-&gt;pending_index_entry = false;
-  &#125;
-
-  if (r-&gt;filter_block != nullptr) &#123;
-    r-&gt;filter_block-&gt;AddKey(key);
-  &#125;
-
-  r-&gt;last_key.assign(key.data(), key.size());
-  r-&gt;num_entries++;
-  r-&gt;data_block.Add(key, value);
-
-  const size_t estimated_block_size = r-&gt;data_block.CurrentSizeEstimate();
-  if (estimated_block_size &gt;= r-&gt;options.block_size) &#123;
-    Flush();
-  &#125;
-&#125;
-
-...
-    
-Status TableBuilder::Finish() &#123;
-  Rep* r = rep_;
-  Flush();
-  assert(!r-&gt;closed);
-  r-&gt;closed = true;
-
-  BlockHandle filter_block_handle, metaindex_block_handle, index_block_handle;
-
-  // Write filter block
-  if (ok() &amp;&amp; r-&gt;filter_block != nullptr) &#123;
-    WriteRawBlock(r-&gt;filter_block-&gt;Finish(), kNoCompression,
-                  &amp;filter_block_handle);
-  &#125;
-
-  // Write metaindex block
-  if (ok()) &#123;
-    BlockBuilder meta_index_block(&amp;r-&gt;options);
-    if (r-&gt;filter_block != nullptr) &#123;
-      // Add mapping from &quot;filter.Name&quot; to location of filter data
-      std::string key = &quot;filter.&quot;;
-      key.append(r-&gt;options.filter_policy-&gt;Name());
-      std::string handle_encoding;
-      filter_block_handle.EncodeTo(&amp;handle_encoding);
-      meta_index_block.Add(key, handle_encoding);
-    &#125;
-
-    // TODO(postrelease): Add stats and other meta blocks
-    WriteBlock(&amp;meta_index_block, &amp;metaindex_block_handle);
-  &#125;
-
-  // Write index block
-  if (ok()) &#123;
-    if (r-&gt;pending_index_entry) &#123;
-      r-&gt;options.comparator-&gt;FindShortSuccessor(&amp;r-&gt;last_key);
-      std::string handle_encoding;
-      r-&gt;pending_handle.EncodeTo(&amp;handle_encoding);
-      r-&gt;index_block.Add(r-&gt;last_key, Slice(handle_encoding));
-      r-&gt;pending_index_entry = false;
-    &#125;
-    WriteBlock(&amp;r-&gt;index_block, &amp;index_block_handle);
-  &#125;
-
-  // Write footer
-  if (ok()) &#123;
-    Footer footer;
-    footer.set_metaindex_handle(metaindex_block_handle);
-    footer.set_index_handle(index_block_handle);
-    std::string footer_encoding;
-    footer.EncodeTo(&amp;footer_encoding);
-    r-&gt;status = r-&gt;file-&gt;Append(footer_encoding);
-    if (r-&gt;status.ok()) &#123;
-      r-&gt;offset += footer_encoding.size();
-    &#125;
-  &#125;
-  return r-&gt;status;
-&#125;
-    
-</code></pre>
-<p>读取sstable代码：table&#x2F;table.cc和include&#x2F;leveldb&#x2F;table.h</p>
-<p>主要关注table类，读取通过迭代器，其实是twoleveliterator的双层迭代器（table&#x2F;two_level_iterator.cc文件），</p>
-<p>rep_-&gt;index_block-&gt;NewIterator(rep_-&gt;options.comparator)是索引块迭代器</p>
-<p>Table::BlockReader是块迭代器</p>
-<p>最终读取数据是由table::blockreader实现，sstable的读取先通过第一层迭代器数据索引获取到该键存在的块位置，读取块内容对块构建第二层迭代器，所以记住sstable查找是用两层迭代器实现</p>
-<pre><code class="c++">Iterator* Table::NewIterator(const ReadOptions&amp; options) const &#123;
-  return NewTwoLevelIterator(
-      rep_-&gt;index_block-&gt;NewIterator(rep_-&gt;options.comparator),
-      &amp;Table::BlockReader, const_cast&lt;Table*&gt;(this), options);
-&#125;
-
-...
-    
-// Convert an index iterator value (i.e., an encoded BlockHandle)
-// into an iterator over the contents of the corresponding block.
-Iterator* Table::BlockReader(void* arg, const ReadOptions&amp; options,
-                             const Slice&amp; index_value) &#123;
-  Table* table = reinterpret_cast&lt;Table*&gt;(arg);
-  Cache* block_cache = table-&gt;rep_-&gt;options.block_cache;
-  Block* block = nullptr;
-  Cache::Handle* cache_handle = nullptr;
-
-  BlockHandle handle;
-  Slice input = index_value;
-  Status s = handle.DecodeFrom(&amp;input);
-  // We intentionally allow extra stuff in index_value so that we
-  // can add more features in the future.
-
-  if (s.ok()) &#123;
-    BlockContents contents;
-    if (block_cache != nullptr) &#123;
-      char cache_key_buffer[16];
-      EncodeFixed64(cache_key_buffer, table-&gt;rep_-&gt;cache_id);
-      EncodeFixed64(cache_key_buffer + 8, handle.offset());
-      Slice key(cache_key_buffer, sizeof(cache_key_buffer));
-      cache_handle = block_cache-&gt;Lookup(key);
-      if (cache_handle != nullptr) &#123;
-        block = reinterpret_cast&lt;Block*&gt;(block_cache-&gt;Value(cache_handle));
-      &#125; else &#123;
-        s = ReadBlock(table-&gt;rep_-&gt;file, options, handle, &amp;contents);
-        if (s.ok()) &#123;
-          block = new Block(contents);
-          if (contents.cachable &amp;&amp; options.fill_cache) &#123;
-            cache_handle = block_cache-&gt;Insert(key, block, block-&gt;size(),
-                                               &amp;DeleteCachedBlock);
-          &#125;
-        &#125;
-      &#125;
-    &#125; else &#123;
-      s = ReadBlock(table-&gt;rep_-&gt;file, options, handle, &amp;contents);
-      if (s.ok()) &#123;
-        block = new Block(contents);
-      &#125;
-    &#125;
-  &#125;
-
-  Iterator* iter;
-  if (block != nullptr) &#123;
-    iter = block-&gt;NewIterator(table-&gt;rep_-&gt;options.comparator);
-    if (cache_handle == nullptr) &#123;
-      iter-&gt;RegisterCleanup(&amp;DeleteBlock, block, nullptr);
-    &#125; else &#123;
-      iter-&gt;RegisterCleanup(&amp;ReleaseBlock, block_cache, cache_handle);
-    &#125;
-  &#125; else &#123;
-    iter = NewErrorIterator(s);
-  &#125;
-  return iter;
-&#125;
-</code></pre>
-<h2 id="2-布隆过滤器实现"><a href="#2-布隆过滤器实现" class="headerlink" title="2.布隆过滤器实现"></a>2.布隆过滤器实现</h2><p>布隆过滤器设计位置在：util&#x2F;bloom.cc</p>
-<p>注意一下几点：</p>
-<p>1.布隆过滤器存储大小m，哈希函数个数k和元素总个数n直接的关系是：k&#x3D;m&#x2F;n*ln2，m&#x2F;n在代码中就是bits_per_key这个参数</p>
-<p>2.leveldb的sstable中每隔2KB的数据生成一个布隆过滤器</p>
-<p>3.事实上不是用的传统多个哈希函数的布隆过滤器，leveldb中对key只进行了一次哈希，通过对第一次哈希值计算delta然后循环k_次，每次将哈希值添加delta来模拟哈希运算，这参考了论文<span class="exturl" data-url="aHR0cHM6Ly93d3cuZWVjcy5oYXJ2YXJkLmVkdS9+bWljaGFlbG0vcG9zdHNjcmlwdHMvcnNhMjAwOC5wZGY=">eecs.harvard.edu&#x2F;~michaelm&#x2F;postscripts&#x2F;rsa2008.pdf</span></p>
-<pre><code class="c++">static uint32_t BloomHash(const Slice&amp; key) &#123;
-  return Hash(key.data(), key.size(), 0xbc9f1d34);
-&#125;
-
-class BloomFilterPolicy : public FilterPolicy &#123;
- public:
-  explicit BloomFilterPolicy(int bits_per_key) : bits_per_key_(bits_per_key) &#123;
-    // We intentionally round down to reduce probing cost a little bit
-    k_ = static_cast&lt;size_t&gt;(bits_per_key * 0.69);  // 0.69 =~ ln(2)
-    if (k_ &lt; 1) k_ = 1;
-    if (k_ &gt; 30) k_ = 30;
-  &#125;
-
-  const char* Name() const override &#123; return &quot;leveldb.BuiltinBloomFilter2&quot;; &#125;
-
-  void CreateFilter(const Slice* keys, int n, std::string* dst) const override &#123;
-    // Compute bloom filter size (in both bits and bytes)
-    size_t bits = n * bits_per_key_;
-
-    // For small n, we can see a very high false positive rate.  Fix it
-    // by enforcing a minimum bloom filter length.
-    if (bits &lt; 64) bits = 64;
-
-    size_t bytes = (bits + 7) / 8;
-    bits = bytes * 8;
-
-    const size_t init_size = dst-&gt;size();
-    dst-&gt;resize(init_size + bytes, 0);
-    dst-&gt;push_back(static_cast&lt;char&gt;(k_));  // Remember # of probes in filter
-    char* array = &amp;(*dst)[init_size];
-    for (int i = 0; i &lt; n; i++) &#123;
-      // Use double-hashing to generate a sequence of hash values.
-      // See analysis in [Kirsch,Mitzenmacher 2006].
-      uint32_t h = BloomHash(keys[i]);
-      const uint32_t delta = (h &gt;&gt; 17) | (h &lt;&lt; 15);  // Rotate right 17 bits
-      for (size_t j = 0; j &lt; k_; j++) &#123;
-        const uint32_t bitpos = h % bits;
-        array[bitpos / 8] |= (1 &lt;&lt; (bitpos % 8));
-        h += delta;
-      &#125;
-    &#125;
-  &#125;
-
-  bool KeyMayMatch(const Slice&amp; key, const Slice&amp; bloom_filter) const override &#123;
-    const size_t len = bloom_filter.size();
-    if (len &lt; 2) return false;
-
-    const char* array = bloom_filter.data();
-    const size_t bits = (len - 1) * 8;
-
-    // Use the encoded k so that we can read filters generated by
-    // bloom filters created using different parameters.
-    const size_t k = array[len - 1];
-    if (k &gt; 30) &#123;
-      // Reserved for potentially new encodings for short bloom filters.
-      // Consider it a match.
-      return true;
-    &#125;
-
-    uint32_t h = BloomHash(key);
-    const uint32_t delta = (h &gt;&gt; 17) | (h &lt;&lt; 15);  // Rotate right 17 bits
-    for (size_t j = 0; j &lt; k; j++) &#123;
-      const uint32_t bitpos = h % bits;
-      if ((array[bitpos / 8] &amp; (1 &lt;&lt; (bitpos % 8))) == 0) return false;
-      h += delta;
-    &#125;
-    return true;
-  &#125;
-
- private:
-  size_t bits_per_key_;
-  size_t k_;
-&#125;;
-&#125;  // namespace
-
-const FilterPolicy* NewBloomFilterPolicy(int bits_per_key) &#123;
-  return new BloomFilterPolicy(bits_per_key);
-&#125;
-</code></pre>
-<p>布隆过滤器使用位置在：table&#x2F;filter_block.h</p>
-<pre><code class="c++">class FilterBlockBuilder &#123;
- public:
-  explicit FilterBlockBuilder(const FilterPolicy*);
-
-  FilterBlockBuilder(const FilterBlockBuilder&amp;) = delete;
-  FilterBlockBuilder&amp; operator=(const FilterBlockBuilder&amp;) = delete;
-
-  void StartBlock(uint64_t block_offset);
-  void AddKey(const Slice&amp; key);
-  Slice Finish();
-
- private:
-  void GenerateFilter();
-
-  const FilterPolicy* policy_;
-  std::string keys_;             // Flattened key contents
-  std::vector&lt;size_t&gt; start_;    // Starting index in keys_ of each key
-  std::string result_;           // Filter data computed so far
-  std::vector&lt;Slice&gt; tmp_keys_;  // policy_-&gt;CreateFilter() argument
-  std::vector&lt;uint32_t&gt; filter_offsets_;
-&#125;;
-
-class FilterBlockReader &#123;
- public:
-  // REQUIRES: &quot;contents&quot; and *policy must stay live while *this is live.
-  FilterBlockReader(const FilterPolicy* policy, const Slice&amp; contents);
-  bool KeyMayMatch(uint64_t block_offset, const Slice&amp; key);
-
- private:
-  const FilterPolicy* policy_;
-  const char* data_;    // Pointer to filter data (at block-start)
-  const char* offset_;  // Pointer to beginning of offset array (at block-end)
-  size_t num_;          // Number of entries in offset array
-  size_t base_lg_;      // Encoding parameter (see kFilterBaseLg in .cc file)
-&#125;;
-</code></pre>
-<h2 id="3-LRU-Cache实现"><a href="#3-LRU-Cache实现" class="headerlink" title="3.LRU Cache实现"></a>3.LRU Cache实现</h2><p>位置在：util&#x2F;cache.cc</p>
-<p>注意以下几点：</p>
-<p>1.leveldb中实现的lru cache和平时哈希表加双向链表的方式（此时哈希表只维护kv对的存在性）有所不同，其是维护了table_(HandleTable类型，其成员变量包括桶个数，元素个数，桶的首地址，方法包括key的插入查找及哈希表扩缩容)，哈希表中每个位置用单向链表解决冲突，哈希表中所有的值用双向链表串联</p>
-<p>2.双向链表的定义在LRUHandle</p>
-<p>3.lru并不是并发安全的，所以才有1中和平时lru不同的设计，将并发细粒度减小到某一个哈希桶提高并发性能</p>
-<pre><code class="c++">class LRUCache &#123;
- public:
-  LRUCache();
-  ~LRUCache();
-
-  // Separate from constructor so caller can easily make an array of LRUCache
-  void SetCapacity(size_t capacity) &#123; capacity_ = capacity; &#125;
-
-  // Like Cache methods, but with an extra &quot;hash&quot; parameter.
-  Cache::Handle* Insert(const Slice&amp; key, uint32_t hash, void* value,
-                        size_t charge,
-                        void (*deleter)(const Slice&amp; key, void* value));
-  Cache::Handle* Lookup(const Slice&amp; key, uint32_t hash);
-  void Release(Cache::Handle* handle);
-  void Erase(const Slice&amp; key, uint32_t hash);
-  void Prune();
-  size_t TotalCharge() const &#123;
-    MutexLock l(&amp;mutex_);
-    return usage_;
-  &#125;
-
- private:
-  void LRU_Remove(LRUHandle* e);
-  void LRU_Append(LRUHandle* list, LRUHandle* e);
-  void Ref(LRUHandle* e);
-  void Unref(LRUHandle* e);
-  bool FinishErase(LRUHandle* e) EXCLUSIVE_LOCKS_REQUIRED(mutex_);
-
-  // Initialized before use.
-  size_t capacity_;
-
-  // mutex_ protects the following state.
-  mutable port::Mutex mutex_;
-  size_t usage_ GUARDED_BY(mutex_);
-
-  // Dummy head of LRU list.
-  // lru.prev is newest entry, lru.next is oldest entry.
-  // Entries have refs==1 and in_cache==true.
-  LRUHandle lru_ GUARDED_BY(mutex_);
-
-  // Dummy head of in-use list.
-  // Entries are in use by clients, and have refs &gt;= 2 and in_cache==true.
-  LRUHandle in_use_ GUARDED_BY(mutex_);
-
-  HandleTable table_ GUARDED_BY(mutex_);
-&#125;;
-</code></pre>
-<pre><code class="c++">class HandleTable &#123;
- public:
-  HandleTable() : length_(0), elems_(0), list_(nullptr) &#123; Resize(); &#125;
-  ~HandleTable() &#123; delete[] list_; &#125;
-
-  LRUHandle* Lookup(const Slice&amp; key, uint32_t hash) &#123;
-    return *FindPointer(key, hash);
-  &#125;
-
-  LRUHandle* Insert(LRUHandle* h) &#123;
-    LRUHandle** ptr = FindPointer(h-&gt;key(), h-&gt;hash);
-    LRUHandle* old = *ptr;
-    h-&gt;next_hash = (old == nullptr ? nullptr : old-&gt;next_hash);
-    *ptr = h;
-    if (old == nullptr) &#123;
-      ++elems_;
-      if (elems_ &gt; length_) &#123;
-        // Since each cache entry is fairly large, we aim for a small
-        // average linked list length (&lt;= 1).
-        Resize();
-      &#125;
-    &#125;
-    return old;
-  &#125;
-
-  LRUHandle* Remove(const Slice&amp; key, uint32_t hash) &#123;
-    LRUHandle** ptr = FindPointer(key, hash);
-    LRUHandle* result = *ptr;
-    if (result != nullptr) &#123;
-      *ptr = result-&gt;next_hash;
-      --elems_;
-    &#125;
-    return result;
-  &#125;
-
- private:
-  // The table consists of an array of buckets where each bucket is
-  // a linked list of cache entries that hash into the bucket.
-  uint32_t length_;
-  uint32_t elems_;
-  LRUHandle** list_;
-
-  // Return a pointer to slot that points to a cache entry that
-  // matches key/hash.  If there is no such cache entry, return a
-  // pointer to the trailing slot in the corresponding linked list.
-  LRUHandle** FindPointer(const Slice&amp; key, uint32_t hash) &#123;
-    LRUHandle** ptr = &amp;list_[hash &amp; (length_ - 1)];
-    while (*ptr != nullptr &amp;&amp; ((*ptr)-&gt;hash != hash || key != (*ptr)-&gt;key())) &#123;
-      ptr = &amp;(*ptr)-&gt;next_hash;
-    &#125;
-    return ptr;
-  &#125;
-
-  void Resize() &#123;
-    uint32_t new_length = 4;
-    while (new_length &lt; elems_) &#123;
-      new_length *= 2;
-    &#125;
-    LRUHandle** new_list = new LRUHandle*[new_length];
-    memset(new_list, 0, sizeof(new_list[0]) * new_length);
-    uint32_t count = 0;
-    for (uint32_t i = 0; i &lt; length_; i++) &#123;
-      LRUHandle* h = list_[i];
-      while (h != nullptr) &#123;
-        LRUHandle* next = h-&gt;next_hash;
-        uint32_t hash = h-&gt;hash;
-        LRUHandle** ptr = &amp;new_list[hash &amp; (new_length - 1)];
-        h-&gt;next_hash = *ptr;
-        *ptr = h;
-        h = next;
-        count++;
-      &#125;
-    &#125;
-    assert(elems_ == count);
-    delete[] list_;
-    list_ = new_list;
-    length_ = new_length;
-  &#125;
+  friend class VersionSet;
+
+  typedef std::set&lt;std::pair&lt;int, uint64_t&gt;&gt; DeletedFileSet;
+
+  std::string comparator_;
+  uint64_t log_number_;
+  uint64_t prev_log_number_;
+  uint64_t next_file_number_;
+  SequenceNumber last_sequence_;
+  bool has_comparator_;
+  bool has_log_number_;
+  bool has_prev_log_number_;
+  bool has_next_file_number_;
+  bool has_last_sequence_;
+
+  std::vector&lt;std::pair&lt;int, InternalKey&gt;&gt; compact_pointers_;
+  DeletedFileSet deleted_files_;
+  std::vector&lt;std::pair&lt;int, FileMetaData&gt;&gt; new_files_;
 &#125;;
 
 
 
+struct FileMetaData &#123;
+  FileMetaData() : refs(0), allowed_seeks(1 &lt;&lt; 30), file_size(0) &#123;&#125;
 
-
-struct LRUHandle &#123;
-  void* value;
-  void (*deleter)(const Slice&amp;, void* value);
-  LRUHandle* next_hash;
-  LRUHandle* next;
-  LRUHandle* prev;
-  size_t charge;  // TODO(opt): Only allow uint32_t?
-  size_t key_length;
-  bool in_cache;     // Whether entry is in the cache.
-  uint32_t refs;     // References, including cache reference, if present.
-  uint32_t hash;     // Hash of key(); used for fast sharding and comparisons
-  char key_data[1];  // Beginning of key
-
-  Slice key() const &#123;
-    // next is only equal to this if the LRU handle is the list head of an
-    // empty list. List heads never have meaningful keys.
-    assert(next != this);
-
-    return Slice(key_data, key_length);
-  &#125;
+  int refs;
+  int allowed_seeks;  // Seeks allowed until compaction
+  uint64_t number;
+  uint64_t file_size;    // File size in bytes
+  InternalKey smallest;  // Smallest internal key served by table
+  InternalKey largest;   // Largest internal key served by table
 &#125;;
 </code></pre>
 
@@ -973,7 +257,7 @@ struct LRUHandle &#123;
       <i class="ic i-calendar-check"></i>
     </span>
     <span class="text">更新于</span>
-    <time title="修改时间：2024-08-07 14:06:55" itemprop="dateModified" datetime="2024-08-07T14:06:55+08:00">2024-08-07</time>
+    <time title="修改时间：2024-08-15 19:34:41" itemprop="dateModified" datetime="2024-08-15T19:34:41+08:00">2024-08-15</time>
   </span>
 </div>
 
@@ -1037,7 +321,7 @@ struct LRUHandle &#123;
   <div class="panels">
     <div class="inner">
       <div class="contents panel pjax" data-title="文章目录">
-          <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-SSTable%E7%9A%84%E8%AF%BB%E5%86%99"><span class="toc-number">1.</span> <span class="toc-text">1.SSTable的读写</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-%E5%B8%83%E9%9A%86%E8%BF%87%E6%BB%A4%E5%99%A8%E5%AE%9E%E7%8E%B0"><span class="toc-number">2.</span> <span class="toc-text">2.布隆过滤器实现</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-LRU-Cache%E5%AE%9E%E7%8E%B0"><span class="toc-number">3.</span> <span class="toc-text">3.LRU Cache实现</span></a></li></ol>
+          <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-%E5%A4%9A%E7%89%88%E6%9C%AC%E7%AE%A1%E7%90%86"><span class="toc-number">1.</span> <span class="toc-text">1.多版本管理</span></a></li></ol>
       </div>
       <div class="related panel pjax" data-title="系列文章">
         <ul>
@@ -1055,7 +339,7 @@ struct LRUHandle &#123;
 <nav class="state">
     <div class="item posts">
       <a href="/archives/">
-        <span class="count">37</span>
+        <span class="count">39</span>
         <span class="name">文章</span>
       </a>
     </div>
@@ -1067,7 +351,7 @@ struct LRUHandle &#123;
     </div>
     <div class="item tags">
       <a href="/tags/">
-        <span class="count">15</span>
+        <span class="count">17</span>
         <span class="name">标签</span>
       </a>
     </div>
@@ -1161,21 +445,7 @@ struct LRUHandle &#123;
 <a href="/categories/computer-science/leetcode/offer2/" title="分类于 剑指offer">剑指offer</a>
 </div>
 
-    <span><a href="/computer-science/leetcode/offer2/LeetCode%E6%AF%8F%E6%97%A5%E7%BB%83%E4%B9%A0%EF%BC%9A%E5%89%91%E6%8C%87%20Offer%20II%20009.%20%E4%B9%98%E7%A7%AF%E5%B0%8F%E4%BA%8E%20K%20%E7%9A%84%E5%AD%90%E6%95%B0%E7%BB%84/" title="剑指 Offer II 009. 乘积小于 K 的子数组">剑指 Offer II 009. 乘积小于 K 的子数组</a></span>
-  </li>
-
-      
-  <li class="item">
-    
-<div class="breadcrumb">
-<a href="/categories/computer-science/" title="分类于 计算机科学">计算机科学</a>
-<i class="ic i-angle-right"></i>
-<a href="/categories/computer-science/leetcode/" title="分类于 Leetcode">Leetcode</a>
-<i class="ic i-angle-right"></i>
-<a href="/categories/computer-science/leetcode/offer2/" title="分类于 剑指offer">剑指offer</a>
-</div>
-
-    <span><a href="/computer-science/leetcode/offer2/LeetCode%E6%AF%8F%E6%97%A5%E7%BB%83%E4%B9%A0%EF%BC%9A%E5%89%91%E6%8C%87%20Offer%20II%20016.%20%E4%B8%8D%E5%90%AB%E9%87%8D%E5%A4%8D%E5%AD%97%E7%AC%A6%E7%9A%84%E6%9C%80%E9%95%BF%E5%AD%90%E5%AD%97%E7%AC%A6%E4%B8%B2/" title="剑指 Offer II 016. 不含重复字符的最长子字符串">剑指 Offer II 016. 不含重复字符的最长子字符串</a></span>
+    <span><a href="/computer-science/leetcode/offer2/LeetCode%E6%AF%8F%E6%97%A5%E7%BB%83%E4%B9%A0%EF%BC%9A%E5%89%91%E6%8C%87%20Offer%20II%20011.%200%20%E5%92%8C%201%20%E4%B8%AA%E6%95%B0%E7%9B%B8%E5%90%8C%E7%9A%84%E5%AD%90%E6%95%B0%E7%BB%84/" title="剑指 Offer II 011. 0 和 1 个数相同的子数组">剑指 Offer II 011. 0 和 1 个数相同的子数组</a></span>
   </li>
 
       
@@ -1189,7 +459,19 @@ struct LRUHandle &#123;
 <a href="/categories/computer-science/leetcode/%E7%AE%97%E6%B3%95%E9%A2%98%E6%80%9D%E8%B7%AF/" title="分类于 算法题思路">算法题思路</a>
 </div>
 
-    <span><a href="/computer-science/leetcode/algorithm/Leetcode%E4%B8%AD%E7%AD%89%E9%A2%98%E6%80%9D%E8%B7%AF(101-200)/" title="Leetcode中等题思路（101-100）">Leetcode中等题思路（101-100）</a></span>
+    <span><a href="/computer-science/leetcode/algorithm/Leetcode%E4%B8%AD%E7%AD%89%E9%A2%98%E6%80%9D%E8%B7%AF%EF%BC%881-100%EF%BC%89/" title="Leetcode中等题思路（1-100）">Leetcode中等题思路（1-100）</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/computer-science/" title="分类于 计算机科学">计算机科学</a>
+<i class="ic i-angle-right"></i>
+<a href="/categories/computer-science/middleware/" title="分类于 源码解读">源码解读</a>
+</div>
+
+    <span><a href="/computer-science/interview/middleware/Leveldb%E6%BA%90%E7%A0%81%E8%A7%A3%E8%AF%BB%EF%BC%886%EF%BC%89%EF%BC%9ASSTable%E6%A8%A1%E5%9D%97%20-%20%E5%89%AF%E6%9C%AC/" title="Leveldb源码解读（6）：SSTable模块">Leveldb源码解读（6）：SSTable模块</a></span>
   </li>
 
       
@@ -1203,7 +485,7 @@ struct LRUHandle &#123;
 <a href="/categories/computer-science/leetcode/offer2/" title="分类于 剑指offer">剑指offer</a>
 </div>
 
-    <span><a href="/computer-science/leetcode/offer2/LeetCode%E6%AF%8F%E6%97%A5%E7%BB%83%E4%B9%A0%EF%BC%9A%E5%89%91%E6%8C%87%20Offer%20II%20010.%20%E5%92%8C%E4%B8%BA%20k%20%E7%9A%84%E5%AD%90%E6%95%B0%E7%BB%84/" title="剑指 Offer II 010. 和为 k 的子数组">剑指 Offer II 010. 和为 k 的子数组</a></span>
+    <span><a href="/computer-science/leetcode/offer2/LeetCode%E6%AF%8F%E6%97%A5%E7%BB%83%E4%B9%A0%EF%BC%9A%E5%89%91%E6%8C%87%20Offer%20II%20001.%20%E6%95%B4%E6%95%B0%E9%99%A4%E6%B3%95/" title="剑指 Offer II 001. 整数除法">剑指 Offer II 001. 整数除法</a></span>
   </li>
 
       
@@ -1217,7 +499,45 @@ struct LRUHandle &#123;
 <a href="/categories/computer-science/leetcode/offer2/" title="分类于 剑指offer">剑指offer</a>
 </div>
 
-    <span><a href="/computer-science/leetcode/offer2/LeetCode%E6%AF%8F%E6%97%A5%E7%BB%83%E4%B9%A0%EF%BC%9A%E5%89%91%E6%8C%87%20Offer%20II%20017.%20%E5%90%AB%E6%9C%89%E6%89%80%E6%9C%89%E5%AD%97%E7%AC%A6%E7%9A%84%E6%9C%80%E7%9F%AD%E5%AD%97%E7%AC%A6%E4%B8%B2/" title="剑指 Offer II 017. 含有所有字符的最短字符串">剑指 Offer II 017. 含有所有字符的最短字符串</a></span>
+    <span><a href="/computer-science/leetcode/offer2/LeetCode%E6%AF%8F%E6%97%A5%E7%BB%83%E4%B9%A0%EF%BC%9A%E5%89%91%E6%8C%87%20Offer%20II%20009.%20%E4%B9%98%E7%A7%AF%E5%B0%8F%E4%BA%8E%20K%20%E7%9A%84%E5%AD%90%E6%95%B0%E7%BB%84/" title="剑指 Offer II 009. 乘积小于 K 的子数组">剑指 Offer II 009. 乘积小于 K 的子数组</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/computer-science/" title="分类于 计算机科学">计算机科学</a>
+<i class="ic i-angle-right"></i>
+<a href="/categories/computer-science/middleware/" title="分类于 源码解读">源码解读</a>
+</div>
+
+    <span><a href="/computer-science/interview/middleware/Leveldb%E6%BA%90%E7%A0%81%E8%A7%A3%E8%AF%BB%EF%BC%882%EF%BC%89%EF%BC%9A%E6%80%BB%E4%BD%93%E6%9E%B6%E6%9E%84%E4%B8%8E%E8%AE%BE%E8%AE%A1%E6%80%9D%E6%83%B3%20-%20%E5%89%AF%E6%9C%AC/" title="Leveldb源码解读（2）：总体架构与设计思想">Leveldb源码解读（2）：总体架构与设计思想</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/computer-science/" title="分类于 计算机科学">计算机科学</a>
+<i class="ic i-angle-right"></i>
+<a href="/categories/computer-science/leetcode/" title="分类于 Leetcode">Leetcode</a>
+</div>
+
+    <span><a href="/computer-science/interview/method/c++%20std%20vector%E3%80%81queue%E3%80%81stack%E5%BA%95%E5%B1%82%E5%8E%9F%E7%90%86/" title="c++ std vector、queue、stack底层原理">c++ std vector、queue、stack底层原理</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/computer-science/" title="分类于 计算机科学">计算机科学</a>
+<i class="ic i-angle-right"></i>
+<a href="/categories/computer-science/study/" title="分类于 研究生学习">研究生学习</a>
+<i class="ic i-angle-right"></i>
+<a href="/categories/computer-science/study/paper/" title="分类于 论文源码解读">论文源码解读</a>
+</div>
+
+    <span><a href="/computer-science/study/paper/RAMBO%E6%BA%90%E7%A0%81%E8%A7%A3%E8%AF%BB/" title="RAMBO源码解读">RAMBO源码解读</a></span>
   </li>
 
       
@@ -1243,47 +563,7 @@ struct LRUHandle &#123;
 <a href="/categories/computer-science/leetcode/offer2/" title="分类于 剑指offer">剑指offer</a>
 </div>
 
-    <span><a href="/computer-science/leetcode/offer2/LeetCode%E6%AF%8F%E6%97%A5%E7%BB%83%E4%B9%A0%EF%BC%9A%E5%89%91%E6%8C%87%20Offer%20II%20001.%20%E6%95%B4%E6%95%B0%E9%99%A4%E6%B3%95/" title="剑指 Offer II 001. 整数除法">剑指 Offer II 001. 整数除法</a></span>
-  </li>
-
-      
-  <li class="item">
-    
-<div class="breadcrumb">
-<a href="/categories/computer-science/" title="分类于 计算机科学">计算机科学</a>
-<i class="ic i-angle-right"></i>
-<a href="/categories/computer-science/%E7%AC%94%E8%AF%95%E6%8A%80%E5%B7%A7/" title="分类于 笔试技巧">笔试技巧</a>
-</div>
-
-    <span><a href="/computer-science/interview/method/%E5%B9%B6%E6%9F%A5%E9%9B%86%E4%B8%93%E9%A2%98/" title="并查集专题">并查集专题</a></span>
-  </li>
-
-      
-  <li class="item">
-    
-<div class="breadcrumb">
-<a href="/categories/computer-science/" title="分类于 计算机科学">计算机科学</a>
-<i class="ic i-angle-right"></i>
-<a href="/categories/computer-science/leetcode/" title="分类于 Leetcode">Leetcode</a>
-<i class="ic i-angle-right"></i>
-<a href="/categories/computer-science/leetcode/offer2/" title="分类于 剑指offer">剑指offer</a>
-</div>
-
-    <span><a href="/computer-science/leetcode/offer2/LeetCode%E6%AF%8F%E6%97%A5%E7%BB%83%E4%B9%A0%EF%BC%9A%E5%89%91%E6%8C%87%20Offer%20II%20008.%20%E5%92%8C%E5%A4%A7%E4%BA%8E%E7%AD%89%E4%BA%8E%20target%20%E7%9A%84%E6%9C%80%E7%9F%AD%E5%AD%90%E6%95%B0%E7%BB%84/" title="剑指 Offer II 008. 和大于等于 target 的最短子数组">剑指 Offer II 008. 和大于等于 target 的最短子数组</a></span>
-  </li>
-
-      
-  <li class="item">
-    
-<div class="breadcrumb">
-<a href="/categories/computer-science/" title="分类于 计算机科学">计算机科学</a>
-<i class="ic i-angle-right"></i>
-<a href="/categories/computer-science/leetcode/" title="分类于 Leetcode">Leetcode</a>
-<i class="ic i-angle-right"></i>
-<a href="/categories/computer-science/leetcode/offer2/" title="分类于 剑指offer">剑指offer</a>
-</div>
-
-    <span><a href="/computer-science/interview/method/c++%20std%20vector%E3%80%81queue%E3%80%81stack%E5%BA%95%E5%B1%82%E5%8E%9F%E7%90%86/" title="c++ std vector、queue、stack底层原理">c++ std vector、queue、stack底层原理</a></span>
+    <span><a href="/computer-science/leetcode/offer2/LeetCode%E6%AF%8F%E6%97%A5%E7%BB%83%E4%B9%A0%EF%BC%9A%E5%89%91%E6%8C%87%20Offer%20II%20007.%20%E6%95%B0%E7%BB%84%E4%B8%AD%E5%92%8C%E4%B8%BA%200%20%E7%9A%84%E4%B8%89%E4%B8%AA%E6%95%B0/" title="剑指 Offer II 007. 数组中和为 0 的三个数">剑指 Offer II 007. 数组中和为 0 的三个数</a></span>
   </li>
 
   </ul>

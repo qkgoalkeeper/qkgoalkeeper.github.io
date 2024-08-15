@@ -199,6 +199,39 @@ int main() &#123;
     return 0;
 &#125;
 </code></pre>
+<p>有的时候分隔符为字符串，那就可以用int index &#x3D; s.find(“子串”)进行分割</p>
+<pre><code class="c++">#include &lt;iostream&gt;
+#include &lt;vector&gt;
+#include &lt;string&gt;
+
+std::vector&lt;std::string&gt; split(const std::string &amp;s, const std::string &amp;delimiter) &#123;
+    std::vector&lt;std::string&gt; tokens;
+    size_t start = 0;
+    size_t end = s.find(delimiter);
+
+    while (end != std::string::npos) &#123;
+        tokens.push_back(s.substr(start, end - start));
+        start = end + delimiter.length();
+        end = s.find(delimiter, start);
+    &#125;
+
+    tokens.push_back(s.substr(start)); // Add the last token
+    return tokens;
+&#125;
+
+int main() &#123;
+    std::string s = &quot;aa|||aac|||cbb&quot;;
+    std::string delimiter = &quot;|||&quot;;
+
+    std::vector&lt;std::string&gt; result = split(s, delimiter);
+
+    for (const std::string &amp;str : result) &#123;
+        std::cout &lt;&lt; str &lt;&lt; std::endl;
+    &#125;
+
+    return 0;
+&#125;
+</code></pre>
 <h1 id="二-常见数据类型转换"><a href="#二-常见数据类型转换" class="headerlink" title="二.常见数据类型转换"></a>二.常见数据类型转换</h1><p>string 和 int&#x2F;double&#x2F;long long 的相互转换：</p>
 <pre><code class="c++">#include &lt;string&gt;
 #include &lt;iostream&gt;
@@ -293,32 +326,45 @@ int baseToDecimal(const std::string&amp; num, int base) &#123;
 <p>int转一个任意进制的string</p>
 <pre><code class="c++">#include &lt;iostream&gt;
 #include &lt;string&gt;
-#include &lt;cmath&gt;
+#include &lt;algorithm&gt;
 
-int charToValue(char c) &#123;
-    if (c &gt;= &#39;0&#39; &amp;&amp; c &lt;= &#39;9&#39;)
-        return c - &#39;0&#39;;
-    else if (c &gt;= &#39;A&#39; &amp;&amp; c &lt;= &#39;Z&#39;)
-        return c - &#39;A&#39; + 10;
-    else if (c &gt;= &#39;a&#39; &amp;&amp; c &lt;= &#39;z&#39;)
-        return c - &#39;a&#39; + 10;
-    return -1; // 无效字符
-&#125;
-
-int baseToDecimal(const std::string&amp; num, int base) &#123;
-    int decimal = 0;
-    int length = num.size();
-
-    for (int i = 0; i &lt; length; ++i) &#123;
-        int value = charToValue(num[i]);
-        if (value &gt;= base) &#123;
-            std::cerr &lt;&lt; &quot;Invalid digit in number for the given base.\n&quot;;
-            return -1;
-        &#125;
-        decimal += value * std::pow(base, length - i - 1);
+std::string intToBase(int num, int base) &#123;
+    if (base &lt; 2 || base &gt; 36) &#123;
+        std::cerr &lt;&lt; &quot;Base out of range (2-36).\n&quot;;
+        return &quot;&quot;;
     &#125;
 
-    return decimal;
+    if (num == 0)
+        return &quot;0&quot;;
+
+    std::string chars = &quot;0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ&quot;;
+    std::string result;
+    bool isNegative = num &lt; 0;
+
+    if (isNegative) &#123;
+        num = -num;
+    &#125;
+
+    while (num &gt; 0) &#123;
+        result.push_back(chars[num % base]);
+        num /= base;
+    &#125;
+
+    if (isNegative) &#123;
+        result.push_back(&#39;-&#39;);
+    &#125;
+
+    std::reverse(result.begin(), result.end());
+
+    return result;
+&#125;
+
+int main() &#123;
+    int number = 255;
+    int base = 16;
+    std::string baseString = intToBase(number, base);
+    std::cout &lt;&lt; &quot;Number in base &quot; &lt;&lt; base &lt;&lt; &quot;: &quot; &lt;&lt; baseString &lt;&lt; std::endl;
+    return 0;
 &#125;
 </code></pre>
 <h1 id="四-二进制的位运算"><a href="#四-二进制的位运算" class="headerlink" title="四.二进制的位运算"></a>四.二进制的位运算</h1><p>有的题会考位运算的track，以下是一些常用位运算结论</p>
@@ -391,7 +437,7 @@ int lcm(int a, int b) &#123; return a / gcd(a, b) * b; &#125;
       <i class="ic i-calendar-check"></i>
     </span>
     <span class="text">更新于</span>
-    <time title="修改时间：2024-08-07 14:07:33" itemprop="dateModified" datetime="2024-08-07T14:07:33+08:00">2024-08-07</time>
+    <time title="修改时间：2024-08-15 15:41:08" itemprop="dateModified" datetime="2024-08-15T15:41:08+08:00">2024-08-15</time>
   </span>
 </div>
 
@@ -459,7 +505,7 @@ int lcm(int a, int b) &#123; return a / gcd(a, b) * b; &#125;
       </div>
       <div class="related panel pjax" data-title="系列文章">
         <ul>
-          <li><a href="/computer-science/interview/method/%E5%B9%B6%E6%9F%A5%E9%9B%86%E4%B8%93%E9%A2%98/" rel="bookmark" title="并查集专题">并查集专题</a></li><li><a href="/computer-science/interview/method/acm%E6%A8%A1%E5%BC%8F%E7%9A%84%E8%BE%93%E5%85%A5%E8%BE%93%E5%87%BA/" rel="bookmark" title="acm模式的输入输出">acm模式的输入输出</a></li><li class="active"><a href="/computer-science/interview/method/c++%E5%AD%97%E7%AC%A6%E4%B8%B2%E5%88%86%E5%89%B2%E7%AD%89%E6%8A%80%E5%B7%A7/" rel="bookmark" title="c++字符串分割等技巧">c++字符串分割等技巧</a></li><li><a href="/computer-science/interview/method/%E6%8E%92%E5%BA%8F%E4%B8%93%E9%A2%98/" rel="bookmark" title="排序专题">排序专题</a></li><li><a href="/computer-science/interview/method/c++%20%E4%BA%8C%E5%88%86%E6%A8%A1%E6%9D%BF/" rel="bookmark" title="c++二分模板">c++二分模板</a></li>
+          <li><a href="/computer-science/interview/method/%E5%B9%B6%E6%9F%A5%E9%9B%86%E4%B8%93%E9%A2%98/" rel="bookmark" title="并查集专题">并查集专题</a></li><li><a href="/computer-science/interview/method/acm%E6%A8%A1%E5%BC%8F%E7%9A%84%E8%BE%93%E5%85%A5%E8%BE%93%E5%87%BA/" rel="bookmark" title="acm模式的输入输出">acm模式的输入输出</a></li><li class="active"><a href="/computer-science/interview/method/c++%E5%AD%97%E7%AC%A6%E4%B8%B2%E5%88%86%E5%89%B2%E7%AD%89%E6%8A%80%E5%B7%A7/" rel="bookmark" title="c++字符串分割等技巧">c++字符串分割等技巧</a></li><li><a href="/computer-science/interview/method/%E6%8E%92%E5%BA%8F%E4%B8%93%E9%A2%98/" rel="bookmark" title="排序专题">排序专题</a></li><li><a href="/computer-science/interview/method/c++%20%E4%BA%8C%E5%88%86%E6%A8%A1%E6%9D%BF/" rel="bookmark" title="c++二分模板">c++二分模板</a></li><li><a href="/computer-science/interview/method/%E7%BB%8F%E5%85%B8%E5%AD%97%E7%AC%A6%E4%B8%B2%E7%AE%97%E6%B3%95%EF%BC%9AKMP%E9%97%AE%E9%A2%98/" rel="bookmark" title="经典字符串算法：KMP">经典字符串算法：KMP</a></li><li><a href="/computer-science/interview/method/%E7%BB%8F%E5%85%B8dp%E7%AE%97%E6%B3%95%EF%BC%9ALCS%E9%97%AE%E9%A2%98/" rel="bookmark" title="经典dp算法：LCS问题">经典dp算法：LCS问题</a></li>
         </ul>
       </div>
       <div class="overview panel" data-title="站点概览">
@@ -473,7 +519,7 @@ int lcm(int a, int b) &#123; return a / gcd(a, b) * b; &#125;
 <nav class="state">
     <div class="item posts">
       <a href="/archives/">
-        <span class="count">37</span>
+        <span class="count">39</span>
         <span class="name">文章</span>
       </a>
     </div>
@@ -485,7 +531,7 @@ int lcm(int a, int b) &#123; return a / gcd(a, b) * b; &#125;
     </div>
     <div class="item tags">
       <a href="/tags/">
-        <span class="count">15</span>
+        <span class="count">17</span>
         <span class="name">标签</span>
       </a>
     </div>
@@ -574,24 +620,12 @@ int lcm(int a, int b) &#123; return a / gcd(a, b) * b; &#125;
 <div class="breadcrumb">
 <a href="/categories/computer-science/" title="分类于 计算机科学">计算机科学</a>
 <i class="ic i-angle-right"></i>
-<a href="/categories/computer-science/middleware/" title="分类于 源码解读">源码解读</a>
+<a href="/categories/computer-science/study/" title="分类于 研究生学习">研究生学习</a>
+<i class="ic i-angle-right"></i>
+<a href="/categories/computer-science/study/paper/" title="分类于 论文源码解读">论文源码解读</a>
 </div>
 
-    <span><a href="/computer-science/interview/middleware/Leveldb%E6%BA%90%E7%A0%81%E8%A7%A3%E8%AF%BB%EF%BC%882%EF%BC%89%EF%BC%9A%E6%80%BB%E4%BD%93%E6%9E%B6%E6%9E%84%E4%B8%8E%E8%AE%BE%E8%AE%A1%E6%80%9D%E6%83%B3%20-%20%E5%89%AF%E6%9C%AC/" title="Leveldb源码解读（2）：总体架构与设计思想">Leveldb源码解读（2）：总体架构与设计思想</a></span>
-  </li>
-
-      
-  <li class="item">
-    
-<div class="breadcrumb">
-<a href="/categories/computer-science/" title="分类于 计算机科学">计算机科学</a>
-<i class="ic i-angle-right"></i>
-<a href="/categories/computer-science/leetcode/" title="分类于 Leetcode">Leetcode</a>
-<i class="ic i-angle-right"></i>
-<a href="/categories/computer-science/leetcode/%E7%AE%97%E6%B3%95%E9%A2%98%E6%80%9D%E8%B7%AF/" title="分类于 算法题思路">算法题思路</a>
-</div>
-
-    <span><a href="/computer-science/leetcode/algorithm/Leetcode%E4%B8%AD%E7%AD%89%E9%A2%98%E6%80%9D%E8%B7%AF%EF%BC%881-100%EF%BC%89/" title="Leetcode中等题思路（1-100）">Leetcode中等题思路（1-100）</a></span>
+    <span><a href="/computer-science/study/paper/Spooky%E8%AE%BA%E6%96%87%E8%A7%A3%E8%AF%BB/" title="SPOOKY论文解读">SPOOKY论文解读</a></span>
   </li>
 
       
@@ -612,80 +646,48 @@ int lcm(int a, int b) &#123; return a / gcd(a, b) * b; &#125;
 <div class="breadcrumb">
 <a href="/categories/computer-science/" title="分类于 计算机科学">计算机科学</a>
 <i class="ic i-angle-right"></i>
-<a href="/categories/computer-science/leetcode/" title="分类于 Leetcode">Leetcode</a>
-<i class="ic i-angle-right"></i>
-<a href="/categories/computer-science/leetcode/offer2/" title="分类于 剑指offer">剑指offer</a>
-</div>
-
-    <span><a href="/computer-science/leetcode/offer2/LeetCode%E6%AF%8F%E6%97%A5%E7%BB%83%E4%B9%A0%EF%BC%9A%E5%89%91%E6%8C%87%20Offer%20II%20017.%20%E5%90%AB%E6%9C%89%E6%89%80%E6%9C%89%E5%AD%97%E7%AC%A6%E7%9A%84%E6%9C%80%E7%9F%AD%E5%AD%97%E7%AC%A6%E4%B8%B2/" title="剑指 Offer II 017. 含有所有字符的最短字符串">剑指 Offer II 017. 含有所有字符的最短字符串</a></span>
-  </li>
-
-      
-  <li class="item">
-    
-<div class="breadcrumb">
-<a href="/categories/computer-science/" title="分类于 计算机科学">计算机科学</a>
-<i class="ic i-angle-right"></i>
-<a href="/categories/computer-science/leetcode/" title="分类于 Leetcode">Leetcode</a>
-<i class="ic i-angle-right"></i>
-<a href="/categories/computer-science/leetcode/offer2/" title="分类于 剑指offer">剑指offer</a>
-</div>
-
-    <span><a href="/computer-science/leetcode/offer2/LeetCode%E6%AF%8F%E6%97%A5%E7%BB%83%E4%B9%A0%EF%BC%9A%E5%89%91%E6%8C%87%20Offer%20II%20015.%20%E5%AD%97%E7%AC%A6%E4%B8%B2%E4%B8%AD%E7%9A%84%E6%89%80%E6%9C%89%E5%8F%98%E4%BD%8D%E8%AF%8D/" title="剑指 Offer II 015. 字符串中的所有变位词">剑指 Offer II 015. 字符串中的所有变位词</a></span>
-  </li>
-
-      
-  <li class="item">
-    
-<div class="breadcrumb">
-<a href="/categories/computer-science/" title="分类于 计算机科学">计算机科学</a>
-<i class="ic i-angle-right"></i>
-<a href="/categories/computer-science/study/" title="分类于 研究生学习">研究生学习</a>
-<i class="ic i-angle-right"></i>
-<a href="/categories/computer-science/study/paper/" title="分类于 论文源码解读">论文源码解读</a>
-</div>
-
-    <span><a href="/computer-science/study/paper/Spooky%E8%AE%BA%E6%96%87%E8%A7%A3%E8%AF%BB/" title="SPOOKY论文解读">SPOOKY论文解读</a></span>
-  </li>
-
-      
-  <li class="item">
-    
-<div class="breadcrumb">
-<a href="/categories/computer-science/" title="分类于 计算机科学">计算机科学</a>
-<i class="ic i-angle-right"></i>
-<a href="/categories/computer-science/leetcode/" title="分类于 Leetcode">Leetcode</a>
-<i class="ic i-angle-right"></i>
-<a href="/categories/computer-science/leetcode/offer2/" title="分类于 剑指offer">剑指offer</a>
-</div>
-
-    <span><a href="/computer-science/leetcode/offer2/LeetCode%E6%AF%8F%E6%97%A5%E7%BB%83%E4%B9%A0%EF%BC%9A%E5%89%91%E6%8C%87%20Offer%20II%20004.%20%E5%8F%AA%E5%87%BA%E7%8E%B0%E4%B8%80%E6%AC%A1%E7%9A%84%E6%95%B0%E5%AD%97/" title="剑指 Offer II 004. 只出现一次的数字">剑指 Offer II 004. 只出现一次的数字</a></span>
-  </li>
-
-      
-  <li class="item">
-    
-<div class="breadcrumb">
-<a href="/categories/computer-science/" title="分类于 计算机科学">计算机科学</a>
-<i class="ic i-angle-right"></i>
-<a href="/categories/computer-science/leetcode/" title="分类于 Leetcode">Leetcode</a>
-<i class="ic i-angle-right"></i>
-<a href="/categories/computer-science/leetcode/offer2/" title="分类于 剑指offer">剑指offer</a>
-</div>
-
-    <span><a href="/computer-science/interview/method/c++%20std%20vector%E3%80%81queue%E3%80%81stack%E5%BA%95%E5%B1%82%E5%8E%9F%E7%90%86/" title="c++ std vector、queue、stack底层原理">c++ std vector、queue、stack底层原理</a></span>
-  </li>
-
-      
-  <li class="item">
-    
-<div class="breadcrumb">
-<a href="/categories/computer-science/" title="分类于 计算机科学">计算机科学</a>
-<i class="ic i-angle-right"></i>
 <a href="/categories/computer-science/%E7%AC%94%E8%AF%95%E6%8A%80%E5%B7%A7/" title="分类于 笔试技巧">笔试技巧</a>
 </div>
 
-    <span><a href="/computer-science/interview/method/acm%E6%A8%A1%E5%BC%8F%E7%9A%84%E8%BE%93%E5%85%A5%E8%BE%93%E5%87%BA/" title="acm模式的输入输出">acm模式的输入输出</a></span>
+    <span><a href="/computer-science/interview/method/%E5%B9%B6%E6%9F%A5%E9%9B%86%E4%B8%93%E9%A2%98/" title="并查集专题">并查集专题</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/computer-science/" title="分类于 计算机科学">计算机科学</a>
+<i class="ic i-angle-right"></i>
+<a href="/categories/computer-science/leetcode/" title="分类于 Leetcode">Leetcode</a>
+<i class="ic i-angle-right"></i>
+<a href="/categories/computer-science/leetcode/%E7%AE%97%E6%B3%95%E9%A2%98%E6%80%9D%E8%B7%AF/" title="分类于 算法题思路">算法题思路</a>
+</div>
+
+    <span><a href="/computer-science/leetcode/algorithm/Leetcode%E4%B8%AD%E7%AD%89%E9%A2%98%E6%80%9D%E8%B7%AF(101-200)/" title="Leetcode中等题思路（101-100）">Leetcode中等题思路（101-100）</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/computer-science/" title="分类于 计算机科学">计算机科学</a>
+<i class="ic i-angle-right"></i>
+<a href="/categories/computer-science/middleware/" title="分类于 源码解读">源码解读</a>
+</div>
+
+    <span><a href="/computer-science/interview/middleware/Leveldb%E6%BA%90%E7%A0%81%E8%A7%A3%E8%AF%BB%EF%BC%883%EF%BC%89%EF%BC%9A%E5%85%AC%E7%94%A8%E5%9F%BA%E7%A1%80%E7%B1%BB/" title="Leveldb源码解读（3）：公用基础类">Leveldb源码解读（3）：公用基础类</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/computer-science/" title="分类于 计算机科学">计算机科学</a>
+<i class="ic i-angle-right"></i>
+<a href="/categories/computer-science/leetcode/" title="分类于 Leetcode">Leetcode</a>
+</div>
+
+    <span><a href="/computer-science/interview/method/c++%E7%9A%84std%E4%B8%AD%E7%9A%84%E8%87%AA%E5%AE%9A%E4%B9%89%E7%B1%BB%E5%9E%8B%E4%BD%BF%E7%94%A8%EF%BC%88sort%E3%80%81map%E7%9A%84key%E3%80%81priority_queue%EF%BC%89/" title="c++的std中的自定义类型使用（sort、map的key、priority_queue）">c++的std中的自定义类型使用（sort、map的key、priority_queue）</a></span>
   </li>
 
       
@@ -699,7 +701,47 @@ int lcm(int a, int b) &#123; return a / gcd(a, b) * b; &#125;
 <a href="/categories/computer-science/leetcode/offer2/" title="分类于 剑指offer">剑指offer</a>
 </div>
 
-    <span><a href="/computer-science/leetcode/offer2/LeetCode%E6%AF%8F%E6%97%A5%E7%BB%83%E4%B9%A0%EF%BC%9A%E5%89%91%E6%8C%87%20Offer%20II%20007.%20%E6%95%B0%E7%BB%84%E4%B8%AD%E5%92%8C%E4%B8%BA%200%20%E7%9A%84%E4%B8%89%E4%B8%AA%E6%95%B0/" title="剑指 Offer II 007. 数组中和为 0 的三个数">剑指 Offer II 007. 数组中和为 0 的三个数</a></span>
+    <span><a href="/computer-science/leetcode/offer2/LeetCode%E6%AF%8F%E6%97%A5%E7%BB%83%E4%B9%A0%EF%BC%9A%E5%89%91%E6%8C%87%20Offer%20II%20006.%20%E6%8E%92%E5%BA%8F%E6%95%B0%E7%BB%84%E4%B8%AD%E4%B8%A4%E4%B8%AA%E6%95%B0%E5%AD%97%E4%B9%8B%E5%92%8C/" title="剑指 Offer II 006. 排序数组中两个数字之和">剑指 Offer II 006. 排序数组中两个数字之和</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/computer-science/" title="分类于 计算机科学">计算机科学</a>
+<i class="ic i-angle-right"></i>
+<a href="/categories/computer-science/leetcode/" title="分类于 Leetcode">Leetcode</a>
+<i class="ic i-angle-right"></i>
+<a href="/categories/computer-science/leetcode/offer2/" title="分类于 剑指offer">剑指offer</a>
+</div>
+
+    <span><a href="/computer-science/leetcode/offer2/LeetCode%E6%AF%8F%E6%97%A5%E7%BB%83%E4%B9%A0%EF%BC%9A%E5%89%91%E6%8C%87%20Offer%20II%20001.%20%E6%95%B4%E6%95%B0%E9%99%A4%E6%B3%95/" title="剑指 Offer II 001. 整数除法">剑指 Offer II 001. 整数除法</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/computer-science/" title="分类于 计算机科学">计算机科学</a>
+<i class="ic i-angle-right"></i>
+<a href="/categories/computer-science/leetcode/" title="分类于 Leetcode">Leetcode</a>
+<i class="ic i-angle-right"></i>
+<a href="/categories/computer-science/leetcode/offer2/" title="分类于 剑指offer">剑指offer</a>
+</div>
+
+    <span><a href="/computer-science/leetcode/offer2/LeetCode%E6%AF%8F%E6%97%A5%E7%BB%83%E4%B9%A0%EF%BC%9A%E5%89%91%E6%8C%87%20Offer%20II%20011.%200%20%E5%92%8C%201%20%E4%B8%AA%E6%95%B0%E7%9B%B8%E5%90%8C%E7%9A%84%E5%AD%90%E6%95%B0%E7%BB%84/" title="剑指 Offer II 011. 0 和 1 个数相同的子数组">剑指 Offer II 011. 0 和 1 个数相同的子数组</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/computer-science/" title="分类于 计算机科学">计算机科学</a>
+<i class="ic i-angle-right"></i>
+<a href="/categories/computer-science/middleware/" title="分类于 源码解读">源码解读</a>
+</div>
+
+    <span><a href="/computer-science/interview/middleware/Leveldb%E6%BA%90%E7%A0%81%E8%A7%A3%E8%AF%BB%EF%BC%884%EF%BC%89%EF%BC%9ALog%E6%A8%A1%E5%9D%97/" title="Leveldb源码解读（4）：Log模块">Leveldb源码解读（4）：Log模块</a></span>
   </li>
 
   </ul>
