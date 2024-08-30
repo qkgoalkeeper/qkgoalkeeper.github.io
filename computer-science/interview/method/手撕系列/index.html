@@ -1,0 +1,1574 @@
+
+
+
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#FFF">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+
+<link rel="icon" type="image/ico" sizes="32x32" href="/images/favicon.ico">
+  <link rel="mask-icon" href="/images/logo.svg" color="">
+  <link rel="manifest" href="/images/manifest.json">
+  <meta name="msapplication-config" content="/images/browserconfig.xml">
+  <meta http-equiv="Cache-Control" content="no-transform">
+  <meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+<link rel="alternate" type="application/rss+xml" title="Qkgoalkeeper's blog" href="https://qkgoalkeeper.github.io/rss.xml" />
+<link rel="alternate" type="application/atom+xml" title="Qkgoalkeeper's blog" href="https://qkgoalkeeper.github.io/atom.xml" />
+<link rel="alternate" type="application/json" title="Qkgoalkeeper's blog" href="https://qkgoalkeeper.github.io/feed.json" />
+
+<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Mulish:300,300italic,400,400italic,700,700italic%7CFredericka%20the%20Great:300,300italic,400,400italic,700,700italic%7CNoto%20Serif%20JP:300,300italic,400,400italic,700,700italic%7CNoto%20Serif%20SC:300,300italic,400,400italic,700,700italic%7CInconsolata:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+
+<link rel="stylesheet" href="/css/app.css?v=0.2.5">
+
+  
+  <meta name="keywords" content="c++,KMP" />
+
+
+<link rel="canonical" href="https://qkgoalkeeper.github.io/computer-science/interview/method/%E6%89%8B%E6%92%95%E7%B3%BB%E5%88%97/">
+
+
+
+  <title>
+手撕常用算法和结构 - 笔试技巧 - 计算机科学 |
+Kun Qian = Qkgoalkeeper's blog</title>
+<meta name="generator" content="Hexo 6.3.0"></head>
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div id="loading">
+    <div class="cat">
+      <div class="body"></div>
+      <div class="head">
+        <div class="face"></div>
+      </div>
+      <div class="foot">
+        <div class="tummy-end"></div>
+        <div class="bottom"></div>
+        <div class="legs left"></div>
+        <div class="legs right"></div>
+      </div>
+      <div class="paw">
+        <div class="hands left"></div>
+        <div class="hands right"></div>
+      </div>
+    </div>
+  </div>
+  <div id="container">
+    <header id="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="inner">
+        <div id="brand">
+          <div class="pjax">
+          
+  <h1 itemprop="name headline">手撕常用算法和结构
+  </h1>
+  
+<div class="meta">
+  <span class="item" title="创建时间：2024-06-20 15:45:48">
+    <span class="icon">
+      <i class="ic i-calendar"></i>
+    </span>
+    <span class="text">发表于</span>
+    <time itemprop="dateCreated datePublished" datetime="2024-06-20T15:45:48+08:00">2024-06-20</time>
+  </span>
+</div>
+
+
+          </div>
+        </div>
+        <nav id="nav">
+  <div class="inner">
+    <div class="toggle">
+      <div class="lines" aria-label="切换导航栏">
+        <span class="line"></span>
+        <span class="line"></span>
+        <span class="line"></span>
+      </div>
+    </div>
+    <ul class="menu">
+      <li class="item title"><a href="/" rel="start">Kun Qian</a></li>
+    </ul>
+    <ul class="right">
+      <li class="item theme">
+        <i class="ic i-sun"></i>
+      </li>
+      <li class="item search">
+        <i class="ic i-search"></i>
+      </li>
+    </ul>
+  </div>
+</nav>
+
+      </div>
+      <div id="imgs" class="pjax">
+          <img src="https://cdn.jsdelivr.net/gh/qkgoalkeeper/blogImage@main/img/leetcode.png">
+      </div>
+    </header>
+    <div id="waves">
+      <svg class="waves" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 24 150 28" preserveAspectRatio="none" shape-rendering="auto">
+        <defs>
+          <path id="gentle-wave" d="M-160 44c30 0 58-18 88-18s 58 18 88 18 58-18 88-18 58 18 88 18 v44h-352z" />
+        </defs>
+        <g class="parallax">
+          <use xlink:href="#gentle-wave" x="48" y="0" />
+          <use xlink:href="#gentle-wave" x="48" y="3" />
+          <use xlink:href="#gentle-wave" x="48" y="5" />
+          <use xlink:href="#gentle-wave" x="48" y="7" />
+        </g>
+      </svg>
+    </div>
+    <main>
+      <div class="inner">
+        <div id="main" class="pjax">
+          
+  <div class="article wrap">
+    
+<div class="breadcrumb" itemscope itemtype="https://schema.org/BreadcrumbList">
+<i class="ic i-home"></i>
+<span><a href="/">首页</a></span><i class="ic i-angle-right"></i>
+<span  itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/categories/computer-science/" itemprop="item" rel="index" title="分类于 计算机科学"><span itemprop="name">计算机科学</span></a>
+<meta itemprop="position" content="1" /></span>
+<i class="ic i-angle-right"></i>
+<span  class="current" itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/categories/computer-science/%E7%AC%94%E8%AF%95%E6%8A%80%E5%B7%A7/" itemprop="item" rel="index" title="分类于 笔试技巧"><span itemprop="name">笔试技巧</span></a>
+<meta itemprop="position" content="2" /></span>
+</div>
+
+    <article itemscope itemtype="http://schema.org/Article" class="post block" lang="zh-CN">
+  <link itemprop="mainEntityOfPage" href="https://qkgoalkeeper.github.io/computer-science/interview/method/%E6%89%8B%E6%92%95%E7%B3%BB%E5%88%97/">
+
+  <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <meta itemprop="image" content="/images/avatar.jpg">
+    <meta itemprop="name" content="Kun Qian">
+    <meta itemprop="description" content=", ">
+  </span>
+
+  <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="Qkgoalkeeper's blog">
+  </span>
+
+  <div class="body md" itemprop="articleBody">
+    
+
+    <h1 id="一-KMP算法"><a href="#一-KMP算法" class="headerlink" title="一.KMP算法"></a>一.KMP算法</h1><p><span class="exturl" data-url="aHR0cHM6Ly9sZWV0Y29kZS5jbi9wcm9ibGVtcy9maW5kLXRoZS1pbmRleC1vZi10aGUtZmlyc3Qtb2NjdXJyZW5jZS1pbi1hLXN0cmluZy8=">28. 找出字符串中第一个匹配项的下标</span>以这道题为例，最简单的方法是双重遍历，这里学一下KMP算法更高效</p>
+<p>什么是前缀表，对于一个待匹配的串“aabaaf”，其前缀表为0 1 0 1 2 0表示从开头到每个位置为止的前缀后缀相同部分的长度</p>
+<pre><code class="c++">#include &lt;bits/stdc++.h&gt; 
+using namespace std;
+
+vector&lt;int&gt; findarr(string needle)&#123;
+    int n = needle.size();
+    vector&lt;int&gt; arr(n);
+    int j = 0;
+    for(int i=1;i&lt;n;i++)&#123; //注意i从1开始
+        while(j&gt;0&amp;&amp;needle[i]!=needle[j])&#123;
+            j = arr[j-1]; //注意这里是j-1
+        &#125;
+        if(needle[i]==needle[j])&#123;
+            j++;
+        &#125;
+        arr[i] = j;
+        //cout&lt;&lt;&quot;arr &quot;&lt;&lt; i&lt;&lt;&quot;=&quot;&lt;&lt;arr[i]&lt;&lt;endl;
+    &#125;
+    return arr;
+&#125;
+
+vector&lt;int&gt; solve(string haystack,string needle)&#123;
+    vector&lt;int&gt; answer;
+    vector&lt;int&gt; arr = findarr(needle);
+
+    // for(auto &amp;x:arr)&#123;
+    //     cout&lt;&lt;x&lt;&lt;&quot; &quot;;
+    // &#125;
+    // cout&lt;&lt;endl;
+    int j = 0;
+    int n = haystack.size();
+    for(int i=0;i&lt;n;i++)&#123;
+        while(j&gt;0&amp;&amp;haystack[i]!=needle[j])&#123;
+            j = arr[j-1];
+        &#125;
+        if(haystack[i]==needle[j])&#123;
+            j++;
+        &#125;
+        if(j==needle.size())&#123;
+            answer.emplace_back(i-needle.size()+1);
+        &#125;
+    &#125;
+    return answer;
+&#125;
+
+int main()
+&#123;
+    string haystack = &quot;asadsadsbutsadsaadsads&quot;, needle = &quot;sads&quot;;
+
+    vector&lt;int&gt; answer = solve(haystack,needle);
+
+    for(int i=0;i&lt;(int)answer.size();i++)&#123;
+        cout&lt;&lt;answer[i]&lt;&lt;endl;
+    &#125;
+    return 0;
+
+&#125;
+</code></pre>
+<h1 id="二-快速排序"><a href="#二-快速排序" class="headerlink" title="二.快速排序"></a>二.快速排序</h1><p><span class="exturl" data-url="aHR0cHM6Ly9sZWV0Y29kZS5jbi9wcm9ibGVtcy94eDRnVDIv">LCR 076. 数组中的第 K 个最大元素</span> 注意这道部分快排找第k位置的经典题  原题</p>
+<pre><code class="c++">class Solution &#123;
+public:
+    int partition(int left,int right,vector&lt;int&gt; &amp;arr)&#123;
+        int target = arr[left];
+        while(left&lt;right)&#123;
+            while(left&lt;right&amp;&amp;arr[right]&lt;=target)&#123;
+                right--;
+            &#125;
+            if(left&lt;right)&#123;
+                swap(arr[left],arr[right]);
+                left++;
+            &#125;
+            while(left&lt;right&amp;&amp;arr[left]&gt;target)&#123;
+                
+                left++;
+            &#125;
+            if(left&lt;right)&#123;
+                swap(arr[left],arr[right]);
+                right--;
+            &#125;
+        &#125;
+        return left;
+    &#125;;
+
+    void quicksort(vector&lt;int&gt;&amp; nums,int k,int left,int right)&#123; //部分排序
+        if(left&lt;right)&#123;
+            int index = partition(left,right,nums);
+            //cout&lt;&lt;&quot;index:&quot;&lt;&lt;index&lt;&lt;endl;
+            if(index==k-1)&#123;
+                return;
+            &#125;else if(index&lt;k-1)&#123;
+                quicksort(nums,k,index+1,right);
+            &#125;else&#123;
+                quicksort(nums,k,left,index-1);
+            &#125;
+        &#125;
+    &#125;
+    int findKthLargest(vector&lt;int&gt;&amp; nums, int k) &#123;
+        quicksort(nums,k,0,nums.size()-1);
+        return nums[k-1];
+    &#125;
+&#125;;
+</code></pre>
+<h1 id="三-归并排序"><a href="#三-归并排序" class="headerlink" title="三.归并排序"></a>三.归并排序</h1><p><span class="exturl" data-url="aHR0cHM6Ly9sZWV0Y29kZS5jbi9wcm9ibGVtcy92dlhnU1cv">LCR 078. 合并 K 个升序链表</span> 这道困难能做出来就没问题了</p>
+<pre><code class="c++">/**
+ * Definition for singly-linked list.
+ * struct ListNode &#123;
+ *     int val;
+ *     ListNode *next;
+ *     ListNode() : val(0), next(nullptr) &#123;&#125;
+ *     ListNode(int x) : val(x), next(nullptr) &#123;&#125;
+ *     ListNode(int x, ListNode *next) : val(x), next(next) &#123;&#125;
+ * &#125;;
+ */
+class Solution &#123;
+public:
+    ListNode* mergetwo(ListNode* a,ListNode* b)&#123;
+        ListNode* dump = new ListNode();
+        ListNode* dtemp = dump;
+        ListNode* atemp = a;
+        ListNode* btemp = b;
+        while(atemp&amp;&amp;btemp)&#123;
+            if(atemp-&gt;val&lt;btemp-&gt;val)&#123;
+                dtemp-&gt;next = atemp;
+                atemp = atemp-&gt;next;
+                dtemp = dtemp-&gt;next;
+            &#125;else&#123;
+                dtemp-&gt;next = btemp;
+                btemp = btemp-&gt;next;
+                dtemp = dtemp-&gt;next;
+            &#125;
+            //cout&lt;&lt;dtemp-&gt;val&lt;&lt;endl;
+        &#125;
+        while(atemp)&#123;
+            dtemp-&gt;next = atemp;
+            atemp = atemp-&gt;next;
+            dtemp = dtemp-&gt;next;
+        &#125;
+        while(btemp)&#123;
+            dtemp-&gt;next = btemp;
+            btemp = btemp-&gt;next;
+            dtemp = dtemp-&gt;next;
+        &#125;
+        return dump-&gt;next;
+    &#125;
+    ListNode* mergeKListsimpl(vector&lt;ListNode*&gt;&amp; lists,int left,int right)&#123;
+        if(left&gt;right)&#123;
+            return nullptr;
+        &#125;
+        if(left==right)&#123;
+            return lists[left];
+        &#125;
+        if(left+1==right)&#123;
+            return mergetwo(lists[left],lists[right]);
+        &#125;
+        int mid = left+(right-left)/2;
+        return mergetwo(mergeKListsimpl(lists, left, mid),mergeKListsimpl(lists, mid+1, right));
+    &#125;
+
+
+    ListNode* mergeKLists(vector&lt;ListNode*&gt;&amp; lists) &#123;
+        int n = lists.size();
+        return mergeKListsimpl(lists, 0, n-1);
+    &#125;
+&#125;;
+</code></pre>
+<h1 id="四-堆排序-x2F-优先队列实现"><a href="#四-堆排序-x2F-优先队列实现" class="headerlink" title="四.堆排序&#x2F;优先队列实现"></a>四.堆排序&#x2F;优先队列实现</h1><p>直接用priorityqueue很简单，就怕面试官叫你自己实现一个你忘记了，所以这里写一下，核心函数是上浮和下沉</p>
+<p>这里就实现一下priorityqueue把，包括top，push，pop</p>
+<pre><code class="c++">#include&lt;bits/stdc++.h&gt;
+using namespace std;
+template &lt;typename T, typename Container = std::vector&lt;T&gt;&gt; //这里没用第三个函数参数，需要T有自己的大于号重载
+class MyPriorityQueue &#123;
+private:
+    Container data;
+    int parent(int i)  &#123; return (i - 1) / 2; &#125;
+    int leftChild(int i)  &#123; return 2 * i + 1; &#125;
+    int rightChild(int i)  &#123; return 2 * i + 2; &#125;
+    // 辅助函数：向上调整元素以维护堆性质
+    void heapifyUp(int idx) &#123;
+        int index = idx;
+        while (index &gt; 0) &#123;
+            int parentIndex = parent(index);
+            if (data[index] &gt; data[parentIndex]) &#123;
+                swap(data[index], data[parentIndex]);
+                index = parentIndex;
+            &#125; else &#123;
+                break;
+            &#125;
+        &#125;
+    &#125;
+
+    // 辅助函数：向下调整元素以维护堆性质
+    void heapifyDown(int idx) &#123;
+        int index = idx;
+        int size = data.size();
+        while(1)&#123;
+            int lChild = leftChild(index);
+            int rChild = rightChild(index);
+            int maxIndex = index;
+            if(lChild&lt;size&amp;&amp;data[lChild]&gt;data[maxIndex])&#123;
+                maxIndex = lChild;
+            &#125;
+            if(rChild&lt;size&amp;&amp;data[rChild]&gt;data[maxIndex])&#123;
+                maxIndex = rChild;
+            &#125;
+            if(maxIndex!=index)&#123;
+                swap(data[maxIndex],data[index]);
+                index = maxIndex;
+            &#125;else&#123;
+                break;
+            &#125;
+        &#125;
+    &#125;
+public:
+    MyPriorityQueue() &#123;&#125;
+    MyPriorityQueue(const Container&amp; c) : data(c) &#123;
+        // 将底层容器转化为堆
+        int size = data.size();
+        for (int i = (size / 2) - 1; i &gt;= 0; --i) &#123;
+            heapifyDown(i);
+        &#125;
+    &#125;
+    void push(const T&amp; value) &#123;
+        data.push_back(value);
+        int n = data.size();
+        heapifyUp(n-1);
+    &#125;
+    void pop() &#123;
+        if (!empty()) &#123;
+            std::swap(data[0], data[data.size() - 1]);
+            data.pop_back();
+            heapifyDown(0);
+        &#125; else &#123;
+            throw std::runtime_error(&quot;Priority queue is empty.&quot;);
+        &#125;
+    &#125;
+    T&amp; top() &#123;
+        if (!empty()) &#123;
+            return data[0];
+        &#125; else &#123;
+            throw std::runtime_error(&quot;Priority queue is empty.&quot;);
+        &#125;
+    &#125;
+    bool empty() const &#123;
+        return data.empty();
+    &#125;
+    size_t size() const &#123;
+        return data.size();
+    &#125;
+&#125;;
+
+struct mypair&#123;
+    int a;
+    int b;
+    bool operator &gt;(mypair&amp; pair2)&#123;
+        if(this-&gt;a==pair2.a)&#123;
+            return this-&gt;b&gt;pair2.b;
+        &#125;
+        return this-&gt;a&gt;pair2.a;
+    &#125;
+&#125;;
+
+int main() &#123;
+    // 使用 std::vector 作为底层容器
+    MyPriorityQueue&lt;mypair, std::vector&lt;mypair&gt;&gt; myPriorityQueue;
+    myPriorityQueue.push(&#123;2,1&#125;);
+    myPriorityQueue.push(&#123;2,3&#125;);
+    myPriorityQueue.push(&#123;1,2&#125;);
+    myPriorityQueue.push(&#123;4,6&#125;);
+    myPriorityQueue.push(&#123;3,5&#125;);
+    while(!myPriorityQueue.empty())&#123;
+        cout&lt;&lt;myPriorityQueue.top().a&lt;&lt;&quot; &quot;&lt;&lt;myPriorityQueue.top().b&lt;&lt;&quot; &quot;&lt;&lt;endl;
+        myPriorityQueue.pop();
+    &#125;
+    return 0;
+&#125;
+
+</code></pre>
+<h1 id="五-蓄水池抽样算法"><a href="#五-蓄水池抽样算法" class="headerlink" title="五.蓄水池抽样算法"></a>五.蓄水池抽样算法</h1><p>流数据抽奖k个</p>
+<pre><code class="c++">#include &lt;bits/stdc++.h&gt;
+using namespace std;
+std::vector&lt;int&gt; reservoirSampling(const std::vector&lt;int&gt;&amp; stream, int k) &#123;
+    std::vector&lt;int&gt; reservoir(k);
+    int n = stream.size();
+    // 初始化蓄水池，前 k 个元素直接放入蓄水池中
+    for (int i = 0; i &lt; k; ++i) &#123;
+        reservoir[i] = stream[i];
+    &#125;
+    // 从第 k+1 个元素开始处理
+    for (int i = k; i &lt; n; ++i) &#123;
+        int j = std::rand() % (i + 1);
+        if (j &lt; k) &#123;
+            reservoir[j] = stream[i];
+        &#125;
+    &#125;
+    return reservoir;
+&#125;
+int main() &#123;
+    srand(time(0));
+    std::vector&lt;int&gt; stream = &#123;1, 2, 3, 4, 5, 6, 7, 8, 9, 10&#125;;
+    int k = 5;
+    std::vector&lt;int&gt; sample = reservoirSampling(stream, k);
+    std::cout &lt;&lt; &quot;Random sample: &quot;;
+    for (int num : sample) &#123;
+        std::cout &lt;&lt; num &lt;&lt; &quot; &quot;;
+    &#125;
+    std::cout &lt;&lt; std::endl;
+    return 0;
+&#125;
+</code></pre>
+<h1 id="六-摩尔投票算法"><a href="#六-摩尔投票算法" class="headerlink" title="六.摩尔投票算法"></a>六.摩尔投票算法</h1><p>找到出现次数大于数组长度1&#x2F;4的所有数（1&#x2F;2，1&#x2F;3，1&#x2F;5….同理）</p>
+<pre><code class="c++">#include &lt;iostream&gt;
+#include &lt;vector&gt;
+std::vector&lt;int&gt; findCandidates(const std::vector&lt;int&gt;&amp; nums, int n) &#123;
+    int candidate1 = 0, candidate2 = 0, candidate3 = 0;
+    int count1 = 0, count2 = 0, count3 = 0;
+    // 候选阶段
+    for (int num : nums) &#123;
+        if (num == candidate1) &#123;
+            ++count1;
+        &#125; else if (num == candidate2) &#123;
+            ++count2;
+        &#125; else if (num == candidate3) &#123;
+            ++count3;
+        &#125; else if (count1 == 0) &#123;
+            candidate1 = num;
+            count1 = 1;
+        &#125; else if (count2 == 0) &#123;
+            candidate2 = num;
+            count2 = 1;
+        &#125; else if (count3 == 0) &#123;
+            candidate3 = num;
+            count3 = 1;
+        &#125; else &#123;
+            --count1;
+            --count2;
+            --count3;
+        &#125;
+    &#125;
+    // 验证阶段
+    count1 = count2 = count3 = 0;
+    for (int num : nums) &#123;
+        if (num == candidate1) &#123;
+            ++count1;
+        &#125; else if (num == candidate2) &#123;
+            ++count2;
+        &#125; else if (num == candidate3) &#123;
+            ++count3;
+        &#125;
+    &#125;
+    std::vector&lt;int&gt; result;
+    if (count1*4 &gt; n) result.push_back(candidate1);
+    if (count2*4 &gt; n) result.push_back(candidate2);
+    if (count3*4 &gt; n) result.push_back(candidate3);
+    return result;
+&#125;
+
+int main() &#123;
+    std::vector&lt;int&gt; nums = &#123;1, 2, 3, 2, 4, 1, 1, 1, 3, 3, 3, 3, 4, 4, 4, 4&#125;;
+    int n = nums.size();
+    std::vector&lt;int&gt; result = findCandidates(nums, n);
+    std::cout &lt;&lt; &quot;Elements that appear more than n/4 times: &quot;;
+    for (int num : result) &#123;
+        std::cout &lt;&lt; num &lt;&lt; &quot; &quot;;
+    &#125;
+    std::cout &lt;&lt; std::endl;
+    return 0;
+&#125;
+</code></pre>
+<h1 id="七-单例模式"><a href="#七-单例模式" class="headerlink" title="七.单例模式"></a>七.单例模式</h1><p>饱汉、饿汉、静态，这里最好用静态</p>
+<pre><code class="c++">//静态
+class Singleton &#123;
+private:
+    static Singleton* instance;
+    int num1;
+    Singleton() &#123;&#125;
+    Singleton(const Singleton&amp;) = delete;
+    Singleton&amp; operator=(const Singleton&amp;) = delete;
+    Singleton(Singleton&amp;&amp;) = delete;
+public:
+    static Singleton&amp; getInstance() &#123;
+        if (instance == nullptr) &#123;
+            instance = new Singleton();
+        &#125;
+        return *instance;
+    &#125;
+    void set(int i)&#123;
+        num1 = i;
+    &#125;
+    void print()&#123;
+        std::cout &lt;&lt; num1 &lt;&lt; std::endl;
+    &#125;
+&#125;;
+Singleton* Singleton::instance = nullptr;
+
+int main()&#123;
+    Singleton&amp; single = Singleton::getInstance();
+    single.set(1);
+    // 以下这行现在会报错，因为不能进行复制操作
+    //Singleton single2(single);
+    single.print();
+    return 0;
+&#125;
+
+//饱汉模式
+class Singleton &#123;
+private:
+    static Singleton* instance;
+    static std::mutex mutex_;
+    Singleton() &#123;&#125;
+    Singleton(const Singleton&amp;) = delete;
+    Singleton&amp; operator=(const Singleton&amp;) = delete;
+    Singleton(Singleton&amp;&amp;) = delete;
+public:
+    static Singleton* getInstance() &#123;
+        if (instance == nullptr) &#123;
+            std::lock_guard&lt;std::mutex&gt; lock(mutex_);
+            if (instance == nullptr) &#123;
+                instance = new Singleton();
+            &#125;
+        &#125;
+        return instance;
+    &#125;
+&#125;;
+Singleton* Singleton::instance = nullptr;
+std::mutex Singleton::mutex_;
+//饿汉模式
+class Singleton &#123;
+private:
+    static Singleton* instance;
+    Singleton() &#123;&#125;
+    Singleton(const Singleton&amp;) = delete;
+    Singleton&amp; operator=(const Singleton&amp;) = delete;
+    Singleton(Singleton&amp;&amp;) = delete;
+public:
+    static Singleton* getInstance() &#123;
+        return instance;
+    &#125;
+&#125;;
+Singleton* Singleton::instance = new Singleton();
+</code></pre>
+<h1 id="八-工厂模式"><a href="#八-工厂模式" class="headerlink" title="八.工厂模式"></a>八.工厂模式</h1><p>就是虚函数多态</p>
+<pre><code class="c++">#include &lt;bits/stdc++.h&gt;
+using namespace std;
+// 抽象积木接口
+class Block &#123;
+public:
+    virtual void produce() = 0;
+&#125;;
+// 具体圆形积木实现
+class CircleBlock : public Block &#123;
+public:
+    void produce() override &#123;
+        std::cout &lt;&lt; &quot;Circle Block&quot; &lt;&lt; std::endl;
+    &#125;
+&#125;;
+// 具体方形积木实现
+class SquareBlock : public Block &#123;
+public:
+    void produce() override &#123;
+        std::cout &lt;&lt; &quot;Square Block&quot; &lt;&lt; std::endl;
+    &#125;
+&#125;;
+// 抽象积木工厂接口
+class BlockFactory &#123;
+public:
+    virtual Block* createBlock() = 0;
+&#125;;
+// 具体圆形积木工厂实现
+class CircleBlockFactory : public BlockFactory &#123;
+public:
+    Block* createBlock() override &#123;
+        return new CircleBlock();
+    &#125;
+&#125;;
+// 具体方形积木工厂实现
+class SquareBlockFactory : public BlockFactory &#123;
+public:
+    Block* createBlock() override &#123;
+        return new SquareBlock();
+    &#125;
+&#125;;
+// 积木工厂系统
+class BlockFactorySystem &#123;
+private:
+    std::vector&lt;Block*&gt; blocks;
+public:
+    void produceBlocks(BlockFactory* factory, int quantity) &#123;
+        for (int i = 0; i &lt; quantity; i++) &#123;
+            Block* block = factory-&gt;createBlock();
+            blocks.push_back(block);
+            block-&gt;produce();
+        &#125;
+    &#125;
+    const std::vector&lt;Block*&gt;&amp; getBlocks() const &#123;
+        return blocks;
+    &#125;
+    ~BlockFactorySystem() &#123;
+        // 释放所有动态分配的积木对象
+        for (Block* block : blocks) &#123;
+            delete block;
+        &#125;
+    &#125;
+&#125;;
+int main() &#123;
+    // 创建积木工厂系统
+    BlockFactorySystem factorySystem;
+    // 读取生产次数
+    int productionCount;
+    std::cin &gt;&gt; productionCount;
+    // 读取每次生产的积木类型和数量
+    for (int i = 0; i &lt; productionCount; i++) &#123;
+        std::string blockType;
+        int quantity;
+        std::cin &gt;&gt; blockType &gt;&gt; quantity;
+        if (blockType == &quot;Circle&quot;) &#123;
+            factorySystem.produceBlocks(new CircleBlockFactory(), quantity);
+        &#125; else if (blockType == &quot;Square&quot;) &#123;
+            factorySystem.produceBlocks(new SquareBlockFactory(), quantity);
+        &#125;
+    &#125;
+    return 0;
+&#125;
+</code></pre>
+<h1 id="九-大小端判断"><a href="#九-大小端判断" class="headerlink" title="九.大小端判断"></a>九.大小端判断</h1><p>自己输出一个十六进制的数，用char*去指向int*</p>
+<pre><code class="c++">#include &lt;iostream&gt; 
+using namespace std;
+int main()
+&#123;
+    int i=0x12345678; // int 32位是4字节
+    cout&lt;&lt;hex&lt;&lt;i&lt;&lt;endl;
+    char *p = (char*)&amp;i;  //将i的地址传给数组指针p，实际上p指向的地址是i在内存中存储的第一个字节，大端就是0x12，小端就是0x78，这里用了强行转换为char*
+    if((*p==0x78)&amp;(*(p+1)==0x56))       
+        cout&lt;&lt;&quot;小端&quot;&lt;&lt;endl;
+    else if((*p==0x12)&amp;(*(p+1)==0x34))
+        cout&lt;&lt;&quot;大端&quot;&lt;&lt;endl;
+    else
+        cout&lt;&lt;&quot;都不是&quot;;
+    return 0;
+&#125;
+</code></pre>
+<h1 id="十-简单多线程控制（锁-条件变量）"><a href="#十-简单多线程控制（锁-条件变量）" class="headerlink" title="十.简单多线程控制（锁+条件变量）"></a>十.简单多线程控制（锁+条件变量）</h1><p><span class="exturl" data-url="aHR0cHM6Ly9sZWV0Y29kZS5jbi9wcm9ibGVtcy9wcmludC1mb29iYXItYWx0ZXJuYXRlbHkvZGVzY3JpcHRpb24v">1115. 交替打印 FooBar - 力扣（LeetCode）</span>以这道题为例，这里交替打印的是“aa”,”bb”,”cc”</p>
+<pre><code class="c++">#include&lt;bits/stdc++.h&gt;
+using namespace std;
+mutex mtx_;
+condition_variable cv_;
+int turn2 = 0;
+void print1()&#123;
+    for(int i=0;i&lt;10;i++)&#123;
+        unique_lock&lt;mutex&gt; lock(mtx_);
+        cv_.wait(lock,[]()&#123;return turn2==0;&#125;);
+        cout&lt;&lt;&quot;aa&quot;;
+        turn2 = 1;
+        cv_.notify_all();
+    &#125;
+&#125;
+
+void print2()&#123;
+    for(int i=0;i&lt;10;i++)&#123;
+        unique_lock&lt;mutex&gt; lock(mtx_);
+        cv_.wait(lock,[]()&#123;return turn2==1;&#125;);
+        cout&lt;&lt;&quot;bb&quot;;
+        turn2 = 2;
+        cv_.notify_all();
+    &#125;
+&#125;
+
+void print3()&#123;
+    for(int i=0;i&lt;10;i++)&#123;
+        unique_lock&lt;mutex&gt; lock(mtx_);
+        cv_.wait(lock,[]()&#123;return turn2==2;&#125;);
+        cout&lt;&lt;&quot;cc&quot;;
+        turn2 = 0;
+        cv_.notify_all();
+    &#125;
+&#125;
+
+int main()&#123;
+    thread p1(print1);
+    thread p2(print2);
+    thread p3(print3);
+    p1.join();
+    p2.join();
+    p3.join();
+    return 0;
+&#125;
+</code></pre>
+<h1 id="十一-死锁问题"><a href="#十一-死锁问题" class="headerlink" title="十一.死锁问题"></a>十一.死锁问题</h1><p>用哲学家进餐问题作为例子 </p>
+<pre><code class="c++">#include&lt;bits/stdc++.h&gt;
+#include&lt;time.h&gt;
+#include &lt;unistd.h&gt;
+using namespace std;
+
+vector&lt;mutex&gt; mu(5);
+
+int n = 5; //0,1,2,3,4
+
+void eat(int i)&#123;
+    cout&lt;&lt;i&lt;&lt;&quot;  is  eating&quot;&lt;&lt;endl;
+    sleep(5);
+    cout&lt;&lt;i&lt;&lt;&quot; have eaten&quot;&lt;&lt;endl;
+&#125;
+
+void getleft(int i)&#123;
+    cout&lt;&lt;i&lt;&lt;&quot;  getleft&quot;&lt;&lt;endl;
+&#125;
+
+void getright(int i)&#123;
+    cout&lt;&lt;i&lt;&lt;&quot;  getright&quot;&lt;&lt;endl;
+&#125;
+
+void putleft(int i)&#123;
+    cout&lt;&lt;i&lt;&lt;&quot;  putleft&quot;&lt;&lt;endl;
+&#125;
+
+void putright(int i)&#123;
+    cout&lt;&lt;i&lt;&lt;&quot;  putleft&quot;&lt;&lt;endl;
+&#125;
+
+void wanteat(int i,function&lt;void(int)&gt; eat,function&lt;void(int)&gt; getleft,function&lt;void(int)&gt; getright,function&lt;void(int)&gt; putleft,function&lt;void(int)&gt; putright)&#123;
+    cout&lt;&lt;i&lt;&lt;&quot; wants to eat&quot;&lt;&lt;endl;
+    int left = i;
+    int right = (i+1)%n;
+    if(left&gt;right)&#123;
+        swap(left,right);
+    &#125;
+    lock_guard&lt;mutex&gt; l(mu[left]);
+    sleep(1);
+    lock_guard&lt;mutex&gt; r(mu[right]);
+    getleft(i);
+    getright(i);
+    eat(i);
+    putleft(i);
+    putright(i);
+&#125;
+
+int main()&#123;
+    lock_guard&lt;mutex&gt; l2(mu[2]);
+    lock_guard&lt;mutex&gt; l3(mu[3]);
+    lock_guard&lt;mutex&gt; l4(mu[4]); //这里假设其余三个人把2，3，4都拿了，并且最后一个人先抢了4号位置没抢到0号位置
+    thread p1(wanteat,0,eat,getleft,getright,putleft,putright);
+    thread p2(wanteat,1,eat,getleft,getright,putleft,putright);
+    p1.join();
+    p2.join();
+    return 0;
+&#125;
+</code></pre>
+<p>顺带给出死锁的解决方法：资源获取规定顺序</p>
+<pre><code class="c++">#include&lt;bits/stdc++.h&gt;
+#include&lt;time.h&gt;
+#include &lt;unistd.h&gt;
+using namespace std;
+
+vector&lt;mutex&gt; mu(5);
+
+int n = 5; //0,1,2,3,4
+
+void eat(int i)&#123;
+    cout&lt;&lt;i&lt;&lt;&quot;  is  eating&quot;&lt;&lt;endl;
+    sleep(5);
+    cout&lt;&lt;i&lt;&lt;&quot; have eaten&quot;&lt;&lt;endl;
+&#125;
+
+void getleft(int i)&#123;
+    cout&lt;&lt;i&lt;&lt;&quot;  getleft&quot;&lt;&lt;endl;
+&#125;
+
+void getright(int i)&#123;
+    cout&lt;&lt;i&lt;&lt;&quot;  getright&quot;&lt;&lt;endl;
+&#125;
+
+void putleft(int i)&#123;
+    cout&lt;&lt;i&lt;&lt;&quot;  putleft&quot;&lt;&lt;endl;
+&#125;
+
+void putright(int i)&#123;
+    cout&lt;&lt;i&lt;&lt;&quot;  putleft&quot;&lt;&lt;endl;
+&#125;
+
+void wanteat(int i,function&lt;void(int)&gt; eat,function&lt;void(int)&gt; getleft,function&lt;void(int)&gt; getright,function&lt;void(int)&gt; putleft,function&lt;void(int)&gt; putright)&#123;
+    cout&lt;&lt;i&lt;&lt;&quot; wants to eat&quot;&lt;&lt;endl;
+    int left = i;
+    int right = (i+1)%n;
+    if(left&gt;right)&#123;
+        swap(left,right);
+    &#125;
+    lock_guard&lt;mutex&gt; l(mu[left]);
+    sleep(1);
+    lock_guard&lt;mutex&gt; r(mu[right]);
+    getleft(i);
+    getright(i);
+    eat(i);
+    putleft(i);
+    putright(i);
+&#125;
+
+int main()&#123;
+    thread p1(wanteat,0,eat,getleft,getright,putleft,putright);
+    thread p2(wanteat,1,eat,getleft,getright,putleft,putright);
+    thread p3(wanteat,2,eat,getleft,getright,putleft,putright);
+    thread p4(wanteat,3,eat,getleft,getright,putleft,putright);
+    thread p5(wanteat,4,eat,getleft,getright,putleft,putright);
+    p1.join();
+    p2.join();
+    p3.join();
+    p4.join();
+    p5.join();
+    return 0;
+&#125;
+</code></pre>
+<h1 id="十二-手写并查集"><a href="#十二-手写并查集" class="headerlink" title="十二.手写并查集"></a>十二.手写并查集</h1><p><span class="exturl" data-url="aHR0cHM6Ly9sZWV0Y29kZS5jbi9wcm9ibGVtcy9zeW5vbnltb3VzLXNlbnRlbmNlcy8=">1258. 近义词句子</span></p>
+<pre><code class="c++">class UnionFind&#123;
+public:    
+    unordered_map&lt;string,string&gt; mp;
+    void add(string a)&#123;
+        if(mp.count(a)==0)&#123;
+            mp[a] = a;
+        &#125;
+    &#125;
+    string find(string a)&#123;
+        while(mp[a]!=a)&#123;
+            a = mp[a];
+        &#125;
+        return a;
+    &#125;
+    string find(string a)&#123;
+        return mp[a]==a?a:mp[a]=find(mp[a]);
+    &#125;
+    void merge(string a,string b)&#123;
+        add(a);
+        add(b);
+        string temp1 = find(a);
+        string temp2 = find(b);
+        mp[temp1] = temp2;
+    &#125;
+    bool isconnected(string a,string b)&#123;
+        return find(a)==find(b);
+    &#125;
+&#125;;
+
+class Solution &#123;
+public:
+    vector&lt;string&gt; generateSentences(vector&lt;vector&lt;string&gt;&gt;&amp; synonyms, string text) &#123;
+        UnionFind uf;
+        unordered_set&lt;string&gt; st;
+        int n = synonyms.size();
+        for(int i=0;i&lt;n;i++)&#123;
+            uf.merge(synonyms[i][0],synonyms[i][1]);
+            st.emplace(synonyms[i][0]);
+            st.emplace(synonyms[i][1]);
+        &#125;
+        stringstream ss1(text);
+        vector&lt;string&gt; target;
+        string temp;
+        while(getline(ss1,temp,&#39; &#39;))&#123;
+            target.emplace_back(temp);
+        &#125;
+        int m = target.size();
+        vector&lt;string&gt; answer;
+        function&lt;void(string,int,int)&gt; dfs = [&amp;](string ans,int i,int end)&#123;
+            cout&lt;&lt;&quot;dfs &quot;&lt;&lt;i&lt;&lt;&quot; &quot;&lt;&lt;ans&lt;&lt;&quot; &quot;&lt;&lt;endl;
+            if(i==end)&#123;
+                answer.emplace_back(ans);
+                return;
+            &#125;
+            if(!st.count(target[i]))&#123; //无同义词
+                string temps = ans;
+                temps+=target[i];
+                if(i&lt;end-1)&#123;
+                    temps+=&quot; &quot;;
+                &#125;
+                dfs(temps,i+1,end);
+            &#125;else&#123;
+                for(auto &amp;x:st)&#123;
+                    if(uf.isconnected(x, target[i]))&#123;
+                        string temps = ans;
+                        temps+=x;
+                        if(i&lt;end-1)&#123;
+                            temps+=&quot; &quot;;
+                        &#125;
+                        dfs(temps,i+1,end);
+                    &#125;
+                &#125;
+            &#125;
+        &#125;;
+        dfs(&quot;&quot;,0,m);
+        sort(answer.begin(),answer.end());
+        return answer;
+    &#125;
+&#125;;
+</code></pre>
+<h1 id="十三-手写trie树"><a href="#十三-手写trie树" class="headerlink" title="十三.手写trie树"></a>十三.手写trie树</h1><pre><code class="c++">#include &lt;iostream&gt;
+#include &lt;unordered_map&gt;
+#include &lt;string&gt;
+
+class TrieNode &#123;
+public:
+    bool isEndOfWord;
+    std::unordered_map&lt;char, TrieNode*&gt; children;
+
+    TrieNode() : isEndOfWord(false) &#123;&#125;
+&#125;;
+
+class Trie &#123;
+private:
+    TrieNode* root;
+
+public:
+    Trie() &#123;
+        root = new TrieNode();
+    &#125;
+
+    // 插入一个字符串
+    void insert(const std::string&amp; word) &#123;
+        TrieNode* node = root;
+        for (char c : word) &#123;
+            if (node-&gt;children.find(c) == node-&gt;children.end()) &#123;
+                node-&gt;children[c] = new TrieNode();
+            &#125;
+            node = node-&gt;children[c];
+        &#125;
+        node-&gt;isEndOfWord = true;
+    &#125;
+
+    // 查找字符串是否存在
+    bool search(const std::string&amp; word) const &#123;
+        TrieNode* node = root;
+        for (char c : word) &#123;
+            if (node-&gt;children.find(c) == node-&gt;children.end()) &#123;
+                return false;
+            &#125;
+            node = node-&gt;children[c];
+        &#125;
+        return node-&gt;isEndOfWord;
+    &#125;
+
+    // 判断是否存在以prefix为前缀的单词
+    bool startsWith(const std::string&amp; prefix) const &#123;
+        TrieNode* node = root;
+        for (char c : prefix) &#123;
+            if (node-&gt;children.find(c) == node-&gt;children.end()) &#123;
+                return false;
+            &#125;
+            node = node-&gt;children[c];
+        &#125;
+        return true;
+    &#125;
+&#125;;
+
+int main() &#123;
+    Trie trie;
+    trie.insert(&quot;hello&quot;);
+    trie.insert(&quot;world&quot;);
+
+    std::cout &lt;&lt; std::boolalpha;
+    std::cout &lt;&lt; &quot;Search &#39;hello&#39;: &quot; &lt;&lt; trie.search(&quot;hello&quot;) &lt;&lt; std::endl;  // 输出: true
+    std::cout &lt;&lt; &quot;Search &#39;world&#39;: &quot; &lt;&lt; trie.search(&quot;world&quot;) &lt;&lt; std::endl;  // 输出: true
+    std::cout &lt;&lt; &quot;Search &#39;hell&#39;: &quot; &lt;&lt; trie.search(&quot;hell&quot;) &lt;&lt; std::endl;    // 输出: false
+    std::cout &lt;&lt; &quot;StartsWith &#39;hell&#39;: &quot; &lt;&lt; trie.startsWith(&quot;hell&quot;) &lt;&lt; std::endl; // 输出: true
+    std::cout &lt;&lt; &quot;StartsWith &#39;wor&#39;: &quot; &lt;&lt; trie.startsWith(&quot;wor&quot;) &lt;&lt; std::endl;   // 输出: true
+    std::cout &lt;&lt; &quot;StartsWith &#39;heaven&#39;: &quot; &lt;&lt; trie.startsWith(&quot;heaven&quot;) &lt;&lt; std::endl; // 输出: false
+
+    return 0;
+&#125;
+</code></pre>
+<h1 id="十四-手写lru"><a href="#十四-手写lru" class="headerlink" title="十四.手写lru"></a>十四.手写lru</h1><p>想象成一摞书</p>
+<pre><code class="c++">struct BiNode&#123;
+    int key;
+    int val;
+    BiNode* pre;
+    BiNode* next;
+    BiNode():key(0),val(0),pre(nullptr),next(nullptr)&#123;&#125;;
+    BiNode(int k,int v):key(k),val(v),pre(nullptr),next(nullptr)&#123;&#125;;
+&#125;;
+class LRUCache &#123;
+    unordered_map&lt;int,BiNode*&gt; mp;
+    int size_;
+    int capacity_;
+    BiNode* start;
+    BiNode* end;
+public:
+    LRUCache(int capacity) &#123;
+        size_ = 0;
+        capacity_ = capacity;
+        start = new BiNode();
+        end = new BiNode();
+        start-&gt;next = end;
+        end-&gt;pre = start;
+    &#125;
+
+    void delete_node(BiNode* temp)&#123;
+        temp-&gt;pre-&gt;next = temp-&gt;next;
+        temp-&gt;next-&gt;pre = temp-&gt;pre;
+    &#125;;
+
+    void insert_node(BiNode* temp,BiNode* start)&#123;
+        temp-&gt;next = start-&gt;next;
+        temp-&gt;next-&gt;pre = temp;
+        temp-&gt;pre = start;
+        start-&gt;next = temp;
+    &#125;;
+    
+    int get(int key) &#123;
+        if(mp.count(key)==0)&#123;
+            return -1;
+        &#125;else&#123;
+            BiNode* temp = mp[key];
+            delete_node(temp);
+            insert_node(temp, start);
+            return temp-&gt;val;
+        &#125;
+    &#125;
+    
+    void put(int key, int value) &#123;
+        if(mp.count(key)!=0)&#123;
+            mp[key]-&gt;val = value;
+            BiNode* temp = mp[key];
+            delete_node(temp);
+            insert_node(temp, start);
+        &#125;else&#123;
+            BiNode* temp = new BiNode(key,value);
+            mp[key] = temp;
+            insert_node(temp,start);
+            size_++;
+            if(size_&gt;capacity_)&#123;
+                BiNode* temp = end-&gt;pre;
+                mp.erase(temp-&gt;key);
+                temp-&gt;pre-&gt;next = end;
+                end-&gt;pre = temp-&gt;pre;
+                delete temp;
+                size_--;
+            &#125;
+        &#125;
+    &#125;
+&#125;;
+
+/**
+ * Your LRUCache object will be instantiated and called as such:
+ * LRUCache* obj = new LRUCache(capacity);
+ * int param_1 = obj-&gt;get(key);
+ * obj-&gt;put(key,value);
+ */
+</code></pre>
+<h1 id="十五-手写lfu"><a href="#十五-手写lfu" class="headerlink" title="十五.手写lfu"></a>十五.手写lfu</h1><p>想象成多摞书，每摞书表示一个freq，额外用一个哈希表维护每摞书的dummy节点</p>
+<pre><code class="c++">class Node &#123;
+public:
+    int key, value, freq = 1; // 新书只读了一次
+    Node *prev, *next;
+    Node(int k = 0, int v = 0) : key(k), value(v) &#123;&#125;
+&#125;;
+
+class LFUCache &#123;
+private:
+    int min_freq;
+    int capacity;
+    unordered_map&lt;int, Node*&gt; key_to_node;
+    unordered_map&lt;int, Node*&gt; freq_to_dummy;
+
+    Node *get_node(int key) &#123;
+        if (!key_to_node.count(key)) &#123; // 没有这本书
+            return nullptr;
+        &#125;
+        auto node = key_to_node[key]; // 有这本书
+        remove(node); // 把这本书抽出来
+        auto dummy = freq_to_dummy[node-&gt;freq];
+        if (dummy-&gt;prev == dummy) &#123; // 抽出来后，这摞书是空的
+            freq_to_dummy.erase(node-&gt;freq); // 移除空链表
+            delete dummy; // 释放内存
+            if (min_freq == node-&gt;freq) &#123; // 这摞书是最左边的
+                min_freq++;
+            &#125;
+        &#125;
+        node-&gt;freq++;
+        push_front(node-&gt;freq, node); // 放在右边这摞书的最上面
+        return node;
+    &#125;
+
+    // 创建一个新的双向链表
+    Node *new_list() &#123;
+        auto dummy = new Node(); // 哨兵节点
+        dummy-&gt;prev = dummy;
+        dummy-&gt;next = dummy;
+        return dummy;
+    &#125;
+
+    // 在链表头添加一个节点（把一本书放在最上面）
+    void push_front(int freq, Node *x) &#123;
+        if(!freq_to_dummy.count(freq))&#123;
+            freq_to_dummy.emplace(freq, new_list());
+        &#125;
+        auto dummy = freq_to_dummy[freq];
+        x-&gt;prev = dummy;
+        x-&gt;next = dummy-&gt;next;
+        x-&gt;prev-&gt;next = x;
+        x-&gt;next-&gt;prev = x;
+    &#125;
+
+    // 删除一个节点（抽出一本书）
+    void remove(Node *x) &#123;
+        x-&gt;prev-&gt;next = x-&gt;next;
+        x-&gt;next-&gt;prev = x-&gt;prev;
+    &#125;
+
+public:
+    LFUCache(int capacity) : capacity(capacity) &#123;&#125;
+
+    int get(int key) &#123;
+        auto node = get_node(key);
+        return node ? node-&gt;value : -1;
+    &#125;
+
+    void put(int key, int value) &#123;
+        auto node = get_node(key);
+        if (node) &#123; // 有这本书
+            node-&gt;value = value; // 更新 value
+            return;
+        &#125;
+        if (key_to_node.size() == capacity) &#123; // 书太多了
+            auto dummy = freq_to_dummy[min_freq];
+            auto back_node = dummy-&gt;prev; // 最左边那摞书的最下面的书
+            key_to_node.erase(back_node-&gt;key);
+            remove(back_node); // 移除
+            delete back_node; // 释放内存
+            if (dummy-&gt;prev == dummy) &#123; // 这摞书是空的
+                freq_to_dummy.erase(min_freq); // 移除空链表
+                delete dummy; // 释放内存
+            &#125;
+        &#125;
+        key_to_node[key] = node = new Node(key, value); // 新书
+        push_front(1, node); // 放在「看过 1 次」的最上面
+        min_freq = 1;
+    &#125;
+&#125;;
+</code></pre>
+
+      <div class="tags">
+          <a href="/tags/c/" rel="tag"><i class="ic i-tag"></i> c++</a>
+          <a href="/tags/KMP/" rel="tag"><i class="ic i-tag"></i> KMP</a>
+      </div>
+  </div>
+
+   <footer>
+
+    <div class="meta">
+  <span class="item">
+    <span class="icon">
+      <i class="ic i-calendar-check"></i>
+    </span>
+    <span class="text">更新于</span>
+    <time title="修改时间：2024-08-28 13:19:02" itemprop="dateModified" datetime="2024-08-28T13:19:02+08:00">2024-08-28</time>
+  </span>
+</div>
+
+      
+
+<div id="copyright">
+<ul>
+  <li class="author">
+    <strong>本文作者： </strong>Kun Qian <i class="ic i-at"><em>@</em></i>Qkgoalkeeper's blog
+  </li>
+  <li class="link">
+    <strong>本文链接：</strong>
+    <a href="https://qkgoalkeeper.github.io/computer-science/interview/method/%E6%89%8B%E6%92%95%E7%B3%BB%E5%88%97/" title="手撕常用算法和结构">https://qkgoalkeeper.github.io/computer-science/interview/method/手撕系列/</a>
+  </li>
+  <li class="license">
+    <strong>版权声明： </strong>本站所有文章除特别声明外，均采用 <span class="exturl" data-url="aHR0cHM6Ly9jcmVhdGl2ZWNvbW1vbnMub3JnL2xpY2Vuc2VzL2J5LW5jLXNhLzQuMC9kZWVkLnpo"><i class="ic i-creative-commons"><em>(CC)</em></i>BY-NC-SA</span> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+  </footer>
+
+</article>
+
+  </div>
+  
+
+<div class="post-nav">
+    <div class="item left">
+      
+
+  <a href="/computer-science/interview/method/c++%20%E4%BA%8C%E5%88%86%E6%A8%A1%E6%9D%BF/" itemprop="url" rel="prev" data-background-image="https:&#x2F;&#x2F;cdn.jsdelivr.net&#x2F;gh&#x2F;qkgoalkeeper&#x2F;blogImage@main&#x2F;img&#x2F;leetcode.png" title="c++二分模板">
+  <span class="type">上一篇</span>
+  <span class="category"><i class="ic i-flag"></i> 笔试技巧</span>
+  <h3>c++二分模板</h3>
+  </a>
+
+    </div>
+    <div class="item right">
+      
+
+  <a href="/computer-science/interview/method/%E7%BB%8F%E5%85%B8%E5%AD%97%E7%AC%A6%E4%B8%B2%E7%AE%97%E6%B3%95%EF%BC%9AKMP%E9%97%AE%E9%A2%98/" itemprop="url" rel="next" data-background-image="https:&#x2F;&#x2F;cdn.jsdelivr.net&#x2F;gh&#x2F;qkgoalkeeper&#x2F;blogImage@main&#x2F;img&#x2F;leetcode.png" title="经典字符串算法：KMP">
+  <span class="type">下一篇</span>
+  <span class="category"><i class="ic i-flag"></i> 笔试技巧</span>
+  <h3>经典字符串算法：KMP</h3>
+  </a>
+
+    </div>
+</div>
+
+  
+  <div class="wrap" id="comments"></div>
+
+
+        </div>
+        <div id="sidebar">
+          
+
+<div class="inner">
+
+  <div class="panels">
+    <div class="inner">
+      <div class="contents panel pjax" data-title="文章目录">
+          <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%B8%80-KMP%E7%AE%97%E6%B3%95"><span class="toc-number">1.</span> <span class="toc-text">一.KMP算法</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%BA%8C-%E5%BF%AB%E9%80%9F%E6%8E%92%E5%BA%8F"><span class="toc-number">2.</span> <span class="toc-text">二.快速排序</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%B8%89-%E5%BD%92%E5%B9%B6%E6%8E%92%E5%BA%8F"><span class="toc-number">3.</span> <span class="toc-text">三.归并排序</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%9B%9B-%E5%A0%86%E6%8E%92%E5%BA%8F-x2F-%E4%BC%98%E5%85%88%E9%98%9F%E5%88%97%E5%AE%9E%E7%8E%B0"><span class="toc-number">4.</span> <span class="toc-text">四.堆排序&#x2F;优先队列实现</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%BA%94-%E8%93%84%E6%B0%B4%E6%B1%A0%E6%8A%BD%E6%A0%B7%E7%AE%97%E6%B3%95"><span class="toc-number">5.</span> <span class="toc-text">五.蓄水池抽样算法</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%85%AD-%E6%91%A9%E5%B0%94%E6%8A%95%E7%A5%A8%E7%AE%97%E6%B3%95"><span class="toc-number">6.</span> <span class="toc-text">六.摩尔投票算法</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%B8%83-%E5%8D%95%E4%BE%8B%E6%A8%A1%E5%BC%8F"><span class="toc-number">7.</span> <span class="toc-text">七.单例模式</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%85%AB-%E5%B7%A5%E5%8E%82%E6%A8%A1%E5%BC%8F"><span class="toc-number">8.</span> <span class="toc-text">八.工厂模式</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%B9%9D-%E5%A4%A7%E5%B0%8F%E7%AB%AF%E5%88%A4%E6%96%AD"><span class="toc-number">9.</span> <span class="toc-text">九.大小端判断</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%8D%81-%E7%AE%80%E5%8D%95%E5%A4%9A%E7%BA%BF%E7%A8%8B%E6%8E%A7%E5%88%B6%EF%BC%88%E9%94%81-%E6%9D%A1%E4%BB%B6%E5%8F%98%E9%87%8F%EF%BC%89"><span class="toc-number">10.</span> <span class="toc-text">十.简单多线程控制（锁+条件变量）</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%8D%81%E4%B8%80-%E6%AD%BB%E9%94%81%E9%97%AE%E9%A2%98"><span class="toc-number">11.</span> <span class="toc-text">十一.死锁问题</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%8D%81%E4%BA%8C-%E6%89%8B%E5%86%99%E5%B9%B6%E6%9F%A5%E9%9B%86"><span class="toc-number">12.</span> <span class="toc-text">十二.手写并查集</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%8D%81%E4%B8%89-%E6%89%8B%E5%86%99trie%E6%A0%91"><span class="toc-number">13.</span> <span class="toc-text">十三.手写trie树</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%8D%81%E5%9B%9B-%E6%89%8B%E5%86%99lru"><span class="toc-number">14.</span> <span class="toc-text">十四.手写lru</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%8D%81%E4%BA%94-%E6%89%8B%E5%86%99lfu"><span class="toc-number">15.</span> <span class="toc-text">十五.手写lfu</span></a></li></ol>
+      </div>
+      <div class="related panel pjax" data-title="系列文章">
+        <ul>
+          <li><a href="/computer-science/interview/method/%E5%B9%B6%E6%9F%A5%E9%9B%86%E4%B8%93%E9%A2%98/" rel="bookmark" title="并查集专题">并查集专题</a></li><li><a href="/computer-science/interview/method/acm%E6%A8%A1%E5%BC%8F%E7%9A%84%E8%BE%93%E5%85%A5%E8%BE%93%E5%87%BA/" rel="bookmark" title="acm模式的输入输出">acm模式的输入输出</a></li><li><a href="/computer-science/interview/method/c++%E5%AD%97%E7%AC%A6%E4%B8%B2%E5%88%86%E5%89%B2%E3%80%81%E7%B1%BB%E5%9E%8B%E8%BD%AC%E6%8D%A2%E3%80%81%E8%BF%9B%E5%88%B6%E8%BD%AC%E6%8D%A2%E3%80%81%E4%BD%8D%E8%BF%90%E7%AE%97/" rel="bookmark" title="c++字符串分割、类型转换、进制转换、位运算">c++字符串分割、类型转换、进制转换、位运算</a></li><li><a href="/computer-science/interview/method/%E6%8E%92%E5%BA%8F%E4%B8%93%E9%A2%98/" rel="bookmark" title="排序专题">排序专题</a></li><li><a href="/computer-science/interview/method/c++%20%E4%BA%8C%E5%88%86%E6%A8%A1%E6%9D%BF/" rel="bookmark" title="c++二分模板">c++二分模板</a></li><li><a href="/computer-science/interview/method/%E7%BB%8F%E5%85%B8%E5%AD%97%E7%AC%A6%E4%B8%B2%E7%AE%97%E6%B3%95%EF%BC%9AKMP%E9%97%AE%E9%A2%98/" rel="bookmark" title="经典字符串算法：KMP">经典字符串算法：KMP</a></li><li class="active"><a href="/computer-science/interview/method/%E6%89%8B%E6%92%95%E7%B3%BB%E5%88%97/" rel="bookmark" title="手撕常用算法和结构">手撕常用算法和结构</a></li><li><a href="/computer-science/interview/method/%E7%BB%8F%E5%85%B8dp%E7%AE%97%E6%B3%95%EF%BC%9ALCS%E9%97%AE%E9%A2%98/" rel="bookmark" title="经典dp算法：LCS问题">经典dp算法：LCS问题</a></li>
+        </ul>
+      </div>
+      <div class="overview panel" data-title="站点概览">
+        <div class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <img class="image" itemprop="image" alt="Kun Qian"
+      data-src="/images/avatar.jpg">
+  <p class="name" itemprop="name">Kun Qian</p>
+  <div class="description" itemprop="description"></div>
+</div>
+
+<nav class="state">
+    <div class="item posts">
+      <a href="/archives/">
+        <span class="count">41</span>
+        <span class="name">文章</span>
+      </a>
+    </div>
+    <div class="item categories">
+      <a href="/categories/">
+        <span class="count">9</span>
+        <span class="name">分类</span>
+      </a>
+    </div>
+    <div class="item tags">
+      <a href="/tags/">
+        <span class="count">18</span>
+        <span class="name">标签</span>
+      </a>
+    </div>
+</nav>
+
+<div class="social">
+      <span class="exturl item github" data-url="aHR0cHM6Ly9naXRodWIuY29tL3FrZ29hbGtlZXBlcg==" title="https:&#x2F;&#x2F;github.com&#x2F;qkgoalkeeper"><i class="ic i-github"></i></span>
+      <span class="exturl item zhihu" data-url="aHR0cHM6Ly93d3cuemhpaHUuY29tL3Blb3BsZS9oYW8tbGFpLXd1LXNob3UtbWVuLXl1YW4=" title="https:&#x2F;&#x2F;www.zhihu.com&#x2F;people&#x2F;hao-lai-wu-shou-men-yuan"><i class="ic i-zhihu"></i></span>
+      <span class="exturl item music" data-url="aHR0cHM6Ly9tdXNpYy4xNjMuY29tLyMvdXNlci9ob21lP2lkPTM5MjU2NzE4Nw==" title="https:&#x2F;&#x2F;music.163.com&#x2F;#&#x2F;user&#x2F;home?id&#x3D;392567187"><i class="ic i-cloud-music"></i></span>
+      <a href="/about/" title="&#x2F;about&#x2F;" class="item about"><i class="ic i-address-card"></i></a>
+</div>
+
+<ul class="menu">
+  
+    
+  <li class="item">
+    <a href="/" rel="section"><i class="ic i-home"></i>首页</a>
+  </li>
+
+    
+  <li class="item">
+    <a href="/about/" rel="section"><i class="ic i-user"></i>关于</a>
+  </li>
+
+        
+  <li class="item dropdown">
+      <a href="javascript:void(0);"><i class="ic i-feather"></i>文章</a>
+    <ul class="submenu">
+
+        
+  <li class="item">
+    <a href="/archives/" rel="section"><i class="ic i-list-alt"></i>归档</a>
+  </li>
+
+        
+  <li class="item">
+    <a href="/categories/" rel="section"><i class="ic i-th"></i>分类</a>
+  </li>
+
+        
+  <li class="item">
+    <a href="/tags/" rel="section"><i class="ic i-tags"></i>标签</a>
+  </li>
+
+  </ul>
+    
+  <li class="item">
+    <a href="/friends/" rel="section"><i class="ic i-heart"></i>友達</a>
+  </li>
+
+
+</ul>
+
+      </div>
+    </div>
+  </div>
+
+  <ul id="quick">
+    <li class="prev pjax">
+        <a href="/computer-science/interview/method/c++%20%E4%BA%8C%E5%88%86%E6%A8%A1%E6%9D%BF/" rel="prev" title="上一篇"><i class="ic i-chevron-left"></i></a>
+    </li>
+    <li class="up"><i class="ic i-arrow-up"></i></li>
+    <li class="down"><i class="ic i-arrow-down"></i></li>
+    <li class="next pjax">
+        <a href="/computer-science/interview/method/%E7%BB%8F%E5%85%B8%E5%AD%97%E7%AC%A6%E4%B8%B2%E7%AE%97%E6%B3%95%EF%BC%9AKMP%E9%97%AE%E9%A2%98/" rel="next" title="下一篇"><i class="ic i-chevron-right"></i></a>
+    </li>
+    <li class="percent"></li>
+  </ul>
+</div>
+
+
+        </div>
+        <div class="dimmer"></div>
+      </div>
+    </main>
+    <footer id="footer">
+      <div class="inner">
+        <div class="widgets">
+          
+<div class="rpost pjax">
+  <h2>随机文章</h2>
+  <ul>
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/computer-science/" title="分类于 计算机科学">计算机科学</a>
+<i class="ic i-angle-right"></i>
+<a href="/categories/computer-science/study/" title="分类于 研究生学习">研究生学习</a>
+<i class="ic i-angle-right"></i>
+<a href="/categories/computer-science/study/paper/" title="分类于 论文源码解读">论文源码解读</a>
+</div>
+
+    <span><a href="/computer-science/study/paper/RAMBO%E6%BA%90%E7%A0%81%E8%A7%A3%E8%AF%BB/" title="RAMBO源码解读">RAMBO源码解读</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/computer-science/" title="分类于 计算机科学">计算机科学</a>
+<i class="ic i-angle-right"></i>
+<a href="/categories/computer-science/leetcode/" title="分类于 Leetcode">Leetcode</a>
+<i class="ic i-angle-right"></i>
+<a href="/categories/computer-science/leetcode/offer2/" title="分类于 剑指offer">剑指offer</a>
+</div>
+
+    <span><a href="/computer-science/leetcode/offer2/LeetCode%E6%AF%8F%E6%97%A5%E7%BB%83%E4%B9%A0%EF%BC%9A%E5%89%91%E6%8C%87%20Offer%20II%20009.%20%E4%B9%98%E7%A7%AF%E5%B0%8F%E4%BA%8E%20K%20%E7%9A%84%E5%AD%90%E6%95%B0%E7%BB%84/" title="剑指 Offer II 009. 乘积小于 K 的子数组">剑指 Offer II 009. 乘积小于 K 的子数组</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/computer-science/" title="分类于 计算机科学">计算机科学</a>
+<i class="ic i-angle-right"></i>
+<a href="/categories/computer-science/middleware/" title="分类于 源码解读">源码解读</a>
+</div>
+
+    <span><a href="/computer-science/interview/middleware/Leveldb%E6%BA%90%E7%A0%81%E8%A7%A3%E8%AF%BB%EF%BC%883%EF%BC%89%EF%BC%9A%E5%85%AC%E7%94%A8%E5%9F%BA%E7%A1%80%E7%B1%BB/" title="Leveldb源码解读（3）：公用基础类">Leveldb源码解读（3）：公用基础类</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/computer-science/" title="分类于 计算机科学">计算机科学</a>
+<i class="ic i-angle-right"></i>
+<a href="/categories/computer-science/middleware/" title="分类于 源码解读">源码解读</a>
+</div>
+
+    <span><a href="/computer-science/interview/middleware/Leveldb%E6%BA%90%E7%A0%81%E8%A7%A3%E8%AF%BB%EF%BC%884%EF%BC%89%EF%BC%9ALog%E6%A8%A1%E5%9D%97/" title="Leveldb源码解读（4）：Log模块">Leveldb源码解读（4）：Log模块</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/computer-science/" title="分类于 计算机科学">计算机科学</a>
+<i class="ic i-angle-right"></i>
+<a href="/categories/computer-science/leetcode/" title="分类于 Leetcode">Leetcode</a>
+<i class="ic i-angle-right"></i>
+<a href="/categories/computer-science/leetcode/offer2/" title="分类于 剑指offer">剑指offer</a>
+</div>
+
+    <span><a href="/computer-science/leetcode/offer2/LeetCode%E6%AF%8F%E6%97%A5%E7%BB%83%E4%B9%A0%EF%BC%9A%E5%89%91%E6%8C%87%20Offer%20II%20008.%20%E5%92%8C%E5%A4%A7%E4%BA%8E%E7%AD%89%E4%BA%8E%20target%20%E7%9A%84%E6%9C%80%E7%9F%AD%E5%AD%90%E6%95%B0%E7%BB%84/" title="剑指 Offer II 008. 和大于等于 target 的最短子数组">剑指 Offer II 008. 和大于等于 target 的最短子数组</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/computer-science/" title="分类于 计算机科学">计算机科学</a>
+<i class="ic i-angle-right"></i>
+<a href="/categories/computer-science/leetcode/" title="分类于 Leetcode">Leetcode</a>
+<i class="ic i-angle-right"></i>
+<a href="/categories/computer-science/leetcode/%E7%AE%97%E6%B3%95%E9%A2%98%E6%80%9D%E8%B7%AF/" title="分类于 算法题思路">算法题思路</a>
+</div>
+
+    <span><a href="/computer-science/leetcode/algorithm/Leetcode%E4%B8%AD%E7%AD%89%E9%A2%98%E6%80%9D%E8%B7%AF(101-200)/" title="Leetcode中等题思路（101-100）">Leetcode中等题思路（101-100）</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/computer-science/" title="分类于 计算机科学">计算机科学</a>
+<i class="ic i-angle-right"></i>
+<a href="/categories/computer-science/leetcode/" title="分类于 Leetcode">Leetcode</a>
+<i class="ic i-angle-right"></i>
+<a href="/categories/computer-science/leetcode/offer2/" title="分类于 剑指offer">剑指offer</a>
+</div>
+
+    <span><a href="/computer-science/leetcode/offer2/LeetCode%E6%AF%8F%E6%97%A5%E7%BB%83%E4%B9%A0%EF%BC%9A%E5%89%91%E6%8C%87%20Offer%20II%20011.%200%20%E5%92%8C%201%20%E4%B8%AA%E6%95%B0%E7%9B%B8%E5%90%8C%E7%9A%84%E5%AD%90%E6%95%B0%E7%BB%84/" title="剑指 Offer II 011. 0 和 1 个数相同的子数组">剑指 Offer II 011. 0 和 1 个数相同的子数组</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/computer-science/" title="分类于 计算机科学">计算机科学</a>
+<i class="ic i-angle-right"></i>
+<a href="/categories/computer-science/leetcode/" title="分类于 Leetcode">Leetcode</a>
+<i class="ic i-angle-right"></i>
+<a href="/categories/computer-science/leetcode/offer2/" title="分类于 剑指offer">剑指offer</a>
+</div>
+
+    <span><a href="/computer-science/leetcode/offer2/LeetCode%E6%AF%8F%E6%97%A5%E7%BB%83%E4%B9%A0%EF%BC%9A%E5%89%91%E6%8C%87%20Offer%20II%20010.%20%E5%92%8C%E4%B8%BA%20k%20%E7%9A%84%E5%AD%90%E6%95%B0%E7%BB%84/" title="剑指 Offer II 010. 和为 k 的子数组">剑指 Offer II 010. 和为 k 的子数组</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/computer-science/" title="分类于 计算机科学">计算机科学</a>
+<i class="ic i-angle-right"></i>
+<a href="/categories/computer-science/leetcode/" title="分类于 Leetcode">Leetcode</a>
+<i class="ic i-angle-right"></i>
+<a href="/categories/computer-science/leetcode/offer2/" title="分类于 剑指offer">剑指offer</a>
+</div>
+
+    <span><a href="/computer-science/leetcode/offer2/LeetCode%E6%AF%8F%E6%97%A5%E7%BB%83%E4%B9%A0%EF%BC%9A%E5%89%91%E6%8C%87%20Offer%20II%20012.%20%E5%B7%A6%E5%8F%B3%E4%B8%A4%E8%BE%B9%E5%AD%90%E6%95%B0%E7%BB%84%E7%9A%84%E5%92%8C%E7%9B%B8%E7%AD%89/" title="剑指 Offer II 012. 左右两边子数组的和相等">剑指 Offer II 012. 左右两边子数组的和相等</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/computer-science/" title="分类于 计算机科学">计算机科学</a>
+<i class="ic i-angle-right"></i>
+<a href="/categories/computer-science/leetcode/" title="分类于 Leetcode">Leetcode</a>
+<i class="ic i-angle-right"></i>
+<a href="/categories/computer-science/leetcode/offer2/" title="分类于 剑指offer">剑指offer</a>
+</div>
+
+    <span><a href="/computer-science/leetcode/offer2/LeetCode%E6%AF%8F%E6%97%A5%E7%BB%83%E4%B9%A0%EF%BC%9A%E5%89%91%E6%8C%87%20Offer%20II%20007.%20%E6%95%B0%E7%BB%84%E4%B8%AD%E5%92%8C%E4%B8%BA%200%20%E7%9A%84%E4%B8%89%E4%B8%AA%E6%95%B0/" title="剑指 Offer II 007. 数组中和为 0 的三个数">剑指 Offer II 007. 数组中和为 0 的三个数</a></span>
+  </li>
+
+  </ul>
+</div>
+
+        </div>
+        <div class="status">
+  <div class="copyright">
+    
+    &copy; 2020 – 
+    <span itemprop="copyrightYear">2024</span>
+    <span class="with-love">
+      <i class="ic i-sakura rotate"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">Kun Qian @ Kun Qian</span>
+  </div>
+  <div class="powered-by">
+    基于 <span class="exturl" data-url="aHR0cHM6Ly9oZXhvLmlv">Hexo</span> & Theme.<span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL2FtZWhpbWUvaGV4by10aGVtZS1zaG9rYQ==">Shoka</span>
+  </div>
+</div>
+
+      </div>
+    </footer>
+  </div>
+<script data-config type="text/javascript">
+  var LOCAL = {
+    path: 'computer-science/interview/method/手撕系列/',
+    favicon: {
+      show: "qkgoalkeeper's blog",
+      hide: "qkgoalkeeper's blog"
+    },
+    search : {
+      placeholder: "文章搜索",
+      empty: "关于 「 ${query} 」，什么也没搜到",
+      stats: "${time} ms 内找到 ${hits} 条结果"
+    },
+    valine: true,fancybox: true,
+    copyright: '复制成功，转载请遵守 <i class="ic i-creative-commons"></i>BY-NC-SA 协议。',
+    ignores : [
+      function(uri) {
+        return uri.includes('#');
+      },
+      function(uri) {
+        return new RegExp(LOCAL.path+"$").test(uri);
+      }
+    ]
+  };
+</script>
+
+<script src="https://cdn.polyfill.io/v2/polyfill.js"></script>
+
+<script src="//cdn.jsdelivr.net/combine/npm/pace-js@1.0.2/pace.min.js,npm/pjax@0.2.8/pjax.min.js,npm/whatwg-fetch@3.4.0/dist/fetch.umd.min.js,npm/animejs@3.2.0/lib/anime.min.js,npm/algoliasearch@4/dist/algoliasearch-lite.umd.js,npm/instantsearch.js@4/dist/instantsearch.production.min.js,npm/lozad@1/dist/lozad.min.js,npm/quicklink@2/dist/quicklink.umd.js"></script>
+
+<script src="/js/app.js?v=0.2.5"></script>
+
+
+
+
+</body>
+</html>

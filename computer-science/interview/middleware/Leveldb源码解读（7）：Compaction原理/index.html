@@ -153,7 +153,7 @@ Kun Qian = Qkgoalkeeper's blog</title>
     
 
     <h2 id="1-多版本管理"><a href="#1-多版本管理" class="headerlink" title="1.多版本管理"></a>1.多版本管理</h2><p>leveldb进行一次从level n到level n+1层的compaction操作后会在level n+1层生成新的文件，随后再删除旧文件，leveldb使用version来管理每个层级拥有的文件信息，每次compaction操作后会生成一个新的版本，生成新版本的过程中用versionedit来临时保存信息（中间状态），最后当前版本和versionedit合并后生成新版本</p>
-<p>先看versionedit，其代码在db&#x2F;version_edit.h，其保存compaction操作后增加的删除文件信息和其他元数据</p>
+<p>versionedit，其代码在db&#x2F;version_edit.h，其保存compaction操作后增加的删除文件信息和其他元数据</p>
 <pre><code class="c++">class VersionEdit &#123;
  public:
   VersionEdit() &#123; Clear(); &#125;
@@ -242,6 +242,26 @@ struct FileMetaData &#123;
   InternalKey largest;   // Largest internal key served by table
 &#125;;
 </code></pre>
+<h2 id="2-compaction的类别"><a href="#2-compaction的类别" class="headerlink" title="2.compaction的类别"></a>2.compaction的类别</h2><p>compaction分为两类：</p>
+<ul>
+<li>minor compaction</li>
+<li>major compaction</li>
+</ul>
+<p>这两类compaction负责在不同的场景下进行不同的数据整理。</p>
+<h3 id="Minor-Compaction"><a href="#Minor-Compaction" class="headerlink" title="Minor Compaction"></a>Minor Compaction</h3><p>一次minor compaction非常简单，其本质就是将一个内存数据库中的所有数据持久化到一个磁盘文件中。</p>
+<p><img data-src="https://leveldb-handbook.readthedocs.io/zh/latest/_images/minor_compaction.jpeg" alt="img"></p>
+<p>每次minor compaction结束后，都会生成一个新的sstable文件，也意味着<strong>Leveldb的版本状态发生了变化，会进行一个版本的更替</strong>。有关版本控制的内容，将在接下去一篇文章中详细展开。</p>
+<p>值得注意的是，minor compaction是一个时效性要求非常高的过程，要求其在尽可能短的时间内完成，否则就会堵塞正常的写入操作，因此<strong>minor compaction的优先级高于major compaction</strong>。当进行minor compaction的时候有major compaction正在进行，则会首先暂停major compaction。</p>
+<h3 id="Major-Compaction"><a href="#Major-Compaction" class="headerlink" title="Major Compaction"></a>Major Compaction</h3><p>相比于minor compaction，major compaction就会复杂地多。首先看一下一次major compaction的示意图。</p>
+<p><img data-src="https://leveldb-handbook.readthedocs.io/zh/latest/_images/major_compaction.jpeg" alt="img"></p>
+<p>0层中浅蓝色的三个sstable文件，加上1层中的绿色的sstable文件，四个文件进行了合并，输出成两个按序组织的新的1层sstable文件进行替换。</p>
+<p><strong>条件</strong></p>
+<p>那么什么时候，会触发leveldb进行major compaction呢。总结地来说为以下三个条件：</p>
+<ul>
+<li>当0层文件数超过预定的上限（默认为4个）；</li>
+<li>当level i层文件的总大小超过(10 ^ i) MB；</li>
+<li>当某个文件无效读取的次数过多；</li>
+</ul>
 
       <div class="tags">
           <a href="/tags/leveldb/" rel="tag"><i class="ic i-tag"></i> leveldb</a>
@@ -257,7 +277,7 @@ struct FileMetaData &#123;
       <i class="ic i-calendar-check"></i>
     </span>
     <span class="text">更新于</span>
-    <time title="修改时间：2024-08-15 19:34:41" itemprop="dateModified" datetime="2024-08-15T19:34:41+08:00">2024-08-15</time>
+    <time title="修改时间：2024-08-25 19:08:31" itemprop="dateModified" datetime="2024-08-25T19:08:31+08:00">2024-08-25</time>
   </span>
 </div>
 
@@ -321,7 +341,7 @@ struct FileMetaData &#123;
   <div class="panels">
     <div class="inner">
       <div class="contents panel pjax" data-title="文章目录">
-          <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-%E5%A4%9A%E7%89%88%E6%9C%AC%E7%AE%A1%E7%90%86"><span class="toc-number">1.</span> <span class="toc-text">1.多版本管理</span></a></li></ol>
+          <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-%E5%A4%9A%E7%89%88%E6%9C%AC%E7%AE%A1%E7%90%86"><span class="toc-number">1.</span> <span class="toc-text">1.多版本管理</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-compaction%E7%9A%84%E7%B1%BB%E5%88%AB"><span class="toc-number">2.</span> <span class="toc-text">2.compaction的类别</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Minor-Compaction"><span class="toc-number">2.1.</span> <span class="toc-text">Minor Compaction</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Major-Compaction"><span class="toc-number">2.2.</span> <span class="toc-text">Major Compaction</span></a></li></ol></li></ol>
       </div>
       <div class="related panel pjax" data-title="系列文章">
         <ul>
@@ -339,7 +359,7 @@ struct FileMetaData &#123;
 <nav class="state">
     <div class="item posts">
       <a href="/archives/">
-        <span class="count">39</span>
+        <span class="count">41</span>
         <span class="name">文章</span>
       </a>
     </div>
@@ -351,7 +371,7 @@ struct FileMetaData &#123;
     </div>
     <div class="item tags">
       <a href="/tags/">
-        <span class="count">17</span>
+        <span class="count">18</span>
         <span class="name">标签</span>
       </a>
     </div>
@@ -445,7 +465,109 @@ struct FileMetaData &#123;
 <a href="/categories/computer-science/leetcode/offer2/" title="分类于 剑指offer">剑指offer</a>
 </div>
 
-    <span><a href="/computer-science/leetcode/offer2/LeetCode%E6%AF%8F%E6%97%A5%E7%BB%83%E4%B9%A0%EF%BC%9A%E5%89%91%E6%8C%87%20Offer%20II%20011.%200%20%E5%92%8C%201%20%E4%B8%AA%E6%95%B0%E7%9B%B8%E5%90%8C%E7%9A%84%E5%AD%90%E6%95%B0%E7%BB%84/" title="剑指 Offer II 011. 0 和 1 个数相同的子数组">剑指 Offer II 011. 0 和 1 个数相同的子数组</a></span>
+    <span><a href="/computer-science/leetcode/offer2/LeetCode%E6%AF%8F%E6%97%A5%E7%BB%83%E4%B9%A0%EF%BC%9A%E5%89%91%E6%8C%87%20Offer%20II%20006.%20%E6%8E%92%E5%BA%8F%E6%95%B0%E7%BB%84%E4%B8%AD%E4%B8%A4%E4%B8%AA%E6%95%B0%E5%AD%97%E4%B9%8B%E5%92%8C/" title="剑指 Offer II 006. 排序数组中两个数字之和">剑指 Offer II 006. 排序数组中两个数字之和</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/computer-science/" title="分类于 计算机科学">计算机科学</a>
+<i class="ic i-angle-right"></i>
+<a href="/categories/computer-science/%E7%AC%94%E8%AF%95%E6%8A%80%E5%B7%A7/" title="分类于 笔试技巧">笔试技巧</a>
+</div>
+
+    <span><a href="/computer-science/interview/method/c++%20%E4%BA%8C%E5%88%86%E6%A8%A1%E6%9D%BF/" title="c++二分模板">c++二分模板</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/computer-science/" title="分类于 计算机科学">计算机科学</a>
+<i class="ic i-angle-right"></i>
+<a href="/categories/computer-science/leetcode/" title="分类于 Leetcode">Leetcode</a>
+<i class="ic i-angle-right"></i>
+<a href="/categories/computer-science/leetcode/offer2/" title="分类于 剑指offer">剑指offer</a>
+</div>
+
+    <span><a href="/computer-science/leetcode/offer2/LeetCode%E6%AF%8F%E6%97%A5%E7%BB%83%E4%B9%A0%EF%BC%9A%E5%89%91%E6%8C%87%20Offer%20II%20016.%20%E4%B8%8D%E5%90%AB%E9%87%8D%E5%A4%8D%E5%AD%97%E7%AC%A6%E7%9A%84%E6%9C%80%E9%95%BF%E5%AD%90%E5%AD%97%E7%AC%A6%E4%B8%B2/" title="剑指 Offer II 016. 不含重复字符的最长子字符串">剑指 Offer II 016. 不含重复字符的最长子字符串</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/computer-science/" title="分类于 计算机科学">计算机科学</a>
+<i class="ic i-angle-right"></i>
+<a href="/categories/computer-science/leetcode/" title="分类于 Leetcode">Leetcode</a>
+<i class="ic i-angle-right"></i>
+<a href="/categories/computer-science/leetcode/%E7%AE%97%E6%B3%95%E9%A2%98%E6%80%9D%E8%B7%AF/" title="分类于 算法题思路">算法题思路</a>
+</div>
+
+    <span><a href="/computer-science/leetcode/algorithm/Leetcode%E4%B8%AD%E7%AD%89%E9%A2%98%E6%80%9D%E8%B7%AF(101-200)/" title="Leetcode中等题思路（101-100）">Leetcode中等题思路（101-100）</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/computer-science/" title="分类于 计算机科学">计算机科学</a>
+<i class="ic i-angle-right"></i>
+<a href="/categories/computer-science/middleware/" title="分类于 源码解读">源码解读</a>
+</div>
+
+    <span><a href="/computer-science/interview/middleware/Leveldb%E6%BA%90%E7%A0%81%E8%A7%A3%E8%AF%BB%EF%BC%885%EF%BC%89%EF%BC%9AMemtable%E6%A8%A1%E5%9D%97/" title="Leveldb源码解读（5）：Memtable模块">Leveldb源码解读（5）：Memtable模块</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/%E6%9D%82%E8%B0%88/" title="分类于 杂谈">杂谈</a>
+</div>
+
+    <span><a href="/new%20blog%E8%BF%81%E7%A7%BB%E8%AF%B4%E6%98%8E/" title="新blog迁移记录">新blog迁移记录</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/computer-science/" title="分类于 计算机科学">计算机科学</a>
+<i class="ic i-angle-right"></i>
+<a href="/categories/computer-science/leetcode/" title="分类于 Leetcode">Leetcode</a>
+<i class="ic i-angle-right"></i>
+<a href="/categories/computer-science/leetcode/offer2/" title="分类于 剑指offer">剑指offer</a>
+</div>
+
+    <span><a href="/computer-science/leetcode/offer2/LeetCode%E6%AF%8F%E6%97%A5%E7%BB%83%E4%B9%A0%EF%BC%9A%E5%89%91%E6%8C%87%20Offer%20II%20012.%20%E5%B7%A6%E5%8F%B3%E4%B8%A4%E8%BE%B9%E5%AD%90%E6%95%B0%E7%BB%84%E7%9A%84%E5%92%8C%E7%9B%B8%E7%AD%89/" title="剑指 Offer II 012. 左右两边子数组的和相等">剑指 Offer II 012. 左右两边子数组的和相等</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/computer-science/" title="分类于 计算机科学">计算机科学</a>
+<i class="ic i-angle-right"></i>
+<a href="/categories/computer-science/leetcode/" title="分类于 Leetcode">Leetcode</a>
+</div>
+
+    <span><a href="/computer-science/interview/method/c++%E7%9A%84std%E4%B8%AD%E7%9A%84%E8%87%AA%E5%AE%9A%E4%B9%89%E7%B1%BB%E5%9E%8B%E4%BD%BF%E7%94%A8%EF%BC%88sort%E3%80%81map%E7%9A%84key%E3%80%81priority_queue%EF%BC%89/" title="c++的std中的自定义类型使用（sort、map的key、priority_queue）">c++的std中的自定义类型使用（sort、map的key、priority_queue）</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/computer-science/" title="分类于 计算机科学">计算机科学</a>
+<i class="ic i-angle-right"></i>
+<a href="/categories/computer-science/leetcode/" title="分类于 Leetcode">Leetcode</a>
+<i class="ic i-angle-right"></i>
+<a href="/categories/computer-science/leetcode/offer2/" title="分类于 剑指offer">剑指offer</a>
+</div>
+
+    <span><a href="/computer-science/leetcode/offer2/LeetCode%E6%AF%8F%E6%97%A5%E7%BB%83%E4%B9%A0%EF%BC%9A%E5%89%91%E6%8C%87%20Offer%20II%20005.%20%E5%8D%95%E8%AF%8D%E9%95%BF%E5%BA%A6%E7%9A%84%E6%9C%80%E5%A4%A7%E4%B9%98%E7%A7%AF/" title="剑指 Offer II 005. 单词长度的最大乘积">剑指 Offer II 005. 单词长度的最大乘积</a></span>
   </li>
 
       
@@ -460,110 +582,6 @@ struct FileMetaData &#123;
 </div>
 
     <span><a href="/computer-science/leetcode/algorithm/Leetcode%E4%B8%AD%E7%AD%89%E9%A2%98%E6%80%9D%E8%B7%AF%EF%BC%881-100%EF%BC%89/" title="Leetcode中等题思路（1-100）">Leetcode中等题思路（1-100）</a></span>
-  </li>
-
-      
-  <li class="item">
-    
-<div class="breadcrumb">
-<a href="/categories/computer-science/" title="分类于 计算机科学">计算机科学</a>
-<i class="ic i-angle-right"></i>
-<a href="/categories/computer-science/middleware/" title="分类于 源码解读">源码解读</a>
-</div>
-
-    <span><a href="/computer-science/interview/middleware/Leveldb%E6%BA%90%E7%A0%81%E8%A7%A3%E8%AF%BB%EF%BC%886%EF%BC%89%EF%BC%9ASSTable%E6%A8%A1%E5%9D%97%20-%20%E5%89%AF%E6%9C%AC/" title="Leveldb源码解读（6）：SSTable模块">Leveldb源码解读（6）：SSTable模块</a></span>
-  </li>
-
-      
-  <li class="item">
-    
-<div class="breadcrumb">
-<a href="/categories/computer-science/" title="分类于 计算机科学">计算机科学</a>
-<i class="ic i-angle-right"></i>
-<a href="/categories/computer-science/leetcode/" title="分类于 Leetcode">Leetcode</a>
-<i class="ic i-angle-right"></i>
-<a href="/categories/computer-science/leetcode/offer2/" title="分类于 剑指offer">剑指offer</a>
-</div>
-
-    <span><a href="/computer-science/leetcode/offer2/LeetCode%E6%AF%8F%E6%97%A5%E7%BB%83%E4%B9%A0%EF%BC%9A%E5%89%91%E6%8C%87%20Offer%20II%20001.%20%E6%95%B4%E6%95%B0%E9%99%A4%E6%B3%95/" title="剑指 Offer II 001. 整数除法">剑指 Offer II 001. 整数除法</a></span>
-  </li>
-
-      
-  <li class="item">
-    
-<div class="breadcrumb">
-<a href="/categories/computer-science/" title="分类于 计算机科学">计算机科学</a>
-<i class="ic i-angle-right"></i>
-<a href="/categories/computer-science/leetcode/" title="分类于 Leetcode">Leetcode</a>
-<i class="ic i-angle-right"></i>
-<a href="/categories/computer-science/leetcode/offer2/" title="分类于 剑指offer">剑指offer</a>
-</div>
-
-    <span><a href="/computer-science/leetcode/offer2/LeetCode%E6%AF%8F%E6%97%A5%E7%BB%83%E4%B9%A0%EF%BC%9A%E5%89%91%E6%8C%87%20Offer%20II%20009.%20%E4%B9%98%E7%A7%AF%E5%B0%8F%E4%BA%8E%20K%20%E7%9A%84%E5%AD%90%E6%95%B0%E7%BB%84/" title="剑指 Offer II 009. 乘积小于 K 的子数组">剑指 Offer II 009. 乘积小于 K 的子数组</a></span>
-  </li>
-
-      
-  <li class="item">
-    
-<div class="breadcrumb">
-<a href="/categories/computer-science/" title="分类于 计算机科学">计算机科学</a>
-<i class="ic i-angle-right"></i>
-<a href="/categories/computer-science/middleware/" title="分类于 源码解读">源码解读</a>
-</div>
-
-    <span><a href="/computer-science/interview/middleware/Leveldb%E6%BA%90%E7%A0%81%E8%A7%A3%E8%AF%BB%EF%BC%882%EF%BC%89%EF%BC%9A%E6%80%BB%E4%BD%93%E6%9E%B6%E6%9E%84%E4%B8%8E%E8%AE%BE%E8%AE%A1%E6%80%9D%E6%83%B3%20-%20%E5%89%AF%E6%9C%AC/" title="Leveldb源码解读（2）：总体架构与设计思想">Leveldb源码解读（2）：总体架构与设计思想</a></span>
-  </li>
-
-      
-  <li class="item">
-    
-<div class="breadcrumb">
-<a href="/categories/computer-science/" title="分类于 计算机科学">计算机科学</a>
-<i class="ic i-angle-right"></i>
-<a href="/categories/computer-science/leetcode/" title="分类于 Leetcode">Leetcode</a>
-</div>
-
-    <span><a href="/computer-science/interview/method/c++%20std%20vector%E3%80%81queue%E3%80%81stack%E5%BA%95%E5%B1%82%E5%8E%9F%E7%90%86/" title="c++ std vector、queue、stack底层原理">c++ std vector、queue、stack底层原理</a></span>
-  </li>
-
-      
-  <li class="item">
-    
-<div class="breadcrumb">
-<a href="/categories/computer-science/" title="分类于 计算机科学">计算机科学</a>
-<i class="ic i-angle-right"></i>
-<a href="/categories/computer-science/study/" title="分类于 研究生学习">研究生学习</a>
-<i class="ic i-angle-right"></i>
-<a href="/categories/computer-science/study/paper/" title="分类于 论文源码解读">论文源码解读</a>
-</div>
-
-    <span><a href="/computer-science/study/paper/RAMBO%E6%BA%90%E7%A0%81%E8%A7%A3%E8%AF%BB/" title="RAMBO源码解读">RAMBO源码解读</a></span>
-  </li>
-
-      
-  <li class="item">
-    
-<div class="breadcrumb">
-<a href="/categories/computer-science/" title="分类于 计算机科学">计算机科学</a>
-<i class="ic i-angle-right"></i>
-<a href="/categories/computer-science/middleware/" title="分类于 源码解读">源码解读</a>
-</div>
-
-    <span><a href="/computer-science/interview/middleware/Leveldb%E6%BA%90%E7%A0%81%E8%A7%A3%E8%AF%BB%EF%BC%887%EF%BC%89%EF%BC%9ACompaction%E5%8E%9F%E7%90%86/" title="Leveldb源码解读（7）：Compaction原理">Leveldb源码解读（7）：Compaction原理</a></span>
-  </li>
-
-      
-  <li class="item">
-    
-<div class="breadcrumb">
-<a href="/categories/computer-science/" title="分类于 计算机科学">计算机科学</a>
-<i class="ic i-angle-right"></i>
-<a href="/categories/computer-science/leetcode/" title="分类于 Leetcode">Leetcode</a>
-<i class="ic i-angle-right"></i>
-<a href="/categories/computer-science/leetcode/offer2/" title="分类于 剑指offer">剑指offer</a>
-</div>
-
-    <span><a href="/computer-science/leetcode/offer2/LeetCode%E6%AF%8F%E6%97%A5%E7%BB%83%E4%B9%A0%EF%BC%9A%E5%89%91%E6%8C%87%20Offer%20II%20007.%20%E6%95%B0%E7%BB%84%E4%B8%AD%E5%92%8C%E4%B8%BA%200%20%E7%9A%84%E4%B8%89%E4%B8%AA%E6%95%B0/" title="剑指 Offer II 007. 数组中和为 0 的三个数">剑指 Offer II 007. 数组中和为 0 的三个数</a></span>
   </li>
 
   </ul>
