@@ -1,0 +1,546 @@
+
+
+
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#FFF">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+
+<link rel="icon" type="image/ico" sizes="32x32" href="/images/favicon.ico">
+  <link rel="mask-icon" href="/images/logo.svg" color="">
+  <link rel="manifest" href="/images/manifest.json">
+  <meta name="msapplication-config" content="/images/browserconfig.xml">
+  <meta http-equiv="Cache-Control" content="no-transform">
+  <meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+<link rel="alternate" type="application/rss+xml" title="Qkgoalkeeper's blog" href="https://qkgoalkeeper.github.io/rss.xml" />
+<link rel="alternate" type="application/atom+xml" title="Qkgoalkeeper's blog" href="https://qkgoalkeeper.github.io/atom.xml" />
+<link rel="alternate" type="application/json" title="Qkgoalkeeper's blog" href="https://qkgoalkeeper.github.io/feed.json" />
+
+<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Mulish:300,300italic,400,400italic,700,700italic%7CFredericka%20the%20Great:300,300italic,400,400italic,700,700italic%7CNoto%20Serif%20JP:300,300italic,400,400italic,700,700italic%7CNoto%20Serif%20SC:300,300italic,400,400italic,700,700italic%7CInconsolata:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+
+<link rel="stylesheet" href="/css/app.css?v=0.2.5">
+
+  
+  <meta name="keywords" content="论文" />
+
+
+<link rel="canonical" href="https://qkgoalkeeper.github.io/computer-science/study/paper/Prefix%20Siphoning%E8%AE%BA%E6%96%87%E8%A7%A3%E8%AF%BB/">
+
+
+
+  <title>
+Prefix Siphoning论文解读 - 论文源码解读 - 研究生学习 - 计算机科学 |
+Kun Qian = Qkgoalkeeper's blog</title>
+<meta name="generator" content="Hexo 6.3.0"></head>
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div id="loading">
+    <div class="cat">
+      <div class="body"></div>
+      <div class="head">
+        <div class="face"></div>
+      </div>
+      <div class="foot">
+        <div class="tummy-end"></div>
+        <div class="bottom"></div>
+        <div class="legs left"></div>
+        <div class="legs right"></div>
+      </div>
+      <div class="paw">
+        <div class="hands left"></div>
+        <div class="hands right"></div>
+      </div>
+    </div>
+  </div>
+  <div id="container">
+    <header id="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="inner">
+        <div id="brand">
+          <div class="pjax">
+          
+  <h1 itemprop="name headline">Prefix Siphoning论文解读
+  </h1>
+  
+<div class="meta">
+  <span class="item" title="创建时间：2024-08-10 11:45:48">
+    <span class="icon">
+      <i class="ic i-calendar"></i>
+    </span>
+    <span class="text">发表于</span>
+    <time itemprop="dateCreated datePublished" datetime="2024-08-10T11:45:48+08:00">2024-08-10</time>
+  </span>
+</div>
+
+
+          </div>
+        </div>
+        <nav id="nav">
+  <div class="inner">
+    <div class="toggle">
+      <div class="lines" aria-label="切换导航栏">
+        <span class="line"></span>
+        <span class="line"></span>
+        <span class="line"></span>
+      </div>
+    </div>
+    <ul class="menu">
+      <li class="item title"><a href="/" rel="start">Kun Qian</a></li>
+    </ul>
+    <ul class="right">
+      <li class="item theme">
+        <i class="ic i-sun"></i>
+      </li>
+      <li class="item search">
+        <i class="ic i-search"></i>
+      </li>
+    </ul>
+  </div>
+</nav>
+
+      </div>
+      <div id="imgs" class="pjax">
+          <img src="https://cdn.jsdelivr.net/gh/qkgoalkeeper/blogImage@main/img/20240207202315.png">
+      </div>
+    </header>
+    <div id="waves">
+      <svg class="waves" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 24 150 28" preserveAspectRatio="none" shape-rendering="auto">
+        <defs>
+          <path id="gentle-wave" d="M-160 44c30 0 58-18 88-18s 58 18 88 18 58-18 88-18 58 18 88 18 v44h-352z" />
+        </defs>
+        <g class="parallax">
+          <use xlink:href="#gentle-wave" x="48" y="0" />
+          <use xlink:href="#gentle-wave" x="48" y="3" />
+          <use xlink:href="#gentle-wave" x="48" y="5" />
+          <use xlink:href="#gentle-wave" x="48" y="7" />
+        </g>
+      </svg>
+    </div>
+    <main>
+      <div class="inner">
+        <div id="main" class="pjax">
+          
+  <div class="article wrap">
+    
+<div class="breadcrumb" itemscope itemtype="https://schema.org/BreadcrumbList">
+<i class="ic i-home"></i>
+<span><a href="/">首页</a></span><i class="ic i-angle-right"></i>
+<span  itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/categories/computer-science/" itemprop="item" rel="index" title="分类于 计算机科学"><span itemprop="name">计算机科学</span></a>
+<meta itemprop="position" content="1" /></span>
+<i class="ic i-angle-right"></i>
+<span  itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/categories/computer-science/study/" itemprop="item" rel="index" title="分类于 研究生学习"><span itemprop="name">研究生学习</span></a>
+<meta itemprop="position" content="2" /></span>
+<i class="ic i-angle-right"></i>
+<span  class="current" itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/categories/computer-science/study/paper/" itemprop="item" rel="index" title="分类于 论文源码解读"><span itemprop="name">论文源码解读</span></a>
+<meta itemprop="position" content="3" /></span>
+</div>
+
+    <article itemscope itemtype="http://schema.org/Article" class="post block" lang="zh-CN">
+  <link itemprop="mainEntityOfPage" href="https://qkgoalkeeper.github.io/computer-science/study/paper/Prefix%20Siphoning%E8%AE%BA%E6%96%87%E8%A7%A3%E8%AF%BB/">
+
+  <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <meta itemprop="image" content="/images/avatar.jpg">
+    <meta itemprop="name" content="Kun Qian">
+    <meta itemprop="description" content=", ">
+  </span>
+
+  <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="Qkgoalkeeper's blog">
+  </span>
+
+  <div class="body md" itemprop="articleBody">
+    
+
+    <h1 id="论文阅读分享-Prefix-Siphoning-Exploiting-LSM-Tree-Range-Filters-For-Information-Disclosure"><a href="#论文阅读分享-Prefix-Siphoning-Exploiting-LSM-Tree-Range-Filters-For-Information-Disclosure" class="headerlink" title="[论文阅读分享] Prefix Siphoning: Exploiting LSM-Tree Range Filters For Information Disclosure"></a>[论文阅读分享] Prefix Siphoning: Exploiting LSM-Tree Range Filters For Information Disclosure</h1><p>[论文阅读分享] Prefix Siphoning: Exploiting LSM-Tree Range Filters For Information Disclosure</p>
+<p><img data-src="file:///C:/Users/KunQian/AppData/Local/Temp/msohtmlclip1/01/clip_image002.png" alt="img"></p>
+<p>摘要：键值存储通常将访问控制交由其所服务的系统来处理。然而，攻击者可能通过对键值存储进行计时攻击来绕过这些读取访问控制，这些攻击利用查询响应时间的差异来获取存储数据的信息。到目前为止，键值存储的计时攻击主要集中在泄露存储的值上，本文指出，密钥泄露也是一个安全威胁，并展示了利用键值存储机制本身的密钥泄露计时攻击。本文从安全角度分析了SuRF和前缀布隆过滤器对LSM树的影响，通过实验表明了它们存在“前缀虹吸”的密钥泄露的计时攻击漏洞，从而提醒人们在追求LSM效率的同时还要考虑隐私安全问题。</p>
+<p>华东师范大学区块链实验室论文阅读分享会于2024年7月16日在线下进行，硕士研究生钱堃分享了论文。该论文由特拉维夫大学和和IBM研究院在USENIX ATC 2023上发表，作者是Adi Kaufman, Moshik Hershcovitch,和Adam Morrison。</p>
+<p>论文链接：<span class="exturl" data-url="aHR0cHM6Ly93d3cudXNlbml4Lm9yZy9jb25mZXJlbmNlL2F0YzIzL3ByZXNlbnRhdGlvbi9rYXVmbWFu">https://www.usenix.org/conference/atc23/presentation/kaufman</span></p>
+<p><strong>1.</strong>  <strong>论文简介</strong></p>
+<p>Key-Value键值存储充当了许多云和企业系统的存储引擎，包括但不限于对象缓存、流处理及数据库系统。这些现代数据密集型系统的性能通常取决于其键值存储引擎的性能。因此，对键值存储的研究绝大多数集中在效率上，包括写入的 I&#x2F;O 效率、点查询和范围查询到内存效率、能源效率、多核可扩展性以及减少 I&#x2F;O 写入放大。</p>
+<p>另一个问题是键值存储引擎中存储数据的安全性问题，也是本文关注的问题。因为键值存储通常只提供字典抽象，而没有访问控制机制，访问控制完全留给系统本身实现。系统通常将访问控制列表 (ACL)作为值的元数据存储在键值存储中，用户通过查询键值存储中的ACL来实现访问控制。虽然这种方法可以阻止用户直接进行未经授权的查询，但如果键值存储容易受到定时攻击，用户仍然可以间接收集有关受限数据的信息。定时攻击利用查询响应时间的差异来收集有关存储数据的信息，使用容易受到定时攻击的键值存储的系统本身也容易受到此类攻击，因为系统的查询响应时间取决于存储引擎的响应时间，使得键值查询响应时间的差异表现为系统的响应时间。</p>
+<p>迄今为止，键值存储定时攻击的目的是泄露存储的值，Schwarzl等人在NDSS 2022和IEEE S&amp;P 2023中分别提出了针对内存去重和内存压缩的时间攻击。然而，本文指出，密钥泄露也是一种安全威胁。在某些系统中，密钥可以明确包含秘密数据。例如，使用键值存储引擎的数据库系统（例如，CockroachDB、YugabyteDB 或 MyRocks）将行（或行的子集）编码到键上。这使得密钥泄露等同于数据库数据泄露。密钥也可能是隐含的秘密，用户并不希望它们被轻易获得。例如，在 Amazon S3 等对象存储系统中，识别有效密钥可能会产生不安全的直接对象引用漏洞（图1），这使得攻击者能够探测对与所公开的密钥关联的对象的访问。</p>
+<p>本文表明某些范围过滤器可以对 LSM 树进行密钥泄露定时攻击。本文描述了一种称为前缀虹吸的攻击框架，它利用了 SuRF 和 PBF 中存在的一般范围过滤器特征。在暴力搜索密钥（通过详尽枚举或随机猜测）不可行的情况下，前缀虹吸成功地利用对不存在密钥的良性点查询来识别实际密钥的前缀（在某些情况下，识别完整密钥）。本文通过分析和经验评估了前缀虹吸对 SuRF 和 PBF 的影响，并在实践中证明了其可行性。</p>
+<p><img data-src="file:///C:/Users/KunQian/AppData/Local/Temp/msohtmlclip1/01/clip_image004.jpg" alt="img"></p>
+<p>图1. Amazon S3 的对象引用漏洞报道</p>
+<p><strong>2.</strong>  <strong>研究背景</strong></p>
+<p>键值存储：键值存储有以下三个操作。1.插入操作put(k, v)。 put 存储从键k到值v的映射。如果存储中已存在键，则更新其值。2.单点查询操作get(k)。返回和请求的键k关联的value值。3.范围查询操作range_query (k1, k2)。范围查询返回给定范围内的所有键值对。键值存储可用作许多更复杂系统的存储引擎。此类系统的示例包括数据库系统（例如 Cassandra、MongoDB）和存储系统（例如 CEPH）。</p>
+<p>基于LSM的数据存储：日志结构合并树（LSM）是写优化的键值存储的核心存储结构。 LSM 树由多个级别组成，每个级别包含多个存储键&#x2F;值对的不可变静态排序表 (SSTable) 。同一级别的两个 SSTable 在存储的键范围上永远不会重叠，但不同级别的 SSTable 可能会重叠。 put 请求将键值对插入到 Memtable 的内存缓冲区中，Memtable 是 LSM 树唯一的可变存储对象。一旦 Memtable 填满，其数据就会作为 SSTable 文件刷新到辅助存储。 LSMtree 定期执行压缩，统一级别之间的 SSTable，以消除重复的键值对。 get 查询以自上而下的方式搜索目标键：首先在 Memtable 中查找，然后在每个级别的相关 SSTable中查找。通过布隆过滤器的引入，LSM 树可以减少不必要的sstable的 I&#x2F;O。同样，范围过滤器使 LSM 树能够避免范围查询的多余 I&#x2F;O，这可以将范围查询吞吐量提高几个数量级。</p>
+<p>布隆过滤器：布隆过滤器（Bloom Filter）是一种高效的概率型数据结构，用于快速判断一个元素是否可能存在于一个集合中。它由一个位数组和多个哈希函数组成。其基本工作原理如下：1.初始化：创建一个包含m位的位数组，并将所有位初始化为0。2.插入元素：对于每个要插入的元素，使用k个哈希函数生成k个哈希值，并将这k个哈希值对应的位数组位置设为1。3.查询元素：对于查询的元素，同样使用k个哈希函数生成k个哈希值，然后检查这k个位置的值是否全为1。如果是，则该元素可能在集合中；如果有任意一个位置为0，则该元素一定不在集合中。布隆过滤器的优点在于其空间效率和插入、查询操作的快速性。缺点是存在一定的误判率。</p>
+<p>SuRF：SuRF通过类似trie树的数据结构实现range filter。 其核心数据结构就是 Fast Succinct Tries（FST），一种空间节省，支持 point 和 range query 的静态 trie。在很多时候，对于一棵树来说，上层的 trie 节点较少，但访问频繁，也就是我们俗称的 hot，而下层的节点则相对的 cold 一点。因此，SuRF 使用了两种数据结构来分别处理 hot 和 cold 节点。在 upper 层上面使用了 LOUDS-Dedense，而在 lower 层上面使用 LOUDS-Sparse。对于通常的 SuRF 来说，它因为对这个 trie 都进行了编码，所以它是完全精确的，虽然它是一种省空间的数据结构，但很多时候，为了更进一步节省空间，需要对 SuRF 进行裁剪，不存储所有的信息，从而在查询的 False Positive Rate（FPR）和空间上面做一个权衡。</p>
+<p>作者：钱堃，华东师范大学区块链实验室硕士研究生</p>
+
+      <div class="tags">
+          <a href="/tags/%E8%AE%BA%E6%96%87/" rel="tag"><i class="ic i-tag"></i> 论文</a>
+      </div>
+  </div>
+
+   <footer>
+
+    <div class="meta">
+  <span class="item">
+    <span class="icon">
+      <i class="ic i-calendar-check"></i>
+    </span>
+    <span class="text">更新于</span>
+    <time title="修改时间：2024-09-14 00:38:31" itemprop="dateModified" datetime="2024-09-14T00:38:31+08:00">2024-09-14</time>
+  </span>
+</div>
+
+      
+
+<div id="copyright">
+<ul>
+  <li class="author">
+    <strong>本文作者： </strong>Kun Qian <i class="ic i-at"><em>@</em></i>Qkgoalkeeper's blog
+  </li>
+  <li class="link">
+    <strong>本文链接：</strong>
+    <a href="https://qkgoalkeeper.github.io/computer-science/study/paper/Prefix%20Siphoning%E8%AE%BA%E6%96%87%E8%A7%A3%E8%AF%BB/" title="Prefix Siphoning论文解读">https://qkgoalkeeper.github.io/computer-science/study/paper/Prefix Siphoning论文解读/</a>
+  </li>
+  <li class="license">
+    <strong>版权声明： </strong>本站所有文章除特别声明外，均采用 <span class="exturl" data-url="aHR0cHM6Ly9jcmVhdGl2ZWNvbW1vbnMub3JnL2xpY2Vuc2VzL2J5LW5jLXNhLzQuMC9kZWVkLnpo"><i class="ic i-creative-commons"><em>(CC)</em></i>BY-NC-SA</span> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+  </footer>
+
+</article>
+
+  </div>
+  
+
+<div class="post-nav">
+    <div class="item left">
+      
+
+  <a href="/computer-science/interview/method/c++%E7%9A%84std%E4%B8%AD%E7%9A%84%E8%87%AA%E5%AE%9A%E4%B9%89%E7%B1%BB%E5%9E%8B%E4%BD%BF%E7%94%A8%EF%BC%88sort%E3%80%81map%E7%9A%84key%E3%80%81priority_queue%EF%BC%89/" itemprop="url" rel="prev" data-background-image="https:&#x2F;&#x2F;cdn.jsdelivr.net&#x2F;gh&#x2F;qkgoalkeeper&#x2F;blogImage@main&#x2F;img&#x2F;leetcode.png" title="c++的std中的自定义类型使用（sort、map的key、priority_queue）">
+  <span class="type">上一篇</span>
+  <span class="category"><i class="ic i-flag"></i> Leetcode</span>
+  <h3>c++的std中的自定义类型使用（sort、map的key、priority_queue）</h3>
+  </a>
+
+    </div>
+    <div class="item right">
+    </div>
+</div>
+
+  
+  <div class="wrap" id="comments"></div>
+
+
+        </div>
+        <div id="sidebar">
+          
+
+<div class="inner">
+
+  <div class="panels">
+    <div class="inner">
+      <div class="contents panel pjax" data-title="文章目录">
+          <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB%E5%88%86%E4%BA%AB-Prefix-Siphoning-Exploiting-LSM-Tree-Range-Filters-For-Information-Disclosure"><span class="toc-number">1.</span> <span class="toc-text">[论文阅读分享] Prefix Siphoning: Exploiting LSM-Tree Range Filters For Information Disclosure</span></a></li></ol>
+      </div>
+      <div class="related panel pjax" data-title="系列文章">
+        <ul>
+          <li><a href="/computer-science/study/paper/RAMBO%E6%BA%90%E7%A0%81%E8%A7%A3%E8%AF%BB/" rel="bookmark" title="RAMBO源码解读">RAMBO源码解读</a></li><li><a href="/computer-science/study/paper/Spooky%E8%AE%BA%E6%96%87%E8%A7%A3%E8%AF%BB/" rel="bookmark" title="SPOOKY论文解读">SPOOKY论文解读</a></li><li><a href="/computer-science/study/paper/Smart%20Learning%20to%20Find%20Dumb%20Contracts%E8%AE%BA%E6%96%87%E8%A7%A3%E8%AF%BB/" rel="bookmark" title="Smart Learning to Find Dumb Contracts论文解读">Smart Learning to Find Dumb Contracts论文解读</a></li><li class="active"><a href="/computer-science/study/paper/Prefix%20Siphoning%E8%AE%BA%E6%96%87%E8%A7%A3%E8%AF%BB/" rel="bookmark" title="Prefix Siphoning论文解读">Prefix Siphoning论文解读</a></li>
+        </ul>
+      </div>
+      <div class="overview panel" data-title="站点概览">
+        <div class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <img class="image" itemprop="image" alt="Kun Qian"
+      data-src="/images/avatar.jpg">
+  <p class="name" itemprop="name">Kun Qian</p>
+  <div class="description" itemprop="description"></div>
+</div>
+
+<nav class="state">
+    <div class="item posts">
+      <a href="/archives/">
+        <span class="count">42</span>
+        <span class="name">文章</span>
+      </a>
+    </div>
+    <div class="item categories">
+      <a href="/categories/">
+        <span class="count">9</span>
+        <span class="name">分类</span>
+      </a>
+    </div>
+    <div class="item tags">
+      <a href="/tags/">
+        <span class="count">18</span>
+        <span class="name">标签</span>
+      </a>
+    </div>
+</nav>
+
+<div class="social">
+      <span class="exturl item github" data-url="aHR0cHM6Ly9naXRodWIuY29tL3FrZ29hbGtlZXBlcg==" title="https:&#x2F;&#x2F;github.com&#x2F;qkgoalkeeper"><i class="ic i-github"></i></span>
+      <span class="exturl item zhihu" data-url="aHR0cHM6Ly93d3cuemhpaHUuY29tL3Blb3BsZS9oYW8tbGFpLXd1LXNob3UtbWVuLXl1YW4=" title="https:&#x2F;&#x2F;www.zhihu.com&#x2F;people&#x2F;hao-lai-wu-shou-men-yuan"><i class="ic i-zhihu"></i></span>
+      <span class="exturl item music" data-url="aHR0cHM6Ly9tdXNpYy4xNjMuY29tLyMvdXNlci9ob21lP2lkPTM5MjU2NzE4Nw==" title="https:&#x2F;&#x2F;music.163.com&#x2F;#&#x2F;user&#x2F;home?id&#x3D;392567187"><i class="ic i-cloud-music"></i></span>
+      <a href="/about/" title="&#x2F;about&#x2F;" class="item about"><i class="ic i-address-card"></i></a>
+</div>
+
+<ul class="menu">
+  
+    
+  <li class="item">
+    <a href="/" rel="section"><i class="ic i-home"></i>首页</a>
+  </li>
+
+    
+  <li class="item">
+    <a href="/about/" rel="section"><i class="ic i-user"></i>关于</a>
+  </li>
+
+        
+  <li class="item dropdown">
+      <a href="javascript:void(0);"><i class="ic i-feather"></i>文章</a>
+    <ul class="submenu">
+
+        
+  <li class="item">
+    <a href="/archives/" rel="section"><i class="ic i-list-alt"></i>归档</a>
+  </li>
+
+        
+  <li class="item">
+    <a href="/categories/" rel="section"><i class="ic i-th"></i>分类</a>
+  </li>
+
+        
+  <li class="item">
+    <a href="/tags/" rel="section"><i class="ic i-tags"></i>标签</a>
+  </li>
+
+  </ul>
+    
+  <li class="item">
+    <a href="/friends/" rel="section"><i class="ic i-heart"></i>友達</a>
+  </li>
+
+
+</ul>
+
+      </div>
+    </div>
+  </div>
+
+  <ul id="quick">
+    <li class="prev pjax">
+    </li>
+    <li class="up"><i class="ic i-arrow-up"></i></li>
+    <li class="down"><i class="ic i-arrow-down"></i></li>
+    <li class="next pjax">
+    </li>
+    <li class="percent"></li>
+  </ul>
+</div>
+
+
+        </div>
+        <div class="dimmer"></div>
+      </div>
+    </main>
+    <footer id="footer">
+      <div class="inner">
+        <div class="widgets">
+          
+<div class="rpost pjax">
+  <h2>随机文章</h2>
+  <ul>
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/computer-science/" title="分类于 计算机科学">计算机科学</a>
+<i class="ic i-angle-right"></i>
+<a href="/categories/computer-science/leetcode/" title="分类于 Leetcode">Leetcode</a>
+</div>
+
+    <span><a href="/computer-science/interview/method/c++%20std%20vector%E3%80%81queue%E3%80%81stack%E5%BA%95%E5%B1%82%E5%8E%9F%E7%90%86/" title="c++ std vector、queue、stack底层原理">c++ std vector、queue、stack底层原理</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/computer-science/" title="分类于 计算机科学">计算机科学</a>
+<i class="ic i-angle-right"></i>
+<a href="/categories/computer-science/study/" title="分类于 研究生学习">研究生学习</a>
+<i class="ic i-angle-right"></i>
+<a href="/categories/computer-science/study/paper/" title="分类于 论文源码解读">论文源码解读</a>
+</div>
+
+    <span><a href="/computer-science/study/paper/Prefix%20Siphoning%E8%AE%BA%E6%96%87%E8%A7%A3%E8%AF%BB/" title="Prefix Siphoning论文解读">Prefix Siphoning论文解读</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/computer-science/" title="分类于 计算机科学">计算机科学</a>
+<i class="ic i-angle-right"></i>
+<a href="/categories/computer-science/leetcode/" title="分类于 Leetcode">Leetcode</a>
+<i class="ic i-angle-right"></i>
+<a href="/categories/computer-science/leetcode/offer2/" title="分类于 剑指offer">剑指offer</a>
+</div>
+
+    <span><a href="/computer-science/leetcode/offer2/LeetCode%E6%AF%8F%E6%97%A5%E7%BB%83%E4%B9%A0%EF%BC%9A%E5%89%91%E6%8C%87%20Offer%20II%20014.%20%E5%AD%97%E7%AC%A6%E4%B8%B2%E4%B8%AD%E7%9A%84%E5%8F%98%E4%BD%8D%E8%AF%8D/" title="剑指 Offer II 014. 字符串中的变位词">剑指 Offer II 014. 字符串中的变位词</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/computer-science/" title="分类于 计算机科学">计算机科学</a>
+<i class="ic i-angle-right"></i>
+<a href="/categories/computer-science/leetcode/" title="分类于 Leetcode">Leetcode</a>
+<i class="ic i-angle-right"></i>
+<a href="/categories/computer-science/leetcode/offer2/" title="分类于 剑指offer">剑指offer</a>
+</div>
+
+    <span><a href="/computer-science/leetcode/offer2/LeetCode%E6%AF%8F%E6%97%A5%E7%BB%83%E4%B9%A0%EF%BC%9A%E5%89%91%E6%8C%87%20Offer%20II%20007.%20%E6%95%B0%E7%BB%84%E4%B8%AD%E5%92%8C%E4%B8%BA%200%20%E7%9A%84%E4%B8%89%E4%B8%AA%E6%95%B0/" title="剑指 Offer II 007. 数组中和为 0 的三个数">剑指 Offer II 007. 数组中和为 0 的三个数</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/computer-science/" title="分类于 计算机科学">计算机科学</a>
+<i class="ic i-angle-right"></i>
+<a href="/categories/computer-science/leetcode/" title="分类于 Leetcode">Leetcode</a>
+<i class="ic i-angle-right"></i>
+<a href="/categories/computer-science/leetcode/offer2/" title="分类于 剑指offer">剑指offer</a>
+</div>
+
+    <span><a href="/computer-science/leetcode/offer2/LeetCode%E6%AF%8F%E6%97%A5%E7%BB%83%E4%B9%A0%EF%BC%9A%E5%89%91%E6%8C%87%20Offer%20II%20005.%20%E5%8D%95%E8%AF%8D%E9%95%BF%E5%BA%A6%E7%9A%84%E6%9C%80%E5%A4%A7%E4%B9%98%E7%A7%AF/" title="剑指 Offer II 005. 单词长度的最大乘积">剑指 Offer II 005. 单词长度的最大乘积</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/computer-science/" title="分类于 计算机科学">计算机科学</a>
+<i class="ic i-angle-right"></i>
+<a href="/categories/computer-science/middleware/" title="分类于 源码解读">源码解读</a>
+</div>
+
+    <span><a href="/computer-science/interview/middleware/Leveldb%E6%BA%90%E7%A0%81%E8%A7%A3%E8%AF%BB%EF%BC%881%EF%BC%89%EF%BC%9A%E5%9F%BA%E6%9C%AC%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" title="Leveldb源码解读（1）：基本数据结构">Leveldb源码解读（1）：基本数据结构</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/computer-science/" title="分类于 计算机科学">计算机科学</a>
+<i class="ic i-angle-right"></i>
+<a href="/categories/computer-science/leetcode/" title="分类于 Leetcode">Leetcode</a>
+<i class="ic i-angle-right"></i>
+<a href="/categories/computer-science/leetcode/%E7%AE%97%E6%B3%95%E9%A2%98%E6%80%9D%E8%B7%AF/" title="分类于 算法题思路">算法题思路</a>
+</div>
+
+    <span><a href="/computer-science/leetcode/algorithm/Leetcode%E4%B8%AD%E7%AD%89%E9%A2%98%E6%80%9D%E8%B7%AF(201-300)/" title="Leetcode中等题思路（201-300）">Leetcode中等题思路（201-300）</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/computer-science/" title="分类于 计算机科学">计算机科学</a>
+<i class="ic i-angle-right"></i>
+<a href="/categories/computer-science/middleware/" title="分类于 源码解读">源码解读</a>
+</div>
+
+    <span><a href="/computer-science/interview/middleware/Leveldb%E6%BA%90%E7%A0%81%E8%A7%A3%E8%AF%BB%EF%BC%884%EF%BC%89%EF%BC%9ALog%E6%A8%A1%E5%9D%97/" title="Leveldb源码解读（4）：Log模块">Leveldb源码解读（4）：Log模块</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/computer-science/" title="分类于 计算机科学">计算机科学</a>
+<i class="ic i-angle-right"></i>
+<a href="/categories/computer-science/middleware/" title="分类于 源码解读">源码解读</a>
+</div>
+
+    <span><a href="/computer-science/interview/middleware/Leveldb%E6%BA%90%E7%A0%81%E8%A7%A3%E8%AF%BB%EF%BC%882%EF%BC%89%EF%BC%9A%E6%80%BB%E4%BD%93%E6%9E%B6%E6%9E%84%E4%B8%8E%E8%AE%BE%E8%AE%A1%E6%80%9D%E6%83%B3%20-%20%E5%89%AF%E6%9C%AC/" title="Leveldb源码解读（2）：总体架构与设计思想">Leveldb源码解读（2）：总体架构与设计思想</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/computer-science/" title="分类于 计算机科学">计算机科学</a>
+<i class="ic i-angle-right"></i>
+<a href="/categories/computer-science/leetcode/" title="分类于 Leetcode">Leetcode</a>
+<i class="ic i-angle-right"></i>
+<a href="/categories/computer-science/leetcode/offer2/" title="分类于 剑指offer">剑指offer</a>
+</div>
+
+    <span><a href="/computer-science/leetcode/offer2/LeetCode%E6%AF%8F%E6%97%A5%E7%BB%83%E4%B9%A0%EF%BC%9A%E5%89%91%E6%8C%87%20Offer%20II%20017.%20%E5%90%AB%E6%9C%89%E6%89%80%E6%9C%89%E5%AD%97%E7%AC%A6%E7%9A%84%E6%9C%80%E7%9F%AD%E5%AD%97%E7%AC%A6%E4%B8%B2/" title="剑指 Offer II 017. 含有所有字符的最短字符串">剑指 Offer II 017. 含有所有字符的最短字符串</a></span>
+  </li>
+
+  </ul>
+</div>
+
+        </div>
+        <div class="status">
+  <div class="copyright">
+    
+    &copy; 2020 – 
+    <span itemprop="copyrightYear">2024</span>
+    <span class="with-love">
+      <i class="ic i-sakura rotate"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">Kun Qian @ Kun Qian</span>
+  </div>
+  <div class="powered-by">
+    基于 <span class="exturl" data-url="aHR0cHM6Ly9oZXhvLmlv">Hexo</span> & Theme.<span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL2FtZWhpbWUvaGV4by10aGVtZS1zaG9rYQ==">Shoka</span>
+  </div>
+</div>
+
+      </div>
+    </footer>
+  </div>
+<script data-config type="text/javascript">
+  var LOCAL = {
+    path: 'computer-science/study/paper/Prefix Siphoning论文解读/',
+    favicon: {
+      show: "qkgoalkeeper's blog",
+      hide: "qkgoalkeeper's blog"
+    },
+    search : {
+      placeholder: "文章搜索",
+      empty: "关于 「 ${query} 」，什么也没搜到",
+      stats: "${time} ms 内找到 ${hits} 条结果"
+    },
+    valine: true,fancybox: true,
+    copyright: '复制成功，转载请遵守 <i class="ic i-creative-commons"></i>BY-NC-SA 协议。',
+    ignores : [
+      function(uri) {
+        return uri.includes('#');
+      },
+      function(uri) {
+        return new RegExp(LOCAL.path+"$").test(uri);
+      }
+    ]
+  };
+</script>
+
+<script src="https://cdn.polyfill.io/v2/polyfill.js"></script>
+
+<script src="//cdn.jsdelivr.net/combine/npm/pace-js@1.0.2/pace.min.js,npm/pjax@0.2.8/pjax.min.js,npm/whatwg-fetch@3.4.0/dist/fetch.umd.min.js,npm/animejs@3.2.0/lib/anime.min.js,npm/algoliasearch@4/dist/algoliasearch-lite.umd.js,npm/instantsearch.js@4/dist/instantsearch.production.min.js,npm/lozad@1/dist/lozad.min.js,npm/quicklink@2/dist/quicklink.umd.js"></script>
+
+<script src="/js/app.js?v=0.2.5"></script>
+
+
+
+
+</body>
+</html>

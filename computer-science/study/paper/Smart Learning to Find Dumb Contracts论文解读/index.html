@@ -1,0 +1,610 @@
+
+
+
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#FFF">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+
+<link rel="icon" type="image/ico" sizes="32x32" href="/images/favicon.ico">
+  <link rel="mask-icon" href="/images/logo.svg" color="">
+  <link rel="manifest" href="/images/manifest.json">
+  <meta name="msapplication-config" content="/images/browserconfig.xml">
+  <meta http-equiv="Cache-Control" content="no-transform">
+  <meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+<link rel="alternate" type="application/rss+xml" title="Qkgoalkeeper's blog" href="https://qkgoalkeeper.github.io/rss.xml" />
+<link rel="alternate" type="application/atom+xml" title="Qkgoalkeeper's blog" href="https://qkgoalkeeper.github.io/atom.xml" />
+<link rel="alternate" type="application/json" title="Qkgoalkeeper's blog" href="https://qkgoalkeeper.github.io/feed.json" />
+
+<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Mulish:300,300italic,400,400italic,700,700italic%7CFredericka%20the%20Great:300,300italic,400,400italic,700,700italic%7CNoto%20Serif%20JP:300,300italic,400,400italic,700,700italic%7CNoto%20Serif%20SC:300,300italic,400,400italic,700,700italic%7CInconsolata:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+
+<link rel="stylesheet" href="/css/app.css?v=0.2.5">
+
+  
+  <meta name="keywords" content="论文" />
+
+
+<link rel="canonical" href="https://qkgoalkeeper.github.io/computer-science/study/paper/Smart%20Learning%20to%20Find%20Dumb%20Contracts%E8%AE%BA%E6%96%87%E8%A7%A3%E8%AF%BB/">
+
+
+
+  <title>
+Smart Learning to Find Dumb Contracts论文解读 - 论文源码解读 - 研究生学习 - 计算机科学 |
+Kun Qian = Qkgoalkeeper's blog</title>
+<meta name="generator" content="Hexo 6.3.0"></head>
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div id="loading">
+    <div class="cat">
+      <div class="body"></div>
+      <div class="head">
+        <div class="face"></div>
+      </div>
+      <div class="foot">
+        <div class="tummy-end"></div>
+        <div class="bottom"></div>
+        <div class="legs left"></div>
+        <div class="legs right"></div>
+      </div>
+      <div class="paw">
+        <div class="hands left"></div>
+        <div class="hands right"></div>
+      </div>
+    </div>
+  </div>
+  <div id="container">
+    <header id="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="inner">
+        <div id="brand">
+          <div class="pjax">
+          
+  <h1 itemprop="name headline">Smart Learning to Find Dumb Contracts论文解读
+  </h1>
+  
+<div class="meta">
+  <span class="item" title="创建时间：2024-03-07 11:45:48">
+    <span class="icon">
+      <i class="ic i-calendar"></i>
+    </span>
+    <span class="text">发表于</span>
+    <time itemprop="dateCreated datePublished" datetime="2024-03-07T11:45:48+08:00">2024-03-07</time>
+  </span>
+</div>
+
+
+          </div>
+        </div>
+        <nav id="nav">
+  <div class="inner">
+    <div class="toggle">
+      <div class="lines" aria-label="切换导航栏">
+        <span class="line"></span>
+        <span class="line"></span>
+        <span class="line"></span>
+      </div>
+    </div>
+    <ul class="menu">
+      <li class="item title"><a href="/" rel="start">Kun Qian</a></li>
+    </ul>
+    <ul class="right">
+      <li class="item theme">
+        <i class="ic i-sun"></i>
+      </li>
+      <li class="item search">
+        <i class="ic i-search"></i>
+      </li>
+    </ul>
+  </div>
+</nav>
+
+      </div>
+      <div id="imgs" class="pjax">
+          <img src="https://cdn.jsdelivr.net/gh/qkgoalkeeper/blogImage@main/img/20240207202315.png">
+      </div>
+    </header>
+    <div id="waves">
+      <svg class="waves" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 24 150 28" preserveAspectRatio="none" shape-rendering="auto">
+        <defs>
+          <path id="gentle-wave" d="M-160 44c30 0 58-18 88-18s 58 18 88 18 58-18 88-18 58 18 88 18 v44h-352z" />
+        </defs>
+        <g class="parallax">
+          <use xlink:href="#gentle-wave" x="48" y="0" />
+          <use xlink:href="#gentle-wave" x="48" y="3" />
+          <use xlink:href="#gentle-wave" x="48" y="5" />
+          <use xlink:href="#gentle-wave" x="48" y="7" />
+        </g>
+      </svg>
+    </div>
+    <main>
+      <div class="inner">
+        <div id="main" class="pjax">
+          
+  <div class="article wrap">
+    
+<div class="breadcrumb" itemscope itemtype="https://schema.org/BreadcrumbList">
+<i class="ic i-home"></i>
+<span><a href="/">首页</a></span><i class="ic i-angle-right"></i>
+<span  itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/categories/computer-science/" itemprop="item" rel="index" title="分类于 计算机科学"><span itemprop="name">计算机科学</span></a>
+<meta itemprop="position" content="1" /></span>
+<i class="ic i-angle-right"></i>
+<span  itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/categories/computer-science/study/" itemprop="item" rel="index" title="分类于 研究生学习"><span itemprop="name">研究生学习</span></a>
+<meta itemprop="position" content="2" /></span>
+<i class="ic i-angle-right"></i>
+<span  class="current" itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a href="/categories/computer-science/study/paper/" itemprop="item" rel="index" title="分类于 论文源码解读"><span itemprop="name">论文源码解读</span></a>
+<meta itemprop="position" content="3" /></span>
+</div>
+
+    <article itemscope itemtype="http://schema.org/Article" class="post block" lang="zh-CN">
+  <link itemprop="mainEntityOfPage" href="https://qkgoalkeeper.github.io/computer-science/study/paper/Smart%20Learning%20to%20Find%20Dumb%20Contracts%E8%AE%BA%E6%96%87%E8%A7%A3%E8%AF%BB/">
+
+  <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <meta itemprop="image" content="/images/avatar.jpg">
+    <meta itemprop="name" content="Kun Qian">
+    <meta itemprop="description" content=", ">
+  </span>
+
+  <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="Qkgoalkeeper's blog">
+  </span>
+
+  <div class="body md" itemprop="articleBody">
+    
+
+    <h1 id="论文阅读分享-Smart-Learning-to-Find-Dumb-Contracts"><a href="#论文阅读分享-Smart-Learning-to-Find-Dumb-Contracts" class="headerlink" title="[论文阅读分享] Smart Learning to Find Dumb Contracts"></a>[论文阅读分享] Smart Learning to Find Dumb Contracts</h1><p>[论文阅读分享] Smart Learning to Find Dumb Contracts</p>
+<p><img data-src="file:///C:/Users/KunQian/AppData/Local/Temp/msohtmlclip1/01/clip_image002.png" alt="img"></p>
+<p>摘要：作者推出了深度学习漏洞分析器（DLVA），这是一种以太坊智能合约的漏洞检测工具，其具有三个关键组成部分。首先，智能合约到向量（SC2V）使用神经网络将任意智能合约字节码映射到高维浮点向量。其次，当目标合约的向量与训练集中标记合约的向量具有欧几里得相似性时，Sibling Detector（SD）对合约进行分类。第三，Core Classifier（CC）使用神经网络来推断易受攻击的合约。实验结果显示， DLVA以较少的分析时间获取了较高的准确率，并且很好地平衡了高真阳性率和低假阳性率。</p>
+<p>华东师范大学区块链实验室论文阅读分享会于2024年2月23日在线下进行，硕士研究生钱堃分享了论文。该论文由新加坡国立大学和伦敦大学学院在USENIX Security 2023上发表，作者是Tamer Abdelaziz和Aquinas Hobor。</p>
+<p>论文链接：</p>
+<p><span class="exturl" data-url="aHR0cHM6Ly93d3cudXNlbml4Lm9yZy9jb25mZXJlbmNlL3VzZW5peHNlY3VyaXR5MjMvcHJlc2VudGF0aW9uL2FiZGVsYXppeg==">https://www.usenix.org/conference/usenixsecurity23/presentation/abdelaziz</span></p>
+<p><strong>1.</strong>  <strong>研究背景</strong></p>
+<p>以太坊分布式应用程序 (dApp) 在金融、娱乐领域运用广泛，但是某些合约会有错误漏洞，造成了不小的经济损失。Chainalysis 在2023年的 Crypto Crime Report（图1）中指出，智能合约中的漏洞数量及其造成的金额总的来说在逐年递增，近几年尤其严重。比较有名的智能合约漏洞是The DAO漏洞，攻击者利用withdraw函数的漏洞偷取了3.6 million Ether，造成了极大的经济损失。因此，如何提前找到一个新部署的智能合约中的合约漏洞成为需要我们解决的问题。现存的智能合约漏洞检测框架通常采用静态程序分析的方法去分析智能合约，使用的是统计学方法以及机器学习方法，这些方法的缺点在于：1.它们的扩展性很差，检测的范围比较狭窄。2.它们需要专家知识的介入。 3.它们大多需要知道智能合约的源代码。4.它们的检测效率较低，大规模数据的分析速度较慢。因此，本文提出可以使用深度学习的方式解决这些挑战，本文提出了DLVA（Deep Learning Vulnerability Analyzer）的框架，通过深度学习方法分析合约的EVM字节码设计分类器，从而得到无需源代码的高效的高准确率的合约分类器。</p>
+<p><img data-src="file:///C:/Users/KunQian/AppData/Local/Temp/msohtmlclip1/01/clip_image004.jpg" alt="img"></p>
+<p>图1.2016-2022年合约漏洞引起的犯罪数量和金额</p>
+<p>  如图2所示，对于一个分类器的设计来说分为两部分，第一部分是获取特征向量，第二部分是分类器部分，对于智能合约分类问题而言，难点在于如何获取区分度高、有效的特征向量，本文的重点也是集中在这一部分。</p>
+<p><img data-src="file:///C:/Users/KunQian/AppData/Local/Temp/msohtmlclip1/01/clip_image006.jpg" alt="img"></p>
+<p>图2.分类器简单示意图</p>
+<p><strong>2.</strong>  <strong>补充知识</strong></p>
+<p>字节码、操作码、基本块、控制流图：以太坊区块链上大多数以太坊智能合约都是用 Solidity 等高级语言编写的，其被编译为 EVM 字节码并存储在链上。 EVM字节码由一个很长的数字表示，例如0x6080604052348……。有效的十六进制序列和有效的人类可读操作码列表之间存在简单的单射关系，例如“PUSH1”（编码为 0x60）、“MSTORE”（0x52）等。 DLVA将这些十六进制字节码序列作为输入，并将其反汇编为操作码序列。以太坊的“黄皮书”将 EVM 定义为具有 150 个不同操作码的堆栈机的变体。基本块是除了块的开头和结尾之外没有传入或传出跳转的操作码指令序列。控制流图（CFG）是一种有向图，其顶点是基本块，其边表示顶点之间的执行流程。 CFG 比代码的线性表示更适合分析，因为它们捕获了合约中重要的语义结构。图3展示了一个合约由字节码转化为操作码再转化为控制流图cfg的过程。</p>
+<p><img data-src="file:///C:/Users/KunQian/AppData/Local/Temp/msohtmlclip1/01/clip_image008.jpg" alt="img"></p>
+<p>图3.一个合约由字节码到操作码再到控制流图的过程</p>
+<p>智能合约漏洞：智能合约漏洞指的是智能合约代码中存在能被黑客攻击的代码块。已部署的智能合约有许多种类的智能合约漏洞。 DLVA 涉及了表 1 中总结的 29 种漏洞类型。这包括许多众所周知的漏洞，包括“reentrancy-eth”（DAO，损失 5000 万美元）和“suicidal”（Parity，损失 2.8 亿美元）损失）。</p>
+<p><img data-src="file:///C:/Users/KunQian/AppData/Local/Temp/msohtmlclip1/01/clip_image010.jpg" alt="img"></p>
+<p>表1. 以太坊中的29中漏洞类型</p>
+<p>机器学习： DLVA 并不是“硬编码”来理解表 1 中的 29 个漏洞。相反，它建立在一系列精心选择的深度学习模型（神经网络）的基础上，这些模型经过大量数据的训练。深度学习模型有两种基本类型：无监督模型和监督模型。无监督学习不需要大数据集以外的输入。监督学习则需要每个训练输入由某个外部监督者标记。</p>
+<p>通用句子编码器（USE）：DLVA 用 USE 生成基本块的向量。USE 将句子编码为 512 维向量，这些向量对句子级（基本块级）相似性进行编码。USE 对于一般文本分类任务具有出色的性能，并且比许多竞争机器学习技术需要更少的训练数据来构建良好的预测模型。可以在有或没有监督的情况下进行使用培训。USE有Deep Averaging Networks (DAN) 和 Transformer Architecture (TA)两种实现方式，后者的准确率更高但是计算资源消耗量大，本文采用DAN的方式已足够满足要求。</p>
+<p>图神经网络 (GNN)： DLVA 的 SC2V 引擎使用 GNN 和传统卷积层的组合将整个 CFG 总结为高维向量，传统卷积层本身使用 USE 生成的 512 维基本块摘要作为输入。 GNN 将图像处理的想法引入图数据。这个想法指的是像素的解释不仅应该受到该像素的内容的影响，还应该受到相邻像素的内容的影响。为了将这个想法重新构建到图中，每个像素都是一个节点，边连接相邻的像素。在图像中，每个像素节点有四个直接邻居（图像边界处的节点除外）。 CFG 更复杂，因为节点以任意复杂的方式连接在一起，但核心思想是相同的：将相邻节点的特征与节点本身的特征聚合到摘要中。</p>
+<p>前馈网络：前馈神经网络（FFN）是最简单的神经网络之一。信息仅向前移动，从输入节点，通过任何内部节点，最后到达输出节点。在训练期间，FFN 将其生成的输出与预言机指定的标签进行比较，然后调整边缘权重以提高下一轮的准确性。</p>
+<p>评价指标：二元分类结果分为真阳性（TP）、真阴性（TN）、假阳性（FP）和假阴性（FN）。导出的指标包括准确性；真阳性率（TPR），也称为召回率、灵敏度、检测概率、命中率；误报率 (FPR)，也称为误报和失败的概率。</p>
+<p><strong>3.</strong>  <strong>DLVA****设计</strong></p>
+<p>图4展示了DLVA的整体设计图，其包含四个大部分。第一部分是预处理部分（preprocessing），这一部分中智能合约最终被转换为cfg；第二部分是节点特征提取部分，这一部分中cfg的每一个节点生成了以节点为单位的特征向量；第三部分是合约向量转化模块，这一部分中整个合约通过图神经网络及降维层生成了一整个代表合约的特征向量；第四部分是分类器部分，通过分类器判断合约的标签。</p>
+<p><img data-src="file:///C:/Users/KunQian/AppData/Local/Temp/msohtmlclip1/01/clip_image012.jpg" alt="img"></p>
+<p>图4.DLVA的整体设计</p>
+<p><strong>3.1****预处理模块</strong></p>
+<p>作者首先对于智能合约进行了预处理，数据的来源是 Google BigQuery上的以太坊智能合约数据集。该数据集包含 51,913,308 个合约，但其中的99.3% 都是冗余的，删除冗余合约后得到了368,438 个不同的合约，作者将其称为以太坊 SC 数据集。数据标记我们的两个神经网络需要标记的数据集进行训练。作者选择 Slither进行标记，因为它涵盖了各种各样的漏洞，对于大多数漏洞比竞争对手更准确，并且相对较快。 Slither 需要访问 Solidity 源代码（而不是字节码）。而 368,438 份合约中，只有 120,365 份（32.6%）在 Etherscan 上有可用的来源。 Slither 花了 13.6 天给它们贴上了标签。高质量的训练需要合理数量的正例，因此作者选择了 DLVA 中至少出现 200 次的 29 个漏洞。</p>
+<p>随后作者对这些智能合约进行控制流图（CFG）的提取。控制流图使程序的结构比语法标记列表更加明显，作者使用 EtherSolve 工具反汇编智能合约并生成相关的操作码 CFG。 EtherSolve 未能为 182 个合约（标记数据集的 0.1%）创建 CFG，最终取得了 120,183 个适合训练和测试的合约。合约平均有 228 个基本块及 551 个边。</p>
+<p>随后作者对测试集进行划分。 如果在与正在分析的合约大小相似的合约上进行训练，DLVA 中的深度学习技术效果会更好，因此我们根据长度将 EthereumSC 中带标签的 120,183 个不同合约分成两个数据集。操作码少于 750 个的 7,017 个合约成为 EthereumSCsmall 数据集，而操作码在 750 到 10,000 个之间的 113,166 个合约成为 EthereumSClarge 数据集。这两个数据集都是公开的。通常，我们将每个数据集分为三个不相交的子集。前 60%（按照 Google BigQuery 过滤后给出的顺序）为“训练集”，接下来的 20% 是“验证集”，最后 20% 是“测试集”。</p>
+<p><strong>3.2****节点特征提取模块（N2V）</strong></p>
+<p>这一小节中作者希望对cfg中的各个节点提取特征形成节点特征向量，要求是相似的基本区块&#x2F;节点得到嵌入空间中相似的向量。复杂的机器学习模型通常使用数字特征向量而不是文本。DLVA的节点到向量 (N2V) 组件将每个 CFG 节点（基本块）内的操作码文本转换为这样的特征向量，以实现更复杂的处理。作者将每个基本块视为指令构成的文本字符串（例如“PUSH1 0x80 PUSH1 0x40 MSTORE CALLVALUE …”）。然后使用通用句子编码器（USE）将这些句子转换为 512 维向量。作者通过在训练和验证集中提供约 2190 万个基本块来训练 USE，这一过程中不提供任何专家规则或指导。USE 有两种变体，Transformer Architecture（TA）比深度平均网络（DAN）产生更准确的模型，但代价是模型复杂性增加。作者发现TA的成本太高：20核&#x2F;96GB无限时间的配置会把内存耗尽，而24核&#x2F;180GB配置上使用12小时可用时间则不足以完成训练。 DAN 可以在线性时间内进行训练，并且对于我们的目的来说足够准确。在 12 核&#x2F;16GB 配置下，训练 DAN 总结基本块仅需 10.5 小时。如图5所示，cfg中的每一个代码块先通过token嵌入后的平均向量输入到前向神经网络中最后得到512维度的特征向量。</p>
+<p><img data-src="file:///C:/Users/KunQian/AppData/Local/Temp/msohtmlclip1/01/clip_image014.jpg" alt="img"></p>
+<p>图5.DLVA的节点特征提取示意图</p>
+<p><strong>3.3****合约向量转化模块（SC2V）</strong></p>
+<p>这一节中作者继续讲述如何将整个合约转化为一个整体向量，关键思想是将程序视为图形而不仅仅是文本符号序列，这可以提高模型的准确性。 SC2V 将智能合约 CFG 映射到高维向量。它将 CFG 的图结构（使用 Python 的 NetworkX 库处理）以及 USE 生成的相关基本块的 512 维向量嵌入作为输入。作者向每个节点添加自循环以增加神经网络中的反馈，并使用改进的图卷积网络（GCN）结合深度图卷积神经网络（DGCNN）的SortPooling层来分析CFG图的复杂结构，这里使用了三层 GCN，分别有 256、128 和 1 个神经元。图卷积将节点的信息与相邻节点的信息聚合起来。这三个层将信息传播到相邻节点（最多三“跳”，并且由于自循环而包括节点本身），提取局部子结构并推断一致的节点排序。我们合并了 SortPooling 层，使用以下方法对节点进行排序：第三个图卷积其输出是单通道，按此通道对节点摘要进行升序排序后，SortPooling 选择值最高的 100 个节点。其摘要来自 GCN 层，即 256 + 128 + 1 &#x3D; 385 维向量。作者将这些 385 维向量集输入一对传统的 Conv1D 卷积层，进一步使用修正线性激活函数（“ReLU”）将 385 维摘要转换为 96 维向量。在 Conv1D 层之间，我们使用 MaxPool1D 层，它丢弃量值最小的一半向量。在第二个 Conv1D 层之后，作者使用 Flatten 层来生成代表智能合约的最终向量：合约变成 4,128 维向量，这整个过程如图6所示。</p>
+<p><img data-src="file:///C:/Users/KunQian/AppData/Local/Temp/msohtmlclip1/01/clip_image016.jpg" alt="img"></p>
+<p>图6.DLVA的合约向量转化示意图</p>
+<p><strong>3.4****分类器模块</strong></p>
+<p>这一节中作者设计了分类器（如图7所示），分类器的输入是上一节中转化的合约向量，文中用了两种不同的分类器Sibling Detector (SD)以及Core Classifier (CC)，且具有先后顺序。Sibling Detector (SD)中给定 SC2V 生成的智能合约嵌入后使用欧几里德距离创建一个相似度矩阵<img data-src="file:///C:/Users/KunQian/AppData/Local/Temp/msohtmlclip1/01/clip_image018.jpg" alt="img">，其中 Q 是来自测试集的（以前未见过的）合约嵌入向量，P 是来自训练集的契约嵌入向量（具有已知标签）。只要距离 0.1 之内，Sibling Detector就会使用与训练集中最接近的合约相同的标签来标记 Q。否则，SD 报告“未知”。SD 从距离 0.0 开始，逐渐增加 0.00001，直到找到关联向量或达到最大距离 0.1（以先到者为准）。有时 Q 有多个与 Q 的距离在 0.00001 以内的邻居。当这种情况发生时，SD 会改为计票；如果绝对多数表明“有漏洞”，那么 SD 将 Q 报告为“有漏洞”。当SD无法判别时会改用Core Classifier（CC）。 CC 的目标是使用 SC2V 生成的合约嵌入来预测任意合约的标签。 FFN 的结构是三个“密集”层，分别有 1,024、512 和 1 个神经元。这些层使用标准激活函数来激活所述神经元：前两层使用 ReLU 激活函数，而最后一层使用 sigmoid 激活函数。在各层之间，作者添加了截止值为 0.5 的标准“Dropout”滤波器。</p>
+<p><img data-src="file:///C:/Users/KunQian/AppData/Local/Temp/msohtmlclip1/01/clip_image019.png" alt="img"></p>
+<p>图7.DLVA的分类器示意图</p>
+<p><strong>4.</strong>  <strong>DLVA****训练</strong> </p>
+<p>DLVA训练采用的数据量如下：</p>
+<p>N2V: 21.9 million 基本块作为训练基本数据</p>
+<p>SC2V and CC：在 72000个 contracts上进行训练</p>
+<p>注：Slither只标记源代码，因此作者使用源代码标记器训练字节码分析器DLVA</p>
+<p>DLVA的代码及运行方式见：</p>
+<p><span class="exturl" data-url="aHR0cHM6Ly9zZWNhcnRpZmFjdHMuZ2l0aHViLmlvL3VzZW5peHNlYzIwMjMvYXBwZW5kaXgtZmlsZXMvc2VjMjN3aW50ZXJhZS1maW5hbDY3LnBkZg==">https://secartifacts.github.io/usenixsec2023/appendix-files/sec23winterae-final67.pdf</span></p>
+<p><strong>5.</strong>  <strong>实验结果</strong></p>
+<p>由于EthereumSClarge 和 EthereumSCsmall两个数据集包含了大量难以制定标签的合约，本文作者主要使用Elysium、Reentrancy、SolidiFI三个数据集（图8），实验对比的benchmark如图9所示。</p>
+<p><img data-src="file:///C:/Users/KunQian/AppData/Local/Temp/msohtmlclip1/01/clip_image021.png" alt="img"></p>
+<p>图8.DLVA的使用的数据集</p>
+<p><img data-src="file:///C:/Users/KunQian/AppData/Local/Temp/msohtmlclip1/01/clip_image023.png" alt="img"></p>
+<p>图9.DLVA vs 其他现有方案</p>
+<p>  实验中用于对比的指标有真阳性率、假阳性率、准确率，如图10到图12所示。DLVA的真阳性率到达了98.7%排名第三，假阳性率为0.6%排名第二，总正确率为99.7%排在总体第一位。图13和图14则说明了DLVA的响应率和平均响应速度，DLVA对于数据集上的所有数据都能及时响应，并且平均响应速度也是最快的。</p>
+<p><img data-src="file:///C:/Users/KunQian/AppData/Local/Temp/msohtmlclip1/01/clip_image025.png" alt="img"></p>
+<p>图10.DLVA的真阳性率比较</p>
+<p><img data-src="file:///C:/Users/KunQian/AppData/Local/Temp/msohtmlclip1/01/clip_image027.png" alt="img"></p>
+<p>图11.DLVA的假阳性率比较</p>
+<p><img data-src="file:///C:/Users/KunQian/AppData/Local/Temp/msohtmlclip1/01/clip_image029.png" alt="img"></p>
+<p>图12.DLVA的准确率比较</p>
+<p><img data-src="file:///C:/Users/KunQian/AppData/Local/Temp/msohtmlclip1/01/clip_image031.png" alt="img"></p>
+<p>图13.DLVA的完成率比较</p>
+<p><img data-src="file:///C:/Users/KunQian/AppData/Local/Temp/msohtmlclip1/01/clip_image033.png" alt="img"></p>
+<p>图14.DLVA的平均响应时间比较</p>
+<ol start="6">
+<li>总结</li>
+</ol>
+<p>本文讲述了如何设计一个深度学习框架来解决智能合约的分类问题。其对于框架的几部分设计具有借鉴意义。总的来说，总体目的是将智能合约字节码转化为可被深度学习分类器使用的向量形式，在转化过程中依次涉及到合约到cfg图的转化，cfg图的节点向量表示的转化，cfg图的整图向量转化。每一步的转化方式以及最后使用的分类器可以自行选择，使得整个框架的各个部分具有可插拔性。对我们读者的学习意义在于教会我们使用深度学习框架对区块链问题进行应用，框架的设计方式值得借鉴，随着ai领域的发展如果有更好的分类器及分类向量获取方式，未来也许能实现更好的框架对智能合约进行分类。</p>
+<p>作者：钱堃，华东师范大学区块链实验室硕士研究生</p>
+
+      <div class="tags">
+          <a href="/tags/%E8%AE%BA%E6%96%87/" rel="tag"><i class="ic i-tag"></i> 论文</a>
+      </div>
+  </div>
+
+   <footer>
+
+    <div class="meta">
+  <span class="item">
+    <span class="icon">
+      <i class="ic i-calendar-check"></i>
+    </span>
+    <span class="text">更新于</span>
+    <time title="修改时间：2024-09-14 00:35:29" itemprop="dateModified" datetime="2024-09-14T00:35:29+08:00">2024-09-14</time>
+  </span>
+</div>
+
+      
+
+<div id="copyright">
+<ul>
+  <li class="author">
+    <strong>本文作者： </strong>Kun Qian <i class="ic i-at"><em>@</em></i>Qkgoalkeeper's blog
+  </li>
+  <li class="link">
+    <strong>本文链接：</strong>
+    <a href="https://qkgoalkeeper.github.io/computer-science/study/paper/Smart%20Learning%20to%20Find%20Dumb%20Contracts%E8%AE%BA%E6%96%87%E8%A7%A3%E8%AF%BB/" title="Smart Learning to Find Dumb Contracts论文解读">https://qkgoalkeeper.github.io/computer-science/study/paper/Smart Learning to Find Dumb Contracts论文解读/</a>
+  </li>
+  <li class="license">
+    <strong>版权声明： </strong>本站所有文章除特别声明外，均采用 <span class="exturl" data-url="aHR0cHM6Ly9jcmVhdGl2ZWNvbW1vbnMub3JnL2xpY2Vuc2VzL2J5LW5jLXNhLzQuMC9kZWVkLnpo"><i class="ic i-creative-commons"><em>(CC)</em></i>BY-NC-SA</span> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+  </footer>
+
+</article>
+
+  </div>
+  
+
+<div class="post-nav">
+    <div class="item left">
+      
+
+  <a href="/computer-science/interview/method/%E5%9B%BE%E8%B7%AF%E5%BE%84%E4%B8%93%E9%A2%98/" itemprop="url" rel="prev" data-background-image="https:&#x2F;&#x2F;cdn.jsdelivr.net&#x2F;gh&#x2F;qkgoalkeeper&#x2F;blogImage@main&#x2F;img&#x2F;leetcode.png" title="图路径专题">
+  <span class="type">上一篇</span>
+  <span class="category"><i class="ic i-flag"></i> 计算机科学</span>
+  <h3>图路径专题</h3>
+  </a>
+
+    </div>
+    <div class="item right">
+      
+
+  <a href="/computer-science/leetcode/algorithm/Leetcode%E4%B8%AD%E7%AD%89%E9%A2%98%E6%80%9D%E8%B7%AF%EF%BC%881-100%EF%BC%89/" itemprop="url" rel="next" data-background-image="https:&#x2F;&#x2F;cdn.jsdelivr.net&#x2F;gh&#x2F;qkgoalkeeper&#x2F;blogImage@main&#x2F;img&#x2F;leetcode.png" title="Leetcode中等题思路（1-100）">
+  <span class="type">下一篇</span>
+  <span class="category"><i class="ic i-flag"></i> 算法题思路</span>
+  <h3>Leetcode中等题思路（1-100）</h3>
+  </a>
+
+    </div>
+</div>
+
+  
+  <div class="wrap" id="comments"></div>
+
+
+        </div>
+        <div id="sidebar">
+          
+
+<div class="inner">
+
+  <div class="panels">
+    <div class="inner">
+      <div class="contents panel pjax" data-title="文章目录">
+          <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E8%AE%BA%E6%96%87%E9%98%85%E8%AF%BB%E5%88%86%E4%BA%AB-Smart-Learning-to-Find-Dumb-Contracts"><span class="toc-number">1.</span> <span class="toc-text">[论文阅读分享] Smart Learning to Find Dumb Contracts</span></a></li></ol>
+      </div>
+      <div class="related panel pjax" data-title="系列文章">
+        <ul>
+          <li><a href="/computer-science/study/paper/RAMBO%E6%BA%90%E7%A0%81%E8%A7%A3%E8%AF%BB/" rel="bookmark" title="RAMBO源码解读">RAMBO源码解读</a></li><li><a href="/computer-science/study/paper/Spooky%E8%AE%BA%E6%96%87%E8%A7%A3%E8%AF%BB/" rel="bookmark" title="SPOOKY论文解读">SPOOKY论文解读</a></li><li class="active"><a href="/computer-science/study/paper/Smart%20Learning%20to%20Find%20Dumb%20Contracts%E8%AE%BA%E6%96%87%E8%A7%A3%E8%AF%BB/" rel="bookmark" title="Smart Learning to Find Dumb Contracts论文解读">Smart Learning to Find Dumb Contracts论文解读</a></li><li><a href="/computer-science/study/paper/Prefix%20Siphoning%E8%AE%BA%E6%96%87%E8%A7%A3%E8%AF%BB/" rel="bookmark" title="Prefix Siphoning论文解读">Prefix Siphoning论文解读</a></li>
+        </ul>
+      </div>
+      <div class="overview panel" data-title="站点概览">
+        <div class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <img class="image" itemprop="image" alt="Kun Qian"
+      data-src="/images/avatar.jpg">
+  <p class="name" itemprop="name">Kun Qian</p>
+  <div class="description" itemprop="description"></div>
+</div>
+
+<nav class="state">
+    <div class="item posts">
+      <a href="/archives/">
+        <span class="count">42</span>
+        <span class="name">文章</span>
+      </a>
+    </div>
+    <div class="item categories">
+      <a href="/categories/">
+        <span class="count">9</span>
+        <span class="name">分类</span>
+      </a>
+    </div>
+    <div class="item tags">
+      <a href="/tags/">
+        <span class="count">18</span>
+        <span class="name">标签</span>
+      </a>
+    </div>
+</nav>
+
+<div class="social">
+      <span class="exturl item github" data-url="aHR0cHM6Ly9naXRodWIuY29tL3FrZ29hbGtlZXBlcg==" title="https:&#x2F;&#x2F;github.com&#x2F;qkgoalkeeper"><i class="ic i-github"></i></span>
+      <span class="exturl item zhihu" data-url="aHR0cHM6Ly93d3cuemhpaHUuY29tL3Blb3BsZS9oYW8tbGFpLXd1LXNob3UtbWVuLXl1YW4=" title="https:&#x2F;&#x2F;www.zhihu.com&#x2F;people&#x2F;hao-lai-wu-shou-men-yuan"><i class="ic i-zhihu"></i></span>
+      <span class="exturl item music" data-url="aHR0cHM6Ly9tdXNpYy4xNjMuY29tLyMvdXNlci9ob21lP2lkPTM5MjU2NzE4Nw==" title="https:&#x2F;&#x2F;music.163.com&#x2F;#&#x2F;user&#x2F;home?id&#x3D;392567187"><i class="ic i-cloud-music"></i></span>
+      <a href="/about/" title="&#x2F;about&#x2F;" class="item about"><i class="ic i-address-card"></i></a>
+</div>
+
+<ul class="menu">
+  
+    
+  <li class="item">
+    <a href="/" rel="section"><i class="ic i-home"></i>首页</a>
+  </li>
+
+    
+  <li class="item">
+    <a href="/about/" rel="section"><i class="ic i-user"></i>关于</a>
+  </li>
+
+        
+  <li class="item dropdown">
+      <a href="javascript:void(0);"><i class="ic i-feather"></i>文章</a>
+    <ul class="submenu">
+
+        
+  <li class="item">
+    <a href="/archives/" rel="section"><i class="ic i-list-alt"></i>归档</a>
+  </li>
+
+        
+  <li class="item">
+    <a href="/categories/" rel="section"><i class="ic i-th"></i>分类</a>
+  </li>
+
+        
+  <li class="item">
+    <a href="/tags/" rel="section"><i class="ic i-tags"></i>标签</a>
+  </li>
+
+  </ul>
+    
+  <li class="item">
+    <a href="/friends/" rel="section"><i class="ic i-heart"></i>友達</a>
+  </li>
+
+
+</ul>
+
+      </div>
+    </div>
+  </div>
+
+  <ul id="quick">
+    <li class="prev pjax">
+        <a href="/computer-science/interview/method/%E5%9B%BE%E8%B7%AF%E5%BE%84%E4%B8%93%E9%A2%98/" rel="prev" title="上一篇"><i class="ic i-chevron-left"></i></a>
+    </li>
+    <li class="up"><i class="ic i-arrow-up"></i></li>
+    <li class="down"><i class="ic i-arrow-down"></i></li>
+    <li class="next pjax">
+        <a href="/computer-science/leetcode/algorithm/Leetcode%E4%B8%AD%E7%AD%89%E9%A2%98%E6%80%9D%E8%B7%AF%EF%BC%881-100%EF%BC%89/" rel="next" title="下一篇"><i class="ic i-chevron-right"></i></a>
+    </li>
+    <li class="percent"></li>
+  </ul>
+</div>
+
+
+        </div>
+        <div class="dimmer"></div>
+      </div>
+    </main>
+    <footer id="footer">
+      <div class="inner">
+        <div class="widgets">
+          
+<div class="rpost pjax">
+  <h2>随机文章</h2>
+  <ul>
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/computer-science/" title="分类于 计算机科学">计算机科学</a>
+<i class="ic i-angle-right"></i>
+<a href="/categories/computer-science/leetcode/" title="分类于 Leetcode">Leetcode</a>
+<i class="ic i-angle-right"></i>
+<a href="/categories/computer-science/leetcode/offer2/" title="分类于 剑指offer">剑指offer</a>
+</div>
+
+    <span><a href="/computer-science/leetcode/offer2/LeetCode%E6%AF%8F%E6%97%A5%E7%BB%83%E4%B9%A0%EF%BC%9A%E5%89%91%E6%8C%87%20Offer%20II%20007.%20%E6%95%B0%E7%BB%84%E4%B8%AD%E5%92%8C%E4%B8%BA%200%20%E7%9A%84%E4%B8%89%E4%B8%AA%E6%95%B0/" title="剑指 Offer II 007. 数组中和为 0 的三个数">剑指 Offer II 007. 数组中和为 0 的三个数</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/computer-science/" title="分类于 计算机科学">计算机科学</a>
+<i class="ic i-angle-right"></i>
+<a href="/categories/computer-science/study/" title="分类于 研究生学习">研究生学习</a>
+<i class="ic i-angle-right"></i>
+<a href="/categories/computer-science/study/paper/" title="分类于 论文源码解读">论文源码解读</a>
+</div>
+
+    <span><a href="/computer-science/study/paper/Smart%20Learning%20to%20Find%20Dumb%20Contracts%E8%AE%BA%E6%96%87%E8%A7%A3%E8%AF%BB/" title="Smart Learning to Find Dumb Contracts论文解读">Smart Learning to Find Dumb Contracts论文解读</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/computer-science/" title="分类于 计算机科学">计算机科学</a>
+<i class="ic i-angle-right"></i>
+<a href="/categories/computer-science/middleware/" title="分类于 源码解读">源码解读</a>
+</div>
+
+    <span><a href="/computer-science/interview/middleware/Leveldb%E6%BA%90%E7%A0%81%E8%A7%A3%E8%AF%BB%EF%BC%883%EF%BC%89%EF%BC%9A%E5%85%AC%E7%94%A8%E5%9F%BA%E7%A1%80%E7%B1%BB/" title="Leveldb源码解读（3）：公用基础类">Leveldb源码解读（3）：公用基础类</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/computer-science/" title="分类于 计算机科学">计算机科学</a>
+<i class="ic i-angle-right"></i>
+<a href="/categories/computer-science/%E7%AC%94%E8%AF%95%E6%8A%80%E5%B7%A7/" title="分类于 笔试技巧">笔试技巧</a>
+</div>
+
+    <span><a href="/computer-science/interview/method/acm%E6%A8%A1%E5%BC%8F%E7%9A%84%E8%BE%93%E5%85%A5%E8%BE%93%E5%87%BA/" title="acm模式的输入输出">acm模式的输入输出</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/computer-science/" title="分类于 计算机科学">计算机科学</a>
+<i class="ic i-angle-right"></i>
+<a href="/categories/computer-science/leetcode/" title="分类于 Leetcode">Leetcode</a>
+<i class="ic i-angle-right"></i>
+<a href="/categories/computer-science/leetcode/offer2/" title="分类于 剑指offer">剑指offer</a>
+</div>
+
+    <span><a href="/computer-science/leetcode/offer2/LeetCode%E6%AF%8F%E6%97%A5%E7%BB%83%E4%B9%A0%EF%BC%9A%E5%89%91%E6%8C%87%20Offer%20II%20012.%20%E5%B7%A6%E5%8F%B3%E4%B8%A4%E8%BE%B9%E5%AD%90%E6%95%B0%E7%BB%84%E7%9A%84%E5%92%8C%E7%9B%B8%E7%AD%89/" title="剑指 Offer II 012. 左右两边子数组的和相等">剑指 Offer II 012. 左右两边子数组的和相等</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/computer-science/" title="分类于 计算机科学">计算机科学</a>
+<i class="ic i-angle-right"></i>
+<a href="/categories/computer-science/leetcode/" title="分类于 Leetcode">Leetcode</a>
+<i class="ic i-angle-right"></i>
+<a href="/categories/computer-science/leetcode/%E7%AE%97%E6%B3%95%E9%A2%98%E6%80%9D%E8%B7%AF/" title="分类于 算法题思路">算法题思路</a>
+</div>
+
+    <span><a href="/computer-science/leetcode/algorithm/Leetcode%E4%B8%AD%E7%AD%89%E9%A2%98%E6%80%9D%E8%B7%AF(201-300)/" title="Leetcode中等题思路（201-300）">Leetcode中等题思路（201-300）</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/computer-science/" title="分类于 计算机科学">计算机科学</a>
+<i class="ic i-angle-right"></i>
+<a href="/categories/computer-science/middleware/" title="分类于 源码解读">源码解读</a>
+</div>
+
+    <span><a href="/computer-science/interview/middleware/Leveldb%E6%BA%90%E7%A0%81%E8%A7%A3%E8%AF%BB%EF%BC%882%EF%BC%89%EF%BC%9A%E6%80%BB%E4%BD%93%E6%9E%B6%E6%9E%84%E4%B8%8E%E8%AE%BE%E8%AE%A1%E6%80%9D%E6%83%B3%20-%20%E5%89%AF%E6%9C%AC/" title="Leveldb源码解读（2）：总体架构与设计思想">Leveldb源码解读（2）：总体架构与设计思想</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/computer-science/" title="分类于 计算机科学">计算机科学</a>
+<i class="ic i-angle-right"></i>
+<a href="/categories/computer-science/leetcode/" title="分类于 Leetcode">Leetcode</a>
+<i class="ic i-angle-right"></i>
+<a href="/categories/computer-science/leetcode/offer2/" title="分类于 剑指offer">剑指offer</a>
+</div>
+
+    <span><a href="/computer-science/leetcode/offer2/LeetCode%E6%AF%8F%E6%97%A5%E7%BB%83%E4%B9%A0%EF%BC%9A%E5%89%91%E6%8C%87%20Offer%20II%20008.%20%E5%92%8C%E5%A4%A7%E4%BA%8E%E7%AD%89%E4%BA%8E%20target%20%E7%9A%84%E6%9C%80%E7%9F%AD%E5%AD%90%E6%95%B0%E7%BB%84/" title="剑指 Offer II 008. 和大于等于 target 的最短子数组">剑指 Offer II 008. 和大于等于 target 的最短子数组</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/computer-science/" title="分类于 计算机科学">计算机科学</a>
+<i class="ic i-angle-right"></i>
+<a href="/categories/computer-science/middleware/" title="分类于 源码解读">源码解读</a>
+</div>
+
+    <span><a href="/computer-science/interview/middleware/Leveldb%E6%BA%90%E7%A0%81%E8%A7%A3%E8%AF%BB%EF%BC%885%EF%BC%89%EF%BC%9AMemtable%E6%A8%A1%E5%9D%97/" title="Leveldb源码解读（5）：Memtable模块">Leveldb源码解读（5）：Memtable模块</a></span>
+  </li>
+
+      
+  <li class="item">
+    
+<div class="breadcrumb">
+<a href="/categories/computer-science/" title="分类于 计算机科学">计算机科学</a>
+<i class="ic i-angle-right"></i>
+<a href="/categories/computer-science/%E7%AC%94%E8%AF%95%E6%8A%80%E5%B7%A7/" title="分类于 笔试技巧">笔试技巧</a>
+</div>
+
+    <span><a href="/computer-science/interview/method/%E6%8E%92%E5%BA%8F%E4%B8%93%E9%A2%98/" title="排序专题">排序专题</a></span>
+  </li>
+
+  </ul>
+</div>
+
+        </div>
+        <div class="status">
+  <div class="copyright">
+    
+    &copy; 2020 – 
+    <span itemprop="copyrightYear">2024</span>
+    <span class="with-love">
+      <i class="ic i-sakura rotate"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">Kun Qian @ Kun Qian</span>
+  </div>
+  <div class="powered-by">
+    基于 <span class="exturl" data-url="aHR0cHM6Ly9oZXhvLmlv">Hexo</span> & Theme.<span class="exturl" data-url="aHR0cHM6Ly9naXRodWIuY29tL2FtZWhpbWUvaGV4by10aGVtZS1zaG9rYQ==">Shoka</span>
+  </div>
+</div>
+
+      </div>
+    </footer>
+  </div>
+<script data-config type="text/javascript">
+  var LOCAL = {
+    path: 'computer-science/study/paper/Smart Learning to Find Dumb Contracts论文解读/',
+    favicon: {
+      show: "qkgoalkeeper's blog",
+      hide: "qkgoalkeeper's blog"
+    },
+    search : {
+      placeholder: "文章搜索",
+      empty: "关于 「 ${query} 」，什么也没搜到",
+      stats: "${time} ms 内找到 ${hits} 条结果"
+    },
+    valine: true,fancybox: true,
+    copyright: '复制成功，转载请遵守 <i class="ic i-creative-commons"></i>BY-NC-SA 协议。',
+    ignores : [
+      function(uri) {
+        return uri.includes('#');
+      },
+      function(uri) {
+        return new RegExp(LOCAL.path+"$").test(uri);
+      }
+    ]
+  };
+</script>
+
+<script src="https://cdn.polyfill.io/v2/polyfill.js"></script>
+
+<script src="//cdn.jsdelivr.net/combine/npm/pace-js@1.0.2/pace.min.js,npm/pjax@0.2.8/pjax.min.js,npm/whatwg-fetch@3.4.0/dist/fetch.umd.min.js,npm/animejs@3.2.0/lib/anime.min.js,npm/algoliasearch@4/dist/algoliasearch-lite.umd.js,npm/instantsearch.js@4/dist/instantsearch.production.min.js,npm/lozad@1/dist/lozad.min.js,npm/quicklink@2/dist/quicklink.umd.js"></script>
+
+<script src="/js/app.js?v=0.2.5"></script>
+
+
+
+
+</body>
+</html>
